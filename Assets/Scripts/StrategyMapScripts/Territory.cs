@@ -29,20 +29,20 @@ public class Territory
     [SerializeField] private float velocity;
     [SerializeField] private bool selected;
 
-    public TypePlayer getTypePlayer()
+    public TypePlayer GetTypePlayer()
     {
         return typePlayer;
     }
-    public int getPopulation()
+    public int GetPopulation()
     {
         return population;
     }
-    public float getVelocity()
+    public float GetVelocity()
     {
         return velocity;
     }
 
-    public void setTypePlayer(TypePlayer _typePlayer)
+    public void SetTypePlayer(TypePlayer _typePlayer)
     {
         typePlayer = _typePlayer;
     }
@@ -55,5 +55,7 @@ public class Territory
     }
 
     public void SetSelected(bool _selected) { selected = _selected; }
+    public bool GetSelected() { return selected; }
+
 
 }

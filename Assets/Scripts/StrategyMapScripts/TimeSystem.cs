@@ -125,7 +125,7 @@ public class TimeSystem : MonoBehaviour
         TimeSimulated time1 = new TimeSimulated(0, 2, 1, 1400);
         if(timeGame.EqualsDate(time1))
         {
-            Debug.Log("EVENTO RANDOM");
+            //Debug.Log("EVENTO RANDOM");
         }
         
     }

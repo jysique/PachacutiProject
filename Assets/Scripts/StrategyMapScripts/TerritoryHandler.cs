@@ -25,7 +25,7 @@ public class TerritoryHandler : MonoBehaviour
     }
     private void Start()
     {
-        
+        if (territory.GetSelected()) TerritoryManager.instance.territorySelected = this.gameObject;
     }
 
     void InstantiateStatTerritory()
@@ -35,15 +35,15 @@ public class TerritoryHandler : MonoBehaviour
 
         statsGO.transform.SetParent(canvas.transform,false);
         statsGO.transform.position = transform.position;
-        print(name + " " + statsGO.transform.position);
+
 
         territoryStats = statsGO.GetComponent<TerritoryStats>();
-        territoryStats.InitalizeStats(territory.getPopulation(), territory.getVelocity());
+        territoryStats.InitalizeStats(territory.GetPopulation(), territory.GetVelocity());
     }
 
     private void PopulateTerritory()
     {
-        if (territory.getTypePlayer() == Territory.TypePlayer.NONE)
+        if (territory.GetTypePlayer() == Territory.TypePlayer.NONE)
         {
             territoryStats.SetCanPopulate(false);
         }
@@ -63,7 +63,7 @@ public class TerritoryHandler : MonoBehaviour
     private void OnMouseEnter()
     {
         oldColor = sprite.color;
-        if (territory.getTypePlayer() != Territory.TypePlayer.PLAYER)
+        if (territory.GetTypePlayer() != Territory.TypePlayer.PLAYER)
         {
             sprite.color = hoverColor;
         } 
@@ -101,7 +101,8 @@ public class TerritoryHandler : MonoBehaviour
         }
         territory.SetSelected(true);
         this.transform.GetChild(0).gameObject.SetActive(true);
-        print(TerritoryManager.instance.territoryList.Count);
+        TerritoryManager.instance.territorySelected = this.gameObject;
+        InGameMenuHandler.instance.UpdateMenu();
         
 
 
