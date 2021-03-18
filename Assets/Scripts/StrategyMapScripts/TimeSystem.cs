@@ -17,7 +17,6 @@ public class TimeSystem : MonoBehaviour
     //bool isEvent = false;
     //public static double hour, day, month, year;
     public static TimeSimulated timeGame;
-
     void Start()
     {
         timeGame = new TimeSimulated(0, 28, 12, 1399);
@@ -52,52 +51,9 @@ public class TimeSystem : MonoBehaviour
         yearText.text = timeGame.year.ToString();
         seasonText.text = timeGame.season;
     }
-    /*
-    void CalculateSeason()
-    {
-        if (month == 12 || month == 1 || month == 2)
-        {
-            seasonText.text = "Temporada 1";
-        }
-        if (month == 3 || month == 4 || month == 5)
-        {
-            seasonText.text = "Temporada 2";
-        }
-        if (month == 6 || month == 7|| month == 8)
-        {
-            seasonText.text = "Temporada 3";
-        }
-        if (month == 9 || month == 10 || month == 11)
-        {
-            seasonText.text = "Temporada 4";
-        }
 
-    }
-    
-    void CalculateYear()
-    {
-        
-        year++;
-        month = 1;
-        TextCallFunction();
-    }
-    void CalculateMonth()
-    {
-        month++;
-        day = 1;
-        TextCallFunction();
-    }
-    void CalculateDay()
-    {
-        hour = 1;
-        day++;
-        TextCallFunction();
-    }
-    */
     void CalculateTime()
     {
-        //print("dia " + timeGame.day.ToString() + "mes: " + timeGame.month.ToString()+ "año: " + timeGame.year.ToString());
-        //print("dia: " + timeGame.day.ToString()+ "hora: " + timeGame.hour.ToString());
         TextCallFunction();
         timeGame.CalculateSeason();
         if(timeGame.hour < 10)

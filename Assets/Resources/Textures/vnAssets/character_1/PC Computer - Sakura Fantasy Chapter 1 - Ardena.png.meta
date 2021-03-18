@@ -1,0 +1,696 @@
+fileFormatVersion: 2
+guid: 7a9b44d82bf38b44cad7c7735c8f1bac
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -631066052103477975
+    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_0
+  - first:
+      213: -3256886305824545893
+    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_1
+  - first:
+      213: -3614315409787107276
+    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_2
+  - first:
+      213: -2568268767873359259
+    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_3
+  - first:
+      213: 4256946326080390319
+    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_4
+  - first:
+      213: -2854491255632265216
+    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_5
+  - first:
+      213: 7930590830021020373
+    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_6
+  - first:
+      213: -4739965019081745789
+    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_7
+  - first:
+      213: 4043833375868534859
+    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_8
+  - first:
+      213: -990742064295021318
+    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_9
+  - first:
+      213: 507662763929808663
+    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_10
+  - first:
+      213: 51905548823412106
+    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_11
+  - first:
+      213: -1215796335120169134
+    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_12
+  - first:
+      213: -2316827843566497272
+    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_13
+  - first:
+      213: 582959930194625409
+    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_14
+  - first:
+      213: 8650108584942523487
+    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_15
+  - first:
+      213: 980573928484875205
+    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_16
+  - first:
+      213: 640393887836838957
+    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_17
+  - first:
+      213: -522212495588301313
+    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_18
+  - first:
+      213: -3458041536140212589
+    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_19
+  - first:
+      213: 786693221072909246
+    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_20
+  - first:
+      213: 1965400530275213506
+    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_21
+  - first:
+      213: -797927922295309248
+    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_22
+  - first:
+      213: -1058790724932322019
+    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_23
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_0
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 7956
+        width: 477
+        height: 718
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9256096e4c00e37f0800000000000000
+      internalID: -631066052103477975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_1
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 7956
+        width: 477
+        height: 718
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b936e7b19273dc2d0800000000000000
+      internalID: -3256886305824545893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_2
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 7233
+        width: 477
+        height: 718
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4384b65c84f57ddc0800000000000000
+      internalID: -3614315409787107276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_3
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 7233
+        width: 477
+        height: 718
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 562ad23b92dab5cd0800000000000000
+      internalID: -2568268767873359259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_4
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 6510
+        width: 477
+        height: 718
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa40de91126b31b30800000000000000
+      internalID: 4256946326080390319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_5
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 6510
+        width: 477
+        height: 718
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0008495a35fc268d0800000000000000
+      internalID: -2854491255632265216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_6
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 5787
+        width: 477
+        height: 718
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5da8f52875e1f0e60800000000000000
+      internalID: 7930590830021020373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_7
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 5787
+        width: 477
+        height: 718
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38adad5bde2483eb0800000000000000
+      internalID: -4739965019081745789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_8
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 5064
+        width: 477
+        height: 718
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b40438bb7059e1830800000000000000
+      internalID: 4043833375868534859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_9
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 5064
+        width: 477
+        height: 718
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af478a9775d2042f0800000000000000
+      internalID: -990742064295021318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_10
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 4341
+        width: 477
+        height: 718
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71faab518949b0700800000000000000
+      internalID: 507662763929808663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_11
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 4341
+        width: 477
+        height: 718
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8dbd7752d768b000800000000000000
+      internalID: 51905548823412106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_12
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 3618
+        width: 477
+        height: 718
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 257c0fdbcaf902fe0800000000000000
+      internalID: -1215796335120169134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_13
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 3618
+        width: 477
+        height: 718
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8021c72f959f8dfd0800000000000000
+      internalID: -2316827843566497272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_14
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 2895
+        width: 477
+        height: 718
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1838985c7f6171800800000000000000
+      internalID: 582959930194625409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_15
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 2895
+        width: 477
+        height: 718
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f545e028deb5b0870800000000000000
+      internalID: 8650108584942523487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_16
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 2172
+        width: 477
+        height: 718
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5cba95beac2bb9d00800000000000000
+      internalID: 980573928484875205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_17
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 2172
+        width: 477
+        height: 718
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2c98d819d223e800800000000000000
+      internalID: 640393887836838957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_18
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 1449
+        width: 477
+        height: 718
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff56037808ab0c8f0800000000000000
+      internalID: -522212495588301313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_19
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 1449
+        width: 477
+        height: 718
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39601db5b819200d0800000000000000
+      internalID: -3458041536140212589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_20
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 726
+        width: 477
+        height: 718
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb332450155eaea00800000000000000
+      internalID: 786693221072909246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_21
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 726
+        width: 477
+        height: 718
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c02b608e51864b10800000000000000
+      internalID: 1965400530275213506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_22
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 3
+        width: 477
+        height: 718
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04cf83348c03de4f0800000000000000
+      internalID: -797927922295309248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_23
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 3
+        width: 477
+        height: 718
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1d3ee4027b6e41f0800000000000000
+      internalID: -1058790724932322019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
