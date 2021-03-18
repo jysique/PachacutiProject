@@ -18,7 +18,7 @@ public class TerritoryHandler : MonoBehaviour
     {
         sprite = GetComponent<SpriteRenderer>();
      //   sprite.color = startColor;
-       // InstantiateStatTerritory();
+        InstantiateStatTerritory();
 
         
     }
