@@ -18,7 +18,7 @@ public class TerritoryHandler : MonoBehaviour
     {
         sprite = GetComponent<SpriteRenderer>();
      //   sprite.color = startColor;
-        InstantiateStatTerritory();
+       // InstantiateStatTerritory();
 
         
     }
@@ -34,6 +34,7 @@ public class TerritoryHandler : MonoBehaviour
 
         statsGO.transform.SetParent(canvas.transform,false);
         statsGO.transform.position = transform.position;
+        print(name + " " + statsGO.transform.position);
 
         territoryStats = statsGO.GetComponent<TerritoryStats>();
         territoryStats.InitalizeStats(territory.population, territory.velocity);
