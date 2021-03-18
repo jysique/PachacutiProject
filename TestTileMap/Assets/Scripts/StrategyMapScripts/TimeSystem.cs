@@ -24,11 +24,10 @@ public class TimeSystem : MonoBehaviour
         TextCallFunction();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         CalculateTime();
         EventoRandom();
-        
     }
 
     private void TextCallFunction()
@@ -49,10 +48,9 @@ public class TimeSystem : MonoBehaviour
         {
             monthText.text = timeGame.month.ToString();
         }
-        yearText.text = timeGame.year.ToString();
         weekText.text = timeGame.week.ToString();
+        yearText.text = timeGame.year.ToString();
         seasonText.text = timeGame.season;
-
     }
     /*
     void CalculateSeason()
