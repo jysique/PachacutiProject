@@ -3373,12 +3373,12 @@ GameObject:
   - component: {fileID: 1823427868}
   - component: {fileID: 1823427869}
   m_Layer: 0
-  m_Name: map_3 (1)
+  m_Name: map_3_outline
   m_TagString: Outline
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1823427868
 Transform:
   m_ObjectHideFlags: 0
@@ -3388,7 +3388,7 @@ Transform:
   m_GameObject: {fileID: 1823427867}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.06, y: 1.06, z: 1}
   m_Children: []
   m_Father: {fileID: 159676228}
   m_RootOrder: 0
