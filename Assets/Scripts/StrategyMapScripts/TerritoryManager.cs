@@ -32,17 +32,17 @@ public class TerritoryManager : MonoBehaviour
         for (int i = 0; i < territoryList.Count; i++)
         {
             TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-            if (territoryHandler.territory.typePlayer == Territory.TypePlayer.NONE)
+            if (territoryHandler.territory.getTypePlayer() == Territory.TypePlayer.NONE)
             {
-                territoryHandler.TintColorTerritory(new Color32(31, 97, 237, 128));
+                territoryHandler.TintColorTerritory(new Color32(31, 97, 237, 255));
             }
-            if (territoryHandler.territory.typePlayer == Territory.TypePlayer.BOT)
+            if (territoryHandler.territory.getTypePlayer() == Territory.TypePlayer.BOT)
             {
-                territoryHandler.TintColorTerritory(new Color32(122, 75, 82, 128));
+                territoryHandler.TintColorTerritory(new Color32(122, 75, 82, 255));
             }
-            if (territoryHandler.territory.typePlayer == Territory.TypePlayer.PLAYER)
+            if (territoryHandler.territory.getTypePlayer() == Territory.TypePlayer.PLAYER)
             {
-                territoryHandler.TintColorTerritory(new Color32(249, 85, 138, 128));
+                territoryHandler.TintColorTerritory(new Color32(249, 85, 138, 255));
             }
         }
     }
@@ -54,7 +54,7 @@ public class TerritoryManager : MonoBehaviour
             if (territoryList[i].name == _name)
             {
                 TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-                territoryHandler.territory.typePlayer = Territory.TypePlayer.PLAYER;
+                territoryHandler.territory.setTypePlayer(Territory.TypePlayer.PLAYER);
             }
         }
     }

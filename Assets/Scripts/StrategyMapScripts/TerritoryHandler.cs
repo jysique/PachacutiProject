@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(PolygonCollider2D))]
 public class TerritoryHandler : MonoBehaviour
 {
+    
     public Territory territory;
     private SpriteRenderer sprite;
     private Color32 oldColor;
@@ -37,12 +38,12 @@ public class TerritoryHandler : MonoBehaviour
         print(name + " " + statsGO.transform.position);
 
         territoryStats = statsGO.GetComponent<TerritoryStats>();
-        territoryStats.InitalizeStats(territory.population, territory.velocity);
+        territoryStats.InitalizeStats(territory.getPopulation(), territory.getVelocity());
     }
 
     private void PopulateTerritory()
     {
-        if (territory.typePlayer == Territory.TypePlayer.NONE)
+        if (territory.getTypePlayer() == Territory.TypePlayer.NONE)
         {
             territoryStats.SetCanPopulate(false);
         }
@@ -62,7 +63,7 @@ public class TerritoryHandler : MonoBehaviour
     private void OnMouseEnter()
     {
         oldColor = sprite.color;
-        if (territory.typePlayer != Territory.TypePlayer.PLAYER)
+        if (territory.getTypePlayer() != Territory.TypePlayer.PLAYER)
         {
             sprite.color = hoverColor;
         } 
@@ -75,16 +76,8 @@ public class TerritoryHandler : MonoBehaviour
 
     private void OnMouseUpAsButton()
     {
-        if (territory.typePlayer != Territory.TypePlayer.PLAYER)
-        {
-            TerritoryManager.instance.ChangeTerritory(name);
-        }
-        else
-        {
-            //Botones de subir stats
-            print("Botones de subir stats");
-        }
-
+        territory.SetSelected(true);
+        MakeOutline();
     }
 
     private void OnDrawGizmos()
@@ -98,5 +91,24 @@ public class TerritoryHandler : MonoBehaviour
         sprite.color = _color;
         hoverColor = sprite.color;
         hoverColor.a = 180;
+    }
+
+    private void MakeOutline()
+    {
+        foreach (GameObject t in TerritoryManager.instance.territoryList)
+        {
+            t.GetComponent<TerritoryHandler>().Deselect();
+        }
+        territory.SetSelected(true);
+        this.transform.GetChild(0).gameObject.SetActive(true);
+        print(TerritoryManager.instance.territoryList.Count);
+        
+
+
+    }
+    public void Deselect()
+    {
+        territory.SetSelected(false);
+        this.transform.GetChild(0).gameObject.SetActive(false);
     }
 }
