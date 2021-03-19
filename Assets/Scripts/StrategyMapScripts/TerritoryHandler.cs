@@ -25,7 +25,11 @@ public class TerritoryHandler : MonoBehaviour
     }
     private void Start()
     {
-        if (territory.GetSelected()) TerritoryManager.instance.territorySelected = this.gameObject;
+        if (territory.GetSelected())
+        {
+            TerritoryManager.instance.territorySelected = this.gameObject;
+            InGameMenuHandler.instance.UpdateMenu();
+        }
     }
 
     void InstantiateStatTerritory()
