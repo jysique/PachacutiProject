@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class InGameMenuHandler : MonoBehaviour
 {
     public static InGameMenuHandler instance;
-    //military menu
+    [Header("Menu militar")]
+    [SerializeField] private GameObject menuConfirm;
     [SerializeField] private GameObject menuBlock;
     [SerializeField] private GameObject territoryName;
     [SerializeField] private GameObject militarWarriorsCount;
@@ -16,6 +17,11 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private GameObject militaryBossExperience;
     [SerializeField] private GameObject militaryBossEstrategy;
     [SerializeField] private GameObject militaryBossMilitary;
+    [Header("Menu de movilizacion de tropas")]
+    [SerializeField] private InputField warriorsCount;
+
+
+    //perfil menu
 
 
     private void Awake()
@@ -42,6 +48,8 @@ public class InGameMenuHandler : MonoBehaviour
         {
             menuBlock.SetActive(true);
         }
+
+
         
         
         
@@ -51,4 +59,32 @@ public class InGameMenuHandler : MonoBehaviour
         Territory selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory;
         militarWarriorsCount.GetComponent<Text>().text = "Tropas: " + selectedTerritory.GetPopulation().ToString() + "/ 100 guerreros";
     }
+
+
+    //move warriors
+    public void MoveWarriorsButton()
+    {
+        menuConfirm.SetActive(true);
+        foreach (GameObject t in TerritoryManager.instance.territoryList)
+        {
+            t.GetComponent<TerritoryHandler>().state = 2;
+        }
+            
+    }
+
+    public void CloseWarriorsButton()
+    {
+        menuConfirm.SetActive(false);
+        foreach (GameObject t in TerritoryManager.instance.territoryList)
+        {
+            t.GetComponent<TerritoryHandler>().state = 0;
+        }
+    }
+    public void SelectTerritory()
+    {
+        int warriorsToMove = int.Parse(warriorsCount.text);
+        menuConfirm.SetActive(false);
+        TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().ShowAdjacentTerritories();
+    }
+
 }
