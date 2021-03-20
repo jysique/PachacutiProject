@@ -5,9 +5,11 @@ using UnityEngine;
 public class TestCM : MonoBehaviour
 {
     [HideInInspector]public Character Luissa;
+    [HideInInspector] public Character Carmen;
     private void Start()
     {
-        Luissa = CharacterManager.instance.GetCharacter("Luissa");
+        Luissa = CharacterManager.instance.GetCharacter("Luissa", enableCreatedCharacterOnStart:false);
+        
     }
     public string[] s = new string[]
     {
@@ -18,6 +20,13 @@ public class TestCM : MonoBehaviour
 
     };
     int index = 0;
+    public Vector2 moveTarget;
+    public float moveSpeed;
+    public bool smooth;
+
+    public int bodyIndex, expressionIndex = 0;
+    public float speed = 1f;
+    public bool smoothTransitions = false;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -31,6 +40,26 @@ public class TestCM : MonoBehaviour
                 DialogueSystem.instance.Close();
             }
             index++;
+        }
+        if (Input.GetKey(KeyCode.M))
+        {
+            Luissa.MoveTo(moveTarget, moveSpeed,smooth);
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            Luissa.StopMoving(true);
+        }
+        if (Input.GetKey(KeyCode.B))
+        {
+            Luissa.TransitionBody(Luissa.GetSprite(bodyIndex),speed,smoothTransitions);
+        }
+        if (Input.GetKey(KeyCode.J))
+        {
+            Luissa.SetBody(bodyIndex);
+        }
+        if (Input.GetKey(KeyCode.E))
+        {
+            Luissa.SetExpression(expressionIndex);
         }
     }
 }

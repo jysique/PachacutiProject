@@ -939,14 +939,30 @@ MonoBehaviour:
     characterName: 
     root: {fileID: 0}
     renderers:
-      renderder: {fileID: 0}
-      bodyRender: {fileID: 0}
-      expresionRender: {fileID: 0}
+      bodyRenderer: {fileID: 0}
+      expressionRenderer: {fileID: 0}
+      allBodyRenderers: []
+      allExpressionRenderers: []
+  Carmen:
+    characterName: 
+    root: {fileID: 0}
+    renderers:
+      bodyRenderer: {fileID: 0}
+      expressionRenderer: {fileID: 0}
+      allBodyRenderers: []
+      allExpressionRenderers: []
   s:
   - Hi, my name is Luissa
   - 'How are you? '
   - Oh... thats nice
   - What do you want to do?
+  moveTarget: {x: 0.7, y: 0.5}
+  moveSpeed: 1
+  smooth: 1
+  bodyIndex: 1
+  expressionIndex: 5
+  speed: 1
+  smoothTransitions: 1
 --- !u!4 &1015252915
 Transform:
   m_ObjectHideFlags: 0
@@ -1174,7 +1190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.65882355}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
