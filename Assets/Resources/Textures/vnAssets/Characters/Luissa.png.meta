@@ -4,46 +4,46 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: -631066052103477975
-    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_0
+    second: handsDown
   - first:
       213: -3256886305824545893
-    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_1
+    second: handsWaist
   - first:
       213: -3614315409787107276
-    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_2
+    second: worried1
   - first:
       213: -2568268767873359259
-    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_3
+    second: worried2
   - first:
       213: 4256946326080390319
-    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_4
+    second: mad01
   - first:
       213: -2854491255632265216
-    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_5
+    second: mad02
   - first:
       213: 7930590830021020373
-    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_6
+    second: ashamed01
   - first:
       213: -4739965019081745789
-    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_7
+    second: ashamed02
   - first:
       213: 4043833375868534859
-    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_8
+    second: happy01
   - first:
       213: -990742064295021318
-    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_9
+    second: happy02
   - first:
       213: 507662763929808663
-    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_10
+    second: dubious01
   - first:
       213: 51905548823412106
-    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_11
+    second: dubious02
   - first:
       213: -1215796335120169134
-    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_12
+    second: smile01
   - first:
       213: -2316827843566497272
-    second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_13
+    second: smile02
   - first:
       213: 582959930194625409
     second: PC Computer - Sakura Fantasy Chapter 1 - Ardena_14
@@ -175,7 +175,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_0
+      name: handsDown
       rect:
         serializedVersion: 2
         x: 3
@@ -183,7 +183,7 @@ TextureImporter:
         width: 477
         height: 718
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -196,15 +196,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_1
+      name: handsWaist
       rect:
         serializedVersion: 2
-        x: 486
-        y: 7956
+        x: 490
+        y: 7959
         width: 477
         height: 718
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -217,7 +217,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_2
+      name: worried1
       rect:
         serializedVersion: 2
         x: 3
@@ -225,7 +225,7 @@ TextureImporter:
         width: 477
         height: 718
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -238,7 +238,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_3
+      name: worried2
       rect:
         serializedVersion: 2
         x: 486
@@ -246,7 +246,7 @@ TextureImporter:
         width: 477
         height: 718
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -259,15 +259,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_4
+      name: mad01
       rect:
         serializedVersion: 2
-        x: 3
+        x: 0
         y: 6510
         width: 477
         height: 718
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -280,15 +280,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_5
+      name: mad02
       rect:
         serializedVersion: 2
-        x: 486
+        x: 492
         y: 6510
         width: 477
         height: 718
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -301,7 +301,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_6
+      name: ashamed01
       rect:
         serializedVersion: 2
         x: 3
@@ -309,7 +309,7 @@ TextureImporter:
         width: 477
         height: 718
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -322,7 +322,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_7
+      name: ashamed02
       rect:
         serializedVersion: 2
         x: 486
@@ -330,7 +330,7 @@ TextureImporter:
         width: 477
         height: 718
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -343,15 +343,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_8
+      name: happy01
       rect:
         serializedVersion: 2
         x: 3
-        y: 5064
+        y: 5066
         width: 477
         height: 718
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -364,15 +364,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_9
+      name: happy02
       rect:
         serializedVersion: 2
-        x: 486
+        x: 492
         y: 5064
         width: 477
         height: 718
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -385,7 +385,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_10
+      name: dubious01
       rect:
         serializedVersion: 2
         x: 3
@@ -393,7 +393,7 @@ TextureImporter:
         width: 477
         height: 718
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -406,15 +406,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_11
+      name: dubious02
       rect:
         serializedVersion: 2
-        x: 486
+        x: 492
         y: 4341
         width: 477
         height: 718
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -427,7 +427,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_12
+      name: smile01
       rect:
         serializedVersion: 2
         x: 3
@@ -435,7 +435,7 @@ TextureImporter:
         width: 477
         height: 718
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -448,7 +448,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_13
+      name: smile02
       rect:
         serializedVersion: 2
         x: 486
@@ -456,7 +456,7 @@ TextureImporter:
         width: 477
         height: 718
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -464,216 +464,6 @@ TextureImporter:
       bones: []
       spriteID: 8021c72f959f8dfd0800000000000000
       internalID: -2316827843566497272
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_14
-      rect:
-        serializedVersion: 2
-        x: 3
-        y: 2895
-        width: 477
-        height: 718
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1838985c7f6171800800000000000000
-      internalID: 582959930194625409
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_15
-      rect:
-        serializedVersion: 2
-        x: 486
-        y: 2895
-        width: 477
-        height: 718
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f545e028deb5b0870800000000000000
-      internalID: 8650108584942523487
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_16
-      rect:
-        serializedVersion: 2
-        x: 3
-        y: 2172
-        width: 477
-        height: 718
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5cba95beac2bb9d00800000000000000
-      internalID: 980573928484875205
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_17
-      rect:
-        serializedVersion: 2
-        x: 486
-        y: 2172
-        width: 477
-        height: 718
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d2c98d819d223e800800000000000000
-      internalID: 640393887836838957
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_18
-      rect:
-        serializedVersion: 2
-        x: 3
-        y: 1449
-        width: 477
-        height: 718
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ff56037808ab0c8f0800000000000000
-      internalID: -522212495588301313
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_19
-      rect:
-        serializedVersion: 2
-        x: 486
-        y: 1449
-        width: 477
-        height: 718
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 39601db5b819200d0800000000000000
-      internalID: -3458041536140212589
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_20
-      rect:
-        serializedVersion: 2
-        x: 3
-        y: 726
-        width: 477
-        height: 718
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: eb332450155eaea00800000000000000
-      internalID: 786693221072909246
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_21
-      rect:
-        serializedVersion: 2
-        x: 486
-        y: 726
-        width: 477
-        height: 718
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2c02b608e51864b10800000000000000
-      internalID: 1965400530275213506
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_22
-      rect:
-        serializedVersion: 2
-        x: 3
-        y: 3
-        width: 477
-        height: 718
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 04cf83348c03de4f0800000000000000
-      internalID: -797927922295309248
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PC Computer - Sakura Fantasy Chapter 1 - Ardena_23
-      rect:
-        serializedVersion: 2
-        x: 486
-        y: 3
-        width: 477
-        height: 718
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d1d3ee4027b6e41f0800000000000000
-      internalID: -1058790724932322019
       vertices: []
       indices: 
       edges: []

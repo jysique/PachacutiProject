@@ -1,0 +1,32 @@
+[Cada lina puede tener diferentes acciones. Acciones en la misma linea pueden estar delimitados por un espacio.]
+[Porque para eso , no valores, incluidos en los nombres de archivos, deberian tener espacio.]
+
+#Hacer que un personaje hable
+	characterName "dialogue"[string]						ex: Jose "Hola como estas"
+	+ [simbolo hace que el dialogo additivo continue hasta el ultimo segmento.]	ex: Jose +"Me alegra escuchar"
+	[Sin nombre delante de diálogo nos significa último hablador]			ex: +"Me alegra escuchar"
+
+#Cambio de expresiones en los personajes
+	setExpression(characterName, region,expressionName)				ex: setExpression(Jose,face,hungry01)
+											or setExpression(Jose,body,hungry01)
+	*parametros opcionales
+		1. vel. de transicion							ex: setExpression(Jose,face,hungry01,1.0)
+
+#Mover personajes en pantalla
+	move(characterName,tragetLocationX,tragetLocationY)				ex: move(Jose,0.3,0.7)
+
+	*parametros opcionales
+		1. velocidad de movimiento						ex: move(Jose,0.3,0.7,1.0)
+		2. smooth								ex: move(Jose,0.3,0.7,1.0,false)
+
+	setPosition(characterName,tragetLocationX,tragetLocationY)			ex: setPosition(Jose,0.3,0.7)
+
+#Cambiar Layer Image
+	setBackground(imageName)							ex: setBackground(forest)	
+	setCinematic(imageName) [problemas]
+	setForeground(imageName)							ex: setForeground(forest)
+	*cuando no quiere mostrar algo de fondo						ex: setForeground(null)
+
+	*parametros opcionales
+		1. vel. de transicion							ex: set___________(forest,1.0)
+
