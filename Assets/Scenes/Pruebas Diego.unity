@@ -652,7 +652,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.017516987, y: 0.27266946}
   m_AnchorMax: {x: 0.97900003, y: 0.44868615}
-  m_AnchoredPosition: {x: 0.8947449, y: -40.7}
+  m_AnchoredPosition: {x: 0.8947449, y: -40.700005}
   m_SizeDelta: {x: -0.11000061, y: -0.12000275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &171347700
@@ -1268,7 +1268,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.017516987, y: 0.27266946}
   m_AnchorMax: {x: 0.97900003, y: 0.44868615}
-  m_AnchoredPosition: {x: 0.8947449, y: -40.7}
+  m_AnchoredPosition: {x: 0.8947449, y: -40.700005}
   m_SizeDelta: {x: -0.11000061, y: -0.12000275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &277592930
@@ -1592,7 +1592,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.017516987, y: 0.27266946}
   m_AnchorMax: {x: 0.97900003, y: 0.44868615}
-  m_AnchoredPosition: {x: 0.8947449, y: -40.699978}
+  m_AnchoredPosition: {x: 0.8947449, y: -40.69996}
   m_SizeDelta: {x: -0.11000061, y: -0.12000275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &357381336
@@ -1659,14 +1659,6 @@ RectTransform:
   m_AnchoredPosition: {x: -1.0875549, y: -0.40011597}
   m_SizeDelta: {x: 2.237976, y: 0.25021744}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &370708658
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1628229448}
-  m_CullTransparentMesh: 1
 --- !u!1 &393285971
 GameObject:
   m_ObjectHideFlags: 0
@@ -2729,7 +2721,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.024669545, y: 0.1}
   m_AnchorMax: {x: 0.93833053, y: 0.96666664}
-  m_AnchoredPosition: {x: 1.5, y: -1.500001}
+  m_AnchoredPosition: {x: 1.5, y: -1.5000005}
   m_SizeDelta: {x: -13, y: -9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &690459172
@@ -3725,7 +3717,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1024490457}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 203310972}
+        m_TargetAssemblyTypeName: InGameMenuHandler, Assembly-CSharp
+        m_MethodName: CloseWarriorsButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1024490457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6050,37 +6054,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Temporada
---- !u!1 &1628229448
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1628229449}
-  - component: {fileID: 370708658}
-  m_Layer: 0
-  m_Name: Recovery GameObject (370708658)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1628229449
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1628229448}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 16
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1674229813
 GameObject:
   m_ObjectHideFlags: 0
@@ -7345,7 +7318,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.017516987, y: 0.27266946}
   m_AnchorMax: {x: 0.97900003, y: 0.44868615}
-  m_AnchoredPosition: {x: 0.8947449, y: -20.2}
+  m_AnchoredPosition: {x: 0.8947449, y: -20.200005}
   m_SizeDelta: {x: -0.11000061, y: -0.12000275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1930296017
@@ -7661,7 +7634,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.017516987, y: 0.27266946}
   m_AnchorMax: {x: 0.97900003, y: 0.44868615}
-  m_AnchoredPosition: {x: 0.8947449, y: -20.2}
+  m_AnchoredPosition: {x: 0.8947449, y: -20.200005}
   m_SizeDelta: {x: -0.11000061, y: -0.12000275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2009738170

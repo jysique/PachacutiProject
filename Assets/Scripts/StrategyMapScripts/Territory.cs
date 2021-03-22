@@ -42,6 +42,11 @@ public class Territory
     {
         return population;
     }
+    public void SetPopulation(int value)
+    {
+        Debug.Log("change population");
+        population = value;
+    }
     public float GetVelocity()
     {
         return velocity;

@@ -91,6 +91,7 @@ public class TerritoryHandler : MonoBehaviour
                 break;
             case 1:
                 print("moving");
+                InGameMenuHandler.instance.MoveWarriors(this);
                 foreach (GameObject t in TerritoryManager.instance.territoryList)
                 {
                     t.GetComponent<TerritoryHandler>().state = 0;

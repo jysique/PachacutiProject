@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class InGameMenuHandler : MonoBehaviour
 {
+    private int warriorsNumber;
     public static InGameMenuHandler instance;
     [Header("Menu militar")]
     [SerializeField] private GameObject menuConfirm;
@@ -27,6 +28,7 @@ public class InGameMenuHandler : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        warriorsNumber = 0;
     }
    
     public void UpdateMenu()
@@ -82,9 +84,32 @@ public class InGameMenuHandler : MonoBehaviour
     }
     public void SelectTerritory()
     {
-        int warriorsToMove = int.Parse(warriorsCount.text);
-        menuConfirm.SetActive(false);
-        TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().ShowAdjacentTerritories();
+        warriorsNumber = int.Parse(warriorsCount.text);
+        if (TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.population - warriorsNumber > -1)
+        {
+            menuConfirm.SetActive(false);
+            TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().ShowAdjacentTerritories();
+        }
+        
+        
     }
+
+    public void MoveWarriors(TerritoryHandler otherTerritory)
+    {
+        TerritoryHandler selected = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
+        selected.territoryStats.population = selected.territoryStats.population - warriorsNumber;
+        if(otherTerritory.territory.GetTypePlayer() == Territory.TypePlayer.PLAYER)
+        {
+            otherTerritory.territoryStats.population = otherTerritory.territoryStats.population + warriorsNumber;
+        }
+        else
+        {
+            otherTerritory.territoryStats.population = otherTerritory.territoryStats.population - warriorsNumber;
+        }
+        
+    }
+
+    
+
 
 }
