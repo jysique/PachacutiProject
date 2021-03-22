@@ -1,0 +1,26 @@
+setBackground(forest,false,1) playMusic(PeacefulForest)
+
+Luissa "Hi, my name is Luissa. What's yours?"
+
+"Wait - " setExpression(Luissa,face,ashamed01,3.0) setExpression(Luissa,body,handsWaist,3.0)
+
++"You're the guy who killed the bandits back there?!"
+
+narrator "Her face lit up in astonishment."
+
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec risus quam, congue eu risus eu, pulvinar varius justo."
+
+"Donec et velit ac magna tincidunt mollis. Nulla convallis velit vel massa suscipit dapibus. Quisque ornare odio enim."
+
+Luissa "<b>You?!</b>" move(Luissa,0.7,0.5)
+
+narrator "she said, jumping back."
+
+"<mainChar> Yeah.</mainChar>"
++"Me."
+
+Luissa "Phasellus pulvinar massa egestas, ultrices purus nec, vestibulum diam. Morbi eleifend eu eros vel pulvinar."
+
+"Interdum et malesuada fames ac ante ipsum primis in faucibus." setExpression(Luissa,face,smile01,3) setExpression(Luissa,body,handsDown,3.0)
+
+changeScene(intro_part2) closeDialoguePanel()
