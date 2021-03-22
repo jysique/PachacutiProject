@@ -28,7 +28,12 @@ public class Territory
     [SerializeField] private int population;
     [SerializeField] private float velocity;
     [SerializeField] private bool selected;
+    [SerializeField] private MilitarBoss militarBoss;
 
+    public MilitarBoss GetMilitarBoss()
+    {
+        return militarBoss;
+    }
     public TypePlayer GetTypePlayer()
     {
         return typePlayer;
