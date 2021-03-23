@@ -5,7 +5,10 @@ using UnityEngine;
 [RequireComponent(typeof(PolygonCollider2D))]
 public class TerritoryHandler : MonoBehaviour
 {
+    private SpriteRenderer sr;
     public int state;
+    [SerializeField] private Material outlineMaterial;
+    [SerializeField] private Material normalMaterial;
     public Territory territory;
     private SpriteRenderer sprite;
     private Color32 oldColor;
@@ -27,9 +30,11 @@ public class TerritoryHandler : MonoBehaviour
     }
     private void Start()
     {
+        sr = this.GetComponent<SpriteRenderer>();
         if (territory.GetSelected())
         {
             TerritoryManager.instance.territorySelected = this.gameObject;
+            sr.material = outlineMaterial;
             InGameMenuHandler.instance.UpdateMenu();
             //ShowAdjacentTerritories();
         }
@@ -91,14 +96,8 @@ public class TerritoryHandler : MonoBehaviour
                 break;
             case 1:
                 print("moving");
-                InGameMenuHandler.instance.MoveWarriors(this);
-                foreach (GameObject t in TerritoryManager.instance.territoryList)
-                {
-                    t.GetComponent<TerritoryHandler>().state = 0;
-                    if (t == TerritoryManager.instance.territorySelected) continue;
-                    t.GetComponent<TerritoryHandler>().Deselect();
-                    
-                }
+                InGameMenuHandler.instance.SendWarriors(this);
+                HideAdjacentTerritories();
                 break;
             case 2:
                 break;
@@ -127,8 +126,9 @@ public class TerritoryHandler : MonoBehaviour
             t.GetComponent<TerritoryHandler>().Deselect();
         }
         territory.SetSelected(true);
-        this.transform.GetChild(0).gameObject.SetActive(true);
-        this.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+        outlineMaterial.SetColor("_SolidOutline", Color.green);
+        sr.material = outlineMaterial;
+        sr.sortingOrder = -8;
         TerritoryManager.instance.territorySelected = this.gameObject;
         InGameMenuHandler.instance.UpdateMenu();
         
@@ -138,16 +138,30 @@ public class TerritoryHandler : MonoBehaviour
 
     public void ShowAdjacentTerritories()
     {
+        sr.material = normalMaterial;
+        sr.sortingOrder =-9;
         foreach(GameObject t in adjacentTerritories)
         {
             t.GetComponent<TerritoryHandler>().state = 1;
-            t.transform.GetChild(0).gameObject.SetActive(true);
-            t.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
+            outlineMaterial.SetColor("_SolidOutline", Color.yellow);
+            t.GetComponent<TerritoryHandler>().sr.material = outlineMaterial;
+            t.GetComponent<TerritoryHandler>().sr.sortingOrder = -8;
         }
+    }
+    public void HideAdjacentTerritories()
+    {
+        foreach (GameObject t in TerritoryManager.instance.territoryList)
+        {
+            t.GetComponent<TerritoryHandler>().state = 0;
+            t.GetComponent<TerritoryHandler>().Deselect();
+
+        }
+        TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().MakeOutline();
     }
     public void Deselect()
     {
         territory.SetSelected(false);
-        this.transform.GetChild(0).gameObject.SetActive(false);
+        sr.sortingOrder = -8;
+        sr.material = normalMaterial;
     }
 }

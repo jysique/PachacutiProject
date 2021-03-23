@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,7 @@ public class InGameMenuHandler : MonoBehaviour
 {
     private int warriorsNumber;
     public static InGameMenuHandler instance;
+    [SerializeField] private GameObject warriorsPrefab;
     [Header("Menu militar")]
     [SerializeField] private GameObject menuConfirm;
     [SerializeField] private GameObject menuBlock;
@@ -67,6 +69,7 @@ public class InGameMenuHandler : MonoBehaviour
     public void MoveWarriorsButton()
     {
         menuConfirm.SetActive(true);
+        warriorsCount.text = "1";
         foreach (GameObject t in TerritoryManager.instance.territoryList)
         {
             t.GetComponent<TerritoryHandler>().state = 2;
@@ -85,7 +88,7 @@ public class InGameMenuHandler : MonoBehaviour
     public void SelectTerritory()
     {
         warriorsNumber = int.Parse(warriorsCount.text);
-        if (TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.population - warriorsNumber > -1)
+        if (TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.population - warriorsNumber > 0)
         {
             menuConfirm.SetActive(false);
             TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().ShowAdjacentTerritories();
@@ -94,17 +97,31 @@ public class InGameMenuHandler : MonoBehaviour
         
     }
 
-    public void MoveWarriors(TerritoryHandler otherTerritory)
+    public void SendWarriors(TerritoryHandler otherTerritory)
     {
         TerritoryHandler selected = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
         selected.territoryStats.population = selected.territoryStats.population - warriorsNumber;
+        warriorsPrefab.GetComponent<WarriorsMoving>().target = otherTerritory.gameObject;
+        warriorsPrefab.transform.GetChild(0).GetComponent<TextMeshPro>().text = warriorsNumber.ToString();
+        Instantiate(warriorsPrefab, TerritoryManager.instance.territorySelected.transform.position , Quaternion.identity);
+    }
+    public void MoveWarriors(TerritoryHandler otherTerritory)
+    {
+        
         if(otherTerritory.territory.GetTypePlayer() == Territory.TypePlayer.PLAYER)
         {
             otherTerritory.territoryStats.population = otherTerritory.territoryStats.population + warriorsNumber;
+
         }
         else
         {
+            int survivors = otherTerritory.territoryStats.population - warriorsNumber;
             otherTerritory.territoryStats.population = otherTerritory.territoryStats.population - warriorsNumber;
+            if(survivors < 0)
+            {
+                otherTerritory.territory.SetTypePlayer(Territory.TypePlayer.PLAYER);
+                otherTerritory.territoryStats.population = otherTerritory.territoryStats.population * -1;
+            }
         }
         
     }
