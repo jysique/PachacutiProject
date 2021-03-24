@@ -1,0 +1,65 @@
+{
+    "Characters":
+    [
+        {
+            "characterName": "Hakan Urpi",
+            "age": "29",
+            "origin": "Qosqo",
+            "campaign": "Incas" 
+        },
+        {
+            "characterName": "Illantay",
+            "age": "18",
+            "origin": "Qosqo",
+            "campaign": "Incas" 
+        },
+        {
+            "characterName": "Umiña",
+            "age": "30",
+            "origin": "Qosqo",
+            "campaign": "Mayas" 
+        },
+        {
+            "characterName": "Hakan Urpi",
+            "age": "29",
+            "origin": "Qosqo",
+            "campaign": "Aztecas" 
+        },
+        {
+            "characterName": "Illantay",
+            "age": "29",
+            "origin": "Qosqo",
+            "campaign": "Aztecas" 
+        },
+        {
+            "characterName": "Illantay",
+            "age": "18",
+            "origin": "Qosqo",
+            "campaign": "Incas" 
+        },
+        {
+            "characterName": "Umiña",
+            "age": "30",
+            "origin": "Qosqo",
+            "campaign": "Huari" 
+        },
+        {
+            "characterName": "Illantay",
+            "age": "18",
+            "origin": "Qosqo",
+            "campaign": "Huari" 
+        },
+        {
+            "characterName": "Umiña",
+            "age": "30",
+            "origin": "Qosqo",
+            "campaign": "Mayas" 
+        },
+        {
+            "characterName": "Hakan Urpi",
+            "age": "29",
+            "origin": "Qosqo",
+            "campaign": "Aztecas" 
+        }
+    ]
+}
