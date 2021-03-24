@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TestCM : MonoBehaviour
 {
-    [HideInInspector]public Character Luissa;
-    [HideInInspector] public Character Carmen;
+    [HideInInspector]public CharacterVN Luissa;
+    [HideInInspector] public CharacterVN Carmen;
     private void Start()
     {
         Luissa = CharacterManager.instance.GetCharacter("Luissa", enableCreatedCharacterOnStart:false);

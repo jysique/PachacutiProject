@@ -1,6 +1,6 @@
 setBackground(forest,false,1) playMusic(PeacefulForest)
 
-Luissa "Hi, my name is Luissa. What's yours?"
+Luissa "Hi, my name is Luissa. What's yours?" 
 
 "Wait - " setExpression(Luissa,face,ashamed01,3.0) setExpression(Luissa,body,handsWaist,3.0)
 

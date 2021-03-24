@@ -58,7 +58,7 @@ public class ChapterController : MonoBehaviour
         }
         if (speaker != "narrator")
         {
-            Character character = CharacterManager.instance.GetCharacter(speaker);
+            CharacterVN character = CharacterManager.instance.GetCharacter(speaker);
             character.Say(dialogue, additive);
         }
         else
@@ -182,7 +182,7 @@ public class ChapterController : MonoBehaviour
         float speed = parameters.Length == 4 ? float.Parse(parameters[3]) : 1f ;
         bool smooth = parameters.Length == 5 ? bool.Parse(parameters[4]) : true;
 
-        Character c = CharacterManager.instance.GetCharacter(character);
+        CharacterVN c = CharacterManager.instance.GetCharacter(character);
         c.MoveTo(new Vector2(locationX, locationY),speed,smooth);
     }
     void Command_SetPosition(string data)
@@ -192,7 +192,7 @@ public class ChapterController : MonoBehaviour
         float locationX = float.Parse(parameters[1]);
         float locationY = float.Parse(parameters[2]);
 
-        Character c = CharacterManager.instance.GetCharacter(character);
+        CharacterVN c = CharacterManager.instance.GetCharacter(character);
         c.SetPosition(new Vector2(locationX, locationY));
     }
     void Command_ChangeExpression(string data)
@@ -205,7 +205,7 @@ public class ChapterController : MonoBehaviour
         float speed = parameters.Length == 4 ? float.Parse(parameters[3]) : 1f;
 
         //Debug.Log("se trata de buscar "+character + " , "+region+ " , "+ expression+ " , "+speed);
-        Character c = CharacterManager.instance.GetCharacter(character);
+        CharacterVN c = CharacterManager.instance.GetCharacter(character);
         Sprite sprite = c.GetSprite(expression);
         //c.GetAllSprite(expression);
         if (region.ToLower() == "body")
