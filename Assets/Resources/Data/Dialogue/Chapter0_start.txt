@@ -23,4 +23,5 @@ Luissa "Phasellus pulvinar massa egestas, ultrices purus nec, vestibulum diam. M
 
 "Interdum et malesuada fames ac ante ipsum primis in faucibus." setExpression(Luissa,face,smile01,3) setExpression(Luissa,body,handsDown,3.0)
 
+changeScene()
 changeScene(intro_part2) closeDialoguePanel()

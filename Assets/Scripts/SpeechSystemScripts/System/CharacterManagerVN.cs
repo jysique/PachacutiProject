@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class CharacterManager : MonoBehaviour
+public class CharacterManagerVN : MonoBehaviour
 {
-    public static CharacterManager instance;
+    public static CharacterManagerVN instance;
     public RectTransform characterPanel;
 
     public List<CharacterVN> characters = new List<CharacterVN>();

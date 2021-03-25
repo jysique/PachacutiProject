@@ -26,8 +26,22 @@ public class TerritoryManager : MonoBehaviour
         {
             territoryList.Add(t);
         }
+        int a = 0;
+        // print(territoryList.Count);
+        for (int i = 0; i < territoryList.Count; i++)
+        {
+            TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
+            if (territoryHandler.territory.GetTypePlayer() == Territory.TypePlayer.PLAYER)
+            {
+                territoryHandler.territory.MilitarBoss = MilitarBossManager.instance.militarBosses[a];
+                a++;
+            }
+            
+        }
         
+        //print(a);
     }
+
     private void TintTerritory()
     {
         for (int i = 0; i < territoryList.Count; i++)

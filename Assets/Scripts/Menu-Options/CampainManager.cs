@@ -17,21 +17,23 @@ public class CampainManager : MonoBehaviour
     {
         instance = this;
     }
+
     private void Start()
     {
-
         buttonList = gameObject.GetComponentsInChildren<Button>();
-        for (int i = 0; i < buttonList.Length-1; i++)
+        for (int i = 0; i < buttonList.Length - 1; i++)
         {
             int index = i;
             buttonList[index].onClick.AddListener(() => ChangeCampainSelected(index));
         }
         backBtn.onClick.AddListener(() => DestroyAllInstantiate());
     }
+
     void ChangeCampainSelected(int index)
     {
         string[] temp = buttonList[index].name.Split(char.Parse("B"));
         campainSelected = temp[0];
+        print(campainSelected);
         ReadJson();
     }
 
@@ -52,17 +54,18 @@ public class CampainManager : MonoBehaviour
     {
         foreach (Character charac in characterList.Characters)
         {
-            if (charac.campaign == campainSelected)
+            if (charac.Campaign == campainSelected)
             {
                 GameObject characterOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/CharacterOption")) as GameObject;
                 characterOption.transform.SetParent(gridLayout.transform, false);
-                characterOption.transform.Find("Character/TextBackground/NameCharacter").gameObject.GetComponent<Text>().text = charac.characterName;
-                characterOption.transform.Find("Description/OrigenCharacter").gameObject.GetComponent<Text>().text = charac.origin;
-                characterOption.transform.Find("Description/AgeCharacter").gameObject.GetComponent<Text>().text = charac.age.ToString();
-                characterOption.transform.Find("Description/CampainCharacter").gameObject.GetComponent<Text>().text = charac.campaign;
+                characterOption.transform.Find("Character/TextBackground/NameCharacter").gameObject.GetComponent<Text>().text = charac.CharacterName;
+                characterOption.transform.Find("Description/OrigenCharacter").gameObject.GetComponent<Text>().text = charac.Origin;
+                characterOption.transform.Find("Description/AgeCharacter").gameObject.GetComponent<Text>().text = charac.Age.ToString();
+                characterOption.transform.Find("Description/CampainCharacter").gameObject.GetComponent<Text>().text = charac.Campaign;
                 characterOptions.Add(characterOption);
             }
         }
+
     }
     void DestroyAllInstantiate()
     {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ChapterController : MonoBehaviour
 {
@@ -58,7 +59,7 @@ public class ChapterController : MonoBehaviour
         }
         if (speaker != "narrator")
         {
-            CharacterVN character = CharacterManager.instance.GetCharacter(speaker);
+            CharacterVN character = CharacterManagerVN.instance.GetCharacter(speaker);
             character.Say(dialogue, additive);
         }
         else
@@ -79,46 +80,35 @@ public class ChapterController : MonoBehaviour
     {
         //print("Handle actions [" + action + "]");
         string[] data = action.Split('(', ')');
-
-        if (data[0]=="setBackground")
+        switch (data[0])
         {
-            Command_SetLayerImage(data[1], BCFC.instance.background);
-            return;
-        }
-        if (data[0] == "setCinematic")
-        {
-            Command_SetLayerImage(data[1], BCFC.instance.cinematic);
-            return;
-        }
-        if (data[0] == "setForeground")
-        {
-            Command_SetLayerImage(data[1], BCFC.instance.foreground);
-            return;
-        }
-        if (data[0] == "playSound")
-        {
-            Command_PlaySound(data[1]);
-            return;
-        }
-        if (data[0] == "playMusic")
-        {
-            Command_PlayMusic(data[1]);
-            return;
-        }
-        if (data[0] == "move")
-        {
-            Command_MoveCharacter(data[1]);
-            return;
-        }
-        if (data[0] == "setPosition")
-        {
-            Command_SetPosition(data[1]);
-            return;
-        }
-        if (data[0] == "setExpression")
-        {
-            Command_ChangeExpression(data[1]);
-            return;
+            case "setBackground":
+                Command_SetLayerImage(data[1], BCFC.instance.background);
+                break;
+            case "setCinematic":
+                Command_SetLayerImage(data[1], BCFC.instance.cinematic);
+                break;
+            case "setForeground":
+                Command_SetLayerImage(data[1], BCFC.instance.foreground);
+                break;
+            case "playSound":
+            case "playMusic":
+                //Command_PlayMusic(data[1]);
+                break;
+            case "move":
+                Command_MoveCharacter(data[1]);
+                break;
+            case "setPosition":
+                Command_SetPosition(data[1]);
+                break;
+            case "setExpression":
+                Command_ChangeExpression(data[1]);
+                break;
+            case "changeScene":
+                Command_ChangeScene();
+                break;
+            default:
+                break;
         }
     }
 
@@ -182,7 +172,7 @@ public class ChapterController : MonoBehaviour
         float speed = parameters.Length == 4 ? float.Parse(parameters[3]) : 1f ;
         bool smooth = parameters.Length == 5 ? bool.Parse(parameters[4]) : true;
 
-        CharacterVN c = CharacterManager.instance.GetCharacter(character);
+        CharacterVN c = CharacterManagerVN.instance.GetCharacter(character);
         c.MoveTo(new Vector2(locationX, locationY),speed,smooth);
     }
     void Command_SetPosition(string data)
@@ -192,7 +182,7 @@ public class ChapterController : MonoBehaviour
         float locationX = float.Parse(parameters[1]);
         float locationY = float.Parse(parameters[2]);
 
-        CharacterVN c = CharacterManager.instance.GetCharacter(character);
+        CharacterVN c = CharacterManagerVN.instance.GetCharacter(character);
         c.SetPosition(new Vector2(locationX, locationY));
     }
     void Command_ChangeExpression(string data)
@@ -205,7 +195,7 @@ public class ChapterController : MonoBehaviour
         float speed = parameters.Length == 4 ? float.Parse(parameters[3]) : 1f;
 
         //Debug.Log("se trata de buscar "+character + " , "+region+ " , "+ expression+ " , "+speed);
-        CharacterVN c = CharacterManager.instance.GetCharacter(character);
+        CharacterVN c = CharacterManagerVN.instance.GetCharacter(character);
         Sprite sprite = c.GetSprite(expression);
         //c.GetAllSprite(expression);
         if (region.ToLower() == "body")
@@ -217,4 +207,9 @@ public class ChapterController : MonoBehaviour
             c.TransitionExpression(sprite, speed, true);
         }
     }
+    void Command_ChangeScene()
+    {
+        SceneManager.LoadScene("Pruebas Diego");
+    }
+
 }

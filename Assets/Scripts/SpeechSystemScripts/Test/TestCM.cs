@@ -8,7 +8,7 @@ public class TestCM : MonoBehaviour
     [HideInInspector] public CharacterVN Carmen;
     private void Start()
     {
-        Luissa = CharacterManager.instance.GetCharacter("Luissa", enableCreatedCharacterOnStart:false);
+        Luissa = CharacterManagerVN.instance.GetCharacter("Luissa", enableCreatedCharacterOnStart:false);
         
     }
     public string[] s = new string[]
