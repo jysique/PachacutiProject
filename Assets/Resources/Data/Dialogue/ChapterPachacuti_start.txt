@@ -1,0 +1,13 @@
+setBackground(forest,false,1) playMusic(PeacefulForest)
+
+Pachacuti "Napay. " 
+
+"Me llamo Pachacuti y soy el heredero al trono de los incas gracias a mi padre Viracocha." move(Pachacuti,0.7,0.5)
+
+"Hemos sido amenazados por los Chancas desde hace mucho y es hora que esto termine. "
+
+"Tengo que la dificil mision de reunir a nuestro ejercito y aplastar a los Chancas para demostrar nuestro dominio inca sobre el mundo. "
+
++"<i>Karuraqmi puririnay...!!!</i>"
+
+changeScene(2)

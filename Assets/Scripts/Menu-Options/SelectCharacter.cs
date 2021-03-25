@@ -15,6 +15,7 @@ public class SelectCharacter : MonoBehaviour
     }
     void ChangeScene()
     {
+        GlobalVariables.instance.chapterTxt = "ChapterPachacuti_start";
         SceneManager.LoadScene("VisualNovelScene");
     }
 }
