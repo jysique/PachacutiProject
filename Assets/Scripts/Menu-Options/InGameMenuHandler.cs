@@ -40,13 +40,17 @@ public class InGameMenuHandler : MonoBehaviour
         if (selectedTerritory.GetTypePlayer() == Territory.TypePlayer.PLAYER)
         {
             menuBlock.SetActive(false);
-            MilitarBoss boss = selectedTerritory.GetMilitarBoss();
+            MilitarBoss boss = selectedTerritory.MilitarBoss;
             territoryName.GetComponent<Text>().text = selectedTerritory.name;
-            militaryBossName.GetComponent<Text>().text = "Nombre: " + boss.Name;
+            militaryBossName.GetComponent<Text>().text = "Nombre: " + boss.CharacterName;
+            //militaryBossPicture.GetComponent<Image>().sprite = Resources.Load<Sprite>("Textures/TemporalAssets/" + boss.CharacIcon + "/" + boss.);
+            //militaryBossPicture.GetComponent<Image>().sprite = Resources.Load<Sprite>("Textures/TemporalAssets/Military/02");
             militaryBossPicture.GetComponent<Image>().sprite = boss.Picture;
             militaryBossExperience.GetComponent<Text>().text = "Experiencia: " + boss.Experience;
-            militaryBossEstrategy.GetComponent<Text>().text = "Estrategia: " + boss.Strategy;
-            militaryBossMilitary.GetComponent<Text>().text = "Militar: " + boss.Military;
+            militaryBossEstrategy.GetComponent<Text>().text = "Estrategia: " + boss.StrategyLevel;
+            militaryBossMilitary.GetComponent<Text>().text = "Influencia: " + boss.Influence;
+           
+
         }
         else
         {

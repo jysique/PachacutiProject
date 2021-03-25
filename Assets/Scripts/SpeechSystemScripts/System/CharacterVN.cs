@@ -6,7 +6,7 @@ using UnityEngine.UI;
 [System.Serializable]
 public class CharacterVN : Character
 {
-    public string CharacterName { get { return characterName; } }
+    public string CharacterVNName { get { return CharacterName; } }
 
     [HideInInspector] public RectTransform root;
     public bool enabled { get { return root.gameObject.activeInHierarchy; } set { root.gameObject.SetActive(value); } }
@@ -19,7 +19,7 @@ public class CharacterVN : Character
         if (!enabled)
             enabled = true;
         
-        dialogue.Say(speech, characterName,additive);
+        dialogue.Say(speech, CharacterName,additive);
     }
 
     Vector2 targetPosition;
@@ -29,14 +29,14 @@ public class CharacterVN : Character
     public void MoveTo(Vector2 target, float speed, bool smooth = true)
     {
         StopMoving();
-        moving = CharacterManager.instance.StartCoroutine(Moving(target, speed, smooth));
+        moving = CharacterManagerVN.instance.StartCoroutine(Moving(target, speed, smooth));
     }
 
     public void StopMoving(bool arriveAtTargetPosImmediately = false)
     {
         if (isMoving)
         {
-            CharacterManager.instance.StopCoroutine(moving);
+            CharacterManagerVN.instance.StopCoroutine(moving);
             if (arriveAtTargetPosImmediately)
                 SetPosition(targetPosition);
         }
@@ -76,12 +76,12 @@ public class CharacterVN : Character
 
     public Sprite GetSprite(int index = 0)
     {
-        Sprite[] sprites = Resources.LoadAll<Sprite>("Textures/VNAssets/Characters/"+characterName);
+        Sprite[] sprites = Resources.LoadAll<Sprite>("Textures/VNAssets/Characters/"+CharacterVNName);
         return sprites[index];
     }
     public Sprite GetSprite(string spriteName = "")
     {
-        Sprite[] sprites = Resources.LoadAll<Sprite>("Textures/VNAssets/Characters/" + characterName);
+        Sprite[] sprites = Resources.LoadAll<Sprite>("Textures/VNAssets/Characters/" + CharacterName);
         for (int a = 0; a < sprites.Length; a++)
         {
 
@@ -132,13 +132,13 @@ public class CharacterVN : Character
             return;
         }
         StopTransitioningBody();
-        transitioningExpression = CharacterManager.instance.StartCoroutine(TransitioningBody(sprite, speed, smooth));
+        transitioningExpression = CharacterManagerVN.instance.StartCoroutine(TransitioningBody(sprite, speed, smooth));
     }
 
     void StopTransitioningBody()
     {
         if (isTransitioningBody)
-            CharacterManager.instance.StopCoroutine(transitioningBody);
+            CharacterManagerVN.instance.StopCoroutine(transitioningBody);
         transitioningBody = null;
     }
 
@@ -181,13 +181,13 @@ public class CharacterVN : Character
             return;
 
         StopTransitioningExpression();
-        transitioningExpression = CharacterManager.instance.StartCoroutine(TransitioningExpression(sprite, speed, smooth));
+        transitioningExpression = CharacterManagerVN.instance.StartCoroutine(TransitioningExpression(sprite, speed, smooth));
     }
 
     void StopTransitioningExpression()
     {
         if (isTransitioningExpression)
-            CharacterManager.instance.StopCoroutine(transitioningExpression);
+            CharacterManagerVN.instance.StopCoroutine(transitioningExpression);
         transitioningExpression = null;
     }
 
@@ -221,11 +221,11 @@ public class CharacterVN : Character
 
     public CharacterVN(string _name, bool enabledOnStart = true)
     {
-        CharacterManager cm = CharacterManager.instance;
+        CharacterManagerVN cm = CharacterManagerVN.instance;
         GameObject prefab = Resources.Load("Prefabs/VNPrefabs/Character["+_name+"]") as GameObject;
         GameObject go = GameObject.Instantiate(prefab, cm.characterPanel);
         root = go.GetComponent<RectTransform>();
-        characterName = _name;
+        CharacterName = _name;
 
         renderers.bodyRenderer = go.transform.Find("BodyLayer").GetComponentInChildren<Image>();
         renderers.expressionRenderer = go.transform.Find("ExpressionLayer").GetComponentInChildren<Image>();

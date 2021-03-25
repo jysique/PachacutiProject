@@ -30,10 +30,17 @@ public class Territory
     [SerializeField] private bool selected;
     [SerializeField] private MilitarBoss militarBoss;
 
+    public MilitarBoss MilitarBoss
+    {
+        get { return militarBoss; }
+        set { militarBoss = value; }
+    }
+    /*
     public MilitarBoss GetMilitarBoss()
     {
         return militarBoss;
     }
+    */
     public TypePlayer GetTypePlayer()
     {
         return typePlayer;

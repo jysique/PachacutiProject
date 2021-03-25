@@ -350,11 +350,10 @@ MonoBehaviour:
     velocity: 1
     selected: 0
     militarBoss:
-      name: 
-      picture: {fileID: 0}
-      experience: 0
-      strategy: 0
-      military: 0
+      characterName: 
+      age: 0
+      origin: 
+      campaign: 
   adjacentTerritories:
   - {fileID: 159676226}
   - {fileID: 307706982}
@@ -588,11 +587,10 @@ MonoBehaviour:
     velocity: 1
     selected: 0
     militarBoss:
-      name: 
-      picture: {fileID: 0}
-      experience: 0
-      strategy: 0
-      military: 0
+      characterName: 
+      age: 0
+      origin: 
+      campaign: 
   adjacentTerritories:
   - {fileID: 1579967406}
   - {fileID: 307706982}
@@ -693,7 +691,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.017516987, y: 0.27266946}
   m_AnchorMax: {x: 0.97900003, y: 0.44868615}
-  m_AnchoredPosition: {x: 329.4, y: -19.7}
+  m_AnchoredPosition: {x: 0.8947449, y: -40.700012}
   m_SizeDelta: {x: -0.11000061, y: -0.12000275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &171347700
@@ -1147,7 +1145,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.017516987, y: 0.27266946}
   m_AnchorMax: {x: 0.97900003, y: 0.44868615}
-  m_AnchoredPosition: {x: 0.8947449, y: -40.7}
+  m_AnchoredPosition: {x: 0.8947449, y: -40.700012}
   m_SizeDelta: {x: -0.11000061, y: -0.12000275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &277592930
@@ -1296,11 +1294,10 @@ MonoBehaviour:
     velocity: 1
     selected: 0
     militarBoss:
-      name: 
-      picture: {fileID: 0}
-      experience: 0
-      strategy: 0
-      military: 0
+      characterName: 
+      age: 0
+      origin: 
+      campaign: 
   adjacentTerritories:
   - {fileID: 1579967406}
   - {fileID: 159676226}
@@ -1472,7 +1469,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.017516987, y: 0.27266946}
   m_AnchorMax: {x: 0.97900003, y: 0.44868615}
-  m_AnchoredPosition: {x: 0.8947449, y: -40.6999}
+  m_AnchoredPosition: {x: 0.8947449, y: -40.69993}
   m_SizeDelta: {x: -0.11000061, y: -0.12000275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &357381336
@@ -1957,7 +1954,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.50000095}
+  m_AnchoredPosition: {x: 0, y: -0.5000019}
   m_SizeDelta: {x: -20, y: -13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &514173264
@@ -2187,11 +2184,10 @@ MonoBehaviour:
     velocity: 3
     selected: 0
     militarBoss:
-      name: Huascar
-      picture: {fileID: 0}
-      experience: 0
-      strategy: 0
-      military: 0
+      characterName: 
+      age: 0
+      origin: 
+      campaign: 
   adjacentTerritories:
   - {fileID: 1369924673}
   territoryStats: {fileID: 0}
@@ -2271,7 +2267,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.05987162}
   m_AnchorMax: {x: 0.717, y: 0.9691743}
-  m_AnchoredPosition: {x: 0.62251663, y: -0.57417583}
+  m_AnchoredPosition: {x: 0.62251663, y: -0.5741768}
   m_SizeDelta: {x: 1.5215225, y: 0.39386368}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &586236255
@@ -4139,11 +4135,10 @@ MonoBehaviour:
     velocity: 3
     selected: 0
     militarBoss:
-      name: Wara Wayra
-      picture: {fileID: 21300000, guid: 287479e57375cf7489538d7c27d9d8c8, type: 3}
-      experience: 8
-      strategy: 4
-      military: 6
+      characterName: 
+      age: 0
+      origin: 
+      campaign: 
   adjacentTerritories:
   - {fileID: 1579967406}
   - {fileID: 307706982}
@@ -4543,11 +4538,10 @@ MonoBehaviour:
     velocity: 1
     selected: 0
     militarBoss:
-      name: 
-      picture: {fileID: 0}
-      experience: 0
-      strategy: 0
-      military: 0
+      characterName: 
+      age: 0
+      origin: 
+      campaign: 
   adjacentTerritories:
   - {fileID: 569655799}
   - {fileID: 1876515186}
@@ -5704,11 +5698,10 @@ MonoBehaviour:
     velocity: 2
     selected: 1
     militarBoss:
-      name: Mallki Kusisa
-      picture: {fileID: 21300000, guid: d153df8205e858a4e879ce79f03d193a, type: 3}
-      experience: 5
-      strategy: 4
-      military: 3
+      characterName: 
+      age: 0
+      origin: 
+      campaign: 
   adjacentTerritories:
   - {fileID: 1253989285}
   - {fileID: 159676226}
@@ -6757,7 +6750,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.017516987, y: 0.27266946}
   m_AnchorMax: {x: 0.97900003, y: 0.44868615}
-  m_AnchoredPosition: {x: 0.8947449, y: -20.2}
+  m_AnchoredPosition: {x: 0.8947449, y: -20.200012}
   m_SizeDelta: {x: -0.11000061, y: -0.12000275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1832006529
@@ -7081,11 +7074,10 @@ MonoBehaviour:
     velocity: 1
     selected: 0
     militarBoss:
-      name: 
-      picture: {fileID: 0}
-      experience: 0
-      strategy: 0
-      military: 0
+      characterName: 
+      age: 0
+      origin: 
+      campaign: 
   adjacentTerritories:
   - {fileID: 159676226}
   - {fileID: 120574840}
@@ -7534,7 +7526,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.017516987, y: 0.27266946}
   m_AnchorMax: {x: 0.97900003, y: 0.44868615}
-  m_AnchoredPosition: {x: 0.8947449, y: -20.2}
+  m_AnchoredPosition: {x: 0.8947449, y: -20.200005}
   m_SizeDelta: {x: -0.11000061, y: -0.12000275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1930296017
@@ -7850,8 +7842,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.035, y: 0.27266946}
   m_AnchorMax: {x: 0.97900003, y: 0.44868615}
-  m_AnchoredPosition: {x: 324.9001, y: 0.8000145}
-  m_SizeDelta: {x: 8.889999, y: -0.12000275}
+  m_AnchoredPosition: {x: 0.8947449, y: -20.200005}
+  m_SizeDelta: {x: -0.11000061, y: -0.12000275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2009738170
 MonoBehaviour:
