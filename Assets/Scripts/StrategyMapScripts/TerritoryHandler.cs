@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -71,6 +71,29 @@ public class TerritoryHandler : MonoBehaviour
         territory.SetStats(0, 0, territoryStats.population, territoryStats.velocity);
         PopulateTerritory();
     }
+    private void FixedUpdate()
+    {
+        if(territory.GetTypePlayer() == Territory.TypePlayer.BOT)
+        {
+            int prob = Random.Range(0, 401);
+            if (prob < 1 && this.territory.GetPopulation() > 2)
+            {
+                EnemyMoveWarriors();
+            }
+        }
+        
+
+    }
+
+    private void EnemyMoveWarriors()
+    {
+        int i = Random.Range(0, adjacentTerritories.Count);
+        int warriorsToSend = Random.Range(3, this.territory.GetPopulation());
+        TerritoryHandler territoryToAttack = adjacentTerritories[i].GetComponent<TerritoryHandler>();
+        InGameMenuHandler.instance.SendWarriors(this, territoryToAttack, warriorsToSend);
+
+    }
+
 
     private void OnMouseEnter()
     {
@@ -96,7 +119,7 @@ public class TerritoryHandler : MonoBehaviour
                 break;
             case 1:
                 print("moving");
-                InGameMenuHandler.instance.SendWarriors(this);
+                InGameMenuHandler.instance.SendWarriors(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>(), this, InGameMenuHandler.instance.warriorsNumber);
                 HideAdjacentTerritories();
                 break;
             case 2:

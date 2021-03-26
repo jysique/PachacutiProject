@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class InGameMenuHandler : MonoBehaviour
 {
-    private int warriorsNumber;
+    public int warriorsNumber;
     public static InGameMenuHandler instance;
     [SerializeField] private GameObject warriorsPrefab;
     [Header("Menu militar")]
@@ -92,7 +92,7 @@ public class InGameMenuHandler : MonoBehaviour
     public void SelectTerritory()
     {
         warriorsNumber = int.Parse(warriorsCount.text);
-        if (TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.population - warriorsNumber > 0)
+        if (TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.population - warriorsNumber >= 0)
         {
             menuConfirm.SetActive(false);
             TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().ShowAdjacentTerritories();
@@ -101,32 +101,33 @@ public class InGameMenuHandler : MonoBehaviour
         
     }
 
-    public void SendWarriors(TerritoryHandler otherTerritory)
+    public void SendWarriors(TerritoryHandler selected, TerritoryHandler otherTerritory, int _warriorsNumber)
     {
-        TerritoryHandler selected = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
-        selected.territoryStats.population = selected.territoryStats.population - warriorsNumber;
+        selected.territoryStats.population = selected.territoryStats.population - _warriorsNumber;
         warriorsPrefab.GetComponent<WarriorsMoving>().target = otherTerritory.gameObject;
-        warriorsPrefab.transform.GetChild(0).GetComponent<TextMeshPro>().text = warriorsNumber.ToString();
-        Instantiate(warriorsPrefab, TerritoryManager.instance.territorySelected.transform.position , Quaternion.identity);
+        warriorsPrefab.GetComponent<WarriorsMoving>().warriorsNumber = _warriorsNumber;
+        warriorsPrefab.GetComponent<WarriorsMoving>().type = selected.territory.GetTypePlayer();
+        warriorsPrefab.transform.GetChild(0).GetComponent<TextMeshPro>().text = _warriorsNumber.ToString();
+        Instantiate(warriorsPrefab, selected.transform.position , Quaternion.identity);
     }
-    public void MoveWarriors(TerritoryHandler otherTerritory)
+    public void MoveWarriors(TerritoryHandler otherTerritory, int _warriorsNumber, Territory.TypePlayer type)
     {
-        
-        if(otherTerritory.territory.GetTypePlayer() == Territory.TypePlayer.PLAYER)
+        if(otherTerritory.territory.GetTypePlayer() == type)
         {
-            otherTerritory.territoryStats.population = otherTerritory.territoryStats.population + warriorsNumber;
+            otherTerritory.territoryStats.population = otherTerritory.territoryStats.population + _warriorsNumber;
 
         }
         else
         {
-            int survivors = otherTerritory.territoryStats.population - warriorsNumber;
-            otherTerritory.territoryStats.population = otherTerritory.territoryStats.population - warriorsNumber;
+            int survivors = otherTerritory.territoryStats.population - _warriorsNumber;
+            otherTerritory.territoryStats.population = otherTerritory.territoryStats.population - _warriorsNumber;
             if(survivors < 0)
             {
-                otherTerritory.territory.SetTypePlayer(Territory.TypePlayer.PLAYER);
+                otherTerritory.territory.SetTypePlayer(type);
                 otherTerritory.territoryStats.population = otherTerritory.territoryStats.population * -1;
             }
         }
+
         
     }
 

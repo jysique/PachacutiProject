@@ -6,12 +6,8 @@ public class WarriorsMoving : MonoBehaviour
 {
     public GameObject target;
     public float speed;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int warriorsNumber;
+    public Territory.TypePlayer type;
 
     // Update is called once per frame
     void Update()
@@ -22,7 +18,7 @@ public class WarriorsMoving : MonoBehaviour
 
         if (Vector3.Distance(transform.position, target.transform.position) < 0.001f)
         {
-            InGameMenuHandler.instance.MoveWarriors(target.GetComponent<TerritoryHandler>());
+            InGameMenuHandler.instance.MoveWarriors(target.GetComponent<TerritoryHandler>(), warriorsNumber, type);
             Destroy(this.gameObject);
         }
         
