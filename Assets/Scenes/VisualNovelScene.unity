@@ -1155,6 +1155,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Luissa:
     characterName: 
+    age: 0
+    origin: 
+    campaign: 
     root: {fileID: 0}
     renderers:
       bodyRenderer: {fileID: 0}
@@ -1163,6 +1166,9 @@ MonoBehaviour:
       allExpressionRenderers: []
   Carmen:
     characterName: 
+    age: 0
+    origin: 
+    campaign: 
     root: {fileID: 0}
     renderers:
       bodyRenderer: {fileID: 0}

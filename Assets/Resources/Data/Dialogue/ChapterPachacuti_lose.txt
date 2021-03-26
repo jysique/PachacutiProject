@@ -1,0 +1,7 @@
+setBackground(forest,false,1) playMusic(PeacefulForest)
+
+Pachacuti "Noqataqa sipiwankischa, " 
+
++"ichaqa paqarimi kutimusaq, waranqa warana kapusaq."
+
+changeScene(0)

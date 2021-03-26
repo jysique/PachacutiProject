@@ -7,9 +7,12 @@ public class ChapterController : MonoBehaviour
 {
     List<string> data = new List<string>();
     int progress = 0;
+    private string chapterName = GlobalVariables.instance.chapterTxt;
+    public static ChapterController instance { get; private set;}
+    // ChapterPachacuti_start
     private void Start()
     {
-        LoadChapterFile("Chapter0_start");
+        LoadChapterFile(chapterName);
     }
     private void Update()
     {
@@ -92,8 +95,10 @@ public class ChapterController : MonoBehaviour
                 Command_SetLayerImage(data[1], BCFC.instance.foreground);
                 break;
             case "playSound":
+                Command_PlaySound(data[1]);
+                break;
             case "playMusic":
-                //Command_PlayMusic(data[1]);
+                Command_PlayMusic(data[1]);
                 break;
             case "move":
                 Command_MoveCharacter(data[1]);
@@ -105,7 +110,7 @@ public class ChapterController : MonoBehaviour
                 Command_ChangeExpression(data[1]);
                 break;
             case "changeScene":
-                Command_ChangeScene();
+                Command_ChangeScene(data[1]);
                 break;
             default:
                 break;
@@ -143,7 +148,7 @@ public class ChapterController : MonoBehaviour
         AudioClip clip = Resources.Load("Audio/SFX/" + data) as AudioClip;
         if (clip!=null)
         {
-            //AudioManager.instance.PlaySFX(clip);
+            AudioManager.instance.PlaySFX(clip);
         }
         else
         {
@@ -156,7 +161,7 @@ public class ChapterController : MonoBehaviour
         AudioClip clip = Resources.Load("Audio/Music/" + data) as AudioClip;
         if (clip != null)
         {
-            //AudioManager.instance.PlaySong(clip);
+            AudioManager.instance.PlaySong(clip);
         }
         else
         {
@@ -194,10 +199,9 @@ public class ChapterController : MonoBehaviour
         string expression = parameters[2];
         float speed = parameters.Length == 4 ? float.Parse(parameters[3]) : 1f;
 
-        //Debug.Log("se trata de buscar "+character + " , "+region+ " , "+ expression+ " , "+speed);
         CharacterVN c = CharacterManagerVN.instance.GetCharacter(character);
         Sprite sprite = c.GetSprite(expression);
-        //c.GetAllSprite(expression);
+
         if (region.ToLower() == "body")
         {
             c.TransitionBody(sprite, speed,true);
@@ -207,9 +211,9 @@ public class ChapterController : MonoBehaviour
             c.TransitionExpression(sprite, speed, true);
         }
     }
-    void Command_ChangeScene()
+    void Command_ChangeScene(string data)
     {
-        SceneManager.LoadScene("Pruebas Diego");
+        SceneManager.LoadScene(int.Parse(data));
     }
 
 }
