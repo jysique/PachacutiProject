@@ -6,6 +6,7 @@ public class GlobalVariables : MonoBehaviour
 {
     public static GlobalVariables instance { get; private set; }
     public string chapterTxt;
+
     private void Awake()
     {
         if (instance == null)

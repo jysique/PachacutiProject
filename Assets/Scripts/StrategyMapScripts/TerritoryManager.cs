@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TerritoryManager : MonoBehaviour
 {
@@ -38,8 +39,6 @@ public class TerritoryManager : MonoBehaviour
             }
             
         }
-        
-        //print(a);
     }
 
     private void TintTerritory()
@@ -78,5 +77,40 @@ public class TerritoryManager : MonoBehaviour
     void Update()
     {
         TintTerritory();
+        CountTerrytorry();
+    }
+
+    void CountTerrytorry()
+    {
+        int tBot = 0;
+        int tPlayer = 0;
+        for (int i = 0; i < territoryList.Count; i++)
+        {
+            int index = i;
+            TerritoryHandler territoryHandler = territoryList[index].GetComponent<TerritoryHandler>();
+            if (territoryHandler.territory.GetTypePlayer() == Territory.TypePlayer.BOT)
+            {
+                tBot++;
+            }else if (territoryHandler.territory.GetTypePlayer() == Territory.TypePlayer.PLAYER)
+            {
+                tPlayer++;
+            }
+        }
+        print("bot:" + tBot + " player: " + tPlayer);
+        ConditionEndChapter(tBot, tPlayer);
+    }
+    void ConditionEndChapter(int a, int b)
+    {
+        if (a == territoryList.Count)
+        {
+            GlobalVariables.instance.chapterTxt = "ChapterPachacuti_lose";
+            SceneManager.LoadScene("VisualNovelScene");
+        }
+        else if (b == territoryList.Count)
+        {
+            print("ganaste");
+            GlobalVariables.instance.chapterTxt = "ChapterPachacuti_win";
+            SceneManager.LoadScene("VisualNovelScene");
+        }
     }
 }

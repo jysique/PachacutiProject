@@ -9,6 +9,7 @@ public class ChapterController : MonoBehaviour
     int progress = 0;
     private string chapterName = GlobalVariables.instance.chapterTxt;
     public static ChapterController instance { get; private set;}
+    float timerCountDown = 1.5f;
     // ChapterPachacuti_start
     private void Start()
     {
@@ -16,10 +17,15 @@ public class ChapterController : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (timerCountDown>0)
+        {
+            timerCountDown -= Time.deltaTime;
+        }
+        else
         {
             HandleLine(data[progress]);
             progress++;
+            timerCountDown = 2;
         }
     }
     public void LoadChapterFile(string fileName)
