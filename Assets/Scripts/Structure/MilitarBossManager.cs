@@ -16,7 +16,7 @@ public class MilitarBossManager : MonoBehaviour
     }
     private void Start()
     {
-
+        AudioManager.activeSong.Stop();
     }
     public MilitarBoss GetMilitarBoss(int i)
     {
