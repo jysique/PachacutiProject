@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MilitarBossManager : MonoBehaviour
+public class CharacterManager : MonoBehaviour
 {
-    public static MilitarBossManager instance;
+    public static CharacterManager instance;
     public List<MilitarBoss> militarBosses = new List<MilitarBoss>();
 
     private void Awake()

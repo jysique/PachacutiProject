@@ -6,7 +6,7 @@ using UnityEngine;
 public class Territory
 {
     public string name;
-    public enum Tribes
+    public enum TRIBES
     {
         TRIBE_A,
         TRIBE_B,
@@ -14,19 +14,23 @@ public class Territory
         TRIBE_D,
     }
 
-    public enum TypePlayer
+    public enum TYPEPLAYER
     {
         PLAYER,
         BOT,
         NONE
     }
 
-    [SerializeField] private Tribes tribe;
-    [SerializeField] private TypePlayer typePlayer;
-    [SerializeField] private int moneyRewards;
-    [SerializeField] private int expRewards;
+    [SerializeField] private TRIBES tribe;
+    [SerializeField] private TYPEPLAYER typePlayer;
     [SerializeField] private int population;
-    [SerializeField] private float velocity;
+    [SerializeField] private int gold;
+    [SerializeField] private int food;
+
+    [SerializeField] private float velocityPopulation;
+    [SerializeField] private float velocityGold;
+    [SerializeField] private float velocityFood;
+
     [SerializeField] private bool selected;
     [SerializeField] private MilitarBoss militarBoss;
 
@@ -35,40 +39,53 @@ public class Territory
         get { return militarBoss; }
         set { militarBoss = value; }
     }
-    /*
-    public MilitarBoss GetMilitarBoss()
+
+    public TYPEPLAYER TypePlayer
     {
-        return militarBoss;
+        get { return typePlayer; }
+        set { typePlayer = value; }
     }
-    */
-    public TypePlayer GetTypePlayer()
+    public int Population
     {
-        return typePlayer;
+        get { return population; }
+        set
+        {
+            Debug.Log("change population");
+            population = value;
+        }
     }
-    public int GetPopulation()
+    public int GoldReward
     {
-        return population;
+        get { return gold; }
+        set { gold = value; }
     }
-    public void SetPopulation(int value)
+    public int FoodReward
     {
-        Debug.Log("change population");
-        population = value;
+        get { return food; }
+        set { food = value; }
     }
-    public float GetVelocity()
+    public float VelocityPopulation
     {
-        return velocity;
+        get { return velocityPopulation; }
+    }
+    public float VelocityGold
+    {
+        get { return velocityGold; }
+    }
+    public float VelocityFood
+    {
+        get { return velocityFood; }
     }
 
-    public void SetTypePlayer(TypePlayer _typePlayer)
+    public void SetStats(TerritoryStats territoryStats)
     {
-        typePlayer = _typePlayer;
-    }
-    public void SetStats(int _moneyRewards, int _expRewards,int _population, float _velocity)
-    {
-        moneyRewards = _moneyRewards;
-        expRewards = _expRewards;
-        population = _population;
-        velocity = _velocity;
+        gold = territoryStats.gold;
+        population = territoryStats.population;
+        food = territoryStats.food;
+
+        velocityGold = territoryStats.velocityGold;
+        velocityPopulation = territoryStats.velocityPopulation;
+        velocityFood = territoryStats.velocityFood;
     }
 
     public void SetSelected(bool _selected) { selected = _selected; }

@@ -10,7 +10,7 @@ public class NumericButton : MonoBehaviour
     public void IncreaseNumber()
     {
         int temporal = int.Parse(inputField.text) + 1;
-        int limit = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory.GetPopulation();
+        int limit = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory.Population;
         if (temporal <= limit) inputField.text = temporal.ToString();
     }
     public void DecreaseNumber()
@@ -21,7 +21,7 @@ public class NumericButton : MonoBehaviour
             inputField.text = temporal.ToString();
         }
         else {
-            inputField.text = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory.GetPopulation().ToString();
+            inputField.text = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory.Population.ToString();
         }
     }
     

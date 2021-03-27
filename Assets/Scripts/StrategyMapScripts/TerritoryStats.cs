@@ -7,23 +7,38 @@ public class TerritoryStats : MonoBehaviour
 {
     [SerializeField] private Image timerBar;
     private bool canPopulate = true;
-    private float timeLeft;
+    private float timeLeftP;
+    private float timeLeftG;
+    private float timeLeftF;
     private float maxTime = 5f;
 
     public int population;
-    public float velocity;
+    public int gold;
+    public int food;
+
+    public float velocityPopulation;
+    public float velocityGold;
+    public float velocityFood;
+
     public Text populationTxt;
 
     private void Start()
     {
-        timeLeft = maxTime;
+        timeLeftP = maxTime;
+        timeLeftG = maxTime;
+        timeLeftF = maxTime;
     }
-    public void InitalizeStats(int _population, float _velocity)
+    public void InitalizeStats(Territory territory)
     {
-        velocity = _velocity;
-        population = _population;
-        
+        population = territory.Population;
+        gold = territory.GoldReward;
+        food = territory.FoodReward;
+
+        velocityPopulation = territory.VelocityPopulation;
+        velocityGold = territory.VelocityGold;
+        velocityFood = territory.VelocityFood;
     }
+
     public void SetCanPopulate(bool temp)
     {
         timerBar.enabled = temp;
@@ -34,21 +49,51 @@ public class TerritoryStats : MonoBehaviour
         if (canPopulate)
         {
             IncresementPopulation();
+            IncresementGold();
+            IncresementFood();
         }
 
         populationTxt.text = population.ToString();
     }
     private void IncresementPopulation()
     {
-        if (timeLeft > 0)
+        
+        if (timeLeftP > 0)
         {
-            timeLeft -= Time.deltaTime * velocity;
-            timerBar.fillAmount = timeLeft / maxTime;
+            timeLeftP -= Time.deltaTime * velocityPopulation;
+            timerBar.fillAmount = timeLeftP / maxTime;
         }
         else
         {
             population++;
-            timeLeft = maxTime;
+            timeLeftP = maxTime;
         }
     }
+    private void IncresementGold()
+    {
+
+        if (timeLeftG > 0)
+        {
+            timeLeftG -= Time.deltaTime * velocityGold;
+        }
+        else
+        {
+            gold++;
+            timeLeftG = maxTime;
+        }
+    }
+    private void IncresementFood()
+    {
+
+        if (timeLeftF > 0)
+        {
+            timeLeftF -= Time.deltaTime * velocityFood;
+        }
+        else
+        {
+            food++;
+            timeLeftF = maxTime;
+        }
+    }
+
 }

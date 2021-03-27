@@ -7,7 +7,7 @@ public class WarriorsMoving : MonoBehaviour
     public GameObject target;
     public float speed;
     public int warriorsNumber;
-    public Territory.TypePlayer type;
+    public Territory.TYPEPLAYER type;
 
     // Update is called once per frame
     void Update()
