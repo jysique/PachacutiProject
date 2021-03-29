@@ -24,50 +24,48 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private InputField warriorsCount;
 
 
+    [Header("Recursos")]
+    [SerializeField] private Text goldGenerated;
+    [SerializeField] private Text foodGenerated;
     //perfil menu
-
+    
 
     private void Awake()
     {
         instance = this;
         warriorsNumber = 0;
     }
-   
+   public void UpdateResourceTable()
+    {
+        goldGenerated.text = TerritoryManager.instance.GetGolds(Territory.TYPEPLAYER.PLAYER).ToString();
+        foodGenerated.text = TerritoryManager.instance.GetFood(Territory.TYPEPLAYER.PLAYER).ToString();
+    }
     public void UpdateMenu()
     {
 
         Territory selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory;
-        if (selectedTerritory.GetTypePlayer() == Territory.TypePlayer.PLAYER)
+        if (selectedTerritory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
         {
             menuBlock.SetActive(false);
             MilitarBoss boss = selectedTerritory.MilitarBoss;
             territoryName.GetComponent<Text>().text = selectedTerritory.name;
             militaryBossName.GetComponent<Text>().text = "Nombre: " + boss.CharacterName;
-            //militaryBossPicture.GetComponent<Image>().sprite = Resources.Load<Sprite>("Textures/TemporalAssets/" + boss.CharacIcon + "/" + boss.);
-            //militaryBossPicture.GetComponent<Image>().sprite = Resources.Load<Sprite>("Textures/TemporalAssets/Military/02");
             militaryBossPicture.GetComponent<Image>().sprite = boss.Picture;
             militaryBossExperience.GetComponent<Text>().text = "Experiencia: " + boss.Experience;
             militaryBossEstrategy.GetComponent<Text>().text = "Estrategia: " + boss.StrategyLevel;
             militaryBossMilitary.GetComponent<Text>().text = "Influencia: " + boss.Influence;
-           
-
         }
         else
         {
             menuBlock.SetActive(true);
         }
-
-
-        
-        
-        
     }
     void Update()
     {
         Territory selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory;
-        militarWarriorsCount.GetComponent<Text>().text = "Tropas: " + selectedTerritory.GetPopulation().ToString() + "/ 100 guerreros";
+        militarWarriorsCount.GetComponent<Text>().text = "Tropas: " + selectedTerritory.Population.ToString() + "/ 100 guerreros";
+        UpdateResourceTable();
     }
-
 
     //move warriors
     public void MoveWarriorsButton()
@@ -77,8 +75,7 @@ public class InGameMenuHandler : MonoBehaviour
         foreach (GameObject t in TerritoryManager.instance.territoryList)
         {
             t.GetComponent<TerritoryHandler>().state = 2;
-        }
-            
+        }   
     }
 
     public void CloseWarriorsButton()
@@ -97,8 +94,6 @@ public class InGameMenuHandler : MonoBehaviour
             menuConfirm.SetActive(false);
             TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().ShowAdjacentTerritories();
         }
-        
-        
     }
 
     public void SendWarriors(TerritoryHandler selected, TerritoryHandler otherTerritory, int _warriorsNumber)
@@ -106,13 +101,13 @@ public class InGameMenuHandler : MonoBehaviour
         selected.territoryStats.population = selected.territoryStats.population - _warriorsNumber;
         warriorsPrefab.GetComponent<WarriorsMoving>().target = otherTerritory.gameObject;
         warriorsPrefab.GetComponent<WarriorsMoving>().warriorsNumber = _warriorsNumber;
-        warriorsPrefab.GetComponent<WarriorsMoving>().type = selected.territory.GetTypePlayer();
+        warriorsPrefab.GetComponent<WarriorsMoving>().type = selected.territory.TypePlayer;
         warriorsPrefab.transform.GetChild(0).GetComponent<TextMeshPro>().text = _warriorsNumber.ToString();
         Instantiate(warriorsPrefab, selected.transform.position , Quaternion.identity);
     }
-    public void MoveWarriors(TerritoryHandler otherTerritory, int _warriorsNumber, Territory.TypePlayer type)
+    public void MoveWarriors(TerritoryHandler otherTerritory, int _warriorsNumber, Territory.TYPEPLAYER type)
     {
-        if(otherTerritory.territory.GetTypePlayer() == type)
+        if(otherTerritory.territory.TypePlayer == type)
         {
             otherTerritory.territoryStats.population = otherTerritory.territoryStats.population + _warriorsNumber;
 
@@ -123,7 +118,7 @@ public class InGameMenuHandler : MonoBehaviour
             otherTerritory.territoryStats.population = otherTerritory.territoryStats.population - _warriorsNumber;
             if(survivors < 0)
             {
-                otherTerritory.territory.SetTypePlayer(type);
+                otherTerritory.territory.TypePlayer = type;
                 otherTerritory.territoryStats.population = otherTerritory.territoryStats.population * -1;
             }
         }

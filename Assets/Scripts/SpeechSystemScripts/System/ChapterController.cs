@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
+using System.IO;
 public class ChapterController : MonoBehaviour
 {
     List<string> data = new List<string>();
     int progress = 0;
     private string chapterName = GlobalVariables.instance.chapterTxt;
     public static ChapterController instance { get; private set;}
+    float timerCountDown = 0.8f;
+
     // ChapterPachacuti_start
     private void Start()
     {
@@ -16,15 +19,30 @@ public class ChapterController : MonoBehaviour
     }
     private void Update()
     {
+
+        if (timerCountDown>0)
+        {
+            timerCountDown -= Time.deltaTime;
+        }
+        else
+        {
+            HandleLine(data[progress]);
+            progress++;
+            timerCountDown = 0.8f;
+        }
+        /*
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             HandleLine(data[progress]);
             progress++;
         }
+        */
     }
     public void LoadChapterFile(string fileName)
     {
-        data = FileManager.LoadFile(FileManager.savPath + "Resources/Data/Dialogue/"+fileName);
+        //data = FileManager.LoadFile(FileManager.savPath + "Resources/Data/Dialogue/"+fileName);
+        string file = Resources.Load<TextAsset>("Data/Dialogue/" + fileName).text;
+        data = new List<string>(file.Split('\n'));
         progress = 0;
         cachedLastSpeaker = "";
     }

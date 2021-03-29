@@ -25,8 +25,6 @@ public class TerritoryHandler : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
      //   sprite.color = startColor;
         InstantiateStatTerritory();
-
-        
     }
     private void Start()
     {
@@ -50,12 +48,12 @@ public class TerritoryHandler : MonoBehaviour
 
 
         territoryStats = statsGO.GetComponent<TerritoryStats>();
-        territoryStats.InitalizeStats(territory.GetPopulation(), territory.GetVelocity());
+        territoryStats.InitalizeStats(territory);
     }
 
     private void PopulateTerritory()
     {
-        if (territory.GetTypePlayer() == Territory.TypePlayer.NONE)
+        if (territory.TypePlayer == Territory.TYPEPLAYER.NONE)
         {
             territoryStats.SetCanPopulate(false);
         }
@@ -63,46 +61,39 @@ public class TerritoryHandler : MonoBehaviour
         {
             territoryStats.SetCanPopulate(true);
         }
-        
     }
-
     private void Update()
     {
-        territory.SetStats(0, 0, territoryStats.population, territoryStats.velocity);
+        territory.SetStats(territoryStats);
         PopulateTerritory();
     }
     private void FixedUpdate()
     {
-        if(territory.GetTypePlayer() == Territory.TypePlayer.BOT)
+        if(territory.TypePlayer == Territory.TYPEPLAYER.BOT)
         {
             int prob = Random.Range(0, 401);
-            if (prob < 1 && this.territory.GetPopulation() > 2)
+            if (prob < 1 && this.territory.Population > 2)
             {
                 EnemyMoveWarriors();
             }
         }
-        
-
     }
 
     private void EnemyMoveWarriors()
     {
         int i = Random.Range(0, adjacentTerritories.Count);
-        int warriorsToSend = Random.Range(3, this.territory.GetPopulation());
+        int warriorsToSend = Random.Range(3, this.territory.Population);
         TerritoryHandler territoryToAttack = adjacentTerritories[i].GetComponent<TerritoryHandler>();
         InGameMenuHandler.instance.SendWarriors(this, territoryToAttack, warriorsToSend);
-
     }
-
 
     private void OnMouseEnter()
     {
         oldColor = sprite.color;
-        if (territory.GetTypePlayer() != Territory.TypePlayer.PLAYER)
+        if (territory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
         {
             sprite.color = hoverColor;
         } 
-        
     }
     private void OnMouseExit()
     {
@@ -124,9 +115,7 @@ public class TerritoryHandler : MonoBehaviour
                 break;
             case 2:
                 break;
-
         }
-        
     }
 
     private void OnDrawGizmos()
@@ -154,9 +143,6 @@ public class TerritoryHandler : MonoBehaviour
         sr.sortingOrder = -8;
         TerritoryManager.instance.territorySelected = this.gameObject;
         InGameMenuHandler.instance.UpdateMenu();
-        
-
-
     }
 
     public void ShowAdjacentTerritories()
