@@ -2,64 +2,94 @@
     "Characters":
     [
         {
-            "characterName": "Hakan Urpi",
+            "characterName": "Hakan",
             "age": "29",
             "origin": "Qosqo",
-            "campaign": "Incas" 
+            "campaign": "Incas",
+            "personality": "Serious",
+            "characIconType": "Emperor",
+            "characIconIndex": "01"
         },
         {
-            "characterName": "Illantay",
+            "characterName": "Pachacuti",
             "age": "18",
             "origin": "Qosqo",
-            "campaign": "Incas" 
+            "campaign": "Incas",
+            "personality": "Serious",
+            "characIconType": "Emperor",
+            "characIconIndex": "02"
         },
         {
             "characterName": "Umiña",
             "age": "30",
             "origin": "Qosqo",
-            "campaign": "Mayas" 
+            "campaign": "Mayas" ,
+            "personality": "Serious",
+            "characIconType": "Emperor",
+            "characIconIndex": "03"
         },
         {
             "characterName": "Hakan Urpi",
             "age": "29",
             "origin": "Qosqo",
-            "campaign": "Aztecas" 
+            "campaign": "Aztecas" ,
+            "personality": "Serious",
+            "characIconType": "Emperor",
+            "characIconIndex": "04"
         },
         {
             "characterName": "Illantay",
             "age": "29",
             "origin": "Qosqo",
-            "campaign": "Aztecas" 
+            "campaign": "Aztecas" ,
+            "personality": "Serious",
+            "characIconType": "Emperor",
+            "characIconIndex": "01"
         },
         {
             "characterName": "Illantay",
             "age": "18",
             "origin": "Qosqo",
-            "campaign": "Incas" 
+            "campaign": "Incas" ,
+            "personality": "Serious",
+            "characIconType": "Emperor",
+            "characIconIndex": "02"
         },
         {
             "characterName": "Umiña",
             "age": "30",
             "origin": "Qosqo",
-            "campaign": "Huari" 
+            "campaign": "Huari" ,
+            "personality": "Serious",
+            "characIconType": "Emperor",
+            "characIconIndex": "03"
         },
         {
             "characterName": "Illantay",
             "age": "18",
             "origin": "Qosqo",
-            "campaign": "Huari" 
+            "campaign": "Huari" ,
+            "personality": "Serious",
+            "characIconType": "Emperor",
+            "characIconIndex": "04"
         },
         {
             "characterName": "Umiña",
             "age": "30",
             "origin": "Qosqo",
-            "campaign": "Mayas" 
+            "campaign": "Mayas" ,
+            "personality": "Serious",
+            "characIconType": "Emperor",
+            "characIconIndex": "01"
         },
         {
             "characterName": "Hakan Urpi",
             "age": "29",
             "origin": "Qosqo",
-            "campaign": "Aztecas" 
+            "campaign": "Aztecas" ,
+            "personality": "Serious",
+            "characIconType": "Emperor",
+            "characIconIndex": "04"
         }
     ]
 }

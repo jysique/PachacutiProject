@@ -5,21 +5,34 @@ using UnityEngine;
 public class CharacterManager : MonoBehaviour
 {
     public static CharacterManager instance;
-    public List<MilitarBoss> militarBosses = new List<MilitarBoss>();
+    private MilitarBossList militarBossList = new MilitarBossList();
 
     private void Awake()
     {
         instance = this;
-        militarBosses.Add(new MilitarBoss("Illari Sami", "01", 35, "Inca", 0,"Agresivo","Agresivo","Diligente",10 ));
-        militarBosses.Add(new MilitarBoss("Killari Sami", "02", 30, "Inca",0, "Paciente", "Agresivo", "Maestro del terreno",20));
-        militarBosses.Add(new MilitarBoss("Asiri Sulay", "02", 30, "Inca", 0,"Diligente", " ", " ",14));
+        ReadJson("Data/Menu/MilitarBosses");
     }
     private void Start()
     {
         AudioManager.activeSong.Stop();
     }
-    public MilitarBoss GetMilitarBoss(int i)
+    public MilitarBossList MilitarBossList
     {
-        return militarBosses[i];
+        get{ return militarBossList; }
     }
+    void ReadJson(string route)
+    {
+        TextAsset asset = Resources.Load(route) as TextAsset;
+        if (asset != null)
+        {
+            militarBossList = JsonUtility.FromJson<MilitarBossList>(asset.text);
+            militarBossList.ChangueCharacIconType();
+        }
+        else
+        {
+            print("asset is null");
+        }
+    }
+
+
 }

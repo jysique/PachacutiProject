@@ -6,48 +6,13 @@ using UnityEngine;
 public class MilitarBoss : Subordinate
 {
 
-    private int experience;
-    private string strategyLevel;
-    public int Experience
-    {
-        get { return experience; }
-        set { experience = value; }
-    }
-
-    public string StrategyLevel
-    {
-        get { return strategyLevel; }
-        set { strategyLevel = value; }
-    }
-
-    public MilitarBoss(string _characName, string _characIconIndex, int _age, string _origin, int _exp, string _strat,string _influence, string _personality,int _opinion)
-    {
-        this.CharacIcon = "Military";
-        this.Picture = Resources.Load<Sprite>("Textures/TemporalAssets/"+CharacIcon+"/"+_characIconIndex);
-        this.CharacterName = _characName;
-        this.Age = _age;
-        this.Origin = _origin;
-        this.Personality = _personality;
-        this.Experience = _exp;
-        this.StrategyLevel = _strat;
-        this.Influence = _influence;
-        this.Opinion = _opinion;
-        this.CanElegible = true;
-        this.CanMove = false;
-    }
-    /*
-    [SerializeField] private string name;
-    [SerializeField] private Sprite picture;
-    //stats
     [SerializeField] private int experience;
-    [SerializeField] private int strategy;
-    [SerializeField] private int military;
+    [SerializeField] private string strategyType;
 
-
-    public string Name
+    private TYPESTRAT type;
+    public TYPESTRAT Type
     {
-        get { return name; }
-        set { name = value; }
+        get { return (MilitarBoss.TYPESTRAT)System.Enum.Parse(typeof(MilitarBoss.TYPESTRAT), StrategyType); }
     }
 
     public int Experience
@@ -56,24 +21,19 @@ public class MilitarBoss : Subordinate
         set { experience = value; }
     }
 
-    public int Strategy
+    public string StrategyType
     {
-        get { return strategy; }
-        set { strategy = value; }
+        get { return strategyType; }
+        set { strategyType = value; }
     }
 
-    public int Military
+    public enum TYPESTRAT
     {
-        get { return military; }
-        set { military = value; }
+        AGGRESSIVE,
+        TERRAIN_MASTER,
+        DEFENSIVE,
+        SACRED_WARRIOR,
+        SIEGE_EXPERT
     }
-
-    public Sprite Picture
-    {
-        get { return picture; }
-        set { picture = value; }
-    }
-    */
-
 
 }

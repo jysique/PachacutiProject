@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[System.Serializable]
 public class Subordinate : Character
 {
-    private string influence;
-    private int opinion;
-    private string characIcon;
+    [SerializeField] private string influence;
+    [SerializeField] private int opinion;
+    
     public string Influence
     {
         get { return influence; }
@@ -16,10 +16,5 @@ public class Subordinate : Character
     {
         get { return opinion; }
         set { opinion = value; }
-    }
-    public string CharacIcon
-    {
-        get { return characIcon; }
-        set { characIcon = value; }
     }
 }

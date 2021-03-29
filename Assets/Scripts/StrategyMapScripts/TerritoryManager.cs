@@ -34,7 +34,7 @@ public class TerritoryManager : MonoBehaviour
             TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
             if (territoryHandler.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
             {
-                territoryHandler.territory.MilitarBoss = CharacterManager.instance.militarBosses[a];
+                territoryHandler.territory.MilitarBoss = CharacterManager.instance.MilitarBossList.GetCharacter(a);
                 a++;
             }
 
@@ -103,38 +103,36 @@ public class TerritoryManager : MonoBehaviour
     void Update()
     {
         TintTerritory();
-        CountTerrytorry();
+        ConditionEndChapter();
     }
 
-    void CountTerrytorry()
+    public int CountTerrytorry(Territory.TYPEPLAYER type)
     {
-        int tBot = 0;
-        int tPlayer = 0;
+        int count = 0 ;
         for (int i = 0; i < territoryList.Count; i++)
         {
             int index = i;
             TerritoryHandler territoryHandler = territoryList[index].GetComponent<TerritoryHandler>();
-            if (territoryHandler.territory.TypePlayer == Territory.TYPEPLAYER.BOT)
+            if (territoryHandler.territory.TypePlayer == type)
             {
-                tBot++;
-            }else if (territoryHandler.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
-            {
-                tPlayer++;
+               count++;
             }
         }
-        ConditionEndChapter(tBot, tPlayer);
+        return count;
     }
-    void ConditionEndChapter(int a, int b)
+    void ConditionEndChapter()
     {
-        if (a == territoryList.Count)
+        int playerCount = CountTerrytorry(Territory.TYPEPLAYER.PLAYER);
+        int botCount = CountTerrytorry(Territory.TYPEPLAYER.BOT);
+        if (playerCount == territoryList.Count)
         {
-            GlobalVariables.instance.chapterTxt = "ChapterPachacuti_lose";
+            GlobalVariables.instance.GetChapterTxt("lose");
             SceneManager.LoadScene("VisualNovelScene");
         }
-        else if (b == territoryList.Count)
+        else if (botCount == territoryList.Count)
         {
             print("ganaste");
-            GlobalVariables.instance.chapterTxt = "ChapterPachacuti_win";
+            GlobalVariables.instance.GetChapterTxt("win");
             SceneManager.LoadScene("VisualNovelScene");
         }
     }

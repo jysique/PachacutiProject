@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/(2)StrategyMap.unity
     guid: 3cf1cdf9ed29c4b449f4f2d582ad4146
+  - enabled: 0
+    path: Assets/Scenes/Copy Pruebas Diego.unity
+    guid: 9d42ba36052ed844284ae5803b0e126a
   m_configObjects: {}

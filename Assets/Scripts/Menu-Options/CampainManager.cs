@@ -34,12 +34,11 @@ public class CampainManager : MonoBehaviour
         string[] temp = buttonList[index].name.Split(char.Parse("B"));
         campainSelected = temp[0];
         print(campainSelected);
-        ReadJson();
+        ReadJson("Data/Menu/Characters");
     }
-
-    void ReadJson()
+    void ReadJson(string route)
     {
-        TextAsset asset = Resources.Load("Data/Menu/Characters") as TextAsset;
+        TextAsset asset = Resources.Load(route) as TextAsset;
         if (asset != null)
         {
             characterList = JsonUtility.FromJson<CharacterList>(asset.text);
@@ -58,6 +57,8 @@ public class CampainManager : MonoBehaviour
             {
                 GameObject characterOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/CharacterOption")) as GameObject;
                 characterOption.transform.SetParent(gridLayout.transform, false);
+                characterOption.name = charac.CharacterName;
+                characterOption.transform.Find("Character/ImageCharacter").gameObject.GetComponent<Image>().sprite = charac.Picture;
                 characterOption.transform.Find("Character/TextBackground/NameCharacter").gameObject.GetComponent<Text>().text = charac.CharacterName;
                 characterOption.transform.Find("Description/OrigenCharacter").gameObject.GetComponent<Text>().text = charac.Origin;
                 characterOption.transform.Find("Description/AgeCharacter").gameObject.GetComponent<Text>().text = charac.Age.ToString();

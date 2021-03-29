@@ -5,7 +5,8 @@ using UnityEngine;
 public class GlobalVariables : MonoBehaviour
 {
     public static GlobalVariables instance { get; private set; }
-    public string chapterTxt;
+
+    public string characterChoosen;
 
     private void Awake()
     {
@@ -19,5 +20,8 @@ public class GlobalVariables : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    public string GetChapterTxt(string action)
+    {
+        return "Chapter" + characterChoosen + "_" + action;
+    }
 }
