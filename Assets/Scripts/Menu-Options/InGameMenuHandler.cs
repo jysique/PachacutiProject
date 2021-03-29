@@ -28,7 +28,7 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private Text goldGenerated;
     [SerializeField] private Text foodGenerated;
     //perfil menu
-
+    
 
     private void Awake()
     {

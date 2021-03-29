@@ -420,8 +420,8 @@ MonoBehaviour:
     tribe: 0
     typePlayer: 2
     population: 2
-    gold: 0
-    food: 0
+    gold: 10
+    food: 5
     velocityPopulation: 1
     velocityGold: 1
     velocityFood: 1
@@ -659,8 +659,8 @@ MonoBehaviour:
     tribe: 0
     typePlayer: 2
     population: 2
-    gold: 0
-    food: 0
+    gold: 10
+    food: 5
     velocityPopulation: 1
     velocityGold: 1
     velocityFood: 1
@@ -1371,8 +1371,8 @@ MonoBehaviour:
     tribe: 0
     typePlayer: 2
     population: 2
-    gold: 0
-    food: 0
+    gold: 10
+    food: 5
     velocityPopulation: 1
     velocityGold: 1
     velocityFood: 1
@@ -2342,8 +2342,8 @@ MonoBehaviour:
     tribe: 0
     typePlayer: 1
     population: 2
-    gold: 0
-    food: 0
+    gold: 10
+    food: 5
     velocityPopulation: 2
     velocityGold: 1
     velocityFood: 1
@@ -4450,8 +4450,8 @@ MonoBehaviour:
     tribe: 0
     typePlayer: 0
     population: 4
-    gold: 0
-    food: 0
+    gold: 10
+    food: 5
     velocityPopulation: 0.4
     velocityGold: 1
     velocityFood: 1
@@ -5009,8 +5009,8 @@ MonoBehaviour:
     tribe: 0
     typePlayer: 2
     population: 3
-    gold: 0
-    food: 0
+    gold: 10
+    food: 5
     velocityPopulation: 1
     velocityGold: 1
     velocityFood: 1
@@ -6176,8 +6176,8 @@ MonoBehaviour:
     tribe: 0
     typePlayer: 0
     population: 3
-    gold: 0
-    food: 0
+    gold: 10
+    food: 5
     velocityPopulation: 0.4
     velocityGold: 1
     velocityFood: 1
@@ -7711,8 +7711,8 @@ MonoBehaviour:
     tribe: 0
     typePlayer: 2
     population: 2
-    gold: 0
-    food: 0
+    gold: 10
+    food: 5
     velocityPopulation: 1
     velocityGold: 1
     velocityFood: 1
@@ -8170,7 +8170,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.017516987, y: 0.27266946}
   m_AnchorMax: {x: 0.97900003, y: 0.44868615}
-  m_AnchoredPosition: {x: 0.8947449, y: -20.200014}
+  m_AnchoredPosition: {x: 0.8947449, y: -20.200022}
   m_SizeDelta: {x: -0.11000061, y: -0.12000275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1930296017
@@ -8486,7 +8486,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.035, y: 0.27266946}
   m_AnchorMax: {x: 0.97900003, y: 0.44868615}
-  m_AnchoredPosition: {x: 0.8947449, y: -20.200014}
+  m_AnchoredPosition: {x: 0.8947449, y: -20.200022}
   m_SizeDelta: {x: -0.11000061, y: -0.12000275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2009738170
