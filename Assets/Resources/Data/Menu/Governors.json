@@ -1,5 +1,5 @@
 {
-    "Characters":
+    "Governors":
     [
         {
             "characterName": "Hakan",
@@ -8,7 +8,13 @@
             "campaign": "Incas",
             "personality": "Serious",
             "characIconType": "Emperor",
-            "characIconIndex": "01"
+            "characIconIndex": "01",
+
+            "diplomacy":"10",
+            "militancy":"12",
+            "managment":"13",
+            "prestige":"14",
+            "piety":"17"
         },
         {
             "characterName": "Pachacuti",
@@ -17,7 +23,13 @@
             "campaign": "Incas",
             "personality": "Serious",
             "characIconType": "Emperor",
-            "characIconIndex": "02"
+            "characIconIndex": "02",
+                        
+            "diplomacy":"11",
+            "militancy":"12",
+            "managment":"13",
+            "prestige":"12",
+            "piety":"16"
         },
         {
             "characterName": "Umiña",
@@ -26,7 +38,13 @@
             "campaign": "Mayas" ,
             "personality": "Serious",
             "characIconType": "Emperor",
-            "characIconIndex": "03"
+            "characIconIndex": "03",
+                        
+            "diplomacy":"20",
+            "militancy":"12",
+            "managment":"3",
+            "prestige":"4",
+            "piety":"1"
         },
         {
             "characterName": "Hakan Urpi",
@@ -35,7 +53,13 @@
             "campaign": "Aztecas" ,
             "personality": "Serious",
             "characIconType": "Emperor",
-            "characIconIndex": "04"
+            "characIconIndex": "04",
+                        
+            "diplomacy":"20",
+            "militancy":"12",
+            "managment":"3",
+            "prestige":"4",
+            "piety":"1"
         },
         {
             "characterName": "Illantay",
@@ -44,7 +68,13 @@
             "campaign": "Aztecas" ,
             "personality": "Serious",
             "characIconType": "Emperor",
-            "characIconIndex": "01"
+            "characIconIndex": "01",
+                        
+            "diplomacy":"",
+            "militancy":"",
+            "managment":"",
+            "prestige":"",
+            "piety":""
         },
         {
             "characterName": "Illantay",
@@ -53,7 +83,13 @@
             "campaign": "Incas" ,
             "personality": "Serious",
             "characIconType": "Emperor",
-            "characIconIndex": "02"
+            "characIconIndex": "02",
+                        
+            "diplomacy":"",
+            "militancy":"",
+            "managment":"",
+            "prestige":"",
+            "piety":""
         },
         {
             "characterName": "Umiña",
@@ -62,7 +98,13 @@
             "campaign": "Huari" ,
             "personality": "Serious",
             "characIconType": "Emperor",
-            "characIconIndex": "03"
+            "characIconIndex": "03",
+                        
+            "diplomacy":"",
+            "militancy":"",
+            "managment":"",
+            "prestige":"",
+            "piety":""
         },
         {
             "characterName": "Illantay",
@@ -71,7 +113,13 @@
             "campaign": "Huari" ,
             "personality": "Serious",
             "characIconType": "Emperor",
-            "characIconIndex": "04"
+            "characIconIndex": "04",
+                        
+            "diplomacy":"",
+            "militancy":"",
+            "managment":"",
+            "prestige":"",
+            "piety":""
         },
         {
             "characterName": "Umiña",
@@ -80,7 +128,13 @@
             "campaign": "Mayas" ,
             "personality": "Serious",
             "characIconType": "Emperor",
-            "characIconIndex": "01"
+            "characIconIndex": "01",
+                        
+            "diplomacy":"",
+            "militancy":"",
+            "managment":"",
+            "prestige":"",
+            "piety":""
         },
         {
             "characterName": "Hakan Urpi",
@@ -89,7 +143,13 @@
             "campaign": "Aztecas" ,
             "personality": "Serious",
             "characIconType": "Emperor",
-            "characIconIndex": "04"
+            "characIconIndex": "04",
+                        
+            "diplomacy":"",
+            "militancy":"",
+            "managment":"",
+            "prestige":"",
+            "piety":""
         }
     ]
 }

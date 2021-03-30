@@ -6,6 +6,7 @@ public class CharacterManager : MonoBehaviour
 {
     public static CharacterManager instance;
     private MilitarBossList militarBossList = new MilitarBossList();
+    private Governor governor= new Governor();
 
     private void Awake()
     {
@@ -14,6 +15,7 @@ public class CharacterManager : MonoBehaviour
     }
     private void Start()
     {
+        governor = GlobalVariables.instance.governorChoosen;
         AudioManager.activeSong.Stop();
     }
     public MilitarBossList MilitarBossList
