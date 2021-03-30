@@ -514,6 +514,13 @@ MonoBehaviour:
       age: 0
       origin: 
       campaign: 
+      personality: 
+      characIconType: 
+      characIconIndex: 
+      influence: 
+      opinion: 0
+      experience: 0
+      strategyType: 
   adjacentTerritories:
   - {fileID: 159676226}
   - {fileID: 307706982}
@@ -753,6 +760,13 @@ MonoBehaviour:
       age: 0
       origin: 
       campaign: 
+      personality: 
+      characIconType: 
+      characIconIndex: 
+      influence: 
+      opinion: 0
+      experience: 0
+      strategyType: 
   adjacentTerritories:
   - {fileID: 1579967406}
   - {fileID: 307706982}
@@ -1125,6 +1139,8 @@ MonoBehaviour:
   warriorsCount: {fileID: 586236255}
   goldGenerated: {fileID: 1360532989}
   foodGenerated: {fileID: 1311868095}
+  susecionSizeTxt: {fileID: 880326054}
+  scoreTxt: {fileID: 680872032}
 --- !u!1 &208564708
 GameObject:
   m_ObjectHideFlags: 0
@@ -1711,6 +1727,13 @@ MonoBehaviour:
       age: 0
       origin: 
       campaign: 
+      personality: 
+      characIconType: 
+      characIconIndex: 
+      influence: 
+      opinion: 0
+      experience: 0
+      strategyType: 
   adjacentTerritories:
   - {fileID: 1579967406}
   - {fileID: 159676226}
@@ -2242,7 +2265,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.017516987, y: 0.27266946}
   m_AnchorMax: {x: 0.97900003, y: 0.44868615}
-  m_AnchoredPosition: {x: 0.8947449, y: -40.699886}
+  m_AnchoredPosition: {x: 0.8947449, y: -40.699863}
   m_SizeDelta: {x: -0.11000061, y: -0.12000275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &357381336
@@ -3184,7 +3207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
+  outlineMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
     name: Cuyucusi
@@ -3202,6 +3225,13 @@ MonoBehaviour:
       age: 0
       origin: 
       campaign: 
+      personality: 
+      characIconType: 
+      characIconIndex: 
+      influence: 
+      opinion: 0
+      experience: 0
+      strategyType: 
   adjacentTerritories:
   - {fileID: 1369924673}
   territoryStats: {fileID: 0}
@@ -7446,6 +7476,13 @@ MonoBehaviour:
       age: 0
       origin: 
       campaign: 
+      personality: 
+      characIconType: 
+      characIconIndex: 
+      influence: 
+      opinion: 0
+      experience: 0
+      strategyType: 
   adjacentTerritories:
   - {fileID: 1579967406}
   - {fileID: 307706982}
@@ -8033,7 +8070,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
+  outlineMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
     name: map_8
@@ -8051,6 +8088,13 @@ MonoBehaviour:
       age: 0
       origin: 
       campaign: 
+      personality: 
+      characIconType: 
+      characIconIndex: 
+      influence: 
+      opinion: 0
+      experience: 0
+      strategyType: 
   adjacentTerritories:
   - {fileID: 569655799}
   - {fileID: 1876515186}
@@ -9509,6 +9553,13 @@ MonoBehaviour:
       age: 0
       origin: 
       campaign: 
+      personality: 
+      characIconType: 
+      characIconIndex: 
+      influence: 
+      opinion: 0
+      experience: 0
+      strategyType: 
   adjacentTerritories:
   - {fileID: 1253989285}
   - {fileID: 159676226}
@@ -11664,7 +11715,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
+  outlineMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
     name: map_7
@@ -11682,6 +11733,13 @@ MonoBehaviour:
       age: 0
       origin: 
       campaign: 
+      personality: 
+      characIconType: 
+      characIconIndex: 
+      influence: 
+      opinion: 0
+      experience: 0
+      strategyType: 
   adjacentTerritories:
   - {fileID: 159676226}
   - {fileID: 120574840}
@@ -13236,7 +13294,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.762, y: 0.8607776}
   m_AnchorMax: {x: 0.9645092, y: 0.92700005}
-  m_AnchoredPosition: {x: 0, y: -0.019989014}
+  m_AnchoredPosition: {x: 0, y: -0.019958496}
   m_SizeDelta: {x: -1, y: -1.6600037}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2005682104
@@ -13542,7 +13600,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30e3f347544f2064c894a20ba2307df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  militarBosses: []
 --- !u!4 &2046235977
 Transform:
   m_ObjectHideFlags: 0

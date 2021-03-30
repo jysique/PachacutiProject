@@ -28,7 +28,7 @@ public class WarriorsMoving : MonoBehaviour
         warriorsNumber = _warriorsNumber;
         type = _type;
         mb = _mb;
-        militaryBossStrategy = _mb.StrategyType;
+        militaryBossStrategy = _mb.Type;
         militaryBossExperience = _mb.Experience;
         
         switch (militaryBossStrategy)

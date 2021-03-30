@@ -5,13 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class MilitarBoss : Subordinate
 {
-    public enum TYPESTRAT
-    {
-        AGGRESSIVE,
-        TERRAIN_MASTER,
-        DEFENSIVE,
-        SACRED_WARRIOR,
-        SIEGE_EXPERT
 
     [SerializeField] private int experience;
     [SerializeField] private string strategyType;
