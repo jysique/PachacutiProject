@@ -1,0 +1,5 @@
+setBackground(forest,false,1) playMusic(PeacefulForest)
+
+Hakan "Hemos perdido " 
+
+changeScene(0)

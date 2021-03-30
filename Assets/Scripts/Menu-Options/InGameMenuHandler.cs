@@ -27,8 +27,10 @@ public class InGameMenuHandler : MonoBehaviour
     [Header("Recursos")]
     [SerializeField] private Text goldGenerated;
     [SerializeField] private Text foodGenerated;
+    [SerializeField] private Text susecionSizeTxt;
+    [SerializeField] private Text scoreTxt;
     //perfil menu
-    
+
 
     private void Awake()
     {
@@ -39,6 +41,8 @@ public class InGameMenuHandler : MonoBehaviour
     {
         goldGenerated.text = TerritoryManager.instance.GetGolds(Territory.TYPEPLAYER.PLAYER).ToString();
         foodGenerated.text = TerritoryManager.instance.GetFood(Territory.TYPEPLAYER.PLAYER).ToString();
+        susecionSizeTxt.text = "0";
+        scoreTxt.text = TerritoryManager.instance.CountTerrytorry(Territory.TYPEPLAYER.PLAYER).ToString();
     }
     public void UpdateMenu()
     {
@@ -52,7 +56,7 @@ public class InGameMenuHandler : MonoBehaviour
             militaryBossName.GetComponent<Text>().text = "Nombre: " + boss.CharacterName;
             militaryBossPicture.GetComponent<Image>().sprite = boss.Picture;
             militaryBossExperience.GetComponent<Text>().text = "Experiencia: " + boss.Experience;
-            militaryBossEstrategy.GetComponent<Text>().text = "Estrategia: " + boss.StrategyType;
+            militaryBossEstrategy.GetComponent<Text>().text = "Estrategia: " + boss.Type;
             militaryBossMilitary.GetComponent<Text>().text = "Influencia: " + boss.Influence;
         }
         else

@@ -8,7 +8,7 @@ public class ChapterController : MonoBehaviour
 {
     List<string> data = new List<string>();
     int progress = 0;
-    private string chapterName = GlobalVariables.instance.chapterTxt;
+    private string chapterName = GlobalVariables.instance.GetChapterTxt("start");
     public static ChapterController instance { get; private set;}
     float timerCountDown = 0.8f;
 
@@ -30,17 +30,9 @@ public class ChapterController : MonoBehaviour
             progress++;
             timerCountDown = 0.8f;
         }
-        /*
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            HandleLine(data[progress]);
-            progress++;
-        }
-        */
     }
     public void LoadChapterFile(string fileName)
     {
-        //data = FileManager.LoadFile(FileManager.savPath + "Resources/Data/Dialogue/"+fileName);
         string file = Resources.Load<TextAsset>("Data/Dialogue/" + fileName).text;
         data = new List<string>(file.Split('\n'));
         progress = 0;

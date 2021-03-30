@@ -5,25 +5,27 @@ using UnityEngine;
 [System.Serializable]
 public class Character
 {
-
-
     [SerializeField] private string characterName;
     [SerializeField] private int age;
     [SerializeField] private string origin;
     [SerializeField] private string campaign;
-    private string personality;
+    [SerializeField] private string personality;
+    [SerializeField] private string characIconType;
+    [SerializeField] private string characIconIndex;
     private Sprite picture;
     private bool canElegible;
     private bool canMove;
-    
+
+    public Character()
+    {
+
+    }
     public Sprite Picture 
     { 
-        get { return picture; }
+        get { return Resources.Load<Sprite>("Textures/TemporalAssets/" + characIconType + "/" + characIconIndex); }
         set { picture = value; }
     }
-    
-
-    public string CharacterName 
+    public string CharacterName
     { 
         get { return characterName; }   
         set {characterName = value; }
@@ -57,5 +59,15 @@ public class Character
     {
         get { return canMove; }
         set { canMove = value; }
+    }
+    public string CharacIconType
+    {
+        get { return characIconType; }
+        set { characIconType = value; }
+    }
+    public string CharacIconIndex
+    {
+        get { return characIconIndex; }
+        set { characIconIndex = value; }
     }
 }

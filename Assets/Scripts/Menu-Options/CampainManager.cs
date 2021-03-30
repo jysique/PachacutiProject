@@ -10,9 +10,15 @@ public class CampainManager : MonoBehaviour
     private Button[] buttonList;
     [SerializeField] private Button backBtn;
     [SerializeField] private GameObject gridLayout;
-    [SerializeField] private CharacterList characterList = new CharacterList();
+
+    //[SerializeField] private CharacterList characterList = new CharacterList();
+    private GovernorList governorList = new GovernorList();
     private List<GameObject> characterOptions = new List<GameObject>();
 
+    public GovernorList GovernorList
+    {
+        get { return governorList; }
+    }
     public void Awake()
     {
         instance = this;
@@ -33,16 +39,14 @@ public class CampainManager : MonoBehaviour
     {
         string[] temp = buttonList[index].name.Split(char.Parse("B"));
         campainSelected = temp[0];
-        print(campainSelected);
-        ReadJson();
+        ReadJson("Data/Menu/Governors");
     }
-
-    void ReadJson()
+    void ReadJson(string route)
     {
-        TextAsset asset = Resources.Load("Data/Menu/Characters") as TextAsset;
+        TextAsset asset = Resources.Load(route) as TextAsset;
         if (asset != null)
         {
-            characterList = JsonUtility.FromJson<CharacterList>(asset.text);
+            governorList = JsonUtility.FromJson<GovernorList>(asset.text);
             InstantiateCharacterOption();
         }
         else
@@ -52,16 +56,19 @@ public class CampainManager : MonoBehaviour
     }
     void InstantiateCharacterOption()
     {
-        foreach (Character charac in characterList.Characters)
+        foreach (Governor charac in governorList.Governors)
         {
             if (charac.Campaign == campainSelected)
             {
                 GameObject characterOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/CharacterOption")) as GameObject;
                 characterOption.transform.SetParent(gridLayout.transform, false);
+                characterOption.name = charac.CharacterName;
+                characterOption.transform.Find("Character/ImageCharacter").gameObject.GetComponent<Image>().sprite = charac.Picture;
                 characterOption.transform.Find("Character/TextBackground/NameCharacter").gameObject.GetComponent<Text>().text = charac.CharacterName;
                 characterOption.transform.Find("Description/OrigenCharacter").gameObject.GetComponent<Text>().text = charac.Origin;
                 characterOption.transform.Find("Description/AgeCharacter").gameObject.GetComponent<Text>().text = charac.Age.ToString();
                 characterOption.transform.Find("Description/CampainCharacter").gameObject.GetComponent<Text>().text = charac.Campaign;
+                characterOption.transform.Find("Description/StatsCharacter").gameObject.GetComponent<Text>().text = charac.Diplomacy + " | " + charac.Militancy + " | " + charac.Managment + " | " + charac.Prestige + " | " + charac.Piety;
                 characterOptions.Add(characterOption);
             }
         }

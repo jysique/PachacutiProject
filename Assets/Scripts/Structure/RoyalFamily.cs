@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class RoyalFamily : Character
 {
-    private int diplomacy;
-    private int militancy;
-    private int managment;
-    private int prestige;
-    private int piety;
+    [SerializeField]private int diplomacy;
+    [SerializeField]private int militancy;
+    [SerializeField]private int managment;
+    [SerializeField]private int prestige;
+    [SerializeField]private int piety;
 
     public int Diplomacy
     {
