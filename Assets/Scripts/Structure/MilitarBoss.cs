@@ -5,22 +5,30 @@ using UnityEngine;
 [System.Serializable]
 public class MilitarBoss : Subordinate
 {
+    public enum TYPESTRAT
+    {
+        AGGRESSIVE,
+        TERRAIN_MASTER,
+        DEFENSIVE,
+        SACRED_WARRIOR,
+        SIEGE_EXPERT
 
+    }
     private int experience;
-    private string strategyLevel;
+    private TYPESTRAT strategyType;
     public int Experience
     {
         get { return experience; }
         set { experience = value; }
     }
 
-    public string StrategyLevel
+    public TYPESTRAT StrategyType
     {
-        get { return strategyLevel; }
-        set { strategyLevel = value; }
+        get { return strategyType; }
+        set { strategyType = value; }
     }
 
-    public MilitarBoss(string _characName, string _characIconIndex, int _age, string _origin, int _exp, string _strat,string _influence, string _personality,int _opinion)
+    public MilitarBoss(string _characName, string _characIconIndex, int _age, string _origin, int _exp, int _strat,string _influence, string _personality,int _opinion)
     {
         this.CharacIcon = "Military";
         this.Picture = Resources.Load<Sprite>("Textures/TemporalAssets/"+CharacIcon+"/"+_characIconIndex);
@@ -29,11 +37,31 @@ public class MilitarBoss : Subordinate
         this.Origin = _origin;
         this.Personality = _personality;
         this.Experience = _exp;
-        this.StrategyLevel = _strat;
+        
         this.Influence = _influence;
         this.Opinion = _opinion;
         this.CanElegible = true;
         this.CanMove = false;
+
+        switch (_strat)
+        {
+            case 0:
+                strategyType = TYPESTRAT.AGGRESSIVE;
+                break;
+            case 1:
+                strategyType = TYPESTRAT.DEFENSIVE;
+                break;
+            case 2:
+                strategyType = TYPESTRAT.SACRED_WARRIOR;
+                break;
+            case 3:
+                strategyType = TYPESTRAT.SIEGE_EXPERT;
+                break;
+            case 4:
+                strategyType = TYPESTRAT.TERRAIN_MASTER;
+                break;
+        }
+
     }
     /*
     [SerializeField] private string name;

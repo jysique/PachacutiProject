@@ -10,9 +10,9 @@ public class CharacterManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        militarBosses.Add(new MilitarBoss("Illari Sami", "01", 35, "Inca", 0,"Agresivo","Agresivo","Diligente",10 ));
-        militarBosses.Add(new MilitarBoss("Killari Sami", "02", 30, "Inca",0, "Paciente", "Agresivo", "Maestro del terreno",20));
-        militarBosses.Add(new MilitarBoss("Asiri Sulay", "02", 30, "Inca", 0,"Diligente", " ", " ",14));
+        militarBosses.Add(new MilitarBoss("Illari Sami", "01", 35, "Inca", 0,0,"Agresivo"," ",10 ));
+        militarBosses.Add(new MilitarBoss("Killari Sami", "02", 30, "Inca",0, 1, "Agresivo", " ",20));
+        militarBosses.Add(new MilitarBoss("Asiri Sulay", "02", 30, "Inca", 0,2, " ", " ",14));
     }
     private void Start()
     {

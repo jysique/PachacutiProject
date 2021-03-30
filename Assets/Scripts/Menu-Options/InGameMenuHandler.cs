@@ -52,7 +52,7 @@ public class InGameMenuHandler : MonoBehaviour
             militaryBossName.GetComponent<Text>().text = "Nombre: " + boss.CharacterName;
             militaryBossPicture.GetComponent<Image>().sprite = boss.Picture;
             militaryBossExperience.GetComponent<Text>().text = "Experiencia: " + boss.Experience;
-            militaryBossEstrategy.GetComponent<Text>().text = "Estrategia: " + boss.StrategyLevel;
+            militaryBossEstrategy.GetComponent<Text>().text = "Estrategia: " + boss.StrategyType;
             militaryBossMilitary.GetComponent<Text>().text = "Influencia: " + boss.Influence;
         }
         else
@@ -99,23 +99,21 @@ public class InGameMenuHandler : MonoBehaviour
     public void SendWarriors(TerritoryHandler selected, TerritoryHandler otherTerritory, int _warriorsNumber)
     {
         selected.territoryStats.population = selected.territoryStats.population - _warriorsNumber;
-        warriorsPrefab.GetComponent<WarriorsMoving>().target = otherTerritory.gameObject;
-        warriorsPrefab.GetComponent<WarriorsMoving>().warriorsNumber = _warriorsNumber;
-        warriorsPrefab.GetComponent<WarriorsMoving>().type = selected.territory.TypePlayer;
-        warriorsPrefab.transform.GetChild(0).GetComponent<TextMeshPro>().text = _warriorsNumber.ToString();
+        warriorsPrefab.GetComponent<WarriorsMoving>().SetAttack(otherTerritory.gameObject, 1, _warriorsNumber, selected.territory.TypePlayer, selected.territory.MilitarBoss);
         Instantiate(warriorsPrefab, selected.transform.position , Quaternion.identity);
     }
-    public void MoveWarriors(TerritoryHandler otherTerritory, int _warriorsNumber, Territory.TYPEPLAYER type)
+    public void MoveWarriors(TerritoryHandler otherTerritory, int attackPower, Territory.TYPEPLAYER type)
     {
-        if(otherTerritory.territory.TypePlayer == type)
+   
+        if (otherTerritory.territory.TypePlayer == type)
         {
-            otherTerritory.territoryStats.population = otherTerritory.territoryStats.population + _warriorsNumber;
+            otherTerritory.territoryStats.population = otherTerritory.territoryStats.population + attackPower;
 
         }
         else
         {
-            int survivors = otherTerritory.territoryStats.population - _warriorsNumber;
-            otherTerritory.territoryStats.population = otherTerritory.territoryStats.population - _warriorsNumber;
+            int survivors = otherTerritory.territoryStats.population - attackPower;
+            otherTerritory.territoryStats.population = otherTerritory.territoryStats.population - attackPower;
             if(survivors < 0)
             {
                 otherTerritory.territory.TypePlayer = type;
