@@ -10,16 +10,16 @@ public class GlobalVariables : MonoBehaviour
     public Governor governorChoosen;
     private void Awake()
     {
-        governorChoosen = new Governor();
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
+
     }
     public Governor GovernorChoose
     {
@@ -30,5 +30,6 @@ public class GlobalVariables : MonoBehaviour
     {
         string characterChoosen = governorChoosen.CharacterName;
         return "Chapter" + characterChoosen + "_" + action;
+        
     }
 }

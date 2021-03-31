@@ -8,13 +8,23 @@ public class ChapterController : MonoBehaviour
 {
     List<string> data = new List<string>();
     int progress = 0;
-    private string chapterName = GlobalVariables.instance.GetChapterTxt("start");
+    private string chapterName;
     public static ChapterController instance { get; private set;}
     float timerCountDown = 0.8f;
 
     // ChapterPachacuti_start
     private void Start()
     {
+        if (GlobalVariables.instance == null)
+        {
+            // DEFINIENDO UN CHAPTER ESTABLECIDO
+            // PARA LA ESCENA
+            chapterName = "ChapterPachacuti_start"; 
+        }
+        else
+        {
+            chapterName = GlobalVariables.instance.GetChapterTxt("start");
+        }
         LoadChapterFile(chapterName);
     }
     private void Update()
@@ -171,7 +181,14 @@ public class ChapterController : MonoBehaviour
         AudioClip clip = Resources.Load("Audio/Music/" + data) as AudioClip;
         if (clip != null)
         {
-            AudioManager.instance.PlaySong(clip);
+            if (AudioManager.instance != null)
+            {
+                AudioManager.instance.PlaySong(clip);
+            }
+            else
+            {
+                Debug.Log("No audio manager ");
+            }
         }
         else
         {
