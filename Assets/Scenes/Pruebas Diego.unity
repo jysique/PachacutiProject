@@ -505,6 +505,7 @@ MonoBehaviour:
     population: 2
     gold: 0
     food: 0
+    limitPopulation: 0
     velocityPopulation: 0
     velocityGold: 0
     velocityFood: 0
@@ -751,6 +752,7 @@ MonoBehaviour:
     population: 2
     gold: 0
     food: 0
+    limitPopulation: 0
     velocityPopulation: 0
     velocityGold: 0
     velocityFood: 0
@@ -1139,7 +1141,7 @@ MonoBehaviour:
   warriorsCount: {fileID: 586236255}
   goldGenerated: {fileID: 1360532989}
   foodGenerated: {fileID: 1311868095}
-  susecionSizeTxt: {fileID: 880326054}
+  sucesionSizeTxt: {fileID: 880326054}
   scoreTxt: {fileID: 680872032}
 --- !u!1 &208564708
 GameObject:
@@ -1718,6 +1720,7 @@ MonoBehaviour:
     population: 2
     gold: 0
     food: 0
+    limitPopulation: 0
     velocityPopulation: 0
     velocityGold: 0
     velocityFood: 0
@@ -2265,7 +2268,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.017516987, y: 0.27266946}
   m_AnchorMax: {x: 0.97900003, y: 0.44868615}
-  m_AnchoredPosition: {x: 0.8947449, y: -40.699863}
+  m_AnchoredPosition: {x: 0.8947449, y: -40.69986}
   m_SizeDelta: {x: -0.11000061, y: -0.12000275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &357381336
@@ -3216,6 +3219,7 @@ MonoBehaviour:
     population: 2
     gold: 0
     food: 0
+    limitPopulation: 0
     velocityPopulation: 0
     velocityGold: 0
     velocityFood: 0
@@ -6124,7 +6128,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &932356896
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7467,6 +7471,7 @@ MonoBehaviour:
     population: 4
     gold: 0
     food: 0
+    limitPopulation: 0
     velocityPopulation: 0
     velocityGold: 0
     velocityFood: 0
@@ -8079,6 +8084,7 @@ MonoBehaviour:
     population: 3
     gold: 0
     food: 0
+    limitPopulation: 0
     velocityPopulation: 0
     velocityGold: 0
     velocityFood: 0
@@ -9544,6 +9550,7 @@ MonoBehaviour:
     population: 3
     gold: 0
     food: 0
+    limitPopulation: 0
     velocityPopulation: 1
     velocityGold: 1
     velocityFood: 1
@@ -11403,7 +11410,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.017516987, y: 0.27266946}
   m_AnchorMax: {x: 0.97900003, y: 0.44868615}
-  m_AnchoredPosition: {x: 0.8947449, y: -20.200008}
+  m_AnchoredPosition: {x: 0.8947449, y: -20.200006}
   m_SizeDelta: {x: -0.11000061, y: -0.12000275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1832006529
@@ -11724,6 +11731,7 @@ MonoBehaviour:
     population: 2
     gold: 0
     food: 0
+    limitPopulation: 0
     velocityPopulation: 0
     velocityGold: 0
     velocityFood: 0

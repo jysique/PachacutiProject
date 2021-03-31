@@ -26,4 +26,21 @@ public class Governor : RoyalFamily
     {
         misions.Remove(value);
     }
+    public Governor(string _name)
+    {
+        this.CharacterName = _name;
+        this.Age = 30;
+        this.Origin = "Qosqo";
+        this.Campaign = "Default";
+        this.Personality = "Default";
+        this.CharacIconType = "Emperor";
+        this.CharacIconIndex = "01";
+        this.Diplomacy = 10;
+        this.Militancy = 10;
+        this.Managment = 10;
+        this.Prestige = 10;
+        this.Piety = 10;
+        this.Culture = "Default";
+        this.misions = null;
+    }
 }
