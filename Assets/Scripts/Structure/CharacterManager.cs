@@ -5,8 +5,8 @@ using UnityEngine;
 public class CharacterManager : MonoBehaviour
 {
     public static CharacterManager instance;
-    private MilitarBossList militarBossList = new MilitarBossList();
-    private Governor governor= new Governor();
+    [SerializeField] private MilitarBossList militarBossList = new MilitarBossList();
+    [SerializeField]private Governor governor= new Governor();
 
     private void Awake()
     {
@@ -16,11 +16,18 @@ public class CharacterManager : MonoBehaviour
     private void Start()
     {
         governor = GlobalVariables.instance.governorChoosen;
+        InGameMenuHandler.instance.UpdateProfileMenu();
         AudioManager.activeSong.Stop();
     }
     public MilitarBossList MilitarBossList
     {
         get{ return militarBossList; }
+    }
+
+    public Governor Governor
+    {
+        get { return governor; }
+        set { governor = value; }
     }
     void ReadJson(string route)
     {

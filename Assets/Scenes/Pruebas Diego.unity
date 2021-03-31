@@ -1127,6 +1127,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   warriorsNumber: 0
   warriorsPrefab: {fileID: 5886523192453008978, guid: 606b1c8b6cbf6a04cba32fec821fccd5, type: 3}
+  selectedTerritory:
+    name: 
+    tribe: 0
+    typePlayer: 0
+    population: 0
+    gold: 0
+    food: 0
+    velocityPopulation: 0
+    velocityGold: 0
+    velocityFood: 0
+    selected: 0
+    militarBoss:
+      characterName: 
+      age: 0
+      origin: 
+      campaign: 
+      personality: 
+      characIconType: 
+      characIconIndex: 
+      influence: 
+      opinion: 0
+      experience: 0
+      strategyType: 
+  governorName: {fileID: 669165743}
+  governorAge: {fileID: 1692400255}
+  governorOrigin: {fileID: 352466442}
+  governorPicture: {fileID: 778511567}
+  governorDiplomacy: {fileID: 1387027118}
+  governorMilitancy: {fileID: 2009738170}
+  governorManagement: {fileID: 171347700}
+  governorPrestige: {fileID: 1987884237}
+  governorPiety: {fileID: 1060221807}
   menuConfirm: {fileID: 272730074}
   menuBlock: {fileID: 1374583286}
   territoryName: {fileID: 1524153006}
@@ -2265,7 +2297,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.017516987, y: 0.27266946}
   m_AnchorMax: {x: 0.97900003, y: 0.44868615}
-  m_AnchoredPosition: {x: 0.8947449, y: -40.699863}
+  m_AnchoredPosition: {x: 0.8947449, y: -40.699856}
   m_SizeDelta: {x: -0.11000061, y: -0.12000275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &357381336
@@ -6124,7 +6156,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &932356896
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13600,6 +13632,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30e3f347544f2064c894a20ba2307df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  militarBossList:
+    MilitarBosses: []
+  governor:
+    characterName: 
+    age: 0
+    origin: 
+    campaign: 
+    personality: 
+    characIconType: 
+    characIconIndex: 
+    diplomacy: 0
+    militancy: 0
+    managment: 0
+    prestige: 0
+    piety: 0
 --- !u!4 &2046235977
 Transform:
   m_ObjectHideFlags: 0

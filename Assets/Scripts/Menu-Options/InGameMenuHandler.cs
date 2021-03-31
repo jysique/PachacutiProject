@@ -10,6 +10,20 @@ public class InGameMenuHandler : MonoBehaviour
     public int warriorsNumber;
     public static InGameMenuHandler instance;
     [SerializeField] private GameObject warriorsPrefab;
+    [SerializeField] private Territory selectedTerritory;
+    [Header("Menu personaje")]
+    [SerializeField] private Text governorName;
+    [SerializeField] private Text governorAge;
+    [SerializeField] private Text governorOrigin;
+    [SerializeField] private Image governorPicture;
+    [SerializeField] private Text governorDiplomacy;
+    [SerializeField] private Text governorMilitancy;
+    [SerializeField] private Text governorManagement;
+    [SerializeField] private Text governorPrestige;
+    [SerializeField] private Text governorPiety;
+
+
+
     [Header("Menu militar")]
     [SerializeField] private GameObject menuConfirm;
     [SerializeField] private GameObject menuBlock;
@@ -44,10 +58,9 @@ public class InGameMenuHandler : MonoBehaviour
         susecionSizeTxt.text = "0";
         scoreTxt.text = TerritoryManager.instance.CountTerrytorry(Territory.TYPEPLAYER.PLAYER).ToString();
     }
-    public void UpdateMenu()
+    public void UpdateMilitarMenu()
     {
-
-        Territory selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory;
+        
         if (selectedTerritory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
         {
             menuBlock.SetActive(false);
@@ -64,9 +77,30 @@ public class InGameMenuHandler : MonoBehaviour
             menuBlock.SetActive(true);
         }
     }
+    public void UpdateProfileMenu()
+    {
+        Governor temp = CharacterManager.instance.Governor;
+        governorName.text = "Nombre: " + temp.CharacterName;
+        governorAge.text = "Edad: " + temp.Age.ToString();
+        governorPicture.sprite = temp.Picture;
+        governorOrigin.text = "Origen: " + temp.Origin;
+        governorDiplomacy.text = "Diplomacia: " + temp.Diplomacy;
+        governorMilitancy.text = "Militar: " + temp.Militancy;
+        governorManagement.text = "Administracion: " +temp.Managment;
+        governorPrestige.text = "Prestigio: " + temp.Prestige;
+        governorPiety.text = "Piedad: " + temp.Piety;
+
+
+    }
+    public void UpdateMenu()
+    {
+        selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory;
+        UpdateMilitarMenu();
+        
+    }
     void Update()
     {
-        Territory selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory;
+        
         militarWarriorsCount.GetComponent<Text>().text = "Tropas: " + selectedTerritory.Population.ToString() + "/ 100 guerreros";
         UpdateResourceTable();
     }
@@ -102,13 +136,15 @@ public class InGameMenuHandler : MonoBehaviour
 
     public void SendWarriors(TerritoryHandler selected, TerritoryHandler otherTerritory, int _warriorsNumber)
     {
+        
         selected.territoryStats.population = selected.territoryStats.population - _warriorsNumber;
         warriorsPrefab.GetComponent<WarriorsMoving>().SetAttack(otherTerritory.gameObject, 1, _warriorsNumber, selected.territory.TypePlayer, selected.territory.MilitarBoss);
+        
         Instantiate(warriorsPrefab, selected.transform.position , Quaternion.identity);
     }
     public void MoveWarriors(TerritoryHandler otherTerritory, int attackPower, Territory.TYPEPLAYER type)
     {
-   
+        
         if (otherTerritory.territory.TypePlayer == type)
         {
             otherTerritory.territoryStats.population = otherTerritory.territoryStats.population + attackPower;

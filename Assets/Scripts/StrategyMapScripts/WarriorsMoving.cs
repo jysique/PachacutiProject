@@ -11,7 +11,7 @@ public class WarriorsMoving : MonoBehaviour
     [SerializeField]private float speed;
     //stats
     [SerializeField]private int warriorsNumber;
-    private Territory.TYPEPLAYER type;
+    [SerializeField]private Territory.TYPEPLAYER territorytype;
     private MilitarBoss mb;
     private MilitarBoss.TYPESTRAT militaryBossStrategy;
     private int militaryBossExperience;
@@ -19,15 +19,17 @@ public class WarriorsMoving : MonoBehaviour
     [SerializeField] private float attackPower;
 
 
-
     public void SetAttack(GameObject _target, float _speed, int _warriorsNumber, Territory.TYPEPLAYER _type, MilitarBoss _mb)
     {
-        float strategyMod = 0;
+        
+        //float strategyMod = 0;
         target = _target;
         speed = _speed;
         warriorsNumber = _warriorsNumber;
-        type = _type;
+        territorytype = _type;
         mb = _mb;
+        
+        /*
         militaryBossStrategy = _mb.Type;
         militaryBossExperience = _mb.Experience;
         
@@ -52,7 +54,9 @@ public class WarriorsMoving : MonoBehaviour
         }
         attackPower = warriorsNumber + strategyMod + militaryBossExperience;
         this.transform.GetChild(0).gameObject.GetComponent<TextMeshPro>().text = attackPower.ToString("F2");
+        */
         this.transform.GetChild(0).gameObject.GetComponent<TextMeshPro>().text = warriorsNumber.ToString();
+        print(territorytype);
 
     }
 
@@ -61,12 +65,12 @@ public class WarriorsMoving : MonoBehaviour
     {
         float step = speed * Time.deltaTime; 
         transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
-
+        print(territorytype);
 
         if (Vector3.Distance(transform.position, target.transform.position) < 0.001f)
         {
-            
-            InGameMenuHandler.instance.MoveWarriors(target.GetComponent<TerritoryHandler>(), warriorsNumber, type);
+            print(territorytype);
+            InGameMenuHandler.instance.MoveWarriors(target.GetComponent<TerritoryHandler>(), warriorsNumber, territorytype);
             Destroy(this.gameObject);
         }
         

@@ -81,6 +81,7 @@ public class TerritoryHandler : MonoBehaviour
 
     private void EnemyMoveWarriors()
     {
+        
         int i = Random.Range(0, adjacentTerritories.Count);
         int warriorsToSend = Random.Range(3, this.territory.Population);
         TerritoryHandler territoryToAttack = adjacentTerritories[i].GetComponent<TerritoryHandler>();
