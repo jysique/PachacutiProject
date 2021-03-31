@@ -13,6 +13,7 @@ public class TerritoryStats : MonoBehaviour
     private float maxTime = 5f;
 
     public int population;
+    public int limitPopulation;
     public int gold;
     public int food;
 
@@ -33,6 +34,7 @@ public class TerritoryStats : MonoBehaviour
         population = territory.Population;
         gold = territory.GoldReward;
         food = territory.FoodReward;
+        limitPopulation = territory.LimitPopulation;
 
         velocityPopulation = territory.VelocityPopulation;
         velocityGold = territory.VelocityGold;

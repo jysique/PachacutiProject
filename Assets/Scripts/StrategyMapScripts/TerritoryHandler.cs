@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 [RequireComponent(typeof(PolygonCollider2D))]
 public class TerritoryHandler : MonoBehaviour
 {
@@ -53,7 +54,7 @@ public class TerritoryHandler : MonoBehaviour
 
     private void PopulateTerritory()
     {
-        if (territory.TypePlayer == Territory.TYPEPLAYER.NONE)
+        if (territory.TypePlayer == Territory.TYPEPLAYER.NONE && territory.Population <= territory.LimitPopulation)
         {
             territoryStats.SetCanPopulate(false);
         }
@@ -172,5 +173,26 @@ public class TerritoryHandler : MonoBehaviour
         territory.SetSelected(false);
         sr.sortingOrder = -8;
         sr.material = normalMaterial;
+    }
+    
+    public void ImproveSpeed()
+    {
+        if (territoryStats.gold >= 10)
+        {
+            territoryStats.velocityPopulation += 0.3f;
+            territoryStats.gold -= 10;
+        }
+        else
+        {
+            Debug.Log("no se puede comprar");
+        }
+    }
+    public void ImproveLimit()
+    {
+        if (territoryStats.gold >= 10)
+        {
+            territoryStats.limitPopulation += 20;
+            territoryStats.gold -= 10;
+        }
     }
 }

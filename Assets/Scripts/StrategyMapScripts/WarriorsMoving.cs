@@ -11,7 +11,8 @@ public class WarriorsMoving : MonoBehaviour
     [SerializeField]private float speed;
     //stats
     [SerializeField]private int warriorsNumber;
-    private Territory.TYPEPLAYER type;
+    [SerializeField]private Territory.TYPEPLAYER territoriType;
+
     private MilitarBoss mb;
     private MilitarBoss.TYPESTRAT militaryBossStrategy;
     private int militaryBossExperience;
@@ -26,7 +27,7 @@ public class WarriorsMoving : MonoBehaviour
         target = _target;
         speed = _speed;
         warriorsNumber = _warriorsNumber;
-        type = _type;
+        territoriType = _type;
         mb = _mb;
         militaryBossStrategy = _mb.Type;
         militaryBossExperience = _mb.Experience;
@@ -66,7 +67,7 @@ public class WarriorsMoving : MonoBehaviour
         if (Vector3.Distance(transform.position, target.transform.position) < 0.001f)
         {
             
-            InGameMenuHandler.instance.MoveWarriors(target.GetComponent<TerritoryHandler>(), warriorsNumber, type);
+            InGameMenuHandler.instance.MoveWarriors(target.GetComponent<TerritoryHandler>(), warriorsNumber, territoriType);
             Destroy(this.gameObject);
         }
         

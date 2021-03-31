@@ -12,7 +12,8 @@ public class MilitarBoss : Subordinate
     private TYPESTRAT type;
     public TYPESTRAT Type
     {
-        get { return (MilitarBoss.TYPESTRAT)System.Enum.Parse(typeof(MilitarBoss.TYPESTRAT), StrategyType); }
+        //get { return (MilitarBoss.TYPESTRAT)System.Enum.Parse(typeof(MilitarBoss.TYPESTRAT), StrategyType); }
+        get { return TYPESTRAT.DEFAULT; }
     }
 
     public int Experience
@@ -29,6 +30,7 @@ public class MilitarBoss : Subordinate
 
     public enum TYPESTRAT
     {
+        DEFAULT,
         AGGRESSIVE,
         TERRAIN_MASTER,
         DEFENSIVE,
