@@ -41,21 +41,29 @@ public class InGameMenuHandler : MonoBehaviour
     [Header("Recursos")]
     [SerializeField] private Text goldGenerated;
     [SerializeField] private Text foodGenerated;
-    [SerializeField] private Text susecionSizeTxt;
+    [SerializeField] private Text sucesionSizeTxt;
     [SerializeField] private Text scoreTxt;
+    /*
+    int goldPlayer;
+    int foodPlayer;
+    int sucesionSizePlayer;
+    int scorePlayer;
+    */
     //perfil menu
 
-
+    private void Start()
+    {
+    }
     private void Awake()
     {
         instance = this;
         warriorsNumber = 0;
     }
-   public void UpdateResourceTable()
+    public void UpdateResourceTable()
     {
         goldGenerated.text = TerritoryManager.instance.GetGolds(Territory.TYPEPLAYER.PLAYER).ToString();
         foodGenerated.text = TerritoryManager.instance.GetFood(Territory.TYPEPLAYER.PLAYER).ToString();
-        susecionSizeTxt.text = "0";
+        sucesionSizeTxt.text = "0";
         scoreTxt.text = TerritoryManager.instance.CountTerrytorry(Territory.TYPEPLAYER.PLAYER).ToString();
     }
     public void UpdateMilitarMenu()
@@ -100,8 +108,8 @@ public class InGameMenuHandler : MonoBehaviour
     }
     void Update()
     {
-        
-        militarWarriorsCount.GetComponent<Text>().text = "Tropas: " + selectedTerritory.Population.ToString() + "/ 100 guerreros";
+        Territory selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory;
+        militarWarriorsCount.GetComponent<Text>().text = "Tropas: " + selectedTerritory.Population.ToString() + " / " + selectedTerritory.LimitPopulation.ToString();
         UpdateResourceTable();
     }
 
@@ -161,10 +169,25 @@ public class InGameMenuHandler : MonoBehaviour
             }
         }
 
-        
+    }
+    public void ImproveSpeedButton()
+    {
+        ImproveSpeed(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
+    }
+    public void ImproveLimitButton()
+    {
+        ImproveLimit(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
+    }
+    public void ImproveSpeed(TerritoryHandler territoryHandler)
+    {
+        territoryHandler.ImproveSpeed();    
+    }
+    public void ImproveLimit(TerritoryHandler territoryHandler)
+    {
+        territoryHandler.ImproveLimit();
     }
 
-    
+
 
 
 }

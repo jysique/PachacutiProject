@@ -28,7 +28,6 @@ public class TerritoryManager : MonoBehaviour
             territoryList.Add(t);
         }
         int a = 0;
-        // print(territoryList.Count);
         for (int i = 0; i < territoryList.Count; i++)
         {
             TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
@@ -69,6 +68,7 @@ public class TerritoryManager : MonoBehaviour
             if (territoryHandler.territory.TypePlayer == type)
             {
                 goldPlayer += territoryHandler.territory.GoldReward;
+                
             }
         }
         return goldPlayer;

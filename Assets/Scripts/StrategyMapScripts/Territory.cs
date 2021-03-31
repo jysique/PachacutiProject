@@ -26,6 +26,7 @@ public class Territory
     [SerializeField] private int population;
     [SerializeField] private int gold;
     [SerializeField] private int food;
+    [SerializeField] private int limitPopulation;
 
     [SerializeField] private float velocityPopulation;
     [SerializeField] private float velocityGold;
@@ -53,6 +54,11 @@ public class Territory
             Debug.Log("change population");
             population = value;
         }
+    }
+    public int LimitPopulation
+    {
+        get { return limitPopulation; }
+        set { limitPopulation = value; }
     }
     public int GoldReward
     {
@@ -82,6 +88,7 @@ public class Territory
         gold = territoryStats.gold;
         population = territoryStats.population;
         food = territoryStats.food;
+        limitPopulation = territoryStats.limitPopulation;
 
         velocityGold = territoryStats.velocityGold;
         velocityPopulation = territoryStats.velocityPopulation;

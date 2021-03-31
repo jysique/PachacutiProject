@@ -7,9 +7,10 @@ public class GlobalVariables : MonoBehaviour
     public static GlobalVariables instance { get; private set; }
 
     //public string characterChoosen;
-    public Governor governorChoosen = null;
+    public Governor governorChoosen;
     private void Awake()
     {
+        governorChoosen = new Governor();
         if (instance == null)
         {
             instance = this;
