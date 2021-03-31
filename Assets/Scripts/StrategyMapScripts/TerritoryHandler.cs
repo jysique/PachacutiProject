@@ -54,13 +54,13 @@ public class TerritoryHandler : MonoBehaviour
 
     private void PopulateTerritory()
     {
-        if (territory.TypePlayer == Territory.TYPEPLAYER.NONE && territory.Population <= territory.LimitPopulation)
+        if (territory.TypePlayer != Territory.TYPEPLAYER.NONE && territory.Population < territory.LimitPopulation)
         {
-            territoryStats.SetCanPopulate(false);
+            territoryStats.SetCanPopulate(true);
         }
         else
         {
-            territoryStats.SetCanPopulate(true);
+            territoryStats.SetCanPopulate(false);
         }
     }
     private void Update()
