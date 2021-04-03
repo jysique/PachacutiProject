@@ -126,13 +126,18 @@ public class TerritoryManager : MonoBehaviour
         int botCount = CountTerrytorry(Territory.TYPEPLAYER.BOT);
         if (playerCount == territoryList.Count)
         {
-            GlobalVariables.instance.GetChapterTxt("lose");
+            if (GlobalVariables.instance != null)
+            {
+                GlobalVariables.instance.GetChapterTxt("lose");
+            }
             SceneManager.LoadScene("VisualNovelScene");
         }
         else if (botCount == territoryList.Count)
         {
-            print("ganaste");
-            GlobalVariables.instance.GetChapterTxt("win");
+            if (GlobalVariables.instance != null)
+            {
+                GlobalVariables.instance.GetChapterTxt("win");
+            }
             SceneManager.LoadScene("VisualNovelScene");
         }
     }

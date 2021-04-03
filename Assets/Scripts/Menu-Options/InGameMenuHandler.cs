@@ -39,16 +39,16 @@ public class InGameMenuHandler : MonoBehaviour
 
 
     [Header("Recursos")]
+    [SerializeField] private InputField goldCount;
     [SerializeField] private Text goldGenerated;
     [SerializeField] private Text foodGenerated;
     [SerializeField] private Text sucesionSizeTxt;
     [SerializeField] private Text scoreTxt;
-    /*
+
     int goldPlayer;
     int foodPlayer;
     int sucesionSizePlayer;
     int scorePlayer;
-    */
     //perfil menu
 
     private void Start()
@@ -61,7 +61,7 @@ public class InGameMenuHandler : MonoBehaviour
     }
     public void UpdateResourceTable()
     {
-        goldGenerated.text = TerritoryManager.instance.GetGolds(Territory.TYPEPLAYER.PLAYER).ToString();
+        goldGenerated.text = goldPlayer.ToString();
         foodGenerated.text = TerritoryManager.instance.GetFood(Territory.TYPEPLAYER.PLAYER).ToString();
         sucesionSizeTxt.text = "0";
         scoreTxt.text = TerritoryManager.instance.CountTerrytorry(Territory.TYPEPLAYER.PLAYER).ToString();
@@ -97,8 +97,6 @@ public class InGameMenuHandler : MonoBehaviour
         governorManagement.text = "Administracion: " +temp.Managment;
         governorPrestige.text = "Prestigio: " + temp.Prestige;
         governorPiety.text = "Piedad: " + temp.Piety;
-
-
     }
     public void UpdateMenu()
     {
@@ -173,21 +171,39 @@ public class InGameMenuHandler : MonoBehaviour
     public void ImproveSpeedButton()
     {
         ImproveSpeed(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
+        UpdateMenu();
     }
     public void ImproveLimitButton()
     {
         ImproveLimit(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
+        UpdateMenu();
     }
     public void ImproveSpeed(TerritoryHandler territoryHandler)
     {
-        territoryHandler.ImproveSpeed();    
+        if (goldPlayer>= 10)
+        {
+            territoryHandler.ImproveSpeed();
+            goldPlayer -= 10;
+        }
+        
     }
     public void ImproveLimit(TerritoryHandler territoryHandler)
     {
-        territoryHandler.ImproveLimit();
+        if (goldPlayer >= 10)
+        {
+            territoryHandler.ImproveLimit();
+            goldPlayer -= 10;
+        }
     }
-
-
-
+    public void GatherGoldResource(TerritoryHandler territoryHandler)
+    {
+        territoryHandler.GatherTerritoryGold(int.Parse(goldCount.text));
+        goldPlayer += int.Parse(goldCount.text);
+    }
+    public void GatherGoldResourceButton()
+    {
+        GatherGoldResource(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
+        goldCount.text = "0";
+    }
 
 }

@@ -16,6 +16,6 @@ public class SelectCharacter : MonoBehaviour
     void ChangeScene()
     {
         GlobalVariables.instance.GovernorChoose = CampainManager.instance.GovernorList.GetGovernors(gameObject.name);
-        SceneManager.LoadScene("VisualNovelScene");
+        SceneManager.LoadScene(1);
     }
 }
