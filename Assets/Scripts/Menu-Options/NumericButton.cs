@@ -7,13 +7,31 @@ public class NumericButton : MonoBehaviour
 {
     [SerializeField] private InputField inputField;
 
-    public void IncreaseNumber()
+    public void IncreaseNumberPopulation()
+    {
+        IncreaseNumber(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory.Population);
+    }
+
+    public void IncreaseNumberGold()
+    {
+        IncreaseNumber(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory.GoldReward);
+    }
+    public void DecreaseNumberPopulation()
+    {
+        DecreaseNumber(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory.Population);
+    }
+    public void DecreaseNumberGold()
+    {
+        DecreaseNumber(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory.GoldReward);
+    }
+
+    private void IncreaseNumber(int limit)
     {
         int temporal = int.Parse(inputField.text) + 1;
-        int limit = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory.Population;
+        //int limit = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory.Population;
         if (temporal <= limit) inputField.text = temporal.ToString();
     }
-    public void DecreaseNumber()
+    private void DecreaseNumber(int limit)
     {
 
         int temporal = int.Parse(inputField.text) - 1;
@@ -21,7 +39,8 @@ public class NumericButton : MonoBehaviour
             inputField.text = temporal.ToString();
         }
         else {
-            inputField.text = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory.Population.ToString();
+            //inputField.text = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory.Population.ToString();
+            inputField.text = limit.ToString();
         }
     }
     

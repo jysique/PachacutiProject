@@ -5,9 +5,11 @@ using UnityEngine;
 public class GlobalVariables : MonoBehaviour
 {
     public static GlobalVariables instance { get; private set; }
-
-    //public string characterChoosen;
+    public string rhythmGame;
     public Governor governorChoosen;
+
+    public int velocityGame = 0;
+    public int dificultyGame = 0;
     private void Awake()
     {
         if (instance == null)

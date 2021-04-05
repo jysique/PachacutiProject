@@ -15,13 +15,8 @@ public class ChapterController : MonoBehaviour
     // ChapterPachacuti_start
     private void Start()
     {
-        if (GlobalVariables.instance == null)
-        {
-            // DEFINIENDO UN CHAPTER ESTABLECIDO
-            // PARA LA ESCENA
-            chapterName = "ChapterPachacuti_start"; 
-        }
-        else
+        chapterName = "ChapterPachacuti_start"; 
+        if (GlobalVariables.instance != null)
         {
             chapterName = GlobalVariables.instance.GetChapterTxt("start");
         }

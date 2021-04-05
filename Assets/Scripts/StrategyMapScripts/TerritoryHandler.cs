@@ -188,22 +188,17 @@ public class TerritoryHandler : MonoBehaviour
     
     public void ImproveSpeed()
     {
-        if (territoryStats.gold >= 10)
-        {
-            territoryStats.velocityPopulation += 0.3f;
-            territoryStats.gold -= 10;
-        }
-        else
-        {
-            Debug.Log("no se puede comprar");
-        }
+        territoryStats.velocityPopulation += 0.3f;
     }
     public void ImproveLimit()
     {
-        if (territoryStats.gold >= 10)
+        territoryStats.limitPopulation += 20;
+    }
+    public void GatherTerritoryGold(int gather)
+    {
+        if (gather <= territoryStats.gold)
         {
-            territoryStats.limitPopulation += 20;
-            territoryStats.gold -= 10;
+            territoryStats.gold -= gather;
         }
     }
 }

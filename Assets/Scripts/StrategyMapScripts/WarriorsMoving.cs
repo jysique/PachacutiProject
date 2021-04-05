@@ -57,7 +57,6 @@ public class WarriorsMoving : MonoBehaviour
         */
         this.transform.GetChild(0).gameObject.GetComponent<TextMeshPro>().text = warriorsNumber.ToString();
 
-
     }
 
     // Update is called once per frame

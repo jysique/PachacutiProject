@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 public class TimeSystem : MonoBehaviour
 {
-    private const int TIMESCALE = 10; // Tiempo escalable para la modificacion del ritmo del tiempo
+    private int TIMESCALE; // Tiempo escalable para la modificacion del ritmo del tiempo
     [SerializeField]private Text dayText;
     [SerializeField]private Text monthText;
     [SerializeField]private Text seasonText;
@@ -20,6 +20,11 @@ public class TimeSystem : MonoBehaviour
     void Start()
     {
         timeGame = new TimeSimulated(0, 28, 12, 1399);
+        TIMESCALE = 6;
+        if (GlobalVariables.instance != null)
+        {
+            TIMESCALE = 6 * (GlobalVariables.instance.velocityGame + 1);
+        }
         TextCallFunction();
     }
 
