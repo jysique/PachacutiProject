@@ -89,13 +89,23 @@ public class TerritoryHandler : MonoBehaviour
         InGameMenuHandler.instance.SendWarriors(this, territoryToAttack, warriorsToSend);
     }
 
-    private void OnMouseEnter()
+    private void OnMouseOver()
     {
-        oldColor = sprite.color;
-        if (territory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
+        
+        if (Input.GetMouseButtonDown(1))
         {
-            sprite.color = hoverColor;
-        } 
+            bool ca = false;
+            TerritoryHandler selected = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
+            for (int i = 0; i < selected.adjacentTerritories.Count; i++)
+            {
+                //print(selected.adjacentTerritories[i]);
+                //print(this);
+                if (selected.adjacentTerritories[i].GetComponent<TerritoryHandler>() == this) ca = true;
+
+            }
+            InGameMenuHandler.instance.ActivateContextMenu(this, ca, Input.mousePosition);
+
+        }
     }
     private void OnMouseExit()
     {

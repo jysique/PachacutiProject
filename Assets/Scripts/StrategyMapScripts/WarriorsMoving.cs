@@ -56,7 +56,7 @@ public class WarriorsMoving : MonoBehaviour
         this.transform.GetChild(0).gameObject.GetComponent<TextMeshPro>().text = attackPower.ToString("F2");
         */
         this.transform.GetChild(0).gameObject.GetComponent<TextMeshPro>().text = warriorsNumber.ToString();
-        print(territorytype);
+
 
     }
 
@@ -65,11 +65,11 @@ public class WarriorsMoving : MonoBehaviour
     {
         float step = speed * Time.deltaTime; 
         transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
-        print(territorytype);
+        
 
         if (Vector3.Distance(transform.position, target.transform.position) < 0.001f)
         {
-            print(territorytype);
+
             InGameMenuHandler.instance.MoveWarriors(target.GetComponent<TerritoryHandler>(), warriorsNumber, territorytype);
             Destroy(this.gameObject);
         }

@@ -9,8 +9,12 @@ public class InGameMenuHandler : MonoBehaviour
 {
     public int warriorsNumber;
     public static InGameMenuHandler instance;
+    [SerializeField] private GameObject contextMenu;
     [SerializeField] private GameObject warriorsPrefab;
     [SerializeField] private Territory selectedTerritory;
+    [Header("OverMenu")]
+    [SerializeField] private GameObject menuConfirm;
+    [SerializeField] private GameObject overMenuBlock;
     [Header("Menu personaje")]
     [SerializeField] private Text governorName;
     [SerializeField] private Text governorAge;
@@ -25,19 +29,21 @@ public class InGameMenuHandler : MonoBehaviour
 
 
     [Header("Menu militar")]
-    [SerializeField] private GameObject menuConfirm;
+    
     [SerializeField] private GameObject menuBlock;
-    [SerializeField] private GameObject territoryName;
-    [SerializeField] private GameObject militarWarriorsCount;
-    [SerializeField] private GameObject militaryBossName;
-    [SerializeField] private GameObject militaryBossPicture;
-    [SerializeField] private GameObject militaryBossExperience;
-    [SerializeField] private GameObject militaryBossEstrategy;
-    [SerializeField] private GameObject militaryBossMilitary;
+    
+    [SerializeField] private Image militaryBossPicture;
+    [SerializeField] private Text militarWarriorsCount;
+    [SerializeField] private Text GenerationSpeed;
+    [SerializeField] private Text militaryBossName;
+    [SerializeField] private Text militaryBossExperience;
+    [SerializeField] private Text militaryBossEstrategy;
+    [SerializeField] private Text militaryBossMilitary;
     [Header("Menu de movilizacion de tropas")]
     [SerializeField] private InputField warriorsCount;
-
-
+    [Header("Menu territorio")]
+    [SerializeField] private Text territoryName;
+    [SerializeField] private Text goldCount;
     [Header("Recursos")]
     [SerializeField] private Text goldGenerated;
     [SerializeField] private Text foodGenerated;
@@ -73,17 +79,22 @@ public class InGameMenuHandler : MonoBehaviour
         {
             menuBlock.SetActive(false);
             MilitarBoss boss = selectedTerritory.MilitarBoss;
-            territoryName.GetComponent<Text>().text = selectedTerritory.name;
-            militaryBossName.GetComponent<Text>().text = "Nombre: " + boss.CharacterName;
-            militaryBossPicture.GetComponent<Image>().sprite = boss.Picture;
-            militaryBossExperience.GetComponent<Text>().text = "Experiencia: " + boss.Experience;
-            militaryBossEstrategy.GetComponent<Text>().text = "Estrategia: " + boss.Type;
-            militaryBossMilitary.GetComponent<Text>().text = "Influencia: " + boss.Influence;
+            ;
+            militaryBossName.text = "Nombre: " + boss.CharacterName;
+            militaryBossPicture.sprite = boss.Picture;
+            militaryBossExperience.text = "Experiencia: " + boss.Experience;
+            militaryBossEstrategy.text = "Estrategia: " + boss.Type;
+            militaryBossMilitary.text = "Influencia: " + boss.Influence;
+            GenerationSpeed.text = "Velocidad de crecimiento: " + selectedTerritory.VelocityPopulation;
         }
         else
         {
             menuBlock.SetActive(true);
         }
+    }
+    public void UpdateTerritoryMenu()
+    {
+        territoryName.text = selectedTerritory.name;
     }
     public void UpdateProfileMenu()
     {
@@ -104,33 +115,39 @@ public class InGameMenuHandler : MonoBehaviour
     {
         selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory;
         UpdateMilitarMenu();
+        UpdateTerritoryMenu();
         
     }
     void Update()
     {
         Territory selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory;
-        militarWarriorsCount.GetComponent<Text>().text = "Tropas: " + selectedTerritory.Population.ToString() + " / " + selectedTerritory.LimitPopulation.ToString();
+        militarWarriorsCount.text = "Tropas: " + selectedTerritory.Population.ToString() + " / " + selectedTerritory.LimitPopulation.ToString();
+        goldCount.text = "Oro: " + selectedTerritory.GoldReward.ToString();
         UpdateResourceTable();
     }
 
     //move warriors
     public void MoveWarriorsButton()
     {
+        TurnOnBlock();
         menuConfirm.SetActive(true);
         warriorsCount.text = "1";
+        ChangeStateTerritory(2);
+        
+    }
+    public void ChangeStateTerritory(int _state)
+    {
         foreach (GameObject t in TerritoryManager.instance.territoryList)
         {
-            t.GetComponent<TerritoryHandler>().state = 2;
-        }   
+            t.GetComponent<TerritoryHandler>().state = _state;
+        }
     }
-
+    
     public void CloseWarriorsButton()
     {
         menuConfirm.SetActive(false);
-        foreach (GameObject t in TerritoryManager.instance.territoryList)
-        {
-            t.GetComponent<TerritoryHandler>().state = 0;
-        }
+        TurnOffBlock();
+        ChangeStateTerritory(0);
     }
     public void SelectTerritory()
     {
@@ -170,6 +187,16 @@ public class InGameMenuHandler : MonoBehaviour
         }
 
     }
+    public void ActivateContextMenu(TerritoryHandler territoryToAttack, bool canAttack, Vector3 mousePosition)
+    {
+        TurnOnBlock();
+        contextMenu.SetActive(true);
+        ChangeStateTerritory(2);
+        Vector3 mousePosCamera = Camera.main.ScreenToWorldPoint(mousePosition);
+        contextMenu.transform.position = new Vector3(mousePosCamera.x,mousePosCamera.y,contextMenu.transform.position.z);
+        contextMenu.GetComponent<ContextMenu>().SetMenu(canAttack,territoryToAttack);
+
+    }
     public void ImproveSpeedButton()
     {
         ImproveSpeed(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
@@ -186,7 +213,14 @@ public class InGameMenuHandler : MonoBehaviour
     {
         territoryHandler.ImproveLimit();
     }
-
+    public void TurnOffBlock()
+    {
+        overMenuBlock.SetActive(false);
+    }
+    public void TurnOnBlock()
+    {
+        overMenuBlock.SetActive(true);
+    }
 
 
 
