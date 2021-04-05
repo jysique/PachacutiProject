@@ -45,7 +45,7 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private Text territoryName;
     [SerializeField] private Text goldCount;
     [Header("Recursos")]
-    [SerializeField] private InputField goldCount;
+    [SerializeField] private InputField inputGoldCount;
     [SerializeField] private Text goldGenerated;
     [SerializeField] private Text foodGenerated;
     [SerializeField] private Text sucesionSizeTxt;
@@ -224,13 +224,13 @@ public class InGameMenuHandler : MonoBehaviour
     }
     public void GatherGoldResource(TerritoryHandler territoryHandler)
     {
-        territoryHandler.GatherTerritoryGold(int.Parse(goldCount.text));
-        goldPlayer += int.Parse(goldCount.text);
+        territoryHandler.GatherTerritoryGold(int.Parse(inputGoldCount.text));
+        goldPlayer += int.Parse(inputGoldCount.text);
     }
     public void GatherGoldResourceButton()
     {
         GatherGoldResource(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
-        goldCount.text = "0";
+        inputGoldCount.text = "0";
     }
     public void TurnOffBlock()
     {
