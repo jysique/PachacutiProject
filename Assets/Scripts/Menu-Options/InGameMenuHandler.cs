@@ -162,12 +162,12 @@ public class InGameMenuHandler : MonoBehaviour
         
         selected.territoryStats.population = selected.territoryStats.population - _warriorsNumber;
         warriorsPrefab.GetComponent<WarriorsMoving>().SetAttack(otherTerritory.gameObject, 1, _warriorsNumber, selected.territory.TypePlayer, selected.territory.MilitarBoss);
-        
         Instantiate(warriorsPrefab, selected.transform.position , Quaternion.identity);
+
     }
     public void MoveWarriors(TerritoryHandler otherTerritory, int attackPower, Territory.TYPEPLAYER type)
     {
-        
+        Territory.TYPEPLAYER temp = otherTerritory.territory.TypePlayer;
         if (otherTerritory.territory.TypePlayer == type)
         {
             otherTerritory.territoryStats.population = otherTerritory.territoryStats.population + attackPower;
@@ -179,11 +179,18 @@ public class InGameMenuHandler : MonoBehaviour
             otherTerritory.territoryStats.population = otherTerritory.territoryStats.population - attackPower;
             if(survivors < 0)
             {
+                if (type == Territory.TYPEPLAYER.PLAYER)
+                {
+                    ml.AddDataMilitaryList(5);
+                    InstantiateCharacterOption(otherTerritory);
+                }
                 otherTerritory.territory.TypePlayer = type;
                 otherTerritory.territoryStats.population = otherTerritory.territoryStats.population * -1;
-            }
-        }
 
+
+            }
+
+        }
     }
     public void ActivateContextMenu(TerritoryHandler territoryToAttack, bool canAttack, Vector3 mousePosition)
     {
@@ -241,6 +248,36 @@ public class InGameMenuHandler : MonoBehaviour
         overMenuBlock.SetActive(true);
     }
 
+    [SerializeField] private GameObject CharacterSelection;
+    private List<GameObject> characterOptions;
+    public MilitarBossList ml;
 
-
+    public void InstantiateCharacterOption(TerritoryHandler territory)
+    {
+        CharacterSelection.SetActive(true);
+        characterOptions = new List<GameObject>();
+        Transform gridLayout = CharacterSelection.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
+        foreach (MilitarBoss charac in ml.MilitarBosses)
+        {
+            GameObject characterOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/CharacterGameOption")) as GameObject;
+            characterOption.transform.SetParent(gridLayout.transform, false);
+            characterOption.name = charac.CharacterName;
+            characterOption.transform.Find("Character/ImageCharacter").gameObject.GetComponent<Image>().sprite = charac.Picture;
+            characterOption.transform.Find("Character/TextBackground/NameCharacter").gameObject.GetComponent<Text>().text = charac.CharacterName;
+            characterOption.transform.Find("Description/OrigenCharacter").gameObject.GetComponent<Text>().text = charac.Origin;
+            characterOption.transform.Find("Description/AgeCharacter").gameObject.GetComponent<Text>().text = charac.Age.ToString();
+            characterOption.transform.Find("Description/CampainCharacter").gameObject.GetComponent<Text>().text = charac.Campaign;
+            characterOption.transform.Find("Description/StatsCharacter").gameObject.GetComponent<Text>().text = charac.Influence + " | " + charac.Opinion + " | " + charac.Experience + " | " + charac.StrategyType;
+            characterOption.GetComponent<SelectCharacter>().SetTerritoryHandler(territory);
+            characterOptions.Add(characterOption);
+        }
+    }
+    public void CloseCharacterSelection()
+    {
+        CharacterSelection.SetActive(false);
+        for (int i = 0; i < characterOptions.Count; i++)
+        {
+            Destroy(characterOptions[i]);
+        }
+    }
 }

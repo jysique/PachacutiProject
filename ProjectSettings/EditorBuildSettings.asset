@@ -12,18 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/VisualNovelScene.unity
     guid: b624097c1968752479af01340eb689be
   - enabled: 0
-    path: Assets/Scenes/StrategyMap 1.unity
-    guid: d1db472b833789a4397d9e25f224f234
-  - enabled: 1
     path: Assets/Scenes/Pruebas Diego.unity
     guid: 3a9180f6d79ec4c43ab13e98a73e0c1b
-  - enabled: 0
-    path: Assets/Scenes/(2)StrategyMap.unity
-    guid: 3cf1cdf9ed29c4b449f4f2d582ad4146
   - enabled: 1
     path: Assets/Scenes/(Copy)Pruebas Diego.unity
-    guid: 9174d69cb175db84abb7aefe118469be
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+    guid: 775ab26cd9a2247428b3460e4e7344bf
   m_configObjects: {}

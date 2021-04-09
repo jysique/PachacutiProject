@@ -47,6 +47,7 @@ public class CampainManager : MonoBehaviour
         if (asset != null)
         {
             governorList = JsonUtility.FromJson<GovernorList>(asset.text);
+            governorList.ChangueCharacIconType();
             InstantiateCharacterOption();
         }
         else
@@ -60,19 +61,19 @@ public class CampainManager : MonoBehaviour
         {
             if (charac.Campaign == campainSelected)
             {
-                GameObject characterOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/CharacterOption")) as GameObject;
+                GameObject characterOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/CharacterMenuOption")) as GameObject;
                 characterOption.transform.SetParent(gridLayout.transform, false);
                 characterOption.name = charac.CharacterName;
                 characterOption.transform.Find("Character/ImageCharacter").gameObject.GetComponent<Image>().sprite = charac.Picture;
                 characterOption.transform.Find("Character/TextBackground/NameCharacter").gameObject.GetComponent<Text>().text = charac.CharacterName;
                 characterOption.transform.Find("Description/OrigenCharacter").gameObject.GetComponent<Text>().text = charac.Origin;
                 characterOption.transform.Find("Description/AgeCharacter").gameObject.GetComponent<Text>().text = charac.Age.ToString();
+                characterOption.transform.Find("Description/PeriodCharacter").gameObject.GetComponent<Text>().text = charac.TimeInit.PrintTimeSimulated();
                 characterOption.transform.Find("Description/CampainCharacter").gameObject.GetComponent<Text>().text = charac.Campaign;
                 characterOption.transform.Find("Description/StatsCharacter").gameObject.GetComponent<Text>().text = charac.Diplomacy + " | " + charac.Militancy + " | " + charac.Managment + " | " + charac.Prestige + " | " + charac.Piety;
                 characterOptions.Add(characterOption);
             }
         }
-
     }
     void DestroyAllInstantiate()
     {

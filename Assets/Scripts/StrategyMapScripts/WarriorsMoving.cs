@@ -18,7 +18,6 @@ public class WarriorsMoving : MonoBehaviour
     //result
     [SerializeField] private float attackPower;
 
-
     public void SetAttack(GameObject _target, float _speed, int _warriorsNumber, Territory.TYPEPLAYER _type, MilitarBoss _mb)
     {
         
@@ -59,19 +58,15 @@ public class WarriorsMoving : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         float step = speed * Time.deltaTime; 
         transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
         
-
         if (Vector3.Distance(transform.position, target.transform.position) < 0.001f)
         {
-
             InGameMenuHandler.instance.MoveWarriors(target.GetComponent<TerritoryHandler>(), warriorsNumber, territorytype);
             Destroy(this.gameObject);
-        }
-        
+        } 
     }
 }

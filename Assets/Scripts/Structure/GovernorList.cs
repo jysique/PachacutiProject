@@ -21,4 +21,11 @@ public class GovernorList
         }
         return null;
     }
+    public void ChangueCharacIconType()
+    {
+        for (int i = 0; i < Governors.Count; i++)
+        {
+            Governors[i].CharacIconType = "Governor";
+        }
+    }
 }

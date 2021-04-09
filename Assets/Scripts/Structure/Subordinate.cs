@@ -4,10 +4,10 @@ using UnityEngine;
 [System.Serializable]
 public class Subordinate : Character
 {
-    [SerializeField] private string influence;
+    [SerializeField] private int influence;
     [SerializeField] private int opinion;
     
-    public string Influence
+    public int Influence
     {
         get { return influence; }
         set { influence = value; }

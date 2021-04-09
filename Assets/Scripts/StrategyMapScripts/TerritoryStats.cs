@@ -26,13 +26,10 @@ public class TerritoryStats : MonoBehaviour
 
     private void Start()
     {
+        difTime = 0f;
         if (GlobalVariables.instance != null)
         {
             difTime = GlobalVariables.instance.velocityGame;
-        }
-        else
-        {
-            difTime = 0f;
         }
         maxTime = 5f - difTime;
         timeLeftP = maxTime;
@@ -73,7 +70,6 @@ public class TerritoryStats : MonoBehaviour
         if (timeLeftP > 0)
         {
             timeLeftP -= Time.deltaTime * velocityPopulation;
-            print(maxTime);
             timerBar.fillAmount = timeLeftP / maxTime;
         }
         else

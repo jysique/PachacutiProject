@@ -30,36 +30,6 @@
 
             "experience": "10",
             "strategyType": "TERRAIN_MASTER"
-        },
-        {
-            "characterName": "Asiri Sami",
-            "age": "30",
-            "origin": "Qosqo",
-            "campaign": "Mayas" ,
-            
-            "characIconIndex": "02",
-            "personality": "SERIOUS",
-
-            "influence": "INSPIRING_LEADER",
-            "opinion": "20",
-
-            "experience": "20",
-            "strategyType": "DEFENSIVE"
-        },
-        {
-            "characterName": " Sami Asiri",
-            "age": "30",
-            "origin": "Qosqo",
-            "campaign": "Mayas" ,
-            
-            "characIconIndex": "02",
-            "personality": "SERIOUS",
-
-            "influence": "ORGANIZING_LEADER ",
-            "opinion": "20",
-
-            "experience": "16",
-            "strategyType": "SACRED_WARRIOR"
         }
     ]
 }

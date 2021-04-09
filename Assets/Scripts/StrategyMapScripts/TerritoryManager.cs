@@ -18,8 +18,9 @@ public class TerritoryManager : MonoBehaviour
     void Start()
     {
         AddTerritoryData();
+        AddMilitaryBoss();
     }
-
+    
     private void AddTerritoryData()
     {
         GameObject[] tempArray = GameObject.FindGameObjectsWithTag("Territory") as GameObject[];
@@ -27,18 +28,27 @@ public class TerritoryManager : MonoBehaviour
         {
             territoryList.Add(t);
         }
-        int a = 0;
+
+    }
+    int a = 0;
+    public void AddMilitaryBoss()
+    {
+        
         for (int i = 0; i < territoryList.Count; i++)
         {
             TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
             if (territoryHandler.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
             {
-                territoryHandler.territory.MilitarBoss = CharacterManager.instance.MilitarBossList.GetCharacter(a);
+                territoryHandler.territory.MilitarBoss = CharacterManager.instance.MilitarBossList.GetMilitaryBoss(a);
                 a++;
             }
-
         }
     }
+    public void AddSpecificCharacter(TerritoryHandler territoryHandler, MilitarBoss militarBoss)
+    {
+        territoryHandler.territory.MilitarBoss = militarBoss;
+    }
+
 
     private void TintTerritory()
     {
