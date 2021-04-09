@@ -73,7 +73,7 @@ public class TerritoryStats : MonoBehaviour
         if (timeLeftP > 0)
         {
             timeLeftP -= Time.deltaTime * velocityPopulation;
-            print(maxTime);
+
             timerBar.fillAmount = timeLeftP / maxTime;
         }
         else

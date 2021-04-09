@@ -8,10 +8,11 @@ public class TerritoryHandler : MonoBehaviour
 {
     private SpriteRenderer sr;
     public int state;
+    public bool war;
     [SerializeField] private Material outlineMaterial;
     [SerializeField] private Material normalMaterial;
     public Territory territory;
-    private SpriteRenderer sprite;
+    public SpriteRenderer sprite;
     private Color32 oldColor;
     private Color32 hoverColor;
     // public Color32 startColor;
@@ -22,6 +23,7 @@ public class TerritoryHandler : MonoBehaviour
 
     private void Awake()
     {
+        war = false;
         state = 0;
         sprite = GetComponent<SpriteRenderer>();
      //   sprite.color = startColor;
@@ -44,7 +46,7 @@ public class TerritoryHandler : MonoBehaviour
         GameObject canvas = GameObject.Find("Canvas");
         statsGO = Instantiate(Resources.Load("Prefabs/TerritoryStats")) as GameObject;
 
-        statsGO.transform.SetParent(canvas.transform,false);
+        statsGO.transform.SetParent(GameObject.Find("StatsContainer").transform,false);
         statsGO.transform.position = transform.position;
 
 
@@ -103,7 +105,9 @@ public class TerritoryHandler : MonoBehaviour
                 if (selected.adjacentTerritories[i].GetComponent<TerritoryHandler>() == this) ca = true;
 
             }
-            InGameMenuHandler.instance.ActivateContextMenu(this, ca, Input.mousePosition);
+            if (selected.territory.TypePlayer != Territory.TYPEPLAYER.PLAYER) ca = false;
+
+            InGameMenuHandler.instance.ActivateContextMenu(this, ca,war, Input.mousePosition);
 
         }
     }

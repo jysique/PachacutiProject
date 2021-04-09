@@ -29,9 +29,9 @@ public class InGameMenuHandler : MonoBehaviour
 
 
     [Header("Menu militar")]
-    
+
     [SerializeField] private GameObject menuBlock;
-    
+
     [SerializeField] private Image militaryBossPicture;
     [SerializeField] private Text militarWarriorsCount;
     [SerializeField] private Text GenerationSpeed;
@@ -74,7 +74,7 @@ public class InGameMenuHandler : MonoBehaviour
     }
     public void UpdateMilitarMenu()
     {
-        
+
         if (selectedTerritory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
         {
             menuBlock.SetActive(false);
@@ -105,7 +105,7 @@ public class InGameMenuHandler : MonoBehaviour
         governorOrigin.text = "Origen: " + temp.Origin;
         governorDiplomacy.text = "Diplomacia: " + temp.Diplomacy;
         governorMilitancy.text = "Militar: " + temp.Militancy;
-        governorManagement.text = "Administracion: " +temp.Managment;
+        governorManagement.text = "Administracion: " + temp.Managment;
         governorPrestige.text = "Prestigio: " + temp.Prestige;
         governorPiety.text = "Piedad: " + temp.Piety;
     }
@@ -114,7 +114,7 @@ public class InGameMenuHandler : MonoBehaviour
         selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory;
         UpdateMilitarMenu();
         UpdateTerritoryMenu();
-        
+
     }
     void Update()
     {
@@ -131,7 +131,7 @@ public class InGameMenuHandler : MonoBehaviour
         menuConfirm.SetActive(true);
         warriorsCount.text = "1";
         ChangeStateTerritory(2);
-        
+
     }
     public void ChangeStateTerritory(int _state)
     {
@@ -140,7 +140,7 @@ public class InGameMenuHandler : MonoBehaviour
             t.GetComponent<TerritoryHandler>().state = _state;
         }
     }
-    
+
     public void CloseWarriorsButton()
     {
         menuConfirm.SetActive(false);
@@ -159,15 +159,15 @@ public class InGameMenuHandler : MonoBehaviour
 
     public void SendWarriors(TerritoryHandler selected, TerritoryHandler otherTerritory, int _warriorsNumber)
     {
-        
+
         selected.territoryStats.population = selected.territoryStats.population - _warriorsNumber;
         warriorsPrefab.GetComponent<WarriorsMoving>().SetAttack(otherTerritory.gameObject, 1, _warriorsNumber, selected.territory.TypePlayer, selected.territory.MilitarBoss);
-        
-        Instantiate(warriorsPrefab, selected.transform.position , Quaternion.identity);
+
+        Instantiate(warriorsPrefab, selected.transform.position, Quaternion.identity);
     }
     public void MoveWarriors(TerritoryHandler otherTerritory, int attackPower, Territory.TYPEPLAYER type)
     {
-        
+
         if (otherTerritory.territory.TypePlayer == type)
         {
             otherTerritory.territoryStats.population = otherTerritory.territoryStats.population + attackPower;
@@ -175,6 +175,7 @@ public class InGameMenuHandler : MonoBehaviour
         }
         else
         {
+            /*
             int survivors = otherTerritory.territoryStats.population - attackPower;
             otherTerritory.territoryStats.population = otherTerritory.territoryStats.population - attackPower;
             if(survivors < 0)
@@ -182,17 +183,21 @@ public class InGameMenuHandler : MonoBehaviour
                 otherTerritory.territory.TypePlayer = type;
                 otherTerritory.territoryStats.population = otherTerritory.territoryStats.population * -1;
             }
+            */
+            WarManager.instance.AddWar(attackPower, otherTerritory.territoryStats.population, 2, 2, otherTerritory, type);
+            otherTerritory.war = true;
+            otherTerritory.gameObject.transform.GetChild(0).gameObject.SetActive(true);
         }
 
     }
-    public void ActivateContextMenu(TerritoryHandler territoryToAttack, bool canAttack, Vector3 mousePosition)
+    public void ActivateContextMenu(TerritoryHandler territoryToAttack, bool canAttack, bool isWar, Vector3 mousePosition)
     {
         TurnOnBlock();
         contextMenu.SetActive(true);
         ChangeStateTerritory(2);
         Vector3 mousePosCamera = Camera.main.ScreenToWorldPoint(mousePosition);
-        contextMenu.transform.position = new Vector3(mousePosCamera.x,mousePosCamera.y,contextMenu.transform.position.z);
-        contextMenu.GetComponent<ContextMenu>().SetMenu(canAttack,territoryToAttack);
+        contextMenu.transform.position = new Vector3(mousePosCamera.x, mousePosCamera.y, contextMenu.transform.position.z);
+        contextMenu.GetComponent<ContextMenu>().SetMenu(canAttack, isWar, territoryToAttack);
 
     }
     public void ImproveSpeedButton()
@@ -202,17 +207,18 @@ public class InGameMenuHandler : MonoBehaviour
     }
     public void ImproveLimitButton()
     {
+
         ImproveLimit(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
         UpdateMenu();
     }
     public void ImproveSpeed(TerritoryHandler territoryHandler)
     {
-        if (goldPlayer>= 10)
+        if (goldPlayer >= 10)
         {
             territoryHandler.ImproveSpeed();
             goldPlayer -= 10;
         }
-        
+
     }
     public void ImproveLimit(TerritoryHandler territoryHandler)
     {
@@ -241,6 +247,8 @@ public class InGameMenuHandler : MonoBehaviour
         overMenuBlock.SetActive(true);
     }
 
+
+    
 
 
 }
