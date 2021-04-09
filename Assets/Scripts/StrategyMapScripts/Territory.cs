@@ -33,14 +33,13 @@ public class Territory
     [SerializeField] private float velocityFood;
 
     [SerializeField] private bool selected;
-    [SerializeField] private MilitarBoss militarBoss;
+    [SerializeField] private MilitarBoss militarBoss = null;
 
     public MilitarBoss MilitarBoss
     {
         get { return militarBoss; }
         set { militarBoss = value; }
     }
-
     public TYPEPLAYER TypePlayer
     {
         get { return typePlayer; }

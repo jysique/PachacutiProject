@@ -6,12 +6,39 @@ using UnityEngine;
 public class MilitarBossList
 {
     public List<MilitarBoss> MilitarBosses = new List<MilitarBoss>();
-
-    public void AddCharacter(MilitarBoss militar)
+    public void PrintList()
+    {
+        for (int i = 0; i < MilitarBosses.Count; i++)
+        {
+            Debug.Log(i+ " - " +MilitarBosses[i].CharacterName);
+        }
+    }
+    public void AddMilitar(MilitarBoss militar)
     {
         MilitarBosses.Add(militar);
     }
-    public MilitarBoss GetCharacter(int index)
+    public List<MilitarBoss> AddDataMilitaryList(int size)
+    {
+        for (int i = 0; i < size; i++)
+        {
+            MilitarBoss _militar = new MilitarBoss();
+            _militar.GetMilitarBoss();
+            MilitarBosses.Add(_militar);
+        }
+        return MilitarBosses;
+    }
+    public MilitarBoss GetMilitaryBoss(string name)
+    {
+        for (int i = 0; i < MilitarBosses.Count; i++)
+        {
+            if (MilitarBosses[i].CharacterName == name)
+            {
+                return MilitarBosses[i];
+            }
+        }
+        return null;
+    }
+    public MilitarBoss GetMilitaryBoss(int index)
     {
         return MilitarBosses[index];
     }

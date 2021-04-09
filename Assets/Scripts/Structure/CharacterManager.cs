@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterManager : MonoBehaviour
 {
     public static CharacterManager instance;
-    private MilitarBossList militarBossList = new MilitarBossList();
+    [SerializeField]private MilitarBossList militarBossList = new MilitarBossList();
     private Governor governor;
 
     private void Awake()
@@ -49,6 +49,11 @@ public class CharacterManager : MonoBehaviour
             print("asset is null");
         }
     }
-
+    public void HireMilitaryBoss(TerritoryHandler territory, MilitarBoss militar)
+    {
+        MilitarBossList.AddMilitar(militar);
+        TerritoryManager.instance.AddSpecificCharacter(territory, militar);
+        InGameMenuHandler.instance.CloseCharacterSelection();
+    }
 
 }

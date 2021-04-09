@@ -8,9 +8,9 @@ public class TimeSimulated
     public double year;
     public string season;
 
-    public TimeSimulated(double _hour, double _day, double _month, double _year)
+    public TimeSimulated( double _day, double _month, double _year)
     {
-        this.hour = _hour;
+        this.hour = 0f;
         this.day = _day;
         this.month = _month;
         this.year = _year;
@@ -35,6 +35,10 @@ public class TimeSimulated
         {
             season = "Temporada 4";
         }
+    }
+    public string PrintTimeSimulated()
+    {
+        return this.day.ToString() + " / " + this.month.ToString() + " / " + this.year.ToString();
     }
     public void CalculateWeeks()
     {

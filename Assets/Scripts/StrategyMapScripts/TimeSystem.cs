@@ -8,21 +8,28 @@ using System.Linq;
 using System.Text;
 public class TimeSystem : MonoBehaviour
 {
+    public static TimeSystem instance;
     private int TIMESCALE; // Tiempo escalable para la modificacion del ritmo del tiempo
     [SerializeField]private Text dayText;
     [SerializeField]private Text monthText;
     [SerializeField]private Text seasonText;
     [SerializeField]private Text yearText;
     [SerializeField] private Text weekText;
+    public bool isPause = false;
     //bool isEvent = false;
     //public static double hour, day, month, year;
     public static TimeSimulated timeGame;
+    private void Awake()
+    {
+        instance = this;
+    }
     void Start()
     {
-        timeGame = new TimeSimulated(0, 28, 12, 1399);
+        timeGame = new TimeSimulated(28, 12, 1399);
         TIMESCALE = 6;
         if (GlobalVariables.instance != null)
         {
+            timeGame = GlobalVariables.instance.governorChoosen.TimeInit;
             TIMESCALE = 6 * (GlobalVariables.instance.velocityGame + 1);
         }
         TextCallFunction();
@@ -31,7 +38,6 @@ public class TimeSystem : MonoBehaviour
     void Update()
     {
         CalculateTime();
-        EventoRandom();
     }
 
     private void TextCallFunction()
@@ -81,13 +87,11 @@ public class TimeSystem : MonoBehaviour
         }
     }
 
-    void EventoRandom()
+    void EventoRandom(TimeSimulated _time)
     {
-        TimeSimulated time1 = new TimeSimulated(0, 2, 1, 1400);
-        if(timeGame.EqualsDate(time1))
+        if(timeGame.EqualsDate(_time))
         {
             //Debug.Log("EVENTO RANDOM");
         }
-        
     }
 }

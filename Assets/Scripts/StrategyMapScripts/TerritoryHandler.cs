@@ -125,7 +125,7 @@ public class TerritoryHandler : MonoBehaviour
                 MakeOutline();
                 break;
             case 1:
-                print("moving");
+//                print("moving");
                 InGameMenuHandler.instance.SendWarriors(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>(), this, InGameMenuHandler.instance.warriorsNumber);
                 HideAdjacentTerritories();
                 break;

@@ -5,9 +5,12 @@ using UnityEngine;
 [System.Serializable]
 public class Governor : RoyalFamily
 {
-     private string culture;
-     private List<string> misions;
-
+    private string culture;
+    private List<string> misions;
+    [SerializeField] private int dayPeriod;
+    [SerializeField] private int monthPeriod;
+    [SerializeField] private int yearPeriod;
+    private TimeSimulated timeInit;
     public string Culture
     {
         get { return culture; }
@@ -17,6 +20,10 @@ public class Governor : RoyalFamily
     {
         get { return misions; }
         set { misions = value; }
+    }
+    public TimeSimulated TimeInit
+    {
+        get { return new TimeSimulated(dayPeriod, monthPeriod, yearPeriod); }
     }
     public void AddMision(string value)
     {
@@ -29,17 +36,17 @@ public class Governor : RoyalFamily
     public Governor(string _name)
     {
         this.CharacterName = _name;
-        this.Age = 30;
+        this.Age = Random.Range(20, 30);
         this.Origin = "Qosqo";
         this.Campaign = "Default";
         this.Personality = "Default";
-        this.CharacIconType = "Emperor";
-        this.CharacIconIndex = "01";
-        this.Diplomacy = 10;
-        this.Militancy = 10;
-        this.Managment = 10;
-        this.Prestige = 10;
-        this.Piety = 10;
+        this.CharacIconType = "Governor";
+        this.CharacIconIndex = "0" + Random.Range(1, 4).ToString();
+        this.Diplomacy = Random.Range(3,10);
+        this.Militancy = Random.Range(3, 10);
+        this.Managment = Random.Range(3, 10);
+        this.Prestige = Random.Range(3, 10);
+        this.Piety = Random.Range(3, 10);
         this.Culture = "Default";
         this.misions = null;
     }

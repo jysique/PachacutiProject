@@ -12,6 +12,12 @@ public class ChangeWindow : MonoBehaviour
         thisWindow.gameObject.SetActive(false);
     }
 
+    public void CloseWindow()
+    {
+        thisWindow.gameObject.SetActive(false);
+        //InGameMenuHandler.instance.CloseCharacterSelection();
+    }
+
     public void CloseGame()
     {
         print("closing app");
