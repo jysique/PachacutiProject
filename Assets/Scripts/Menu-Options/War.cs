@@ -31,7 +31,12 @@ public class War
     {
         if(status == 1)
         {
-            WarManager.instance.FinishWar(territory,attackers);
+            WarManager.instance.FinishWar(territory,attackers,warriors1Count);
+            if(WarManager.instance.selectedWar == this)
+            {
+                InGameMenuHandler.instance.overMenuBlock.GetComponent<OverMenu>().turnOffMenus();
+            }
+            WarManager.instance.warList.Remove(this);
         }
         else
         {

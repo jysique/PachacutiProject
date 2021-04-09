@@ -12,9 +12,10 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private GameObject contextMenu;
     [SerializeField] private GameObject warriorsPrefab;
     [SerializeField] private Territory selectedTerritory;
+
     [Header("OverMenu")]
     [SerializeField] private GameObject menuConfirm;
-    [SerializeField] private GameObject overMenuBlock;
+    [SerializeField] public GameObject overMenuBlock;
     [Header("Menu personaje")]
     [SerializeField] private Text governorName;
     [SerializeField] private Text governorAge;
@@ -50,6 +51,10 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private Text foodGenerated;
     [SerializeField] private Text sucesionSizeTxt;
     [SerializeField] private Text scoreTxt;
+    [Header("Select MilitaryBoss variables")]
+    [SerializeField] private GameObject CharacterSelection;
+    private List<GameObject> characterOptions;
+    public MilitarBossList ml;
 
     int goldPlayer;
     int foodPlayer;
@@ -79,13 +84,13 @@ public class InGameMenuHandler : MonoBehaviour
         {
             menuBlock.SetActive(false);
             MilitarBoss boss = selectedTerritory.MilitarBoss;
-            ;
             militaryBossName.text = "Nombre: " + boss.CharacterName;
             militaryBossPicture.sprite = boss.Picture;
             militaryBossExperience.text = "Experiencia: " + boss.Experience;
             militaryBossEstrategy.text = "Estrategia: " + boss.Type;
             militaryBossMilitary.text = "Influencia: " + boss.Influence;
             GenerationSpeed.text = "Velocidad de crecimiento: " + selectedTerritory.VelocityPopulation;
+            
         }
         else
         {
@@ -175,29 +180,24 @@ public class InGameMenuHandler : MonoBehaviour
         }
         else
         {
-            /*
-            int survivors = otherTerritory.territoryStats.population - attackPower;
-            otherTerritory.territoryStats.population = otherTerritory.territoryStats.population - attackPower;
-            if(survivors < 0)
+            if (otherTerritory.war)
             {
-                if (type == Territory.TYPEPLAYER.PLAYER)
-                {
-                    ml.AddDataMilitaryList(5);
-                    InstantiateCharacterOption(otherTerritory);
-                }
-                otherTerritory.territory.TypePlayer = type;
-                otherTerritory.territoryStats.population = otherTerritory.territoryStats.population * -1;
-
-
+                WarManager.instance.AddMoreWarriors(otherTerritory, attackPower);
+                print("added");
             }
-            */
-            WarManager.instance.AddWar(attackPower, otherTerritory.territoryStats.population, 2, 2, otherTerritory, type);
-            otherTerritory.war = true;
-            otherTerritory.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            else
+            {
+                WarManager.instance.AddWar(attackPower, otherTerritory.territoryStats.population, 2, 2, otherTerritory, type);
+                print("war");
+                otherTerritory.war = true;
+                otherTerritory.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            }
+            
         }
 
-        }
+
     }
+
     public void ActivateContextMenu(TerritoryHandler territoryToAttack, bool canAttack, bool isWar, Vector3 mousePosition)
     {
         TurnOnBlock();
@@ -211,6 +211,7 @@ public class InGameMenuHandler : MonoBehaviour
     public void ImproveSpeedButton()
     {
         ImproveSpeed(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
+        print(selectedTerritory.VelocityPopulation);
         UpdateMenu();
     }
     public void ImproveLimitButton()
@@ -255,12 +256,11 @@ public class InGameMenuHandler : MonoBehaviour
         overMenuBlock.SetActive(true);
     }
 
-    [SerializeField] private GameObject CharacterSelection;
-    private List<GameObject> characterOptions;
-    public MilitarBossList ml;
+    
 
     public void InstantiateCharacterOption(TerritoryHandler territory)
     {
+        ml.AddDataMilitaryList(5);
         CharacterSelection.SetActive(true);
         characterOptions = new List<GameObject>();
         Transform gridLayout = CharacterSelection.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;

@@ -193,10 +193,12 @@ public class TerritoryHandler : MonoBehaviour
     public void ImproveSpeed()
     {
         territoryStats.velocityPopulation += 0.3f;
+        territory.SetStats(territoryStats);
     }
     public void ImproveLimit()
     {
         territoryStats.limitPopulation += 20;
+        territory.SetStats(territoryStats);
     }
     public void GatherTerritoryGold(int gather)
     {

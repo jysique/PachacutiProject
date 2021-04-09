@@ -8,7 +8,7 @@ public class WarManager : MonoBehaviour
 {
     private bool status;
     public TerritoryHandler selected;
-    private War selectedWar;
+    public War selectedWar;
     public static WarManager instance;
     public List<War> warList = new List<War>();
 
@@ -60,11 +60,35 @@ public class WarManager : MonoBehaviour
         status = t;
     }
 
-    public void FinishWar(TerritoryHandler territory, Territory.TYPEPLAYER type)
+    public void FinishWar(TerritoryHandler territory, Territory.TYPEPLAYER type, int survivors)
     {
         territory.gameObject.transform.GetChild(0).gameObject.SetActive(false);
-        territory.war = false; 
+        territory.war = false;
 
+        if(territory.territoryStats.population == 0)
+        {
+            
+            territory.territory.TypePlayer = type;
+            territory.territoryStats.population = survivors;
+                
+            if(type == Territory.TYPEPLAYER.PLAYER)
+            {
+                InGameMenuHandler.instance.InstantiateCharacterOption(territory);
+            }
+            
+            
+        }
+
+    }
+    public void AddMoreWarriors(TerritoryHandler otherTerritory, int warriors)
+    {
+        foreach (War w in warList)
+        {
+            if (w.GetTerritory() == otherTerritory)
+            {
+                w.warriors1Count += warriors;
+            }
+        }
     }
 
 }
