@@ -15,11 +15,11 @@ public class ChapterController : MonoBehaviour
     // ChapterPachacuti_start
     private void Start()
     {
-        chapterName = "ChapterPachacuti_start"; 
-        if (GlobalVariables.instance != null)
+        if (GlobalVariables.instance == null)
         {
-            chapterName = GlobalVariables.instance.GetChapterTxt("start");
+            GlobalVariables.instance.SetChapterTxt("start");
         }
+        chapterName = GlobalVariables.instance.ChapterTxt;
         LoadChapterFile(chapterName);
     }
     private void Update()

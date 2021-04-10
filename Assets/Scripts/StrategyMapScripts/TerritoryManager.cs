@@ -138,7 +138,7 @@ public class TerritoryManager : MonoBehaviour
         {
             if (GlobalVariables.instance != null)
             {
-                GlobalVariables.instance.GetChapterTxt("lose");
+                GlobalVariables.instance.SetChapterTxt("win");
             }
             SceneManager.LoadScene("VisualNovelScene");
         }
@@ -146,7 +146,7 @@ public class TerritoryManager : MonoBehaviour
         {
             if (GlobalVariables.instance != null)
             {
-                GlobalVariables.instance.GetChapterTxt("win");
+                GlobalVariables.instance.SetChapterTxt("lose");
             }
             SceneManager.LoadScene("VisualNovelScene");
         }

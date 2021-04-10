@@ -7,7 +7,7 @@ public class GlobalVariables : MonoBehaviour
     public static GlobalVariables instance { get; private set; }
     public string rhythmGame;
     public Governor governorChoosen;
-
+    private string chapterTxt;
     public int velocityGame = 0;
     public int dificultyGame = 0;
     private void Awake()
@@ -28,10 +28,13 @@ public class GlobalVariables : MonoBehaviour
         get { return governorChoosen; }
         set { governorChoosen = value; }
     }
-    public string GetChapterTxt(string action)
+    public string ChapterTxt
     {
-        string characterChoosen = governorChoosen.CharacterName;
-        return "Chapter" + characterChoosen + "_" + action;
-        
+        get { return chapterTxt; }
+        set { chapterTxt = value; }
+    }
+    public void SetChapterTxt(string action)
+    {
+        chapterTxt = "Chapter" + governorChoosen.CharacterName + "_" + action;
     }
 }
