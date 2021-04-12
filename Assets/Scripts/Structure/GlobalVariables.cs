@@ -5,11 +5,21 @@ using UnityEngine;
 public class GlobalVariables : MonoBehaviour
 {
     public static GlobalVariables instance { get; private set; }
-    public string rhythmGame;
-    public Governor governorChoosen;
+    private Governor governorChoosen;
     private string chapterTxt;
-    public int velocityGame = 0;
-    public int dificultyGame = 0;
+    private int velocityGame = 0;
+    private int dificultyGame = 0;
+
+    public int VelocityGame
+    {
+        get { return velocityGame; }
+        set { velocityGame = value; }
+    }
+    public int DificultyGame
+    {
+        get { return dificultyGame; }
+        set { dificultyGame = value; }
+    }
     private void Awake()
     {
         if (instance == null)

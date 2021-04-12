@@ -160,34 +160,25 @@ public class ChapterController : MonoBehaviour
     }
     void Command_PlaySound(string data)
     {
-        AudioClip clip = Resources.Load("Audio/SFX/" + data) as AudioClip;
-        if (clip!=null)
+        if(AudioManager.instance != null)
         {
-            AudioManager.instance.PlaySFX(clip);
+            AudioManager.instance.ReadAndPlaySFX(data);
         }
         else
         {
-            Debug.LogError("Clip does not exist - " + data);
+            print("No audio manager");
         }
-
+        
     }
     void Command_PlayMusic(string data)
     {
-        AudioClip clip = Resources.Load("Audio/Music/" + data) as AudioClip;
-        if (clip != null)
+        if (AudioManager.instance != null)
         {
-            if (AudioManager.instance != null)
-            {
-                AudioManager.instance.PlaySong(clip);
-            }
-            else
-            {
-                Debug.Log("No audio manager ");
-            }
+            AudioManager.instance.ReadAndPlayMusic(data,true);
         }
         else
         {
-            Debug.LogError("Clip does not exist - " + data);
+            print("No audio manager");
         }
     }
     void Command_MoveCharacter(string data)

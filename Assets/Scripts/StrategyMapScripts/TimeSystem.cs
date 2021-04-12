@@ -29,8 +29,8 @@ public class TimeSystem : MonoBehaviour
         TIMESCALE = 6;
         if (GlobalVariables.instance != null)
         {
-            timeGame = GlobalVariables.instance.governorChoosen.TimeInit;
-            TIMESCALE = 6 * (GlobalVariables.instance.velocityGame + 1);
+            timeGame = GlobalVariables.instance.GovernorChoose.TimeInit;
+            TIMESCALE = 6 * (GlobalVariables.instance.VelocityGame + 1);
         }
         TextCallFunction();
     }

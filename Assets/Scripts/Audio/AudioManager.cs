@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
@@ -8,8 +9,8 @@ public class AudioManager : MonoBehaviour
     public static List<SONG> allSongs = new List<SONG>();
     public static SONG activeSong = null;
 
-    public float songTransitionSpeed = 2f;
-    public bool songSmoothTransitions = true;
+    private float songTransitionSpeed = 2f;
+    private bool songSmoothTransitions = true;
     private void Awake()
     {
         if (instance == null)
@@ -22,9 +23,38 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void PlaySFX(AudioClip effect, float volume = 1f,float pitch = 1f)
+    void Start()
+    {
+        ReadAndPlayMusic("strategymp3",false);
+    }
+    public void ReadAndPlaySFX(string data)
+    {
+        AudioClip clip = Resources.Load("Audio/SFX/" + data) as AudioClip;
+        if (clip != null)
+        {
+            PlaySFX(clip);
+        }
+        else
+        {
+            Debug.LogError("Clip does not exist - " + data);
+        }
+    }
+    public void ReadAndPlayMusic(string data, bool volume)
+    {
+        AudioClip clip = Resources.Load("Audio/Music/" + data) as AudioClip;
+        if (clip != null)
+        {
+            PlaySong(clip, volumentLeveling:volume);
+        }
+        else
+        {
+            Debug.LogError("Clip does not exist - " + data);
+        }
+    }
+    private void PlaySFX(AudioClip effect, float volume = 1f,float pitch = 1f)
     {
         AudioSource source = CreateNewSource(string.Format("SFX [{0}]",effect.name));
+        source.outputAudioMixerGroup = sfx;
         source.clip = effect;
         source.volume = volume;
         source.pitch = pitch;
@@ -32,7 +62,8 @@ public class AudioManager : MonoBehaviour
 
         Destroy(source.gameObject, effect.length); 
     }
-    public void PlaySong(AudioClip song, float maxVolume = 1f, float pitch = 1f,float startingVolume = 0f, bool playOnStart = true,bool loop = true)
+
+    private void PlaySong(AudioClip song, float maxVolume = 1f, float pitch = 1f,float startingVolume = 0f, bool playOnStart = true,bool loop = true, bool volumentLeveling = true)
     {
         if (song !=null)
         {
@@ -47,17 +78,18 @@ public class AudioManager : MonoBehaviour
             }
             if (activeSong == null || activeSong.clip!=song)
             {
-                activeSong = new SONG(song, maxVolume, pitch, startingVolume, playOnStart, loop);
+                activeSong = new SONG(song, music, maxVolume, pitch, startingVolume, playOnStart, loop);
+
             }
+            StopAllCoroutines();
+            StartCoroutine(VolumeLeveling());
         }
         else
         {
             activeSong = null;
         }
-
-        StopAllCoroutines();
-        StartCoroutine(VolumeLeveling());
     }
+
     IEnumerator VolumeLeveling()
     {
         while (TransitionSongs())
@@ -65,6 +97,7 @@ public class AudioManager : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
     }
+    
     bool TransitionSongs()
     {
         bool anyValueChanged = false;
@@ -107,22 +140,26 @@ public class AudioManager : MonoBehaviour
         newSource.transform.SetParent(instance.transform);
         return newSource;
     }
+
+    public AudioMixerGroup music;
+    public AudioMixerGroup sfx;
+
     [System.Serializable]
     public class SONG
     {
         public AudioSource source;
         
         public float maxVolume = 1f;
-        public SONG(AudioClip clip, float maxVolume, float pitch , float startingVolume,bool playOnStart,bool loop)
+        public SONG(AudioClip clip,AudioMixerGroup mg, float maxVolume, float pitch , float startingVolume,bool playOnStart,bool loop)
         {
-            source = AudioManager.CreateNewSource(string.Format("SFX [{0}]", clip.name));
+            source = CreateNewSource(string.Format("SFX [{0}]", clip.name));
             source.clip = clip;
             source.volume = startingVolume;
             this.maxVolume = maxVolume;
             source.pitch = pitch;
             source.loop = loop;
-
-            AudioManager.allSongs.Add(this);
+            source.outputAudioMixerGroup = mg;
+            allSongs.Add(this);
             if (playOnStart)
             {
                 source.Play();

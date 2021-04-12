@@ -21,8 +21,8 @@ public class CharacterManager : MonoBehaviour
         }
         else
         {
-            governor = GlobalVariables.instance.governorChoosen;
-            AudioManager.activeSong.Stop();
+            governor = GlobalVariables.instance.GovernorChoose;
+            //AudioManager.activeSong.Stop();
         }
         InGameMenuHandler.instance.UpdateProfileMenu();
     }
@@ -49,10 +49,11 @@ public class CharacterManager : MonoBehaviour
             print("asset is null");
         }
     }
-    public void HireMilitaryBoss(TerritoryHandler territory, MilitarBoss militar)
+
+    public void HireMilitaryBoss(TerritoryHandler territoryhandler, MilitarBoss militar)
     {
         MilitarBossList.AddMilitar(militar);
-        TerritoryManager.instance.AddSpecificCharacter(territory, militar);
+        TerritoryManager.instance.AddSpecificCharacter(territoryhandler, militar);
         InGameMenuHandler.instance.CloseCharacterSelection();
     }
 

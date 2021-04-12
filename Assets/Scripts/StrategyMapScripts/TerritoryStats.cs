@@ -29,7 +29,7 @@ public class TerritoryStats : MonoBehaviour
         difTime = 0f;
         if (GlobalVariables.instance != null)
         {
-            difTime = GlobalVariables.instance.velocityGame;
+            difTime = GlobalVariables.instance.VelocityGame;
         }
         maxTime = 5f - difTime;
         timeLeftP = maxTime;

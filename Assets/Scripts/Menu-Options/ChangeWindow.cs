@@ -6,16 +6,17 @@ public class ChangeWindow : MonoBehaviour
 {
     [SerializeField] private GameObject nextWindow;
     [SerializeField] private GameObject thisWindow;
+
     public void ChangeMenuWindow()
     {
         nextWindow.gameObject.SetActive(true);
         thisWindow.gameObject.SetActive(false);
+        AudioManager.instance.ReadAndPlaySFX("ButtonPush");
     }
 
     public void CloseWindow()
     {
         thisWindow.gameObject.SetActive(false);
-        //InGameMenuHandler.instance.CloseCharacterSelection();
     }
 
     public void CloseGame()

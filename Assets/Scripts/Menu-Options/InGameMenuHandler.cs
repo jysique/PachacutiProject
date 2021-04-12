@@ -61,7 +61,7 @@ public class InGameMenuHandler : MonoBehaviour
     int sucesionSizePlayer;
     int scorePlayer;
     //perfil menu
-
+    
     private void Start()
     {
     }
@@ -206,12 +206,10 @@ public class InGameMenuHandler : MonoBehaviour
         Vector3 mousePosCamera = Camera.main.ScreenToWorldPoint(mousePosition);
         contextMenu.transform.position = new Vector3(mousePosCamera.x, mousePosCamera.y, contextMenu.transform.position.z);
         contextMenu.GetComponent<ContextMenu>().SetMenu(canAttack, isWar, territoryToAttack);
-
     }
     public void ImproveSpeedButton()
     {
         ImproveSpeed(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
-        print(selectedTerritory.VelocityPopulation);
         UpdateMenu();
     }
     public void ImproveLimitButton()
@@ -255,8 +253,6 @@ public class InGameMenuHandler : MonoBehaviour
     {
         overMenuBlock.SetActive(true);
     }
-
-    
 
     public void InstantiateCharacterOption(TerritoryHandler territory)
     {

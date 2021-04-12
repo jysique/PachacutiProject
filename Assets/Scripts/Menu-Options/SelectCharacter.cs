@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class SelectCharacter : MonoBehaviour
 {
     Button select;
-    TerritoryHandler t;
+    TerritoryHandler tempTerritory;
     void Start()
     {
         select = GetComponent<Button>();
@@ -18,13 +18,13 @@ public class SelectCharacter : MonoBehaviour
         GlobalVariables.instance.SetChapterTxt("start");
         SceneManager.LoadScene(1);
     }
-    public void SetTerritoryHandler(TerritoryHandler _t)
+    public void SetTerritoryHandler(TerritoryHandler territory)
     {
-        t = _t;
+        tempTerritory = territory;
     }
     public void HireMilitaryBossButton()
     {
-        MilitarBoss temp = InGameMenuHandler.instance.ml.GetMilitaryBoss(gameObject.name);
-        CharacterManager.instance.HireMilitaryBoss(t,temp);
+        MilitarBoss militarBoss = InGameMenuHandler.instance.ml.GetMilitaryBoss(gameObject.name);
+        CharacterManager.instance.HireMilitaryBoss(tempTerritory,militarBoss);
     }
 }
