@@ -200,11 +200,14 @@ public class TerritoryHandler : MonoBehaviour
         territoryStats.limitPopulation += 20;
         territory.SetStats(territoryStats);
     }
-    public void GatherTerritoryGold(int gather)
+    public void GatherTerritoryGold()
     {
-        if (gather <= territoryStats.gold)
-        {
-            territoryStats.gold -= gather;
-        }
+        int gather = territoryStats.gold;
+        territoryStats.gold -= gather;
+    }
+    public void GatherTerritoryFood()
+    {
+        int gather = territoryStats.food;
+        territoryStats.food-= gather;
     }
 }

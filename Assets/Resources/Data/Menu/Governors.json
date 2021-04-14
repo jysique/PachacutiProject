@@ -46,11 +46,11 @@
             "personality": "Serious",
             "characIconIndex": "03",
                         
-            "diplomacy":"20",
-            "militancy":"12",
-            "managment":"3",
-            "prestige":"4",
-            "piety":"1"
+            "diplomacy":"",
+            "militancy":"",
+            "managment":"",
+            "prestige":"",
+            "piety":""
         },
         {
             "characterName": "Hakan Urpi",
@@ -60,11 +60,11 @@
             "personality": "Serious",
             "characIconIndex": "04",
                         
-            "diplomacy":"20",
-            "militancy":"12",
-            "managment":"3",
-            "prestige":"4",
-            "piety":"1"
+            "diplomacy":"",
+            "militancy":"",
+            "managment":"",
+            "prestige":"",
+            "piety":""
         },
         {
             "characterName": "Illantay",
@@ -140,7 +140,7 @@
             "characterName": "Hakan Urpi",
             "age": "30",
             "origin": "Qosqo",
-            "campaign": "Incas" ,
+            "campaign": "Paracas" ,
             "personality": "Serious",
             "characIconIndex": "01",
                         

@@ -11,10 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/VisualNovelScene.unity
     guid: b624097c1968752479af01340eb689be
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Pruebas Diego.unity
     guid: 3a9180f6d79ec4c43ab13e98a73e0c1b
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/(Copy)Pruebas Diego.unity
-    guid: 775ab26cd9a2247428b3460e4e7344bf
+    guid: 7170b11db5553484ca37c86be07999f5
   m_configObjects: {}

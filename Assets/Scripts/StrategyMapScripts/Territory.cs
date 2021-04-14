@@ -59,7 +59,7 @@ public class Territory
         get { return limitPopulation; }
         set { limitPopulation = value; }
     }
-    public int GoldReward
+    public int Gold
     {
         get { return gold; }
         set { gold = value; }

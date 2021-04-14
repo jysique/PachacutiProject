@@ -14,7 +14,7 @@ public class NumericButton : MonoBehaviour
 
     public void IncreaseNumberGold()
     {
-        IncreaseNumber(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory.GoldReward);
+        IncreaseNumber(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory.Gold);
     }
     public void DecreaseNumberPopulation()
     {
@@ -22,7 +22,7 @@ public class NumericButton : MonoBehaviour
     }
     public void DecreaseNumberGold()
     {
-        DecreaseNumber(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory.GoldReward);
+        DecreaseNumber(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory.Gold);
     }
 
     private void IncreaseNumber(int limit)

@@ -16,7 +16,8 @@ public class SelectCharacter : MonoBehaviour
     {
         GlobalVariables.instance.GovernorChoose = CampainManager.instance.GovernorList.GetGovernors(gameObject.name);
         GlobalVariables.instance.SetChapterTxt("start");
-        SceneManager.LoadScene(1);
+        //SceneManager.LoadScene(1); //LLEVA A LA VISUAL NOVEL
+        SceneManager.LoadScene(2); //DEMO LLEVA AL GAMEPLAY
     }
     public void SetTerritoryHandler(TerritoryHandler territory)
     {

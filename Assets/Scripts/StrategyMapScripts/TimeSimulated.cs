@@ -60,9 +60,13 @@ public class TimeSimulated
         day++;
         hour = 1;
     }
-
+    public void PlusDays(int plus)
+    {
+        day += plus;
+    }
     public bool EqualsDate(TimeSimulated time2)
     {
         return this.day == time2.day && this.month == time2.month && this.year == time2.year;
     }
+
 }

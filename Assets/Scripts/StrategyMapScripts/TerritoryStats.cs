@@ -23,7 +23,6 @@ public class TerritoryStats : MonoBehaviour
     public float velocityFood;
 
     public Text populationTxt;
-
     private void Start()
     {
         difTime = 0f;
@@ -39,7 +38,7 @@ public class TerritoryStats : MonoBehaviour
     public void InitalizeStats(Territory territory)
     {
         population = territory.Population;
-        gold = territory.GoldReward;
+        gold = territory.Gold;
         food = territory.FoodReward;
         limitPopulation = territory.LimitPopulation;
 

@@ -46,18 +46,19 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private Text territoryName;
     [SerializeField] private Text goldCount;
     [Header("Recursos")]
-    [SerializeField] private InputField inputGoldCount;
     [SerializeField] private Text goldGenerated;
-    [SerializeField] private Text foodGenerated;
-    [SerializeField] private Text sucesionSizeTxt;
+ //   [SerializeField] private Text foodGenerated;
+ //   [SerializeField] private Text sucesionSizeTxt;
     [SerializeField] private Text scoreTxt;
+    [SerializeField] private Transform goldAnimation;
+ //   [SerializeField] private Transform foodAnimation;
     [Header("Select MilitaryBoss variables")]
     [SerializeField] private GameObject CharacterSelection;
+
     private List<GameObject> characterOptions;
     public MilitarBossList ml;
-
     int goldPlayer;
-    int foodPlayer;
+  //  int foodPlayer;
     int sucesionSizePlayer;
     int scorePlayer;
     //perfil menu
@@ -73,8 +74,8 @@ public class InGameMenuHandler : MonoBehaviour
     public void UpdateResourceTable()
     {
         goldGenerated.text = goldPlayer.ToString();
-        foodGenerated.text = TerritoryManager.instance.GetFood(Territory.TYPEPLAYER.PLAYER).ToString();
-        sucesionSizeTxt.text = "0";
+     //   foodGenerated.text = foodPlayer.ToString();
+     //   sucesionSizeTxt.text = "0";
         scoreTxt.text = TerritoryManager.instance.CountTerrytorry(Territory.TYPEPLAYER.PLAYER).ToString();
     }
     public void UpdateMilitarMenu()
@@ -87,7 +88,7 @@ public class InGameMenuHandler : MonoBehaviour
             militaryBossName.text = "Nombre: " + boss.CharacterName;
             militaryBossPicture.sprite = boss.Picture;
             militaryBossExperience.text = "Experiencia: " + boss.Experience;
-            militaryBossEstrategy.text = "Estrategia: " + boss.Type;
+            militaryBossEstrategy.text = "Estrategia: " + boss.StrategyType;
             militaryBossMilitary.text = "Influencia: " + boss.Influence;
             GenerationSpeed.text = "Velocidad de crecimiento: " + selectedTerritory.VelocityPopulation;
             
@@ -125,7 +126,7 @@ public class InGameMenuHandler : MonoBehaviour
     {
         Territory selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory;
         militarWarriorsCount.text = "Tropas: " + selectedTerritory.Population.ToString() + " / " + selectedTerritory.LimitPopulation.ToString();
-        goldCount.text = "Oro: " + selectedTerritory.GoldReward.ToString();
+        goldCount.text = "Oro: " + selectedTerritory.Gold.ToString();
         UpdateResourceTable();
     }
 
@@ -210,41 +211,93 @@ public class InGameMenuHandler : MonoBehaviour
     public void ImproveSpeedButton()
     {
         ImproveSpeed(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
+        goldNeedSpeed += 3;
         UpdateMenu();
     }
     public void ImproveLimitButton()
     {
 
         ImproveLimit(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
+        goldNeedLimit += 3;
         UpdateMenu();
     }
+    int goldNeedSpeed = 10;
+    int goldNeedLimit = 10;
     public void ImproveSpeed(TerritoryHandler territoryHandler)
     {
-        if (goldPlayer >= 10)
+        if (goldPlayer >= goldNeedSpeed)
         {
             territoryHandler.ImproveSpeed();
-            goldPlayer -= 10;
+            goldPlayer -= goldNeedSpeed;
+            ShowFloatingText("+0.3 veloc", "TextMesh", territoryHandler.transform);
+            ShowFloatingText("-"+goldNeedSpeed.ToString(), "TextFloating", goldAnimation);
         }
-
+        
     }
     public void ImproveLimit(TerritoryHandler territoryHandler)
     {
-        if (goldPlayer >= 10)
+        if (goldPlayer >= goldNeedLimit)
         {
             territoryHandler.ImproveLimit();
-            goldPlayer -= 10;
+            goldPlayer -= goldNeedLimit;
+            ShowFloatingText("+20 limit", "TextMesh", territoryHandler.transform);
+            ShowFloatingText("-"+goldNeedLimit.ToString(), "TextFloating", goldAnimation);
         }
     }
-    public void GatherGoldResource(TerritoryHandler territoryHandler)
+    public int GatherGold(TerritoryHandler territoryHandler)
     {
-        territoryHandler.GatherTerritoryGold(int.Parse(inputGoldCount.text));
-        goldPlayer += int.Parse(inputGoldCount.text);
+        int gatherGold = territoryHandler.territoryStats.gold;
+        territoryHandler.GatherTerritoryGold();
+        return gatherGold;
     }
-    public void GatherGoldResourceButton()
+    /*
+    public int GatherFood(TerritoryHandler territoryHandler)
     {
-        GatherGoldResource(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
-        inputGoldCount.text = "0";
+        int gatherFood = territoryHandler.territoryStats.food;
+        territoryHandler.GatherTerritoryFood();
+        return gatherFood;
     }
+    */
+    void ShowFloatingText(string text,string namePrefab,Transform _t)
+    {
+        GameObject prefab = Resources.Load("Prefabs/MenuPrefabs/"+namePrefab) as GameObject;
+        GameObject go = new GameObject();
+        if (namePrefab == "TextFloating")
+        {
+            go = Instantiate(prefab, FindObjectOfType<Canvas>().transform);
+            go.transform.parent = _t.transform;
+            go.GetComponent<Text>().text = text;
+        }else if (namePrefab == "TextMesh")
+        {
+            go = Instantiate(prefab);
+            go.transform.SetParent(GameObject.Find("StatsContainer").transform, false);
+            go.transform.GetComponentInChildren<Text>().text = text;
+        }
+        go.transform.position = _t.position;
+        Destroy(go, 1.2f);
+    }
+    public void GatherGoldResource()
+    {
+        int temp = 0;
+        for (int i = 0; i < TerritoryManager.instance.GetTerritoryHandlers().Count; i++)
+        {
+            temp+= GatherGold(TerritoryManager.instance.GetTerritoryHandlers()[i]);
+        }
+        ShowFloatingText("+"+ temp.ToString(), "TextFloating",goldAnimation);
+        goldPlayer += temp;
+    }
+    /*
+    public void GatherFoodResource()
+    {
+        int temp = 0;
+        for (int i = 0; i < TerritoryManager.instance.GetTerritoryHandlers().Count; i++)
+        {
+            temp += GatherFood(TerritoryManager.instance.GetTerritoryHandlers()[i]);
+        }
+        ShowFloatingText("+" + temp.ToString(), "TextFloating",foodAnimation);
+        foodPlayer += temp;
+    }
+    */
     public void TurnOffBlock()
     {
         overMenuBlock.SetActive(false);
@@ -269,7 +322,7 @@ public class InGameMenuHandler : MonoBehaviour
             characterOption.transform.Find("Character/TextBackground/NameCharacter").gameObject.GetComponent<Text>().text = charac.CharacterName;
             characterOption.transform.Find("Description/OrigenCharacter").gameObject.GetComponent<Text>().text = charac.Origin;
             characterOption.transform.Find("Description/AgeCharacter").gameObject.GetComponent<Text>().text = charac.Age.ToString();
-            characterOption.transform.Find("Description/CampainCharacter").gameObject.GetComponent<Text>().text = charac.Campaign;
+            characterOption.transform.Find("Description/CampainCharacter").gameObject.GetComponent<Text>().text = charac.Personality;
             characterOption.transform.Find("Description/StatsCharacter").gameObject.GetComponent<Text>().text = charac.Influence + " | " + charac.Opinion + " | " + charac.Experience + " | " + charac.StrategyType;
             characterOption.GetComponent<SelectCharacter>().SetTerritoryHandler(territory);
             characterOptions.Add(characterOption);
