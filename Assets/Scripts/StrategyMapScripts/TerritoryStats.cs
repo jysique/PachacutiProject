@@ -25,12 +25,11 @@ public class TerritoryStats : MonoBehaviour
     public Text populationTxt;
     private void Start()
     {
-        difTime = 0f;
+        maxTime = 6f;
         if (GlobalVariables.instance != null)
         {
-            difTime = GlobalVariables.instance.VelocityGame;
+            maxTime = GlobalVariables.instance.MaxTimeCount;
         }
-        maxTime = 5f - difTime;
         timeLeftP = maxTime;
         timeLeftG = maxTime;
         timeLeftF = maxTime;

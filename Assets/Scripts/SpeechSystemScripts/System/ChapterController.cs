@@ -6,12 +6,12 @@ using UnityEngine.UI;
 using System.IO;
 public class ChapterController : MonoBehaviour
 {
+    public static ChapterController instance { get; private set; }
     List<string> data = new List<string>();
-    int progress = 0;
     private string chapterName;
-    public static ChapterController instance { get; private set;}
-    float timerCountDown = 0.8f;
-
+    private float timerCountDown = 0.8f;
+    private int progress = 0;
+    private string cachedLastSpeaker = "";
     // ChapterPachacuti_start
     private void Start()
     {
@@ -62,7 +62,7 @@ public class ChapterController : MonoBehaviour
             HandleEventsFromLine(dialogueAndActions[0]);
         }
     }
-    string cachedLastSpeaker = "";
+    
     void HandleDialogue(string dialogueDetalis, string dialogue)
     {
         string speaker = cachedLastSpeaker;
@@ -90,7 +90,6 @@ public class ChapterController : MonoBehaviour
             DialogueSystem.instance.Say(dialogue, speaker, additive);
         }
     }
-
     void HandleEventsFromLine(string events)
     {
         string[] actions = events.Split(' ');

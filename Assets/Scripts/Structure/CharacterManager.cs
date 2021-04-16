@@ -55,6 +55,7 @@ public class CharacterManager : MonoBehaviour
         MilitarBossList.AddMilitar(militar);
         TerritoryManager.instance.AddSpecificCharacter(territoryhandler, militar);
         InGameMenuHandler.instance.CloseCharacterSelection();
+        Time.timeScale = 1;
     }
 
 }

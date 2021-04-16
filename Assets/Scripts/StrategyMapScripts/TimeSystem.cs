@@ -31,7 +31,7 @@ public class TimeSystem : MonoBehaviour
         if (GlobalVariables.instance != null)
         {
             timeGame = GlobalVariables.instance.GovernorChoose.TimeInit;
-            TIMESCALE = 6 * (GlobalVariables.instance.VelocityGame + 1);
+            TIMESCALE = GlobalVariables.instance.TimeScale;
         }
         TextCallFunction();
         PlusDaysToTimeAdd();

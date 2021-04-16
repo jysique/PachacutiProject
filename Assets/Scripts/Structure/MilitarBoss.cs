@@ -49,8 +49,11 @@ public class MilitarBoss : Subordinate
         this.StrategyType = _t.ToString();
     }
 
-    private string[] namesList = new string[] { "Unay", "Asiri", "Samin ","Sayri" };
-    private string[] lastNamesList= new string[] { "","Illa", "Inka", "Wari" };
+    private string[] namesList = new string[] { "Unay", "Asiri", "Samin ","Sayri",
+                                                "Haylli","Tupac", "Raymi","Wara", 
+                                                "Qori","Yaku" };
+    private string[] lastNamesList= new string[] { "","Illa", "Inka", "Wari", "Amaru",
+                                                 "Amaru","Cancha","Ccasani"};
     public string GetRandomName()
     {
         

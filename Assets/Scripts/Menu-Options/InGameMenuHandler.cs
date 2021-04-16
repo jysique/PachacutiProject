@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class InGameMenuHandler : MonoBehaviour
 {
     public int warriorsNumber;
@@ -57,12 +57,21 @@ public class InGameMenuHandler : MonoBehaviour
 
     private List<GameObject> characterOptions;
     public MilitarBossList ml;
-    int goldPlayer;
+    private int goldPlayer;
   //  int foodPlayer;
     int sucesionSizePlayer;
     int scorePlayer;
+    int goldNeedSpeed = 10;
+    int goldNeedLimit = 10;
     //perfil menu
-    
+    public int GoldPlayer
+    {
+        get { return goldPlayer; }
+    }
+    public int GoldNeedSpeed
+    {
+        get { return goldNeedLimit; }
+    }
     private void Start()
     {
     }
@@ -90,7 +99,7 @@ public class InGameMenuHandler : MonoBehaviour
             militaryBossExperience.text = "Experiencia: " + boss.Experience;
             militaryBossEstrategy.text = "Estrategia: " + boss.StrategyType;
             militaryBossMilitary.text = "Influencia: " + boss.Influence;
-            GenerationSpeed.text = "Velocidad de crecimiento: " + selectedTerritory.VelocityPopulation;
+            GenerationSpeed.text = " " + selectedTerritory.VelocityPopulation;
             
         }
         else
@@ -125,9 +134,10 @@ public class InGameMenuHandler : MonoBehaviour
     void Update()
     {
         Territory selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory;
-        militarWarriorsCount.text = "Tropas: " + selectedTerritory.Population.ToString() + " / " + selectedTerritory.LimitPopulation.ToString();
+        militarWarriorsCount.text = selectedTerritory.Population.ToString() + " / " + selectedTerritory.LimitPopulation.ToString()+ " unidades" ;
         goldCount.text = "Oro: " + selectedTerritory.Gold.ToString();
         UpdateResourceTable();
+        EscapeGame();
     }
 
     //move warriors
@@ -167,7 +177,7 @@ public class InGameMenuHandler : MonoBehaviour
     {
 
         selected.territoryStats.population = selected.territoryStats.population - _warriorsNumber;
-        warriorsPrefab.GetComponent<WarriorsMoving>().SetAttack(otherTerritory.gameObject, 1, _warriorsNumber, selected.territory.TypePlayer, selected.territory.MilitarBoss);
+        warriorsPrefab.GetComponent<WarriorsMoving>().SetAttack(otherTerritory.gameObject, _warriorsNumber, selected.territory.TypePlayer, selected.territory.MilitarBoss);
         Instantiate(warriorsPrefab, selected.transform.position , Quaternion.identity);
 
     }
@@ -211,18 +221,17 @@ public class InGameMenuHandler : MonoBehaviour
     public void ImproveSpeedButton()
     {
         ImproveSpeed(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
-        goldNeedSpeed += 3;
+        //goldNeedSpeed += 3;
         UpdateMenu();
     }
     public void ImproveLimitButton()
     {
 
         ImproveLimit(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
-        goldNeedLimit += 3;
+        //goldNeedLimit += 3;
         UpdateMenu();
     }
-    int goldNeedSpeed = 10;
-    int goldNeedLimit = 10;
+
     public void ImproveSpeed(TerritoryHandler territoryHandler)
     {
         if (goldPlayer >= goldNeedSpeed)
@@ -327,6 +336,7 @@ public class InGameMenuHandler : MonoBehaviour
             characterOption.GetComponent<SelectCharacter>().SetTerritoryHandler(territory);
             characterOptions.Add(characterOption);
         }
+        Time.timeScale = 0;
     }
     public void CloseCharacterSelection()
     {
@@ -334,6 +344,14 @@ public class InGameMenuHandler : MonoBehaviour
         for (int i = 0; i < characterOptions.Count; i++)
         {
             Destroy(characterOptions[i]);
+        }
+        ml.DeleteList();
+    }
+    public void EscapeGame()
+    {
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(0);
         }
     }
 }
