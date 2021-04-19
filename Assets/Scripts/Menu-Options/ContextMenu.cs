@@ -14,6 +14,7 @@ public class ContextMenu : MonoBehaviour
         clickedTerritory = ta;
         warriorsCount.text = ta.territoryStats.population.ToString();
         transform.GetChild(0).GetComponent<Button>().interactable = canAttack;
+        transform.GetChild(0).GetChild(1).gameObject.SetActive(canAttack);
         //transform.GetChild(1).GetComponent<Button>().interactable = isWar;
     }
     public void AttackTerritory()

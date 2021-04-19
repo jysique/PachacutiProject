@@ -76,6 +76,7 @@ public class TerritoryHandler : MonoBehaviour
     {
         if(territory.TypePlayer == Territory.TYPEPLAYER.BOT)
         {
+            print("xd");
             int prob = Random.Range(0, 401);
             if (prob < 1 && this.territory.Population > 2)
             {

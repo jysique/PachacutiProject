@@ -152,7 +152,7 @@ public class InGameMenuHandler : MonoBehaviour
     {
         foreach (GameObject t in TerritoryManager.instance.territoryList)
         {
-            t.GetComponent<TerritoryHandler>().state = _state;
+            if(t.GetComponent<TerritoryHandler>().state !=1)t.GetComponent<TerritoryHandler>().state = _state;
         }
     }
 
