@@ -31,7 +31,7 @@ public class ButtonCustomize : MonoBehaviour, IPointerEnterHandler, IPointerExit
         {
             if (InGameMenuHandler.instance.GoldPlayer >= InGameMenuHandler.instance.GoldNeedSpeed)
             {
-                label.GetComponent<Text>().text = "Costo -10 g";
+                label.GetComponent<Text>().text = "Costo -"+ InGameMenuHandler.instance.GoldNeedSpeed + "g";
             }
             else
             {

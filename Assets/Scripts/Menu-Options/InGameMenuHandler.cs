@@ -27,12 +27,8 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private Text governorPrestige;
     [SerializeField] private Text governorPiety;
 
-
-
     [Header("Menu militar")]
-
     [SerializeField] private GameObject menuBlock;
-
     [SerializeField] private Image militaryBossPicture;
     [SerializeField] private Text militarWarriorsCount;
     [SerializeField] private Text GenerationSpeed;
@@ -45,6 +41,7 @@ public class InGameMenuHandler : MonoBehaviour
     [Header("Menu territorio")]
     [SerializeField] private Text territoryName;
     [SerializeField] private Text goldCount;
+    [SerializeField] private Text levelMine;
     [Header("Recursos")]
     [SerializeField] private Text goldGenerated;
  //   [SerializeField] private Text foodGenerated;
@@ -93,7 +90,7 @@ public class InGameMenuHandler : MonoBehaviour
         if (selectedTerritory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
         {
             menuBlock.SetActive(false);
-            MilitarBoss boss = selectedTerritory.MilitarBoss;
+            MilitarBoss boss = selectedTerritory.MilitarBossTerritory;
             militaryBossName.text = "Nombre: " + boss.CharacterName;
             militaryBossPicture.sprite = boss.Picture;
             militaryBossExperience.text = "Experiencia: " + boss.Experience;
@@ -110,6 +107,8 @@ public class InGameMenuHandler : MonoBehaviour
     public void UpdateTerritoryMenu()
     {
         territoryName.text = selectedTerritory.name;
+        goldCount.text = "Oro: " + selectedTerritory.Gold.ToString();
+        levelMine.text = "Level: " + selectedTerritory.GoldMineTerritory.Level.ToString();
     }
     public void UpdateProfileMenu()
     {
@@ -135,7 +134,7 @@ public class InGameMenuHandler : MonoBehaviour
     {
         Territory selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory;
         militarWarriorsCount.text = selectedTerritory.Population.ToString() + " / " + selectedTerritory.LimitPopulation.ToString()+ " unidades" ;
-        goldCount.text = "Oro: " + selectedTerritory.Gold.ToString();
+        
         UpdateResourceTable();
         EscapeGame();
     }
@@ -177,7 +176,7 @@ public class InGameMenuHandler : MonoBehaviour
     {
 
         selected.territoryStats.population = selected.territoryStats.population - _warriorsNumber;
-        warriorsPrefab.GetComponent<WarriorsMoving>().SetAttack(otherTerritory.gameObject, _warriorsNumber, selected.territory.TypePlayer, selected.territory.MilitarBoss);
+        warriorsPrefab.GetComponent<WarriorsMoving>().SetAttack(otherTerritory.gameObject, _warriorsNumber, selected.territory.TypePlayer, selected.territory.MilitarBossTerritory);
         Instantiate(warriorsPrefab, selected.transform.position , Quaternion.identity);
 
     }
@@ -218,9 +217,9 @@ public class InGameMenuHandler : MonoBehaviour
         contextMenu.transform.position = new Vector3(mousePosCamera.x, mousePosCamera.y, contextMenu.transform.position.z);
         contextMenu.GetComponent<ContextMenu>().SetMenu(canAttack, isWar, territoryToAttack);
     }
-    public void ImproveSpeedButton()
+    public void ImproveSpeedPopulationButton()
     {
-        ImproveSpeed(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
+        ImproveSpeedPopulation(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
         //goldNeedSpeed += 3;
         UpdateMenu();
     }
@@ -231,12 +230,19 @@ public class InGameMenuHandler : MonoBehaviour
         //goldNeedLimit += 3;
         UpdateMenu();
     }
+    public void ImproveSpeedGoldButton()
+    {
 
-    public void ImproveSpeed(TerritoryHandler territoryHandler)
+        ImproveSpeedGold(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
+        //goldNeedLimit += 3;
+        UpdateMenu();
+    }
+
+    public void ImproveSpeedPopulation(TerritoryHandler territoryHandler)
     {
         if (goldPlayer >= goldNeedSpeed)
         {
-            territoryHandler.ImproveSpeed();
+            territoryHandler.ImproveSpeedPopulation();
             goldPlayer -= goldNeedSpeed;
             ShowFloatingText("+0.3 veloc", "TextMesh", territoryHandler.transform);
             ShowFloatingText("-"+goldNeedSpeed.ToString(), "TextFloating", goldAnimation);
@@ -251,6 +257,17 @@ public class InGameMenuHandler : MonoBehaviour
             goldPlayer -= goldNeedLimit;
             ShowFloatingText("+20 limit", "TextMesh", territoryHandler.transform);
             ShowFloatingText("-"+goldNeedLimit.ToString(), "TextFloating", goldAnimation);
+        }
+    }
+    public void ImproveSpeedGold(TerritoryHandler territoryHandler)
+    {
+        if (goldPlayer >= territoryHandler.territory.GoldMineTerritory.CostToUpgrade)
+        {
+            territoryHandler.ImproveSpeedGold();
+            goldPlayer -= territoryHandler.territory.GoldMineTerritory.CostToUpgrade;
+            ShowFloatingText("+0.6 vel gold", "TextMesh", territoryHandler.transform);
+            ShowFloatingText("-" + territoryHandler.territory.GoldMineTerritory.CostToUpgrade.ToString(), "TextFloating", goldAnimation);
+            territoryHandler.territory.GoldMineTerritory.CostToUpgrade += 3;
         }
     }
     public int GatherGold(TerritoryHandler territoryHandler)

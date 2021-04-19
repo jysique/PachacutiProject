@@ -29,16 +29,22 @@ public class Territory
     [SerializeField] private int limitPopulation;
 
     [SerializeField] private float velocityPopulation;
-    [SerializeField] private float velocityGold;
     [SerializeField] private float velocityFood;
 
     [SerializeField] private bool selected;
-    [SerializeField] private MilitarBoss militarBoss = null;
+    [SerializeField] private MilitarBoss militarBossTerritory = null;
+    [SerializeField] private GoldMine goldMineTerritory;
 
-    public MilitarBoss MilitarBoss
+    public MilitarBoss MilitarBossTerritory
     {
-        get { return militarBoss; }
-        set { militarBoss = value; }
+        get { return militarBossTerritory; }
+        set { militarBossTerritory = value; }
+    }
+
+    public GoldMine GoldMineTerritory
+    {
+        get { return goldMineTerritory; }
+        set { goldMineTerritory = value; }
     }
     public TYPEPLAYER TypePlayer
     {
@@ -50,7 +56,6 @@ public class Territory
         get { return population; }
         set
         {
-            Debug.Log("change population");
             population = value;
         }
     }
@@ -73,10 +78,6 @@ public class Territory
     {
         get { return velocityPopulation; }
     }
-    public float VelocityGold
-    {
-        get { return velocityGold; }
-    }
     public float VelocityFood
     {
         get { return velocityFood; }
@@ -89,7 +90,7 @@ public class Territory
         food = territoryStats.food;
         limitPopulation = territoryStats.limitPopulation;
 
-        velocityGold = territoryStats.velocityGold;
+        goldMineTerritory.VelocityGold = territoryStats.velocityGold;
         velocityPopulation = territoryStats.velocityPopulation;
         velocityFood = territoryStats.velocityFood;
     }

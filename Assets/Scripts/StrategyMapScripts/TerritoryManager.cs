@@ -51,14 +51,14 @@ public class TerritoryManager : MonoBehaviour
             TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
             if (territoryHandler.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
             {
-                territoryHandler.territory.MilitarBoss = CharacterManager.instance.MilitarBossList.GetMilitaryBoss(a);
+                territoryHandler.territory.MilitarBossTerritory = CharacterManager.instance.MilitarBossList.GetMilitaryBoss(a);
                 a++;
             }
         }
     }
     public void AddSpecificCharacter(TerritoryHandler territoryHandler, MilitarBoss militarBoss)
     {
-        territoryHandler.territory.MilitarBoss = militarBoss;
+        territoryHandler.territory.MilitarBossTerritory = militarBoss;
     }
 
 

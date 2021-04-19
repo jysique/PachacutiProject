@@ -42,7 +42,7 @@ public class TerritoryStats : MonoBehaviour
         limitPopulation = territory.LimitPopulation;
 
         velocityPopulation = territory.VelocityPopulation;
-        velocityGold = territory.VelocityGold;
+        velocityGold = territory.GoldMineTerritory.VelocityGold;
         velocityFood = territory.VelocityFood;
     }
 

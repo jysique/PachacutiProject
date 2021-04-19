@@ -160,7 +160,6 @@ public class TerritoryHandler : MonoBehaviour
         TerritoryManager.instance.territorySelected = this.gameObject;
         InGameMenuHandler.instance.UpdateMenu();
     }
-
     public void ShowAdjacentTerritories()
     {
         sr.material = normalMaterial;
@@ -190,7 +189,7 @@ public class TerritoryHandler : MonoBehaviour
         sr.material = normalMaterial;
     }
     
-    public void ImproveSpeed()
+    public void ImproveSpeedPopulation()
     {
         territoryStats.velocityPopulation += 0.3f;
         territory.SetStats(territoryStats);
@@ -198,6 +197,12 @@ public class TerritoryHandler : MonoBehaviour
     public void ImproveLimit()
     {
         territoryStats.limitPopulation += 20;
+        territory.SetStats(territoryStats);
+    }
+    public void ImproveSpeedGold()
+    {
+        territoryStats.velocityGold += 0.6f;            //
+        territory.GoldMineTerritory.Level += 1;         //
         territory.SetStats(territoryStats);
     }
     public void GatherTerritoryGold()
