@@ -41,7 +41,7 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private Text militaryBossEstrategy;
     [SerializeField] private Text militaryBossMilitary;
     [Header("Menu de movilizacion de tropas")]
-    [SerializeField] private InputField warriorsCount;
+    [SerializeField] public InputField warriorsCount;
     [Header("Menu territorio")]
     [SerializeField] private Text territoryName;
     [SerializeField] private Text goldCount;
@@ -183,12 +183,12 @@ public class InGameMenuHandler : MonoBehaviour
             if (otherTerritory.war)
             {
                 WarManager.instance.AddMoreWarriors(otherTerritory, attackPower);
-                print("added");
+
             }
             else
             {
                 WarManager.instance.AddWar(attackPower, otherTerritory.territoryStats.population, 2, 2, otherTerritory, type);
-                print("war");
+             
                 otherTerritory.war = true;
                 otherTerritory.gameObject.transform.GetChild(0).gameObject.SetActive(true);
             }
@@ -253,6 +253,7 @@ public class InGameMenuHandler : MonoBehaviour
     }
     public void TurnOnBlock()
     {
+        
         overMenuBlock.SetActive(true);
     }
 

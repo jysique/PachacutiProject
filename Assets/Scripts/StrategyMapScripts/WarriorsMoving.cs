@@ -66,6 +66,10 @@ public class WarriorsMoving : MonoBehaviour
         if (Vector3.Distance(transform.position, target.transform.position) < 0.001f)
         {
             InGameMenuHandler.instance.MoveWarriors(target.GetComponent<TerritoryHandler>(), warriorsNumber, territorytype);
+            if(target.GetComponent<TerritoryHandler>() == WarManager.instance.selected)
+            {
+                WarManager.instance.SetWarStatus(true);
+            }
             Destroy(this.gameObject);
         } 
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class War
 {
+
     [SerializeField] private Territory.TYPEPLAYER attackers;
     [SerializeField] private TerritoryHandler territory;
     [SerializeField]public int warriors1Count;
@@ -25,6 +26,16 @@ public class War
         warriors2Speed = s2;
         territory = _territory;
         attackers = _attackers;
+    }
+    public Territory.TYPEPLAYER Attackers
+    {
+        get { return attackers; }
+        set { attackers = value; }
+    }
+    public TerritoryHandler Territory
+    {
+        get { return territory; }
+        set { territory = value; }
     }
 
     public void UpdateStatus(float t)

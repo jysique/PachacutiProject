@@ -37,6 +37,8 @@ public class TerritoryHandler : MonoBehaviour
             TerritoryManager.instance.territorySelected = this.gameObject;
             sr.material = outlineMaterial;
             InGameMenuHandler.instance.UpdateMenu();
+            WarManager.instance.selected = this;
+            WarManager.instance.SetWarStatus(this.war);
             //ShowAdjacentTerritories();
         }
     }
@@ -94,8 +96,10 @@ public class TerritoryHandler : MonoBehaviour
     private void OnMouseOver()
     {
         
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && state == 0)
         {
+            territory.SetSelected(true);
+            MakeOutline();
             bool ca = false;
             TerritoryHandler selected = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
             for (int i = 0; i < selected.adjacentTerritories.Count; i++)
@@ -106,7 +110,7 @@ public class TerritoryHandler : MonoBehaviour
 
             }
             if (selected.territory.TypePlayer != Territory.TYPEPLAYER.PLAYER) ca = false;
-
+            if (selected == this && territory.TypePlayer == Territory.TYPEPLAYER.PLAYER) ca = true;
             InGameMenuHandler.instance.ActivateContextMenu(this, ca,war, Input.mousePosition);
 
         }
@@ -125,7 +129,7 @@ public class TerritoryHandler : MonoBehaviour
                 MakeOutline();
                 break;
             case 1:
-//                print("moving");
+                print("moving");
                 InGameMenuHandler.instance.SendWarriors(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>(), this, InGameMenuHandler.instance.warriorsNumber);
                 HideAdjacentTerritories();
                 break;
