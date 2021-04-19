@@ -23,15 +23,13 @@ public class TerritoryStats : MonoBehaviour
     public float velocityFood;
 
     public Text populationTxt;
-
     private void Start()
     {
-        difTime = 0f;
+        maxTime = 6f;
         if (GlobalVariables.instance != null)
         {
-            difTime = GlobalVariables.instance.velocityGame;
+            maxTime = GlobalVariables.instance.MaxTimeCount;
         }
-        maxTime = 5f - difTime;
         timeLeftP = maxTime;
         timeLeftG = maxTime;
         timeLeftF = maxTime;
@@ -39,12 +37,12 @@ public class TerritoryStats : MonoBehaviour
     public void InitalizeStats(Territory territory)
     {
         population = territory.Population;
-        gold = territory.GoldReward;
+        gold = territory.Gold;
         food = territory.FoodReward;
         limitPopulation = territory.LimitPopulation;
 
         velocityPopulation = territory.VelocityPopulation;
-        velocityGold = territory.VelocityGold;
+        velocityGold = territory.GoldMineTerritory.VelocityGold;
         velocityFood = territory.VelocityFood;
     }
 

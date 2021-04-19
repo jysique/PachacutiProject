@@ -27,6 +27,10 @@ public class MilitarBossList
         }
         return MilitarBosses;
     }
+    public void DeleteList()
+    {
+        MilitarBosses.RemoveRange(0,MilitarBosses.Count);
+    }
     public MilitarBoss GetMilitaryBoss(string name)
     {
         for (int i = 0; i < MilitarBosses.Count; i++)

@@ -9,37 +9,37 @@ using System.Text;
 public class TimeSystem : MonoBehaviour
 {
     public static TimeSystem instance;
-    private int TIMESCALE; // Tiempo escalable para la modificacion del ritmo del tiempo
-    [SerializeField]private Text dayText;
-    [SerializeField]private Text monthText;
-    [SerializeField]private Text seasonText;
-    [SerializeField]private Text yearText;
+    private int TIMESCALE; 
+    private TimeSimulated timeGame;
+    private TimeSimulated timeAdd;
+
+    [SerializeField] private Text dayText;
+    [SerializeField] private Text monthText;
+    [SerializeField] private Text seasonText;
+    [SerializeField] private Text yearText;
     [SerializeField] private Text weekText;
-    public bool isPause = false;
-    //bool isEvent = false;
-    //public static double hour, day, month, year;
-    public static TimeSimulated timeGame;
+
     private void Awake()
     {
         instance = this;
     }
     void Start()
     {
+        
         timeGame = new TimeSimulated(28, 12, 1399);
         TIMESCALE = 6;
         if (GlobalVariables.instance != null)
         {
-            timeGame = GlobalVariables.instance.governorChoosen.TimeInit;
-            TIMESCALE = 6 * (GlobalVariables.instance.velocityGame + 1);
+            timeGame = GlobalVariables.instance.GovernorChoose.TimeInit;
+            TIMESCALE = GlobalVariables.instance.TimeScale;
         }
         TextCallFunction();
+        PlusDaysToTimeAdd();
+        GameEvents.instance.onGatherGoldTriggerEnter += onGatherGold;
+        GameEvents.instance.onGatherGoldTriggerExit += onGatherExit;
+      //  GameEvents.instance.onGatherFoodTriggerEnter += onGatherFood;
+      //  GameEvents.instance.onGatherFoodTriggerExit += onGatherExit;
     }
-
-    void Update()
-    {
-        CalculateTime();
-    }
-
     private void TextCallFunction()
     {
         if(timeGame.day < 9)
@@ -62,36 +62,65 @@ public class TimeSystem : MonoBehaviour
         yearText.text = timeGame.year.ToString();
         seasonText.text = timeGame.season;
     }
-
-    void CalculateTime()
+    void CalculateTime(TimeSimulated _time)
     {
-        TextCallFunction();
-        timeGame.CalculateSeason();
-        if(timeGame.hour < 10)
+        _time.CalculateSeason();
+        if(_time.hour < 20)
         {
-            timeGame.hour += Time.deltaTime * TIMESCALE;
+            _time.hour += Time.deltaTime * TIMESCALE;
         }
         else
         {
-            timeGame.CalculateDay();
-            timeGame.hour = 0;
+            _time.CalculateDay();
+            _time.hour = 0;
         }
-        timeGame.CalculateWeeks();
-        if (timeGame.day > 30)
+        _time.CalculateWeeks();
+        if (_time.day > 30)
         {
-            timeGame.CalculateMonth();  
+            _time.CalculateMonth();  
         }
-        if (timeGame.month > 12)
+        if (_time.month > 12)
         {
-            timeGame.CalculateYear();
+            _time.CalculateYear();
+        }
+    }
+    void Update()
+    {
+        CalculateTime(timeGame);
+        TextCallFunction();
+        GatherGoldTime();
+    }
+
+    void PlusDaysToTimeAdd()
+    {
+        timeAdd = new TimeSimulated(timeGame.day,timeGame.month,timeGame.year);
+        timeAdd.PlusDays(3);
+        CalculateTime(timeAdd);
+    }
+    private void GatherGoldTime()
+    {
+        if (timeGame.EqualsDate(timeAdd))
+        {
+            GameEvents.instance.GatherGoldTriggerEnter();
+           // GameEvents.instance.GatherFoodTriggerEnter();
+            PlusDaysToTimeAdd();
+        }
+        else
+        {
+            GameEvents.instance.GatherGoldTriggerExit();
+           // GameEvents.instance.GatherFoodTriggerExit();
         }
     }
 
-    void EventoRandom(TimeSimulated _time)
+    private void onGatherExit()
     {
-        if(timeGame.EqualsDate(_time))
-        {
-            //Debug.Log("EVENTO RANDOM");
-        }
+    }
+    private void onGatherGold()
+    {
+        InGameMenuHandler.instance.GatherGoldResource();
+    }
+    private void onGatherFood()
+    {
+      //  InGameMenuHandler.instance.GatherFoodResource();
     }
 }

@@ -18,12 +18,15 @@ public class WarriorsMoving : MonoBehaviour
     //result
     [SerializeField] private float attackPower;
 
-    public void SetAttack(GameObject _target, float _speed, int _warriorsNumber, Territory.TYPEPLAYER _type, MilitarBoss _mb)
+    public void SetAttack(GameObject _target, int _warriorsNumber, Territory.TYPEPLAYER _type, MilitarBoss _mb)
     {
-        
-        //float strategyMod = 0;
         target = _target;
-        speed = _speed;
+        speed = 1f;
+        if(GlobalVariables.instance != null)
+        {
+            speed = GlobalVariables.instance.VelocityMoving;
+            print(speed);
+        }
         warriorsNumber = _warriorsNumber;
         territorytype = _type;
         mb = _mb;

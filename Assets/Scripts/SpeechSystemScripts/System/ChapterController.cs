@@ -6,20 +6,25 @@ using UnityEngine.UI;
 using System.IO;
 public class ChapterController : MonoBehaviour
 {
+    public static ChapterController instance { get; private set; }
     List<string> data = new List<string>();
-    int progress = 0;
     private string chapterName;
-    public static ChapterController instance { get; private set;}
-    float timerCountDown = 0.8f;
-
+    private float timerCountDown = 0.8f;
+    private int progress = 0;
+    private string cachedLastSpeaker = "";
     // ChapterPachacuti_start
     private void Start()
     {
-        chapterName = "ChapterPachacuti_start"; 
         if (GlobalVariables.instance != null)
         {
-            chapterName = GlobalVariables.instance.GetChapterTxt("start");
+            //GlobalVariables.instance.SetChapterTxt("start");
+            chapterName = GlobalVariables.instance.ChapterTxt;
         }
+        else
+        {
+            chapterName = "ChapterPachacuti_start";
+        }
+        
         LoadChapterFile(chapterName);
     }
     private void Update()
@@ -57,7 +62,7 @@ public class ChapterController : MonoBehaviour
             HandleEventsFromLine(dialogueAndActions[0]);
         }
     }
-    string cachedLastSpeaker = "";
+    
     void HandleDialogue(string dialogueDetalis, string dialogue)
     {
         string speaker = cachedLastSpeaker;
@@ -85,7 +90,6 @@ public class ChapterController : MonoBehaviour
             DialogueSystem.instance.Say(dialogue, speaker, additive);
         }
     }
-
     void HandleEventsFromLine(string events)
     {
         string[] actions = events.Split(' ');
@@ -160,34 +164,25 @@ public class ChapterController : MonoBehaviour
     }
     void Command_PlaySound(string data)
     {
-        AudioClip clip = Resources.Load("Audio/SFX/" + data) as AudioClip;
-        if (clip!=null)
+        if(AudioManager.instance != null)
         {
-            AudioManager.instance.PlaySFX(clip);
+            AudioManager.instance.ReadAndPlaySFX(data);
         }
         else
         {
-            Debug.LogError("Clip does not exist - " + data);
+            print("No audio manager");
         }
-
+        
     }
     void Command_PlayMusic(string data)
     {
-        AudioClip clip = Resources.Load("Audio/Music/" + data) as AudioClip;
-        if (clip != null)
+        if (AudioManager.instance != null)
         {
-            if (AudioManager.instance != null)
-            {
-                AudioManager.instance.PlaySong(clip);
-            }
-            else
-            {
-                Debug.Log("No audio manager ");
-            }
+            AudioManager.instance.ReadAndPlayMusic(data,true);
         }
         else
         {
-            Debug.LogError("Clip does not exist - " + data);
+            print("No audio manager");
         }
     }
     void Command_MoveCharacter(string data)

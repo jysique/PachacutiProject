@@ -26,6 +26,7 @@ public class CampainManager : MonoBehaviour
 
     private void Start()
     {
+        
         buttonList = gameObject.GetComponentsInChildren<Button>();
         for (int i = 0; i < buttonList.Length - 1; i++)
         {

@@ -9,7 +9,7 @@ public class TerritoryManager : MonoBehaviour
     public static TerritoryManager instance;
     public List<GameObject> territoryList = new List<GameObject>();
     public GameObject territorySelected;
-
+    private int a = 0;
     private void Awake()
     {
         instance = this;
@@ -30,7 +30,19 @@ public class TerritoryManager : MonoBehaviour
         }
 
     }
-    int a = 0;
+    public List<TerritoryHandler> GetTerritoryHandlers()
+    {
+        List<TerritoryHandler> list = new List<TerritoryHandler>();
+        for (int i = 0; i < territoryList.Count; i++)
+        {
+            TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
+            if (territoryHandler.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
+            {
+                list.Add(territoryHandler);
+            }
+        }
+        return list;
+    }
     public void AddMilitaryBoss()
     {
         
@@ -39,14 +51,14 @@ public class TerritoryManager : MonoBehaviour
             TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
             if (territoryHandler.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
             {
-                territoryHandler.territory.MilitarBoss = CharacterManager.instance.MilitarBossList.GetMilitaryBoss(a);
+                territoryHandler.territory.MilitarBossTerritory = CharacterManager.instance.MilitarBossList.GetMilitaryBoss(a);
                 a++;
             }
         }
     }
     public void AddSpecificCharacter(TerritoryHandler territoryHandler, MilitarBoss militarBoss)
     {
-        territoryHandler.territory.MilitarBoss = militarBoss;
+        territoryHandler.territory.MilitarBossTerritory = militarBoss;
     }
 
 
@@ -68,34 +80,6 @@ public class TerritoryManager : MonoBehaviour
                 territoryHandler.TintColorTerritory(new Color32(249, 85, 138, 255));
             }
         }
-    }
-    public int GetGolds(Territory.TYPEPLAYER type)
-    {
-        int goldPlayer = 0;
-        for (int i = 0; i < territoryList.Count; i++)
-        {
-            TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-            if (territoryHandler.territory.TypePlayer == type)
-            {
-                goldPlayer += territoryHandler.territory.GoldReward;
-                
-            }
-        }
-        return goldPlayer;
-    }
-
-    public int GetFood(Territory.TYPEPLAYER type)
-    {
-        int foodPlayer = 0;
-        for (int i = 0; i < territoryList.Count; i++)
-        {
-            TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-            if (territoryHandler.territory.TypePlayer == type)
-            {
-                foodPlayer += territoryHandler.territory.FoodReward;
-            }
-        }
-        return foodPlayer;
     }
     public void ChangeTerritory(string _name)
     {
@@ -138,7 +122,7 @@ public class TerritoryManager : MonoBehaviour
         {
             if (GlobalVariables.instance != null)
             {
-                GlobalVariables.instance.GetChapterTxt("lose");
+                GlobalVariables.instance.SetChapterTxt("win");
             }
             SceneManager.LoadScene("VisualNovelScene");
         }
@@ -146,7 +130,7 @@ public class TerritoryManager : MonoBehaviour
         {
             if (GlobalVariables.instance != null)
             {
-                GlobalVariables.instance.GetChapterTxt("win");
+                GlobalVariables.instance.SetChapterTxt("lose");
             }
             SceneManager.LoadScene("VisualNovelScene");
         }
