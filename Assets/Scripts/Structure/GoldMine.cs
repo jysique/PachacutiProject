@@ -1,6 +1,6 @@
 using UnityEngine;
 [System.Serializable]
-public class GoldMine:Buildings
+public class GoldMine:Building
 {
     [SerializeField]private float velocityGold;
 

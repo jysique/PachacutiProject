@@ -9,20 +9,20 @@ public class NumericButton : MonoBehaviour
     [SerializeField] private InputField inputField;
     public void IncreaseNumberPopulation()
     {
-        IncreaseNumber(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory.Population);
+        IncreaseNumber(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory.Population);
     }
 
     public void IncreaseNumberGold()
     {
-        IncreaseNumber(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory.Gold);
+        IncreaseNumber(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory.Gold);
     }
     public void DecreaseNumberPopulation()
     {
-        DecreaseNumber(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory.Population);
+        DecreaseNumber(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory.Population);
     }
     public void DecreaseNumberGold()
     {
-        DecreaseNumber(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory.Gold);
+        DecreaseNumber(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory.Gold);
     }
 
     private void IncreaseNumber(int limit)

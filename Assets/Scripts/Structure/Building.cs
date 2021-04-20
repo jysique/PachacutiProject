@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public class Buildings
+public class Building
 {
     [SerializeField]private int costToUpgrade;
     [SerializeField]private int level;

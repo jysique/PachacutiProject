@@ -10,7 +10,7 @@ public class ButtonCustomize : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public TYPECUSTOM typecustom;
     private void Start()
     {
-        typecustom = gameObject.name.Contains("Buttom") ? TYPECUSTOM.BUTTON : TYPECUSTOM.ICON;
+        typecustom = gameObject.name.Contains("Button") ? TYPECUSTOM.BUTTON : TYPECUSTOM.ICON;
         label.SetActive(false);
     }
     public void OnPointerEnter(PointerEventData eventData)

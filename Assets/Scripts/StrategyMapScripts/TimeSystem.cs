@@ -34,11 +34,11 @@ public class TimeSystem : MonoBehaviour
             TIMESCALE = GlobalVariables.instance.TimeScale;
         }
         TextCallFunction();
-        PlusDaysToTimeAdd();
+        PlusDaysToTimeAdd(3);
         GameEvents.instance.onGatherGoldTriggerEnter += onGatherGold;
         GameEvents.instance.onGatherGoldTriggerExit += onGatherExit;
-      //  GameEvents.instance.onGatherFoodTriggerEnter += onGatherFood;
-      //  GameEvents.instance.onGatherFoodTriggerExit += onGatherExit;
+        GameEvents.instance.onGatherFoodTriggerEnter += onGatherFood;
+        GameEvents.instance.onGatherFoodTriggerExit += onGatherExit;
     }
     private void TextCallFunction()
     {
@@ -88,27 +88,27 @@ public class TimeSystem : MonoBehaviour
     {
         CalculateTime(timeGame);
         TextCallFunction();
-        GatherGoldTime();
+        GatherResourceInTime();
     }
 
-    void PlusDaysToTimeAdd()
+    void PlusDaysToTimeAdd(int daysToPlus)
     {
         timeAdd = new TimeSimulated(timeGame.day,timeGame.month,timeGame.year);
-        timeAdd.PlusDays(3);
+        timeAdd.PlusDays(daysToPlus);
         CalculateTime(timeAdd);
     }
-    private void GatherGoldTime()
+    private void GatherResourceInTime()
     {
         if (timeGame.EqualsDate(timeAdd))
         {
             GameEvents.instance.GatherGoldTriggerEnter();
-           // GameEvents.instance.GatherFoodTriggerEnter();
-            PlusDaysToTimeAdd();
+            GameEvents.instance.GatherFoodTriggerEnter();
+            PlusDaysToTimeAdd(3);
         }
         else
         {
             GameEvents.instance.GatherGoldTriggerExit();
-           // GameEvents.instance.GatherFoodTriggerExit();
+            GameEvents.instance.GatherFoodTriggerExit();
         }
     }
 
@@ -117,10 +117,10 @@ public class TimeSystem : MonoBehaviour
     }
     private void onGatherGold()
     {
-        InGameMenuHandler.instance.GatherGoldResource();
+        InGameMenuHandler.instance.GatherGoldResourceButton();
     }
     private void onGatherFood()
     {
-      //  InGameMenuHandler.instance.GatherFoodResource();
+        InGameMenuHandler.instance.GatherFoodResourceButton();
     }
 }

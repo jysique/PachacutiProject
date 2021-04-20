@@ -89,7 +89,7 @@ public class WarManager : MonoBehaviour
                         hatAttacker.sprite = chancaHat;
                         break;
                 }
-                switch (w.Territory.territory.TypePlayer)
+                switch (w.Territory.territoryStats.territory.TypePlayer)
                 {
                     case Territory.TYPEPLAYER.PLAYER:
                         hatDefender.sprite = incaHat;
@@ -102,7 +102,7 @@ public class WarManager : MonoBehaviour
                         break;
                 }
                 warContainer.SetActive(true);
-                title.text = "Batalla de " + selected.territory.name;
+                title.text = "Batalla de " + selected.territoryStats.territory.name;
                 territorySprite.sprite = selected.sprite.sprite;
                 selectedWar = w;
                 peaceContainer.SetActive(false);
@@ -113,7 +113,7 @@ public class WarManager : MonoBehaviour
     
     private void SetPeaceMenu()
     {
-        switch (selected.territory.TypePlayer)
+        switch (selected.territoryStats.territory.TypePlayer)
         {
             case Territory.TYPEPLAYER.PLAYER:
                 hatP1.sprite = incaHat;
@@ -133,7 +133,7 @@ public class WarManager : MonoBehaviour
         }
         territorySprite.sprite = selected.sprite.sprite;
         warContainer.SetActive(false);
-        title.text = selected.territory.name;
+        title.text = selected.territoryStats.territory.name;
         peaceContainer.SetActive(true);
     }
 
@@ -143,11 +143,11 @@ public class WarManager : MonoBehaviour
         territory.war = false;
         
 
-        if(territory.territoryStats.population == 0)
+        if(territory.territoryStats.territory.Population == 0)
         {
             
-            territory.territory.TypePlayer = type;
-            territory.territoryStats.population = survivors;
+            territory.territoryStats.territory.TypePlayer = type;
+            territory.territoryStats.territory.Population = survivors;
                 
             if(type == Territory.TYPEPLAYER.PLAYER)
             {

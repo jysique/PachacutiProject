@@ -12,7 +12,7 @@ public class ContextMenu : MonoBehaviour
     {
         
         clickedTerritory = ta;
-        warriorsCount.text = ta.territoryStats.population.ToString();
+        warriorsCount.text = ta.territoryStats.territory.Population.ToString();
         transform.GetChild(0).GetComponent<Button>().interactable = canAttack;
         transform.GetChild(0).GetChild(1).gameObject.SetActive(canAttack);
         //transform.GetChild(1).GetComponent<Button>().interactable = isWar;
@@ -27,7 +27,7 @@ public class ContextMenu : MonoBehaviour
             InGameMenuHandler.instance.warriorsCount.text = warriorsCount.text;
             InGameMenuHandler.instance.SelectTerritory();
         }
-        if (selected.territoryStats.population > 0)
+        if (selected.territoryStats.territory.Population > 0)
         {
 
 

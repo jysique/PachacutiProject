@@ -34,6 +34,9 @@ public class Territory
     [SerializeField] private bool selected;
     [SerializeField] private MilitarBoss militarBossTerritory = null;
     [SerializeField] private GoldMine goldMineTerritory;
+    [SerializeField] private SacredPlace sacredPlaceTerritory;
+    [SerializeField] private Fortress fortressTerritory;
+    [SerializeField] private Barracks barracksTerritory;
 
     public MilitarBoss MilitarBossTerritory
     {
@@ -45,6 +48,21 @@ public class Territory
     {
         get { return goldMineTerritory; }
         set { goldMineTerritory = value; }
+    }
+    public SacredPlace SacredPlaceTerritory
+    {
+        get { return sacredPlaceTerritory; }
+        set { sacredPlaceTerritory = value; }
+    }
+    public Fortress FortressTerritory
+    {
+        get { return fortressTerritory; }
+        set { fortressTerritory = value; }
+    }
+    public Barracks BarracksTerritory
+    {
+        get { return barracksTerritory; }
+        set { barracksTerritory = value; }
     }
     public TYPEPLAYER TypePlayer
     {
@@ -77,24 +95,13 @@ public class Territory
     public float VelocityPopulation
     {
         get { return velocityPopulation; }
+        set { velocityPopulation = value; }
     }
     public float VelocityFood
     {
         get { return velocityFood; }
+        set { velocityFood = value; }
     }
-
-    public void SetStats(TerritoryStats territoryStats)
-    {
-        gold = territoryStats.gold;
-        population = territoryStats.population;
-        food = territoryStats.food;
-        limitPopulation = territoryStats.limitPopulation;
-
-        goldMineTerritory.VelocityGold = territoryStats.velocityGold;
-        velocityPopulation = territoryStats.velocityPopulation;
-        velocityFood = territoryStats.velocityFood;
-    }
-
     public void SetSelected(bool _selected) { selected = _selected; }
     public bool GetSelected() { return selected; }
 
