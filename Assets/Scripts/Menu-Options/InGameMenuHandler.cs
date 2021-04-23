@@ -12,7 +12,10 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private GameObject contextMenu;
     [SerializeField] private GameObject warriorsPrefab;
     [SerializeField] private Territory selectedTerritory;
-
+    [Header("Variables globales")]
+    [SerializeField] public Canvas canvas;
+    [Header("ToolTip")]
+    [SerializeField] public GameObject toolTip;
     [Header("OverMenu")]
     [SerializeField] private GameObject menuConfirm;
     [SerializeField] public GameObject overMenuBlock;
@@ -176,14 +179,13 @@ public class InGameMenuHandler : MonoBehaviour
     {
 
         selected.territoryStats.population = selected.territoryStats.population - _warriorsNumber;
-        warriorsPrefab.GetComponent<WarriorsMoving>().SetAttack(otherTerritory.gameObject, _warriorsNumber, selected.territory.TypePlayer, selected.territory.MilitarBossTerritory);
+        warriorsPrefab.GetComponent<WarriorsMoving>().SetAttack(otherTerritory.gameObject, _warriorsNumber, selected);
         Instantiate(warriorsPrefab, selected.transform.position , Quaternion.identity);
 
     }
-    public void MoveWarriors(TerritoryHandler otherTerritory, int attackPower, Territory.TYPEPLAYER type)
+    public void MoveWarriors(TerritoryHandler otherTerritory, int attackPower, TerritoryHandler attacker)
     {
-        Territory.TYPEPLAYER temp = otherTerritory.territory.TypePlayer;
-        if (otherTerritory.territory.TypePlayer == type)
+        if (otherTerritory.territory.TypePlayer == attacker.territory.TypePlayer)
         {
             otherTerritory.territoryStats.population = otherTerritory.territoryStats.population + attackPower;
 
@@ -197,7 +199,9 @@ public class InGameMenuHandler : MonoBehaviour
             }
             else
             {
-                WarManager.instance.AddWar(attackPower, otherTerritory.territoryStats.population, 2, 2, otherTerritory, type);
+                float vAttack = WarManager.instance.SetAttackFormula(attacker, attackPower);
+                float vDef = WarManager.instance.SetDefenseFormula(otherTerritory);
+                WarManager.instance.AddWar(attackPower, otherTerritory.territoryStats.population, vAttack, vDef, otherTerritory, attacker.territory.TypePlayer);
              
                 otherTerritory.war = true;
                 otherTerritory.gameObject.transform.GetChild(0).gameObject.SetActive(true);

@@ -27,6 +27,14 @@ public class War
         territory = _territory;
         attackers = _attackers;
     }
+    public float Speed1
+    {
+        get { return warriors1Speed; }
+    }
+    public float Speed2
+    {
+        get { return warriors2Speed; }
+    }
     public Territory.TYPEPLAYER Attackers
     {
         get { return attackers; }

@@ -54,6 +54,7 @@ public class MilitarBoss : Subordinate
                                                 "Qori","Yaku" };
     private string[] lastNamesList= new string[] { "","Illa", "Inka", "Wari", "Amaru",
                                                  "Amaru","Cancha","Ccasani"};
+
     public string GetRandomName()
     {
         

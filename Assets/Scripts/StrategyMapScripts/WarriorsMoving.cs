@@ -15,10 +15,11 @@ public class WarriorsMoving : MonoBehaviour
     private MilitarBoss mb;
     private MilitarBoss.TYPESTRAT militaryBossStrategy;
     private int militaryBossExperience;
+    [SerializeField]private TerritoryHandler attacker;
     //result
     [SerializeField] private float attackPower;
 
-    public void SetAttack(GameObject _target, int _warriorsNumber, Territory.TYPEPLAYER _type, MilitarBoss _mb)
+    public void SetAttack(GameObject _target, int _warriorsNumber,TerritoryHandler attackerTerritory)
     {
         target = _target;
         speed = 1f;
@@ -28,8 +29,9 @@ public class WarriorsMoving : MonoBehaviour
             print(speed);
         }
         warriorsNumber = _warriorsNumber;
-        territorytype = _type;
-        mb = _mb;
+        attacker = attackerTerritory;
+        territorytype = attackerTerritory.territory.TypePlayer;
+        mb = attackerTerritory.territory.MilitarBossTerritory;
         
         /*
         militaryBossStrategy = _mb.Type;
@@ -68,7 +70,7 @@ public class WarriorsMoving : MonoBehaviour
         
         if (Vector3.Distance(transform.position, target.transform.position) < 0.001f)
         {
-            InGameMenuHandler.instance.MoveWarriors(target.GetComponent<TerritoryHandler>(), warriorsNumber, territorytype);
+            InGameMenuHandler.instance.MoveWarriors(target.GetComponent<TerritoryHandler>(), warriorsNumber, attacker);
             if(target.GetComponent<TerritoryHandler>() == WarManager.instance.selected)
             {
                 WarManager.instance.SetWarStatus(true);
