@@ -10,8 +10,6 @@ public class MilitarBoss : Subordinate
     [SerializeField] private int experience;
     [SerializeField] private string strategyType;
 
-
-
     public int Experience
     {
         get { return experience; }

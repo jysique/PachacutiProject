@@ -222,8 +222,6 @@ public class TerritoryHandler : MonoBehaviour
                 counterDownImages[option].fillAmount = 1;
             }
             totalTime+= Time.deltaTime / duration;
-            //var integer = (int)totalTime;
-            //print(integer);
             yield return null;
         }
         buttons[option].interactable = true;

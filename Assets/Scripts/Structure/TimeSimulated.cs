@@ -1,4 +1,4 @@
-
+using UnityEngine;
 public class TimeSimulated
 {
     public double hour;
@@ -7,7 +7,10 @@ public class TimeSimulated
     public double month;
     public double year;
     public string season;
+    public TimeSimulated()
+    {
 
+    }
     public TimeSimulated( double _day, double _month, double _year)
     {
         this.hour = 0f;
@@ -55,6 +58,7 @@ public class TimeSimulated
         month++;
         day = 1;
     }
+
     public void CalculateDay()
     {
         day++;
@@ -68,5 +72,4 @@ public class TimeSimulated
     {
         return this.day == time2.day && this.month == time2.month && this.year == time2.year;
     }
-
 }

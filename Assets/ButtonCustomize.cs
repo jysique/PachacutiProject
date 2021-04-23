@@ -10,7 +10,6 @@ public class ButtonCustomize : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public TYPECUSTOM typecustom;
     private void Start()
     {
-        typecustom = gameObject.name.Contains("Button") ? TYPECUSTOM.BUTTON : TYPECUSTOM.ICON;
         label.SetActive(false);
     }
     public void OnPointerEnter(PointerEventData eventData)
@@ -23,25 +22,55 @@ public class ButtonCustomize : MonoBehaviour, IPointerEnterHandler, IPointerExit
     }
     private void Update()
     {
-        InstantiateFloatingText();
+        InstantiateFloatingText(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
     }
-    private void InstantiateFloatingText()
+    private void InstantiateFloatingText(TerritoryHandler t)
     {
-        if (typecustom == TYPECUSTOM.BUTTON)
+        if (typecustom == TYPECUSTOM.UP_LIMIT)
         {
-            if (InGameMenuHandler.instance.GoldPlayer >= InGameMenuHandler.instance.GoldNeedSpeed)
-            {
-                label.GetComponent<Text>().text = "Costo -"+ InGameMenuHandler.instance.GoldNeedSpeed + "g";
-            }
-            else
-            {
-                label.GetComponent<Text>().text = "No disponible";
-            }
+            CheckCost(InGameMenuHandler.instance.GoldPlayer, InGameMenuHandler.instance.FoodNeedLimit, "f");
+        }
+        else if (typecustom == TYPECUSTOM.UP_SPEED)
+        {
+            CheckCost(InGameMenuHandler.instance.FoodPlayer, InGameMenuHandler.instance.GoldNeedSpeed, "g");
+        }
+        else if (typecustom == TYPECUSTOM.UP_MINE)
+        {
+            CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.GoldMineTerritory.CostToUpgrade, "g");
+        }
+        else if (typecustom == TYPECUSTOM.UP_SACRED)
+        {
+            CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.SacredPlaceTerritory.CostToUpgrade, "g");
+        }
+        else if (typecustom == TYPECUSTOM.UP_FORTRESS)
+        {
+            CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.FortressTerritory.CostToUpgrade, "g");
+        }
+        else if (typecustom == TYPECUSTOM.UP_BARRACKS)
+        {
+            CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.BarracksTerritory.CostToUpgrade, "g");
+        }
+    }
+    private void CheckCost(int goldPlayer, int goldNeed, string element)
+    {
+        if (goldPlayer >= goldNeed)
+        {
+            label.GetComponent<Text>().text = "Costo -" + goldNeed.ToString() + element;
+        }
+        else
+        {
+            label.GetComponent<Text>().text = "No disponible";
         }
     }
     public enum TYPECUSTOM
     {
         BUTTON,
-        ICON
+        ICON,
+        UP_LIMIT,
+        UP_SPEED,
+        UP_MINE,
+        UP_SACRED,
+        UP_FORTRESS,
+        UP_BARRACKS
     }
 }
