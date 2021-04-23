@@ -30,6 +30,21 @@
 
             "experience": "10",
             "strategyType": "TERRAIN_MASTER"
+        },
+        {
+            "characterName": "Ysique",
+            "age": "25",
+            "origin": "Qosqo",
+            "campaign": "Incas" ,
+        
+            "characIconIndex": "01",
+            "personality": "SERIOUS",
+
+            "influence": "DIRECT_LEADER",
+            "opinion": "30",
+
+            "experience": "10",
+            "strategyType": "TERRAIN_MASTER"
         }
     ]
 }

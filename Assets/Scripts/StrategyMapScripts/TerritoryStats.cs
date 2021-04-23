@@ -10,17 +10,9 @@ public class TerritoryStats : MonoBehaviour
     private float timeLeftP;
     private float timeLeftG;
     private float timeLeftF;
-    private float maxTime = 5f;
-    private float difTime;
+    private float maxTime;
 
-    public int population;
-    public int limitPopulation;
-    public int gold;
-    public int food;
-
-    public float velocityPopulation;
-    public float velocityGold;
-    public float velocityFood;
+     public Territory territory;
 
     public Text populationTxt;
     private void Start()
@@ -34,18 +26,6 @@ public class TerritoryStats : MonoBehaviour
         timeLeftG = maxTime;
         timeLeftF = maxTime;
     }
-    public void InitalizeStats(Territory territory)
-    {
-        population = territory.Population;
-        gold = territory.Gold;
-        food = territory.FoodReward;
-        limitPopulation = territory.LimitPopulation;
-
-        velocityPopulation = territory.VelocityPopulation;
-        velocityGold = territory.GoldMineTerritory.VelocityGold;
-        velocityFood = territory.VelocityFood;
-    }
-
     public void SetCanPopulate(bool temp)
     {
         timerBar.enabled = temp;
@@ -60,19 +40,20 @@ public class TerritoryStats : MonoBehaviour
         }
         IncresementGold();
         IncresementFood();
-        populationTxt.text = population.ToString();
+        populationTxt.text = territory.Population.ToString();
     }
     private void IncresementPopulation()
     {
         
         if (timeLeftP > 0)
         {
-            timeLeftP -= Time.deltaTime * velocityPopulation;
+            timeLeftP -= Time.deltaTime * territory.VelocityPopulation;
             timerBar.fillAmount = timeLeftP / maxTime;
         }
         else
         {
-            population++;
+            territory.Population++;
+            //population++;
             timeLeftP = maxTime;
         }
     }
@@ -81,11 +62,13 @@ public class TerritoryStats : MonoBehaviour
 
         if (timeLeftG > 0)
         {
-            timeLeftG -= Time.deltaTime * velocityGold;
+            // timeLeftG -= Time.deltaTime * velocityGold;
+            timeLeftG -= Time.deltaTime * territory.GoldMineTerritory.VelocityGold;
         }
         else
         {
-            gold++;
+            territory.Gold++;
+            //gold++;
             timeLeftG = maxTime;
         }
     }
@@ -94,11 +77,13 @@ public class TerritoryStats : MonoBehaviour
 
         if (timeLeftF > 0)
         {
-            timeLeftF -= Time.deltaTime * velocityFood;
+            // timeLeftF -= Time.deltaTime * velocityFood;
+            timeLeftF -= Time.deltaTime * territory.VelocityFood;
         }
         else
         {
-            food++;
+            territory.FoodReward++;
+            //food++;
             timeLeftF = maxTime;
         }
     }

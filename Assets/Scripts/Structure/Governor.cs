@@ -24,6 +24,7 @@ public class Governor : RoyalFamily
     public TimeSimulated TimeInit
     {
         get { return new TimeSimulated(dayPeriod, monthPeriod, yearPeriod); }
+        set { timeInit = value; }
     }
     public void AddMision(string value)
     {

@@ -44,36 +44,56 @@ public class InGameMenuHandler : MonoBehaviour
     [Header("Menu territorio")]
     [SerializeField] private Text territoryName;
     [SerializeField] private Text goldCount;
-    [SerializeField] private Text levelMine;
+    [SerializeField] private Text[] levelTexts;
+    [SerializeField] private Image[] countdownImages;
+    [SerializeField] private Button[] buttons;
     [Header("Recursos")]
     [SerializeField] private Text goldGenerated;
- //   [SerializeField] private Text foodGenerated;
- //   [SerializeField] private Text sucesionSizeTxt;
+    [SerializeField] private Text foodGenerated;
+   // [SerializeField] private Text sucesionSizeTxt;
     [SerializeField] private Text scoreTxt;
     [SerializeField] private Transform goldAnimation;
- //   [SerializeField] private Transform foodAnimation;
+    [SerializeField] private Transform foodAnimation;
+    [Header("Evento")]
+    [SerializeField] private GameObject CustomEventSelection;
+    [SerializeField] private Text TerritoryEventTxt;
+    [SerializeField] private Text DetailsTextCustomEvent;
+    [SerializeField] private Text AcceptTextCustomEvent;
+    [SerializeField] private Text DeclineTextCustomEvent;
+    [SerializeField] private Button AcceptEventButton;
+    [SerializeField] private Button CloseEventButton;
+    [SerializeField] private Button DeclineEventButton;
+
     [Header("Select MilitaryBoss variables")]
     [SerializeField] private GameObject CharacterSelection;
+    
 
     private List<GameObject> characterOptions;
     public MilitarBossList ml;
     private int goldPlayer;
-  //  int foodPlayer;
+    int foodPlayer;
     int sucesionSizePlayer;
     int scorePlayer;
     int goldNeedSpeed = 10;
-    int goldNeedLimit = 10;
+    int foodNeedLimit = 10;
     //perfil menu
     public int GoldPlayer
     {
         get { return goldPlayer; }
+        set { goldPlayer = value; }
+    }
+    public int FoodPlayer
+    {
+        get { return foodPlayer; }
+        set { foodPlayer= value; }
     }
     public int GoldNeedSpeed
     {
-        get { return goldNeedLimit; }
+        get { return goldNeedSpeed; }
     }
-    private void Start()
+    public int FoodNeedLimit
     {
+        get { return foodNeedLimit; }
     }
     private void Awake()
     {
@@ -83,7 +103,7 @@ public class InGameMenuHandler : MonoBehaviour
     public void UpdateResourceTable()
     {
         goldGenerated.text = goldPlayer.ToString();
-     //   foodGenerated.text = foodPlayer.ToString();
+        foodGenerated.text = foodPlayer.ToString();
      //   sucesionSizeTxt.text = "0";
         scoreTxt.text = TerritoryManager.instance.CountTerrytorry(Territory.TYPEPLAYER.PLAYER).ToString();
     }
@@ -109,9 +129,21 @@ public class InGameMenuHandler : MonoBehaviour
     }
     public void UpdateTerritoryMenu()
     {
-        territoryName.text = selectedTerritory.name;
-        goldCount.text = "Oro: " + selectedTerritory.Gold.ToString();
-        levelMine.text = "Level: " + selectedTerritory.GoldMineTerritory.Level.ToString();
+        if (selectedTerritory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
+        {
+            territoryName.text = selectedTerritory.name;
+            goldCount.text = "Oro: " + selectedTerritory.Gold.ToString();
+            goldCount.text += "\nVelocidad oro: " + selectedTerritory.GoldMineTerritory.VelocityGold.ToString();
+            levelTexts[0].text = "Level: " + selectedTerritory.GoldMineTerritory.Level.ToString();
+            levelTexts[1].text = "Level: " + selectedTerritory.SacredPlaceTerritory.Level.ToString();
+            levelTexts[2].text = "Level: " + selectedTerritory.FortressTerritory.Level.ToString();
+            levelTexts[3].text = "Level: " + selectedTerritory.BarracksTerritory.Level.ToString();
+        }
+        else
+        {
+            menuBlock.SetActive(true);
+        }
+        
     }
     public void UpdateProfileMenu()
     {
@@ -128,14 +160,14 @@ public class InGameMenuHandler : MonoBehaviour
     }
     public void UpdateMenu()
     {
-        selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory;
+        selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory;
         UpdateMilitarMenu();
         UpdateTerritoryMenu();
 
     }
     void Update()
     {
-        Territory selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territory;
+        Territory selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory;
         militarWarriorsCount.text = selectedTerritory.Population.ToString() + " / " + selectedTerritory.LimitPopulation.ToString()+ " unidades" ;
         
         UpdateResourceTable();
@@ -168,7 +200,7 @@ public class InGameMenuHandler : MonoBehaviour
     public void SelectTerritory()
     {
         warriorsNumber = int.Parse(warriorsCount.text);
-        if (TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.population - warriorsNumber >= 0)
+        if (TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory.Population - warriorsNumber >= 0)
         {
             menuConfirm.SetActive(false);
             TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().ShowAdjacentTerritories();
@@ -178,16 +210,17 @@ public class InGameMenuHandler : MonoBehaviour
     public void SendWarriors(TerritoryHandler selected, TerritoryHandler otherTerritory, int _warriorsNumber)
     {
 
-        selected.territoryStats.population = selected.territoryStats.population - _warriorsNumber;
-        warriorsPrefab.GetComponent<WarriorsMoving>().SetAttack(otherTerritory.gameObject, _warriorsNumber, selected);
+        selected.territoryStats.territory.Population = selected.territoryStats.territory.Population - _warriorsNumber;
+        warriorsPrefab.GetComponent<WarriorsMoving>().SetAttack(otherTerritory.gameObject, _warriorsNumber, selected.territoryStats.territory.TypePlayer, selected.territoryStats.territory.MilitarBossTerritory);
         Instantiate(warriorsPrefab, selected.transform.position , Quaternion.identity);
 
     }
     public void MoveWarriors(TerritoryHandler otherTerritory, int attackPower, TerritoryHandler attacker)
     {
-        if (otherTerritory.territory.TypePlayer == attacker.territory.TypePlayer)
+        Territory.TYPEPLAYER temp = otherTerritory.territoryStats.territory.TypePlayer;
+        if (otherTerritory.territoryStats.territory.TypePlayer == type)
         {
-            otherTerritory.territoryStats.population = otherTerritory.territoryStats.population + attackPower;
+            otherTerritory.territoryStats.territory.Population = otherTerritory.territoryStats.territory.Population + attackPower;
 
         }
         else
@@ -224,25 +257,42 @@ public class InGameMenuHandler : MonoBehaviour
     public void ImproveSpeedPopulationButton()
     {
         ImproveSpeedPopulation(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
-        //goldNeedSpeed += 3;
+        //goldNeedSpeed += 2;
         UpdateMenu();
     }
     public void ImproveLimitButton()
     {
 
         ImproveLimit(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
-        //goldNeedLimit += 3;
+        //foodNeedLimit += 3;
         UpdateMenu();
     }
-    public void ImproveSpeedGoldButton()
+    public void ImproveMineGoldButton()
     {
 
-        ImproveSpeedGold(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
-        //goldNeedLimit += 3;
+        ImproveMineGold(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
+        UpdateMenu();
+    }
+    public void ImproveSacredPlaceButton()
+    {
+
+        ImproveSacredPlace(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
+        UpdateMenu();
+    }
+    public void ImproveFortressButton()
+    {
+
+        ImproveFortress(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
+        UpdateMenu();
+    }
+    public void ImproveBarracksButton()
+    {
+
+        ImproveBarracks(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
         UpdateMenu();
     }
 
-    public void ImproveSpeedPopulation(TerritoryHandler territoryHandler)
+    private void ImproveSpeedPopulation(TerritoryHandler territoryHandler)
     {
         if (goldPlayer >= goldNeedSpeed)
         {
@@ -253,49 +303,85 @@ public class InGameMenuHandler : MonoBehaviour
         }
         
     }
-    public void ImproveLimit(TerritoryHandler territoryHandler)
+    private void ImproveLimit(TerritoryHandler territoryHandler)
     {
-        if (goldPlayer >= goldNeedLimit)
+        if (foodPlayer >= foodNeedLimit)
         {
             territoryHandler.ImproveLimit();
-            goldPlayer -= goldNeedLimit;
+            foodPlayer -= foodNeedLimit;
             ShowFloatingText("+20 limit", "TextMesh", territoryHandler.transform);
-            ShowFloatingText("-"+goldNeedLimit.ToString(), "TextFloating", goldAnimation);
+            ShowFloatingText("-" + foodNeedLimit.ToString(), "TextFloating", foodAnimation);
         }
     }
-    public void ImproveSpeedGold(TerritoryHandler territoryHandler)
+    private void ImproveMineGold(TerritoryHandler territoryHandler)
     {
-        if (goldPlayer >= territoryHandler.territory.GoldMineTerritory.CostToUpgrade)
+        if (goldPlayer >= territoryHandler.territoryStats.territory.GoldMineTerritory.CostToUpgrade)
         {
-            territoryHandler.ImproveSpeedGold();
-            goldPlayer -= territoryHandler.territory.GoldMineTerritory.CostToUpgrade;
+            territoryHandler.ImproveTerritory(countdownImages,buttons,0);
+            goldPlayer -= territoryHandler.territoryStats.territory.GoldMineTerritory.CostToUpgrade;
             ShowFloatingText("+0.6 vel gold", "TextMesh", territoryHandler.transform);
-            ShowFloatingText("-" + territoryHandler.territory.GoldMineTerritory.CostToUpgrade.ToString(), "TextFloating", goldAnimation);
-            territoryHandler.territory.GoldMineTerritory.CostToUpgrade += 3;
+            ShowFloatingText("-" + territoryHandler.territoryStats.territory.GoldMineTerritory.CostToUpgrade.ToString(), "TextFloating", goldAnimation);
+            territoryHandler.territoryStats.territory.GoldMineTerritory.CostToUpgrade += 3;
         }
     }
-    public int GatherGold(TerritoryHandler territoryHandler)
+
+    private void ImproveSacredPlace(TerritoryHandler territoryHandler)
     {
-        int gatherGold = territoryHandler.territoryStats.gold;
+        if (goldPlayer >= territoryHandler.territoryStats.territory.SacredPlaceTerritory.CostToUpgrade)
+        {
+            territoryHandler.ImproveTerritory(countdownImages, buttons, 1);
+            goldPlayer -= territoryHandler.territoryStats.territory.SacredPlaceTerritory.CostToUpgrade;
+            ShowFloatingText("+0.6 motivation", "TextMesh", territoryHandler.transform);
+            ShowFloatingText("-" + territoryHandler.territoryStats.territory.SacredPlaceTerritory.CostToUpgrade.ToString(), "TextFloating", goldAnimation);
+            territoryHandler.territoryStats.territory.SacredPlaceTerritory.CostToUpgrade += 3;
+        }
+    }
+
+    private void ImproveFortress(TerritoryHandler territoryHandler)
+    {
+        if (goldPlayer >= territoryHandler.territoryStats.territory.FortressTerritory.CostToUpgrade)
+        {
+            territoryHandler.ImproveTerritory(countdownImages, buttons, 2);
+            goldPlayer -= territoryHandler.territoryStats.territory.FortressTerritory.CostToUpgrade;
+            ShowFloatingText("+1 defense", "TextMesh", territoryHandler.transform);
+            ShowFloatingText("-" + territoryHandler.territoryStats.territory.FortressTerritory.CostToUpgrade.ToString(), "TextFloating", goldAnimation);
+            territoryHandler.territoryStats.territory.FortressTerritory.CostToUpgrade += 3;
+        }
+    }
+
+    private void ImproveBarracks(TerritoryHandler territoryHandler)
+    {
+        if (goldPlayer >= territoryHandler.territoryStats.territory.BarracksTerritory.CostToUpgrade)
+        {
+            territoryHandler.ImproveTerritory(countdownImages, buttons, 3);
+            goldPlayer -= territoryHandler.territoryStats.territory.BarracksTerritory.CostToUpgrade;
+            ShowFloatingText("+1 attack", "TextMesh", territoryHandler.transform);
+            ShowFloatingText("-" + territoryHandler.territoryStats.territory.BarracksTerritory.CostToUpgrade.ToString(), "TextFloating", goldAnimation);
+            territoryHandler.territoryStats.territory.BarracksTerritory.CostToUpgrade += 3;
+        }
+    }
+
+    private int GatherGold(TerritoryHandler territoryHandler)
+    {
+        int gatherGold = territoryHandler.territoryStats.territory.Gold;
         territoryHandler.GatherTerritoryGold();
         return gatherGold;
     }
-    /*
-    public int GatherFood(TerritoryHandler territoryHandler)
+    private int GatherFood(TerritoryHandler territoryHandler)
     {
-        int gatherFood = territoryHandler.territoryStats.food;
+        int gatherFood = territoryHandler.territoryStats.territory.FoodReward;
         territoryHandler.GatherTerritoryFood();
         return gatherFood;
     }
-    */
+
     void ShowFloatingText(string text,string namePrefab,Transform _t)
     {
         GameObject prefab = Resources.Load("Prefabs/MenuPrefabs/"+namePrefab) as GameObject;
-        GameObject go = new GameObject();
+        GameObject go= null;
         if (namePrefab == "TextFloating")
         {
             go = Instantiate(prefab, FindObjectOfType<Canvas>().transform);
-            go.transform.parent = _t.transform;
+            go.transform.SetParent(_t.transform);
             go.GetComponent<Text>().text = text;
         }else if (namePrefab == "TextMesh")
         {
@@ -305,29 +391,29 @@ public class InGameMenuHandler : MonoBehaviour
         }
         go.transform.position = _t.position;
         Destroy(go, 1.2f);
+        Resources.UnloadUnusedAssets();
     }
-    public void GatherGoldResource()
+    public void GatherGoldResourceButton()
     {
         int temp = 0;
-        for (int i = 0; i < TerritoryManager.instance.GetTerritoryHandlers().Count; i++)
+        for (int i = 0; i < TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER).Count; i++)
         {
-            temp+= GatherGold(TerritoryManager.instance.GetTerritoryHandlers()[i]);
+            temp+= GatherGold(TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER)[i]);
         }
         ShowFloatingText("+"+ temp.ToString(), "TextFloating",goldAnimation);
         goldPlayer += temp;
     }
-    /*
-    public void GatherFoodResource()
+    public void GatherFoodResourceButton()
     {
         int temp = 0;
-        for (int i = 0; i < TerritoryManager.instance.GetTerritoryHandlers().Count; i++)
+        for (int i = 0; i < TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER).Count; i++)
         {
-            temp += GatherFood(TerritoryManager.instance.GetTerritoryHandlers()[i]);
+            temp += GatherFood(TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER)[i]);
         }
         ShowFloatingText("+" + temp.ToString(), "TextFloating",foodAnimation);
         foodPlayer += temp;
+        
     }
-    */
     public void TurnOffBlock()
     {
         overMenuBlock.SetActive(false);
@@ -358,7 +444,7 @@ public class InGameMenuHandler : MonoBehaviour
             characterOption.GetComponent<SelectCharacter>().SetTerritoryHandler(territory);
             characterOptions.Add(characterOption);
         }
-        Time.timeScale = 0;
+        PauseGame();
     }
     public void CloseCharacterSelection()
     {
@@ -375,5 +461,76 @@ public class InGameMenuHandler : MonoBehaviour
         {
             SceneManager.LoadScene(0);
         }
+    }
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+    }
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+    }
+
+    void Start()
+    {
+        AcceptEventButton.onClick.AddListener(() => AcceptCustomEventButton());
+        DeclineEventButton.onClick.AddListener(() => DeclineCustomEventButton());
+        CloseEventButton.onClick.AddListener(() => CloseCustomEventButton());
+    }
+    private CustomEvent currentCustomEvent;
+    public void CustomEventAppearance(CustomEvent custom)
+    {
+        InitCustomEvent(custom);
+        CustomEventSelection.gameObject.SetActive(true);
+        AcceptEventButton.gameObject.SetActive(true);
+        DeclineEventButton.gameObject.SetActive(true);
+        DetailsTextCustomEvent.text = custom.MessageEvent;
+        print(custom.MessageEvent);
+    }
+    
+    public void WarningEventAppearance(CustomEvent custom)
+    {
+        InitCustomEvent(custom);
+        CustomEventSelection.gameObject.SetActive(true);
+        CloseEventButton.gameObject.SetActive(true);
+        DetailsTextCustomEvent.text = "En "+ custom.TerritoryEvent + " " + custom.ElementEvent;
+        DetailsTextCustomEvent.text += "\n";
+        DetailsTextCustomEvent.text += "En " + custom.DaysToFinal + " dias te pediran esto:";
+    }
+    private void InitCustomEvent(CustomEvent custom)
+    {
+        PauseGame();
+        ResetTextCustomEvent();
+        currentCustomEvent = custom;
+        TerritoryEventTxt.text = custom.TerritoryEvent;
+        AcceptTextCustomEvent.text += "Beneficios \n " + custom.AcceptMessageEvent;
+        DeclineTextCustomEvent.text += "Prejuicios \n " + custom.DeclineMessageEvent;
+    }
+    public void AcceptCustomEventButton()
+    {
+        currentCustomEvent.AcceptEventAction();
+        UpdateMenu();
+        CloseCustomEventButton();
+    }
+    public void DeclineCustomEventButton()
+    {
+        currentCustomEvent.DeclineEventAction();
+        UpdateMenu();
+        CloseCustomEventButton();
+    }
+    public void CloseCustomEventButton()
+    {
+        CustomEventSelection.gameObject.SetActive(false);
+        ResetTextCustomEvent();
+        ResumeGame();
+    }
+    private void ResetTextCustomEvent()
+    {
+        CloseEventButton.gameObject.SetActive(false);
+        AcceptEventButton.gameObject.SetActive(false);
+        DeclineEventButton.gameObject.SetActive(false);
+        DetailsTextCustomEvent.text = " ";
+        AcceptTextCustomEvent.text = " ";
+        DeclineTextCustomEvent.text = " ";
     }
 }

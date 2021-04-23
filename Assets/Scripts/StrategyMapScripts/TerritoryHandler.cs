@@ -11,15 +11,14 @@ public class TerritoryHandler : MonoBehaviour
     public bool war;
     [SerializeField] private Material outlineMaterial;
     [SerializeField] private Material normalMaterial;
-    public Territory territory;
+    [SerializeField] private Territory territory;
     public SpriteRenderer sprite;
     private Color32 oldColor;
     private Color32 hoverColor;
-    // public Color32 startColor;
     [SerializeField]private List<GameObject> adjacentTerritories;
 
     GameObject statsGO;
-    public TerritoryStats territoryStats;
+    [SerializeField] public TerritoryStats territoryStats;
 
     private void Awake()
     {
@@ -32,7 +31,7 @@ public class TerritoryHandler : MonoBehaviour
     private void Start()
     {
         sr = this.GetComponent<SpriteRenderer>();
-        if (territory.GetSelected())
+        if (territoryStats.territory.GetSelected())
         {
             TerritoryManager.instance.territorySelected = this.gameObject;
             sr.material = outlineMaterial;
@@ -51,14 +50,14 @@ public class TerritoryHandler : MonoBehaviour
         statsGO.transform.SetParent(GameObject.Find("StatsContainer").transform,false);
         statsGO.transform.position = transform.position;
 
-
         territoryStats = statsGO.GetComponent<TerritoryStats>();
-        territoryStats.InitalizeStats(territory);
+        territoryStats.territory = territory;
+
     }
 
     private void PopulateTerritory()
     {
-        if (territory.TypePlayer != Territory.TYPEPLAYER.NONE && territory.Population < territory.LimitPopulation)
+        if (territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.NONE && territoryStats.territory.Population < territoryStats.territory.LimitPopulation)
         {
             territoryStats.SetCanPopulate(true);
         }
@@ -69,16 +68,15 @@ public class TerritoryHandler : MonoBehaviour
     }
     private void Update()
     {
-        territory.SetStats(territoryStats);
         PopulateTerritory();
     }
     private void FixedUpdate()
     {
-        if(territory.TypePlayer == Territory.TYPEPLAYER.BOT)
+        if(territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.BOT)
         {
            
             int prob = Random.Range(0, 401);
-            if (prob < 1 && this.territory.Population > 2)
+            if (prob < 1 && this.territoryStats.territory.Population > 2)
             {
                 EnemyMoveWarriors();
             }
@@ -89,7 +87,7 @@ public class TerritoryHandler : MonoBehaviour
     {
         
         int i = Random.Range(0, adjacentTerritories.Count);
-        int warriorsToSend = Random.Range(3, this.territory.Population);
+        int warriorsToSend = Random.Range(3, this.territoryStats.territory.Population);
         TerritoryHandler territoryToAttack = adjacentTerritories[i].GetComponent<TerritoryHandler>();
         InGameMenuHandler.instance.SendWarriors(this, territoryToAttack, warriorsToSend);
     }
@@ -99,7 +97,7 @@ public class TerritoryHandler : MonoBehaviour
         
         if (Input.GetMouseButtonDown(1) && state == 0)
         {
-            territory.SetSelected(true);
+            territoryStats.territory.SetSelected(true);
             MakeOutline();
             bool ca = false;
             TerritoryHandler selected = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
@@ -110,8 +108,8 @@ public class TerritoryHandler : MonoBehaviour
                 if (selected.adjacentTerritories[i].GetComponent<TerritoryHandler>() == this) ca = true;
 
             }
-            if (selected.territory.TypePlayer != Territory.TYPEPLAYER.PLAYER) ca = false;
-            if (selected == this && territory.TypePlayer == Territory.TYPEPLAYER.PLAYER) ca = true;
+            if (selected.territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.PLAYER) ca = false;
+            if (selected == this && territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER) ca = true;
             InGameMenuHandler.instance.ActivateContextMenu(this, ca,war, Input.mousePosition);
 
         }
@@ -126,7 +124,7 @@ public class TerritoryHandler : MonoBehaviour
         switch (state)
         {
             case 0:
-                territory.SetSelected(true);
+                territoryStats.territory.SetSelected(true);
                 MakeOutline();
                 break;
             case 1:
@@ -158,7 +156,7 @@ public class TerritoryHandler : MonoBehaviour
         {
             t.GetComponent<TerritoryHandler>().Deselect();
         }
-        territory.SetSelected(true);
+        territoryStats.territory.SetSelected(true);
         outlineMaterial.SetColor("_SolidOutline", Color.green);
         sr.material = outlineMaterial;
         sr.sortingOrder = -8;
@@ -189,35 +187,105 @@ public class TerritoryHandler : MonoBehaviour
     }
     public void Deselect()
     {
-        territory.SetSelected(false);
+        territoryStats.territory.SetSelected(false);
         sr.sortingOrder = -8;
         sr.material = normalMaterial;
     }
     
     public void ImproveSpeedPopulation()
     {
-        territoryStats.velocityPopulation += 0.3f;
-        territory.SetStats(territoryStats);
+        territoryStats.territory.VelocityPopulation += 0.3f;
     }
     public void ImproveLimit()
     {
-        territoryStats.limitPopulation += 20;
-        territory.SetStats(territoryStats);
+        territoryStats.territory.LimitPopulation += 20;
     }
-    public void ImproveSpeedGold()
+    public void ImproveTerritory(Image[] _images,Button[] _button, int _option)
     {
-        territoryStats.velocityGold += 0.6f;            //
-        territory.GoldMineTerritory.Level += 1;         //
-        territory.SetStats(territoryStats);
+        StartCoroutine(CountDownTimerCouroutine(_images,_button, _option));
+
+    }
+    IEnumerator CountDownTimerCouroutine(Image[] counterDownImages, Button[] buttons, int option)
+    {
+        float duration = CalculateDuration(option);
+        float totalTime = 0;
+        bool isPlayer = territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER;
+        while (totalTime <= duration)
+        {
+            if (isPlayer)
+            {
+                counterDownImages[option].fillAmount = totalTime / duration;
+                buttons[option].interactable = false;
+            }
+            else
+            {
+                counterDownImages[option].fillAmount = 1;
+            }
+            totalTime+= Time.deltaTime / duration;
+            yield return null;
+        }
+        buttons[option].interactable = true;
+        ImproveBuildings(option);
+        InGameMenuHandler.instance.UpdateTerritoryMenu();
+    }
+    private float CalculateDuration(int _option)
+    {
+        float duration = 0;
+        switch (_option)
+        {
+            case 0:
+                duration = territoryStats.territory.GoldMineTerritory.TimeToBuild;
+                break;
+            case 1:
+                duration = territoryStats.territory.SacredPlaceTerritory.TimeToBuild;
+                break;
+            case 2:
+                duration = territoryStats.territory.FortressTerritory.TimeToBuild;
+                break;
+            case 3:
+                duration = territoryStats.territory.BarracksTerritory.TimeToBuild;
+                break;
+            default:
+                break;
+        }
+        return duration;
+    }
+    private void ImproveBuildings(int _option)
+    {
+        switch (_option)
+        {
+            case 0:
+                territoryStats.territory.GoldMineTerritory.VelocityGold += 0.6f;
+                territoryStats.territory.GoldMineTerritory.Level += 1;
+                territoryStats.territory.GoldMineTerritory.TimeToBuild += 1;
+                break;
+            case 1:
+                territoryStats.territory.SacredPlaceTerritory.Motivation += 0.6f;
+                territoryStats.territory.SacredPlaceTerritory.Level += 1;
+                territoryStats.territory.SacredPlaceTerritory.TimeToBuild += 1;
+                break;
+            case 2:
+                territoryStats.territory.FortressTerritory.PlusDefense += 1;
+                territoryStats.territory.FortressTerritory.Level += 1;
+                territoryStats.territory.FortressTerritory.TimeToBuild += 1;
+                break;
+            case 3:
+                territoryStats.territory.BarracksTerritory.PlusAttack += 1;
+                territoryStats.territory.BarracksTerritory.Level += 1;
+                territoryStats.territory.BarracksTerritory.TimeToBuild += 1;
+                break;
+            default:
+                break;
+        }
     }
     public void GatherTerritoryGold()
     {
-        int gather = territoryStats.gold;
-        territoryStats.gold -= gather;
+        int gather = territoryStats.territory.Gold;
+        territoryStats.territory.Gold -= gather;
     }
     public void GatherTerritoryFood()
     {
-        int gather = territoryStats.food;
-        territoryStats.food-= gather;
+        int gather = territoryStats.territory.FoodReward;
+        territoryStats.territory.FoodReward-= gather;
     }
 }

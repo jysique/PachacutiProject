@@ -30,67 +30,60 @@ public class TerritoryManager : MonoBehaviour
         }
 
     }
-    public List<TerritoryHandler> GetTerritoryHandlers()
-    {
-        List<TerritoryHandler> list = new List<TerritoryHandler>();
-        for (int i = 0; i < territoryList.Count; i++)
-        {
-            TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-            if (territoryHandler.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
-            {
-                list.Add(territoryHandler);
-            }
-        }
-        return list;
-    }
     public void AddMilitaryBoss()
     {
-        
         for (int i = 0; i < territoryList.Count; i++)
         {
             TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-            if (territoryHandler.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
+            if (territoryHandler.territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
             {
-                territoryHandler.territory.MilitarBossTerritory = CharacterManager.instance.MilitarBossList.GetMilitaryBoss(a);
+                territoryHandler.territoryStats.territory.MilitarBossTerritory = CharacterManager.instance.MilitarBossList.GetMilitaryBoss(a);
                 a++;
             }
         }
     }
-    public void AddSpecificCharacter(TerritoryHandler territoryHandler, MilitarBoss militarBoss)
-    {
-        territoryHandler.territory.MilitarBossTerritory = militarBoss;
-    }
-
-
     private void TintTerritory()
     {
         for (int i = 0; i < territoryList.Count; i++)
         {
             TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-            if (territoryHandler.territory.TypePlayer == Territory.TYPEPLAYER.NONE)
+            if (territoryHandler.territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.NONE)
             {
                 territoryHandler.TintColorTerritory(new Color32(31, 97, 237, 255));
             }
-            if (territoryHandler.territory.TypePlayer == Territory.TYPEPLAYER.BOT)
+            if (territoryHandler.territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.BOT)
             {
                 territoryHandler.TintColorTerritory(new Color32(122, 75, 82, 255));
             }
-            if (territoryHandler.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
+            if (territoryHandler.territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
             {
                 territoryHandler.TintColorTerritory(new Color32(249, 85, 138, 255));
             }
         }
     }
-    public void ChangeTerritory(string _name)
+
+    public void ChangeTerritoryToType(string _name, Territory.TYPEPLAYER type)
     {
         for (int i = 0; i < territoryList.Count; i++)
         {
             if (territoryList[i].name == _name)
             {
                 TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-                territoryHandler.territory.TypePlayer = Territory.TYPEPLAYER.PLAYER;
+                territoryHandler.territoryStats.territory.TypePlayer = type;
             }
         }
+    }
+    public TerritoryHandler SearchTerritoryByName(string _name)
+    {
+        for (int i = 0; i < territoryList.Count; i++)
+        {
+            if (territoryList[i].name == _name)
+            {
+                TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
+                return territoryHandler;
+            }
+        }
+        return null;
     }
 
     // Update is called once per frame
@@ -107,14 +100,14 @@ public class TerritoryManager : MonoBehaviour
         {
             int index = i;
             TerritoryHandler territoryHandler = territoryList[index].GetComponent<TerritoryHandler>();
-            if (territoryHandler.territory.TypePlayer == type)
+            if (territoryHandler.territoryStats.territory.TypePlayer == type)
             {
                count++;
             }
         }
         return count;
     }
-    void ConditionEndChapter()
+    public void ConditionEndChapter()
     {
         int playerCount = CountTerrytorry(Territory.TYPEPLAYER.PLAYER);
         int botCount = CountTerrytorry(Territory.TYPEPLAYER.BOT);
@@ -135,4 +128,18 @@ public class TerritoryManager : MonoBehaviour
             SceneManager.LoadScene("VisualNovelScene");
         }
     }
+    public List<TerritoryHandler> GetTerritoriesByTypePlayer(Territory.TYPEPLAYER type)
+    {
+        List<TerritoryHandler> territoriesPlayer = new List<TerritoryHandler>();
+        for (int i = 0; i < territoryList.Count; i++)
+        {
+            TerritoryHandler _territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
+            if (_territoryHandler.territoryStats.territory.TypePlayer == type)
+            {
+                territoriesPlayer.Add(_territoryHandler);
+            }
+        }
+        return territoriesPlayer;
+    }
+
 }

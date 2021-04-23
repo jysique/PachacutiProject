@@ -18,12 +18,14 @@ public class CharacterManager : MonoBehaviour
         if (GlobalVariables.instance == null)
         {
             governor = new Governor("Pachacuti");
+            governor.TimeInit = TimeSystem.instance.TimeGame;
         }
         else
         {
             governor = GlobalVariables.instance.GovernorChoose;
             //AudioManager.activeSong.Stop();
         }
+     //   governor.TimeInit.PrintTimeSimulated();
         InGameMenuHandler.instance.UpdateProfileMenu();
     }
     public MilitarBossList MilitarBossList
@@ -53,7 +55,7 @@ public class CharacterManager : MonoBehaviour
     public void HireMilitaryBoss(TerritoryHandler territoryhandler, MilitarBoss militar)
     {
         MilitarBossList.AddMilitar(militar);
-        TerritoryManager.instance.AddSpecificCharacter(territoryhandler, militar);
+        territoryhandler.territoryStats.territory.MilitarBossTerritory = militar;
         InGameMenuHandler.instance.CloseCharacterSelection();
         Time.timeScale = 1;
     }
