@@ -30,8 +30,8 @@ public class WarriorsMoving : MonoBehaviour
         }
         warriorsNumber = _warriorsNumber;
         attacker = attackerTerritory;
-        territorytype = attackerTerritory.territory.TypePlayer;
-        mb = attackerTerritory.territory.MilitarBossTerritory;
+        territorytype = attackerTerritory.territoryStats.territory.TypePlayer;
+        mb = attackerTerritory.territoryStats.territory.MilitarBossTerritory;
         
         /*
         militaryBossStrategy = _mb.Type;

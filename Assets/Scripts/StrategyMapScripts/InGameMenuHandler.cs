@@ -211,14 +211,14 @@ public class InGameMenuHandler : MonoBehaviour
     {
 
         selected.territoryStats.territory.Population = selected.territoryStats.territory.Population - _warriorsNumber;
-        warriorsPrefab.GetComponent<WarriorsMoving>().SetAttack(otherTerritory.gameObject, _warriorsNumber, selected.territoryStats.territory.TypePlayer, selected.territoryStats.territory.MilitarBossTerritory);
+        warriorsPrefab.GetComponent<WarriorsMoving>().SetAttack(otherTerritory.gameObject, _warriorsNumber,  selected);
         Instantiate(warriorsPrefab, selected.transform.position , Quaternion.identity);
 
     }
     public void MoveWarriors(TerritoryHandler otherTerritory, int attackPower, TerritoryHandler attacker)
     {
         Territory.TYPEPLAYER temp = otherTerritory.territoryStats.territory.TypePlayer;
-        if (otherTerritory.territoryStats.territory.TypePlayer == type)
+        if (otherTerritory.territoryStats.territory.TypePlayer == attacker.territoryStats.territory.TypePlayer)
         {
             otherTerritory.territoryStats.territory.Population = otherTerritory.territoryStats.territory.Population + attackPower;
 
@@ -234,7 +234,7 @@ public class InGameMenuHandler : MonoBehaviour
             {
                 float vAttack = WarManager.instance.SetAttackFormula(attacker, attackPower);
                 float vDef = WarManager.instance.SetDefenseFormula(otherTerritory);
-                WarManager.instance.AddWar(attackPower, otherTerritory.territoryStats.population, vAttack, vDef, otherTerritory, attacker.territory.TypePlayer);
+                WarManager.instance.AddWar(attackPower, otherTerritory.territoryStats.territory.Population, vAttack, vDef, otherTerritory, attacker.territoryStats.territory.TypePlayer);
              
                 otherTerritory.war = true;
                 otherTerritory.gameObject.transform.GetChild(0).gameObject.SetActive(true);
@@ -464,6 +464,7 @@ public class InGameMenuHandler : MonoBehaviour
     }
     public void PauseGame()
     {
+        turnOffMenus();
         Time.timeScale = 0;
     }
     public void ResumeGame()
@@ -503,8 +504,8 @@ public class InGameMenuHandler : MonoBehaviour
         ResetTextCustomEvent();
         currentCustomEvent = custom;
         TerritoryEventTxt.text = custom.TerritoryEvent;
-        AcceptTextCustomEvent.text += "Beneficios \n " + custom.AcceptMessageEvent;
-        DeclineTextCustomEvent.text += "Prejuicios \n " + custom.DeclineMessageEvent;
+        AcceptTextCustomEvent.text += "Si aceptas: \n " + custom.AcceptMessageEvent;
+        DeclineTextCustomEvent.text += "Si rechazas: \n " + custom.DeclineMessageEvent;
     }
     public void AcceptCustomEventButton()
     {
@@ -532,5 +533,15 @@ public class InGameMenuHandler : MonoBehaviour
         DetailsTextCustomEvent.text = " ";
         AcceptTextCustomEvent.text = " ";
         DeclineTextCustomEvent.text = " ";
+    }
+    public void turnOffMenus()
+    {
+        GameObject[] overMenus;
+        overMenus = GameObject.FindGameObjectsWithTag("OverMenu");
+        foreach (GameObject overMenu in overMenus)
+        {
+            overMenu.SetActive(false);
+        }
+        InGameMenuHandler.instance.ChangeStateTerritory(0);
     }
 }

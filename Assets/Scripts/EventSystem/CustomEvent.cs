@@ -108,7 +108,7 @@ public class CustomEvent
                     case string b when b.Contains("MIN"):
                         this.messagge += "\nEncontramos restos de oro";
                         this.declineMessageEvent = " Nada";
-                        this.acceptMessageEvent = "-" + acceptCostEvent + " oro " + "\n +2 velocidad de mina";
+                        this.acceptMessageEvent = "+" + acceptCostEvent + " oro " + "\n +2 velocidad de mina";
                         break;
                     case string b when b.Contains("FOR"):
                         this.messagge += "\nQueremos mejorar nuesta defensa";
@@ -197,7 +197,7 @@ public class CustomEvent
                 InGameMenuHandler.instance.GoldPlayer -= acceptCostEvent;
                 break;
             case "PETITION_MIN":
-                InGameMenuHandler.instance.GoldPlayer -= acceptCostEvent;
+                InGameMenuHandler.instance.GoldPlayer += acceptCostEvent;
                 TerritoryManager.instance.SearchTerritoryByName(territoryEvent).territoryStats.territory.GoldMineTerritory.VelocityGold += 2;
                 break;
             case "PETITION_FOR":

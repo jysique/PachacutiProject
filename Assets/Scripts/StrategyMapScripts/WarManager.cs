@@ -190,11 +190,11 @@ public class WarManager : MonoBehaviour
     public float SetAttackFormula(TerritoryHandler t, int warriorsNumber)
     {
         float V = initialSpeed;
-        if (t.territory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
+        if (t.territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
         {
             return V;
         }
-        MilitarBoss mb = t.territory.MilitarBossTerritory;
+        MilitarBoss mb = t.territoryStats.territory.MilitarBossTerritory;
         float strategyMod = 0;
         switch (mb.StrategyType)
         {
@@ -218,26 +218,27 @@ public class WarManager : MonoBehaviour
         print(warriorNumberBonus);
         float experienceMod = V * ((float)mb.Experience/50f);
         float governorMod = 0;
-        if(t.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
+        if(t.territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
         {
             RoyalFamily governor = CharacterManager.instance.Governor;
             governorMod = V * ((float)governor.Militancy / 50f);
         }
-        
-        V = V + strategyMod + ((warriorNumberBonus + experienceMod + governorMod)*2);
+        float motivationMod = V * ((float)t.territoryStats.territory.SacredPlaceTerritory.Motivation / 10f);
+        float attackMod = V * ((float)t.territoryStats.territory.BarracksTerritory.PlusAttack / 50f);
+        V = V + ((strategyMod + warriorNumberBonus + experienceMod + governorMod+motivationMod+attackMod)*1);
         print((warriorNumberBonus + experienceMod + governorMod));
         print(V);
         return V;
     }
 
-    public float SetDefenseFormula(TerritoryHandler tr)
+    public float SetDefenseFormula(TerritoryHandler t)
     {
         float V = initialSpeed;
-        if (tr.territory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
+        if (t.territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
         {
             return V;
         }
-        MilitarBoss mb = tr.territory.MilitarBossTerritory;
+        MilitarBoss mb = t.territoryStats.territory.MilitarBossTerritory;
         float strategyMod = 0;
         switch (mb.StrategyType)
         {
@@ -257,15 +258,17 @@ public class WarManager : MonoBehaviour
                 strategyMod = V * -0.06f;
                 break;
         }
-        float warriorNumberBonus = V * ((float)tr.territoryStats.population / 100);
+        float warriorNumberBonus = V * ((float)t.territoryStats.territory.Population / 100);
         float experienceMod = V * ((float)mb.Experience / 50);
         float governorMod = 0;
-        if (tr.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
+        if (t.territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
         {
             RoyalFamily governor = CharacterManager.instance.Governor;
             governorMod = V * ((float)governor.Militancy / 50);
         }
-        V = V + strategyMod + ((warriorNumberBonus + experienceMod + governorMod) * 2);
+        float motivationMod = V * ((float)t.territoryStats.territory.SacredPlaceTerritory.Motivation / 10f);
+        float defenseMod = V * ((float)t.territoryStats.territory.FortressTerritory.PlusDefense / 5f);
+        V = V + ((strategyMod + warriorNumberBonus + experienceMod + governorMod+defenseMod+motivationMod) * 1);
         print(V);
         return V;
     }

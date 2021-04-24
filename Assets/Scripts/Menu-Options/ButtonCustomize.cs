@@ -28,38 +28,39 @@ public class ButtonCustomize : MonoBehaviour, IPointerEnterHandler, IPointerExit
     {
         if (typecustom == TYPECUSTOM.UP_LIMIT)
         {
-            CheckCost(InGameMenuHandler.instance.GoldPlayer, InGameMenuHandler.instance.FoodNeedLimit, "f");
+            CheckCost(InGameMenuHandler.instance.GoldPlayer, InGameMenuHandler.instance.FoodNeedLimit, "food");
         }
         else if (typecustom == TYPECUSTOM.UP_SPEED)
         {
-            CheckCost(InGameMenuHandler.instance.FoodPlayer, InGameMenuHandler.instance.GoldNeedSpeed, "g");
+            CheckCost(InGameMenuHandler.instance.FoodPlayer, InGameMenuHandler.instance.GoldNeedSpeed, "gold");
         }
         else if (typecustom == TYPECUSTOM.UP_MINE)
         {
-            CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.GoldMineTerritory.CostToUpgrade, "g");
+            CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.GoldMineTerritory.CostToUpgrade, "gold");
         }
         else if (typecustom == TYPECUSTOM.UP_SACRED)
         {
-            CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.SacredPlaceTerritory.CostToUpgrade, "g");
+            CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.SacredPlaceTerritory.CostToUpgrade, "gold");
         }
         else if (typecustom == TYPECUSTOM.UP_FORTRESS)
         {
-            CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.FortressTerritory.CostToUpgrade, "g");
+            CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.FortressTerritory.CostToUpgrade, "gold");
         }
         else if (typecustom == TYPECUSTOM.UP_BARRACKS)
         {
-            CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.BarracksTerritory.CostToUpgrade, "g");
+            CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.BarracksTerritory.CostToUpgrade, "gold");
         }
     }
     private void CheckCost(int goldPlayer, int goldNeed, string element)
     {
+        label.GetComponent<Text>().text = "Costo -" + goldNeed.ToString() + " "+ element;
         if (goldPlayer >= goldNeed)
         {
-            label.GetComponent<Text>().text = "Costo -" + goldNeed.ToString() + element;
+            label.GetComponent<Text>().color = Color.white;
         }
         else
         {
-            label.GetComponent<Text>().text = "No disponible";
+            label.GetComponent<Text>().color = Color.red;
         }
     }
     public enum TYPECUSTOM
