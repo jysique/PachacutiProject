@@ -42,7 +42,7 @@ public class TimeSystem : MonoBehaviour
     {
         PlusDaysToTimeGather(3);
         listEvents = new CustomEventList();
-        PlusDaysToTimeInitEvent(3);
+     //   PlusDaysToTimeInitEvent(3);
     }
     void InitializeGameEvents()
     {
@@ -101,7 +101,7 @@ public class TimeSystem : MonoBehaviour
         CalculateTime(timeGame);
         TextCallFunction();
         GatherResourceInTime();
-        CustomEventInTime();
+      //  CustomEventInTime();
     }
 
     void PlusDaysToTimeGather(int daysToPlus)

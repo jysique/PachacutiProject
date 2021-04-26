@@ -6,11 +6,15 @@ public class ChangeWindow : MonoBehaviour
 {
     [SerializeField] private GameObject nextWindow;
     [SerializeField] private GameObject thisWindow;
-
+    [SerializeField] private GameObject options;
     public void ChangeMenuWindow()
     {
         nextWindow.gameObject.SetActive(true);
         thisWindow.gameObject.SetActive(false);
+        if (gameObject.name == "NewGameButton")
+        {
+            options.gameObject.SetActive(true);
+        }
         AudioManager.instance.ReadAndPlaySFX("ButtonPush");
     }
 
