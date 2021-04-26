@@ -15,6 +15,7 @@ public class ChapterController : MonoBehaviour
     // ChapterPachacuti_start
     private void Start()
     {
+        Time.timeScale = 1;
         if (GlobalVariables.instance != null)
         {
             //GlobalVariables.instance.SetChapterTxt("start");
@@ -29,7 +30,6 @@ public class ChapterController : MonoBehaviour
     }
     private void Update()
     {
-
         if (timerCountDown>0)
         {
             timerCountDown -= Time.deltaTime;
@@ -51,9 +51,9 @@ public class ChapterController : MonoBehaviour
     void HandleLine(string line)
     {
         string[] dialogueAndActions = line.Split('"');
-
+        
         if (dialogueAndActions.Length == 3)
-        {
+        {   
             HandleDialogue(dialogueAndActions[0], dialogueAndActions[1]);
             HandleEventsFromLine(dialogueAndActions[2]);
         }
