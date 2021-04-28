@@ -73,7 +73,7 @@ public class War
                 territory.territoryStats.territory.Population--;
                 warriors2Count = territory.territoryStats.territory.Population;
             }
-            if (warriors1Count == 0 || warriors2Count == 0) status = 1;
+            if (warriors1Count <= 0 || warriors2Count <= 0) status = 1;
         }
         
 

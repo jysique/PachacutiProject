@@ -8,6 +8,9 @@ public class ContextMenu : MonoBehaviour
     [SerializeField]TerritoryHandler clickedTerritory;
     [SerializeField] GameObject warMenu;
     [SerializeField] InputField warriorsCount;
+    [SerializeField] TabGroup tabManager;
+    [SerializeField] TabButton tabMilitar;
+    [SerializeField] TabButton tabTerritory;
     public void SetMenu(bool canAttack, bool isWar, TerritoryHandler ta)
     {
         
@@ -27,6 +30,7 @@ public class ContextMenu : MonoBehaviour
             InGameMenuHandler.instance.warriorsCount.text = warriorsCount.text;
             InGameMenuHandler.instance.SelectTerritory();
         }
+        
         if (selected.territoryStats.territory.Population > 0)
         {
 
@@ -36,17 +40,23 @@ public class ContextMenu : MonoBehaviour
             InGameMenuHandler.instance.ChangeStateTerritory(0);
             this.gameObject.SetActive(false);
         }
-
-    }
-
-    public void ShowStateMenu()
-    {
         
-        WarManager.instance.selected = clickedTerritory;
-        WarManager.instance.SetWarStatus(clickedTerritory.war);
-        InGameMenuHandler.instance.ChangeStateTerritory(0);
-        InGameMenuHandler.instance.TurnOffBlock();
-        this.gameObject.SetActive(false);
 
     }
+
+    public void ShowMilitarMenu()
+    {
+        tabManager.OnTabSelected(tabMilitar);
+        InGameMenuHandler.instance.TurnOffBlock();
+        InGameMenuHandler.instance.ChangeStateTerritory(0);
+        this.gameObject.SetActive(false);
+    }
+    public void ShowTerritoryMenu()
+    {
+        tabManager.OnTabSelected(tabTerritory);
+        InGameMenuHandler.instance.TurnOffBlock();
+        InGameMenuHandler.instance.ChangeStateTerritory(0);
+        this.gameObject.SetActive(false);
+    }
+    
 }

@@ -200,6 +200,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerBar: {fileID: 6616176299814522694}
-  population: 0
-  velocity: 0
+  container: {fileID: 2572432285932690924}
+  territory:
+    name: 
+    tribe: 0
+    typePlayer: 0
+    population: 0
+    gold: 0
+    food: 0
+    limitPopulation: 0
+    velocityPopulation: 0
+    velocityFood: 0
+    selected: 0
+    militarBossTerritory:
+      characterName: 
+      age: 0
+      origin: 
+      campaign: 
+      personality: 
+      characIconType: 
+      characIconIndex: 
+      influence: 0
+      opinion: 0
+      experience: 0
+      strategyType: 
+    goldMineTerritory:
+      costToUpgrade: 0
+      level: 0
+      timeToBuild: 0
+      velocityGold: 0
+    sacredPlaceTerritory:
+      costToUpgrade: 0
+      level: 0
+      timeToBuild: 0
+      motivation: 0
+    fortressTerritory:
+      costToUpgrade: 0
+      level: 0
+      timeToBuild: 0
+      plusDefense: 0
+    barracksTerritory:
+      costToUpgrade: 0
+      level: 0
+      timeToBuild: 0
+      plusAttack: 0
   populationTxt: {fileID: 7147964992078687494}

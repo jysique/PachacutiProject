@@ -12,6 +12,8 @@ public class TerritoryHandler : MonoBehaviour
     [SerializeField] private Material outlineMaterial;
     [SerializeField] private Material normalMaterial;
     [SerializeField] private Territory territory;
+    [SerializeField] private float paddingX;
+    [SerializeField] private float paddingY;
     public SpriteRenderer sprite;
     private Color32 oldColor;
     private Color32 hoverColor;
@@ -48,7 +50,7 @@ public class TerritoryHandler : MonoBehaviour
         statsGO = Instantiate(Resources.Load("Prefabs/TerritoryStats")) as GameObject;
 
         statsGO.transform.SetParent(GameObject.Find("StatsContainer").transform,false);
-        statsGO.transform.position = transform.position;
+        statsGO.transform.position =  new Vector3(transform.position.x+paddingX, transform.position.y+paddingY,transform.position.z);
 
         territoryStats = statsGO.GetComponent<TerritoryStats>();
         territoryStats.territory = territory;
@@ -72,7 +74,7 @@ public class TerritoryHandler : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if(territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.BOT)
+        if(territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.BOT && war == false)
         {
            
             int prob = Random.Range(0, 401);
@@ -98,9 +100,11 @@ public class TerritoryHandler : MonoBehaviour
         if (Input.GetMouseButtonDown(1) && state == 0)
         {
             territoryStats.territory.SetSelected(true);
+            ShowStateMenu();
             MakeOutline();
             bool ca = false;
             TerritoryHandler selected = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
+            /*
             for (int i = 0; i < selected.adjacentTerritories.Count; i++)
             {
                 //print(selected.adjacentTerritories[i]);
@@ -108,8 +112,10 @@ public class TerritoryHandler : MonoBehaviour
                 if (selected.adjacentTerritories[i].GetComponent<TerritoryHandler>() == this) ca = true;
 
             }
-            if (selected.territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.PLAYER) ca = false;
+            */
+            //if (selected.territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.PLAYER) ca = false;
             if (selected == this && territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER) ca = true;
+            if (war == true) ca = false;
             InGameMenuHandler.instance.ActivateContextMenu(this, ca,war, Input.mousePosition);
 
         }
@@ -125,6 +131,7 @@ public class TerritoryHandler : MonoBehaviour
         {
             case 0:
                 territoryStats.territory.SetSelected(true);
+                ShowStateMenu();
                 MakeOutline();
                 break;
             case 1:
@@ -277,6 +284,15 @@ public class TerritoryHandler : MonoBehaviour
             default:
                 break;
         }
+    }
+    public void ShowStateMenu()
+    {
+
+        WarManager.instance.selected = this;
+        WarManager.instance.SetWarStatus(this.war);
+        InGameMenuHandler.instance.ChangeStateTerritory(0);
+        InGameMenuHandler.instance.TurnOffBlock();
+
     }
     public void GatherTerritoryGold()
     {

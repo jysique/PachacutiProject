@@ -23,6 +23,8 @@ public class WarManager : MonoBehaviour
     [SerializeField] private Text power;
     [SerializeField] private Text empireD;
     [SerializeField] private Text powerD;
+    [SerializeField] private Image attackColor;
+    [SerializeField] private Image deffendColor;
     //hats
     [SerializeField] private Sprite incaHat;
     [SerializeField] private Sprite chancaHat;
@@ -88,14 +90,17 @@ public class WarManager : MonoBehaviour
                     case Territory.TYPEPLAYER.PLAYER:
                         hatAttacker.sprite = incaHat;
                         empire.text = "Incas";
+                        attackColor.color = new Color(0.627f, 0.858f, 1,1);
                         break;
                     case Territory.TYPEPLAYER.NONE:
                         hatAttacker.sprite = null;
                         empire.text = "Libres";
+                        attackColor.color = Color.white;
                         break;
                     case Territory.TYPEPLAYER.BOT:
                         hatAttacker.sprite = chancaHat;
                         empire.text = "Chancas";
+                        attackColor.color = new Color(0.973f, 0.576f, 0.57f,1);
                         break;
                 }
                 switch (w.Territory.territoryStats.territory.TypePlayer)
@@ -103,14 +108,17 @@ public class WarManager : MonoBehaviour
                     case Territory.TYPEPLAYER.PLAYER:
                         hatDefender.sprite = incaHat;
                         empireD.text = "Incas";
+                        deffendColor.color = new Color(160,219,255);
                         break;
                     case Territory.TYPEPLAYER.NONE:
                         hatDefender.sprite = null;
                         empireD.text = "Libres";
+                        deffendColor.color = Color.white;
                         break;
                     case Territory.TYPEPLAYER.BOT:
                         hatDefender.sprite = chancaHat;
                         empireD.text = "Chancas";
+                        deffendColor.color = new Color(248, 147, 146);
                         break;
                 }
                 warContainer.SetActive(true);
@@ -216,7 +224,8 @@ public class WarManager : MonoBehaviour
         }
         float warriorNumberBonus = V * ((float)warriorsNumber / 100f);
         print(warriorNumberBonus);
-        float experienceMod = V * ((float)mb.Experience/50f);
+        float experienceMod = V * ((float)mb.Experience/25f);
+
         float governorMod = 0;
         if(t.territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
         {

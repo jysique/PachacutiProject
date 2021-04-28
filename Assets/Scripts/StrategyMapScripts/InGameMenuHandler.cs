@@ -42,8 +42,10 @@ public class InGameMenuHandler : MonoBehaviour
     [Header("Menu de movilizacion de tropas")]
     [SerializeField] public InputField warriorsCount;
     [Header("Menu territorio")]
+    [SerializeField] private GameObject menuBlockTerritory;
     [SerializeField] private Text territoryName;
     [SerializeField] private Text goldCount;
+    [SerializeField] private Image territoryImage;
     [SerializeField] private Text[] levelTexts;
     [SerializeField] private Image[] countdownImages;
     [SerializeField] private Button[] buttons;
@@ -109,40 +111,36 @@ public class InGameMenuHandler : MonoBehaviour
     }
     public void UpdateMilitarMenu()
     {
-
-        if (selectedTerritory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
+        menuBlock.SetActive(false);
+        MilitarBoss boss = selectedTerritory.MilitarBossTerritory;
+        militaryBossName.text = "Nombre: " + boss.CharacterName;
+        militaryBossPicture.sprite = boss.Picture;
+        militaryBossExperience.text = "Experiencia: " + boss.Experience;
+        militaryBossEstrategy.text = "Estrategia: " + boss.StrategyType;
+        militaryBossMilitary.text = "Influencia: " + boss.Influence;
+        GenerationSpeed.text = " " + selectedTerritory.VelocityPopulation;
+        if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
         {
-            menuBlock.SetActive(false);
-            MilitarBoss boss = selectedTerritory.MilitarBossTerritory;
-            militaryBossName.text = "Nombre: " + boss.CharacterName;
-            militaryBossPicture.sprite = boss.Picture;
-            militaryBossExperience.text = "Experiencia: " + boss.Experience;
-            militaryBossEstrategy.text = "Estrategia: " + boss.StrategyType;
-            militaryBossMilitary.text = "Influencia: " + boss.Influence;
-            GenerationSpeed.text = " " + selectedTerritory.VelocityPopulation;
-            
+            menuBlock.SetActive(true);                
         }
-        else
-        {
-            menuBlock.SetActive(true);
-        }
+       
     }
     public void UpdateTerritoryMenu()
     {
-        if (selectedTerritory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
+        menuBlockTerritory.SetActive(false);
+        territoryName.text = selectedTerritory.name;
+        territoryImage.sprite = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().sprite.sprite;
+        levelTexts[0].text = "Level: " + selectedTerritory.GoldMineTerritory.Level.ToString();
+        levelTexts[1].text = "Level: " + selectedTerritory.SacredPlaceTerritory.Level.ToString();
+        levelTexts[2].text = "Level: " + selectedTerritory.FortressTerritory.Level.ToString();
+        levelTexts[3].text = "Level: " + selectedTerritory.BarracksTerritory.Level.ToString();
+        //territoryImage.sprite = selectedTerritory.
+        if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
         {
-            territoryName.text = selectedTerritory.name;
-            goldCount.text = "Oro: " + selectedTerritory.Gold.ToString();
-            goldCount.text += "\nVelocidad oro: " + selectedTerritory.GoldMineTerritory.VelocityGold.ToString();
-            levelTexts[0].text = "Level: " + selectedTerritory.GoldMineTerritory.Level.ToString();
-            levelTexts[1].text = "Level: " + selectedTerritory.SacredPlaceTerritory.Level.ToString();
-            levelTexts[2].text = "Level: " + selectedTerritory.FortressTerritory.Level.ToString();
-            levelTexts[3].text = "Level: " + selectedTerritory.BarracksTerritory.Level.ToString();
+            menuBlockTerritory.SetActive(true);
+            
         }
-        else
-        {
-            menuBlock.SetActive(true);
-        }
+        
         
     }
     public void UpdateProfileMenu()
@@ -169,7 +167,8 @@ public class InGameMenuHandler : MonoBehaviour
     {
         Territory selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory;
         militarWarriorsCount.text = selectedTerritory.Population.ToString() + " / " + selectedTerritory.LimitPopulation.ToString()+ " unidades" ;
-        
+        goldCount.text = "Oro: " + selectedTerritory.Gold.ToString();
+        goldCount.text += "\nVelocidad oro: " + selectedTerritory.GoldMineTerritory.VelocityGold.ToString();
         UpdateResourceTable();
         EscapeGame();
     }

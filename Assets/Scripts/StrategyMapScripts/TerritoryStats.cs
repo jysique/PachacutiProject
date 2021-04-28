@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class TerritoryStats : MonoBehaviour
 {
     [SerializeField] private Image timerBar;
+    [SerializeField] public GameObject container;
     private bool canPopulate = true;
     private float timeLeftP;
     private float timeLeftG;
