@@ -98,7 +98,7 @@ public class CustomEvent
         this.timeFinal = _finalTime;
         this.daysToFinal = _days;
         this.acceptEventBool = false;
-        EVENTTYPE _t = (EVENTTYPE)UnityEngine.Random.Range(1, 5);
+        EVENTTYPE _t = (EVENTTYPE)UnityEngine.Random.Range(0, 5);
         this.eventtype = _t.ToString();
         this.acceptCostEvent = UnityEngine.Random.Range(3, InGameMenuHandler.instance.GoldPlayer /2);
         this.declineCostEvent = UnityEngine.Random.Range(3, InGameMenuHandler.instance.GoldPlayer / 2);
@@ -131,13 +131,13 @@ public class CustomEvent
                 {
                     case string b when b.Contains("MIN"):
                         this.element += " que mejores la mina";
-                        this.acceptMessageEvent = "+" + acceptCostEvent + " oro " + "\n +2 velocidad de mina";
-                        this.declineMessageEvent = "- 5 opinion";
+                        this.acceptMessageEvent = "-" + acceptCostEvent + " oro " + "\n +2 velocidad de mina";
+                        this.declineMessageEvent = "Nada";
                         break;
                     case string b when b.Contains("FOR"):
                         this.element += " que mejores las defensas";
                         this.acceptMessageEvent = "-" + acceptCostEvent + " oro " + "\n +2 defensa";
-                        this.declineMessageEvent = "- 5 opinion";
+                        this.declineMessageEvent = "Nada";
                         break;
                     default:
                         break;
@@ -223,13 +223,12 @@ public class CustomEvent
                 break;
                 */
             case "PETITION_MIN":
-                InGameMenuHandler.instance.GoldPlayer += acceptCostEvent;
+                InGameMenuHandler.instance.GoldPlayer -= acceptCostEvent;
                 //       TerritoryManager.instance.SearchTerritoryByName(territoryEvent).territoryStats.territory.GoldMineTerritory.VelocityGold += 2;
                 territoryEvent.GoldMineTerritory.VelocityGold += 2;
                 break;
             case "PETITION_FOR":
                 InGameMenuHandler.instance.GoldPlayer -= acceptCostEvent;
-                //TerritoryManager.instance.SearchTerritoryByName(territoryEvent).territoryStats.territory.FortressTerritory.PlusDefense += 2;
                 territoryEvent.FortressTerritory.PlusDefense += 2;
                 break;
             case "GRACE_DIV":
@@ -266,10 +265,10 @@ public class CustomEvent
                 break;
                 */
             case "PETITION_MIN":
-                TerritoryEvent.MotivationPeople -= 5;
+                //TerritoryEvent.GoldMineTerritory.VelocityGold -= 0.6f;
                 break;
             case "PETITION_FOR":
-                TerritoryEvent.MotivationPeople -= 5;
+                //TerritoryEvent.FortressTerritory.PlusDefense -= 0.2f;
                 break;
             case "GRACE_DIV":
                 TerritoryEvent.MotivationPeople -= 10;

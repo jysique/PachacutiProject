@@ -19,7 +19,10 @@ public class TimeSystem : MonoBehaviour
     public TimeSimulated TimeGame { 
         get { return timeGame; }
     }
-
+    public int IndexListEvent
+    {
+        get { return indexListEvent; }
+    }
     private void Awake()
     {
         instance = this;
@@ -42,7 +45,7 @@ public class TimeSystem : MonoBehaviour
     {
         PlusDaysToTimeGather(3);
         listEvents = new CustomEventList();
-        PlusDaysToTimeInitEvent(3);
+        PlusDaysToTimeInitEvent(5);
     }
     void InitializeGameEvents()
     {
@@ -124,9 +127,9 @@ public class TimeSystem : MonoBehaviour
         timeEvent.PlusDays(daysToPlus);
         CalculateTime(timeEvent);
         int probTypeEvent = Random.Range(0, 10);
-        //int rDays = Random.Range(6, 12);
-        int rDays = 3;
-        if (probTypeEvent >= 1)
+        int rDays = Random.Range(6, 12);
+        //int rDays = 3;
+        if (probTypeEvent >= 5)
         {
             timeFinalEvent = new TimeSimulated(timeEvent.day, timeEvent.month, timeEvent.year);
             timeFinalEvent.PlusDays(rDays);
