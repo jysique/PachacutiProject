@@ -9,4 +9,9 @@ public class GoldMine:Building
         get { return velocityGold; }
         set { velocityGold = value; }
     }
+    public override void ImproveBuilding()
+    {
+        base.ImproveBuilding();
+        this.velocityGold += 0.6f;
+    }
 }

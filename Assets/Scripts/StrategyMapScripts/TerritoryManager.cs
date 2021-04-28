@@ -9,15 +9,16 @@ public class TerritoryManager : MonoBehaviour
     public static TerritoryManager instance;
     public List<GameObject> territoryList = new List<GameObject>();
     public GameObject territorySelected;
-    private int a = 0;
+    private int indexListMil = 0;
     private void Awake()
     {
         instance = this;
+        AddTerritoryData();
+
     }
 
     void Start()
     {
-        AddTerritoryData();
         AddMilitaryBoss();
     }
     
@@ -30,6 +31,9 @@ public class TerritoryManager : MonoBehaviour
         }
 
     }
+    /// <summary>
+    /// Add unit(militaryBoss) to every territory (NONE,PLAYER,BOT)
+    /// </summary>
     public void AddMilitaryBoss()
     {
         for (int i = 0; i < territoryList.Count; i++)
@@ -37,8 +41,22 @@ public class TerritoryManager : MonoBehaviour
             TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
             if (territoryHandler.territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
             {
-                territoryHandler.territoryStats.territory.MilitarBossTerritory = CharacterManager.instance.MilitarBossList.GetMilitaryBoss(a);
-                a++;
+                territoryHandler.territoryStats.territory.MilitarBossTerritory = CharacterManager.instance.MilitarBossList.GetMilitaryBoss(indexListMil);
+                indexListMil++;
+            }
+            else if (territoryHandler.territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.BOT)
+            {
+                MilitarBoss newMilitarBoss = new MilitarBoss();
+                newMilitarBoss.GetMilitarBoss();
+                newMilitarBoss.StrategyType = MilitarBoss.TYPESTRAT.DEFENSIVE.ToString();
+                territoryHandler.territoryStats.territory.MilitarBossTerritory = newMilitarBoss;
+                //a++;
+            }
+            else
+            {
+                MilitarBoss newMilitarBoss = new MilitarBoss();
+                newMilitarBoss.GetMilitarBoss();
+                territoryHandler.territoryStats.territory.MilitarBossTerritory = newMilitarBoss;
             }
         }
     }
@@ -72,18 +90,6 @@ public class TerritoryManager : MonoBehaviour
                 territoryHandler.territoryStats.territory.TypePlayer = type;
             }
         }
-    }
-    public TerritoryHandler SearchTerritoryByName(string _name)
-    {
-        for (int i = 0; i < territoryList.Count; i++)
-        {
-            if (territoryList[i].name == _name)
-            {
-                TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-                return territoryHandler;
-            }
-        }
-        return null;
     }
 
     // Update is called once per frame
@@ -144,6 +150,7 @@ public class TerritoryManager : MonoBehaviour
             SceneManager.LoadScene("VisualNovelScene");
         }
     }
+
     public List<TerritoryHandler> GetTerritoriesByTypePlayer(Territory.TYPEPLAYER type)
     {
         List<TerritoryHandler> territoriesPlayer = new List<TerritoryHandler>();
@@ -157,5 +164,11 @@ public class TerritoryManager : MonoBehaviour
         }
         return territoriesPlayer;
     }
-
+    public TerritoryHandler GetTerritoryRandom()
+    {
+        List<TerritoryHandler> list = GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER);
+        int r = UnityEngine.Random.Range(0, list.Count);
+        TerritoryHandler territoryHandler =  list[r];
+        return territoryHandler;
+    }
 }

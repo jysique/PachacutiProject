@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 [System.Serializable]
 public class Territory
 {
+   
     public string name;
     public enum TRIBES
     {
@@ -13,37 +14,41 @@ public class Territory
         TRIBE_C,
         TRIBE_D,
     }
-
     public enum TYPEPLAYER
     {
         PLAYER,
         BOT,
         NONE
     }
-
     [SerializeField] private TRIBES tribe;
     [SerializeField] private TYPEPLAYER typePlayer;
     [SerializeField] private int population;
     [SerializeField] private int gold;
     [SerializeField] private int food;
     [SerializeField] private int limitPopulation;
+    [SerializeField] private int motivation;
 
     [SerializeField] private float velocityPopulation;
     [SerializeField] private float velocityFood;
 
     [SerializeField] private bool selected;
+
     [SerializeField] private MilitarBoss militarBossTerritory = null;
     [SerializeField] private GoldMine goldMineTerritory;
     [SerializeField] private SacredPlace sacredPlaceTerritory;
     [SerializeField] private Fortress fortressTerritory;
     [SerializeField] private Barracks barracksTerritory;
 
+    /// <summary>
+    /// variables for countDown timers in TerritoryMenu
+    /// </summary>
+    public float[] totalTime = new float[4] { 0, 0, 0, 0 };
+    public bool[] canUpgrade = new bool[4] { false, false, false, false };
     public MilitarBoss MilitarBossTerritory
     {
         get { return militarBossTerritory; }
         set { militarBossTerritory = value; }
     }
-
     public GoldMine GoldMineTerritory
     {
         get { return goldMineTerritory; }
@@ -77,6 +82,11 @@ public class Territory
             population = value;
         }
     }
+    public int MotivationPeople
+    {
+        get { return motivation; }
+        set { motivation = value; }
+    }
     public int LimitPopulation
     {
         get { return limitPopulation; }
@@ -107,3 +117,4 @@ public class Territory
 
 
 }
+

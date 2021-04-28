@@ -9,6 +9,16 @@ public class CustomEventList
     public void AddCustomEvent(TimeSimulated _initTime,TimeSimulated _finalTime,int _days)
     {
         CustomEvent _customEvent = new CustomEvent();
+        _customEvent.TerritoryEvent = TerritoryManager.instance.GetTerritoryRandom().territoryStats.territory;
+        if (_customEvent.TerritoryEvent.MotivationPeople <= 20)
+        {
+            int random = Random.Range(0, 100);
+            if (random >= 50)
+            {
+                Debug.LogError("Oh no cambio a rebelion");
+                _customEvent.EventType = CustomEvent.EVENTTYPE.REBELION.ToString();
+            }
+        }
         _customEvent.GetCustomEvent(_initTime,_finalTime,_days);
         CustomEvents.Add(_customEvent);
     }
@@ -20,11 +30,7 @@ public class CustomEventList
     {
         for (int i = 0; i < CustomEvents.Count; i++)
         {
-            Debug.Log(i + " eventType - " + CustomEvents[i].EventType.ToString());
-          //  Debug.Log(i + " territorio- " + CustomEvents[i].TerritoryEvent);
-            Debug.Log(i + " init time- " + CustomEvents[i].TimeInitEvent.PrintTimeSimulated());
-            Debug.Log(i + " final time- " + CustomEvents[i].TimeFinalEvent.PrintTimeSimulated());
-           // Debug.Log("================");
+            CustomEvents[i].PrintEvent(i);
         }
     }
 }

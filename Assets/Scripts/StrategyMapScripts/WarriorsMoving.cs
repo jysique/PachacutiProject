@@ -26,7 +26,7 @@ public class WarriorsMoving : MonoBehaviour
         if(GlobalVariables.instance != null)
         {
             speed = GlobalVariables.instance.VelocityMoving;
-            print(speed);
+      //      print(speed);
         }
         warriorsNumber = _warriorsNumber;
         attacker = attackerTerritory;

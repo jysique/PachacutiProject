@@ -9,4 +9,9 @@ public class Barracks : Building
         get { return plusAttack; }
         set { plusAttack = value; }
     }
+    public override void ImproveBuilding()
+    {
+        base.ImproveBuilding();
+        this.plusAttack += 1;
+    }
 }

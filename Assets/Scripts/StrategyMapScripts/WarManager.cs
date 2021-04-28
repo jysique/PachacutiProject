@@ -174,6 +174,12 @@ public class WarManager : MonoBehaviour
             if(type == Territory.TYPEPLAYER.PLAYER)
             {
                 InGameMenuHandler.instance.InstantiateCharacterOption(territory);
+            }else if(type == Territory.TYPEPLAYER.BOT)
+            {
+                MilitarBoss newMilitarBoss = new MilitarBoss();
+                newMilitarBoss.GetMilitarBoss();
+                //print(newMilitarBoss.CharacterName);
+                territory.territoryStats.territory.MilitarBossTerritory = newMilitarBoss;
             }
             
             
@@ -223,9 +229,8 @@ public class WarManager : MonoBehaviour
                 break;
         }
         float warriorNumberBonus = V * ((float)warriorsNumber / 100f);
-        print(warriorNumberBonus);
-        float experienceMod = V * ((float)mb.Experience/25f);
-
+        //print(warriorNumberBonus);
+        float experienceMod = V * ((float)mb.Experience/50f);
         float governorMod = 0;
         if(t.territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
         {
@@ -235,8 +240,8 @@ public class WarManager : MonoBehaviour
         float motivationMod = V * ((float)t.territoryStats.territory.SacredPlaceTerritory.Motivation / 10f);
         float attackMod = V * ((float)t.territoryStats.territory.BarracksTerritory.PlusAttack / 50f);
         V = V + ((strategyMod + warriorNumberBonus + experienceMod + governorMod+motivationMod+attackMod)*1);
-        print((warriorNumberBonus + experienceMod + governorMod));
-        print(V);
+    //    print((warriorNumberBonus + experienceMod + governorMod));
+    //    print(V);
         return V;
     }
 
@@ -278,7 +283,7 @@ public class WarManager : MonoBehaviour
         float motivationMod = V * ((float)t.territoryStats.territory.SacredPlaceTerritory.Motivation / 10f);
         float defenseMod = V * ((float)t.territoryStats.territory.FortressTerritory.PlusDefense / 5f);
         V = V + ((strategyMod + warriorNumberBonus + experienceMod + governorMod+defenseMod+motivationMod) * 1);
-        print(V);
+//        print(V);
         return V;
     }
 

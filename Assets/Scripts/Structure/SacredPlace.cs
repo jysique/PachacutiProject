@@ -9,4 +9,9 @@ public class SacredPlace: Building
         get { return motivation; }
         set { motivation = value; }
     }
+    public override void ImproveBuilding()
+    {
+        base.ImproveBuilding();
+        this.motivation += 0.6f;
+    }
 }

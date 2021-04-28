@@ -6,8 +6,10 @@ using System.Collections.Generic;
 public class CustomEvent
 {
     [SerializeField] private string eventtype;
-    [SerializeField] private string messagge;
-    [SerializeField] private string territoryEvent;
+    [SerializeField] private string messaggeA;
+    [SerializeField] private string messaggeB;
+    //[SerializeField] private string territoryEvent;
+    [SerializeField] private Territory territoryEvent;
     [SerializeField] private string element;
     [SerializeField] private int acceptCostEvent;
     [SerializeField] private int declineCostEvent;
@@ -16,19 +18,31 @@ public class CustomEvent
     [SerializeField] private TimeSimulated timeInit;
     [SerializeField] private TimeSimulated timeFinal;
     private int daysToFinal;
-    private bool acceptEventBool;
+    private bool acceptEventBool = false;
     
     public string EventType
     {
         get { return eventtype; }
         set { eventtype = value; }
     }
-    public string MessageEvent
+    public string MessageEventA //sin tiempo
     {
-        get { return messagge; }
-        set { messagge = value; }
+        get { return messaggeA; }
+        set { messaggeA = value; }
     }
+    public string MessageEventB //con tiempo
+    {
+        get { return messaggeB; }
+        set { messaggeB = value; }
+    }
+    /*
     public string TerritoryEvent
+    {
+        get { return territoryEvent; }
+        set { territoryEvent = value; }
+    }
+    */
+    public Territory TerritoryEvent
     {
         get { return territoryEvent; }
         set { territoryEvent = value; }
@@ -66,9 +80,17 @@ public class CustomEvent
     public bool AcceptEventBool
     {
         get { return acceptEventBool; }
+        set { acceptEventBool = value; }
     }
     public bool IsTimeEventType() {
         return timeInit.EqualsDate(timeFinal);
+    }
+    public void PrintEvent(int i)
+    {
+        Debug.Log(i + " eventType - " + EventType.ToString());
+        Debug.Log(i + " territorio- " + TerritoryEvent.name);
+        Debug.Log(i + " init time- " + TimeInitEvent.PrintTimeSimulated());
+        Debug.Log(i + " final time- " + TimeFinalEvent.PrintTimeSimulated());
     }
     public void GetCustomEvent(TimeSimulated _initTime, TimeSimulated _finalTime, int _days)
     {
@@ -76,10 +98,10 @@ public class CustomEvent
         this.timeFinal = _finalTime;
         this.daysToFinal = _days;
         this.acceptEventBool = false;
-        EVENTTYPE _t = (EVENTTYPE)UnityEngine.Random.Range(0, 4);
+        EVENTTYPE _t = (EVENTTYPE)UnityEngine.Random.Range(1, 5);
         this.eventtype = _t.ToString();
-        this.acceptCostEvent = UnityEngine.Random.Range(3, 20);
-        this.declineCostEvent = UnityEngine.Random.Range(3, 20);
+        this.acceptCostEvent = UnityEngine.Random.Range(3, InGameMenuHandler.instance.GoldPlayer /2);
+        this.declineCostEvent = UnityEngine.Random.Range(3, InGameMenuHandler.instance.GoldPlayer / 2);
         GetMessage();
     }
     public void GetMessage()
@@ -88,56 +110,58 @@ public class CustomEvent
         switch (option)
         {
             case string a when a.Contains("REBELION"):
-                this.messagge = "Nos rebelamos ante ti ";
-                this.element = "se rebelaran contra ti.";
-                this.declineMessageEvent = "-1 territorio";
+                this.messaggeA = "Nos rebelamos ante ti ";
+                this.messaggeB = "se rebelara contra ti.";
                 this.acceptMessageEvent = "-" + acceptCostEvent + " oro";
+                this.declineMessageEvent = "-1 territorio";
                 break;
+            /*
             case string a when a.Contains("DISCONTENT"):
                 this.messagge = "Estamos muy disgustados";
                 this.element = "estan muy disgustados.";
-                declineCostEvent = acceptCostEvent*2;
+                declineCostEvent = acceptCostEvent+6;
                 this.declineMessageEvent = "-"+ declineCostEvent +" oro";
                 this.acceptMessageEvent = "-" + acceptCostEvent + " oro";
                 break;
+                */
             case string a when a.Contains("PETITION"):
-                this.messagge = "Queremos pedirte algo gobernante";
-                this.element = "quieren pedirte algo.";
+                this.messaggeA = "Queremos pedirte";
+                this.messaggeB = "quieren pedirte";
                 switch (option)
                 {
                     case string b when b.Contains("MIN"):
-                        this.messagge += "\nEncontramos restos de oro";
-                        this.declineMessageEvent = " Nada";
+                        this.element += " que mejores la mina";
                         this.acceptMessageEvent = "+" + acceptCostEvent + " oro " + "\n +2 velocidad de mina";
+                        this.declineMessageEvent = "- 5 opinion";
                         break;
                     case string b when b.Contains("FOR"):
-                        this.messagge += "\nQueremos mejorar nuesta defensa";
-                        this.declineMessageEvent = " Nada";
+                        this.element += " que mejores las defensas";
                         this.acceptMessageEvent = "-" + acceptCostEvent + " oro " + "\n +2 defensa";
+                        this.declineMessageEvent = "- 5 opinion";
                         break;
                     default:
                         break;
                 }
                 break;
             case string a when a.Contains("GRACE"):
-                this.messagge = "Encontramos algo que podria interesarte";
-                this.element = "estan por encontrar algo interesante.";
+                this.messaggeA = "Encontramos";
+                this.messaggeB = "estan por encontrar";
                 switch (option)
                 {
                     case string b when b.Contains("DIV"):
-                        this.messagge += "\nEncontramos un sitio sagrado";
-                        this.declineMessageEvent = " Nada";
+                        this.element += " un santuario antiguo.";
                         this.acceptMessageEvent = "+" + acceptCostEvent + " oro ";
+                        this.declineMessageEvent = "- 10 opinion";
                         break;
                     case string b when b.Contains("MIN"):
-                        this.messagge += "\nEncontramos una mina";
-                        this.declineMessageEvent = " Nada";
-                        this.acceptMessageEvent = "+1 velocidad de mina";
+                        this.element += " una mina abandonada.";
+                        this.acceptMessageEvent = "+2 velocidad de mina";
+                        this.declineMessageEvent = "+" + declineCostEvent + " oro";
                         break;
                     case string b when b.Contains("FOOD"):
-                        this.messagge += "\nNuestro dios nos a favorecio";
-                        this.declineMessageEvent = " Nada";
+                        this.element += " una granja abandonada";
                         this.acceptMessageEvent = " +2 velocidad de comida";
+                        this.declineMessageEvent = "+" + declineCostEvent + " comida";
                         break;
                     default:
                         break;
@@ -154,36 +178,36 @@ public class CustomEvent
         // territorioEvent: territorio propio
         // accept  : -oro
         // decline : -territorio
-        DISCONTENT,
+//  DISCONTENT,
         // mensaje : estamos muy disgustados
         // territorioEvent: territorio propio
         // accept  : -oro
         // decline : -2xoro
         PETITION_MIN,
-        // mensaje : queremos pedirte algo gobernante
+        // mensaje : queremos pedirte mejores la mina
         // territorioEvent: territorio propio
-        // accept  : -oro +1 
-        // decline : nada
+        // accept  : -oro +2 velocidad de oro
+        // decline : -opinion
         PETITION_FOR,
-        // mensaje : queremos pedirte algo gobernante
+        // mensaje : queremos pedirte mejores la fortaleza
         // territorioEvent: territorio propio
-        // accept  :+1 defensa
-        // decline :nada
+        // accept  : - oro +1 defensa
+        // decline : -opinion
         GRACE_DIV,
-        // mensaje : encontramos algo que podria interesarte, 
+        // mensaje : encontramos un santuario antiguo
         // territorioEvent: territorio propio
-        // aceptar : +oro   => deberia ser fe pero para hacer pruebas
-        // decline : nada
+        // aceptar : +oro => +fe 
+        // decline : -opinion
         GRACE_MIN,
-        // mensaje : encontramos algo que podria interesarte, 
+        // mensaje : encontramos una mina abandonada, 
         // territorioEvent: territorio propio
         // aceptar : +1 velocidad de mina
         // decline : +oro
         GRACE_FOOD
-        // mensaje : encontramos algo que podria interesarte, 
+        // mensaje : encontramos una granja abandonada, 
         // territorioEvent: territorio propio
-        // aceptar : +1 velocidad de mina
-        // decline : +oro
+        // aceptar : +1 velocidad de comida
+        // decline : +comida
     }
     public void AcceptEventAction()
     {
@@ -193,25 +217,32 @@ public class CustomEvent
             case "REBELION":
                 InGameMenuHandler.instance.GoldPlayer -= acceptCostEvent;
                 break;
+                /*
             case "DISCONTENT":
                 InGameMenuHandler.instance.GoldPlayer -= acceptCostEvent;
                 break;
+                */
             case "PETITION_MIN":
                 InGameMenuHandler.instance.GoldPlayer += acceptCostEvent;
-                TerritoryManager.instance.SearchTerritoryByName(territoryEvent).territoryStats.territory.GoldMineTerritory.VelocityGold += 2;
+                //       TerritoryManager.instance.SearchTerritoryByName(territoryEvent).territoryStats.territory.GoldMineTerritory.VelocityGold += 2;
+                territoryEvent.GoldMineTerritory.VelocityGold += 2;
                 break;
             case "PETITION_FOR":
                 InGameMenuHandler.instance.GoldPlayer -= acceptCostEvent;
-                TerritoryManager.instance.SearchTerritoryByName(territoryEvent).territoryStats.territory.FortressTerritory.PlusDefense += 2;
+                //TerritoryManager.instance.SearchTerritoryByName(territoryEvent).territoryStats.territory.FortressTerritory.PlusDefense += 2;
+                territoryEvent.FortressTerritory.PlusDefense += 2;
                 break;
             case "GRACE_DIV":
                 InGameMenuHandler.instance.GoldPlayer += acceptCostEvent;
                 break;
             case "GRACE_MIN":
-                TerritoryManager.instance.SearchTerritoryByName(territoryEvent).territoryStats.territory.GoldMineTerritory.VelocityGold += 2;
+                //TerritoryManager.instance.SearchTerritoryByName(territoryEvent).territoryStats.territory.GoldMineTerritory.VelocityGold += 2;
+                territoryEvent.GoldMineTerritory.VelocityGold += 2;
+
                 break;
             case "GRACE_FOOD":
-                TerritoryManager.instance.SearchTerritoryByName(territoryEvent).territoryStats.territory.VelocityFood += 2;
+                //TerritoryManager.instance.SearchTerritoryByName(territoryEvent).territoryStats.territory.VelocityFood += 2;
+                territoryEvent.VelocityFood += 2;
                 break;
             default:
                 break;
@@ -226,16 +257,29 @@ public class CustomEvent
         switch (eventtype.ToString())
         {
             case "REBELION":
-                TerritoryManager.instance.ChangeTerritoryToType(territoryEvent, Territory.TYPEPLAYER.NONE);
+                //TerritoryManager.instance.ChangeTerritoryToType(territoryEvent, Territory.TYPEPLAYER.NONE);
+                TerritoryEvent.TypePlayer = Territory.TYPEPLAYER.NONE;
                 break;
+                /*
             case "DISCONTENT":
                 InGameMenuHandler.instance.GoldPlayer -= declineCostEvent;
                 break;
+                */
             case "PETITION_MIN":
+                TerritoryEvent.MotivationPeople -= 5;
+                break;
             case "PETITION_FOR":
+                TerritoryEvent.MotivationPeople -= 5;
+                break;
             case "GRACE_DIV":
+                TerritoryEvent.MotivationPeople -= 10;
+                //Debug.Log("quitando opinion");
+                break;
             case "GRACE_MIN":
+                InGameMenuHandler.instance.GoldPlayer += declineCostEvent;
+                break;
             case "GRACE_FOOD":
+                InGameMenuHandler.instance.FoodPlayer += declineCostEvent;
                 break;
             default:
                 break;
