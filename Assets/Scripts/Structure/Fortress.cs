@@ -2,9 +2,9 @@ using UnityEngine;
 [System.Serializable]
 public class Fortress: Building
 {
-    [SerializeField] private int plusDefense;
+    [SerializeField] private float plusDefense;
 
-    public int PlusDefense
+    public float PlusDefense
     {
         get { return plusDefense; }
         set { plusDefense = value; }

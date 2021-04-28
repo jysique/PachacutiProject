@@ -10,15 +10,6 @@ public class CustomEventList
     {
         CustomEvent _customEvent = new CustomEvent();
         _customEvent.TerritoryEvent = TerritoryManager.instance.GetTerritoryRandom().territoryStats.territory;
-        if (_customEvent.TerritoryEvent.MotivationPeople <= 20)
-        {
-            int random = Random.Range(0, 100);
-            if (random >= 50)
-            {
-                Debug.LogError("Oh no cambio a rebelion");
-                _customEvent.EventType = CustomEvent.EVENTTYPE.REBELION.ToString();
-            }
-        }
         _customEvent.GetCustomEvent(_initTime,_finalTime,_days);
         CustomEvents.Add(_customEvent);
     }

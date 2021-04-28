@@ -115,13 +115,10 @@ public class InGameMenuHandler : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        for(int i = 0; i < TimeSystem.instance.listEvents.CustomEvents.Count;i++)
-        {
-            GameObject customEventOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/CustomEventOption")) as GameObject;
-            customEventOption.transform.SetParent(gridLayout.transform, false);
-            customEventOption.name = "Evento_"+i;
-            customEventOption.GetComponent<CustomEventOption>().Custom = TimeSystem.instance.listEvents.CustomEvents[i];
-        }
+        GameObject customEventOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/CustomEventOption")) as GameObject;
+        customEventOption.transform.SetParent(gridLayout.transform, false);
+//        customEventOption.name = "Evento_"+i;
+        customEventOption.GetComponent<CustomEventOption>().Custom = TimeSystem.instance.listEvents.CustomEvents[TimeSystem.instance.IndexListEvent];
     }
     public void UpdateResourceTable()
     {
