@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6245459554816176995}
   - component: {fileID: 5133364253164118346}
   - component: {fileID: 1779625467487989681}
+  - component: {fileID: 6284022899444057183}
   m_Layer: 5
   m_Name: InfluenceCharacter
   m_TagString: Untagged
@@ -79,6 +80,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 10
+--- !u!114 &6284022899444057183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 254844753316884883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c9ffa9b3e38fe4c854d384fc035d14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NewInfo: Nivel de influencia del jefe militar.
 --- !u!1 &2269495015060429894
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,6 +104,7 @@ GameObject:
   - component: {fileID: 2269495015060429895}
   - component: {fileID: 2269495015060429897}
   - component: {fileID: 2269495015060429896}
+  - component: {fileID: 4332515622683910566}
   m_Layer: 5
   m_Name: ImageCharacter
   m_TagString: Untagged
@@ -154,6 +169,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4332515622683910566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2269495015060429894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c9ffa9b3e38fe4c854d384fc035d14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NewInfo: Imagen del jefe militar.
 --- !u!1 &2269495015091933998
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,6 +340,7 @@ GameObject:
   - component: {fileID: 2269495015362937902}
   - component: {fileID: 2269495015362937904}
   - component: {fileID: 2269495015362937903}
+  - component: {fileID: 4081638166745739812}
   m_Layer: 5
   m_Name: CampainCharacter
   m_TagString: Untagged
@@ -380,6 +409,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: CampainCharacter
+--- !u!114 &4081638166745739812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2269495015362937901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c9ffa9b3e38fe4c854d384fc035d14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NewInfo: Imperio del que viene el jefe militar.
 --- !u!1 &2269495015514511984
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,6 +433,7 @@ GameObject:
   - component: {fileID: 2269495015514511985}
   - component: {fileID: 2269495015514511987}
   - component: {fileID: 2269495015514511986}
+  - component: {fileID: 8364684116339150275}
   m_Layer: 5
   m_Name: AgeCharacter
   m_TagString: Untagged
@@ -459,6 +502,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: AgeCharacter
+--- !u!114 &8364684116339150275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2269495015514511984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c9ffa9b3e38fe4c854d384fc035d14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NewInfo: Edad del jefe militar.
 --- !u!1 &2269495015618657551
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,6 +569,7 @@ GameObject:
   - component: {fileID: 2269495016127358708}
   - component: {fileID: 2269495016127358710}
   - component: {fileID: 2269495016127358709}
+  - component: {fileID: 6094793387104265596}
   m_Layer: 5
   m_Name: OrigenCharacter
   m_TagString: Untagged
@@ -581,6 +638,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: OrigenCharacter
+--- !u!114 &6094793387104265596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2269495016127358707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c9ffa9b3e38fe4c854d384fc035d14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NewInfo: Origen del jefe militar.
 --- !u!1 &2269495016147402692
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,6 +775,7 @@ GameObject:
   - component: {fileID: 2269495016290784442}
   - component: {fileID: 2269495016290784444}
   - component: {fileID: 2269495016290784443}
+  - component: {fileID: 6520889636422362348}
   m_Layer: 5
   m_Name: NameCharacter
   m_TagString: Untagged
@@ -773,6 +844,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Manco \nCapac"
+--- !u!114 &6520889636422362348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2269495016290784441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c9ffa9b3e38fe4c854d384fc035d14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NewInfo: Nombre del jefe militar
 --- !u!1 &2269495016409602372
 GameObject:
   m_ObjectHideFlags: 0
@@ -784,6 +868,7 @@ GameObject:
   - component: {fileID: 2269495016409602373}
   - component: {fileID: 2269495016409602375}
   - component: {fileID: 2269495016409602374}
+  - component: {fileID: 6402618199240942809}
   m_Layer: 5
   m_Name: PeriodCharacter
   m_TagString: Untagged
@@ -852,6 +937,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: SituationCharacter
+--- !u!114 &6402618199240942809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2269495016409602372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c9ffa9b3e38fe4c854d384fc035d14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NewInfo: Ciudad de origen del jefe militar.
 --- !u!1 &2571564298318310999
 GameObject:
   m_ObjectHideFlags: 0
@@ -863,6 +961,7 @@ GameObject:
   - component: {fileID: 5589174350996485073}
   - component: {fileID: 75874312167943528}
   - component: {fileID: 4099282824026450164}
+  - component: {fileID: 3895538508261274788}
   m_Layer: 5
   m_Name: StrategyTypeCharacter
   m_TagString: Untagged
@@ -931,6 +1030,22 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 10
+--- !u!114 &3895538508261274788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2571564298318310999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c9ffa9b3e38fe4c854d384fc035d14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NewInfo: 'Tipo de estrategia que ejecutara. \n SIEGE_EXPERT: Muy buen ataque, muy
+    mala defensa  \nAGRESSIVE: Buen ataque, mala defensa \nSACRED_WARRIOR: Equilibrado
+    \nDEFFENSIVE: Buena defensa, mal ataque \nTERRAIN_MASTER: Muy buena defensa,
+    muy mal ataque'
 --- !u!1 &7663923956007315288
 GameObject:
   m_ObjectHideFlags: 0
@@ -942,6 +1057,7 @@ GameObject:
   - component: {fileID: 5912992624544675433}
   - component: {fileID: 450509633503639912}
   - component: {fileID: 6566222525583004589}
+  - component: {fileID: 93408386738496882}
   m_Layer: 5
   m_Name: OpinionCharacter
   m_TagString: Untagged
@@ -1010,6 +1126,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 10
+--- !u!114 &93408386738496882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7663923956007315288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c9ffa9b3e38fe4c854d384fc035d14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NewInfo: Opinion del jefe militar sobre tu persona.
 --- !u!1 &8360467232209577870
 GameObject:
   m_ObjectHideFlags: 0
@@ -1021,6 +1150,7 @@ GameObject:
   - component: {fileID: 1468955657507495903}
   - component: {fileID: 8794812644135612952}
   - component: {fileID: 4398507611394602247}
+  - component: {fileID: 8767385849702006969}
   m_Layer: 5
   m_Name: ExperienceCharacter
   m_TagString: Untagged
@@ -1089,3 +1219,16 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 10
+--- !u!114 &8767385849702006969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8360467232209577870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c9ffa9b3e38fe4c854d384fc035d14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NewInfo: Experiencia del jefe militar, afecta al poder de los guerreros que dirja.

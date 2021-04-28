@@ -1115,8 +1115,8 @@ MonoBehaviour:
     - 0
     - 0
     canUpgrade: 00000000
-  paddingX: 0
-  paddingY: 0
+  paddingX: 0.5
+  paddingY: -0.2
   sprite: {fileID: 0}
   adjacentTerritories:
   - {fileID: 922130111}
@@ -2535,7 +2535,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7687785063829844383, guid: 7cdc58a21989a044b8bcc29deaa545c2, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 46.28366
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7cdc58a21989a044b8bcc29deaa545c2, type: 3}
@@ -8273,8 +8273,8 @@ MonoBehaviour:
     - 0
     - 0
     canUpgrade: 00000000
-  paddingX: 1.5
-  paddingY: -1
+  paddingX: 1
+  paddingY: -1.45
   sprite: {fileID: 0}
   adjacentTerritories:
   - {fileID: 2025506484}
@@ -9198,10 +9198,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 1343688834}
   - {fileID: 1558894670}
   - {fileID: 1721834811}
   - {fileID: 2005682103}
-  - {fileID: 1343688834}
   - {fileID: 272730075}
   - {fileID: 374867609}
   - {fileID: 818075128}
@@ -13292,7 +13292,7 @@ MonoBehaviour:
     - 0
     canUpgrade: 00000000
   paddingX: 0
-  paddingY: 0
+  paddingY: -0.8
   sprite: {fileID: 0}
   adjacentTerritories:
   - {fileID: 60024781}
@@ -18161,10 +18161,10 @@ RectTransform:
   m_Father: {fileID: 4206697}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.18274398, y: 0.808179}
-  m_AnchorMax: {x: 0.814372, y: 0.87925684}
-  m_AnchoredPosition: {x: 0.9830322, y: -2.8449707}
-  m_SizeDelta: {x: 0.5400009, y: 8.309999}
+  m_AnchorMin: {x: 0.21962437, y: 0.8364337}
+  m_AnchorMax: {x: 0.8502488, y: 0.9760001}
+  m_AnchoredPosition: {x: -0.5, y: -2.6954956}
+  m_SizeDelta: {x: 1.5400009, y: 3.3909988}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1285805443
 MonoBehaviour:
@@ -18201,7 +18201,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Seleccione un personaje
 
-'
+    para Qosqo'
 --- !u!222 &1285805444
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18772,7 +18772,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 617081599}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -18943,8 +18943,8 @@ MonoBehaviour:
     - 0
     - 0
     canUpgrade: 00000000
-  paddingX: 0
-  paddingY: 0
+  paddingX: 0.1
+  paddingY: -0.3
   sprite: {fileID: 0}
   adjacentTerritories:
   - {fileID: 1868252564}
@@ -20073,8 +20073,8 @@ MonoBehaviour:
     - 0
     - 0
     canUpgrade: 00000000
-  paddingX: 0
-  paddingY: 0
+  paddingX: -0.2
+  paddingY: -0.2
   sprite: {fileID: 0}
   adjacentTerritories:
   - {fileID: 922130111}
@@ -21107,8 +21107,8 @@ MonoBehaviour:
     - 0
     - 0
     canUpgrade: 00000000
-  paddingX: -0.5
-  paddingY: -0.5
+  paddingX: -0.2
+  paddingY: -0.8
   sprite: {fileID: 0}
   adjacentTerritories:
   - {fileID: 1357459587}
@@ -21535,7 +21535,7 @@ RectTransform:
   - {fileID: 97231145}
   - {fileID: 1757146023}
   m_Father: {fileID: 617081599}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.015000001, y: 0.5515486}
   m_AnchorMax: {x: 0.37739083, y: 0.9498869}
@@ -23866,7 +23866,7 @@ MonoBehaviour:
     - 0
     canUpgrade: 00000000
   paddingX: 0
-  paddingY: 0
+  paddingY: -0.45
   sprite: {fileID: 0}
   adjacentTerritories:
   - {fileID: 922130111}
@@ -24587,7 +24587,7 @@ RectTransform:
   - {fileID: 1797080010}
   - {fileID: 1951229798}
   m_Father: {fileID: 617081599}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.762, y: 0.93070346}
   m_AnchorMax: {x: 0.9645092, y: 0.9944068}
@@ -24886,7 +24886,7 @@ MonoBehaviour:
     - 0
     canUpgrade: 00000000
   paddingX: 0
-  paddingY: 0.3
+  paddingY: 0.1
   sprite: {fileID: 0}
   adjacentTerritories:
   - {fileID: 1539238389}
@@ -26267,8 +26267,8 @@ MonoBehaviour:
     - 0
     - 0
     canUpgrade: 00000000
-  paddingX: 0
-  paddingY: 0
+  paddingX: -0.1
+  paddingY: -0.2
   sprite: {fileID: 0}
   adjacentTerritories:
   - {fileID: 1701951211}
@@ -27135,8 +27135,8 @@ MonoBehaviour:
     - 0
     - 0
     canUpgrade: 00000000
-  paddingX: 0
-  paddingY: 0
+  paddingX: 0.2
+  paddingY: -0.5
   sprite: {fileID: 0}
   adjacentTerritories:
   - {fileID: 1868252564}
@@ -28618,7 +28618,7 @@ RectTransform:
   - {fileID: 1231283086}
   - {fileID: 1999852118}
   m_Father: {fileID: 617081599}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.762, y: 0.8607776}
   m_AnchorMax: {x: 0.9645092, y: 0.92700005}
@@ -29047,7 +29047,7 @@ MonoBehaviour:
     - 0
     canUpgrade: 00000000
   paddingX: 0
-  paddingY: 0
+  paddingY: -0.5
   sprite: {fileID: 0}
   adjacentTerritories:
   - {fileID: 563318878}
