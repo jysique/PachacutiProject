@@ -42,7 +42,7 @@ public class TimeSystem : MonoBehaviour
     {
         PlusDaysToTimeGather(3);
         listEvents = new CustomEventList();
-     //   PlusDaysToTimeInitEvent(3);
+        PlusDaysToTimeInitEvent(3);
     }
     void InitializeGameEvents()
     {
@@ -98,10 +98,11 @@ public class TimeSystem : MonoBehaviour
     }
     void Update()
     {
+      //  listEvents.CustomEvents[indexListEvent].PrintEvent(indexListEvent);
         CalculateTime(timeGame);
         TextCallFunction();
         GatherResourceInTime();
-      //  CustomEventInTime();
+        CustomEventInTime();
     }
 
     void PlusDaysToTimeGather(int daysToPlus)
@@ -110,14 +111,22 @@ public class TimeSystem : MonoBehaviour
         timeGather.PlusDays(daysToPlus);
         CalculateTime(timeGather);
     }
+    /// <summary>
+    /// Add days to initiate event 
+    /// probTypeEvent:variable to get a type of event(with days or non)
+    /// rDays : variable to get the days diference of events with days diference
+    /// </summary>
+    /// <param name="daysToPlus"></param>
     void PlusDaysToTimeInitEvent(int daysToPlus)
     {
         TimeSimulated timeFinalEvent;
         timeEvent = new TimeSimulated(timeGame.day, timeGame.month, timeGame.year);
         timeEvent.PlusDays(daysToPlus);
         CalculateTime(timeEvent);
-        int rDays = Random.Range(3, 13);
-        if (rDays >= 8)
+        int probTypeEvent = Random.Range(0, 10);
+        //int rDays = Random.Range(6, 12);
+        int rDays = 3;
+        if (probTypeEvent >= 1)
         {
             timeFinalEvent = new TimeSimulated(timeEvent.day, timeEvent.month, timeEvent.year);
             timeFinalEvent.PlusDays(rDays);
@@ -149,11 +158,21 @@ public class TimeSystem : MonoBehaviour
     {
         if (timeGame.EqualsDate(timeEvent))
         {
-            if(timeGame.EqualsDate(listEvents.CustomEvents[indexListEvent].TimeFinalEvent))
+            InGameMenuHandler.instance.InstantiateEventOption();
+            if (timeGame.EqualsDate(listEvents.CustomEvents[indexListEvent].TimeFinalEvent))
             {
-                GameEvents.instance.CustomEventEnter();
-                int randomDays = Random.Range(3, 10);
-                PlusDaysToTimeInitEvent(randomDays);
+                int randomDays = 3;
+                if (listEvents.CustomEvents[indexListEvent].TerritoryEvent.TypePlayer != Territory.TYPEPLAYER.PLAYER)
+                {
+                    PlusDaysToTimeInitEvent(randomDays);
+                    indexListEvent++;
+                }
+                else
+                {
+                    GameEvents.instance.CustomEventEnter();
+                    PlusDaysToTimeInitEvent(randomDays);
+                }
+
             }
             else
             {
@@ -178,20 +197,19 @@ public class TimeSystem : MonoBehaviour
     }
     private void onCustomEvent()
     {
-        List<TerritoryHandler> list = TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER);
-        int r = Random.Range(0, list.Count);
-        listEvents.CustomEvents[indexListEvent].TerritoryEvent = list[r].territoryStats.territory.name;
+      //  List<TerritoryHandler> list = TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER);
+      //  int r = Random.Range(0, list.Count);
+      //  listEvents.CustomEvents[indexListEvent].TerritoryEvent = list[r].territoryStats.territory.name;
         InGameMenuHandler.instance.CustomEventAppearance(listEvents.CustomEvents[indexListEvent]);
         indexListEvent++;
     }
 
     private void onWarningEvent()
     {
-        List<TerritoryHandler> list = TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER);
-        int r = Random.Range(0, list.Count);
-        listEvents.CustomEvents[indexListEvent].TerritoryEvent = list[r].territoryStats.territory.name;
+        //  List<TerritoryHandler> list = TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER);
+        //  int r = Random.Range(0, list.Count);
+        //  listEvents.CustomEvents[indexListEvent].TerritoryEvent = list[r].territoryStats.territory.name;
         InGameMenuHandler.instance.WarningEventAppearance(listEvents.CustomEvents[indexListEvent]);
         timeEvent = listEvents.CustomEvents[indexListEvent].TimeFinalEvent;
-//        Debug.LogError("timeEvent " + timeEvent.PrintTimeSimulated());
     }
 }

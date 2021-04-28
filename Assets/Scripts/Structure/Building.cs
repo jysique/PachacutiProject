@@ -1,18 +1,16 @@
 using UnityEngine;
-
+using UnityEngine.UI;
 [System.Serializable]
 public class Building
 {
     [SerializeField]private int costToUpgrade;
     [SerializeField]private int level;
-    [SerializeField] private float timeToBuild;
-
+    [SerializeField]private float timeToBuild;
     public int CostToUpgrade
     {
         get { return costToUpgrade; }
         set { costToUpgrade = value; }
     }
-
     public int Level
     {
         get { return level; }
@@ -22,5 +20,12 @@ public class Building
     {
         get { return timeToBuild; }
         set { timeToBuild = value; }
+    }
+
+    public virtual void ImproveBuilding()
+    {
+      //  Debug.LogWarning("improveBuilding");
+        this.level += 1;
+        this.timeToBuild += 1;
     }
 }

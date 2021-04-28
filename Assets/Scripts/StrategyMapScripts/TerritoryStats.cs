@@ -12,9 +12,11 @@ public class TerritoryStats : MonoBehaviour
     private float timeLeftF;
     private float maxTime;
 
-     public Territory territory;
+    public Territory territory;
 
     public Text populationTxt;
+    public Text nameTerritoryTxt;
+    public Image imageTerritory;
     private void Start()
     {
         maxTime = 6f;
@@ -25,6 +27,11 @@ public class TerritoryStats : MonoBehaviour
         timeLeftP = maxTime;
         timeLeftG = maxTime;
         timeLeftF = maxTime;
+        imageTerritory.color = new Color(
+                  Random.Range(0f, 1f),
+      Random.Range(0f, 1f),
+      Random.Range(0f, 1f)
+            );
     }
     public void SetCanPopulate(bool temp)
     {
@@ -40,6 +47,7 @@ public class TerritoryStats : MonoBehaviour
         }
         IncresementGold();
         IncresementFood();
+        nameTerritoryTxt.text = territory.name;
         populationTxt.text = territory.Population.ToString();
     }
     private void IncresementPopulation()

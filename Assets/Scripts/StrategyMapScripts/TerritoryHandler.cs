@@ -128,7 +128,7 @@ public class TerritoryHandler : MonoBehaviour
                 MakeOutline();
                 break;
             case 1:
-                print("moving");
+                //print("moving");
                 InGameMenuHandler.instance.SendWarriors(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>(), this, InGameMenuHandler.instance.warriorsNumber);
                 HideAdjacentTerritories();
                 break;
@@ -200,13 +200,15 @@ public class TerritoryHandler : MonoBehaviour
     {
         territoryStats.territory.LimitPopulation += 20;
     }
+    
+    /*
     public void ImproveTerritory(Image[] _images,Button[] _button, int _option)
     {
-        StartCoroutine(CountDownTimerCouroutine(_images,_button, _option));
-
+          StartCoroutine(CountDownTimerCouroutine(_images,_button, _option));
     }
     IEnumerator CountDownTimerCouroutine(Image[] counterDownImages, Button[] buttons, int option)
     {
+        territoryStats.territory.Images = counterDownImages;
         float duration = CalculateDuration(option);
         float totalTime = 0;
         bool isPlayer = territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER;
@@ -228,7 +230,8 @@ public class TerritoryHandler : MonoBehaviour
         ImproveBuildings(option);
         InGameMenuHandler.instance.UpdateTerritoryMenu();
     }
-    private float CalculateDuration(int _option)
+    */
+    public float CalculateDuration(int _option)
     {
         float duration = 0;
         switch (_option)
@@ -250,29 +253,21 @@ public class TerritoryHandler : MonoBehaviour
         }
         return duration;
     }
-    private void ImproveBuildings(int _option)
+    public void ImproveBuildings(int _option)
     {
         switch (_option)
         {
             case 0:
-                territoryStats.territory.GoldMineTerritory.VelocityGold += 0.6f;
-                territoryStats.territory.GoldMineTerritory.Level += 1;
-                territoryStats.territory.GoldMineTerritory.TimeToBuild += 1;
+                territoryStats.territory.GoldMineTerritory.ImproveBuilding();
                 break;
             case 1:
-                territoryStats.territory.SacredPlaceTerritory.Motivation += 0.6f;
-                territoryStats.territory.SacredPlaceTerritory.Level += 1;
-                territoryStats.territory.SacredPlaceTerritory.TimeToBuild += 1;
+                territoryStats.territory.SacredPlaceTerritory.ImproveBuilding();
                 break;
             case 2:
-                territoryStats.territory.FortressTerritory.PlusDefense += 1;
-                territoryStats.territory.FortressTerritory.Level += 1;
-                territoryStats.territory.FortressTerritory.TimeToBuild += 1;
+                territoryStats.territory.FortressTerritory.ImproveBuilding();
                 break;
             case 3:
-                territoryStats.territory.BarracksTerritory.PlusAttack += 1;
-                territoryStats.territory.BarracksTerritory.Level += 1;
-                territoryStats.territory.BarracksTerritory.TimeToBuild += 1;
+                territoryStats.territory.BarracksTerritory.ImproveBuilding();
                 break;
             default:
                 break;

@@ -29,6 +29,7 @@ public class ButtonCustomize : MonoBehaviour, IPointerEnterHandler, IPointerExit
         if (typecustom == TYPECUSTOM.UP_LIMIT)
         {
             CheckCost(InGameMenuHandler.instance.GoldPlayer, InGameMenuHandler.instance.FoodNeedLimit, "food");
+
         }
         else if (typecustom == TYPECUSTOM.UP_SPEED)
         {
@@ -37,18 +38,22 @@ public class ButtonCustomize : MonoBehaviour, IPointerEnterHandler, IPointerExit
         else if (typecustom == TYPECUSTOM.UP_MINE)
         {
             CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.GoldMineTerritory.CostToUpgrade, "gold");
+            label.GetComponent<Text>().text += "\n+0.6 de velocidad";
         }
         else if (typecustom == TYPECUSTOM.UP_SACRED)
         {
             CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.SacredPlaceTerritory.CostToUpgrade, "gold");
+            label.GetComponent<Text>().text += "\n+0.6 de motivacion";
         }
         else if (typecustom == TYPECUSTOM.UP_FORTRESS)
         {
             CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.FortressTerritory.CostToUpgrade, "gold");
+            label.GetComponent<Text>().text += "\n+1 de defensa";
         }
         else if (typecustom == TYPECUSTOM.UP_BARRACKS)
         {
             CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.BarracksTerritory.CostToUpgrade, "gold");
+            label.GetComponent<Text>().text += "\n+1 de plus ataque";
         }
     }
     private void CheckCost(int goldPlayer, int goldNeed, string element)

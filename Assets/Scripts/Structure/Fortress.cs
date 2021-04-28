@@ -9,4 +9,9 @@ public class Fortress: Building
         get { return plusDefense; }
         set { plusDefense = value; }
     }
+    public override void ImproveBuilding()
+    {
+        base.ImproveBuilding();
+        this.plusDefense += 1;
+    }
 }
