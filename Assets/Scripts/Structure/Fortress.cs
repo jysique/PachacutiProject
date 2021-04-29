@@ -2,16 +2,19 @@ using UnityEngine;
 [System.Serializable]
 public class Fortress: Building
 {
-    [SerializeField] private float plusDefense;
-
+    private float plusDefense = 1f;
+    public Fortress()
+    {
+        this.Name = "Fortress";
+    }
     public float PlusDefense
     {
         get { return plusDefense; }
         set { plusDefense = value; }
     }
-    public override void ImproveBuilding()
+    public override void ImproveBuilding(int _levels)
     {
-        base.ImproveBuilding();
-        this.plusDefense += 1;
+        base.ImproveBuilding(_levels);
+        this.plusDefense += 1*_levels;
     }
 }

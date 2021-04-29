@@ -170,10 +170,10 @@ public class WarManager : MonoBehaviour
             
             territory.territoryStats.territory.TypePlayer = type;
             territory.territoryStats.territory.Population = survivors;
-                
-            if(type == Territory.TYPEPLAYER.PLAYER)
+            if (type == Territory.TYPEPLAYER.PLAYER)
             {
                 InGameMenuHandler.instance.InstantiateCharacterOption(territory);
+                
             }else if(type == Territory.TYPEPLAYER.BOT)
             {
                 MilitarBoss newMilitarBoss = new MilitarBoss();
@@ -181,8 +181,6 @@ public class WarManager : MonoBehaviour
                 //print(newMilitarBoss.CharacterName);
                 territory.territoryStats.territory.MilitarBossTerritory = newMilitarBoss;
             }
-            
-            
         }
         if (territory == selected)
         {

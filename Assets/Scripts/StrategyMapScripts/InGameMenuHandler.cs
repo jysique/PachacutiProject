@@ -47,11 +47,13 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private Text territoryName;
     [SerializeField] private Text goldCount;
     [SerializeField] private Image territoryImage;
-    [SerializeField] private Text[] levelTexts;
     [SerializeField] private Image[] countdownImages;
     [SerializeField] private Button[] buttons;
-    [SerializeField] private Text[] levelTxt;
 
+    [SerializeField] private BuildOption GoldMineOption;
+    [SerializeField] private BuildOption SacredPlaceOption;
+    [SerializeField] private BuildOption FortressOption;
+    [SerializeField] private BuildOption BarracksOption;
     [Header("Recursos")]
     [SerializeField] private Text goldGenerated;
     [SerializeField] private Text foodGenerated;
@@ -134,8 +136,8 @@ public class InGameMenuHandler : MonoBehaviour
         militaryBossName.text = "Name: " + boss.CharacterName;
         militaryBossPicture.sprite = boss.Picture;
         militaryBossExperience.text = "Experience: " + boss.Experience;
-        militaryBossEstrategy.text = "Estrategy: " + boss.StrategyType;
-        militaryBossMilitary.text = "Influency: " + boss.Influence;
+        militaryBossEstrategy.text = "Strategy: " + boss.StrategyType;
+        militaryBossMilitary.text = "Influence: " + boss.Influence;
         GenerationSpeed.text = " " + selectedTerritory.VelocityPopulation;
         if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
         {
@@ -143,16 +145,12 @@ public class InGameMenuHandler : MonoBehaviour
         }
        
     }
-    
+
     public void UpdateTerritoryMenu()
     {
         menuBlockTerritory.SetActive(false);
         territoryName.text = selectedTerritory.name;
         territoryImage.sprite = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().sprite.sprite;
-        levelTexts[0].text = "Level: " + selectedTerritory.GoldMineTerritory.Level.ToString();
-        levelTexts[1].text = "Level: " + selectedTerritory.SacredPlaceTerritory.Level.ToString();
-        levelTexts[2].text = "Level: " + selectedTerritory.FortressTerritory.Level.ToString();
-        levelTexts[3].text = "Level: " + selectedTerritory.BarracksTerritory.Level.ToString();
         //territoryImage.sprite = selectedTerritory.
         if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
         {
@@ -164,6 +162,10 @@ public class InGameMenuHandler : MonoBehaviour
     }
     void UpdateCountDownImage()
     {
+        GoldMineOption.TerritoryBuilding = selectedTerritory.GoldMineTerritory;
+        SacredPlaceOption.TerritoryBuilding = selectedTerritory.SacredPlaceTerritory;
+        FortressOption.TerritoryBuilding = selectedTerritory.FortressTerritory;
+        BarracksOption.TerritoryBuilding = selectedTerritory.BarracksTerritory;
         countdownImages[0].fillAmount = selectedTerritory.totalTime[0] / selectedTerritory.GoldMineTerritory.TimeToBuild;
         countdownImages[1].fillAmount = selectedTerritory.totalTime[1] / selectedTerritory.SacredPlaceTerritory.TimeToBuild;
         countdownImages[2].fillAmount = selectedTerritory.totalTime[2] / selectedTerritory.FortressTerritory.TimeToBuild;
@@ -329,8 +331,7 @@ public class InGameMenuHandler : MonoBehaviour
             //int t = (int)((territoryHandler.territoryStats.territory.VelocityPopulation-1)/0.3);
             //t++;
             goldPlayer -= goldNeedSpeed;
-
-            ShowFloatingText("+0.3 veloc", "TextMesh", territoryHandler.transform);
+            ShowFloatingText("+0.3 velocity population", "TextMesh", territoryHandler.transform);
             ShowFloatingText("-"+goldNeedSpeed.ToString(), "TextFloating", goldAnimation);
             goldNeedSpeed += 10;
         }
@@ -354,7 +355,7 @@ public class InGameMenuHandler : MonoBehaviour
             // territoryHandler.ImproveTerritory(countdownImages,buttons,0);
             ImproveTerritory(territoryHandler, 0);
             goldPlayer -= territoryHandler.territoryStats.territory.GoldMineTerritory.CostToUpgrade;
-            ShowFloatingText("+0.6 gold spd", "TextMesh", territoryHandler.transform);
+            ShowFloatingText("+1 gold mine level", "TextMesh", territoryHandler.transform);
             ShowFloatingText("-" + territoryHandler.territoryStats.territory.GoldMineTerritory.CostToUpgrade.ToString(), "TextFloating", goldAnimation);
             territoryHandler.territoryStats.territory.GoldMineTerritory.CostToUpgrade += 3;
         }
@@ -367,7 +368,7 @@ public class InGameMenuHandler : MonoBehaviour
             //   territoryHandler.ImproveTerritory(countdownImages, buttons, 1);
             ImproveTerritory(territoryHandler, 1);
             goldPlayer -= territoryHandler.territoryStats.territory.SacredPlaceTerritory.CostToUpgrade;
-            ShowFloatingText("+0.6 motivation", "TextMesh", territoryHandler.transform);
+            ShowFloatingText("+1 sacredPlace level", "TextMesh", territoryHandler.transform);
             ShowFloatingText("-" + territoryHandler.territoryStats.territory.SacredPlaceTerritory.CostToUpgrade.ToString(), "TextFloating", goldAnimation);
             territoryHandler.territoryStats.territory.SacredPlaceTerritory.CostToUpgrade += 3;
         }
@@ -380,7 +381,7 @@ public class InGameMenuHandler : MonoBehaviour
             // territoryHandler.ImproveTerritory(countdownImages, buttons, 2);
             ImproveTerritory(territoryHandler, 2);
             goldPlayer -= territoryHandler.territoryStats.territory.FortressTerritory.CostToUpgrade;
-            ShowFloatingText("+1 defense", "TextMesh", territoryHandler.transform);
+            ShowFloatingText("+1 fortress level", "TextMesh", territoryHandler.transform);
             ShowFloatingText("-" + territoryHandler.territoryStats.territory.FortressTerritory.CostToUpgrade.ToString(), "TextFloating", goldAnimation);
             territoryHandler.territoryStats.territory.FortressTerritory.CostToUpgrade += 3;
         }
@@ -393,7 +394,7 @@ public class InGameMenuHandler : MonoBehaviour
             //territoryHandler.ImproveTerritory(countdownImages, buttons, 3);
             ImproveTerritory(territoryHandler, 3);
             goldPlayer -= territoryHandler.territoryStats.territory.BarracksTerritory.CostToUpgrade;
-            ShowFloatingText("+1 attack", "TextMesh", territoryHandler.transform);
+            ShowFloatingText("+1 barracks level", "TextMesh", territoryHandler.transform);
             ShowFloatingText("-" + territoryHandler.territoryStats.territory.BarracksTerritory.CostToUpgrade.ToString(), "TextFloating", goldAnimation);
             territoryHandler.territoryStats.territory.BarracksTerritory.CostToUpgrade += 3;
         }
@@ -405,8 +406,6 @@ public class InGameMenuHandler : MonoBehaviour
     IEnumerator CountDownTimerCouroutine(TerritoryHandler territoryH, int option)
     {
         float duration = territoryH.CalculateDuration(option);
-        //float totalTime = 0;
-        bool isPlayer = selectedTerritory.TypePlayer == Territory.TYPEPLAYER.PLAYER;
         //while (territoryH.totalTime <= duration)
         while (territoryH.territoryStats.territory.totalTime[option] <= duration)
         {
@@ -414,6 +413,7 @@ public class InGameMenuHandler : MonoBehaviour
             territoryH.territoryStats.territory.totalTime[option] += Time.deltaTime / duration;
             yield return null;
         }
+        territoryH.territoryStats.territory.totalTime[option] = 0;
         territoryH.territoryStats.territory.canUpgrade[option] = true;
         territoryH.ImproveBuildings(option);
         UpdateTerritoryMenu();
@@ -430,7 +430,6 @@ public class InGameMenuHandler : MonoBehaviour
         territoryHandler.GatherTerritoryFood();
         return gatherFood;
     }
-
     void ShowFloatingText(string text,string namePrefab,Transform _t)
     {
         GameObject prefab = Resources.Load("Prefabs/MenuPrefabs/"+namePrefab) as GameObject;
@@ -480,14 +479,13 @@ public class InGameMenuHandler : MonoBehaviour
         
         overMenuBlock.SetActive(true);
     }
-
     public void InstantiateCharacterOption(TerritoryHandler territory)
     {
-        ml.AddDataMilitaryList(5);
+        ml.AddDataMilitaryList(3);
         CharacterSelection.SetActive(true);
         characterOptions = new List<GameObject>();
         Text instructionText = CharacterSelection.transform.Find("InstructionText").transform.GetComponent<Text>();
-        instructionText.text = "Select a military chief \n for "+ territory.territoryStats.territory.name;
+        instructionText.text = "Select a military Chief \n to " + territory.territoryStats.territory.name;
         Transform gridLayout = CharacterSelection.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
         foreach (MilitarBoss charac in ml.MilitarBosses)
         {
@@ -496,13 +494,13 @@ public class InGameMenuHandler : MonoBehaviour
             characterOption.name = charac.CharacterName;
             characterOption.transform.Find("Character/ImageCharacter").gameObject.GetComponent<Image>().sprite = charac.Picture;
             characterOption.transform.Find("Character/TextBackground/NameCharacter").gameObject.GetComponent<Text>().text = charac.CharacterName;
-            characterOption.transform.Find("Description/OrigenCharacter").gameObject.GetComponent<Text>().text = charac.Origin;
-            characterOption.transform.Find("Description/AgeCharacter").gameObject.GetComponent<Text>().text = charac.Age.ToString();
-            characterOption.transform.Find("Description/CampainCharacter").gameObject.GetComponent<Text>().text = charac.Personality;
-            characterOption.transform.Find("Description/ExperienceCharacter").gameObject.GetComponent<Text>().text = charac.Experience.ToString();
-            characterOption.transform.Find("Description/OpinionCharacter").gameObject.GetComponent<Text>().text = charac.Opinion.ToString();
-            characterOption.transform.Find("Description/InfluenceCharacter").gameObject.GetComponent<Text>().text = charac.Influence.ToString();
-            characterOption.transform.Find("Description/StrategyTypeCharacter").gameObject.GetComponent<Text>().text = charac.StrategyType;
+            characterOption.transform.Find("Description/OrigenCharacter").gameObject.GetComponent<Text>().text = "From: " + charac.Origin;
+            characterOption.transform.Find("Description/AgeCharacter").gameObject.GetComponent<Text>().text = "Age: " + charac.Age.ToString();
+            characterOption.transform.Find("Description/CampainCharacter").gameObject.GetComponent<Text>().text = "Personality: " +charac.Personality.ToLower();
+            characterOption.transform.Find("Description/ExperienceCharacter").gameObject.GetComponent<Text>().text = "Experience: " + charac.Experience.ToString();
+            characterOption.transform.Find("Description/OpinionCharacter").gameObject.GetComponent<Text>().text = "Opinion: " + charac.Opinion.ToString();
+            characterOption.transform.Find("Description/InfluenceCharacter").gameObject.GetComponent<Text>().text = "Influence" + charac.Influence.ToString();
+            characterOption.transform.Find("Description/StrategyTypeCharacter").gameObject.GetComponent<Text>().text = "Strategy:" + charac.StrategyType.ToLower();
             characterOption.GetComponent<SelectCharacter>().TerritoryHandler =  territory;
             characterOptions.Add(characterOption);
         }
@@ -533,13 +531,13 @@ public class InGameMenuHandler : MonoBehaviour
     {
         Time.timeScale = 1;
     }
-
     void Start()
     {
       //  InstantiateEventOption();
         AcceptEventButton.onClick.AddListener(() => AcceptCustomEventButton());
         DeclineEventButton.onClick.AddListener(() => DeclineCustomEventButton());
         CloseEventButton.onClick.AddListener(() => CloseCustomEventButton());
+        UpdateMenu();
     }
     private CustomEvent currentCustomEvent;
     public void CustomEventAppearance(CustomEvent custom)
@@ -557,7 +555,7 @@ public class InGameMenuHandler : MonoBehaviour
         InitCustomEvent(custom);
         CustomEventSelection.gameObject.SetActive(true);
         CloseEventButton.gameObject.SetActive(true);
-        DetailsTextCustomEvent.text = "En " + custom.DaysToFinal + " dias esta ciudad "+ custom.MessageEventB + custom.ElementEvent;
+        DetailsTextCustomEvent.text = "In " + custom.DaysToFinal + " days, this territory "+ custom.MessageEventB + custom.ElementEvent;
         
     }
     private void InitCustomEvent(CustomEvent custom)
@@ -567,7 +565,7 @@ public class InGameMenuHandler : MonoBehaviour
         currentCustomEvent = custom;
         TerritoryEventTxt.text = custom.TerritoryEvent.name;
         AcceptTextCustomEvent.text += "If you accept: \n " + custom.AcceptMessageEvent;
-        DeclineTextCustomEvent.text += "If you reject: \n " + custom.DeclineMessageEvent;
+        DeclineTextCustomEvent.text += "If you decline: \n " + custom.DeclineMessageEvent;
     }
     public void AcceptCustomEventButton()
     {

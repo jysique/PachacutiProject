@@ -16,13 +16,12 @@ public class SelectCharacter : MonoBehaviour
     {
         GlobalVariables.instance.GovernorChoose = CampainManager.instance.GovernorList.GetGovernors(gameObject.name);
         GlobalVariables.instance.SetChapterTxt("start");
-        //SceneManager.LoadScene(1); //LLEVA A LA VISUAL NOVEL
-        SceneManager.LoadScene("Message"); //DEMO LLEVA AL GAMEPLAY
+        SceneManager.LoadScene(1); //LLEVA A LA MESSAGE
     }
 
     public void ChangeMessageSceneButton()
     {
-        SceneManager.LoadScene("Game"); //DEMO LLEVA AL GAMEPLAY
+        SceneManager.LoadScene(3); //DEMO LLEVA AL GAMEPLAY
     }
     public TerritoryHandler TerritoryHandler
     {

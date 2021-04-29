@@ -34,10 +34,10 @@ public class Territory
     [SerializeField] private bool selected;
 
     [SerializeField] private MilitarBoss militarBossTerritory = null;
-    [SerializeField] private GoldMine goldMineTerritory;
-    [SerializeField] private SacredPlace sacredPlaceTerritory;
-    [SerializeField] private Fortress fortressTerritory;
-    [SerializeField] private Barracks barracksTerritory;
+    [SerializeField] private GoldMine goldMineTerritory = new GoldMine();
+    [SerializeField] private SacredPlace sacredPlaceTerritory = new SacredPlace();
+    [SerializeField] private Fortress fortressTerritory = new Fortress();
+    [SerializeField] private Barracks barracksTerritory = new Barracks();
 
     /// <summary>
     /// variables for countDown timers in TerritoryMenu

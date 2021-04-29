@@ -110,9 +110,9 @@ public class CustomEvent
         switch (option)
         {
             case string a when a.Contains("REBELION"):
-                this.messaggeA = "Nos rebelamos ante ti ";
-                this.messaggeB = "se rebelara contra ti.";
-                this.acceptMessageEvent = "-" + acceptCostEvent + " oro";
+                this.messaggeA = "We rebel against you";
+                this.messaggeB = "will rebel against you.";
+                this.acceptMessageEvent = "-" + acceptCostEvent + " gold";
                 this.declineMessageEvent = "-1 territorio";
                 break;
             /*
@@ -120,48 +120,48 @@ public class CustomEvent
                 this.messagge = "Estamos muy disgustados";
                 this.element = "estan muy disgustados.";
                 declineCostEvent = acceptCostEvent+6;
-                this.declineMessageEvent = "-"+ declineCostEvent +" oro";
-                this.acceptMessageEvent = "-" + acceptCostEvent + " oro";
+                this.declineMessageEvent = "-"+ declineCostEvent +" gold";
+                this.acceptMessageEvent = "-" + acceptCostEvent + " gold";
                 break;
                 */
             case string a when a.Contains("PETITION"):
-                this.messaggeA = "Queremos pedirte";
-                this.messaggeB = "quieren pedirte";
+                this.messaggeA = "We want to request you";
+                this.messaggeB = "they want to request you";
                 switch (option)
                 {
                     case string b when b.Contains("MIN"):
-                        this.element += " que mejores la mina";
-                        this.acceptMessageEvent = "-" + acceptCostEvent + " oro " + "\n +2 velocidad de mina";
-                        this.declineMessageEvent = "Nada";
+                        this.element += " to improve the gold mine";
+                        this.acceptMessageEvent = "-" + acceptCostEvent + " gold " + "\n +2 gold mine level";
+                        this.declineMessageEvent = "Nothing";
                         break;
                     case string b when b.Contains("FOR"):
-                        this.element += " que mejores las defensas";
-                        this.acceptMessageEvent = "-" + acceptCostEvent + " oro " + "\n +2 defensa";
-                        this.declineMessageEvent = "Nada";
+                        this.element += " to improve the fortress";
+                        this.acceptMessageEvent = "-" + acceptCostEvent + " gold " + "\n +2 fortress level";
+                        this.declineMessageEvent = "Nothing";
                         break;
                     default:
                         break;
                 }
                 break;
             case string a when a.Contains("GRACE"):
-                this.messaggeA = "Encontramos";
-                this.messaggeB = "estan por encontrar";
+                this.messaggeA = "We found";
+                this.messaggeB = "are to be found";
                 switch (option)
                 {
                     case string b when b.Contains("DIV"):
-                        this.element += " un santuario antiguo.";
-                        this.acceptMessageEvent = "+" + acceptCostEvent + " oro ";
+                        this.element += " an ancient sanctuary.";
+                        this.acceptMessageEvent = "+" + acceptCostEvent + " gold ";
                         this.declineMessageEvent = "- 10 opinion";
                         break;
                     case string b when b.Contains("MIN"):
-                        this.element += " una mina abandonada.";
-                        this.acceptMessageEvent = "+2 velocidad de mina";
-                        this.declineMessageEvent = "+" + declineCostEvent + " oro";
+                        this.element += " a abandoned mine.";
+                        this.acceptMessageEvent = "+2 gold mine level";
+                        this.declineMessageEvent = "+" + declineCostEvent + " gold";
                         break;
                     case string b when b.Contains("FOOD"):
-                        this.element += " una granja abandonada";
-                        this.acceptMessageEvent = " +2 velocidad de comida";
-                        this.declineMessageEvent = "+" + declineCostEvent + " comida";
+                        this.element += " an abandoned farm.";
+                        this.acceptMessageEvent = " +2 food velocity";
+                        this.declineMessageEvent = "+" + declineCostEvent + " food";
                         break;
                     default:
                         break;
@@ -225,19 +225,21 @@ public class CustomEvent
             case "PETITION_MIN":
                 InGameMenuHandler.instance.GoldPlayer -= acceptCostEvent;
                 //       TerritoryManager.instance.SearchTerritoryByName(territoryEvent).territoryStats.territory.GoldMineTerritory.VelocityGold += 2;
-                territoryEvent.GoldMineTerritory.VelocityGold += 2;
+                //territoryEvent.GoldMineTerritory.VelocityGold += 2;
+                territoryEvent.GoldMineTerritory.ImproveBuilding(2);
                 break;
             case "PETITION_FOR":
                 InGameMenuHandler.instance.GoldPlayer -= acceptCostEvent;
-                territoryEvent.FortressTerritory.PlusDefense += 2;
+                // territoryEvent.FortressTerritory.PlusDefense += 2;
+                territoryEvent.FortressTerritory.ImproveBuilding(2);
                 break;
             case "GRACE_DIV":
                 InGameMenuHandler.instance.GoldPlayer += acceptCostEvent;
                 break;
             case "GRACE_MIN":
                 //TerritoryManager.instance.SearchTerritoryByName(territoryEvent).territoryStats.territory.GoldMineTerritory.VelocityGold += 2;
-                territoryEvent.GoldMineTerritory.VelocityGold += 2;
-
+               // territoryEvent.GoldMineTerritory.VelocityGold += 2;
+                territoryEvent.GoldMineTerritory.ImproveBuilding(2);
                 break;
             case "GRACE_FOOD":
                 //TerritoryManager.instance.SearchTerritoryByName(territoryEvent).territoryStats.territory.VelocityFood += 2;
@@ -246,10 +248,12 @@ public class CustomEvent
             default:
                 break;
         }
+        /*
         if (InGameMenuHandler.instance.GoldPlayer < 0)
         {
             DeclineEventAction();
         }
+        */
     }
     public void DeclineEventAction()
     {
