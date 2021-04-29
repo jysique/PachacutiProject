@@ -40,7 +40,7 @@ public class SettingsMenu : MonoBehaviour
     public void SetVolumeSFX(float vol)
     {
         master.audioMixer.SetFloat("volSFX", vol);
-        AudioManager.instance.ReadAndPlaySFX("ButtonPush");
+      //  AudioManager.instance.ReadAndPlaySFX("ButtonPush");
     }
     public void SetQuality(int qualityIndex)
     {

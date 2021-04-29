@@ -7,7 +7,7 @@ public class GlobalVariables : MonoBehaviour
     public static GlobalVariables instance { get; private set; }
     private Governor governorChoosen;
     private string chapterTxt;
-    private int velocityGame = 0;
+    private int velocityGame = 1;
     private int dificultyGame = 0;
     public int VelocityGame
     {

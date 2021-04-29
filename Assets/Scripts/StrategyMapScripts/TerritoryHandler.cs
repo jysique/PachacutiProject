@@ -42,6 +42,10 @@ public class TerritoryHandler : MonoBehaviour
             WarManager.instance.SetWarStatus(this.war);
             //ShowAdjacentTerritories();
         }
+        if(territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
+        {
+            territoryStats.territory.GoldMineTerritory.Level++;
+        }
     }
 
     void InstantiateStatTerritory()
@@ -265,16 +269,16 @@ public class TerritoryHandler : MonoBehaviour
         switch (_option)
         {
             case 0:
-                territoryStats.territory.GoldMineTerritory.ImproveBuilding();
+                territoryStats.territory.GoldMineTerritory.ImproveBuilding(1);
                 break;
             case 1:
-                territoryStats.territory.SacredPlaceTerritory.ImproveBuilding();
+                territoryStats.territory.SacredPlaceTerritory.ImproveBuilding(1);
                 break;
             case 2:
-                territoryStats.territory.FortressTerritory.ImproveBuilding();
+                territoryStats.territory.FortressTerritory.ImproveBuilding(1);
                 break;
             case 3:
-                territoryStats.territory.BarracksTerritory.ImproveBuilding();
+                territoryStats.territory.BarracksTerritory.ImproveBuilding(1);
                 break;
             default:
                 break;

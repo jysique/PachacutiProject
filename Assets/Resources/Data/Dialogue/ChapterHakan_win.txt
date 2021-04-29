@@ -1,5 +1,5 @@
 setBackground(forest,false,1) playMusic(PeacefulForest)
 
-Hakan "Victoria...!!"
+Hakan "Victory...!!"
 
 changeScene(0)

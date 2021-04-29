@@ -6,7 +6,7 @@ public class MenuBlock : MonoBehaviour
 {
     private void OnEnable()
     {
-        print("2");
+     //   print("2");
         StartCoroutine(WaitAndActivate(0.2f));
     }
     private IEnumerator WaitAndActivate(float waitTime)
@@ -15,7 +15,7 @@ public class MenuBlock : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         InGameMenuHandler.instance.TurnOnBlock();
         InGameMenuHandler.instance.ChangeStateTerritory(2);
-        print("3");
+     //   print("3");
        
     }
 }

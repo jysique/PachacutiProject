@@ -164,7 +164,7 @@ public class TimeSystem : MonoBehaviour
             InGameMenuHandler.instance.InstantiateEventOption();
             if (timeGame.EqualsDate(listEvents.CustomEvents[indexListEvent].TimeFinalEvent))
             {
-                int randomDays = 3;
+                int randomDays = Random.Range(6, 12);
                 if (listEvents.CustomEvents[indexListEvent].TerritoryEvent.TypePlayer != Territory.TYPEPLAYER.PLAYER)
                 {
                     PlusDaysToTimeInitEvent(randomDays);

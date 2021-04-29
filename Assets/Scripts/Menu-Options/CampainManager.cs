@@ -42,7 +42,7 @@ public class CampainManager : MonoBehaviour
         campainSelected = temp[0];
         ReadJson("Data/Menu/Governors");
     }
-    void ReadJson(string route)
+    public void ReadJson(string route)
     {
         TextAsset asset = Resources.Load(route) as TextAsset;
         if (asset != null)

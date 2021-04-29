@@ -38,27 +38,27 @@ public class ButtonCustomize : MonoBehaviour, IPointerEnterHandler, IPointerExit
         else if (typecustom == TYPECUSTOM.UP_MINE)
         {
             CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.GoldMineTerritory.CostToUpgrade, "gold");
-            label.GetComponent<Text>().text += "\n+0.6 de velocidad";
+            label.GetComponent<Text>().text += "\n+0.6 velocity gold mine";
         }
         else if (typecustom == TYPECUSTOM.UP_SACRED)
         {
             CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.SacredPlaceTerritory.CostToUpgrade, "gold");
-            label.GetComponent<Text>().text += "\n+0.6 de motivacion";
+            label.GetComponent<Text>().text += "\n+0.6 motivation";
         }
         else if (typecustom == TYPECUSTOM.UP_FORTRESS)
         {
             CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.FortressTerritory.CostToUpgrade, "gold");
-            label.GetComponent<Text>().text += "\n+1 de defensa";
+            label.GetComponent<Text>().text += "\n+1 fortress level";
         }
         else if (typecustom == TYPECUSTOM.UP_BARRACKS)
         {
             CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.BarracksTerritory.CostToUpgrade, "gold");
-            label.GetComponent<Text>().text += "\n+1 de plus ataque";
+            label.GetComponent<Text>().text += "\n+1 barracks level";
         }
     }
     private void CheckCost(int goldPlayer, int goldNeed, string element)
     {
-        label.GetComponent<Text>().text = "Costo -" + goldNeed.ToString() + " "+ element;
+        label.GetComponent<Text>().text = "Cost -" + goldNeed.ToString() + " "+ element;
         if (goldPlayer >= goldNeed)
         {
             label.GetComponent<Text>().color = Color.white;
