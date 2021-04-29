@@ -204,10 +204,6 @@ public class WarManager : MonoBehaviour
     public float SetAttackFormula(TerritoryHandler t, int warriorsNumber)
     {
         float V = initialSpeed;
-        if (t.territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
-        {
-            return V;
-        }
         MilitarBoss mb = t.territoryStats.territory.MilitarBossTerritory;
         float strategyMod = 0;
         switch (mb.StrategyType)
@@ -239,7 +235,9 @@ public class WarManager : MonoBehaviour
         }
         float motivationMod = V * ((float)t.territoryStats.territory.SacredPlaceTerritory.Motivation / 10f);
         float attackMod = V * ((float)t.territoryStats.territory.BarracksTerritory.PlusAttack / 50f);
+        print("Ataque: inicial: " + V.ToString() + " estrategia: " + strategyMod.ToString() + " warriorNumberBonus: " + warriorNumberBonus.ToString() + " experiencia: " + experienceMod.ToString() + " governador: " + governorMod.ToString() + " motivacion: " + motivationMod.ToString() + " ataque: " + attackMod.ToString());
         V = V + ((strategyMod + warriorNumberBonus + experienceMod + governorMod+motivationMod+attackMod)*1);
+        
     //    print((warriorNumberBonus + experienceMod + governorMod));
     //    print(V);
         return V;
@@ -248,10 +246,7 @@ public class WarManager : MonoBehaviour
     public float SetDefenseFormula(TerritoryHandler t)
     {
         float V = initialSpeed;
-        if (t.territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
-        {
-            return V;
-        }
+        
         MilitarBoss mb = t.territoryStats.territory.MilitarBossTerritory;
         float strategyMod = 0;
         switch (mb.StrategyType)
@@ -281,9 +276,10 @@ public class WarManager : MonoBehaviour
             governorMod = V * ((float)governor.Militancy / 50);
         }
         float motivationMod = V * ((float)t.territoryStats.territory.SacredPlaceTerritory.Motivation / 10f);
-        float defenseMod = V * ((float)t.territoryStats.territory.FortressTerritory.PlusDefense / 5f);
+        float defenseMod = V * ((float)t.territoryStats.territory.FortressTerritory.PlusDefense / 50f);
+        print("Defensa: inicial: " + V.ToString() + " estrategia: " + strategyMod.ToString() + " warriorNumberBonus: " + warriorNumberBonus.ToString() + " experiencia: " + experienceMod.ToString() + " governador: " + governorMod.ToString() + " motivacion: " + motivationMod.ToString() + " defensa: " + defenseMod.ToString());
         V = V + ((strategyMod + warriorNumberBonus + experienceMod + governorMod+defenseMod+motivationMod) * 1);
-//        print(V);
+        
         return V;
     }
 
