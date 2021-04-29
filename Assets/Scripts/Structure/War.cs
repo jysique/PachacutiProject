@@ -15,11 +15,13 @@ public class War
     [SerializeField]private int status;
     [SerializeField]private float time1;
     [SerializeField] private float time2;
+    [SerializeField] private float limit;
     public War(int c1,float s1,float s2, TerritoryHandler _territoryHandler, Territory.TYPEPLAYER _attackers )
     {
         status = 0;
         time1 = 0;
         time2 = 0;
+        limit = 400;
         warriors1Count = c1;
         warriors2Count = _territoryHandler.territoryStats.territory.Population;
         warriors1Speed = s1;
@@ -46,7 +48,7 @@ public class War
         set { territory = value; }
     }
 
-    public void UpdateStatus(float t)
+    public void UpdateStatus()
     {
         if(status == 1)
         {
@@ -59,15 +61,15 @@ public class War
         }
         else
         {
-            time1 += t;
-            time2 += t;
-            if (time1 >= warriors1Speed)
+            time1 += warriors2Speed;
+            time2 += warriors1Speed;
+            if (time1 >= limit)
             {
                 time1 = 0;
                 warriors1Count--;
                 
             }
-            if (time2 >= warriors2Speed)
+            if (time2 >= limit)
             {
                 time2 = 0;
                 territory.territoryStats.territory.Population--;

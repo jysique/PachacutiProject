@@ -131,11 +131,11 @@ public class InGameMenuHandler : MonoBehaviour
     {
         menuBlock.SetActive(false);
         MilitarBoss boss = selectedTerritory.MilitarBossTerritory;
-        militaryBossName.text = "Nombre: " + boss.CharacterName;
+        militaryBossName.text = "Name: " + boss.CharacterName;
         militaryBossPicture.sprite = boss.Picture;
-        militaryBossExperience.text = "Experiencia: " + boss.Experience;
-        militaryBossEstrategy.text = "Estrategia: " + boss.StrategyType;
-        militaryBossMilitary.text = "Influencia: " + boss.Influence;
+        militaryBossExperience.text = "Experience: " + boss.Experience;
+        militaryBossEstrategy.text = "Estrategy: " + boss.StrategyType;
+        militaryBossMilitary.text = "Influency: " + boss.Influence;
         GenerationSpeed.text = " " + selectedTerritory.VelocityPopulation;
         if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
         {
@@ -172,15 +172,15 @@ public class InGameMenuHandler : MonoBehaviour
     public void UpdateProfileMenu()
     {
         Governor temp = CharacterManager.instance.Governor;
-        governorName.text = "Nombre: " + temp.CharacterName;
-        governorAge.text = "Edad: " + temp.Age.ToString();
+        governorName.text = "Name: " + temp.CharacterName;
+        governorAge.text = "Age: " + temp.Age.ToString();
         governorPicture.sprite = temp.Picture;
-        governorOrigin.text = "Origen: " + temp.Origin;
-        governorDiplomacy.text = "Diplomacia: " + temp.Diplomacy;
-        governorMilitancy.text = "Militar: " + temp.Militancy;
-        governorManagement.text = "Administracion: " + temp.Managment;
-        governorPrestige.text = "Prestigio: " + temp.Prestige;
-        governorPiety.text = "Piedad: " + temp.Piety;
+        governorOrigin.text = "Birth place: " + temp.Origin;
+        governorDiplomacy.text = "Diplomacy: " + temp.Diplomacy;
+        governorMilitancy.text = "Military: " + temp.Militancy;
+        governorManagement.text = "Administration: " + temp.Managment;
+        governorPrestige.text = "Prestige: " + temp.Prestige;
+        governorPiety.text = "Piety: " + temp.Piety;
     }
     public void UpdateMenu()
     {
@@ -192,9 +192,12 @@ public class InGameMenuHandler : MonoBehaviour
     void Update()
     {
         Territory selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory;
-        militarWarriorsCount.text = selectedTerritory.Population.ToString() + " / " + selectedTerritory.LimitPopulation.ToString()+ " unidades" ;
-        goldCount.text = "Oro: " + selectedTerritory.Gold.ToString();
-        goldCount.text += "\nVelocidad oro: " + selectedTerritory.GoldMineTerritory.VelocityGold.ToString();
+        militarWarriorsCount.text = selectedTerritory.Population.ToString() + " / " + selectedTerritory.LimitPopulation.ToString()+ " units" ;
+        goldCount.text = "Gold: " + selectedTerritory.Gold.ToString();
+        goldCount.text += "\nGeneration speed: " + selectedTerritory.GoldMineTerritory.VelocityGold.ToString();
+        goldCount.text += "\nMotivation bonus: " + selectedTerritory.SacredPlaceTerritory.Motivation.ToString();
+        goldCount.text += "\nAttack bonus: " + selectedTerritory.FortressTerritory.PlusDefense.ToString();
+        goldCount.text += "\nDefense bonus: " + selectedTerritory.BarracksTerritory.PlusAttack.ToString();
         UpdateResourceTable();
         EscapeGame();
         UpdateCountDownImage();
@@ -323,9 +326,13 @@ public class InGameMenuHandler : MonoBehaviour
         if (goldPlayer >= goldNeedSpeed)
         {
             territoryHandler.ImproveSpeedPopulation();
+            //int t = (int)((territoryHandler.territoryStats.territory.VelocityPopulation-1)/0.3);
+            //t++;
             goldPlayer -= goldNeedSpeed;
+
             ShowFloatingText("+0.3 veloc", "TextMesh", territoryHandler.transform);
             ShowFloatingText("-"+goldNeedSpeed.ToString(), "TextFloating", goldAnimation);
+            goldNeedSpeed += 10;
         }
         
     }
@@ -337,6 +344,7 @@ public class InGameMenuHandler : MonoBehaviour
             foodPlayer -= foodNeedLimit;
             ShowFloatingText("+20 limit", "TextMesh", territoryHandler.transform);
             ShowFloatingText("-" + foodNeedLimit.ToString(), "TextFloating", foodAnimation);
+            foodNeedLimit += 10;
         }
     }
     private void ImproveMineGold(TerritoryHandler territoryHandler)
@@ -346,7 +354,7 @@ public class InGameMenuHandler : MonoBehaviour
             // territoryHandler.ImproveTerritory(countdownImages,buttons,0);
             ImproveTerritory(territoryHandler, 0);
             goldPlayer -= territoryHandler.territoryStats.territory.GoldMineTerritory.CostToUpgrade;
-            ShowFloatingText("+0.6 vel gold", "TextMesh", territoryHandler.transform);
+            ShowFloatingText("+0.6 gold spd", "TextMesh", territoryHandler.transform);
             ShowFloatingText("-" + territoryHandler.territoryStats.territory.GoldMineTerritory.CostToUpgrade.ToString(), "TextFloating", goldAnimation);
             territoryHandler.territoryStats.territory.GoldMineTerritory.CostToUpgrade += 3;
         }
@@ -479,7 +487,7 @@ public class InGameMenuHandler : MonoBehaviour
         CharacterSelection.SetActive(true);
         characterOptions = new List<GameObject>();
         Text instructionText = CharacterSelection.transform.Find("InstructionText").transform.GetComponent<Text>();
-        instructionText.text = "Seleccione un personaje \n para "+ territory.territoryStats.territory.name;
+        instructionText.text = "Select a military chief \n for "+ territory.territoryStats.territory.name;
         Transform gridLayout = CharacterSelection.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
         foreach (MilitarBoss charac in ml.MilitarBosses)
         {
@@ -558,8 +566,8 @@ public class InGameMenuHandler : MonoBehaviour
         ResetTextCustomEvent();
         currentCustomEvent = custom;
         TerritoryEventTxt.text = custom.TerritoryEvent.name;
-        AcceptTextCustomEvent.text += "Si aceptas: \n " + custom.AcceptMessageEvent;
-        DeclineTextCustomEvent.text += "Si rechazas: \n " + custom.DeclineMessageEvent;
+        AcceptTextCustomEvent.text += "If you accept: \n " + custom.AcceptMessageEvent;
+        DeclineTextCustomEvent.text += "If you reject: \n " + custom.DeclineMessageEvent;
     }
     public void AcceptCustomEventButton()
     {

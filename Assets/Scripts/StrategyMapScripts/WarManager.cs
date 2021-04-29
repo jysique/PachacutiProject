@@ -51,11 +51,11 @@ public class WarManager : MonoBehaviour
         War w = new War(c1, s1, s2,ta, a);
         warList.Add(w);
     }
-    private void Update()
+    private void FixedUpdate()
     {
         foreach(War w in warList)
         {
-            w.UpdateStatus(Time.deltaTime);
+            w.UpdateStatus();
         }
         if(status)
         {
@@ -94,7 +94,7 @@ public class WarManager : MonoBehaviour
                         break;
                     case Territory.TYPEPLAYER.NONE:
                         hatAttacker.sprite = null;
-                        empire.text = "Libres";
+                        empire.text = "No empire";
                         attackColor.color = Color.white;
                         break;
                     case Territory.TYPEPLAYER.BOT:
@@ -112,7 +112,7 @@ public class WarManager : MonoBehaviour
                         break;
                     case Territory.TYPEPLAYER.NONE:
                         hatDefender.sprite = null;
-                        empireD.text = "Libres";
+                        empireD.text = "No empire";
                         deffendColor.color = Color.white;
                         break;
                     case Territory.TYPEPLAYER.BOT:
@@ -122,7 +122,7 @@ public class WarManager : MonoBehaviour
                         break;
                 }
                 warContainer.SetActive(true);
-                title.text = "Batalla de " + selected.territoryStats.territory.name;
+                title.text = "Battle of " + selected.territoryStats.territory.name;
                 power.text = (w.Speed1*10).ToString();
                 powerD.text = (w.Speed2*10).ToString();
                 territorySprite.sprite = selected.sprite.sprite;
@@ -236,7 +236,7 @@ public class WarManager : MonoBehaviour
         float motivationMod = V * ((float)t.territoryStats.territory.SacredPlaceTerritory.Motivation / 10f);
         float attackMod = V * ((float)t.territoryStats.territory.BarracksTerritory.PlusAttack / 50f);
         print("Ataque: inicial: " + V.ToString() + " estrategia: " + strategyMod.ToString() + " warriorNumberBonus: " + warriorNumberBonus.ToString() + " experiencia: " + experienceMod.ToString() + " governador: " + governorMod.ToString() + " motivacion: " + motivationMod.ToString() + " ataque: " + attackMod.ToString());
-        V = V + ((strategyMod + warriorNumberBonus + experienceMod + governorMod+motivationMod+attackMod)*1);
+        V = V + ((strategyMod + warriorNumberBonus + experienceMod + governorMod+motivationMod+attackMod)*3);
         
     //    print((warriorNumberBonus + experienceMod + governorMod));
     //    print(V);
@@ -278,7 +278,7 @@ public class WarManager : MonoBehaviour
         float motivationMod = V * ((float)t.territoryStats.territory.SacredPlaceTerritory.Motivation / 10f);
         float defenseMod = V * ((float)t.territoryStats.territory.FortressTerritory.PlusDefense / 50f);
         print("Defensa: inicial: " + V.ToString() + " estrategia: " + strategyMod.ToString() + " warriorNumberBonus: " + warriorNumberBonus.ToString() + " experiencia: " + experienceMod.ToString() + " governador: " + governorMod.ToString() + " motivacion: " + motivationMod.ToString() + " defensa: " + defenseMod.ToString());
-        V = V + ((strategyMod + warriorNumberBonus + experienceMod + governorMod+defenseMod+motivationMod) * 1);
+        V = V + ((strategyMod + warriorNumberBonus + experienceMod + governorMod+defenseMod+motivationMod) * 3);
         
         return V;
     }

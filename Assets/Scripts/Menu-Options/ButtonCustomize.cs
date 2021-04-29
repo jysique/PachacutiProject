@@ -10,15 +10,15 @@ public class ButtonCustomize : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public TYPECUSTOM typecustom;
     private void Start()
     {
-        label.SetActive(false);
+        //label.SetActive(false);
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        label.SetActive(true);
+        //label.SetActive(true);
     }
     public void OnPointerExit(PointerEventData eventData)
     {
-        label.SetActive(false);
+        //label.SetActive(false);
     }
     private void Update()
     {
@@ -28,17 +28,25 @@ public class ButtonCustomize : MonoBehaviour, IPointerEnterHandler, IPointerExit
     {
         if (typecustom == TYPECUSTOM.UP_LIMIT)
         {
-            CheckCost(InGameMenuHandler.instance.GoldPlayer, InGameMenuHandler.instance.FoodNeedLimit, "food");
+            CheckCost(InGameMenuHandler.instance.FoodPlayer, InGameMenuHandler.instance.FoodNeedLimit, "food");
+            float s = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory.LimitPopulation;
+            float s2 = s + 20;
+            label.GetComponent<Text>().text += "\n" + s.ToString("F2") + " -> " + s2.ToString("F2");
 
         }
         else if (typecustom == TYPECUSTOM.UP_SPEED)
         {
-            CheckCost(InGameMenuHandler.instance.FoodPlayer, InGameMenuHandler.instance.GoldNeedSpeed, "gold");
+            CheckCost(InGameMenuHandler.instance.GoldPlayer, InGameMenuHandler.instance.GoldNeedSpeed, "gold");
+            float s = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory.VelocityPopulation;
+            float s2 = s + 0.3f;
+            label.GetComponent<Text>().text += "\n" + s.ToString("F2") + " -> " + s2.ToString("F2");
         }
         else if (typecustom == TYPECUSTOM.UP_MINE)
         {
             CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.GoldMineTerritory.CostToUpgrade, "gold");
-            label.GetComponent<Text>().text += "\n+0.6 de velocidad";
+            float s = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory.GoldMineTerritory.VelocityGold;
+            float s2 = s + 0.6f;
+            label.GetComponent<Text>().text += "\n" + s.ToString("F2") + " -> " + s2.ToString("F2");
         }
         else if (typecustom == TYPECUSTOM.UP_SACRED)
         {
@@ -58,7 +66,7 @@ public class ButtonCustomize : MonoBehaviour, IPointerEnterHandler, IPointerExit
     }
     private void CheckCost(int goldPlayer, int goldNeed, string element)
     {
-        label.GetComponent<Text>().text = "Costo -" + goldNeed.ToString() + " "+ element;
+        label.GetComponent<Text>().text = "Cost -" + goldNeed.ToString() + " "+ element ;
         if (goldPlayer >= goldNeed)
         {
             label.GetComponent<Text>().color = Color.white;
