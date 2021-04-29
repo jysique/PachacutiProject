@@ -195,7 +195,7 @@ public class InGameMenuHandler : MonoBehaviour
     {
         Territory selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory;
         militarWarriorsCount.text = selectedTerritory.Population.ToString() + " / " + selectedTerritory.LimitPopulation.ToString()+ " units" ;
-        goldCount.text = "Gold: " + selectedTerritory.Gold.ToString();
+        goldCount.text = "Gold: " + selectedTerritory.Gold.ToString() + "   Food: " + selectedTerritory.FoodReward.ToString();
         goldCount.text += "\nGeneration speed: " + selectedTerritory.GoldMineTerritory.VelocityGold.ToString();
         goldCount.text += "\nMotivation bonus: " + selectedTerritory.SacredPlaceTerritory.Motivation.ToString();
         goldCount.text += "\nAttack bonus: " + selectedTerritory.FortressTerritory.PlusDefense.ToString();
