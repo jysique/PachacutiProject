@@ -30,8 +30,6 @@ public class BuildOption : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //  Building a = new GoldMine();
-        //  var b = (GoldMine)a;
         nameTxt.text = building.Name;
         nameTxt2.text = "Press '+' To Build " + building.Name;
         levelTxt.text = "Level:" + building.Level.ToString();

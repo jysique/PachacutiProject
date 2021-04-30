@@ -7,6 +7,8 @@ public class Building
     private int costToUpgrade = 7;
     private int level = 0;
     private float timeToBuild = 4;
+    private float totalTime = 0;
+    private bool canUpgrade = true;
     public string Name
     {
         get { return nameBuilding; }
@@ -27,7 +29,16 @@ public class Building
         get { return timeToBuild; }
         set { timeToBuild = value; }
     }
-
+    public float TimeTotal
+    {
+        get { return totalTime; }
+        set { totalTime = value; }
+    }
+    public bool CanUpdrade
+    {
+        get { return canUpgrade; }
+        set { canUpgrade = value; }
+    }
     public virtual void ImproveBuilding(int _levels)
     {
       //  Debug.LogWarning("improveBuilding");

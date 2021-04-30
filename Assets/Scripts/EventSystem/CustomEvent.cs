@@ -17,7 +17,7 @@ public class CustomEvent
     [SerializeField] private string declineMessageEvent;
     [SerializeField] private TimeSimulated timeInit;
     [SerializeField] private TimeSimulated timeFinal;
-    private int daysToFinal;
+ //   private int daysToFinal;
     private bool acceptEventBool = false;
     
     public string EventType
@@ -35,13 +35,6 @@ public class CustomEvent
         get { return messaggeB; }
         set { messaggeB = value; }
     }
-    /*
-    public string TerritoryEvent
-    {
-        get { return territoryEvent; }
-        set { territoryEvent = value; }
-    }
-    */
     public Territory TerritoryEvent
     {
         get { return territoryEvent; }
@@ -72,11 +65,13 @@ public class CustomEvent
         get { return timeFinal; }
         set { timeFinal = value; }
     }
+    /*
     public int DaysToFinal
     {
         get { return daysToFinal; }
         set { daysToFinal = value; }
     }
+    */
     public bool AcceptEventBool
     {
         get { return acceptEventBool; }
@@ -90,11 +85,12 @@ public class CustomEvent
         Debug.Log(i + " init time- " + TimeInitEvent.PrintTimeSimulated());
         Debug.Log(i + " final time- " + TimeFinalEvent.PrintTimeSimulated());
     }
-    public void GetCustomEvent(TimeSimulated _initTime, TimeSimulated _finalTime, int _days)
+    public void GetCustomEvent(TimeSimulated _initTime, TimeSimulated _finalTime)
+    //public void GetCustomEvent(TimeSimulated _initTime, TimeSimulated _finalTime, int _days)
     {
         this.timeInit = _initTime;
         this.timeFinal = _finalTime;
-        this.daysToFinal = _days;
+     //   this.daysToFinal = _days;
         this.acceptEventBool = false;
         EVENTTYPE _t = (EVENTTYPE)UnityEngine.Random.Range(0, 8);
         this.eventtype = _t.ToString();
