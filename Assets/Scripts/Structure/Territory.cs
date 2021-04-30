@@ -42,8 +42,19 @@ public class Territory
     /// <summary>
     /// variables for countDown timers in TerritoryMenu
     /// </summary>
-    public float[] totalTime = new float[4] { 0, 0, 0, 0 };
-    public bool[] canUpgrade = new bool[4] { false, false, false, false };
+    private float[] totalTime = new float[4] { 0, 0, 0, 0 };
+    private bool[] canUpgrade = new bool[4] { true, true, true, true };
+
+    public float[] TotalTime
+    {
+        get { return totalTime; }
+        set { totalTime = value; }
+    }
+    public bool[] CanUpgrade
+    {
+        get { return canUpgrade; }
+        set { canUpgrade = value; }
+    }
     public MilitarBoss MilitarBossTerritory
     {
         get { return militarBossTerritory; }

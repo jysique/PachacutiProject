@@ -172,9 +172,11 @@ public class WarManager : MonoBehaviour
             territory.territoryStats.territory.Population = survivors;
             if (type == Territory.TYPEPLAYER.PLAYER)
             {
-                InGameMenuHandler.instance.InstantiateCharacterOption(territory);
-                
-            }else if(type == Territory.TYPEPLAYER.BOT)
+                InGameMenuHandler.instance.OpenCurrentCaseMenu(territory);
+              //  InGameMenuHandler.instance.InstantiateCharacterOption(territory);
+
+            }
+            else if(type == Territory.TYPEPLAYER.BOT)
             {
                 MilitarBoss newMilitarBoss = new MilitarBoss();
                 newMilitarBoss.GetMilitarBoss();
@@ -233,7 +235,7 @@ public class WarManager : MonoBehaviour
         }
         float motivationMod = V * ((float)t.territoryStats.territory.SacredPlaceTerritory.Motivation / 10f);
         float attackMod = V * ((float)t.territoryStats.territory.BarracksTerritory.PlusAttack / 50f);
-        print("Ataque: inicial: " + V.ToString() + " estrategia: " + strategyMod.ToString() + " warriorNumberBonus: " + warriorNumberBonus.ToString() + " experiencia: " + experienceMod.ToString() + " governador: " + governorMod.ToString() + " motivacion: " + motivationMod.ToString() + " ataque: " + attackMod.ToString());
+        //print("Ataque: inicial: " + V.ToString() + " estrategia: " + strategyMod.ToString() + " warriorNumberBonus: " + warriorNumberBonus.ToString() + " experiencia: " + experienceMod.ToString() + " governador: " + governorMod.ToString() + " motivacion: " + motivationMod.ToString() + " ataque: " + attackMod.ToString());
         V = V + ((strategyMod + warriorNumberBonus + experienceMod + governorMod+motivationMod+attackMod)*3);
         
     //    print((warriorNumberBonus + experienceMod + governorMod));
@@ -275,7 +277,7 @@ public class WarManager : MonoBehaviour
         }
         float motivationMod = V * ((float)t.territoryStats.territory.SacredPlaceTerritory.Motivation / 10f);
         float defenseMod = V * ((float)t.territoryStats.territory.FortressTerritory.PlusDefense / 50f);
-        print("Defensa: inicial: " + V.ToString() + " estrategia: " + strategyMod.ToString() + " warriorNumberBonus: " + warriorNumberBonus.ToString() + " experiencia: " + experienceMod.ToString() + " governador: " + governorMod.ToString() + " motivacion: " + motivationMod.ToString() + " defensa: " + defenseMod.ToString());
+        //print("Defensa: inicial: " + V.ToString() + " estrategia: " + strategyMod.ToString() + " warriorNumberBonus: " + warriorNumberBonus.ToString() + " experiencia: " + experienceMod.ToString() + " governador: " + governorMod.ToString() + " motivacion: " + motivationMod.ToString() + " defensa: " + defenseMod.ToString());
         V = V + ((strategyMod + warriorNumberBonus + experienceMod + governorMod+defenseMod+motivationMod) * 3);
         
         return V;

@@ -29,7 +29,7 @@ public class TimeSystem : MonoBehaviour
     }
     void Start()
     {
-        timeGame = new TimeSimulated(28, 12, 1399);
+        timeGame = new TimeSimulated(21, 12, 1399);
         //timeGame = new TimeSimulated(1, 1, 1399);
         TIMESCALE = 6;
         if (GlobalVariables.instance != null)
@@ -45,7 +45,7 @@ public class TimeSystem : MonoBehaviour
     {
         PlusDaysToTimeGather(3);
         listEvents = new CustomEventList();
-        PlusDaysToTimeInitEvent(5);
+        PlusDaysToTimeInitEvent(10);
     }
     void InitializeGameEvents()
     {
@@ -90,9 +90,11 @@ public class TimeSystem : MonoBehaviour
             _time.hour = 0;
         }
         _time.CalculateWeeks();
-        if (_time.day > 30)
+        if (_time.day >= 30)
         {
-            _time.CalculateMonth();  
+            double a = _time.day- 30;
+            _time.CalculateMonth();
+            _time.day += a;
         }
         if (_time.month > 12)
         {
@@ -101,7 +103,6 @@ public class TimeSystem : MonoBehaviour
     }
     void Update()
     {
-      //  listEvents.CustomEvents[indexListEvent].PrintEvent(indexListEvent);
         CalculateTime(timeGame);
         TextCallFunction();
         GatherResourceInTime();
@@ -122,6 +123,7 @@ public class TimeSystem : MonoBehaviour
     /// <param name="daysToPlus"></param>
     void PlusDaysToTimeInitEvent(int daysToPlus)
     {
+        
         TimeSimulated timeFinalEvent;
         timeEvent = new TimeSimulated(timeGame.day, timeGame.month, timeGame.year);
         timeEvent.PlusDays(daysToPlus);
@@ -139,6 +141,7 @@ public class TimeSystem : MonoBehaviour
         {
             timeFinalEvent = timeEvent;
         }
+        //print(timeFinalEvent.PrintTimeSimulated());
         listEvents.AddCustomEvent(timeEvent,timeFinalEvent,rDays);
 
         //listEvents.PrintList();
