@@ -9733,7 +9733,7 @@ GameObject:
   m_Component:
   - component: {fileID: 677364595}
   - component: {fileID: 677364596}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: WarIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14093,7 +14093,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &951873958
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18810,8 +18810,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34c9ffa9b3e38fe4c854d384fc035d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NewInfo: Battle experience from the assigned warlord, \ n enhances the power of
-    your units both defensively and offensively.
+  NewInfo: Battle experience from the assigned military chief, \n enhances the power
+    of your units both defensively and offensively.
 --- !u!1 &1318883239
 GameObject:
   m_ObjectHideFlags: 0
@@ -21922,7 +21922,7 @@ MonoBehaviour:
   CloseEventButton: {fileID: 2065777853}
   DeclineEventButton: {fileID: 2092515386}
   CharacterSelection: {fileID: 4206696}
-  ml:
+  subordinateList:
     MilitarBosses: []
 --- !u!1 &1577155659
 GameObject:
@@ -21975,7 +21975,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

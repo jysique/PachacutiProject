@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 [RequireComponent(typeof(PolygonCollider2D))]
 public class TerritoryHandler : MonoBehaviour
@@ -101,7 +102,7 @@ public class TerritoryHandler : MonoBehaviour
 
     private void OnMouseOver()
     {
-        
+        if (EventSystem.current.IsPointerOverGameObject()) return;
         if (Input.GetMouseButtonDown(1) && state == 0)
         {
             territoryStats.territory.SetSelected(true);
@@ -132,6 +133,7 @@ public class TerritoryHandler : MonoBehaviour
 
     private void OnMouseUpAsButton()
     {
+        if (EventSystem.current.IsPointerOverGameObject()) return;
         switch (state)
         {
             case 0:
