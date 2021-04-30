@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4919026092130701549}
   - component: {fileID: 2622951527725996763}
   - component: {fileID: 2491840146426131630}
+  - component: {fileID: 1517785576536137147}
   m_Layer: 5
   m_Name: InitTimeSimulatedTxt
   m_TagString: Untagged
@@ -79,6 +80,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: tiempo-inicio
+--- !u!114 &1517785576536137147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725085136237135939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c9ffa9b3e38fe4c854d384fc035d14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NewInfo: Date time when the event started.
 --- !u!1 &743601208489268511
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,6 +104,7 @@ GameObject:
   - component: {fileID: 7434984280319851534}
   - component: {fileID: 1093463360870669045}
   - component: {fileID: 744263746388711719}
+  - component: {fileID: 8304877089776092913}
   m_Layer: 5
   m_Name: TerritoryNameTxt
   m_TagString: Untagged
@@ -158,6 +173,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: CiudadEvento
+--- !u!114 &8304877089776092913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743601208489268511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c9ffa9b3e38fe4c854d384fc035d14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NewInfo: Territory where the event happens.
 --- !u!1 &3098355402087262426
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,6 +197,7 @@ GameObject:
   - component: {fileID: 4616096293017128794}
   - component: {fileID: 4931439119586154927}
   - component: {fileID: 7462419157668833115}
+  - component: {fileID: 610034357020307465}
   m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
@@ -233,6 +262,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &610034357020307465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3098355402087262426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c9ffa9b3e38fe4c854d384fc035d14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NewInfo: Icon of the event.
 --- !u!1 &3496744171976644389
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,6 +286,7 @@ GameObject:
   - component: {fileID: 7304809215613013540}
   - component: {fileID: 8605951133190268866}
   - component: {fileID: 162864460224417311}
+  - component: {fileID: 3573724858781884205}
   m_Layer: 5
   m_Name: Estado
   m_TagString: Untagged
@@ -308,6 +351,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3573724858781884205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3496744171976644389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c9ffa9b3e38fe4c854d384fc035d14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NewInfo: State of the event.
 --- !u!1 &4358194760164398493
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,6 +375,7 @@ GameObject:
   - component: {fileID: 2979725737207099716}
   - component: {fileID: 2996416258214198692}
   - component: {fileID: 8595811018638418024}
+  - component: {fileID: 3550193030394066258}
   m_Layer: 5
   m_Name: FinishTimeSimulatedTxt
   m_TagString: Untagged
@@ -387,6 +444,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: tiempo-final
+--- !u!114 &3550193030394066258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4358194760164398493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c9ffa9b3e38fe4c854d384fc035d14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NewInfo: Date time when the event will finish.
 --- !u!1 &8519079032481906424
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,6 +568,7 @@ GameObject:
   - component: {fileID: 950450853742814436}
   - component: {fileID: 273477546302655420}
   - component: {fileID: 2964073459165423967}
+  - component: {fileID: 1322638735737594199}
   m_Layer: 5
   m_Name: TypeEventTxt
   m_TagString: Untagged
@@ -566,3 +637,16 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: TipoEvento
+--- !u!114 &1322638735737594199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8606304121767632490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c9ffa9b3e38fe4c854d384fc035d14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NewInfo: Type of event.
