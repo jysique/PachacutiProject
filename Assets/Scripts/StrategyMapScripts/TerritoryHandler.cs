@@ -54,7 +54,8 @@ public class TerritoryHandler : MonoBehaviour
         statsGO = Instantiate(Resources.Load("Prefabs/MenuPrefabs/TerritoryStats")) as GameObject;
 
         statsGO.transform.SetParent(GameObject.Find("StatsContainer").transform,false);
-        statsGO.transform.position =  new Vector3(transform.position.x+paddingX, transform.position.y+paddingY,transform.position.z);
+        print(transform.position);
+        statsGO.GetComponent<RectTransform>().anchoredPosition =  new Vector3(transform.position.x*110+paddingX, transform.position.y*110+paddingY,transform.position.z);
 
         territoryStats = statsGO.GetComponent<TerritoryStats>();
         territoryStats.territory = territory;

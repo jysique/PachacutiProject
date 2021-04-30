@@ -486,6 +486,7 @@ public class InGameMenuHandler : MonoBehaviour
     public void OpenCurrentCaseMenu(TerritoryHandler territoryHandler)
     {
         CurrentCaseMenu.SetActive(true);
+        CurrentCaseMenu.transform.Find("Territory").GetComponent<Image>().sprite = territoryHandler.sprite.sprite;
         CurrentCaseMenu.transform.Find("Title").GetComponent<Text>().text= "You just won the battle of " + territoryHandler.territoryStats.territory.name;
         InstantiateCharacterOption(territoryHandler);
     }
