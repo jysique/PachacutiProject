@@ -108,7 +108,7 @@ public class CustomEvent
         switch (option)
         {
             case string a when a.Contains("REBELION"):
-                this.messaggeA = "We rebel against you";
+                this.messaggeA = "We rebel against you. ";
                 this.messaggeB = "this territory will rebel against you.";
                 this.acceptMessageEvent = "-" + acceptCostEvent + " gold";
                 this.declineMessageEvent = "-1 territorio";
@@ -138,23 +138,23 @@ public class CustomEvent
                 }
                 break;
             case string a when a.Contains("SUG_MB"):
-                this.messaggeA = "The military chief suggests you change the type of strategy.";
+                this.messaggeA = "The military chief suggests you change the type of strategy ";
                 this.messaggeB = "the military chief of this territory will suggest changing the type of strategy.";
                 switch (option)
                 {
                     case string b when b.Contains("1"):
                         this.element += " to improve more defensive.";
-                        this.acceptMessageEvent = " strategy type to Defensive \n+3 fortrees levels";
+                        this.acceptMessageEvent = "Strategy type to Defensive \n+3 fortrees levels";
                         this.declineMessageEvent = "Keep the same strategy";
                         break;
                     case string b when b.Contains("2"):
                         this.element += " to improve more aggresive";
-                        this.acceptMessageEvent = "strategy type to Aggressive \n+2 barracks levels";
+                        this.acceptMessageEvent = "Strategy type to Aggressive \n+2 barracks levels";
                         this.declineMessageEvent = "Keep the same strategy";
                         break;
                     case string b when b.Contains("3"):
                         this.element += " to improve the dominance of the terrain.";
-                        this.acceptMessageEvent = "strategy type to Terrain Master \n +3 speed food";
+                        this.acceptMessageEvent = "Strategy type to Terrain Master \n +3 speed food";
                         this.declineMessageEvent = "Keep the same strategy";
                         break;
                     default:

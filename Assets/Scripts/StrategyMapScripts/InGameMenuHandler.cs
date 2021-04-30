@@ -577,7 +577,7 @@ public class InGameMenuHandler : MonoBehaviour
         PauseGame();
         ResetTextCustomEvent();
         currentCustomEvent = custom;
-        DetailsTextCustomEvent.text += "The " + custom.TerritoryEvent.name + " territory give you a message:\n";
+        DetailsTextCustomEvent.text += "The people of " + custom.TerritoryEvent.name + " territory give you a message:\n";
         AcceptTextCustomEvent.text += "If you accept: \n " + custom.AcceptMessageEvent;
         DeclineTextCustomEvent.text += "If you decline: \n " + custom.DeclineMessageEvent;
     }
