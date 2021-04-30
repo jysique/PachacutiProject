@@ -9,8 +9,10 @@ public class TimeSystem : MonoBehaviour
     private TimeSimulated timeGame;
     private TimeSimulated timeGather;
     private TimeSimulated timeEvent;
+    private TimeSimulated timeFinalEvent;
     public CustomEventList listEvents;
     int indexListEvent = 0;
+    int diferenceDays = 0;
     [SerializeField] private Text dayText;
     [SerializeField] private Text monthText;
     [SerializeField] private Text seasonText;
@@ -22,6 +24,10 @@ public class TimeSystem : MonoBehaviour
     public int IndexListEvent
     {
         get { return indexListEvent; }
+    }
+    public int DiferenceDays
+    {
+        get { return diferenceDays; }
     }
     private void Awake()
     {
@@ -107,6 +113,7 @@ public class TimeSystem : MonoBehaviour
         TextCallFunction();
         GatherResourceInTime();
         CustomEventInTime();
+        diferenceDays = timeFinalEvent.DiferenceDays(TimeGame);
     }
 
     void PlusDaysToTimeGather(int daysToPlus)
@@ -123,8 +130,6 @@ public class TimeSystem : MonoBehaviour
     /// <param name="daysToPlus"></param>
     void PlusDaysToTimeInitEvent(int daysToPlus)
     {
-        
-        TimeSimulated timeFinalEvent;
         timeEvent = new TimeSimulated(timeGame.day, timeGame.month, timeGame.year);
         timeEvent.PlusDays(daysToPlus);
         CalculateTime(timeEvent);
@@ -142,7 +147,7 @@ public class TimeSystem : MonoBehaviour
             timeFinalEvent = timeEvent;
         }
         //print(timeFinalEvent.PrintTimeSimulated());
-        listEvents.AddCustomEvent(timeEvent,timeFinalEvent,rDays);
+        listEvents.AddCustomEvent(timeEvent,timeFinalEvent);
 
         //listEvents.PrintList();
     }
@@ -215,7 +220,7 @@ public class TimeSystem : MonoBehaviour
         //  List<TerritoryHandler> list = TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER);
         //  int r = Random.Range(0, list.Count);
         //  listEvents.CustomEvents[indexListEvent].TerritoryEvent = list[r].territoryStats.territory.name;
-        InGameMenuHandler.instance.WarningEventAppearance(listEvents.CustomEvents[indexListEvent]);
+        InGameMenuHandler.instance.WarningEventAppearance(listEvents.CustomEvents[indexListEvent],diferenceDays);
         timeEvent = listEvents.CustomEvents[indexListEvent].TimeFinalEvent;
     }
 }

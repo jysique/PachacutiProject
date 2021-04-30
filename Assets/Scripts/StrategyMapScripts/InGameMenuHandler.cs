@@ -77,14 +77,13 @@ public class InGameMenuHandler : MonoBehaviour
     
 
     private List<GameObject> characterOptions;
-    public MilitarBossList ml;
+    //public MilitarBossList ml;
+    public SubordinateList subordinateList;
+
     private int goldPlayer= 50;
     private int foodPlayer = 20;
     private int sucesionSizePlayer;
     private int scorePlayer;
-    //private int goldNeedSpeed = 10;
-    //private int foodNeedLimit = 10;
-    //perfil menu
     public int GoldPlayer
     {
         get { return goldPlayer; }
@@ -111,8 +110,12 @@ public class InGameMenuHandler : MonoBehaviour
         }
         GameObject customEventOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/CustomEventOption")) as GameObject;
         customEventOption.transform.SetParent(gridLayout.transform, false);
-//        customEventOption.name = "Evento_"+i;
-        customEventOption.GetComponent<CustomEventOption>().Custom = TimeSystem.instance.listEvents.CustomEvents[TimeSystem.instance.IndexListEvent];
+        CustomEvent custom = TimeSystem.instance.listEvents.CustomEvents[TimeSystem.instance.IndexListEvent];
+        customEventOption.GetComponent<CustomEventOption>().Custom = custom;
+        if (custom.TimeInitEvent.EqualsDate(custom.TimeFinalEvent))
+        {
+            Destroy(customEventOption, 1);
+        }
     }
     public void UpdateResourceTable()
     {
@@ -323,8 +326,6 @@ public class InGameMenuHandler : MonoBehaviour
         if (goldPlayer >= territoryHandler.territoryStats.territory.CostPopulation)
         {
             territoryHandler.ImproveSpeedPopulation();
-            //int t = (int)((territoryHandler.territoryStats.territory.VelocityPopulation-1)/0.3);
-            //t++;
             goldPlayer -= territoryHandler.territoryStats.territory.CostPopulation;
             ShowFloatingText("+0.3 velocity population", "TextMesh", territoryHandler.transform);
             ShowFloatingText("-"+ territoryHandler.territoryStats.territory.CostPopulation.ToString(), "TextFloating", goldAnimation);
@@ -347,7 +348,6 @@ public class InGameMenuHandler : MonoBehaviour
     {
         if (goldPlayer >= territoryHandler.territoryStats.territory.GoldMineTerritory.CostToUpgrade)
         {
-            // territoryHandler.ImproveTerritory(countdownImages,buttons,0);
             ImproveTerritory(territoryHandler, 0);
             goldPlayer -= territoryHandler.territoryStats.territory.GoldMineTerritory.CostToUpgrade;
             ShowFloatingText("+1 gold mine level", "TextMesh", territoryHandler.transform);
@@ -471,7 +471,6 @@ public class InGameMenuHandler : MonoBehaviour
     }
     public void TurnOnBlock()
     {
-        
         overMenuBlock.SetActive(true);
     }
 
@@ -479,35 +478,28 @@ public class InGameMenuHandler : MonoBehaviour
     {
         CurrentCaseMenu.SetActive(true);
         CurrentCaseMenu.transform.Find("Title").GetComponent<Text>().text= "You just won the battle of " + territoryHandler.territoryStats.territory.name;
-        InstantiateCharacterOption(territoryHandler);
+        InstantiateCharacterOption(territoryHandler,"militar");
     }
     public void CloseCurrentCaseMenu()
     {
         CurrentCaseMenu.SetActive(false);
     }
-    public void InstantiateCharacterOption(TerritoryHandler territoryHandler)
+    public void InstantiateCharacterOption(TerritoryHandler territoryHandler,string type)
     {
-        ml.AddDataMilitaryList(3);
+        subordinateList.AddDataSubordinateToList(3, type);
         CharacterSelection.SetActive(true);
         characterOptions = new List<GameObject>();
         Text instructionText = CharacterSelection.transform.Find("InstructionText").transform.GetComponent<Text>();
-        instructionText.text = "Select a military Chief \n to " + territoryHandler.territoryStats.territory.name;
+        instructionText.text = "Select a "+type+" Chief \n to " + territoryHandler.territoryStats.territory.name;
         Transform gridLayout = CharacterSelection.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
-        foreach (MilitarBoss charac in ml.MilitarBosses)
+        foreach (Subordinate charac in subordinateList.MilitarBosses)
         {
             GameObject characterOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/CharacterGameOption")) as GameObject;
             characterOption.transform.SetParent(gridLayout.transform, false);
             characterOption.name = charac.CharacterName;
-            characterOption.transform.Find("Character/ImageCharacter").gameObject.GetComponent<Image>().sprite = charac.Picture;
-            characterOption.transform.Find("Character/TextBackground/NameCharacter").gameObject.GetComponent<Text>().text = charac.CharacterName;
-            characterOption.transform.Find("Description/OrigenCharacter").gameObject.GetComponent<Text>().text = "From: " + charac.Origin;
-            characterOption.transform.Find("Description/AgeCharacter").gameObject.GetComponent<Text>().text = "Age: " + charac.Age.ToString();
-            characterOption.transform.Find("Description/CampainCharacter").gameObject.GetComponent<Text>().text = "Personality: " +charac.Personality.ToLower();
-            characterOption.transform.Find("Description/ExperienceCharacter").gameObject.GetComponent<Text>().text = "Experience: " + charac.Experience.ToString();
-            characterOption.transform.Find("Description/OpinionCharacter").gameObject.GetComponent<Text>().text = "Opinion: " + charac.Opinion.ToString();
-            characterOption.transform.Find("Description/InfluenceCharacter").gameObject.GetComponent<Text>().text = "Influence" + charac.Influence.ToString();
-            characterOption.transform.Find("Description/StrategyTypeCharacter").gameObject.GetComponent<Text>().text = "Strategy:" + charac.StrategyType.ToLower();
-            characterOption.GetComponent<SelectCharacter>().TerritoryHandler =  territoryHandler;
+            characterOption.GetComponent<CharacterOption>().Type = type;
+            characterOption.GetComponent<CharacterOption>().Character = charac;
+            characterOption.GetComponent<CharacterOption>().territoryHandlerInCharacter =  territoryHandler;
             characterOptions.Add(characterOption);
         }
         PauseGame();
@@ -519,7 +511,7 @@ public class InGameMenuHandler : MonoBehaviour
         {
             Destroy(characterOptions[i]);
         }
-        ml.DeleteList();
+        subordinateList.DeleteSubodinateList();
     }
     public void EscapeGame()
     {
@@ -549,23 +541,23 @@ public class InGameMenuHandler : MonoBehaviour
     public void CustomEventAppearance(CustomEvent custom)
     {
         InitCustomEvent(custom);
-        CustomEventSelection.gameObject.SetActive(true);
         AcceptEventButton.gameObject.SetActive(true);
         DeclineEventButton.gameObject.SetActive(true);
         DetailsTextCustomEvent.text += custom.MessageEventA + custom.ElementEvent;
         //print(custom.MessageEvent);
     }
     
-    public void WarningEventAppearance(CustomEvent custom)
+    public void WarningEventAppearance(CustomEvent custom, int daysToFinal)
     {
         InitCustomEvent(custom);
-        CustomEventSelection.gameObject.SetActive(true);
         CloseEventButton.gameObject.SetActive(true);
-        DetailsTextCustomEvent.text += "In " + custom.DaysToFinal + " days, "+ custom.MessageEventB + custom.ElementEvent;
-        
+        //DetailsTextCustomEvent.text += "In " + custom.DaysToFinal + " days, "+ custom.MessageEventB + custom.ElementEvent;
+        DetailsTextCustomEvent.text += "In " + daysToFinal + " days, " + custom.MessageEventB + custom.ElementEvent;
+
     }
-    private void InitCustomEvent(CustomEvent custom)
+    public void InitCustomEvent(CustomEvent custom)
     {
+        CustomEventSelection.gameObject.SetActive(true);
         PauseGame();
         ResetTextCustomEvent();
         currentCustomEvent = custom;

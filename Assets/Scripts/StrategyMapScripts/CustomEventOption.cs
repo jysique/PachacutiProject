@@ -11,6 +11,7 @@ public class CustomEventOption : MonoBehaviour
     [SerializeField] Text initTxt;
     [SerializeField] Text finishTxt;
     [SerializeField] Image Estado;
+    private Button btn;
     public CustomEvent Custom
     {
         get { return custom; }
@@ -18,10 +19,19 @@ public class CustomEventOption : MonoBehaviour
     }
     private void Start()
     {
+        btn = transform.GetComponent<Button>();
+        btn.onClick.AddListener(() => CustomEventApear());
         territoryNameTxt.text = custom.TerritoryEvent.name;
         typeEventTxt.text = custom.EventType;
         initTxt.text = custom.TimeInitEvent.PrintTimeSimulated();
         finishTxt.text = custom.TimeFinalEvent.PrintTimeSimulated();
 
+    }
+    void CustomEventApear()
+    {
+        if (!custom.TimeFinalEvent.EqualsDate(custom.TimeInitEvent))
+        {
+            InGameMenuHandler.instance.WarningEventAppearance(custom, TimeSystem.instance.DiferenceDays);
+        }
     }
 }

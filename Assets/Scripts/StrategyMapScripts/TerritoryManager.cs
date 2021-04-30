@@ -9,7 +9,6 @@ public class TerritoryManager : MonoBehaviour
     public static TerritoryManager instance;
     public List<GameObject> territoryList = new List<GameObject>();
     public GameObject territorySelected;
-    private int indexListMil = 0;
     private void Awake()
     {
         instance = this;
@@ -39,12 +38,7 @@ public class TerritoryManager : MonoBehaviour
         for (int i = 0; i < territoryList.Count; i++)
         {
             TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-            if (territoryHandler.territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
-            {
-                territoryHandler.territoryStats.territory.MilitarBossTerritory = CharacterManager.instance.MilitarBossList.GetMilitaryBoss(indexListMil);
-                indexListMil++;
-            }
-            else if (territoryHandler.territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.BOT)
+            if (territoryHandler.territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.BOT)
             {
                 MilitarBoss newMilitarBoss = new MilitarBoss();
                 newMilitarBoss.GetMilitarBoss();
