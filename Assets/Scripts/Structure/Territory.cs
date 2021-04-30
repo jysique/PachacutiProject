@@ -31,6 +31,9 @@ public class Territory
     [SerializeField] private float velocityPopulation;
     [SerializeField] private float velocityFood;
 
+    private int costImprovePopulation = 10;
+    private int costImproveFood = 10;
+
     [SerializeField] private bool selected;
 
     [SerializeField] private MilitarBoss militarBossTerritory = null;
@@ -39,6 +42,16 @@ public class Territory
     [SerializeField] private Fortress fortressTerritory = new Fortress();
     [SerializeField] private Barracks barracksTerritory = new Barracks();
 
+    public int CostPopulation
+    {
+        get { return costImprovePopulation; }
+        set { costImprovePopulation = value; }
+    }
+    public int CostFood
+    {
+        get { return costImproveFood; }
+        set { costImproveFood = value; }
+    }
     /// <summary>
     /// variables for countDown timers in TerritoryMenu
     /// </summary>

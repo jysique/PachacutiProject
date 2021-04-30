@@ -42,7 +42,7 @@ public class MenuToolTip : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         
         Vector2 textSize = info.GetRenderedValues(false);
-        print(info.text);
+//        print(info.text);
 
         Vector2 paddingSize = new Vector2(20, 20);
         background.sizeDelta = textSize + paddingSize;
