@@ -28,7 +28,7 @@ public class ButtonCustomize : MonoBehaviour, IPointerEnterHandler, IPointerExit
     {
         if (typecustom == TYPECUSTOM.UP_LIMIT)
         {
-            CheckCost(InGameMenuHandler.instance.FoodPlayer, InGameMenuHandler.instance.FoodNeedLimit, "food");
+            CheckCost(InGameMenuHandler.instance.FoodPlayer, t.territoryStats.territory.CostFood, "food");
             float s = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory.LimitPopulation;
             float s2 = s + 20;
             label.GetComponent<Text>().text += "\n" + s.ToString("F2") + " -> " + s2.ToString("F2");
@@ -36,7 +36,7 @@ public class ButtonCustomize : MonoBehaviour, IPointerEnterHandler, IPointerExit
         }
         else if (typecustom == TYPECUSTOM.UP_SPEED)
         {
-            CheckCost(InGameMenuHandler.instance.GoldPlayer, InGameMenuHandler.instance.GoldNeedSpeed, "gold");
+            CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.CostPopulation, "gold");
             float s = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory.VelocityPopulation;
             float s2 = s + 0.3f;
             label.GetComponent<Text>().text += "\n" + s.ToString("F2") + " -> " + s2.ToString("F2");

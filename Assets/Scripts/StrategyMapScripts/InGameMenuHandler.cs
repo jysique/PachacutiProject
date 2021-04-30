@@ -82,8 +82,8 @@ public class InGameMenuHandler : MonoBehaviour
     private int foodPlayer = 20;
     private int sucesionSizePlayer;
     private int scorePlayer;
-    private int goldNeedSpeed = 10;
-    private int foodNeedLimit = 10;
+    //private int goldNeedSpeed = 10;
+    //private int foodNeedLimit = 10;
     //perfil menu
     public int GoldPlayer
     {
@@ -94,14 +94,6 @@ public class InGameMenuHandler : MonoBehaviour
     {
         get { return foodPlayer; }
         set { foodPlayer= value; }
-    }
-    public int GoldNeedSpeed
-    {
-        get { return goldNeedSpeed; }
-    }
-    public int FoodNeedLimit
-    {
-        get { return foodNeedLimit; }
     }
     private void Awake()
     {
@@ -328,27 +320,27 @@ public class InGameMenuHandler : MonoBehaviour
 
     private void ImproveSpeedPopulation(TerritoryHandler territoryHandler)
     {
-        if (goldPlayer >= goldNeedSpeed)
+        if (goldPlayer >= territoryHandler.territoryStats.territory.CostPopulation)
         {
             territoryHandler.ImproveSpeedPopulation();
             //int t = (int)((territoryHandler.territoryStats.territory.VelocityPopulation-1)/0.3);
             //t++;
-            goldPlayer -= goldNeedSpeed;
+            goldPlayer -= territoryHandler.territoryStats.territory.CostPopulation;
             ShowFloatingText("+0.3 velocity population", "TextMesh", territoryHandler.transform);
-            ShowFloatingText("-"+goldNeedSpeed.ToString(), "TextFloating", goldAnimation);
-            goldNeedSpeed += 10;
+            ShowFloatingText("-"+ territoryHandler.territoryStats.territory.CostPopulation.ToString(), "TextFloating", goldAnimation);
+            territoryHandler.territoryStats.territory.CostPopulation += 10;
         }
         
     }
     private void ImproveLimit(TerritoryHandler territoryHandler)
     {
-        if (foodPlayer >= foodNeedLimit)
+        if (foodPlayer >= territoryHandler.territoryStats.territory.CostFood)
         {
             territoryHandler.ImproveLimit();
-            foodPlayer -= foodNeedLimit;
+            foodPlayer -= territoryHandler.territoryStats.territory.CostFood;
             ShowFloatingText("+20 limit", "TextMesh", territoryHandler.transform);
-            ShowFloatingText("-" + foodNeedLimit.ToString(), "TextFloating", foodAnimation);
-            foodNeedLimit += 10;
+            ShowFloatingText("-" + territoryHandler.territoryStats.territory.CostFood.ToString(), "TextFloating", foodAnimation);
+            territoryHandler.territoryStats.territory.CostFood += 10;
         }
     }
     private void ImproveMineGold(TerritoryHandler territoryHandler)
@@ -577,7 +569,7 @@ public class InGameMenuHandler : MonoBehaviour
         PauseGame();
         ResetTextCustomEvent();
         currentCustomEvent = custom;
-        DetailsTextCustomEvent.text += "The people of " + custom.TerritoryEvent.name + " territory give you a message:\n";
+        DetailsTextCustomEvent.text = "The people of " + custom.TerritoryEvent.name + " territory give you a message:\n";
         AcceptTextCustomEvent.text += "If you accept: \n " + custom.AcceptMessageEvent;
         DeclineTextCustomEvent.text += "If you decline: \n " + custom.DeclineMessageEvent;
     }
