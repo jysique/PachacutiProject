@@ -51,17 +51,23 @@ public class ButtonCustomize : MonoBehaviour, IPointerEnterHandler, IPointerExit
         else if (typecustom == TYPECUSTOM.UP_SACRED)
         {
             CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.SacredPlaceTerritory.CostToUpgrade, "gold");
-            label.GetComponent<Text>().text += "\n+0.6 motivation";
+            float s = t.territoryStats.territory.SacredPlaceTerritory.Motivation;
+            float s2 = s + 0.6f;
+            label.GetComponent<Text>().text += "\n" + s.ToString("F2") + " -> " + s2.ToString("F2");
         }
         else if (typecustom == TYPECUSTOM.UP_FORTRESS)
         {
             CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.FortressTerritory.CostToUpgrade, "gold");
-            label.GetComponent<Text>().text += "\n+1 fortress level";
+            float s = t.territoryStats.territory.FortressTerritory.PlusDefense;
+            float s2 = s + 0.6f;
+            label.GetComponent<Text>().text += "\n" + s.ToString("F2") + " -> " + s2.ToString("F2");
         }
         else if (typecustom == TYPECUSTOM.UP_BARRACKS)
         {
             CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.BarracksTerritory.CostToUpgrade, "gold");
-            label.GetComponent<Text>().text += "\n+1 barracks level";
+            float s = t.territoryStats.territory.BarracksTerritory.PlusAttack;
+            float s2 = s + 0.6f;
+            label.GetComponent<Text>().text += "\n" + s.ToString("F2") + " -> " + s2.ToString("F2");
         }
     }
     private void CheckCost(int goldPlayer, int goldNeed, string element)

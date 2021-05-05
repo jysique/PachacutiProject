@@ -46,6 +46,11 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private GameObject menuBlockTerritory;
     [SerializeField] private Text territoryName;
     [SerializeField] private Text goldCount;
+    [SerializeField] private Text foodCount;
+    [SerializeField] private Text GoldGeneration;
+    [SerializeField] private Text MotivationBonus;
+    [SerializeField] private Text AttackBonus;
+    [SerializeField] private Text DefenseBonus;
     [SerializeField] private Image territoryImage;
     [SerializeField] private Image[] countdownImages;
     [SerializeField] private Button[] buttons;
@@ -194,11 +199,12 @@ public class InGameMenuHandler : MonoBehaviour
     {
         Territory selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory;
         militarWarriorsCount.text = selectedTerritory.Population.ToString() + " / " + selectedTerritory.LimitPopulation.ToString()+ " units" ;
-        goldCount.text = "Gold: " + selectedTerritory.Gold.ToString() + "   Food: " + selectedTerritory.FoodReward.ToString();
-        goldCount.text += "\nGeneration speed: " + selectedTerritory.GoldMineTerritory.VelocityGold.ToString();
-        goldCount.text += "\nMotivation bonus: " + selectedTerritory.SacredPlaceTerritory.Motivation.ToString();
-        goldCount.text += "\nAttack bonus: " + selectedTerritory.FortressTerritory.PlusDefense.ToString();
-        goldCount.text += "\nDefense bonus: " + selectedTerritory.BarracksTerritory.PlusAttack.ToString();
+        goldCount.text = "Gold: " + selectedTerritory.Gold.ToString();
+        foodCount.text = "Food: " + selectedTerritory.FoodReward.ToString();
+        GoldGeneration.text = "Generation speed: " + selectedTerritory.GoldMineTerritory.VelocityGold.ToString();
+        MotivationBonus.text = "Motivation bonus: " + selectedTerritory.SacredPlaceTerritory.Motivation.ToString();
+        AttackBonus.text = "Attack bonus: " + selectedTerritory.FortressTerritory.PlusDefense.ToString();
+        DefenseBonus.text = "Defense bonus: " + selectedTerritory.BarracksTerritory.PlusAttack.ToString();
         UpdateResourceTable();
         EscapeGame();
         UpdateCountDownImage();

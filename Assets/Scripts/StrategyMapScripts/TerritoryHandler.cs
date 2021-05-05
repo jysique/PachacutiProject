@@ -102,7 +102,9 @@ public class TerritoryHandler : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (EventSystem.current.IsPointerOverGameObject()) return;
+        if(EventSystem.current.IsPointerOverGameObject())
+            return;
+
         if (Input.GetMouseButtonDown(1) && state == 0)
         {
             territoryStats.territory.SetSelected(true);
