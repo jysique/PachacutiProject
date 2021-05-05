@@ -85,7 +85,7 @@ public class CustomEvent
         int r = UnityEngine.Random.Range(10, 15);
         timeFinal.PlusDays(days);
 
-        EVENTTYPE _t = (EVENTTYPE)UnityEngine.Random.Range(0, 5);
+        EVENTTYPE _t = (EVENTTYPE)UnityEngine.Random.Range(0, Enum.GetNames(typeof(EVENTTYPE)).Length);
         this.eventtype = _t.ToString();
         this.statusEvent = STATUS.ANNOUNCE;
         this.acceptCostEvent = UnityEngine.Random.Range(3, InGameMenuHandler.instance.GoldPlayer / 2);
