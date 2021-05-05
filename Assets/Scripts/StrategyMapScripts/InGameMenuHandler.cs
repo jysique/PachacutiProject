@@ -40,8 +40,10 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private Text militaryBossEstrategy;
     [SerializeField] private Text militaryBossMilitary;
     [SerializeField] private GameObject CustomEventList;
+
     [Header("Menu de movilizacion de tropas")]
     [SerializeField] public InputField warriorsCount;
+
     [Header("Menu territorio")]
     [SerializeField] private GameObject menuBlockTerritory;
     [SerializeField] private Text territoryName;
@@ -65,12 +67,15 @@ public class InGameMenuHandler : MonoBehaviour
     [Header("Evento")]
     [SerializeField] GameObject CurrentCaseMenu;
     [SerializeField] private GameObject CustomEventSelection;
+    [SerializeField] private Text TitleTextCustomEvent;
     [SerializeField] private Text DetailsTextCustomEvent;
     [SerializeField] private Text AcceptTextCustomEvent;
     [SerializeField] private Text DeclineTextCustomEvent;
     [SerializeField] private Button AcceptEventButton;
     [SerializeField] private Button CloseEventButton;
     [SerializeField] private Button DeclineEventButton;
+    private CustomEvent currentCustomEvent;
+    [NonSerialized] public List<GameObject> listFloatingText = new List<GameObject>();
 
     [Header("Select MilitaryBoss variables")]
     [SerializeField] private GameObject CharacterSelection;
@@ -80,8 +85,8 @@ public class InGameMenuHandler : MonoBehaviour
     //public MilitarBossList ml;
     public SubordinateList subordinateList;
 
-    private int goldPlayer= 50;
-    private int foodPlayer = 20;
+    private int goldPlayer= 20;
+    private int foodPlayer = 10;
     private int sucesionSizePlayer;
     private int scorePlayer;
     public int GoldPlayer
@@ -99,23 +104,27 @@ public class InGameMenuHandler : MonoBehaviour
         instance = this;
         warriorsNumber = 0;
     }
-
-    public void InstantiateEventOption()
+    public void InstantiateEventListOption(CustomEventList customlist)
     {
-        characterOptions = new List<GameObject>();
         Transform gridLayout = CustomEventList.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
         foreach (Transform child in gridLayout.transform)
         {
             Destroy(child.gameObject);
         }
-        GameObject customEventOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/CustomEventOption")) as GameObject;
-        customEventOption.transform.SetParent(gridLayout.transform, false);
-        CustomEvent custom = TimeSystem.instance.listEvents.CustomEvents[TimeSystem.instance.IndexListEvent];
-        customEventOption.GetComponent<CustomEventOption>().Custom = custom;
-        if (custom.TimeInitEvent.EqualsDate(custom.TimeFinalEvent))
+        foreach (CustomEvent customEvent in customlist.CustomEvents)
         {
-            Destroy(customEventOption, 1);
+            GameObject customEventOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/CustomEventOption")) as GameObject;
+            customEventOption.transform.SetParent(gridLayout.transform, false);
+            customEventOption.GetComponent<CustomEventOption>().Custom = customEvent;
+            if (customEvent.StatusEvent == CustomEvent.STATUS.ANNOUNCE)
+            {
+                DestroyImmediate(customEventOption);
+            }else if (customEvent.StatusEvent == CustomEvent.STATUS.FINISH)
+            {
+                Destroy(customEventOption,1);
+            }
         }
+
     }
     public void UpdateResourceTable()
     {
@@ -140,7 +149,6 @@ public class InGameMenuHandler : MonoBehaviour
         }
        
     }
-
     public void UpdateTerritoryMenu()
     {
         menuBlockTerritory.SetActive(false);
@@ -236,7 +244,6 @@ public class InGameMenuHandler : MonoBehaviour
             TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().ShowAdjacentTerritories();
         }
     }
-
     public void SendWarriors(TerritoryHandler selected, TerritoryHandler otherTerritory, int _warriorsNumber)
     {
 
@@ -273,7 +280,6 @@ public class InGameMenuHandler : MonoBehaviour
 
 
     }
-
     public void ActivateContextMenu(TerritoryHandler territoryToAttack, bool canAttack, bool isWar, Vector3 mousePosition)
     {
         TurnOnBlock();
@@ -320,15 +326,14 @@ public class InGameMenuHandler : MonoBehaviour
         ImproveBarracks(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
         UpdateMenu();
     }
-
     private void ImproveSpeedPopulation(TerritoryHandler territoryHandler)
     {
         if (goldPlayer >= territoryHandler.territoryStats.territory.CostPopulation)
         {
             territoryHandler.ImproveSpeedPopulation();
             goldPlayer -= territoryHandler.territoryStats.territory.CostPopulation;
-            ShowFloatingText("+0.3 velocity population", "TextMesh", territoryHandler.transform);
-            ShowFloatingText("-"+ territoryHandler.territoryStats.territory.CostPopulation.ToString(), "TextFloating", goldAnimation);
+            ShowFloatingText("+0.3 velocity population", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
+            ShowFloatingText("-"+ territoryHandler.territoryStats.territory.CostPopulation.ToString(), "TextFloating", goldAnimation, Color.white);
             territoryHandler.territoryStats.territory.CostPopulation += 10;
         }
         
@@ -339,8 +344,8 @@ public class InGameMenuHandler : MonoBehaviour
         {
             territoryHandler.ImproveLimit();
             foodPlayer -= territoryHandler.territoryStats.territory.CostFood;
-            ShowFloatingText("+20 limit", "TextMesh", territoryHandler.transform);
-            ShowFloatingText("-" + territoryHandler.territoryStats.territory.CostFood.ToString(), "TextFloating", foodAnimation);
+            ShowFloatingText("+20 limit", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
+            ShowFloatingText("-" + territoryHandler.territoryStats.territory.CostFood.ToString(), "TextFloating", foodAnimation, Color.white);
             territoryHandler.territoryStats.territory.CostFood += 10;
         }
     }
@@ -350,12 +355,11 @@ public class InGameMenuHandler : MonoBehaviour
         {
             ImproveTerritory(territoryHandler, 0);
             goldPlayer -= territoryHandler.territoryStats.territory.GoldMineTerritory.CostToUpgrade;
-            ShowFloatingText("+1 gold mine level", "TextMesh", territoryHandler.transform);
-            ShowFloatingText("-" + territoryHandler.territoryStats.territory.GoldMineTerritory.CostToUpgrade.ToString(), "TextFloating", goldAnimation);
+            ShowFloatingText("+1 gold mine level", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
+            ShowFloatingText("-" + territoryHandler.territoryStats.territory.GoldMineTerritory.CostToUpgrade.ToString(), "TextFloating", goldAnimation, Color.white);
             territoryHandler.territoryStats.territory.GoldMineTerritory.CostToUpgrade += 3;
         }
     }
-
     private void ImproveSacredPlace(TerritoryHandler territoryHandler)
     {
         if (goldPlayer >= territoryHandler.territoryStats.territory.SacredPlaceTerritory.CostToUpgrade)
@@ -363,12 +367,11 @@ public class InGameMenuHandler : MonoBehaviour
             //   territoryHandler.ImproveTerritory(countdownImages, buttons, 1);
             ImproveTerritory(territoryHandler, 1);
             goldPlayer -= territoryHandler.territoryStats.territory.SacredPlaceTerritory.CostToUpgrade;
-            ShowFloatingText("+1 sacredPlace level", "TextMesh", territoryHandler.transform);
-            ShowFloatingText("-" + territoryHandler.territoryStats.territory.SacredPlaceTerritory.CostToUpgrade.ToString(), "TextFloating", goldAnimation);
+            ShowFloatingText("+1 sacredPlace level", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
+            ShowFloatingText("-" + territoryHandler.territoryStats.territory.SacredPlaceTerritory.CostToUpgrade.ToString(), "TextFloating", goldAnimation, Color.white);
             territoryHandler.territoryStats.territory.SacredPlaceTerritory.CostToUpgrade += 3;
         }
     }
-
     private void ImproveFortress(TerritoryHandler territoryHandler)
     {
         if (goldPlayer >= territoryHandler.territoryStats.territory.FortressTerritory.CostToUpgrade)
@@ -376,12 +379,11 @@ public class InGameMenuHandler : MonoBehaviour
             // territoryHandler.ImproveTerritory(countdownImages, buttons, 2);
             ImproveTerritory(territoryHandler, 2);
             goldPlayer -= territoryHandler.territoryStats.territory.FortressTerritory.CostToUpgrade;
-            ShowFloatingText("+1 fortress level", "TextMesh", territoryHandler.transform);
-            ShowFloatingText("-" + territoryHandler.territoryStats.territory.FortressTerritory.CostToUpgrade.ToString(), "TextFloating", goldAnimation);
+            ShowFloatingText("+1 fortress level", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
+            ShowFloatingText("-" + territoryHandler.territoryStats.territory.FortressTerritory.CostToUpgrade.ToString(), "TextFloating", goldAnimation, Color.white);
             territoryHandler.territoryStats.territory.FortressTerritory.CostToUpgrade += 3;
         }
     }
-
     private void ImproveBarracks(TerritoryHandler territoryHandler)
     {
         if (goldPlayer >= territoryHandler.territoryStats.territory.BarracksTerritory.CostToUpgrade)
@@ -389,8 +391,8 @@ public class InGameMenuHandler : MonoBehaviour
             //territoryHandler.ImproveTerritory(countdownImages, buttons, 3);
             ImproveTerritory(territoryHandler, 3);
             goldPlayer -= territoryHandler.territoryStats.territory.BarracksTerritory.CostToUpgrade;
-            ShowFloatingText("+1 barracks level", "TextMesh", territoryHandler.transform);
-            ShowFloatingText("-" + territoryHandler.territoryStats.territory.BarracksTerritory.CostToUpgrade.ToString(), "TextFloating", goldAnimation);
+            ShowFloatingText("+1 barracks level", "TextMesh", territoryHandler.transform, new Color32(0,19,152,255));
+            ShowFloatingText("-" + territoryHandler.territoryStats.territory.BarracksTerritory.CostToUpgrade.ToString(), "TextFloating", goldAnimation,Color.white);
             territoryHandler.territoryStats.territory.BarracksTerritory.CostToUpgrade += 3;
         }
     }
@@ -425,24 +427,37 @@ public class InGameMenuHandler : MonoBehaviour
         territoryHandler.GatherTerritoryFood();
         return gatherFood;
     }
-    void ShowFloatingText(string text,string namePrefab,Transform _t)
+
+
+    public void ShowFloatingText(string text,string namePrefab,Transform _t, Color32 color)
     {
         GameObject prefab = Resources.Load("Prefabs/MenuPrefabs/"+namePrefab) as GameObject;
+        
         GameObject go= null;
         if (namePrefab == "TextFloating")
         {
             go = Instantiate(prefab, FindObjectOfType<Canvas>().transform);
             go.transform.SetParent(_t.transform);
             go.GetComponent<Text>().text = text;
-        }else if (namePrefab == "TextMesh")
+            go.GetComponent<Text>().color = color;
+        }
+        else if (namePrefab == "TextMesh")
         {
             go = Instantiate(prefab);
             go.transform.SetParent(GameObject.Find("StatsContainer").transform, false);
             go.transform.GetComponentInChildren<Text>().text = text;
+            go.transform.GetComponentInChildren<Text>().color = color;
+            listFloatingText.Add(go);
         }
         go.transform.position = _t.position;
-        Destroy(go, 1.2f);
+        StartCoroutine(ResetGameObjects(go));
         Resources.UnloadUnusedAssets();
+    }
+    IEnumerator ResetGameObjects(GameObject go)
+    {
+        yield return new WaitForSeconds(1.2f);
+        Destroy(go);
+        listFloatingText.Clear();
     }
     public void GatherGoldResourceButton()
     {
@@ -451,7 +466,7 @@ public class InGameMenuHandler : MonoBehaviour
         {
             temp+= GatherGold(TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER)[i]);
         }
-        ShowFloatingText("+"+ temp.ToString(), "TextFloating",goldAnimation);
+        ShowFloatingText("+"+ temp.ToString(), "TextFloating",goldAnimation, Color.white);
         goldPlayer += temp;
     }
     public void GatherFoodResourceButton()
@@ -461,7 +476,7 @@ public class InGameMenuHandler : MonoBehaviour
         {
             temp += GatherFood(TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER)[i]);
         }
-        ShowFloatingText("+" + temp.ToString(), "TextFloating",foodAnimation);
+        ShowFloatingText("+" + temp.ToString(), "TextFloating",foodAnimation,Color.white);
         foodPlayer += temp;
         
     }
@@ -473,7 +488,6 @@ public class InGameMenuHandler : MonoBehaviour
     {
         overMenuBlock.SetActive(true);
     }
-
     public void OpenCurrentCaseMenu(TerritoryHandler territoryHandler)
     {
         CurrentCaseMenu.SetActive(true);
@@ -532,28 +546,28 @@ public class InGameMenuHandler : MonoBehaviour
     }
     void Start()
     {
-      //  InstantiateEventOption();
         AcceptEventButton.onClick.AddListener(() => AcceptCustomEventButton());
         DeclineEventButton.onClick.AddListener(() => DeclineCustomEventButton());
         CloseEventButton.onClick.AddListener(() => CloseCustomEventButton());
         UpdateMenu();
     }
-    private CustomEvent currentCustomEvent;
-    public void CustomEventAppearance(CustomEvent custom)
+
+    public void FinishCustomEventAppearance(CustomEvent custom)
     {
         InitCustomEvent(custom);
-        AcceptEventButton.gameObject.SetActive(true);
-        DeclineEventButton.gameObject.SetActive(true);
-        DetailsTextCustomEvent.text += custom.MessageEventA + custom.ElementEvent;
-        //print(custom.MessageEvent);
+        AcceptEventButton.gameObject.SetActive(false);
+        DeclineEventButton.gameObject.SetActive(false);
+        TitleTextCustomEvent.text = "End Event";
+        //DetailsTextCustomEvent.text += custom.MessageEventA + custom.ElementEvent;
+        DetailsTextCustomEvent.text = "You were unable to complete the requirements of the " + custom.TerritoryEvent.name+" territory petition.";
+        custom.DeclineEventAction();
     }
     
     public void WarningEventAppearance(CustomEvent custom, int daysToFinal)
     {
         InitCustomEvent(custom);
         CloseEventButton.gameObject.SetActive(true);
-        //DetailsTextCustomEvent.text += "In " + custom.DaysToFinal + " days, "+ custom.MessageEventB + custom.ElementEvent;
-        DetailsTextCustomEvent.text += "In " + daysToFinal + " days, " + custom.MessageEventB + custom.ElementEvent;
+        DetailsTextCustomEvent.text += custom.MessageEvent + daysToFinal + " days left";
 
     }
     public void InitCustomEvent(CustomEvent custom)
@@ -562,7 +576,7 @@ public class InGameMenuHandler : MonoBehaviour
         PauseGame();
         ResetTextCustomEvent();
         currentCustomEvent = custom;
-        DetailsTextCustomEvent.text = "The people of " + custom.TerritoryEvent.name + " territory give you a message:\n";
+        //DetailsTextCustomEvent.text = "The people of " + custom.TerritoryEvent.name + " territory give you a message:\n";
         AcceptTextCustomEvent.text += "If you accept: \n " + custom.AcceptMessageEvent;
         DeclineTextCustomEvent.text += "If you decline: \n " + custom.DeclineMessageEvent;
     }
@@ -582,13 +596,14 @@ public class InGameMenuHandler : MonoBehaviour
     {
         CustomEventSelection.gameObject.SetActive(false);
         ResetTextCustomEvent();
+        InstantiateEventListOption(TimeSystem.instance.listEvents);
         ResumeGame();
     }
     private void ResetTextCustomEvent()
     {
-        CloseEventButton.gameObject.SetActive(false);
-        AcceptEventButton.gameObject.SetActive(false);
-        DeclineEventButton.gameObject.SetActive(false);
+        AcceptEventButton.gameObject.SetActive(true);
+        DeclineEventButton.gameObject.SetActive(true);
+        CloseEventButton.gameObject.SetActive(true);
         DetailsTextCustomEvent.text = " ";
         AcceptTextCustomEvent.text = " ";
         DeclineTextCustomEvent.text = " ";

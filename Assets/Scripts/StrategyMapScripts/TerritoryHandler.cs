@@ -55,7 +55,7 @@ public class TerritoryHandler : MonoBehaviour
         statsGO = Instantiate(Resources.Load("Prefabs/MenuPrefabs/TerritoryStats")) as GameObject;
 
         statsGO.transform.SetParent(GameObject.Find("StatsContainer").transform,false);
-        print(canvas.GetComponent<Canvas>().scaleFactor);
+//        print(canvas.GetComponent<Canvas>().scaleFactor);
         statsGO.GetComponent<RectTransform>().anchoredPosition =  new Vector3(transform.position.x*110+paddingX, transform.position.y*110+paddingY,transform.position.z);
 
         territoryStats = statsGO.GetComponent<TerritoryStats>();
@@ -143,7 +143,20 @@ public class TerritoryHandler : MonoBehaviour
                 break;
             case 1:
                 //print("moving");
-                InGameMenuHandler.instance.SendWarriors(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>(), this, InGameMenuHandler.instance.warriorsNumber);
+                Territory.TYPEPLAYER typeSelected = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory.TypePlayer;
+                if (InGameMenuHandler.instance.GoldPlayer >= 10 || territoryStats.territory.TypePlayer == typeSelected)
+                {
+                    if (territoryStats.territory.TypePlayer != typeSelected)
+                    {
+                        InGameMenuHandler.instance.GoldPlayer -= 10;
+                    }
+                    InGameMenuHandler.instance.SendWarriors(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>(), this, InGameMenuHandler.instance.warriorsNumber);
+                }
+                else
+                {
+                    //print("no tiene suficiente oro");
+                    InGameMenuHandler.instance.ShowFloatingText("you need 10 golds", "TextMesh", transform, new Color32(187, 27, 128, 255));
+                }
                 HideAdjacentTerritories();
                 break;
             case 2:

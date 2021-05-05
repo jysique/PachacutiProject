@@ -7,7 +7,10 @@ public class GlobalVariables : MonoBehaviour
     public static GlobalVariables instance { get; private set; }
     private Governor governorChoosen;
     private string chapterTxt;
-    private int velocityGame = 1;
+    private int velocityGame = 2;
+    // 0 = slow
+    // 1 = normal
+    // 2 = fast
     private int dificultyGame = 0;
     public int VelocityGame
     {
@@ -60,14 +63,17 @@ public class GlobalVariables : MonoBehaviour
     }
     private float DefinedVelocityMoving()
     {
-        return velocityGame == 0 ? 1.4f : velocityGame == 1 ? 1f : 0.6f;
+        return 0.3f;
+        //return velocityGame == 0 ? 1.4f : velocityGame == 1 ? 1f : 0.6f;
     }
     private int DefinedMaxTimeCount()
     {
-        return velocityGame == 0 ? 2 : velocityGame == 1 ? 6 : 10;
+        return 12;
+       // return velocityGame == 0 ? 2 : velocityGame == 1 ? 6 : 10;
     }
     private int DefinedTimeScale()
     {
-        return velocityGame == 0 ? 18 : velocityGame == 1 ? 8 : 4;
+        return 4;
+        //return velocityGame == 0 ? 18 : velocityGame == 1 ? 8 : 4;
     }
 }

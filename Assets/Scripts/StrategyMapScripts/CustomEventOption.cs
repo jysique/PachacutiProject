@@ -10,8 +10,9 @@ public class CustomEventOption : MonoBehaviour
     [SerializeField] Text typeEventTxt;
     [SerializeField] Text initTxt;
     [SerializeField] Text finishTxt;
-    [SerializeField] Image Estado;
+    [SerializeField] Image estado;
     private Button btn;
+    int diferenceDays;
     public CustomEvent Custom
     {
         get { return custom; }
@@ -27,11 +28,17 @@ public class CustomEventOption : MonoBehaviour
         finishTxt.text = custom.TimeFinalEvent.PrintTimeSimulated();
 
     }
+    private void Update()
+    {
+        diferenceDays = custom.TimeFinalEvent.DiferenceDays(TimeSystem.instance.TimeGame);
+        if (custom.StatusEvent == CustomEvent.STATUS.FINISH)
+        {
+            estado.color = new Color32(193, 39, 4,255);
+            TimeSystem.instance.listEvents.RemoveEvent(custom);
+        }
+    }
     void CustomEventApear()
     {
-        if (!custom.TimeFinalEvent.EqualsDate(custom.TimeInitEvent))
-        {
-            InGameMenuHandler.instance.WarningEventAppearance(custom, TimeSystem.instance.DiferenceDays);
-        }
+        InGameMenuHandler.instance.WarningEventAppearance(custom, diferenceDays);
     }
 }
