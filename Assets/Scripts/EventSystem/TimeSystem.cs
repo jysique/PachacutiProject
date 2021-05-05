@@ -2,32 +2,28 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+
 public class TimeSystem : MonoBehaviour
 {
     public static TimeSystem instance;
-    private int TIMESCALE; 
+    private int TIMESCALE;
     private TimeSimulated timeGame;
     private TimeSimulated timeGather;
-    private TimeSimulated timeEvent;
-    private TimeSimulated timeFinalEvent;
+    private TimeSimulated timeAddEvent;
     public CustomEventList listEvents;
     int indexListEvent = 0;
-    int diferenceDays = 0;
     [SerializeField] private Text dayText;
     [SerializeField] private Text monthText;
     [SerializeField] private Text seasonText;
     [SerializeField] private Text yearText;
     [SerializeField] private Text weekText;
-    public TimeSimulated TimeGame { 
+    public TimeSimulated TimeGame
+    {
         get { return timeGame; }
     }
     public int IndexListEvent
     {
         get { return indexListEvent; }
-    }
-    public int DiferenceDays
-    {
-        get { return diferenceDays; }
     }
     private void Awake()
     {
@@ -35,7 +31,7 @@ public class TimeSystem : MonoBehaviour
     }
     void Start()
     {
-        timeGame = new TimeSimulated(21, 12, 1399);
+        timeGame = new TimeSimulated(29, 12, 1399);
         //timeGame = new TimeSimulated(1, 1, 1399);
         TIMESCALE = 6;
         if (GlobalVariables.instance != null)
@@ -51,58 +47,55 @@ public class TimeSystem : MonoBehaviour
     {
         PlusDaysToTimeGather(3);
         listEvents = new CustomEventList();
-        PlusDaysToTimeInitEvent(10);
+        int rDaysToInitEvent = Random.Range(15,25);
+        PlusDaysToAddEvent(rDaysToInitEvent);
     }
     void InitializeGameEvents()
     {
         GameEvents.instance.onGatherGoldTriggerEnter += onGatherGold;
         GameEvents.instance.onGatherFoodTriggerEnter += onGatherFood;
-        GameEvents.instance.onCustomEventEnter += onCustomEvent;
-        GameEvents.instance.onCustomWarningEventEnter += onWarningEvent;
         GameEvents.instance.onCustomEventExit += onGatherExit;
     }
     private void TextCallFunction()
     {
-        if(timeGame.day <= 9)
+        if (timeGame.Day <= 9)
         {
-            dayText.text = "0" + timeGame.day.ToString();
+            dayText.text = "0" + timeGame.Day.ToString();
         }
         else
         {
-            dayText.text = timeGame.day.ToString();
+            dayText.text = timeGame.Day.ToString();
         }
-        if (timeGame.month <= 9)
+        if (timeGame.Month <= 9)
         {
-            monthText.text = "0" + timeGame.month.ToString();
+            monthText.text = "0" + timeGame.Month.ToString();
         }
         else
         {
-            monthText.text = timeGame.month.ToString();
+            monthText.text = timeGame.Month.ToString();
         }
-        weekText.text = timeGame.week.ToString();
-        yearText.text = timeGame.year.ToString();
-        seasonText.text = timeGame.season;
+        weekText.text = timeGame.Week.ToString();
+        yearText.text = timeGame.Year.ToString();
+        seasonText.text = timeGame.Season;
     }
     public void CalculateTime(TimeSimulated _time)
     {
         _time.CalculateSeason();
-        if(_time.hour < 20)
+        if (_time.Hour < 20)
         {
-            _time.hour += Time.deltaTime * TIMESCALE;
+            _time.Hour += Time.deltaTime * TIMESCALE;
         }
         else
         {
             _time.CalculateDay();
-            _time.hour = 0;
+            _time.Hour = 0;
         }
         _time.CalculateWeeks();
-        if (_time.day >= 30)
+        if (_time.Day > 30)
         {
-            double a = _time.day- 30;
             _time.CalculateMonth();
-            _time.day += a;
         }
-        if (_time.month > 12)
+        if (_time.Month > 12)
         {
             _time.CalculateYear();
         }
@@ -113,43 +106,21 @@ public class TimeSystem : MonoBehaviour
         TextCallFunction();
         GatherResourceInTime();
         CustomEventInTime();
-        diferenceDays = timeFinalEvent.DiferenceDays(TimeGame);
     }
 
     void PlusDaysToTimeGather(int daysToPlus)
     {
-        timeGather = new TimeSimulated(timeGame.day,timeGame.month,timeGame.year);
+        timeGather = new TimeSimulated(timeGame.Day, timeGame.Month, timeGame.Year);
         timeGather.PlusDays(daysToPlus);
         CalculateTime(timeGather);
     }
-    /// <summary>
-    /// Add days to initiate event 
-    /// probTypeEvent:variable to get a type of event(with days or non)
-    /// rDays : variable to get the days diference of events with days diference
-    /// </summary>
-    /// <param name="daysToPlus"></param>
-    void PlusDaysToTimeInitEvent(int daysToPlus)
+    void PlusDaysToAddEvent(int daysToFinishEvent)
     {
-        timeEvent = new TimeSimulated(timeGame.day, timeGame.month, timeGame.year);
-        timeEvent.PlusDays(daysToPlus);
-        CalculateTime(timeEvent);
-        int probTypeEvent = Random.Range(0, 10);
-        int rDays = Random.Range(6, 12);
-        //int rDays = 3;
-        if (probTypeEvent >= 5)
-        {
-            timeFinalEvent = new TimeSimulated(timeEvent.day, timeEvent.month, timeEvent.year);
-            timeFinalEvent.PlusDays(rDays);
-            CalculateTime(timeFinalEvent);
-        }
-        else
-        {
-            timeFinalEvent = timeEvent;
-        }
-        //print(timeFinalEvent.PrintTimeSimulated());
-        listEvents.AddCustomEvent(timeEvent,timeFinalEvent);
-
-        //listEvents.PrintList();
+        timeAddEvent = new TimeSimulated(timeGame.Day, timeGame.Month, timeGame.Year);
+        // every 5 days add new event
+        timeAddEvent.PlusDays(5);
+     //   Debug.LogWarning("Time to add new event: " + timeAddEvent.PrintTimeSimulated());
+        listEvents.AddCustomEvent(timeAddEvent, daysToFinishEvent);
     }
 
     private void GatherResourceInTime()
@@ -167,32 +138,33 @@ public class TimeSystem : MonoBehaviour
     }
     private void CustomEventInTime()
     {
-        if (timeGame.EqualsDate(timeEvent))
+        if (timeGame.EqualsDate(timeAddEvent))
         {
-            InGameMenuHandler.instance.InstantiateEventOption();
-            if (timeGame.EqualsDate(listEvents.CustomEvents[indexListEvent].TimeFinalEvent))
-            {
-                int randomDays = Random.Range(6, 12);
-                if (listEvents.CustomEvents[indexListEvent].TerritoryEvent.TypePlayer != Territory.TYPEPLAYER.PLAYER)
-                {
-                    PlusDaysToTimeInitEvent(randomDays);
-                    indexListEvent++;
-                }
-                else
-                {
-                    GameEvents.instance.CustomEventEnter();
-                    PlusDaysToTimeInitEvent(randomDays);
-                }
-
-            }
-            else
-            {
-                GameEvents.instance.CustomWarningEventEnter();
-            }
+            int rDays = Random.Range(15, 25);
+            PlusDaysToAddEvent(rDays);
         }
         else
         {
             GameEvents.instance.CustomEventExit();
+        }
+
+        for (int i = 0; i < listEvents.CustomEvents.Count; i++)
+        {
+            if (listEvents.CustomEvents[i].StatusEvent == CustomEvent.STATUS.ANNOUNCE)
+            {
+                if (timeGame.EqualsDate(listEvents.CustomEvents[i].TimeInitEvent))
+                {
+                    listEvents.CustomEvents[i].StatusEvent = CustomEvent.STATUS.PROGRESS;
+                    WarningCustomEvent(i);
+
+                }
+            }
+
+            else if (timeGame.EqualsDate(listEvents.CustomEvents[i].TimeFinalEvent) && listEvents.CustomEvents[i].StatusEvent == CustomEvent.STATUS.PROGRESS)
+            {
+                listEvents.CustomEvents[i].StatusEvent = CustomEvent.STATUS.FINISH;
+                FinishCustomEvent(i);
+            }
         }
     }
     private void onGatherExit()
@@ -206,21 +178,16 @@ public class TimeSystem : MonoBehaviour
     {
         InGameMenuHandler.instance.GatherFoodResourceButton();
     }
-    private void onCustomEvent()
+    private void FinishCustomEvent(int id)
     {
-      //  List<TerritoryHandler> list = TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER);
-      //  int r = Random.Range(0, list.Count);
-      //  listEvents.CustomEvents[indexListEvent].TerritoryEvent = list[r].territoryStats.territory.name;
-        InGameMenuHandler.instance.CustomEventAppearance(listEvents.CustomEvents[indexListEvent]);
-        indexListEvent++;
+        InGameMenuHandler.instance.FinishCustomEventAppearance(listEvents.CustomEvents[id]);
+
+
+    }
+    private void WarningCustomEvent(int id)
+    {
+        InGameMenuHandler.instance.InstantiateEventListOption(listEvents);
+        InGameMenuHandler.instance.WarningEventAppearance(listEvents.CustomEvents[id], listEvents.CustomEvents[id].DifferenceToFinal);
     }
 
-    private void onWarningEvent()
-    {
-        //  List<TerritoryHandler> list = TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER);
-        //  int r = Random.Range(0, list.Count);
-        //  listEvents.CustomEvents[indexListEvent].TerritoryEvent = list[r].territoryStats.territory.name;
-        InGameMenuHandler.instance.WarningEventAppearance(listEvents.CustomEvents[indexListEvent],diferenceDays);
-        timeEvent = listEvents.CustomEvents[indexListEvent].TimeFinalEvent;
-    }
 }

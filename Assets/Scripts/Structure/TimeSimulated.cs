@@ -1,12 +1,43 @@
 using UnityEngine;
+[System.Serializable]
 public class TimeSimulated
 {
-    public double hour;
-    public double day;
-    public double week;
-    public double month;
-    public double year;
-    public string season;
+    [SerializeField] private double day;
+    [SerializeField] private double month;
+    [SerializeField] private double year;
+    private double hour;
+    private double week;
+    private string season;
+    public double Hour
+    {
+        get { return hour; }
+        set { hour = value; }
+    }
+    public double Day
+    {
+        get { return day; }
+        set { day = value; }
+    }
+    public double Week
+    {
+        get { return week; }
+        set { week = value; }
+    }
+    public double Month
+    {
+        get { return month; }
+        set { month = value; }
+    }
+    public double Year
+    {
+        get { return year; }
+        set { year = value; }
+    }
+    public string Season
+    {
+        get { return season; }
+        set { season = value; }
+    }
     public TimeSimulated()
     {
 
@@ -67,16 +98,29 @@ public class TimeSimulated
     public void PlusDays(int plus)
     {
         day += plus;
+        if (this.day > 30)
+        {
+            int a = (int)this.day / 30;
+            month += a;
+            this.day = (int)this.day % 30; 
+        }
+        if (this.month > 12)
+        {
+            int b = (int)this.month - 12;
+            this.month = b;
+            year++;
+        }
     }
     public bool EqualsDate(TimeSimulated time2)
     {
         return this.day == time2.day && this.month == time2.month && this.year == time2.year;
     }
+
     public int DiferenceDays(TimeSimulated time2)
     {
         int difDays = 0;
         int difMonth = 0;
-        int difYear = 0;
+        //int difYear = 0;
         if (this.month > time2.month)
         {
             difMonth = (int)(this.month - time2.month);

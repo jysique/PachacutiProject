@@ -24,16 +24,6 @@ public class GameEvents : MonoBehaviour
             onGatherGoldTriggerEnter();
         }
     }
-    /*
-    public event Action onGatherGoldTriggerExit;
-    public void GatherGoldTriggerExit()
-    {
-        if (onGatherGoldTriggerExit != null)
-        {
-            onGatherGoldTriggerExit();
-        }
-    }
-    */
     // ====RECOLECCION DE COMIDA ====
     public event Action onGatherFoodTriggerEnter;
     public void GatherFoodTriggerEnter()
@@ -43,16 +33,6 @@ public class GameEvents : MonoBehaviour
             onGatherFoodTriggerEnter();
         }
     }
-    /*
-    public event Action onGatherFoodTriggerExit;
-    public void GatherFoodTriggerExit()
-    {
-        if (onGatherFoodTriggerExit != null)
-        {
-            onGatherFoodTriggerExit();
-        }
-    }
-    */
     // ==== EVENTO PERSONALIZADO ====
     public event Action onCustomEventEnter;
     public void CustomEventEnter()

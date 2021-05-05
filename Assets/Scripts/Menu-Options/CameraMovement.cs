@@ -24,6 +24,10 @@ public class CameraMovement : MonoBehaviour
             {
                 i.GetComponent<TerritoryHandler>().territoryStats.container.transform.position -= difference;
             }
+            foreach (GameObject i in InGameMenuHandler.instance.listFloatingText)
+            {
+                i.GetComponent<Transform>().transform.position -= difference;
+            }
         }
 
     }

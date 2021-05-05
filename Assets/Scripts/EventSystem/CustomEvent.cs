@@ -6,34 +6,36 @@ using System.Collections.Generic;
 public class CustomEvent
 {
     [SerializeField] private string eventtype;
-    [SerializeField] private string messaggeA;
-    [SerializeField] private string messaggeB;
-    //[SerializeField] private string territoryEvent;
-    [SerializeField] private Territory territoryEvent;
-    [SerializeField] private string element;
-    [SerializeField] private int acceptCostEvent;
-    [SerializeField] private int declineCostEvent;
-    [SerializeField] private string acceptMessageEvent;
-    [SerializeField] private string declineMessageEvent;
-    [SerializeField] private TimeSimulated timeInit;
-    [SerializeField] private TimeSimulated timeFinal;
- //   private int daysToFinal;
-    private bool acceptEventBool = false;
-    
+    private string messagge;
+    //private string messaggeB;
+    private Territory territoryEvent;
+    private string element;
+    private int acceptCostEvent;
+    private int declineCostEvent;
+    private string acceptMessageEvent;
+    private string declineMessageEvent;
+    [SerializeField]private TimeSimulated timeInit;
+    [SerializeField]private TimeSimulated timeFinal;
+    //private bool acceptEventBool = false;
+    public STATUS statusEvent;
+    public STATUS StatusEvent {
+        get { return statusEvent; }
+        set { statusEvent = value; }
+    }
+
+    public int DifferenceToFinal
+    {
+        get {return timeFinal.DiferenceDays(timeInit); }
+    }
     public string EventType
     {
         get { return eventtype; }
         set { eventtype = value; }
     }
-    public string MessageEventA //sin tiempo
+    public string MessageEvent //sin tiempo
     {
-        get { return messaggeA; }
-        set { messaggeA = value; }
-    }
-    public string MessageEventB //con tiempo
-    {
-        get { return messaggeB; }
-        set { messaggeB = value; }
+        get { return messagge; }
+        set { messagge = value; }
     }
     public Territory TerritoryEvent
     {
@@ -65,19 +67,6 @@ public class CustomEvent
         get { return timeFinal; }
         set { timeFinal = value; }
     }
-    /*
-    public int DaysToFinal
-    {
-        get { return daysToFinal; }
-        set { daysToFinal = value; }
-    }
-    */
-    public bool AcceptEventBool
-    {
-        get { return acceptEventBool; }
-        set { acceptEventBool = value; }
-    }
-
     public void PrintEvent(int i)
     {
         Debug.Log(i + " eventType - " + EventType.ToString());
@@ -85,144 +74,120 @@ public class CustomEvent
         Debug.Log(i + " init time- " + TimeInitEvent.PrintTimeSimulated());
         Debug.Log(i + " final time- " + TimeFinalEvent.PrintTimeSimulated());
     }
-    public void GetCustomEvent(TimeSimulated _initTime, TimeSimulated _finalTime)
-    //public void GetCustomEvent(TimeSimulated _initTime, TimeSimulated _finalTime, int _days)
+
+    public void GetCustomEvent(TimeSimulated _initTime,int days)
     {
-        this.timeInit = _initTime;
-        this.timeFinal = _finalTime;
-     //   this.daysToFinal = _days;
-        this.acceptEventBool = false;
-        EVENTTYPE _t = (EVENTTYPE)UnityEngine.Random.Range(0, 8);
+
+        this.timeInit = new TimeSimulated(_initTime.Day, _initTime.Month, _initTime.Year);
+        timeInit.PlusDays(days);
+
+        this.timeFinal = new TimeSimulated(timeInit.Day, timeInit.Month, timeInit.Year);
+        int r = UnityEngine.Random.Range(10, 15);
+        timeFinal.PlusDays(days);
+
+        EVENTTYPE _t = (EVENTTYPE)UnityEngine.Random.Range(0, 5);
         this.eventtype = _t.ToString();
-        this.acceptCostEvent = UnityEngine.Random.Range(3, InGameMenuHandler.instance.GoldPlayer /2);
+        this.statusEvent = STATUS.ANNOUNCE;
+        this.acceptCostEvent = UnityEngine.Random.Range(3, InGameMenuHandler.instance.GoldPlayer / 2);
         this.declineCostEvent = UnityEngine.Random.Range(3, InGameMenuHandler.instance.GoldPlayer / 2);
         GetMessage();
+    }
+    public enum EVENTTYPE
+    {
+        REBELION,
+        EVENT_PANDEMIC,
+        EVENT_PANDEMIC2,
+        EVENT_PLAGUE,
+        EVENT_PLAGUE2,
+        PETITION_MIN,
+        PETITION_FOR,
+        GRACE_DIV,
+        GRACE_MIN,
+        GRACE_FOOD
+    }
+    public enum STATUS
+    {
+        ANNOUNCE, // creado
+        PROGRESS, // entre init time y finish time
+        FINISH //finishTime
     }
     public void GetMessage()
     {
         string option = this.eventtype.ToString();
         switch (option)
         {
-            case string a when a.Contains("REBELION"):
-                this.messaggeA = "We rebel against you. ";
-                this.messaggeB = "this territory will rebel against you.";
+            case "REBELION":
+                this.messagge = "In "+ territoryEvent.name+ " territory they plan to rebel against you in <DAYS> days, if you do not complete the following requirements, we will lose this territory. ";
                 this.acceptMessageEvent = "-" + acceptCostEvent + " gold";
                 this.declineMessageEvent = "-1 territorio";
                 break;
-            case string a when a.Contains("PETITION"):
-                this.messaggeA = "We want to request you";
-                this.messaggeB = "this territory want to request you";
-                switch (option)
-                {
-                    case string b when b.Contains("MIN"):
-                        this.element += " to improve the gold mine.";
-                        this.acceptMessageEvent = "-" + acceptCostEvent + " gold " + "\n +2 gold mine level";
-                        this.declineMessageEvent = "Nothing";
-                        break;
-                    case string b when b.Contains("FOR"):
-                        this.element += " to improve the fortress.";
-                        this.acceptMessageEvent = "-" + acceptCostEvent + " gold " + "\n +2 fortress level";
-                        this.declineMessageEvent = "Nothing";
-                        break;
-                    case string b when b.Contains("FOR"):
-                        this.element += " to improve the fortress.";
-                        this.acceptMessageEvent = "-" + acceptCostEvent + " gold " + "\n +2 fortress level";
-                        this.declineMessageEvent = "Nothing";
-                        break;
-                    default:
-                        break;
-                }
+            case "EVENT_PANDEMIC":
+                this.messagge = "We have found a disease, if we don't do something we will lose half of our men. ";
+                this.acceptMessageEvent = "-" + acceptCostEvent + " gold\n -" + acceptCostEvent + " food";
+                this.declineMessageEvent = "-50% trops in all territories";
                 break;
-            case string a when a.Contains("SUG_MB"):
-                this.messaggeA = "The military chief suggests you change the type of strategy ";
-                this.messaggeB = "the military chief of this territory will suggest changing the type of strategy.";
-                switch (option)
-                {
-                    case string b when b.Contains("1"):
-                        this.element += " to improve more defensive.";
-                        this.acceptMessageEvent = "Strategy type to Defensive \n+3 fortrees levels";
-                        this.declineMessageEvent = "Keep the same strategy";
-                        break;
-                    case string b when b.Contains("2"):
-                        this.element += " to improve more aggresive";
-                        this.acceptMessageEvent = "Strategy type to Aggressive \n+2 barracks levels";
-                        this.declineMessageEvent = "Keep the same strategy";
-                        break;
-                    case string b when b.Contains("3"):
-                        this.element += " to improve the dominance of the terrain.";
-                        this.acceptMessageEvent = "Strategy type to Terrain Master \n +3 speed food";
-                        this.declineMessageEvent = "Keep the same strategy";
-                        break;
-                    default:
-                        break;
-                }
+            case "EVENT_PANDEMIC2":
+                this.messagge = "We have found a disease in "+ territoryEvent.name+ " territory, if we don't do something we will lose half of our men. ";
+                this.acceptMessageEvent = "-" + acceptCostEvent + " gold\n -" + acceptCostEvent + " food";
+                this.declineMessageEvent = "-50% trops in " + territoryEvent.name;
                 break;
-            case string a when a.Contains("GRACE"):
-                this.messaggeA = "We found";
-                this.messaggeB = "this territory are to be found";
-                switch (option)
-                {
-                    case string b when b.Contains("DIV"):
-                        this.element += " an ancient sanctuary to add to our domains.";
-                        this.acceptMessageEvent = "+" + acceptCostEvent + " gold ";
-                        this.declineMessageEvent = "- 10 opinion";
-                        break;
-                    case string b when b.Contains("MIN"):
-                        this.element += " a abandoned mine to add to our domains.";
-                        this.acceptMessageEvent = "+2 gold mine level";
-                        this.declineMessageEvent = "+" + declineCostEvent + " gold scraps";
-                        break;
-                    default:
-                        break;
-                }
+            case "EVENT_PLAGUE":
+                this.messagge = "Our crops may be in danger from the plague. if we don't do something we will lose our food. ";
+                this.acceptMessageEvent = "-" + acceptCostEvent + " gold\n -" + acceptCostEvent + " food";
+                this.declineMessageEvent = "0.2 velocity in all territories";
+                break;
+            case "EVENT_PLAGUE2":
+                this.messagge = "Our crops in "+ territoryEvent.name+ " territory may be in danger from the plague. if we don't do something we will lose the food of that place. ";
+                this.acceptMessageEvent = "-" + acceptCostEvent + " gold\n -" + acceptCostEvent + " food";
+                this.declineMessageEvent = "0.2 velocity in " + territoryEvent.name;
+                break;
+            case "PETITION_MIN":
+                this.messagge = "In "+ territoryEvent.name+ " territory they want to ask you to improve the mine, they are somewhat short of resources. ";
+                this.acceptMessageEvent = "-" + acceptCostEvent + " gold \n+ 2 mine gold level";
+                this.declineMessageEvent = "-10 opinion" ;
+                break;
+            case "PETITION_FOR":
+                this.messagge = "In "+ territoryEvent.name+ " territory they want to ask you to improve your defenses, they are very unprotected. ";
+                this.acceptMessageEvent = "-" + acceptCostEvent + " gold \n+ 2 fortress";
+                this.declineMessageEvent = "-10 opinion";
+                break;
+            case "GRACE_DIV":
+                this.messagge = "A sanctuary has been found in "+ territoryEvent.name+ " territory. To appropriate them to our territories, meet the following requirements. ";
+                this.acceptMessageEvent = "-" + acceptCostEvent + " gold \n+ 2 sacred place level";
+                this.declineMessageEvent = "-10 opinion";
+                break;
+            case "GRACE_MIN":
+                this.messagge = "An abandoned mine has been found in "+ territoryEvent.name+ " territory. To appropriate them to our territories, meet the following requirements. ";
+                this.acceptMessageEvent = "-" + acceptCostEvent + " gold \n+ 3 gold mine level";
+                this.declineMessageEvent = "+" + declineCostEvent + "gold";
+                break;
+            case "GRACE_FOOD":
+                this.messagge = "We want to expand the seeding in "+ territoryEvent.name+ " territory. To run this, meet the following requirements. ";
+                this.acceptMessageEvent = "-" + acceptCostEvent + " gold \n+ 3 vel of food";
+                this.declineMessageEvent = "+" + declineCostEvent + "food";
                 break;
             case null:
                 break;
         }
     }
-    public enum EVENTTYPE
-    {
-        REBELION,
-        // mensaje : nos rebelamos antes ti 
-        // territorioEvent: territorio propio
-        // accept  : -oro
-        // decline : -territorio
-        PETITION_MIN,
-        // mensaje : queremos pedirte mejores la mina
-        // territorioEvent: territorio propio
-        // accept  : -oro +2 velocidad de oro
-        // decline : -opinion
-        PETITION_FOR,
-        // mensaje : queremos pedirte mejores la fortaleza
-        // territorioEvent: territorio propio
-        // accept  : - oro +1 defensa
-        // decline : -opinion
-        SUG_MB1,
-        SUG_MB2,
-        SUG_MB3,
-        GRACE_DIV,
-        // mensaje : encontramos un santuario antiguo
-        // territorioEvent: territorio propio
-        // aceptar : +oro => +fe 
-        // decline : -opinion
-        GRACE_MIN,
-        // mensaje : encontramos una mina abandonada, 
-        // territorioEvent: territorio propio
-        // aceptar : +1 velocidad de mina
-        // decline : +oro
-        GRACE_FOOD
-        // mensaje : encontramos una granja abandonada, 
-        // territorioEvent: territorio propio
-        // aceptar : +1 velocidad de comida
-        // decline : +comida
-    }
     public void AcceptEventAction()
     {
-        acceptEventBool = true;
+        statusEvent = STATUS.FINISH;
+      //  acceptEventBool = true;
         switch (eventtype.ToString())
         {
             case "REBELION":
                 InGameMenuHandler.instance.GoldPlayer -= acceptCostEvent;
+                break;
+            case "EVENT_PANDEMIC":
+//                break;
+            case "EVENT_PANDEMIC2":
+                //break;
+            case "EVENT_PLAGUE":
+                break;
+            case "EVENT_PLAGUE2":
+                InGameMenuHandler.instance.GoldPlayer -= acceptCostEvent;
+                InGameMenuHandler.instance.FoodPlayer -= acceptCostEvent;
                 break;
             case "PETITION_MIN":
                 InGameMenuHandler.instance.GoldPlayer -= acceptCostEvent;
@@ -230,59 +195,58 @@ public class CustomEvent
                 break;
             case "PETITION_FOR":
                 InGameMenuHandler.instance.GoldPlayer -= acceptCostEvent;
-                territoryEvent.FortressTerritory.ImproveBuilding(2);
-                break;
-            case "SUG_MB1":
-                territoryEvent.MilitarBossTerritory.StrategyType = MilitarBoss.TYPESTRAT.DEFENSIVE.ToString();
-                territoryEvent.FortressTerritory.ImproveBuilding(3);
-                break;
-            case "SUG_MB2":
-                territoryEvent.MilitarBossTerritory.StrategyType = MilitarBoss.TYPESTRAT.AGGRESSIVE.ToString();
-                territoryEvent.BarracksTerritory.ImproveBuilding(2);
-                break;
-            case "SUG_MB3":
-                territoryEvent.MilitarBossTerritory.StrategyType = MilitarBoss.TYPESTRAT.TERRAIN_MASTER.ToString();
-                territoryEvent.VelocityFood += 3;
+                territoryEvent.FortressTerritory.ImproveBuilding(1);
                 break;
             case "GRACE_DIV":
-                InGameMenuHandler.instance.GoldPlayer += acceptCostEvent;
+                InGameMenuHandler.instance.GoldPlayer -= acceptCostEvent;
+                territoryEvent.SacredPlaceTerritory.ImproveBuilding(2);
                 break;
             case "GRACE_MIN":
-
-                territoryEvent.GoldMineTerritory.ImproveBuilding(2);
+                InGameMenuHandler.instance.GoldPlayer -= acceptCostEvent;
+                territoryEvent.GoldMineTerritory.ImproveBuilding(3);
                 break;
             case "GRACE_FOOD":
-                territoryEvent.VelocityFood += 2;
+                InGameMenuHandler.instance.GoldPlayer -= acceptCostEvent;
+                territoryEvent.VelocityFood += 3;
                 break;
             default:
                 break;
+
         }
-        /*
-        if (InGameMenuHandler.instance.GoldPlayer < 0)
-        {
-            DeclineEventAction();
-        }
-        */
     }
     public void DeclineEventAction()
     {
+        statusEvent = STATUS.FINISH;
         switch (eventtype.ToString())
         {
             case "REBELION":
                 TerritoryEvent.TypePlayer = Territory.TYPEPLAYER.NONE;
                 break;
+            case "EVENT_PANDEMIC":
+                List<TerritoryHandler> list = TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER);
+                for (int i = 0; i < list.Count; i++)
+                {
+                    list[i].territoryStats.territory.Population /= 2;
+                }
+                break;
+            case "EVENT_PANDEMIC2":
+                territoryEvent.Population /= 2;
+                break;
+            case "EVENT_PLAGUE":
+                List<TerritoryHandler> list2 = TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER);
+                for (int i = 0; i < list2.Count; i++)
+                {
+                    list2[i].territoryStats.territory.VelocityFood = 0;
+                }
+                break;
+            case "EVENT_PLAGUE2":
+                territoryEvent.VelocityFood = 0;
+                break;
             case "PETITION_MIN":
-                //TerritoryEvent.GoldMineTerritory.VelocityGold -= 0.6f;
-                break;
+
+                //break;
             case "PETITION_FOR":
-                //TerritoryEvent.FortressTerritory.PlusDefense -= 0.2f;
-                break;
-            case "SUG_MB1":
-                break;
-            case "SUG_MB2":
-                break;
-            case "SUG_MB3":
-                break;
+               // break;
             case "GRACE_DIV":
                 TerritoryEvent.MotivationPeople -= 10;
                 break;
