@@ -134,12 +134,12 @@ public class CustomEvent
             case "EVENT_PLAGUE":
                 this.messagge = "Our crops may be in danger from the plague. if we don't do something we will lose our food. ";
                 this.acceptMessageEvent = "-" + acceptCostEvent + " gold\n -" + acceptCostEvent + " food";
-                this.declineMessageEvent = "0.2 velocity in all territories";
+                this.declineMessageEvent = "0.2 velocity of food in all territories";
                 break;
             case "EVENT_PLAGUE2":
                 this.messagge = "Our crops in "+ territoryEvent.name+ " territory may be in danger from the plague. if we don't do something we will lose the food of that place. ";
                 this.acceptMessageEvent = "-" + acceptCostEvent + " gold\n -" + acceptCostEvent + " food";
-                this.declineMessageEvent = "0.2 velocity in " + territoryEvent.name;
+                this.declineMessageEvent = "0.2 velocity of food in " + territoryEvent.name;
                 break;
             case "PETITION_MIN":
                 this.messagge = "In "+ territoryEvent.name+ " territory they want to ask you to improve the mine, they are somewhat short of resources. ";

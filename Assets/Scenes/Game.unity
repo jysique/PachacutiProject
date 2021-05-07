@@ -2281,7 +2281,7 @@ MonoBehaviour:
     name: Paucartambo
     tribe: 0
     typePlayer: 5
-    population: 5
+    population: 10
     gold: 0
     food: 0
     limitPopulation: 10
@@ -2919,7 +2919,7 @@ MonoBehaviour:
     name: Urubamba
     tribe: 0
     typePlayer: 5
-    population: 5
+    population: 10
     gold: 0
     food: 0
     limitPopulation: 10
@@ -5622,7 +5622,7 @@ MonoBehaviour:
     name: Quispicanchi
     tribe: 0
     typePlayer: 5
-    population: 5
+    population: 10
     gold: 0
     food: 0
     limitPopulation: 10
@@ -8080,7 +8080,7 @@ MonoBehaviour:
     name: Espinar
     tribe: 0
     typePlayer: 1
-    population: 5
+    population: 10
     gold: 0
     food: 0
     limitPopulation: 10
@@ -10369,7 +10369,7 @@ MonoBehaviour:
     name: LaConvencion
     tribe: 0
     typePlayer: 0
-    population: 5
+    population: 10
     gold: 0
     food: 0
     limitPopulation: 10
@@ -12442,7 +12442,7 @@ MonoBehaviour:
     name: Acomayo
     tribe: 0
     typePlayer: 5
-    population: 5
+    population: 10
     gold: 0
     food: 0
     limitPopulation: 10
@@ -15680,7 +15680,7 @@ MonoBehaviour:
     name: Canchis
     tribe: 0
     typePlayer: 5
-    population: 5
+    population: 10
     gold: 0
     food: 0
     limitPopulation: 10
@@ -17079,7 +17079,7 @@ MonoBehaviour:
     name: Canas
     tribe: 0
     typePlayer: 5
-    population: 5
+    population: 10
     gold: 0
     food: 0
     limitPopulation: 10
@@ -17349,10 +17349,10 @@ RectTransform:
   m_Father: {fileID: 589492774}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.029000001, y: 0.349}
-  m_AnchorMax: {x: 0.818, y: 0.647}
-  m_AnchoredPosition: {x: 21.000008, y: 0.35169983}
-  m_SizeDelta: {x: -41.870003, y: 0.9900017}
+  m_AnchorMin: {x: 0.14, y: 0.15584345}
+  m_AnchorMax: {x: 0.8105882, y: 0.647}
+  m_AnchoredPosition: {x: 7.0000076, y: -4.419998}
+  m_SizeDelta: {x: -9.869999, y: 10.52}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &992625255
 MonoBehaviour:
@@ -17387,7 +17387,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: No es un territorio conquistado
+  m_Text: You cannot manage territories that don't belong to you
 --- !u!222 &992625256
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -24038,7 +24038,7 @@ MonoBehaviour:
     name: Chumbivilcas
     tribe: 0
     typePlayer: 5
-    population: 5
+    population: 10
     gold: 0
     food: 0
     limitPopulation: 10
@@ -25058,7 +25058,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: No es un territorio conquistado
+  m_Text: You cannot manage territories that don't belong to you
 --- !u!222 &1532638423
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -27370,7 +27370,7 @@ MonoBehaviour:
     name: Calca
     tribe: 0
     typePlayer: 5
-    population: 5
+    population: 10
     gold: 0
     food: 0
     limitPopulation: 10
@@ -35140,7 +35140,7 @@ MonoBehaviour:
     name: Qosqo
     tribe: 0
     typePlayer: 5
-    population: 5
+    population: 10
     gold: 0
     food: 0
     limitPopulation: 10
