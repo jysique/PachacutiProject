@@ -563,6 +563,7 @@ public class InGameMenuHandler : MonoBehaviour
         InitCustomEvent(custom);
         AcceptEventButton.gameObject.SetActive(false);
         DeclineEventButton.gameObject.SetActive(false);
+        AcceptTextCustomEvent.gameObject.SetActive(false);
         TitleTextCustomEvent.text = "End Event";
         //DetailsTextCustomEvent.text += custom.MessageEventA + custom.ElementEvent;
         DetailsTextCustomEvent.text = "You were unable to complete the requirements of the " + custom.TerritoryEvent.name+" territory petition.";
@@ -610,6 +611,7 @@ public class InGameMenuHandler : MonoBehaviour
         AcceptEventButton.gameObject.SetActive(true);
         DeclineEventButton.gameObject.SetActive(true);
         CloseEventButton.gameObject.SetActive(true);
+        AcceptTextCustomEvent.gameObject.SetActive(true);
         DetailsTextCustomEvent.text = " ";
         AcceptTextCustomEvent.text = " ";
         DeclineTextCustomEvent.text = " ";

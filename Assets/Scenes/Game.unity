@@ -1068,7 +1068,7 @@ MonoBehaviour:
   territory:
     name: Calca
     tribe: 0
-    typePlayer: 2
+    typePlayer: 5
     population: 10
     gold: 0
     food: 0
@@ -6206,6 +6206,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6aac476b095cae468162c0c33ed4680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  listEvents:
+    CustomEvents: []
   dayText: {fileID: 1390546922}
   monthText: {fileID: 1168412085}
   seasonText: {fileID: 391328020}
@@ -8282,7 +8284,7 @@ MonoBehaviour:
   territory:
     name: Quispicanchi
     tribe: 0
-    typePlayer: 2
+    typePlayer: 5
     population: 10
     gold: 0
     food: 0
@@ -19592,7 +19594,7 @@ MonoBehaviour:
   territory:
     name: Canchis
     tribe: 0
-    typePlayer: 2
+    typePlayer: 1
     population: 10
     gold: 0
     food: 0
@@ -20741,7 +20743,7 @@ MonoBehaviour:
   territory:
     name: Urubamba
     tribe: 0
-    typePlayer: 2
+    typePlayer: 5
     population: 10
     gold: 0
     food: 0
@@ -21660,8 +21662,8 @@ MonoBehaviour:
   territory:
     name: Canas
     tribe: 0
-    typePlayer: 2
-    population: 10
+    typePlayer: 5
+    population: 2
     gold: 0
     food: 0
     limitPopulation: 10
@@ -22204,6 +22206,7 @@ MonoBehaviour:
   foodAnimation: {fileID: 843799206}
   CurrentCaseMenu: {fileID: 422470074}
   CustomEventSelection: {fileID: 951873957}
+  TitleTextCustomEvent: {fileID: 2007089136}
   DetailsTextCustomEvent: {fileID: 719708492}
   AcceptTextCustomEvent: {fileID: 1979334536}
   DeclineTextCustomEvent: {fileID: 375594823}
@@ -24384,7 +24387,7 @@ MonoBehaviour:
   territory:
     name: Qosco
     tribe: 0
-    typePlayer: 2
+    typePlayer: 5
     population: 10
     gold: 0
     food: 0
@@ -25390,7 +25393,7 @@ MonoBehaviour:
   territory:
     name: Espinar
     tribe: 0
-    typePlayer: 1
+    typePlayer: 3
     population: 10
     gold: 0
     food: 0
@@ -27180,8 +27183,8 @@ MonoBehaviour:
   territory:
     name: Acomayo
     tribe: 0
-    typePlayer: 2
-    population: 10
+    typePlayer: 5
+    population: 2
     gold: 0
     food: 0
     limitPopulation: 10
@@ -28127,8 +28130,8 @@ MonoBehaviour:
   territory:
     name: Chumbivilca
     tribe: 0
-    typePlayer: 2
-    population: 10
+    typePlayer: 5
+    population: 2
     gold: 0
     food: 0
     limitPopulation: 10
@@ -30427,7 +30430,7 @@ MonoBehaviour:
   territory:
     name: Paucartambo
     tribe: 0
-    typePlayer: 2
+    typePlayer: 5
     population: 10
     gold: 0
     food: 0

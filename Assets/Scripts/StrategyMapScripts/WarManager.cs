@@ -77,7 +77,7 @@ public class WarManager : MonoBehaviour
         }
         status = t;
     }
-
+    
     private void SetWarMenu()
     {
         foreach (War w in warList)
@@ -102,6 +102,21 @@ public class WarManager : MonoBehaviour
                         empire.text = "Chancas";
                         attackColor.color = new Color(0.973f, 0.576f, 0.57f,1);
                         break;
+                    case Territory.TYPEPLAYER.BOT2:
+                        hatAttacker.sprite = chancaHat;
+                        empire.text = "Papus";
+                        attackColor.color = new Color(0.973f, 0.576f, 0.57f, 1);
+                        break;
+                    case Territory.TYPEPLAYER.BOT3:
+                        hatAttacker.sprite = chancaHat;
+                        empire.text = "Judios";
+                        attackColor.color = new Color(0.973f, 0.576f, 0.57f, 1);
+                        break;
+                    case Territory.TYPEPLAYER.BOT4:
+                        hatAttacker.sprite = chancaHat;
+                        empire.text = "Perros";
+                        attackColor.color = new Color(0.973f, 0.576f, 0.57f, 1);
+                        break;
                 }
                 switch (w.Territory.territoryStats.territory.TypePlayer)
                 {
@@ -118,6 +133,21 @@ public class WarManager : MonoBehaviour
                     case Territory.TYPEPLAYER.BOT:
                         hatDefender.sprite = chancaHat;
                         empireD.text = "Chancas";
+                        deffendColor.color = new Color(248, 147, 146);
+                        break;
+                    case Territory.TYPEPLAYER.BOT2:
+                        hatDefender.sprite = chancaHat;
+                        empireD.text = "Papus";
+                        deffendColor.color = new Color(248, 147, 146);
+                        break;
+                    case Territory.TYPEPLAYER.BOT3:
+                        hatDefender.sprite = chancaHat;
+                        empireD.text = "Judios";
+                        deffendColor.color = new Color(248, 147, 146);
+                        break;
+                    case Territory.TYPEPLAYER.BOT4:
+                        hatDefender.sprite = chancaHat;
+                        empireD.text = "Perros";
                         deffendColor.color = new Color(248, 147, 146);
                         break;
                 }

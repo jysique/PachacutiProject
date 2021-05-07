@@ -80,7 +80,7 @@ public class TerritoryHandler : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if(territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.BOT && war == false)
+        if(territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.NONE && territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.PLAYER && war == false)
         {
            
             int prob = Random.Range(0, 401);

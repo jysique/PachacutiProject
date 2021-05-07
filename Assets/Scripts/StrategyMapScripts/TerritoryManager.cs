@@ -58,19 +58,31 @@ public class TerritoryManager : MonoBehaviour
     {
         for (int i = 0; i < territoryList.Count; i++)
         {
+
             TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-            if (territoryHandler.territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.NONE)
+            Territory.TYPEPLAYER tp = territoryHandler.territoryStats.territory.TypePlayer;
+            switch (tp)
             {
-                territoryHandler.TintColorTerritory(new Color32(31, 97, 237, 255));
+                case Territory.TYPEPLAYER.NONE:
+                    territoryHandler.TintColorTerritory(new Color32(31, 97, 237, 255));
+                    break;
+                case Territory.TYPEPLAYER.PLAYER:
+                    territoryHandler.TintColorTerritory(new Color32(249, 85, 138, 255));
+                    break;
+                case Territory.TYPEPLAYER.BOT:
+                    territoryHandler.TintColorTerritory(new Color32(122, 75, 82, 255));
+                    break;
+                case Territory.TYPEPLAYER.BOT2:
+                    territoryHandler.TintColorTerritory(new Color32(239, 235, 190, 255));
+                    break;
+                case Territory.TYPEPLAYER.BOT3:
+                    territoryHandler.TintColorTerritory(new Color32(177, 207, 194, 255));
+                    break;
+                case Territory.TYPEPLAYER.BOT4:
+                    territoryHandler.TintColorTerritory(new Color32(82, 110, 123, 255));
+                    break;
             }
-            if (territoryHandler.territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.BOT)
-            {
-                territoryHandler.TintColorTerritory(new Color32(122, 75, 82, 255));
-            }
-            if (territoryHandler.territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
-            {
-                territoryHandler.TintColorTerritory(new Color32(249, 85, 138, 255));
-            }
+            
         }
     }
 

@@ -18,6 +18,9 @@ public class Territory
     {
         PLAYER,
         BOT,
+        BOT2,
+        BOT3,
+        BOT4,
         NONE
     }
     [SerializeField] private TRIBES tribe;
