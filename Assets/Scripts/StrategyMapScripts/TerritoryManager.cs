@@ -73,7 +73,7 @@ public class TerritoryManager : MonoBehaviour
                     territoryHandler.TintColorTerritory(new Color32(122, 75, 82, 255));
                     break;
                 case Territory.TYPEPLAYER.BOT2:
-                    territoryHandler.TintColorTerritory(new Color32(239, 235, 190, 255));
+                    territoryHandler.TintColorTerritory(new Color32(206, 209,68, 255));
                     break;
                 case Territory.TYPEPLAYER.BOT3:
                     territoryHandler.TintColorTerritory(new Color32(177, 207, 194, 255));

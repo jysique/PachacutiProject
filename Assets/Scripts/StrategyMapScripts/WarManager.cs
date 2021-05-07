@@ -28,6 +28,8 @@ public class WarManager : MonoBehaviour
     //hats
     [SerializeField] private Sprite incaHat;
     [SerializeField] private Sprite chancaHat;
+    [SerializeField] private Sprite mochicaHat;
+    [SerializeField] private Sprite chavinHat;
     [SerializeField] private Sprite chancaHat2;
     //
     [SerializeField] private Image hatAttacker;
@@ -103,18 +105,18 @@ public class WarManager : MonoBehaviour
                         attackColor.color = new Color(0.973f, 0.576f, 0.57f,1);
                         break;
                     case Territory.TYPEPLAYER.BOT2:
-                        hatAttacker.sprite = chancaHat;
-                        empire.text = "Papus";
+                        hatAttacker.sprite = mochicaHat;
+                        empire.text = "Mochica";
                         attackColor.color = new Color(0.973f, 0.576f, 0.57f, 1);
                         break;
                     case Territory.TYPEPLAYER.BOT3:
-                        hatAttacker.sprite = chancaHat;
-                        empire.text = "Judios";
+                        hatAttacker.sprite = chavinHat;
+                        empire.text = "Chavin";
                         attackColor.color = new Color(0.973f, 0.576f, 0.57f, 1);
                         break;
                     case Territory.TYPEPLAYER.BOT4:
                         hatAttacker.sprite = chancaHat;
-                        empire.text = "Perros";
+                        empire.text = "Pendiente";
                         attackColor.color = new Color(0.973f, 0.576f, 0.57f, 1);
                         break;
                 }
@@ -131,23 +133,23 @@ public class WarManager : MonoBehaviour
                         deffendColor.color = Color.white;
                         break;
                     case Territory.TYPEPLAYER.BOT:
-                        hatDefender.sprite = chancaHat;
+                        hatDefender.sprite = mochicaHat;
                         empireD.text = "Chancas";
                         deffendColor.color = new Color(248, 147, 146);
                         break;
                     case Territory.TYPEPLAYER.BOT2:
-                        hatDefender.sprite = chancaHat;
-                        empireD.text = "Papus";
+                        hatDefender.sprite = chavinHat;
+                        empireD.text = "Mochica";
                         deffendColor.color = new Color(248, 147, 146);
                         break;
                     case Territory.TYPEPLAYER.BOT3:
                         hatDefender.sprite = chancaHat;
-                        empireD.text = "Judios";
+                        empireD.text = "Chavin";
                         deffendColor.color = new Color(248, 147, 146);
                         break;
                     case Territory.TYPEPLAYER.BOT4:
                         hatDefender.sprite = chancaHat;
-                        empireD.text = "Perros";
+                        empireD.text = "Pendiente";
                         deffendColor.color = new Color(248, 147, 146);
                         break;
                 }
@@ -181,6 +183,16 @@ public class WarManager : MonoBehaviour
                 hatP1.sprite = chancaHat2;
                 hatP2.sprite = chancaHat2;
                 hatP3.sprite = chancaHat2;
+                break;
+            case Territory.TYPEPLAYER.BOT2:
+                hatP1.sprite = mochicaHat;
+                hatP2.sprite = mochicaHat;
+                hatP3.sprite = mochicaHat;
+                break;
+            case Territory.TYPEPLAYER.BOT3:
+                hatP1.sprite = chavinHat;
+                hatP2.sprite = chavinHat;
+                hatP3.sprite = chavinHat;
                 break;
         }
         territorySprite.sprite = selected.sprite.sprite;
