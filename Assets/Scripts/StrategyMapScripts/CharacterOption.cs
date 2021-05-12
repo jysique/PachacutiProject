@@ -72,6 +72,6 @@ public class CharacterOption : MonoBehaviour
         }
 
         InGameMenuHandler.instance.CloseCharacterSelection();
-        Time.timeScale = 1;
+        InGameMenuHandler.instance.ResumeGame();
     }
 }

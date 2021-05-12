@@ -15,9 +15,13 @@ public class CameraMovement : MonoBehaviour
     private void PanCamera()
     {
         if (Input.GetMouseButtonDown(2))
+        {
             dragOrigin = cam.ScreenToWorldPoint(Input.mousePosition);
+            InGameMenuHandler.instance.overMenuBlock.GetComponent<OverMenu>().turnOffMenus();
+        }
         if (Input.GetMouseButton(2))
         {
+
             Vector3 difference = dragOrigin - cam.ScreenToWorldPoint(Input.mousePosition);
             cam.transform.position += difference;
             foreach(GameObject i in TerritoryManager.instance.territoryList)

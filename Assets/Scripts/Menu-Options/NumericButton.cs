@@ -4,42 +4,61 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class NumericButton : MonoBehaviour
+public class NumericButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    [SerializeField] private InputField inputField;
-    public void IncreaseNumberPopulation()
+    [SerializeField] private Text number;
+    public int limit;
+    public bool lockButton;
+    [SerializeField] private bool inc;
+    public bool pointerDown = false;
+    private int t = 0;
+    private int total = 5;
+    public void IncreaseNumber()
     {
-        IncreaseNumber(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory.Population);
+        int temporal = int.Parse(number.text)+1;
+        if (temporal <= limit) number.text = temporal.ToString();
+        //else number.text = 1.ToString();
     }
-
-    public void IncreaseNumberGold()
-    {
-        IncreaseNumber(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory.Gold);
-    }
-    public void DecreaseNumberPopulation()
-    {
-        DecreaseNumber(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory.Population);
-    }
-    public void DecreaseNumberGold()
-    {
-        DecreaseNumber(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory.Gold);
-    }
-
-    private void IncreaseNumber(int limit)
-    {
-        int temporal = int.Parse(inputField.text) + 1;
-        if (temporal <= limit) inputField.text = temporal.ToString();
-    }
-    private void DecreaseNumber(int limit)
+    public void DecreaseNumber()
     {
 
-        int temporal = int.Parse(inputField.text) - 1;
+        int temporal = int.Parse(number.text) - 1;
         if(temporal > 0) {
-            inputField.text = temporal.ToString();
+            number.text = temporal.ToString();
         }
         else {
-            inputField.text = limit.ToString();
+            number.text = limit.ToString();
         }
     }
-    
+  
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        pointerDown = true;
+        t = total+1;
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        pointerDown = false;
+    }
+    private void FixedUpdate()
+    {
+        if (pointerDown && lockButton)
+        {
+            if (t > total)
+            {
+                if (inc) IncreaseNumber();
+                else DecreaseNumber();
+                t = 0;
+
+
+            }
+            else
+            {
+                t++;
+            }
+           
+        }
+    }
 }

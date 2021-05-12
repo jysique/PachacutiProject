@@ -16,6 +16,7 @@ public class War
     [SerializeField]private float time1;
     [SerializeField] private float time2;
     [SerializeField] private float limit;
+
     public War(int c1,float s1,float s2, TerritoryHandler _territoryHandler, Territory.TYPEPLAYER _attackers )
     {
         status = 0;
@@ -61,8 +62,8 @@ public class War
         }
         else
         {
-            time1 += warriors2Speed;
-            time2 += warriors1Speed;
+            time1 += (warriors2Speed* GlobalVariables.instance.WarSpeed);
+            time2 += (warriors1Speed* GlobalVariables.instance.WarSpeed);
             if (time1 >= limit)
             {
                 time1 = 0;

@@ -5,19 +5,28 @@ using UnityEngine.UI;
 
 public class ContextMenu : MonoBehaviour
 {
-    [SerializeField]TerritoryHandler clickedTerritory;
-    [SerializeField] GameObject warMenu;
-    [SerializeField] InputField warriorsCount;
+    [SerializeField] TerritoryHandler clickedTerritory;
+    [SerializeField] Text warriorsCount;
+    [SerializeField] Button increase;
+    [SerializeField] Button decrease;
+    [SerializeField] Button moveButton;
     [SerializeField] TabGroup tabManager;
     [SerializeField] TabButton tabMilitar;
     [SerializeField] TabButton tabTerritory;
     public void SetMenu(bool canAttack, bool isWar, TerritoryHandler ta)
     {
-        
+        int limit = ta.territoryStats.territory.Population;
         clickedTerritory = ta;
-        warriorsCount.text = ta.territoryStats.territory.Population.ToString();
-        transform.GetChild(0).GetComponent<Button>().interactable = canAttack;
-        transform.GetChild(0).GetChild(1).gameObject.SetActive(canAttack);
+        warriorsCount.text = limit.ToString();
+        moveButton.interactable = canAttack;
+        increase.interactable = canAttack;
+        increase.GetComponent<NumericButton>().limit = limit;
+        increase.GetComponent<NumericButton>().lockButton = canAttack;
+        increase.GetComponent<NumericButton>().pointerDown = false;
+        decrease.interactable = canAttack;
+        decrease.GetComponent<NumericButton>().limit = limit;
+        decrease.GetComponent<NumericButton>().lockButton = canAttack;
+        decrease.GetComponent<NumericButton>().pointerDown = false;
         //transform.GetChild(1).GetComponent<Button>().interactable = isWar;
     }
     public void AttackTerritory()

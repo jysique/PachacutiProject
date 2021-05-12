@@ -11,8 +11,7 @@ public class TerritoryStats : MonoBehaviour
     private float timeLeftP;
     private float timeLeftG;
     private float timeLeftF;
-    private float maxTime;
-
+    private int maxTimeCount;
     public Territory territory;
 
     public Text populationTxt;
@@ -20,15 +19,11 @@ public class TerritoryStats : MonoBehaviour
     public Image imageTerritory;
     private void Start()
     {
-        maxTime = 6f;
-        if (GlobalVariables.instance != null)
-        {
-            maxTime = GlobalVariables.instance.MaxTimeCount;
-        }
+        maxTimeCount = 12;
         timeLeftP = 0;
         //timeLeftP = maxTime;
-        timeLeftG = maxTime;
-        timeLeftF = maxTime;
+        timeLeftG = maxTimeCount;
+        timeLeftF =maxTimeCount;
         imageTerritory.color = new Color(
                   Random.Range(0f, 1f),
       Random.Range(0f, 1f),
@@ -54,10 +49,10 @@ public class TerritoryStats : MonoBehaviour
     }
     private void IncresementPopulation()
     {
-        if (timeLeftP <= maxTime)
+        if (timeLeftP <= maxTimeCount)
         {
-            timeLeftP += Time.deltaTime * territory.VelocityPopulation;
-            timerBar.fillAmount = timeLeftP / maxTime;
+            timeLeftP += Time.deltaTime * territory.VelocityPopulation * GlobalVariables.instance.timeModifier;
+            timerBar.fillAmount = timeLeftP / maxTimeCount;
         }
         else
         {
@@ -71,13 +66,13 @@ public class TerritoryStats : MonoBehaviour
         if (timeLeftG > 0)
         {
             // timeLeftG -= Time.deltaTime * velocityGold;
-            timeLeftG -= Time.deltaTime * territory.GoldMineTerritory.VelocityGold;
+            timeLeftG -= Time.deltaTime * territory.GoldMineTerritory.VelocityGold * GlobalVariables.instance.timeModifier;
         }
         else
         {
             territory.Gold++;
             //gold++;
-            timeLeftG = maxTime;
+            timeLeftG = maxTimeCount;
         }
     }
     private void IncresementFood()
@@ -86,13 +81,13 @@ public class TerritoryStats : MonoBehaviour
         if (timeLeftF > 0)
         {
             // timeLeftF -= Time.deltaTime * velocityFood;
-            timeLeftF -= Time.deltaTime * territory.VelocityFood;
+            timeLeftF -= Time.deltaTime * territory.VelocityFood * GlobalVariables.instance.timeModifier;
         }
         else
         {
             territory.FoodReward++;
             //food++;
-            timeLeftF = maxTime;
+            timeLeftF = maxTimeCount;
         }
     }
 

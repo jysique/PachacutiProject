@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class TimeSystem : MonoBehaviour
 {
     public static TimeSystem instance;
-    private int TIMESCALE;
     private TimeSimulated timeGame;
     private TimeSimulated timeGather;
     private TimeSimulated timeAddEvent;
@@ -33,12 +32,7 @@ public class TimeSystem : MonoBehaviour
     {
         timeGame = new TimeSimulated(29, 12, 1399);
         //timeGame = new TimeSimulated(1, 1, 1399);
-        TIMESCALE = 6;
-        if (GlobalVariables.instance != null)
-        {
-            timeGame = GlobalVariables.instance.GovernorChoose.TimeInit;
-            TIMESCALE = GlobalVariables.instance.TimeScale;
-        }
+    
         TextCallFunction();
         InitializeGameEvents();
         InitializeListEvents();
@@ -83,7 +77,7 @@ public class TimeSystem : MonoBehaviour
         _time.CalculateSeason();
         if (_time.Hour < 20)
         {
-            _time.Hour += Time.deltaTime * TIMESCALE;
+            _time.Hour += Time.deltaTime * GlobalVariables.instance.TimeScale; 
         }
         else
         {

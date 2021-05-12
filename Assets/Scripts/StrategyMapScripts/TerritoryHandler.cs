@@ -181,9 +181,11 @@ public class TerritoryHandler : MonoBehaviour
 
     private void MakeOutline()
     {
+        
         foreach (GameObject t in TerritoryManager.instance.territoryList)
         {
             t.GetComponent<TerritoryHandler>().Deselect();
+            t.GetComponent<TerritoryHandler>().state = 0;
         }
         territoryStats.territory.SetSelected(true);
         outlineMaterial.SetColor("_SolidOutline", Color.green);

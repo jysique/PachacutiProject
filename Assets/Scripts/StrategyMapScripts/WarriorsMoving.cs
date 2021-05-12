@@ -8,7 +8,6 @@ public class WarriorsMoving : MonoBehaviour
 {
     //prefab variables
     [SerializeField]private GameObject target;
-    [SerializeField]private float speed;
     //stats
     [SerializeField]private int warriorsNumber;
     [SerializeField]private Territory.TYPEPLAYER territorytype;
@@ -22,12 +21,7 @@ public class WarriorsMoving : MonoBehaviour
     public void SetAttack(GameObject _target, int _warriorsNumber,TerritoryHandler attackerTerritory)
     {
         target = _target;
-        speed = 1f;
-        if(GlobalVariables.instance != null)
-        {
-            speed = GlobalVariables.instance.VelocityMoving;
-      //      print(speed);
-        }
+        
         warriorsNumber = _warriorsNumber;
         attacker = attackerTerritory;
         territorytype = attackerTerritory.territoryStats.territory.TypePlayer;
@@ -65,11 +59,13 @@ public class WarriorsMoving : MonoBehaviour
 
     void Update()
     {
-        float step = speed * Time.deltaTime; 
+        float step = GlobalVariables.instance.VelocityMoving * Time.deltaTime; 
         transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
         
         if (Vector3.Distance(transform.position, target.transform.position) < 0.001f)
         {
+            if(target.GetComponent<TerritoryHandler>() == TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>())
+                InGameMenuHandler.instance.overMenuBlock.GetComponent<OverMenu>().turnOffMenus();
             InGameMenuHandler.instance.MoveWarriors(target.GetComponent<TerritoryHandler>(), warriorsNumber, attacker);
             if(target.GetComponent<TerritoryHandler>() == WarManager.instance.selected)
             {

@@ -94,6 +94,8 @@ public class InGameMenuHandler : MonoBehaviour
     private int foodPlayer = 10;
     private int sucesionSizePlayer;
     private int scorePlayer;
+
+    private float temporalTime;
     public int GoldPlayer
     {
         get { return goldPlayer; }
@@ -413,7 +415,7 @@ public class InGameMenuHandler : MonoBehaviour
         while (territoryH.territoryStats.territory.TotalTime[option] <= duration)
         {
             territoryH.territoryStats.territory.CanUpgrade[option] = false;
-            territoryH.territoryStats.territory.TotalTime[option] += Time.deltaTime / duration;
+            territoryH.territoryStats.territory.TotalTime[option] += Time.deltaTime * GlobalVariables.instance.timeModifier / duration;
             yield return null;
         }
         territoryH.territoryStats.territory.TotalTime[option] = 0;
@@ -511,7 +513,7 @@ public class InGameMenuHandler : MonoBehaviour
         CharacterSelection.SetActive(true);
         characterOptions = new List<GameObject>();
         Text instructionText = CharacterSelection.transform.Find("InstructionText").transform.GetComponent<Text>();
-        instructionText.text = "Select a "+type+" Chief \n to " + territoryHandler.territoryStats.territory.name;
+        instructionText.text = "Select a "+type+" Chief to " + territoryHandler.territoryStats.territory.name;
         Transform gridLayout = CharacterSelection.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
         foreach (Subordinate charac in subordinateList.MilitarBosses)
         {
@@ -544,11 +546,14 @@ public class InGameMenuHandler : MonoBehaviour
     public void PauseGame()
     {
         turnOffMenus();
-        Time.timeScale = 0;
+        temporalTime = GlobalVariables.instance.timeModifier;
+        GlobalVariables.instance.timeModifier = 0;
+        
     }
     public void ResumeGame()
     {
-        Time.timeScale = 1;
+        GlobalVariables.instance.timeModifier = temporalTime;
+        print(temporalTime);
     }
     void Start()
     {

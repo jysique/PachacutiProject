@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34c9ffa9b3e38fe4c854d384fc035d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NewInfo: Nivel de influencia del jefe militar.
+  NewInfo: Currently not used statistic.
 --- !u!1 &2269495015060429894
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34c9ffa9b3e38fe4c854d384fc035d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NewInfo: Imagen del jefe militar.
+  NewInfo: Picture of the military chief.
 --- !u!1 &2269495015091933998
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,7 +411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34c9ffa9b3e38fe4c854d384fc035d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NewInfo: Imperio del que viene el jefe militar.
+  NewInfo: Empire of the military chief.
 --- !u!1 &2269495015514511984
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,7 +504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34c9ffa9b3e38fe4c854d384fc035d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NewInfo: Edad del jefe militar.
+  NewInfo: How many years old has the military chief.
 --- !u!1 &2269495015618657551
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,7 +639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34c9ffa9b3e38fe4c854d384fc035d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NewInfo: Origen del jefe militar.
+  NewInfo: Military chief birth city.
 --- !u!1 &2269495016147402692
 GameObject:
   m_ObjectHideFlags: 0
@@ -845,7 +845,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34c9ffa9b3e38fe4c854d384fc035d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NewInfo: Nombre del jefe militar
+  NewInfo: Name of the military chief.
 --- !u!1 &2571564298318310999
 GameObject:
   m_ObjectHideFlags: 0
@@ -938,10 +938,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34c9ffa9b3e38fe4c854d384fc035d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NewInfo: 'Tipo de estrategia que ejecutara. \n SIEGE_EXPERT: Muy buen ataque, muy
-    mala defensa  \nAGRESSIVE: Buen ataque, mala defensa \nSACRED_WARRIOR: Equilibrado
-    \nDEFFENSIVE: Buena defensa, mal ataque \nTERRAIN_MASTER: Muy buena defensa,
-    muy mal ataque'
+  NewInfo: 'Type of strategy that he will execute.  \nSIEGE_EXPERT: The best attack,
+    terrible defense.   \nAGRESSIVE: Good attack, bad defense. \nSACRED_WARRIOR:
+    Balanced. \nDEFFENSIVE: Good defense, bad attack.  \nTERRAIN_MASTER: The best
+    defense, terrible attack.'
 --- !u!1 &7663923956007315288
 GameObject:
   m_ObjectHideFlags: 0
@@ -1127,4 +1127,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34c9ffa9b3e38fe4c854d384fc035d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NewInfo: Experiencia del jefe militar, afecta al poder de los guerreros que dirja.
+  NewInfo: Battle experience from the assigned military chief, \nenhances the power
+    of your units both defensively and offensively.
