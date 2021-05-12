@@ -118,7 +118,8 @@ public class TimeSystem : MonoBehaviour
     {
         timeAddEvent = new TimeSimulated(timeGame.Day, timeGame.Month, timeGame.Year);
         // every 5 days add new event
-        timeAddEvent.PlusDays(5);
+        int rAddPlusDays = Random.Range(15, 20);
+        timeAddEvent.PlusDays(rAddPlusDays);
      //   Debug.LogWarning("Time to add new event: " + timeAddEvent.PrintTimeSimulated());
         listEvents.AddCustomEvent(timeAddEvent, daysToFinishEvent);
     }
