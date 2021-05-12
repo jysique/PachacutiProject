@@ -14,10 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/VisualNovelScene.unity
     guid: b624097c1968752479af01340eb689be
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Game.unity
     guid: 94f68f8942a5a9847a56b4047af3471e
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/[Copy]Game.unity
-    guid: 8d3de5094da889648babe9e0e24c03a2
+    guid: 80a96365389d33548bfd9267e2d221a3
   m_configObjects: {}

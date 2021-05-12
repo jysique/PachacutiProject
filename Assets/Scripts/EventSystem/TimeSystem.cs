@@ -48,7 +48,8 @@ public class TimeSystem : MonoBehaviour
         PlusDaysToTimeGather(3);
         listEvents = new CustomEventList();
         int rDaysToInitEvent = Random.Range(15,25);
-        PlusDaysToAddEvent(rDaysToInitEvent);
+        // PlusDaysToAddEvent(rDaysToInitEvent);
+        PlusDaysToAddEvent(5);
     }
     void InitializeGameEvents()
     {
@@ -119,8 +120,9 @@ public class TimeSystem : MonoBehaviour
         timeAddEvent = new TimeSimulated(timeGame.Day, timeGame.Month, timeGame.Year);
         // every 5 days add new event
         int rAddPlusDays = Random.Range(15, 20);
-        timeAddEvent.PlusDays(rAddPlusDays);
-     //   Debug.LogWarning("Time to add new event: " + timeAddEvent.PrintTimeSimulated());
+        //timeAddEvent.PlusDays(rAddPlusDays);
+        timeAddEvent.PlusDays(5);
+        //   Debug.LogWarning("Time to add new event: " + timeAddEvent.PrintTimeSimulated());
         listEvents.AddCustomEvent(timeAddEvent, daysToFinishEvent);
     }
 
@@ -142,7 +144,8 @@ public class TimeSystem : MonoBehaviour
         if (timeGame.EqualsDate(timeAddEvent))
         {
             int rDays = Random.Range(15, 25);
-            PlusDaysToAddEvent(rDays);
+            //PlusDaysToAddEvent(rDays);
+            PlusDaysToAddEvent(4);
         }
         else
         {

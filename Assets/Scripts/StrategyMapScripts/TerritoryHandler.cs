@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Linq;
 [RequireComponent(typeof(PolygonCollider2D))]
 public class TerritoryHandler : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class TerritoryHandler : MonoBehaviour
     private Color32 oldColor;
     private Color32 hoverColor;
     [SerializeField]private List<GameObject> adjacentTerritories;
+    //public List<GameObject> adjacent;
 
     GameObject statsGO;
     [SerializeField] public TerritoryStats territoryStats;
@@ -42,13 +44,14 @@ public class TerritoryHandler : MonoBehaviour
             WarManager.instance.selected = this;
             WarManager.instance.SetWarStatus(this.war);
             //ShowAdjacentTerritories();
-        }
+        }            
         if(territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
         {
             territoryStats.territory.GoldMineTerritory.Level++;
         }
-    }
 
+        adjacentTerritories = TerritoryManager.instance.dictionary.Single(s => s.Key == territory.name).Value;
+    }
     void InstantiateStatTerritory()
     {
         GameObject canvas = GameObject.Find("Canvas");
@@ -266,15 +269,18 @@ public class TerritoryHandler : MonoBehaviour
         switch (_option)
         {
             case 0:
-                duration = territoryStats.territory.GoldMineTerritory.TimeToBuild;
+                duration = territoryStats.territory.IrrigationChannelTerritory.TimeToBuild;
                 break;
             case 1:
-                duration = territoryStats.territory.SacredPlaceTerritory.TimeToBuild;
+                duration = territoryStats.territory.GoldMineTerritory.TimeToBuild;
                 break;
             case 2:
-                duration = territoryStats.territory.FortressTerritory.TimeToBuild;
+                duration = territoryStats.territory.SacredPlaceTerritory.TimeToBuild;
                 break;
             case 3:
+                duration = territoryStats.territory.FortressTerritory.TimeToBuild;
+                break;
+            case 4:
                 duration = territoryStats.territory.BarracksTerritory.TimeToBuild;
                 break;
             default:
@@ -287,15 +293,18 @@ public class TerritoryHandler : MonoBehaviour
         switch (_option)
         {
             case 0:
-                territoryStats.territory.GoldMineTerritory.ImproveBuilding(1);
+                territoryStats.territory.IrrigationChannelTerritory.ImproveBuilding(1);
                 break;
             case 1:
-                territoryStats.territory.SacredPlaceTerritory.ImproveBuilding(1);
+                territoryStats.territory.GoldMineTerritory.ImproveBuilding(1);
                 break;
             case 2:
-                territoryStats.territory.FortressTerritory.ImproveBuilding(1);
+                territoryStats.territory.SacredPlaceTerritory.ImproveBuilding(1);
                 break;
             case 3:
+                territoryStats.territory.FortressTerritory.ImproveBuilding(1);
+                break;
+            case 4:
                 territoryStats.territory.BarracksTerritory.ImproveBuilding(1);
                 break;
             default:

@@ -32,10 +32,10 @@ public class Territory
     [SerializeField] private int motivation;
 
     [SerializeField] private float velocityPopulation;
-    [SerializeField] private float velocityFood;
+   // [SerializeField] private float velocityFood;
 
     private int costImprovePopulation = 10;
-    private int costImproveFood = 10;
+    //private int costImproveFood = 10;
 
     [SerializeField] private bool selected;
 
@@ -44,22 +44,25 @@ public class Territory
     [SerializeField] private SacredPlace sacredPlaceTerritory = new SacredPlace();
     [SerializeField] private Fortress fortressTerritory = new Fortress();
     [SerializeField] private Barracks barracksTerritory = new Barracks();
+    [SerializeField] private IrrigationChannel irrigationChannelTerritory = new IrrigationChannel();
 
     public int CostPopulation
     {
         get { return costImprovePopulation; }
         set { costImprovePopulation = value; }
     }
+    /*
     public int CostFood
     {
         get { return costImproveFood; }
         set { costImproveFood = value; }
     }
+    */
     /// <summary>
     /// variables for countDown timers in TerritoryMenu
     /// </summary>
-    private float[] totalTime = new float[4] { 0, 0, 0, 0 };
-    private bool[] canUpgrade = new bool[4] { true, true, true, true };
+    private float[] totalTime = new float[5] { 0, 0, 0, 0, 0 };
+    private bool[] canUpgrade = new bool[5] { true, true, true, true, true };
 
     public float[] TotalTime
     {
@@ -95,6 +98,11 @@ public class Territory
     {
         get { return barracksTerritory; }
         set { barracksTerritory = value; }
+    }
+    public IrrigationChannel IrrigationChannelTerritory
+    {
+        get { return irrigationChannelTerritory; }
+        set { irrigationChannelTerritory = value; }
     }
     public TYPEPLAYER TypePlayer
     {
@@ -133,11 +141,6 @@ public class Territory
     {
         get { return velocityPopulation; }
         set { velocityPopulation = value; }
-    }
-    public float VelocityFood
-    {
-        get { return velocityFood; }
-        set { velocityFood = value; }
     }
     public void SetSelected(bool _selected) { selected = _selected; }
     public bool GetSelected() { return selected; }

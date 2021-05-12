@@ -7,6 +7,9 @@ public class SettingsMenu : MonoBehaviour
 {
     public AudioMixerGroup master;
     public Dropdown resolutionDropdown;
+    [SerializeField] public Button btn1;
+    [SerializeField] public Button btn2;
+
     Resolution[] resolutions;
     void Start()
     {

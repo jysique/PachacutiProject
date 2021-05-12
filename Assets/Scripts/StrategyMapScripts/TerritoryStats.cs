@@ -29,11 +29,8 @@ public class TerritoryStats : MonoBehaviour
         //timeLeftP = maxTime;
         timeLeftG = maxTime;
         timeLeftF = maxTime;
-        imageTerritory.color = new Color(
-                  Random.Range(0f, 1f),
-      Random.Range(0f, 1f),
-      Random.Range(0f, 1f)
-            );
+        imageTerritory.color = new Color( Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+        nameTerritoryTxt.text = territory.name;
     }
     public void SetCanPopulate(bool temp)
     {
@@ -49,7 +46,7 @@ public class TerritoryStats : MonoBehaviour
         }
         IncresementGold();
         IncresementFood();
-        nameTerritoryTxt.text = territory.name;
+        
         populationTxt.text = territory.Population.ToString() + " / " + territory.LimitPopulation.ToString();
     }
     private void IncresementPopulation()
@@ -86,7 +83,7 @@ public class TerritoryStats : MonoBehaviour
         if (timeLeftF > 0)
         {
             // timeLeftF -= Time.deltaTime * velocityFood;
-            timeLeftF -= Time.deltaTime * territory.VelocityFood;
+            timeLeftF -= Time.deltaTime * territory.IrrigationChannelTerritory.VelocityFood;
         }
         else
         {
