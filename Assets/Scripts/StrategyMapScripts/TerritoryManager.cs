@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using System.Linq;
 public class TerritoryManager : MonoBehaviour
 {
     public static TerritoryManager instance;
@@ -13,14 +13,47 @@ public class TerritoryManager : MonoBehaviour
     {
         instance = this;
         AddTerritoryData();
-
+        ReadAdjacentTerritories();
     }
 
     void Start()
     {
         AddMilitaryBoss();
+        
     }
-    
+    public Dictionary<string,List<GameObject>> dictionary = new Dictionary<string,List<GameObject>>();
+    private void ReadAdjacentTerritories()
+    {
+        string file = Resources.Load<TextAsset>("Data/Menu/ListAdyacentTerritories").text;
+        List<string> data = new List<string>(file.Split('\n'));
+        for (int i = 0; i < data.Count; i++)
+        {
+            FirstAttempt(data[i]);
+        }
+        
+        for (int i = 0; i < dictionary.Single(s => s.Key == "Quispicanchi").Value.Count; i++)
+        {
+            //print("aqui:" + dictionary.Single(s => s.Key == "Quispicanchi").Value[i]);
+        }
+        foreach (KeyValuePair<string, List<GameObject>> kvp in dictionary)
+        {
+            //            Debug.Log("Key = " + kvp.Key + "- " + kvp.Key.Count());
+        }
+        
+    }
+    void FirstAttempt(string line)
+    {
+        string[] a = line.Split(char.Parse(":"));
+        List<string> b = a[1].Split(char.Parse(",")).ToList();
+        List<GameObject> c = new List<GameObject>();
+        for (int i = 0; i < b.Count; i++)
+        {
+           // print(i + "-" + b[i] +" - " +b[i].Count());
+           c.Add(SearchTerritoryGameObject(b[i],a[0]));
+        }
+        dictionary.Add(a[0], c);
+           
+    }
     private void AddTerritoryData()
     {
         GameObject[] tempArray = GameObject.FindGameObjectsWithTag("Territory") as GameObject[];
@@ -85,7 +118,19 @@ public class TerritoryManager : MonoBehaviour
             
         }
     }
-
+    private GameObject SearchTerritoryGameObject(string _name,string _a)
+    {
+        GameObject a = GameObject.Find(_name);
+        if (a == null)
+        {
+            a = GameObject.Find(_name.Remove(_name.Length - 1));
+            if(a == null)
+            {
+                print("unity de mierda, no encontro "+_name + " en "+ _a);
+            }
+        }
+        return a;
+    }
     public void ChangeTerritoryToType(string _name, Territory.TYPEPLAYER type)
     {
         for (int i = 0; i < territoryList.Count; i++)
@@ -122,21 +167,21 @@ public class TerritoryManager : MonoBehaviour
     public void ConditionEndChapter()
     {
         int playerCount = CountTerrytorry(Territory.TYPEPLAYER.PLAYER);
-        int botCount = CountTerrytorry(Territory.TYPEPLAYER.BOT);
         if (playerCount == territoryList.Count)
         {
             if (GlobalVariables.instance != null)
             {
                 GlobalVariables.instance.SetChapterTxt("win");
             }
-            SceneManager.LoadScene("VisualNovelScene");
-        }else if (playerCount == 0)
+            SceneManager.LoadScene(2);
+        }
+        else if (playerCount == 0)
         {
             if (GlobalVariables.instance != null)
             {
                 GlobalVariables.instance.SetChapterTxt("lose");
             }
-            SceneManager.LoadScene("VisualNovelScene");
+            SceneManager.LoadScene(2);
         }
     }
 

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 public class ChangeWindow : MonoBehaviour
 {
     [SerializeField] private GameObject nextWindow;
@@ -20,7 +19,7 @@ public class ChangeWindow : MonoBehaviour
         ReadJ();                                                            //BORRAR
         GlobalVariables.instance.GovernorChoose = governorList.Governors[1];//BORRAR
         //SceneManager.LoadScene(1); //LLEVA A LA VISUAL NOVEL
-        SceneManager.LoadScene("Message"); //DEMO LLEVA AL GAMEPLAY
+        GlobalVariables.instance.GoToMenuMessage();
     }
     /// <summary>
     /// Funcion para la prueba de prototipo
@@ -49,7 +48,6 @@ public class ChangeWindow : MonoBehaviour
 
     public void CloseGame()
     {
-        print("closing app");
-        Application.Quit();
+        GlobalVariables.instance.ClosingApp();
     }
 }

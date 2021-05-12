@@ -79,12 +79,13 @@ public class CustomEvent
     {
 
         this.timeInit = new TimeSimulated(_initTime.Day, _initTime.Month, _initTime.Year);
-        timeInit.PlusDays(days);
+        //timeInit.PlusDays(days);
+        timeInit.PlusDays(4);
 
         this.timeFinal = new TimeSimulated(timeInit.Day, timeInit.Month, timeInit.Year);
         int r = UnityEngine.Random.Range(10, 15);
-        timeFinal.PlusDays(days);
-
+        //  timeFinal.PlusDays(days);
+        timeFinal.PlusDays(4);
         EVENTTYPE _t = (EVENTTYPE)UnityEngine.Random.Range(0, Enum.GetNames(typeof(EVENTTYPE)).Length);
         this.eventtype = _t.ToString();
         this.statusEvent = STATUS.ANNOUNCE;
@@ -117,7 +118,7 @@ public class CustomEvent
         switch (option)
         {
             case "REBELION":
-                this.messagge = "In "+ territoryEvent.name+ " territory they plan to rebel against you in <DAYS> days, if you do not complete the following requirements, we will lose this territory. ";
+                this.messagge = "In "+ territoryEvent.name+ " territory they plan to rebel against you, if you do not complete the following requirements, we will lose this territory. ";
                 this.acceptMessageEvent = "-" + acceptCostEvent + " gold";
                 this.declineMessageEvent = "-1 territorio";
                 break;
@@ -207,7 +208,7 @@ public class CustomEvent
                 break;
             case "GRACE_FOOD":
                 InGameMenuHandler.instance.GoldPlayer -= acceptCostEvent;
-                territoryEvent.VelocityFood += 3;
+                territoryEvent.IrrigationChannelTerritory.VelocityFood += 3;
                 break;
             default:
                 break;
@@ -236,11 +237,11 @@ public class CustomEvent
                 List<TerritoryHandler> list2 = TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER);
                 for (int i = 0; i < list2.Count; i++)
                 {
-                    list2[i].territoryStats.territory.VelocityFood = 0;
+                    list2[i].territoryStats.territory.IrrigationChannelTerritory.VelocityFood = 0;
                 }
                 break;
             case "EVENT_PLAGUE2":
-                territoryEvent.VelocityFood = 0;
+                territoryEvent.IrrigationChannelTerritory.VelocityFood = 0;
                 break;
             case "PETITION_MIN":
 

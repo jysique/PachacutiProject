@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class GlobalVariables : MonoBehaviour
 {
     public static GlobalVariables instance { get; private set; }
@@ -106,5 +106,26 @@ public class GlobalVariables : MonoBehaviour
     private float DefinedWarSpeed()
     {
         return warSpeed * timeModifier;
+
+    public void ClosingApp()
+    {
+        print("closing app");
+        Application.Quit();
+    }
+    public void GoToMenuGame()
+    {
+        SceneManager.LoadScene(0);
+    }
+    public void GoToMenuMessage()
+    {
+        SceneManager.LoadScene("Message"); //DEMO LLEVA AL GAMEPLAY
+    }
+    public void GoToGame()
+    {
+        SceneManager.LoadScene(3);
+    }
+    public void GoToVisualNovel()
+    {
+        SceneManager.LoadScene(2);
     }
 }

@@ -28,7 +28,7 @@ public class ButtonCustomize : MonoBehaviour, IPointerEnterHandler, IPointerExit
     {
         if (typecustom == TYPECUSTOM.UP_LIMIT)
         {
-            CheckCost(InGameMenuHandler.instance.FoodPlayer, t.territoryStats.territory.CostFood, "food");
+            CheckCost(InGameMenuHandler.instance.FoodPlayer, t.territoryStats.territory.IrrigationChannelTerritory.CostToUpgrade, "food");
             float s = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory.LimitPopulation;
             float s2 = s + 20;
             label.GetComponent<Text>().text += "\n" + s.ToString("F2") + " -> " + s2.ToString("F2");

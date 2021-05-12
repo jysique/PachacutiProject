@@ -44,7 +44,7 @@ public class TerritoryStats : MonoBehaviour
         }
         IncresementGold();
         IncresementFood();
-        nameTerritoryTxt.text = territory.name;
+        
         populationTxt.text = territory.Population.ToString() + " / " + territory.LimitPopulation.ToString();
     }
     private void IncresementPopulation()
