@@ -10,7 +10,7 @@ public class CreateGlobalVariables : MonoBehaviour
       
         if (GlobalVariables.instance == null)
         {
-            print("chale 2");
+
             var prefab = Instantiate(gvPrefab);
             prefab.transform.SetParent(this.transform);
         }

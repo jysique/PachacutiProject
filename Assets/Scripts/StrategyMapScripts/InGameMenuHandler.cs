@@ -307,14 +307,25 @@ public class InGameMenuHandler : MonoBehaviour
         contextMenu.transform.position = new Vector3(mousePosCamera.x, mousePosCamera.y, contextMenu.transform.position.z);
         contextMenu.GetComponent<ContextMenu>().SetMenu(canAttack, isWar, territoryToAttack);
     }
-    /*
+    private void ImproveSpeedPopulation(TerritoryHandler territoryHandler)
+    {
+        if (goldPlayer >= territoryHandler.territoryStats.territory.CostPopulation)
+        {
+            territoryHandler.ImproveSpeedPopulation();
+            goldPlayer -= territoryHandler.territoryStats.territory.CostPopulation;
+            ShowFloatingText("+0.3 velocity population", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
+            ShowFloatingText("-" + territoryHandler.territoryStats.territory.CostPopulation.ToString(), "TextFloating", goldAnimation, Color.white);
+            territoryHandler.territoryStats.territory.CostPopulation += 10;
+        }
+
+    }
     public void ImproveSpeedPopulationButton()
     {
         ImproveSpeedPopulation(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
         //goldNeedSpeed += 2;
         UpdateMenu();
     }
-    */
+    
     public void ImproveLimitButton()
     {
 
@@ -577,14 +588,14 @@ public class InGameMenuHandler : MonoBehaviour
         PauseMenu.SetActive(false);
         ResumeGame();
     }
-    private void PauseGame()
+    public void PauseGame()
     {
         turnOffMenus();
         temporalTime = GlobalVariables.instance.timeModifier;
         GlobalVariables.instance.timeModifier = 0;
         
     }
-    private void ResumeGame()
+    public void ResumeGame()
     {
         GlobalVariables.instance.timeModifier = temporalTime;
         print(temporalTime);

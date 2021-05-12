@@ -106,7 +106,7 @@ public class GlobalVariables : MonoBehaviour
     private float DefinedWarSpeed()
     {
         return warSpeed * timeModifier;
-
+    }
     public void ClosingApp()
     {
         print("closing app");

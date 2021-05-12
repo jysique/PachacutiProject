@@ -81,7 +81,7 @@ public class TerritoryStats : MonoBehaviour
         if (timeLeftF > 0)
         {
             // timeLeftF -= Time.deltaTime * velocityFood;
-            timeLeftF -= Time.deltaTime * territory.VelocityFood * GlobalVariables.instance.timeModifier;
+            timeLeftF -= Time.deltaTime * territory.IrrigationChannelTerritory.VelocityFood * GlobalVariables.instance.timeModifier;
         }
         else
         {

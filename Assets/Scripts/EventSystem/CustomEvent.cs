@@ -185,7 +185,7 @@ public class CustomEvent
             case "EVENT_PANDEMIC2":
                 //break;
             case "EVENT_PLAGUE":
-                break;
+                //break;
             case "EVENT_PLAGUE2":
                 InGameMenuHandler.instance.GoldPlayer -= acceptCostEvent;
                 InGameMenuHandler.instance.FoodPlayer -= acceptCostEvent;
