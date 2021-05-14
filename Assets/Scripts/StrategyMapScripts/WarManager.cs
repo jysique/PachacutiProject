@@ -55,6 +55,7 @@ public class WarManager : MonoBehaviour
     }
     private void FixedUpdate()
     {
+
         foreach(War w in warList)
         {
             w.UpdateStatus();

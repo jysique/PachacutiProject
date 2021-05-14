@@ -114,18 +114,19 @@ public class GlobalVariables : MonoBehaviour
     }
     public void GoToMenuGame()
     {
-        SceneManager.LoadScene(0);
+        print("go to menu game");
+        Transition.instance.LoadScene(0);
     }
     public void GoToMenuMessage()
     {
-        SceneManager.LoadScene("Message"); //DEMO LLEVA AL GAMEPLAY
+        Transition.instance.LoadScene(1); //DEMO LLEVA AL GAMEPLAY
     }
     public void GoToGame()
     {
-        SceneManager.LoadScene(3);
+        Transition.instance.LoadScene(3);
     }
     public void GoToVisualNovel()
     {
-        SceneManager.LoadScene(2);
+        Transition.instance.LoadScene(2);
     }
 }

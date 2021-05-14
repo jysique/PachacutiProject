@@ -58,7 +58,16 @@ public class War
             {
                 InGameMenuHandler.instance.overMenuBlock.GetComponent<OverMenu>().turnOffMenus();
             }
-            WarManager.instance.warList.Remove(this);
+            try
+            {
+                WarManager.instance.warList.Remove(this);
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+            
         }
         else
         {

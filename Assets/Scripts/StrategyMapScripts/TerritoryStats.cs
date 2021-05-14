@@ -29,6 +29,7 @@ public class TerritoryStats : MonoBehaviour
       Random.Range(0f, 1f),
       Random.Range(0f, 1f)
             );
+        nameTerritoryTxt.text = territory.name;
     }
     public void SetCanPopulate(bool temp)
     {
