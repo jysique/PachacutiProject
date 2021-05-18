@@ -31,9 +31,10 @@ public class CustomEventOption : MonoBehaviour
     private void Update()
     {
         diferenceDays = custom.TimeFinalEvent.DiferenceDays(TimeSystem.instance.TimeGame);
-        if (custom.StatusEvent == CustomEvent.STATUS.FINISH)
+        if (custom.EventStatus == CustomEvent.STATUS.FINISH)
         {
             estado.color = new Color32(193, 39, 4,255);
+            btn.interactable = false;
             TimeSystem.instance.listEvents.RemoveEvent(custom);
         }
     }

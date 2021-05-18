@@ -111,11 +111,21 @@ public class TimeSimulated
             year++;
         }
     }
+    public void PlusMonth(int plus)
+    {
+        month += plus;
+        if (this.month > 12)
+        {
+            int b = (int)this.month - 12;
+            this.month = b;
+            year++;
+        }
+    }
     public bool EqualsDate(TimeSimulated time2)
     {
         return this.day == time2.day && this.month == time2.month && this.year == time2.year;
     }
-
+    /*
     public int DiferenceDays(TimeSimulated time2)
     {
         int difDays = 0;
@@ -128,5 +138,13 @@ public class TimeSimulated
         int days = (int)(this.day + 30 * difMonth);
         difDays = (int)(days - time2.day);
         return difDays;
+    }
+    */
+    public int DiferenceDays(TimeSimulated time2)
+    {
+        int difYear = (int)(this.year - time2.year);
+        int difMonth =(int)(this.month - time2.month);
+        int difDays = (int)(this.day - time2.day);
+        return difYear*360 + difMonth * 30 + difDays;
     }
 }

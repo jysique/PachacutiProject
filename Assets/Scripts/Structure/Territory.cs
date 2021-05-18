@@ -7,12 +7,12 @@ public class Territory
 {
    
     public string name;
-    public enum TRIBES
+    public enum REGION
     {
-        TRIBE_A,
-        TRIBE_B,
-        TRIBE_C,
-        TRIBE_D,
+        REGION_A,
+        REGION_B,
+        REGION_C,
+        NONE
     }
     public enum TYPEPLAYER
     {
@@ -23,7 +23,7 @@ public class Territory
         BOT4,
         NONE
     }
-    [SerializeField] private TRIBES tribe;
+    [SerializeField] private REGION region;
     [SerializeField] private TYPEPLAYER typePlayer;
     [SerializeField] private int population;
     [SerializeField] private int gold;
@@ -32,38 +32,26 @@ public class Territory
     [SerializeField] private int motivation;
 
     [SerializeField] private float velocityPopulation;
-   // [SerializeField] private float velocityFood;
 
     private int costImprovePopulation = 10;
-    //private int costImproveFood = 10;
-
     [SerializeField] private bool selected;
 
     [SerializeField] private MilitarBoss militarBossTerritory = null;
     [SerializeField] private GoldMine goldMineTerritory = new GoldMine();
     [SerializeField] private SacredPlace sacredPlaceTerritory = new SacredPlace();
     [SerializeField] private Fortress fortressTerritory = new Fortress();
-    [SerializeField] private Barracks barracksTerritory = new Barracks();
+    [SerializeField] private Barrack barracksTerritory = new Barrack();
     [SerializeField] private IrrigationChannel irrigationChannelTerritory = new IrrigationChannel();
-
-    public int CostPopulation
-    {
-        get { return costImprovePopulation; }
-        set { costImprovePopulation = value; }
-    }
-    /*
-    public int CostFood
-    {
-        get { return costImproveFood; }
-        set { costImproveFood = value; }
-    }
-    */
     /// <summary>
     /// variables for countDown timers in TerritoryMenu
     /// </summary>
     private float[] totalTime = new float[5] { 0, 0, 0, 0, 0 };
     private bool[] canUpgrade = new bool[5] { true, true, true, true, true };
-
+    public int CostPopulation
+    {
+        get { return costImprovePopulation; }
+        set { costImprovePopulation = value; }
+    }
     public float[] TotalTime
     {
         get { return totalTime; }
@@ -94,7 +82,7 @@ public class Territory
         get { return fortressTerritory; }
         set { fortressTerritory = value; }
     }
-    public Barracks BarracksTerritory
+    public Barrack BarracksTerritory
     {
         get { return barracksTerritory; }
         set { barracksTerritory = value; }
@@ -108,6 +96,19 @@ public class Territory
     {
         get { return typePlayer; }
         set { typePlayer = value; }
+    }
+    public bool AllBuilds()
+    {
+        return goldMineTerritory.Level > 0 
+            && sacredPlaceTerritory.Level > 0 
+            && fortressTerritory.Level > 0 
+            && barracksTerritory.Level >0 
+            && irrigationChannelTerritory.Level > 0;
+    }
+    public REGION RegionTerritory
+    {
+        get { return region; }
+        set { region = value; }
     }
     public int Population
     {

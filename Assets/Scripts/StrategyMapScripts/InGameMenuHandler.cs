@@ -129,10 +129,10 @@ public class InGameMenuHandler : MonoBehaviour
             GameObject customEventOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/CustomEventOption")) as GameObject;
             customEventOption.transform.SetParent(gridLayout.transform, false);
             customEventOption.GetComponent<CustomEventOption>().Custom = customEvent;
-            if (customEvent.StatusEvent == CustomEvent.STATUS.ANNOUNCE)
+            if (customEvent.EventStatus == CustomEvent.STATUS.ANNOUNCE)
             {
                 DestroyImmediate(customEventOption);
-            }else if (customEvent.StatusEvent == CustomEvent.STATUS.FINISH)
+            }else if (customEvent.EventStatus == CustomEvent.STATUS.FINISH)
             {
                 Destroy(customEventOption,1);
             }
@@ -178,7 +178,7 @@ public class InGameMenuHandler : MonoBehaviour
     }
     void UpdateCountDownImage()
     {
-        IrrigationChannelOption.TerritoryBuilding = selectedTerritory.GoldMineTerritory;
+        IrrigationChannelOption.TerritoryBuilding = selectedTerritory.IrrigationChannelTerritory;
         GoldMineOption.TerritoryBuilding = selectedTerritory.GoldMineTerritory;
         SacredPlaceOption.TerritoryBuilding = selectedTerritory.SacredPlaceTerritory;
         FortressOption.TerritoryBuilding = selectedTerritory.FortressTerritory;
@@ -598,7 +598,7 @@ public class InGameMenuHandler : MonoBehaviour
     public void ResumeGame()
     {
         GlobalVariables.instance.timeModifier = temporalTime;
-        print(temporalTime);
+//        print(temporalTime);
     }
     void Start()
     {
@@ -638,6 +638,10 @@ public class InGameMenuHandler : MonoBehaviour
         CustomEventSelection.gameObject.SetActive(true);
         PauseGame();
         ResetTextCustomEvent();
+        if (!custom.GetAcceptButton())
+        {
+            AcceptEventButton.interactable= false;
+        }
         currentCustomEvent = custom;
         //DetailsTextCustomEvent.text = "The people of " + custom.TerritoryEvent.name + " territory give you a message:\n";
         AcceptTextCustomEvent.text += "If you accept: \n " + custom.AcceptMessageEvent;

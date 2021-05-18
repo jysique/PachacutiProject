@@ -1,11 +1,11 @@
 using UnityEngine;
 [System.Serializable]
-public class Barracks : Building
+public class Barrack : Building
 {
     private int plusAttack = 1;
-    public Barracks()
+    public Barrack()
     {
-        this.Name = "Barracks";
+        this.Name = "Barrack";
     }
     public int PlusAttack
     {

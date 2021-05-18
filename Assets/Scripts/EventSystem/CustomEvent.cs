@@ -7,7 +7,6 @@ public class CustomEvent
 {
     [SerializeField] private string eventtype;
     private string messagge;
-    //private string messaggeB;
     private Territory territoryEvent;
     private string element;
     private int acceptCostEvent;
@@ -16,11 +15,10 @@ public class CustomEvent
     private string declineMessageEvent;
     [SerializeField]private TimeSimulated timeInit;
     [SerializeField]private TimeSimulated timeFinal;
-    //private bool acceptEventBool = false;
-    public STATUS statusEvent;
-    public STATUS StatusEvent {
-        get { return statusEvent; }
-        set { statusEvent = value; }
+    public STATUS eventStatus;
+    public STATUS EventStatus {
+        get { return eventStatus; }
+        set { eventStatus = value; }
     }
 
     public int DifferenceToFinal
@@ -32,7 +30,7 @@ public class CustomEvent
         get { return eventtype; }
         set { eventtype = value; }
     }
-    public string MessageEvent //sin tiempo
+    public string MessageEvent
     {
         get { return messagge; }
         set { messagge = value; }
@@ -79,16 +77,16 @@ public class CustomEvent
     {
 
         this.timeInit = new TimeSimulated(_initTime.Day, _initTime.Month, _initTime.Year);
-        //timeInit.PlusDays(days);
-        timeInit.PlusDays(4);
+        timeInit.PlusDays(days);
+        //timeInit.PlusDays(4);
 
         this.timeFinal = new TimeSimulated(timeInit.Day, timeInit.Month, timeInit.Year);
-        int r = UnityEngine.Random.Range(10, 15);
-        //  timeFinal.PlusDays(days);
-        timeFinal.PlusDays(4);
+        int rDays = UnityEngine.Random.Range(10, 15);
+        timeFinal.PlusDays(rDays);
+
         EVENTTYPE _t = (EVENTTYPE)UnityEngine.Random.Range(0, Enum.GetNames(typeof(EVENTTYPE)).Length);
         this.eventtype = _t.ToString();
-        this.statusEvent = STATUS.ANNOUNCE;
+        this.eventStatus = STATUS.ANNOUNCE;
         this.acceptCostEvent = UnityEngine.Random.Range(3, InGameMenuHandler.instance.GoldPlayer / 2);
         this.declineCostEvent = UnityEngine.Random.Range(3, InGameMenuHandler.instance.GoldPlayer / 2);
         GetMessage();
@@ -111,6 +109,36 @@ public class CustomEvent
         ANNOUNCE, // creado
         PROGRESS, // entre init time y finish time
         FINISH //finishTime
+    }
+    public bool GetAcceptButton()
+    {
+        string option = this.eventtype.ToString();
+        switch (option)
+        {
+            case "EVENT_PANDEMIC":
+            case "EVENT_PANDEMIC2":
+            case "EVENT_PLAGUE":
+            case "EVENT_PLAGUE2":
+                if (InGameMenuHandler.instance.GoldPlayer >= acceptCostEvent && InGameMenuHandler.instance.FoodPlayer >= acceptCostEvent)
+                {
+                    return true;
+                }
+                break;
+            case "REBELION":
+            case "PETITION_MIN":
+            case "PETITION_FOR":
+            case "GRACE_DIV":
+            case "GRACE_MIN":
+            case "GRACE_FOOD":
+                if (InGameMenuHandler.instance.GoldPlayer >= acceptCostEvent)
+                {
+                    return true;
+                }
+                break;
+            default:
+                break;
+        }
+        return false;
     }
     public void GetMessage()
     {
@@ -154,17 +182,17 @@ public class CustomEvent
                 break;
             case "GRACE_DIV":
                 this.messagge = "A sanctuary has been found in "+ territoryEvent.name+ " territory. To appropriate them to our territories, meet the following requirements. ";
-                this.acceptMessageEvent = "-" + acceptCostEvent + " gold \n+ 2 sacred place level";
+                this.acceptMessageEvent = "-" + acceptCostEvent + " gold to repair\n+ 2 sacred place level";
                 this.declineMessageEvent = "-10 opinion";
                 break;
             case "GRACE_MIN":
                 this.messagge = "An abandoned mine has been found in "+ territoryEvent.name+ " territory. To appropriate them to our territories, meet the following requirements. ";
-                this.acceptMessageEvent = "-" + acceptCostEvent + " gold \n+ 3 gold mine level";
+                this.acceptMessageEvent = "-" + acceptCostEvent + " gold to repair \n+ 3 gold mine level";
                 this.declineMessageEvent = "+" + declineCostEvent + "gold";
                 break;
             case "GRACE_FOOD":
                 this.messagge = "We want to expand the seeding in "+ territoryEvent.name+ " territory. To run this, meet the following requirements. ";
-                this.acceptMessageEvent = "-" + acceptCostEvent + " gold \n+ 3 vel of food";
+                this.acceptMessageEvent = "-" + acceptCostEvent + " gold to repair \n+ 3 vel of food";
                 this.declineMessageEvent = "+" + declineCostEvent + "food";
                 break;
             case null:
@@ -173,8 +201,7 @@ public class CustomEvent
     }
     public void AcceptEventAction()
     {
-        statusEvent = STATUS.FINISH;
-      //  acceptEventBool = true;
+        eventStatus = STATUS.FINISH;
         switch (eventtype.ToString())
         {
             case "REBELION":
@@ -217,7 +244,7 @@ public class CustomEvent
     }
     public void DeclineEventAction()
     {
-        statusEvent = STATUS.FINISH;
+        eventStatus= STATUS.FINISH;
         switch (eventtype.ToString())
         {
             case "REBELION":

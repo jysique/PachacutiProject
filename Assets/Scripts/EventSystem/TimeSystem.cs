@@ -148,19 +148,19 @@ public class TimeSystem : MonoBehaviour
 
         for (int i = 0; i < listEvents.CustomEvents.Count; i++)
         {
-            if (listEvents.CustomEvents[i].StatusEvent == CustomEvent.STATUS.ANNOUNCE)
+            if (listEvents.CustomEvents[i].EventStatus == CustomEvent.STATUS.ANNOUNCE)
             {
                 if (timeGame.EqualsDate(listEvents.CustomEvents[i].TimeInitEvent))
                 {
-                    listEvents.CustomEvents[i].StatusEvent = CustomEvent.STATUS.PROGRESS;
+                    listEvents.CustomEvents[i].EventStatus = CustomEvent.STATUS.PROGRESS;
                     WarningCustomEvent(i);
 
                 }
             }
 
-            else if (timeGame.EqualsDate(listEvents.CustomEvents[i].TimeFinalEvent) && listEvents.CustomEvents[i].StatusEvent == CustomEvent.STATUS.PROGRESS)
+            else if (timeGame.EqualsDate(listEvents.CustomEvents[i].TimeFinalEvent) && listEvents.CustomEvents[i].EventStatus == CustomEvent.STATUS.PROGRESS)
             {
-                listEvents.CustomEvents[i].StatusEvent = CustomEvent.STATUS.FINISH;
+                listEvents.CustomEvents[i].EventStatus = CustomEvent.STATUS.FINISH;
                 FinishCustomEvent(i);
             }
         }

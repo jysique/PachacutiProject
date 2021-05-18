@@ -47,6 +47,7 @@ public class TerritoryHandler : MonoBehaviour
         }            
         if(territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
         {
+            territoryStats.territory.IrrigationChannelTerritory.Level++;
             territoryStats.territory.GoldMineTerritory.Level++;
         }
 
