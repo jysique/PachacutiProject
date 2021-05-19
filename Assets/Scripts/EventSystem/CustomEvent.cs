@@ -89,12 +89,10 @@ public class CustomEvent
 
         this.timeInit = new TimeSimulated(_initTime.Day, _initTime.Month, _initTime.Year);
         timeInit.PlusDays(days);
-        //timeInit.PlusDays(5);
 
         this.timeFinal = new TimeSimulated(timeInit.Day, timeInit.Month, timeInit.Year);
         int rDays = UnityEngine.Random.Range(10, 15);
         timeFinal.PlusDays(rDays);
-        //timeFinal.PlusDays(5);
         EVENTTYPE _t = (EVENTTYPE)UnityEngine.Random.Range(0, Enum.GetNames(typeof(EVENTTYPE)).Length);
         this.eventtype = _t.ToString();
         this.eventStatus = STATUS.ANNOUNCE;
