@@ -80,20 +80,19 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private GameObject CustomEventSelection;
     [SerializeField] private Text TitleTextCustomEvent;
     [SerializeField] private Text DetailsTextCustomEvent;
-    [SerializeField] private Text AcceptTextCustomEvent;
-    [SerializeField] private Text DeclineTextCustomEvent;
+    [SerializeField] private Text ResultsTextEvent;
     [SerializeField] private Button AcceptEventButton;
     [SerializeField] private Button CloseEventButton;
     [SerializeField] private Button DeclineEventButton;
+    [SerializeField] private GameObject ResultsEvent;
     private CustomEvent currentCustomEvent;
     [NonSerialized] public List<GameObject> listFloatingText = new List<GameObject>();
 
     [Header("Select MilitaryBoss variables")]
     [SerializeField] private GameObject CharacterSelection;
-    
 
+    public static bool isGamePaused = false;
     private List<GameObject> characterOptions;
-    //public MilitarBossList ml;
     public SubordinateList subordinateList;
 
     private int goldPlayer= 20;
@@ -562,7 +561,7 @@ public class InGameMenuHandler : MonoBehaviour
         }
         subordinateList.DeleteSubodinateList();
     }
-    public static bool isGamePaused = false;
+
     public void EscapeGame()
     {
         if (Input.GetKeyDown(KeyCode.Escape))   
@@ -602,15 +601,13 @@ public class InGameMenuHandler : MonoBehaviour
     }
     void Start()
     {
-        AcceptEventButton.onClick.AddListener(() => AcceptCustomEventButton());
-        DeclineEventButton.onClick.AddListener(() => DeclineCustomEventButton());
-        CloseEventButton.onClick.AddListener(() => CloseCustomEventButton());
         buttons[0].onClick.AddListener(() => ImproveIrrigateChannelButton());
         buttons[1].onClick.AddListener(() => ImproveMineGoldButton());
         buttons[2].onClick.AddListener(() => ImproveSacredPlaceButton());
         buttons[3].onClick.AddListener(() => ImproveFortressButton());
         buttons[4].onClick.AddListener(() => ImproveBarracksButton());
         InitButtonMenuPause();
+        InitEventsButtons();
         UpdateMenu();
     }
 
@@ -619,10 +616,17 @@ public class InGameMenuHandler : MonoBehaviour
         InitCustomEvent(custom);
         AcceptEventButton.gameObject.SetActive(false);
         DeclineEventButton.gameObject.SetActive(false);
-        AcceptTextCustomEvent.gameObject.SetActive(false);
-        TitleTextCustomEvent.text = "End Event";
-        //DetailsTextCustomEvent.text += custom.MessageEventA + custom.ElementEvent;
-        DetailsTextCustomEvent.text = "You were unable to complete the requirements of the " + custom.TerritoryEvent.name+" territory petition.";
+        TitleTextCustomEvent.text = "Results Event";
+        if (custom.IsAccepted)
+        {
+            DetailsTextCustomEvent.text = "You complete the requirements of the " + custom.TerritoryEvent.name + " territory petition.";
+        }
+        else
+        {
+            DetailsTextCustomEvent.text = "You were unable to complete the requirements of the " + custom.TerritoryEvent.name + " territory petition.";
+        }
+        ResultsEvent.SetActive(true);
+        ResultsTextEvent.text = "Results:\n" + custom.ResultsEvent();
         custom.DeclineEventAction();
     }
     
@@ -630,9 +634,9 @@ public class InGameMenuHandler : MonoBehaviour
     {
         InitCustomEvent(custom);
         CloseEventButton.gameObject.SetActive(true);
-        DetailsTextCustomEvent.text += custom.MessageEvent + daysToFinal + " days left";
-
+        DetailsTextCustomEvent.text = custom.MessageEvent + "\nTime remaining: " + daysToFinal + " days.";
     }
+
     public void InitCustomEvent(CustomEvent custom)
     {
         CustomEventSelection.gameObject.SetActive(true);
@@ -642,22 +646,22 @@ public class InGameMenuHandler : MonoBehaviour
         {
             AcceptEventButton.interactable= false;
         }
+        ResultsTextEvent.text = "Requirements:\n" + custom.RequirementMessageEvent;
         currentCustomEvent = custom;
-        //DetailsTextCustomEvent.text = "The people of " + custom.TerritoryEvent.name + " territory give you a message:\n";
-        AcceptTextCustomEvent.text += "If you accept: \n " + custom.AcceptMessageEvent;
-        DeclineTextCustomEvent.text += "If you decline: \n " + custom.DeclineMessageEvent;
     }
     public void AcceptCustomEventButton()
     {
         currentCustomEvent.AcceptEventAction();
         UpdateMenu();
-        CloseCustomEventButton();
+        //CloseCustomEventButton();
+        FinishCustomEventAppearance(currentCustomEvent);
     }
     public void DeclineCustomEventButton()
     {
         currentCustomEvent.DeclineEventAction();
         UpdateMenu();
-        CloseCustomEventButton();
+        //CloseCustomEventButton();
+        FinishCustomEventAppearance(currentCustomEvent);
     }
     public void CloseCustomEventButton()
     {
@@ -671,10 +675,7 @@ public class InGameMenuHandler : MonoBehaviour
         AcceptEventButton.gameObject.SetActive(true);
         DeclineEventButton.gameObject.SetActive(true);
         CloseEventButton.gameObject.SetActive(true);
-        AcceptTextCustomEvent.gameObject.SetActive(true);
         DetailsTextCustomEvent.text = " ";
-        AcceptTextCustomEvent.text = " ";
-        DeclineTextCustomEvent.text = " ";
         TitleTextCustomEvent.text = "Event";
     }
     public void turnOffMenus()
@@ -694,6 +695,11 @@ public class InGameMenuHandler : MonoBehaviour
         allPauseButton[0].onClick.AddListener(() => ResumeMenuGame());
         allPauseButton[1].onClick.AddListener(() => GlobalVariables.instance.GoToMenuGame());
         allPauseButton[2].onClick.AddListener(() => GlobalVariables.instance.ClosingApp());
+    }   
+    void InitEventsButtons()
+    {
+        AcceptEventButton.onClick.AddListener(() => AcceptCustomEventButton());
+        DeclineEventButton.onClick.AddListener(() => DeclineCustomEventButton());
+        CloseEventButton.onClick.AddListener(() => CloseCustomEventButton());
     }
-
 }
