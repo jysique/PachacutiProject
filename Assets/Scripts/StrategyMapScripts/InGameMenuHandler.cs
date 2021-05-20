@@ -20,6 +20,7 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private GameObject menuConfirm;
     [SerializeField] public GameObject overMenuBlock;
     [Header("Menu personaje")]
+
     [SerializeField] private Text governorName;
     [SerializeField] private Text governorAge;
     [SerializeField] private Text governorOrigin;
@@ -63,14 +64,6 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private BuildOption SacredPlaceOption;
     [SerializeField] private BuildOption FortressOption;
     [SerializeField] private BuildOption BarracksOption;
-
-    [Header("Recursos")]
-    [SerializeField] private Text goldGenerated;
-    [SerializeField] private Text foodGenerated;
-   // [SerializeField] private Text sucesionSizeTxt;
-    [SerializeField] private Text scoreTxt;
-    [SerializeField] private Transform goldAnimation;
-    [SerializeField] private Transform foodAnimation;
 
     [Header("Menu de Pause")]
     [SerializeField] private GameObject PauseMenu;
@@ -138,13 +131,7 @@ public class InGameMenuHandler : MonoBehaviour
         }
 
     }
-    public void UpdateResourceTable()
-    {
-        goldGenerated.text = goldPlayer.ToString();
-        foodGenerated.text = foodPlayer.ToString();
-     //   sucesionSizeTxt.text = "0";
-        scoreTxt.text = TerritoryManager.instance.CountTerrytorry(Territory.TYPEPLAYER.PLAYER).ToString();
-    }
+
     public void UpdateMilitarMenu()
     {
         menuBlock.SetActive(false);
@@ -199,11 +186,11 @@ public class InGameMenuHandler : MonoBehaviour
         governorAge.text = "Age: " + temp.Age.ToString();
         governorPicture.sprite = temp.Picture;
         governorOrigin.text = "Birth place: " + temp.Origin;
-        governorDiplomacy.text = "Diplomacy: " + temp.Diplomacy;
-        governorMilitancy.text = "Military: " + temp.Militancy;
-        governorManagement.text = "Administration: " + temp.Managment;
-        governorPrestige.text = "Prestige: " + temp.Prestige;
-        governorPiety.text = "Piety: " + temp.Piety;
+        governorDiplomacy.text = " " + temp.Diplomacy;
+        governorMilitancy.text = " " + temp.Militancy;
+        governorManagement.text = " " + temp.Managment;
+        governorPrestige.text = " " + temp.Prestige;
+        governorPiety.text = " " + temp.Piety;
     }
     public void UpdateMenu()
     {
@@ -224,7 +211,7 @@ public class InGameMenuHandler : MonoBehaviour
         AttackBonus.text = "Attack bonus: " + selectedTerritory.FortressTerritory.PlusDefense.ToString();
         DefenseBonus.text = "Defense bonus: " + selectedTerritory.BarracksTerritory.PlusAttack.ToString();
         
-        UpdateResourceTable();
+        //UpdateResourceTable();
         EscapeGame();
         UpdateCountDownImage();
     }
@@ -313,7 +300,7 @@ public class InGameMenuHandler : MonoBehaviour
             territoryHandler.ImproveSpeedPopulation();
             goldPlayer -= territoryHandler.territoryStats.territory.CostPopulation;
             ShowFloatingText("+0.3 velocity population", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
-            ShowFloatingText("-" + territoryHandler.territoryStats.territory.CostPopulation.ToString(), "TextFloating", goldAnimation, Color.white);
+            ShowFloatingText("-" + territoryHandler.territoryStats.territory.CostPopulation.ToString(), "TextFloating", ResourceTableHandler.instance.GoldAnimation, Color.white);
             territoryHandler.territoryStats.territory.CostPopulation += 10;
         }
 
@@ -369,7 +356,7 @@ public class InGameMenuHandler : MonoBehaviour
             territoryHandler.ImproveLimit();
             foodPlayer -= territoryHandler.territoryStats.territory.IrrigationChannelTerritory.CostToUpgrade;
             ShowFloatingText("+20 limit", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
-            ShowFloatingText("-" + territoryHandler.territoryStats.territory.IrrigationChannelTerritory.CostToUpgrade.ToString(), "TextFloating", foodAnimation, Color.white);
+            ShowFloatingText("-" + territoryHandler.territoryStats.territory.IrrigationChannelTerritory.CostToUpgrade.ToString(), "TextFloating", ResourceTableHandler.instance.FoodAnimation, Color.white);
             territoryHandler.territoryStats.territory.IrrigationChannelTerritory.CostToUpgrade += 10;
         }
     }
@@ -380,7 +367,7 @@ public class InGameMenuHandler : MonoBehaviour
             ImproveTerritory(territoryHandler, 0);
             goldPlayer -= territoryHandler.territoryStats.territory.IrrigationChannelTerritory.CostToUpgrade;
             ShowFloatingText("+0.3 velocity population", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
-            ShowFloatingText("-" + territoryHandler.territoryStats.territory.CostPopulation.ToString(), "TextFloating", goldAnimation, Color.white);
+            ShowFloatingText("-" + territoryHandler.territoryStats.territory.CostPopulation.ToString(), "TextFloating", ResourceTableHandler.instance.GoldAnimation, Color.white);
             territoryHandler.territoryStats.territory.IrrigationChannelTerritory.CostToUpgrade += 3;
         }
     }
@@ -392,7 +379,7 @@ public class InGameMenuHandler : MonoBehaviour
             ImproveTerritory(territoryHandler, 1);
             goldPlayer -= territoryHandler.territoryStats.territory.GoldMineTerritory.CostToUpgrade;
             ShowFloatingText("+1 gold mine level", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
-            ShowFloatingText("-" + territoryHandler.territoryStats.territory.GoldMineTerritory.CostToUpgrade.ToString(), "TextFloating", goldAnimation, Color.white);
+            ShowFloatingText("-" + territoryHandler.territoryStats.territory.GoldMineTerritory.CostToUpgrade.ToString(), "TextFloating", ResourceTableHandler.instance.GoldAnimation, Color.white);
             territoryHandler.territoryStats.territory.GoldMineTerritory.CostToUpgrade += 3;
         }
     }
@@ -403,7 +390,7 @@ public class InGameMenuHandler : MonoBehaviour
             ImproveTerritory(territoryHandler, 2);
             goldPlayer -= territoryHandler.territoryStats.territory.SacredPlaceTerritory.CostToUpgrade;
             ShowFloatingText("+1 sacredPlace level", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
-            ShowFloatingText("-" + territoryHandler.territoryStats.territory.SacredPlaceTerritory.CostToUpgrade.ToString(), "TextFloating", goldAnimation, Color.white);
+            ShowFloatingText("-" + territoryHandler.territoryStats.territory.SacredPlaceTerritory.CostToUpgrade.ToString(), "TextFloating", ResourceTableHandler.instance.GoldAnimation, Color.white);
             territoryHandler.territoryStats.territory.SacredPlaceTerritory.CostToUpgrade += 3;
         }
     }
@@ -414,7 +401,7 @@ public class InGameMenuHandler : MonoBehaviour
             ImproveTerritory(territoryHandler, 3);
             goldPlayer -= territoryHandler.territoryStats.territory.FortressTerritory.CostToUpgrade;
             ShowFloatingText("+1 fortress level", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
-            ShowFloatingText("-" + territoryHandler.territoryStats.territory.FortressTerritory.CostToUpgrade.ToString(), "TextFloating", goldAnimation, Color.white);
+            ShowFloatingText("-" + territoryHandler.territoryStats.territory.FortressTerritory.CostToUpgrade.ToString(), "TextFloating", ResourceTableHandler.instance.GoldAnimation, Color.white);
             territoryHandler.territoryStats.territory.FortressTerritory.CostToUpgrade += 3;
         }
     }
@@ -425,7 +412,7 @@ public class InGameMenuHandler : MonoBehaviour
             ImproveTerritory(territoryHandler, 4);
             goldPlayer -= territoryHandler.territoryStats.territory.BarracksTerritory.CostToUpgrade;
             ShowFloatingText("+1 barracks level", "TextMesh", territoryHandler.transform, new Color32(0,19,152,255));
-            ShowFloatingText("-" + territoryHandler.territoryStats.territory.BarracksTerritory.CostToUpgrade.ToString(), "TextFloating", goldAnimation,Color.white);
+            ShowFloatingText("-" + territoryHandler.territoryStats.territory.BarracksTerritory.CostToUpgrade.ToString(), "TextFloating", ResourceTableHandler.instance.GoldAnimation,Color.white);
             territoryHandler.territoryStats.territory.BarracksTerritory.CostToUpgrade += 3;
         }
     }
@@ -499,7 +486,7 @@ public class InGameMenuHandler : MonoBehaviour
         {
             temp+= GatherGold(TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER)[i]);
         }
-        ShowFloatingText("+"+ temp.ToString(), "TextFloating",goldAnimation, Color.white);
+        ShowFloatingText("+"+ temp.ToString(), "TextFloating", ResourceTableHandler.instance.GoldAnimation, Color.white);
         goldPlayer += temp;
     }
     public void GatherFoodResourceButton()
@@ -509,7 +496,7 @@ public class InGameMenuHandler : MonoBehaviour
         {
             temp += GatherFood(TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER)[i]);
         }
-        ShowFloatingText("+" + temp.ToString(), "TextFloating",foodAnimation,Color.white);
+        ShowFloatingText("+" + temp.ToString(), "TextFloating", ResourceTableHandler.instance.FoodAnimation,Color.white);
         foodPlayer += temp;
         
     }

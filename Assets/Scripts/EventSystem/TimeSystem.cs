@@ -11,11 +11,7 @@ public class TimeSystem : MonoBehaviour
     private TimeSimulated timeAddEvent;
     public CustomEventList listEvents;
     int indexListEvent = 0;
-    [SerializeField] private Text dayText;
-    [SerializeField] private Text monthText;
-    [SerializeField] private Text seasonText;
-    [SerializeField] private Text yearText;
-    [SerializeField] private Text weekText;
+
     public TimeSimulated TimeGame
     {
         get { return timeGame; }
@@ -27,13 +23,11 @@ public class TimeSystem : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        timeGame = new TimeSimulated(29, 12, 1399);
+        //timeGame = new TimeSimulated(1, 1, 1399);
     }
     void Start()
     {
-        timeGame = new TimeSimulated(29, 12, 1399);
-        //timeGame = new TimeSimulated(1, 1, 1399);
-    
-        TextCallFunction();
         InitializeGameEvents();
         InitializeListEvents();
     }
@@ -50,28 +44,7 @@ public class TimeSystem : MonoBehaviour
         GameEvents.instance.onGatherFoodTriggerEnter += onGatherFood;
         GameEvents.instance.onCustomEventExit += onGatherExit;
     }
-    private void TextCallFunction()
-    {
-        if (timeGame.Day <= 9)
-        {
-            dayText.text = "0" + timeGame.Day.ToString();
-        }
-        else
-        {
-            dayText.text = timeGame.Day.ToString();
-        }
-        if (timeGame.Month <= 9)
-        {
-            monthText.text = "0" + timeGame.Month.ToString();
-        }
-        else
-        {
-            monthText.text = timeGame.Month.ToString();
-        }
-        weekText.text = timeGame.Week.ToString();
-        yearText.text = timeGame.Year.ToString();
-        seasonText.text = timeGame.Season;
-    }
+    
     public void CalculateTime(TimeSimulated _time)
     {
         _time.CalculateSeason();
@@ -96,8 +69,6 @@ public class TimeSystem : MonoBehaviour
     }
     void Update()
     {
-        CalculateTime(timeGame);
-        TextCallFunction();
         GatherResourceInTime();
         CustomEventInTime();
     }
