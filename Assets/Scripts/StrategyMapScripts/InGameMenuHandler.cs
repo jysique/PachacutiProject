@@ -46,7 +46,6 @@ public class InGameMenuHandler : MonoBehaviour
 
     [Header("Menu territorio")]
     [SerializeField] private GameObject menuBlockTerritory;
-    [SerializeField] private Text territoryName;
     [SerializeField] private Text goldCount;
     [SerializeField] private Text foodCount;
     [SerializeField] private Text GoldGeneration;
@@ -54,7 +53,6 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private Text MotivationBonus;
     [SerializeField] private Text AttackBonus;
     [SerializeField] private Text DefenseBonus;
-    [SerializeField] private Image territoryImage;
     [SerializeField] private Image[] countdownImages;
     [SerializeField] private Button[] buttons;
 
@@ -101,7 +99,7 @@ public class InGameMenuHandler : MonoBehaviour
     private int sucesionSizePlayer;
     private int scorePlayer;
 
-    private float temporalTime;
+    public float temporalTime;
     public int GoldPlayer
     {
         get { return goldPlayer; }
@@ -152,9 +150,9 @@ public class InGameMenuHandler : MonoBehaviour
         MilitarBoss boss = selectedTerritory.MilitarBossTerritory;
         militaryBossName.text = "Name: " + boss.CharacterName;
         militaryBossPicture.sprite = boss.Picture;
-        militaryBossExperience.text = "Experience: " + boss.Experience;
+        militaryBossExperience.text = boss.Experience.ToString();
         militaryBossEstrategy.text = "Strategy: " + boss.StrategyType;
-        militaryBossMilitary.text = "Influence: " + boss.Influence;
+        militaryBossMilitary.text = boss.Influence.ToString();
         GenerationSpeed.text = " " + selectedTerritory.VelocityPopulation;
         if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
         {
@@ -165,8 +163,6 @@ public class InGameMenuHandler : MonoBehaviour
     public void UpdateTerritoryMenu()
     {
         menuBlockTerritory.SetActive(false);
-        territoryName.text = selectedTerritory.name;
-        territoryImage.sprite = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().sprite.sprite;
         //territoryImage.sprite = selectedTerritory.
         if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
         {
@@ -221,9 +217,9 @@ public class InGameMenuHandler : MonoBehaviour
         foodCount.text = "Food: " + selectedTerritory.FoodReward.ToString();
         GoldGeneration.text = "Generation speed: " + selectedTerritory.GoldMineTerritory.VelocityGold.ToString();
         FoodGeneration.text = "Generation speed: " + selectedTerritory.IrrigationChannelTerritory.VelocityFood.ToString();
-        MotivationBonus.text = "Motivation bonus: " + selectedTerritory.SacredPlaceTerritory.Motivation.ToString();
-        AttackBonus.text = "Attack bonus: " + selectedTerritory.FortressTerritory.PlusDefense.ToString();
-        DefenseBonus.text = "Defense bonus: " + selectedTerritory.BarracksTerritory.PlusAttack.ToString();
+        MotivationBonus.text = selectedTerritory.SacredPlaceTerritory.Motivation.ToString();
+        AttackBonus.text = selectedTerritory.FortressTerritory.PlusDefense.ToString();
+        DefenseBonus.text = selectedTerritory.BarracksTerritory.PlusAttack.ToString();
         
         UpdateResourceTable();
         EscapeGame();
@@ -591,7 +587,9 @@ public class InGameMenuHandler : MonoBehaviour
     public void PauseGame()
     {
         turnOffMenus();
+        
         temporalTime = GlobalVariables.instance.timeModifier;
+        print("pause" + temporalTime);
         GlobalVariables.instance.timeModifier = 0;
         
     }

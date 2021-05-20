@@ -9,6 +9,7 @@ public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandl
     [SerializeField] private TabGroup tabGroup;
 
     public Image background;
+    public Text text;
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -28,6 +29,7 @@ public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandl
     private void Start()
     {
         background = GetComponent<Image>();
+        text = transform.GetChild(0).GetComponent<Text>();
         tabGroup.Subscribe(this);
     }
 

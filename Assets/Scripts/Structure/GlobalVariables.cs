@@ -114,6 +114,10 @@ public class GlobalVariables : MonoBehaviour
     }
     public void GoToMenuGame()
     {
+        if(InGameMenuHandler.instance != null)
+        {
+            timeModifier = InGameMenuHandler.instance.temporalTime;
+        }
         print("go to menu game");
         Transition.instance.LoadScene(0);
     }
