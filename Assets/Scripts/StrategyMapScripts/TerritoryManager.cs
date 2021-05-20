@@ -7,11 +7,12 @@ using System.Linq;
 public class TerritoryManager : MonoBehaviour
 {
     public static TerritoryManager instance;
-    public List<GameObject> territoryList = new List<GameObject>();
+    public List<GameObject> territoryList;
     public GameObject territorySelected;
     private void Awake()
     {
         instance = this;
+        territoryList = new List<GameObject>();
         AddTerritoryData();
         ReadAdjacentTerritories();
     }
@@ -28,27 +29,16 @@ public class TerritoryManager : MonoBehaviour
         List<string> data = new List<string>(file.Split('\n'));
         for (int i = 0; i < data.Count; i++)
         {
-            FirstAttempt(data[i]);
+            ParseLine(data[i]);
         }
-        
-        for (int i = 0; i < dictionary.Single(s => s.Key == "Quispicanchi").Value.Count; i++)
-        {
-            //print("aqui:" + dictionary.Single(s => s.Key == "Quispicanchi").Value[i]);
-        }
-        foreach (KeyValuePair<string, List<GameObject>> kvp in dictionary)
-        {
-            //            Debug.Log("Key = " + kvp.Key + "- " + kvp.Key.Count());
-        }
-        
     }
-    void FirstAttempt(string line)
+    void ParseLine(string line)
     {
         string[] a = line.Split(char.Parse(":"));
         List<string> b = a[1].Split(char.Parse(",")).ToList();
         List<GameObject> c = new List<GameObject>();
         for (int i = 0; i < b.Count; i++)
         {
-           // print(i + "-" + b[i] +" - " +b[i].Count());
            c.Add(SearchTerritoryGameObject(b[i],a[0]));
         }
         dictionary.Add(a[0], c);
@@ -198,11 +188,27 @@ public class TerritoryManager : MonoBehaviour
         }
         return territoriesPlayer;
     }
-    public TerritoryHandler GetTerritoryRandom()
+
+    public List<TerritoryHandler> GetTerritoriesByZoneTerritory(Territory.REGION region)
     {
-        List<TerritoryHandler> list = GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER);
+        List<TerritoryHandler> territoriesZone = new List<TerritoryHandler>();
+        for (int i = 0; i < territoryList.Count; i++)
+        {
+            TerritoryHandler _territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
+            if (_territoryHandler.territoryStats.territory.RegionTerritory == region)
+            {
+                territoriesZone.Add(_territoryHandler);
+            }
+        }
+        return territoriesZone;
+    }
+
+    public TerritoryHandler GetTerritoryRandom(Territory.TYPEPLAYER typePlayer)
+    {
+        List<TerritoryHandler> list = GetTerritoriesByTypePlayer(typePlayer);
         int r = UnityEngine.Random.Range(0, list.Count);
         TerritoryHandler territoryHandler =  list[r];
         return territoryHandler;
     }
+
 }

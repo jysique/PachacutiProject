@@ -25,7 +25,7 @@ public class CharacterManager : MonoBehaviour
             //AudioManager.activeSong.Stop();
         }
      //   governor.TimeInit.PrintTimeSimulated();
-        InGameMenuHandler.instance.UpdateProfileMenu();
+       InGameMenuHandler.instance.UpdateProfileMenu();
     }
 
     public SubordinateList MilitarBossList

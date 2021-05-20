@@ -11,11 +11,7 @@ public class TimeSystem : MonoBehaviour
     private TimeSimulated timeAddEvent;
     public CustomEventList listEvents;
     int indexListEvent = 0;
-    [SerializeField] private Text dayText;
-    [SerializeField] private Text monthText;
-    [SerializeField] private Text seasonText;
-    [SerializeField] private Text yearText;
-    [SerializeField] private Text weekText;
+
     public TimeSimulated TimeGame
     {
         get { return timeGame; }
@@ -27,13 +23,11 @@ public class TimeSystem : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        timeGame = new TimeSimulated(29, 12, 1399);
+        //timeGame = new TimeSimulated(1, 1, 1399);
     }
     void Start()
     {
-        timeGame = new TimeSimulated(29, 12, 1399);
-        //timeGame = new TimeSimulated(1, 1, 1399);
-    
-        TextCallFunction();
         InitializeGameEvents();
         InitializeListEvents();
     }
@@ -42,8 +36,7 @@ public class TimeSystem : MonoBehaviour
         PlusDaysToTimeGather(3);
         listEvents = new CustomEventList();
         int rDaysToInitEvent = Random.Range(15,25);
-        // PlusDaysToAddEvent(rDaysToInitEvent);
-        PlusDaysToAddEvent(5);
+        PlusDaysToAddEvent(rDaysToInitEvent);
     }
     void InitializeGameEvents()
     {
@@ -51,28 +44,7 @@ public class TimeSystem : MonoBehaviour
         GameEvents.instance.onGatherFoodTriggerEnter += onGatherFood;
         GameEvents.instance.onCustomEventExit += onGatherExit;
     }
-    private void TextCallFunction()
-    {
-        if (timeGame.Day <= 9)
-        {
-            dayText.text = "0" + timeGame.Day.ToString();
-        }
-        else
-        {
-            dayText.text = timeGame.Day.ToString();
-        }
-        if (timeGame.Month <= 9)
-        {
-            monthText.text = "0" + timeGame.Month.ToString();
-        }
-        else
-        {
-            monthText.text = timeGame.Month.ToString();
-        }
-        weekText.text = timeGame.Week.ToString();
-        yearText.text = timeGame.Year.ToString();
-        seasonText.text = timeGame.Season;
-    }
+    
     public void CalculateTime(TimeSimulated _time)
     {
         _time.CalculateSeason();
@@ -97,8 +69,6 @@ public class TimeSystem : MonoBehaviour
     }
     void Update()
     {
-        CalculateTime(timeGame);
-        TextCallFunction();
         GatherResourceInTime();
         CustomEventInTime();
     }
@@ -114,8 +84,7 @@ public class TimeSystem : MonoBehaviour
         timeAddEvent = new TimeSimulated(timeGame.Day, timeGame.Month, timeGame.Year);
         // every 5 days add new event
         int rAddPlusDays = Random.Range(15, 20);
-        //timeAddEvent.PlusDays(rAddPlusDays);
-        timeAddEvent.PlusDays(5);
+        timeAddEvent.PlusDays(rAddPlusDays);
         //   Debug.LogWarning("Time to add new event: " + timeAddEvent.PrintTimeSimulated());
         listEvents.AddCustomEvent(timeAddEvent, daysToFinishEvent);
     }
@@ -138,8 +107,7 @@ public class TimeSystem : MonoBehaviour
         if (timeGame.EqualsDate(timeAddEvent))
         {
             int rDays = Random.Range(15, 25);
-            //PlusDaysToAddEvent(rDays);
-            PlusDaysToAddEvent(4);
+            PlusDaysToAddEvent(rDays);
         }
         else
         {
@@ -148,19 +116,19 @@ public class TimeSystem : MonoBehaviour
 
         for (int i = 0; i < listEvents.CustomEvents.Count; i++)
         {
-            if (listEvents.CustomEvents[i].StatusEvent == CustomEvent.STATUS.ANNOUNCE)
+            if (listEvents.CustomEvents[i].EventStatus == CustomEvent.STATUS.ANNOUNCE)
             {
                 if (timeGame.EqualsDate(listEvents.CustomEvents[i].TimeInitEvent))
                 {
-                    listEvents.CustomEvents[i].StatusEvent = CustomEvent.STATUS.PROGRESS;
+                    listEvents.CustomEvents[i].EventStatus = CustomEvent.STATUS.PROGRESS;
                     WarningCustomEvent(i);
 
                 }
             }
 
-            else if (timeGame.EqualsDate(listEvents.CustomEvents[i].TimeFinalEvent) && listEvents.CustomEvents[i].StatusEvent == CustomEvent.STATUS.PROGRESS)
+            else if (timeGame.EqualsDate(listEvents.CustomEvents[i].TimeFinalEvent) && listEvents.CustomEvents[i].EventStatus == CustomEvent.STATUS.PROGRESS)
             {
-                listEvents.CustomEvents[i].StatusEvent = CustomEvent.STATUS.FINISH;
+                listEvents.CustomEvents[i].EventStatus = CustomEvent.STATUS.FINISH;
                 FinishCustomEvent(i);
             }
         }

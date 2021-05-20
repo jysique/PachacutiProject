@@ -107,6 +107,46 @@ public class GlobalVariables : MonoBehaviour
     {
         return warSpeed * timeModifier;
     }
+
+    public string GetPlayerName(Territory.TYPEPLAYER type)
+    {
+        switch (type)
+        {
+            case Territory.TYPEPLAYER.PLAYER:
+                return "Incas";
+            case Territory.TYPEPLAYER.BOT:
+                return "Chancas";
+            case Territory.TYPEPLAYER.BOT2:
+                return "Mochica";
+            case Territory.TYPEPLAYER.BOT3:
+                return "Chavin";
+            case Territory.TYPEPLAYER.BOT4:
+                return "Pending";
+            case Territory.TYPEPLAYER.NONE:
+                return "No Empire";
+            default:
+                break;
+        }
+        return null;
+    }
+    public string GetRegionName(Territory.REGION region )
+    {
+        switch (region)
+        {
+            case Territory.REGION.REGION_A:
+                return "North Region";
+            case Territory.REGION.REGION_B:
+                return "Western Region";
+            case Territory.REGION.REGION_C:
+                return "Southern Region";
+            case Territory.REGION.NONE:
+                return "No Region";
+            default:
+                break;
+        }
+        return null;
+    }
+
     public void ClosingApp()
     {
         print("closing app");

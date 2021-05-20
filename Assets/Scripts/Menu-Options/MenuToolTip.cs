@@ -17,6 +17,12 @@ public class MenuToolTip : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private bool canShow = false;
     private int temp = 0;
     private int timeToStart = 40;
+
+    public void SetNewInfo(string info)
+    {
+        NewInfo = info;
+    }
+
     private void Start()
     {
         NewInfo = NewInfo.Replace("\\n", "\n");
@@ -34,8 +40,6 @@ public class MenuToolTip : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         info.SetText(NewInfo);
         info.ForceMeshUpdate();
         toolTip.SetActive(false);
-        
-        
 
     }
     private void ShowTooltip()

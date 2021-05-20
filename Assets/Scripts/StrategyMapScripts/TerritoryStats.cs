@@ -7,29 +7,31 @@ public class TerritoryStats : MonoBehaviour
 {
     [SerializeField] private Image timerBar;
     [SerializeField] public GameObject container;
+
+    [SerializeField] private Text populationTxt;
+    [SerializeField] private Text nameTerritoryTxt;
+    [SerializeField] private Image imageTerritory;
+    [SerializeField] private GameObject iconsContainer;
+
     private bool canPopulate = true;
     private float timeLeftP;
     private float timeLeftG;
     private float timeLeftF;
     private int maxTimeCount;
     public Territory territory;
-
-    public Text populationTxt;
-    public Text nameTerritoryTxt;
-    public Image imageTerritory;
+    Text[] allText;
     private void Start()
     {
+        
         maxTimeCount = 12;
         timeLeftP = 0;
         //timeLeftP = maxTime;
         timeLeftG = maxTimeCount;
         timeLeftF =maxTimeCount;
-        imageTerritory.color = new Color(
-                  Random.Range(0f, 1f),
-      Random.Range(0f, 1f),
-      Random.Range(0f, 1f)
-            );
+        //imageTerritory.color = new Color( Random.Range(0f, 1f), Random.Range(0f, 1f),Random.Range(0f, 1f));
         nameTerritoryTxt.text = territory.name;
+        //allText = iconsContainer.gameObject.transform.GetComponentsInChildren<Text>();
+        
     }
     public void SetCanPopulate(bool temp)
     {
@@ -47,6 +49,13 @@ public class TerritoryStats : MonoBehaviour
         IncresementFood();
         
         populationTxt.text = territory.Population.ToString() + " / " + territory.LimitPopulation.ToString();
+        /*
+        allText[0].text = territory.IrrigationChannelTerritory.Level.ToString();
+        allText[1].text = territory.GoldMineTerritory.Level.ToString();
+        allText[2].text = territory.SacredPlaceTerritory.Level.ToString();
+        allText[3].text = territory.FortressTerritory.Level.ToString();
+        allText[4].text = territory.BarracksTerritory.Level.ToString();
+        */
     }
     private void IncresementPopulation()
     {

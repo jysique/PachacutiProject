@@ -10,7 +10,7 @@ public class CustomEventList
     public void AddCustomEvent(TimeSimulated _initTime,int _days)
     {
         CustomEvent _customEvent = new CustomEvent();
-        _customEvent.TerritoryEvent = TerritoryManager.instance.GetTerritoryRandom().territoryStats.territory;
+        _customEvent.TerritoryEvent = TerritoryManager.instance.GetTerritoryRandom(Territory.TYPEPLAYER.PLAYER).territoryStats.territory;
         _customEvent.GetCustomEvent(_initTime, _days);
         CustomEvents.Add(_customEvent);
     }
