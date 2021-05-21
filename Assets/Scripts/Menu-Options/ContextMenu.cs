@@ -42,8 +42,6 @@ public class ContextMenu : MonoBehaviour
         
         if (selected.territoryStats.territory.Population > 0)
         {
-
-
             InGameMenuHandler.instance.SendWarriors(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>(), clickedTerritory, 1);
             InGameMenuHandler.instance.TurnOffBlock();
             InGameMenuHandler.instance.ChangeStateTerritory(0);

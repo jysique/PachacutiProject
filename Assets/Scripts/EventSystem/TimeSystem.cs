@@ -71,6 +71,7 @@ public class TimeSystem : MonoBehaviour
     {
         GatherResourceInTime();
         CustomEventInTime();
+        CheckListCustomEvent();
     }
 
     void PlusDaysToTimeGather(int daysToPlus)
@@ -88,7 +89,9 @@ public class TimeSystem : MonoBehaviour
         //   Debug.LogWarning("Time to add new event: " + timeAddEvent.PrintTimeSimulated());
         listEvents.AddCustomEvent(timeAddEvent, daysToFinishEvent);
     }
-
+    /// <summary>
+    /// Every 3 days automatically gather gold or food from all territories of the player
+    /// </summary>
     private void GatherResourceInTime()
     {
         if (timeGame.EqualsDate(timeGather))
@@ -102,6 +105,9 @@ public class TimeSystem : MonoBehaviour
             GameEvents.instance.CustomEventExit();
         }
     }
+    /// <summary>
+    /// Every random between 15 and 25 days automatically add a event to the list
+    /// </summary>
     private void CustomEventInTime()
     {
         if (timeGame.EqualsDate(timeAddEvent))
@@ -113,7 +119,13 @@ public class TimeSystem : MonoBehaviour
         {
             GameEvents.instance.CustomEventExit();
         }
-
+    }
+    /// <summary>
+    /// check the status of the events in the list according 
+    /// to the time-simulated of the event comparing with the time game 
+    /// </summary>
+    private void CheckListCustomEvent()
+    {
         for (int i = 0; i < listEvents.CustomEvents.Count; i++)
         {
             if (listEvents.CustomEvents[i].EventStatus == CustomEvent.STATUS.ANNOUNCE)
@@ -125,7 +137,6 @@ public class TimeSystem : MonoBehaviour
 
                 }
             }
-
             else if (timeGame.EqualsDate(listEvents.CustomEvents[i].TimeFinalEvent) && listEvents.CustomEvents[i].EventStatus == CustomEvent.STATUS.PROGRESS)
             {
                 listEvents.CustomEvents[i].EventStatus = CustomEvent.STATUS.FINISH;
@@ -144,12 +155,18 @@ public class TimeSystem : MonoBehaviour
     {
         InGameMenuHandler.instance.GatherFoodResourceButton();
     }
+    /// <summary>
+    /// Appears the Event Menu if it is in finish status
+    /// </summary>
+    /// <param name="id"></param>
     private void FinishCustomEvent(int id)
     {
         InGameMenuHandler.instance.FinishCustomEventAppearance(listEvents.CustomEvents[id]);
-
-
     }
+    /// <summary>
+    /// Appears the Event Menu if it is in warning status
+    /// </summary>
+    /// <param name="id"></param>
     private void WarningCustomEvent(int id)
     {
         InGameMenuHandler.instance.InstantiateEventListOption(listEvents);

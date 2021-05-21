@@ -59,19 +59,26 @@ public class WarriorsMoving : MonoBehaviour
 
     void Update()
     {
-        float step = GlobalVariables.instance.VelocityMoving * Time.deltaTime; 
+        MovingWarriors();
+    }
+    /// <summary>
+    /// Move this object and check
+    /// if this object reached the target object
+    /// </summary>
+    private void MovingWarriors()
+    {
+        float step = GlobalVariables.instance.VelocityMoving * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
-        
         if (Vector3.Distance(transform.position, target.transform.position) < 0.001f)
         {
-            if(target.GetComponent<TerritoryHandler>() == TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>())
+            if (target.GetComponent<TerritoryHandler>() == TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>())
                 InGameMenuHandler.instance.overMenuBlock.GetComponent<OverMenu>().turnOffMenus();
             InGameMenuHandler.instance.MoveWarriors(target.GetComponent<TerritoryHandler>(), warriorsNumber, attacker);
-            if(target.GetComponent<TerritoryHandler>() == WarManager.instance.selected)
+            if (target.GetComponent<TerritoryHandler>() == WarManager.instance.selected)
             {
                 WarManager.instance.SetWarStatus(true);
             }
             Destroy(this.gameObject);
-        } 
+        }
     }
 }

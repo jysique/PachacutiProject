@@ -75,6 +75,7 @@ public class CustomEvent
         get { return timeFinal; }
         set { timeFinal = value; }
     }
+
     public void PrintEvent(int i)
     {
         Debug.Log(i + " eventType - " + EventType.ToString());
@@ -82,7 +83,11 @@ public class CustomEvent
         Debug.Log(i + " init time- " + TimeInitEvent.PrintTimeSimulated());
         Debug.Log(i + " final time- " + TimeFinalEvent.PrintTimeSimulated());
     }
-
+    /// <summary>
+    /// Initialize custom event
+    /// </summary>
+    /// <param name="_initTime"></param>
+    /// <param name="days"></param>
     public void GetCustomEvent(TimeSimulated _initTime,int days)
     {
         this.isAcceptedEvent = false;
@@ -99,25 +104,11 @@ public class CustomEvent
         this.costEvent = UnityEngine.Random.Range(3, InGameMenuHandler.instance.GoldPlayer / 2);
         GetMessage();
     }
-    public enum EVENTTYPE
-    {
-        REBELION,
-        EVENT_PANDEMIC,
-        EVENT_PANDEMIC2,
-        EVENT_PLAGUE,
-        EVENT_PLAGUE2,
-        PETITION_MIN,
-        PETITION_FOR,
-        GRACE_DIV,
-        GRACE_MIN,
-        GRACE_FOOD
-    }
-    public enum STATUS
-    {
-        ANNOUNCE, // creado
-        PROGRESS, // entre init time y finish time
-        FINISH //finishTime
-    }
+    
+    /// <summary>
+    /// Retuns if is posible to accept the custom event
+    /// </summary>
+    /// <returns></returns>
     public bool GetAcceptButton()
     {
         string option = this.eventtype.ToString();
@@ -148,6 +139,9 @@ public class CustomEvent
         }
         return false;
     }
+    /// <summary>
+    /// Change messages of the custom event
+    /// </summary>
     public void GetMessage()
     {
         string option = this.eventtype.ToString();
@@ -217,6 +211,9 @@ public class CustomEvent
                 break;
         }
     }
+    /// <summary>
+    /// Accept Action event
+    /// </summary>
     public void AcceptEventAction()
     {
         this.eventStatus = STATUS.FINISH;
@@ -261,6 +258,9 @@ public class CustomEvent
 
         }
     }
+    /// <summary>
+    /// Decline Action event
+    /// </summary>
     public void DeclineEventAction()
     {
         this.eventStatus= STATUS.FINISH;
@@ -312,7 +312,10 @@ public class CustomEvent
             InGameMenuHandler.instance.GoldPlayer = 0;
         }
     }
-
+    /// <summary>
+    /// Returns the message if is accepted of decline
+    /// </summary>
+    /// <returns></returns>
     public string ResultsEvent()
     {
         if (isAcceptedEvent)
@@ -322,5 +325,24 @@ public class CustomEvent
         else {
             return this.declineMessageEvent;
         }
+    }
+    public enum EVENTTYPE
+    {
+        REBELION,
+        EVENT_PANDEMIC,
+        EVENT_PANDEMIC2,
+        EVENT_PLAGUE,
+        EVENT_PLAGUE2,
+        PETITION_MIN,
+        PETITION_FOR,
+        GRACE_DIV,
+        GRACE_MIN,
+        GRACE_FOOD
+    }
+    public enum STATUS
+    {
+        ANNOUNCE, // creado
+        PROGRESS, // entre init time y finish time
+        FINISH //finishTime
     }
 }

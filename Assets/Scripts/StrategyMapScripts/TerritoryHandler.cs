@@ -66,7 +66,10 @@ public class TerritoryHandler : MonoBehaviour
         territoryStats.territory = territory;
 
     }
-
+    /// <summary>
+    /// If is none type player and this territory is limit 
+    /// can populate the territory
+    /// </summary>
     private void PopulateTerritory()
     {
         if (territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.NONE && territoryStats.territory.Population < territoryStats.territory.LimitPopulation)
@@ -122,7 +125,6 @@ public class TerritoryHandler : MonoBehaviour
                 //print(selected.adjacentTerritories[i]);
                 //print(this);
                 if (selected.adjacentTerritories[i].GetComponent<TerritoryHandler>() == this) ca = true;
-
             }
             */
             //if (selected.territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.PLAYER) ca = false;
@@ -136,7 +138,9 @@ public class TerritoryHandler : MonoBehaviour
     {
         sprite.color = oldColor;
     }
-
+    /// <summary>
+    /// State of the territory 
+    /// </summary>
     private void OnMouseUpAsButton()
     {
         if (EventSystem.current.IsPointerOverGameObject()) return;
@@ -198,6 +202,9 @@ public class TerritoryHandler : MonoBehaviour
         TerritoryManager.instance.territorySelected = this.gameObject;
         InGameMenuHandler.instance.UpdateMenu();
     }
+    /// <summary>
+    /// See which territories adjacent you can select
+    /// </summary>
     public void ShowAdjacentTerritories()
     {
         sr.material = normalMaterial;
@@ -210,6 +217,9 @@ public class TerritoryHandler : MonoBehaviour
             t.GetComponent<TerritoryHandler>().sr.sortingOrder = -8;
         }
     }
+    /// <summary>
+    /// Hide the territories adjacent you can select
+    /// </summary>
     public void HideAdjacentTerritories()
     {
         foreach (GameObject t in TerritoryManager.instance.territoryList)
@@ -235,37 +245,11 @@ public class TerritoryHandler : MonoBehaviour
     {
         territoryStats.territory.LimitPopulation += 20;
     }
-    
-    /*
-    public void ImproveTerritory(Image[] _images,Button[] _button, int _option)
-    {
-          StartCoroutine(CountDownTimerCouroutine(_images,_button, _option));
-    }
-    IEnumerator CountDownTimerCouroutine(Image[] counterDownImages, Button[] buttons, int option)
-    {
-        territoryStats.territory.Images = counterDownImages;
-        float duration = CalculateDuration(option);
-        float totalTime = 0;
-        bool isPlayer = territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER;
-        while (totalTime <= duration)
-        {
-            if (isPlayer)
-            {
-                counterDownImages[option].fillAmount = totalTime / duration;
-                buttons[option].interactable = false;
-            }
-            else
-            {
-                counterDownImages[option].fillAmount = 1;
-            }
-            totalTime+= Time.deltaTime / duration;
-            yield return null;
-        }
-        buttons[option].interactable = true;
-        ImproveBuildings(option);
-        InGameMenuHandler.instance.UpdateTerritoryMenu();
-    }
-    */
+    /// <summary>
+    /// Returns time to builds from any buildings in territory
+    /// </summary>
+    /// <param name="_option"></param>
+    /// <returns></returns>
     public float CalculateDuration(int _option)
     {
         float duration = 0;
@@ -291,6 +275,10 @@ public class TerritoryHandler : MonoBehaviour
         }
         return duration;
     }
+    /// <summary>
+    /// Action : improve buildings to 1 level
+    /// </summary>
+    /// <param name="_option"></param>
     public void ImproveBuildings(int _option)
     {
         switch (_option)
@@ -314,6 +302,7 @@ public class TerritoryHandler : MonoBehaviour
                 break;
         }
     }
+
     public void ShowStateMenu()
     {
 
@@ -323,6 +312,9 @@ public class TerritoryHandler : MonoBehaviour
         InGameMenuHandler.instance.TurnOffBlock();
 
     }
+    /// <summary>
+    /// Action gather gold and food in this territory
+    /// </summary>
     public void GatherTerritoryGold()
     {
         int gather = territoryStats.territory.Gold;

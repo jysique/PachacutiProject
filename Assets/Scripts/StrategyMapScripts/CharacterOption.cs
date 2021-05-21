@@ -38,6 +38,9 @@ public class CharacterOption : MonoBehaviour
         btn = transform.GetComponent<Button>();
         btn.onClick.AddListener(() => HireButton());
     }
+    /// <summary>
+    /// Initialize components in character description option prefab
+    /// </summary>
     void InitDescription()
     {
         Text[] allText = DescriptionCharacter.gameObject.transform.GetComponentsInChildren<Text>();
@@ -54,6 +57,9 @@ public class CharacterOption : MonoBehaviour
             allText[6].text = "StraType:" + militar.StrategyType.ToLower();
         }
     }
+    /// <summary>
+    /// Initialize components in character profile option prefab
+    /// </summary>
     void InitProfile()
     {
         Transform[] allGameObjects = ProfileCharacter.gameObject.transform.GetComponentsInChildren<Transform>();
