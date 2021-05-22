@@ -11,7 +11,9 @@ public class CameraMovement : MonoBehaviour
     {
         PanCamera();
     }
-
+    /// <summary>
+    /// Behavior of mouse button in camera
+    /// </summary>
     private void PanCamera()
     {
         if (Input.GetMouseButtonDown(2))

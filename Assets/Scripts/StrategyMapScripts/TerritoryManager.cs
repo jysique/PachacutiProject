@@ -44,6 +44,9 @@ public class TerritoryManager : MonoBehaviour
         dictionary.Add(a[0], c);
            
     }
+    /// <summary>
+    /// Add territory to list
+    /// </summary>
     private void AddTerritoryData()
     {
         GameObject[] tempArray = GameObject.FindGameObjectsWithTag("Territory") as GameObject[];
@@ -77,6 +80,9 @@ public class TerritoryManager : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// Tint territory according to its type (NONE,PLAYER or BOTS)
+    /// </summary>
     private void TintTerritory()
     {
         for (int i = 0; i < territoryList.Count; i++)
@@ -108,6 +114,12 @@ public class TerritoryManager : MonoBehaviour
             
         }
     }
+    /// <summary>
+    /// Returns a territory gameObject by _name 
+    /// </summary>
+    /// <param name="_name"></param>
+    /// <param name="_a"></param>
+    /// <returns></returns>
     private GameObject SearchTerritoryGameObject(string _name,string _a)
     {
         GameObject a = GameObject.Find(_name);
@@ -143,7 +155,11 @@ public class TerritoryManager : MonoBehaviour
         TintTerritory();
         ConditionEndChapter();
     }
-
+    /// <summary>
+    /// Count territories by type player
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
     public int CountTerrytorry(Territory.TYPEPLAYER type)
     {
         int count = 0 ;
@@ -158,6 +174,9 @@ public class TerritoryManager : MonoBehaviour
         }
         return count;
     }
+    /// <summary>
+    /// Conditions to end the game
+    /// </summary>
     public void ConditionEndChapter()
     {
         int playerCount = CountTerrytorry(Territory.TYPEPLAYER.PLAYER);
@@ -178,7 +197,11 @@ public class TerritoryManager : MonoBehaviour
             SceneManager.LoadScene(2);
         }
     }
-
+    /// <summary>
+    /// Returns a list of territories handler by type player
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
     public List<TerritoryHandler> GetTerritoriesByTypePlayer(Territory.TYPEPLAYER type)
     {
         List<TerritoryHandler> territoriesPlayer = new List<TerritoryHandler>();
@@ -192,7 +215,11 @@ public class TerritoryManager : MonoBehaviour
         }
         return territoriesPlayer;
     }
-
+    /// <summary>
+    /// Returns a list of territories handler by zone of territory
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
     public List<TerritoryHandler> GetTerritoriesByZoneTerritory(Territory.REGION region)
     {
         List<TerritoryHandler> territoriesZone = new List<TerritoryHandler>();
@@ -206,7 +233,11 @@ public class TerritoryManager : MonoBehaviour
         }
         return territoriesZone;
     }
-
+    /// <summary>
+    /// Get a random territory by a type player
+    /// </summary>
+    /// <param name="typePlayer"></param>
+    /// <returns></returns>
     public TerritoryHandler GetTerritoryRandom(Territory.TYPEPLAYER typePlayer)
     {
         List<TerritoryHandler> list = GetTerritoriesByTypePlayer(typePlayer);

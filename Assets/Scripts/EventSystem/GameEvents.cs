@@ -15,7 +15,9 @@ public class GameEvents : MonoBehaviour
     {
 
     }
-    // ====RECOLECCION DE ORO ====
+    /// <summary>
+    /// ===Gather gold event ====
+    /// </summary>
     public event Action onGatherGoldTriggerEnter;
     public void GatherGoldTriggerEnter()
     {
@@ -24,7 +26,9 @@ public class GameEvents : MonoBehaviour
             onGatherGoldTriggerEnter();
         }
     }
-    // ====RECOLECCION DE COMIDA ====
+    /// <summary>
+    /// ===Gather food event ====
+    /// </summary>
     public event Action onGatherFoodTriggerEnter;
     public void GatherFoodTriggerEnter()
     {
@@ -33,7 +37,9 @@ public class GameEvents : MonoBehaviour
             onGatherFoodTriggerEnter();
         }
     }
-    // ==== EVENTO PERSONALIZADO ====
+    /// <summary>
+    /// ===Custom event ====
+    /// </summary>
     public event Action onCustomEventEnter;
     public void CustomEventEnter()
     {
@@ -50,7 +56,9 @@ public class GameEvents : MonoBehaviour
             onCustomWarningEventEnter();
         }
     }
-
+    /// <summary>
+    /// Exit action event
+    /// </summary>
     public event Action onCustomEventExit;
     public void CustomEventExit()
     {

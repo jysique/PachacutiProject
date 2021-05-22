@@ -51,6 +51,9 @@ public class TimeSimulated
         CalculateWeeks();
         CalculateSeason();
     }
+    /// <summary>
+    /// Season of a TimeSimulated
+    /// </summary>
     public void CalculateSeason()
     {
         if (month == 12 || month == 1 || month == 2)
@@ -74,6 +77,9 @@ public class TimeSimulated
     {
         return this.day.ToString() + " / " + this.month.ToString() + " / " + this.year.ToString();
     }
+    /// <summary>
+    /// Number weeks of a TimeSimulated
+    /// </summary>
     public void CalculateWeeks()
     {
         double total_days = day + 30 * (month - 1)-1;
@@ -95,6 +101,10 @@ public class TimeSimulated
         day++;
         hour = 1;
     }
+    /// <summary>
+    /// Add plus days to a TimeSimulated
+    /// </summary>
+    /// <param name="plus"></param>
     public void PlusDays(int plus)
     {
         day += plus;
@@ -111,6 +121,10 @@ public class TimeSimulated
             year++;
         }
     }
+    /// <summary>
+    /// Add plus month to a TimeSimulated
+    /// </summary>
+    /// <param name="plus"></param>
     public void PlusMonth(int plus)
     {
         month += plus;
@@ -121,25 +135,21 @@ public class TimeSimulated
             year++;
         }
     }
+    /// <summary>
+    /// Returns if two time simulated are equals
+    /// </summary>
+    /// <param name="time2"></param>
+    /// <returns></returns>
     public bool EqualsDate(TimeSimulated time2)
     {
         return this.day == time2.day && this.month == time2.month && this.year == time2.year;
     }
-    /*
-    public int DiferenceDays(TimeSimulated time2)
-    {
-        int difDays = 0;
-        int difMonth = 0;
-        //int difYear = 0;
-        if (this.month > time2.month)
-        {
-            difMonth = (int)(this.month - time2.month);
-        }
-        int days = (int)(this.day + 30 * difMonth);
-        difDays = (int)(days - time2.day);
-        return difDays;
-    }
-    */
+
+    /// <summary>
+    /// Returns days from two time simulated
+    /// </summary>
+    /// <param name="time2"></param>
+    /// <returns></returns>
     public int DiferenceDays(TimeSimulated time2)
     {
         int difYear = (int)(this.year - time2.year);

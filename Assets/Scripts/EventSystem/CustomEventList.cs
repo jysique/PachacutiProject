@@ -6,17 +6,16 @@ using System.Linq;
 public class CustomEventList
 {
     public List<CustomEvent> CustomEvents = new List<CustomEvent>();
-
+    /// <summary>
+    /// Add a event to list with a time simulated init and days to finish event
+    /// </summary>
+    /// <param name="_initTime"></param>
+    /// <param name="_days"></param>
     public void AddCustomEvent(TimeSimulated _initTime,int _days)
     {
         CustomEvent _customEvent = new CustomEvent();
         _customEvent.TerritoryEvent = TerritoryManager.instance.GetTerritoryRandom(Territory.TYPEPLAYER.PLAYER).territoryStats.territory;
         _customEvent.GetCustomEvent(_initTime, _days);
-        CustomEvents.Add(_customEvent);
-    }
-
-    public void AddCustomEvent(CustomEvent _customEvent)
-    {
         CustomEvents.Add(_customEvent);
     }
     public void PrintList()
@@ -25,10 +24,6 @@ public class CustomEventList
         {
             CustomEvents[i].PrintEvent(i);
         }
-    }
-    public void RemoveEventId(int id)
-    {
-        CustomEvents.Remove(CustomEvents[id]);
     }
     public void RemoveEvent(CustomEvent @event)
     {

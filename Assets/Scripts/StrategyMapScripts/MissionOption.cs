@@ -17,9 +17,6 @@ public class MissionOption : MonoBehaviour
     }
     public void InitializeMission()
     {
-        //transform.GetComponent<MenuToolTip>().SetNewInfo(mission.MessagePro);
-        //        iconMission = transform.Find("Icon").gameObject;
-        //iconMission.GetComponent<MenuToolTip>().SetNewInfo(mission.MessagePro);
         nameMission = transform.Find("NameTxt").transform.GetComponent<Text>();
         descriptionMission = transform.Find("DescriptionTxt").transform.GetComponent<Text>();
         descriptionMission.GetComponent<MenuToolTip>().SetNewInfo(mission.MessagePro);
@@ -29,7 +26,14 @@ public class MissionOption : MonoBehaviour
     }
     private void Update()
     {
-        statusMission.GetComponent<MenuToolTip>().SetNewInfo("Mission Status: " +mission.MissionStatus.ToString().ToLower().Replace("_"," "));
+        UpdateStatus();
+    }
+    /// <summary>
+    /// Update status image from mission status
+    /// </summary>
+    private void UpdateStatus()
+    {
+        statusMission.GetComponent<MenuToolTip>().SetNewInfo("Mission Status: " + mission.MissionStatus.ToString().ToLower().Replace("_", " "));
         if (mission.MissionStatus == Mission.STATUS.COMPLETE)
         {
             statusMission.color = new Color(0f, 0f, 0f, 1f);
