@@ -65,8 +65,8 @@ public class WarriorsMoving : MonoBehaviour
         if (Vector3.Distance(transform.position, target.transform.position) < 0.001f)
         {
             if(target.GetComponent<TerritoryHandler>() == TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>())
-                InGameMenuHandler.instance.overMenuBlock.GetComponent<OverMenu>().turnOffMenus();
-            InGameMenuHandler.instance.MoveWarriors(target.GetComponent<TerritoryHandler>(), warriorsNumber, attacker);
+                MenuManager.instance.overMenuBlock.GetComponent<OverMenu>().turnOffMenus();
+            WarManager.instance.MoveWarriors(target.GetComponent<TerritoryHandler>(), warriorsNumber, attacker);
             if(target.GetComponent<TerritoryHandler>() == WarManager.instance.selected)
             {
                 WarManager.instance.SetWarStatus(true);

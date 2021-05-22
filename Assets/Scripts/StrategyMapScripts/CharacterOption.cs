@@ -41,24 +41,19 @@ public class CharacterOption : MonoBehaviour
     void InitDescription()
     {
         Text[] allText = DescriptionCharacter.gameObject.transform.GetComponentsInChildren<Text>();
-        //print("all text" +allText.Length);
-        allText[0].text = "Origin: " + character.Origin;
-        allText[1].text = "Age: " + character.Age.ToString();
-        allText[2].text = "Campain: " + character.Campaign;
-        allText[4].text = "Opinion: " + character.Opinion.ToString();
-        allText[5].text = "Influence: " + character.Influence.ToString();
+        allText[1].text = character.Influence.ToString() + "/10";
         if (type == "militar")
         {
             var militar = (MilitarBoss)character;
-            allText[3].text = "Exp:" + militar.Experience.ToString();
-            allText[6].text = "StraType:" + militar.StrategyType.ToLower();
+            allText[0].text = militar.Experience.ToString() + "/10"; 
+            allText[2].text = "Strategy:" + militar.StrategyType.ToLower();
         }
     }
     void InitProfile()
     {
         Transform[] allGameObjects = ProfileCharacter.gameObject.transform.GetComponentsInChildren<Transform>();
         allGameObjects[1].GetComponent<Image>().sprite = character.Picture;
-        allGameObjects[3].GetComponent<Text>().text = character.CharacterName;
+        allGameObjects[2].GetChild(0).GetComponent<Text>().text = character.CharacterName;
     }
     /// <summary>
     /// Function to use to replace a single Character of every territory
@@ -70,8 +65,8 @@ public class CharacterOption : MonoBehaviour
             var militar = (MilitarBoss)character;
             territoryHandler.territoryStats.territory.MilitarBossTerritory = militar;
         }
-
-        InGameMenuHandler.instance.CloseCharacterSelection();
-        InGameMenuHandler.instance.ResumeGame();
+        InGameMenuHandler.instance.UpdateMenu();
+        MenuManager.instance.CloseCharacterSelection();
+        MenuManager.instance.ResumeGame();
     }
 }

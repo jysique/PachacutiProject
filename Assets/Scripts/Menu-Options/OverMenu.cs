@@ -14,7 +14,7 @@ public class OverMenu : MonoBehaviour
         {
             overMenu.SetActive(false);
         }
-        InGameMenuHandler.instance.ChangeStateTerritory(0);
+        TerritoryManager.instance.ChangeStateTerritory(0);
         this.gameObject.SetActive(false);
     }
 }

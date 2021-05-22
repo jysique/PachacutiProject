@@ -146,14 +146,14 @@ public class TimeSystem : MonoBehaviour
     }
     private void FinishCustomEvent(int id)
     {
-        InGameMenuHandler.instance.FinishCustomEventAppearance(listEvents.CustomEvents[id]);
+        EventManager.instance.FinishCustomEventAppearance(listEvents.CustomEvents[id]);
 
 
     }
     private void WarningCustomEvent(int id)
     {
-        InGameMenuHandler.instance.InstantiateEventListOption(listEvents);
-        InGameMenuHandler.instance.WarningEventAppearance(listEvents.CustomEvents[id], listEvents.CustomEvents[id].DifferenceToFinal);
+        EventManager.instance.InstantiateEventListOption(listEvents);
+        EventManager.instance.WarningEventAppearance(listEvents.CustomEvents[id], listEvents.CustomEvents[id].DifferenceToFinal);
     }
 
 }

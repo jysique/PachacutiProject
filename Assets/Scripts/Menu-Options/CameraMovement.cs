@@ -17,7 +17,7 @@ public class CameraMovement : MonoBehaviour
         if (Input.GetMouseButtonDown(2))
         {
             dragOrigin = cam.ScreenToWorldPoint(Input.mousePosition);
-            InGameMenuHandler.instance.overMenuBlock.GetComponent<OverMenu>().turnOffMenus();
+            MenuManager.instance.overMenuBlock.GetComponent<OverMenu>().turnOffMenus();
         }
         if (Input.GetMouseButton(2))
         {

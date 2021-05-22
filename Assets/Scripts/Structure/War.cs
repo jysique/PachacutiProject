@@ -56,7 +56,7 @@ public class War
             WarManager.instance.FinishWar(territory,attackers,warriors1Count);
             if(WarManager.instance.selectedWar == this)
             {
-                InGameMenuHandler.instance.overMenuBlock.GetComponent<OverMenu>().turnOffMenus();
+                MenuManager.instance.overMenuBlock.GetComponent<OverMenu>().turnOffMenus();
             }
             try
             {

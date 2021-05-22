@@ -40,6 +40,6 @@ public class CustomEventOption : MonoBehaviour
     }
     void CustomEventApear()
     {
-        InGameMenuHandler.instance.WarningEventAppearance(custom, diferenceDays);
+        EventManager.instance.WarningEventAppearance(custom, diferenceDays);
     }
 }

@@ -7,45 +7,27 @@ using UnityEngine.UI;
 
 public class InGameMenuHandler : MonoBehaviour
 {
-    public int warriorsNumber;
+    //instance
     public static InGameMenuHandler instance;
-    [SerializeField] private GameObject contextMenu;
-    [SerializeField] private GameObject warriorsPrefab;
+
+ 
+    //
+
     [SerializeField] private Territory selectedTerritory;
-    [Header("Variables globales")]
-    [SerializeField] public Canvas canvas;
-    [Header("ToolTip")]
-    [SerializeField] public GameObject toolTip;
-    [Header("OverMenu")]
-    [SerializeField] private GameObject menuConfirm;
-    [SerializeField] public GameObject overMenuBlock;
-    [Header("Menu personaje")]
+    [NonSerialized] public List<GameObject> listFloatingText = new List<GameObject>();
 
-    [SerializeField] private Text governorName;
-    [SerializeField] private Text governorAge;
-    [SerializeField] private Text governorOrigin;
-    [SerializeField] private Image governorPicture;
-    [SerializeField] private Text governorDiplomacy;
-    [SerializeField] private Text governorMilitancy;
-    [SerializeField] private Text governorManagement;
-    [SerializeField] private Text governorPrestige;
-    [SerializeField] private Text governorPiety;
-
-    [Header("Menu militar")]
+    [Header("Menu military")]
     [SerializeField] private GameObject menuBlock;
     [SerializeField] private Image militaryBossPicture;
     [SerializeField] private Text militarWarriorsCount;
     [SerializeField] private Text GenerationSpeed;
+    [SerializeField] private Text warriorsLimit;
     [SerializeField] private Text militaryBossName;
     [SerializeField] private Text militaryBossExperience;
     [SerializeField] private Text militaryBossEstrategy;
-    [SerializeField] private Text militaryBossMilitary;
-    [SerializeField] private GameObject CustomEventList;
+    [SerializeField] private Text militaryBossInfluence;
 
-    [Header("Menu de movilizacion de tropas")]
-    [SerializeField] public InputField warriorsCount;
-
-    [Header("Menu territorio")]
+    [Header("Menu territory")]
     [SerializeField] private GameObject menuBlockTerritory;
     [SerializeField] private Text goldCount;
     [SerializeField] private Text foodCount;
@@ -54,44 +36,21 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private Text MotivationBonus;
     [SerializeField] private Text AttackBonus;
     [SerializeField] private Text DefenseBonus;
+    [Header("Menu buildings")]
     [SerializeField] private Image[] countdownImages;
     [SerializeField] private Button[] buttons;
-
     [SerializeField] private BuildOption IrrigationChannelOption;
     [SerializeField] private BuildOption GoldMineOption;
     [SerializeField] private BuildOption SacredPlaceOption;
     [SerializeField] private BuildOption FortressOption;
     [SerializeField] private BuildOption BarracksOption;
 
-    [Header("Menu de Pause")]
-    [SerializeField] private GameObject PauseMenu;
-
-    [Header("Evento")]
-    [SerializeField] GameObject CurrentCaseMenu;
-    [SerializeField] private GameObject CustomEventSelection;
-    [SerializeField] private Text TitleTextCustomEvent;
-    [SerializeField] private Text DetailsTextCustomEvent;
-    [SerializeField] private Text ResultsTextEvent;
-    [SerializeField] private Button AcceptEventButton;
-    [SerializeField] private Button CloseEventButton;
-    [SerializeField] private Button DeclineEventButton;
-    [SerializeField] private GameObject ResultsEvent;
-    private CustomEvent currentCustomEvent;
-    [NonSerialized] public List<GameObject> listFloatingText = new List<GameObject>();
-
-    [Header("Select MilitaryBoss variables")]
-    [SerializeField] private GameObject CharacterSelection;
-
-    public static bool isGamePaused = false;
-    private List<GameObject> characterOptions;
-    public SubordinateList subordinateList;
-
+    
+    //resources
     private int goldPlayer= 20;
     private int foodPlayer = 10;
     private int sucesionSizePlayer;
     private int scorePlayer;
-
-    public float temporalTime;
     public int GoldPlayer
     {
         get { return goldPlayer; }
@@ -102,44 +61,24 @@ public class InGameMenuHandler : MonoBehaviour
         get { return foodPlayer; }
         set { foodPlayer= value; }
     }
+
     private void Awake()
     {
         instance = this;
-        warriorsNumber = 0;
     }
-    public void InstantiateEventListOption(CustomEventList customlist)
-    {
-        Transform gridLayout = CustomEventList.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
-        foreach (Transform child in gridLayout.transform)
-        {
-            Destroy(child.gameObject);
-        }
-        foreach (CustomEvent customEvent in customlist.CustomEvents)
-        {
-            GameObject customEventOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/CustomEventOption")) as GameObject;
-            customEventOption.transform.SetParent(gridLayout.transform, false);
-            customEventOption.GetComponent<CustomEventOption>().Custom = customEvent;
-            if (customEvent.EventStatus == CustomEvent.STATUS.ANNOUNCE)
-            {
-                DestroyImmediate(customEventOption);
-            }else if (customEvent.EventStatus == CustomEvent.STATUS.FINISH)
-            {
-                Destroy(customEventOption,1);
-            }
-        }
-
-    }
+    
 
     public void UpdateMilitarMenu()
     {
         menuBlock.SetActive(false);
         MilitarBoss boss = selectedTerritory.MilitarBossTerritory;
-        militaryBossName.text = "Name: " + boss.CharacterName;
+        militaryBossName.text = boss.CharacterName;
         militaryBossPicture.sprite = boss.Picture;
-        militaryBossExperience.text = boss.Experience.ToString();
+        militaryBossExperience.text = boss.Experience.ToString()+ "/10";
         militaryBossEstrategy.text = "Strategy: " + boss.StrategyType;
-        militaryBossMilitary.text = boss.Influence.ToString();
-        GenerationSpeed.text = " " + selectedTerritory.VelocityPopulation;
+        militaryBossInfluence.text = boss.Influence.ToString() +"/10";
+        GenerationSpeed.text = selectedTerritory.VelocityPopulation.ToString();
+        warriorsLimit.text = selectedTerritory.LimitPopulation.ToString();
         if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
         {
             menuBlock.SetActive(true);                
@@ -175,19 +114,7 @@ public class InGameMenuHandler : MonoBehaviour
             buttons[i].interactable = selectedTerritory.CanUpgrade[i];
         }
     }
-    public void UpdateProfileMenu()
-    {
-        Governor temp = CharacterManager.instance.Governor;
-        governorName.text = "Name: " + temp.CharacterName;
-        governorAge.text = "Age: " + temp.Age.ToString();
-        governorPicture.sprite = temp.Picture;
-        governorOrigin.text = "Birth place: " + temp.Origin;
-        governorDiplomacy.text = " " + temp.Diplomacy;
-        governorMilitancy.text = " " + temp.Militancy;
-        governorManagement.text = " " + temp.Managment;
-        governorPrestige.text = " " + temp.Prestige;
-        governorPiety.text = " " + temp.Piety;
-    }
+    
     public void UpdateMenu()
     {
         selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory;
@@ -199,96 +126,23 @@ public class InGameMenuHandler : MonoBehaviour
     {
         Territory selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory;
         militarWarriorsCount.text = selectedTerritory.Population.ToString() + " / " + selectedTerritory.LimitPopulation.ToString()+ " units" ;
-        goldCount.text = "Gold: " + selectedTerritory.Gold.ToString();
-        foodCount.text = "Food: " + selectedTerritory.FoodReward.ToString();
-        GoldGeneration.text = "Generation speed: " + selectedTerritory.GoldMineTerritory.VelocityGold.ToString();
-        FoodGeneration.text = "Generation speed: " + selectedTerritory.IrrigationChannelTerritory.VelocityFood.ToString();
-        MotivationBonus.text = selectedTerritory.SacredPlaceTerritory.Motivation.ToString();
-        AttackBonus.text = selectedTerritory.FortressTerritory.PlusDefense.ToString();
-        DefenseBonus.text = selectedTerritory.BarracksTerritory.PlusAttack.ToString();
-        
+        goldCount.text = selectedTerritory.Gold.ToString();
+        foodCount.text = selectedTerritory.FoodReward.ToString();
+        GoldGeneration.text = selectedTerritory.GoldMineTerritory.VelocityGold.ToString();
+        FoodGeneration.text = selectedTerritory.IrrigationChannelTerritory.VelocityFood.ToString();
+        MotivationBonus.text = selectedTerritory.SacredPlaceTerritory.Motivation.ToString() + "/10"; 
+        AttackBonus.text = selectedTerritory.FortressTerritory.PlusDefense.ToString() + "/10";
+        DefenseBonus.text = selectedTerritory.BarracksTerritory.PlusAttack.ToString() + "/10";
+
         //UpdateResourceTable();
-        EscapeGame();
+
         UpdateCountDownImage();
     }
-
-    //move warriors
-    public void MoveWarriorsButton()
-    {
-        TurnOnBlock();
-        menuConfirm.SetActive(true);
-        warriorsCount.text = "1";
-        ChangeStateTerritory(2);
-
-    }
-    public void ChangeStateTerritory(int _state)
-    {
-        foreach (GameObject t in TerritoryManager.instance.territoryList)
-        {
-            if(t.GetComponent<TerritoryHandler>().state !=1)t.GetComponent<TerritoryHandler>().state = _state;
-        }
-    }
-
-    public void CloseWarriorsButton()
-    {
-        menuConfirm.SetActive(false);
-        TurnOffBlock();
-        ChangeStateTerritory(0);
-    }
-    public void SelectTerritory()
-    {
-        warriorsNumber = int.Parse(warriorsCount.text);
-        if (TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory.Population - warriorsNumber >= 0)
-        {
-            menuConfirm.SetActive(false);
-            TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().ShowAdjacentTerritories();
-        }
-    }
-    public void SendWarriors(TerritoryHandler selected, TerritoryHandler otherTerritory, int _warriorsNumber)
-    {
-
-        selected.territoryStats.territory.Population = selected.territoryStats.territory.Population - _warriorsNumber;
-        warriorsPrefab.GetComponent<WarriorsMoving>().SetAttack(otherTerritory.gameObject, _warriorsNumber,  selected);
-        Instantiate(warriorsPrefab, selected.transform.position , Quaternion.identity);
-
-    }
-    public void MoveWarriors(TerritoryHandler otherTerritory, int attackPower, TerritoryHandler attacker)
-    {
-        Territory.TYPEPLAYER temp = otherTerritory.territoryStats.territory.TypePlayer;
-        if (otherTerritory.territoryStats.territory.TypePlayer == attacker.territoryStats.territory.TypePlayer)
-        {
-            otherTerritory.territoryStats.territory.Population = otherTerritory.territoryStats.territory.Population + attackPower;
-        }
-        else
-        {
-            if (otherTerritory.war)
-            {
-                WarManager.instance.AddMoreWarriors(otherTerritory, attackPower);
-
-            }
-            else
-            {
-                float vAttack = WarManager.instance.SetAttackFormula(attacker, attackPower);
-                float vDef = WarManager.instance.SetDefenseFormula(otherTerritory);
-                WarManager.instance.AddWar(attackPower, otherTerritory.territoryStats.territory.Population, vAttack, vDef, otherTerritory, attacker.territoryStats.territory.TypePlayer);
-             
-                otherTerritory.war = true;
-                otherTerritory.gameObject.transform.GetChild(0).gameObject.SetActive(true);
-            }
-            
-        }
-
-
-    }
-    public void ActivateContextMenu(TerritoryHandler territoryToAttack, bool canAttack, bool isWar, Vector3 mousePosition)
-    {
-        TurnOnBlock();
-        contextMenu.SetActive(true);
-        ChangeStateTerritory(2);
-        Vector3 mousePosCamera = Camera.main.ScreenToWorldPoint(mousePosition);
-        contextMenu.transform.position = new Vector3(mousePosCamera.x, mousePosCamera.y, contextMenu.transform.position.z);
-        contextMenu.GetComponent<ContextMenu>().SetMenu(canAttack, isWar, territoryToAttack);
-    }
+   
+    
+  
+    
+    
     private void ImproveSpeedPopulation(TerritoryHandler territoryHandler)
     {
         if (goldPlayer >= territoryHandler.territoryStats.territory.CostPopulation)
@@ -496,94 +350,8 @@ public class InGameMenuHandler : MonoBehaviour
         foodPlayer += temp;
         
     }
-    public void TurnOffBlock()
-    {
-        overMenuBlock.SetActive(false);
-    }
-    public void TurnOnBlock()
-    {
-        overMenuBlock.SetActive(true);
-    }
-    public void OpenCurrentCaseMenu(TerritoryHandler territoryHandler)
-    {
-        CurrentCaseMenu.SetActive(true);
-        CurrentCaseMenu.transform.Find("Territory").GetComponent<Image>().sprite = territoryHandler.sprite.sprite;
-        CurrentCaseMenu.transform.Find("Title").GetComponent<Text>().text= "You just won the battle of " + territoryHandler.territoryStats.territory.name;
-        InstantiateCharacterOption(territoryHandler,"militar");
-    }
-    public void CloseCurrentCaseMenu()
-    {
-        CurrentCaseMenu.SetActive(false);
-    }
-    public void InstantiateCharacterOption(TerritoryHandler territoryHandler,string type)
-    {
-        subordinateList.AddDataSubordinateToList(3, type);
-        CharacterSelection.SetActive(true);
-        characterOptions = new List<GameObject>();
-        Text instructionText = CharacterSelection.transform.Find("InstructionText").transform.GetComponent<Text>();
-        instructionText.text = "Select a "+type+" Chief to " + territoryHandler.territoryStats.territory.name;
-        Transform gridLayout = CharacterSelection.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
-        foreach (Subordinate charac in subordinateList.MilitarBosses)
-        {
-            GameObject characterOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/CharacterGameOption")) as GameObject;
-            characterOption.transform.SetParent(gridLayout.transform, false);
-            characterOption.name = charac.CharacterName;
-            characterOption.GetComponent<CharacterOption>().Type = type;
-            characterOption.GetComponent<CharacterOption>().Character = charac;
-            characterOption.GetComponent<CharacterOption>().territoryHandlerInCharacter =  territoryHandler;
-            characterOptions.Add(characterOption);
-        }
-        PauseGame();
-    }
-    public void CloseCharacterSelection()
-    {
-        CharacterSelection.SetActive(false);
-        for (int i = 0; i < characterOptions.Count; i++)
-        {
-            Destroy(characterOptions[i]);
-        }
-        subordinateList.DeleteSubodinateList();
-    }
-
-    public void EscapeGame()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))   
-        {
-            if (isGamePaused)
-            {
-                ResumeMenuGame();
-            }
-            else
-            {
-                PauseMenuGame();
-            }
-            //  SceneManager.LoadScene(0);
-        }
-    }
-    private void PauseMenuGame()
-    {
-        PauseMenu.SetActive(true);
-        PauseGame();
-    }
-    private void ResumeMenuGame()
-    {
-        PauseMenu.SetActive(false);
-        ResumeGame();
-    }
-    public void PauseGame()
-    {
-        turnOffMenus();
-        
-        temporalTime = GlobalVariables.instance.timeModifier;
-        print("pause" + temporalTime);
-        GlobalVariables.instance.timeModifier = 0;
-        
-    }
-    public void ResumeGame()
-    {
-        GlobalVariables.instance.timeModifier = temporalTime;
-//        print(temporalTime);
-    }
+   
+   
     void Start()
     {
         buttons[0].onClick.AddListener(() => ImproveIrrigateChannelButton());
@@ -591,100 +359,14 @@ public class InGameMenuHandler : MonoBehaviour
         buttons[2].onClick.AddListener(() => ImproveSacredPlaceButton());
         buttons[3].onClick.AddListener(() => ImproveFortressButton());
         buttons[4].onClick.AddListener(() => ImproveBarracksButton());
-        InitButtonMenuPause();
-        InitEventsButtons();
+        
+        
         UpdateMenu();
     }
 
-    public void FinishCustomEventAppearance(CustomEvent custom)
-    {
-        InitCustomEvent(custom);
-        AcceptEventButton.gameObject.SetActive(false);
-        DeclineEventButton.gameObject.SetActive(false);
-        TitleTextCustomEvent.text = "Results Event";
-        if (custom.IsAccepted)
-        {
-            DetailsTextCustomEvent.text = "You complete the requirements of the " + custom.TerritoryEvent.name + " territory petition.";
-        }
-        else
-        {
-            DetailsTextCustomEvent.text = "You were unable to complete the requirements of the " + custom.TerritoryEvent.name + " territory petition.";
-        }
-        ResultsEvent.SetActive(true);
-        ResultsTextEvent.text = "Results:\n" + custom.ResultsEvent();
-        custom.DeclineEventAction();
-    }
+
     
-    public void WarningEventAppearance(CustomEvent custom, int daysToFinal)
-    {
-        InitCustomEvent(custom);
-        CloseEventButton.gameObject.SetActive(true);
-        DetailsTextCustomEvent.text = custom.MessageEvent + "\nTime remaining: " + daysToFinal + " days.";
-    }
-
-    public void InitCustomEvent(CustomEvent custom)
-    {
-        CustomEventSelection.gameObject.SetActive(true);
-        PauseGame();
-        ResetTextCustomEvent();
-        if (!custom.GetAcceptButton())
-        {
-            AcceptEventButton.interactable= false;
-        }
-        ResultsTextEvent.text = "Requirements:\n" + custom.RequirementMessageEvent;
-        currentCustomEvent = custom;
-    }
-    public void AcceptCustomEventButton()
-    {
-        currentCustomEvent.AcceptEventAction();
-        UpdateMenu();
-        //CloseCustomEventButton();
-        FinishCustomEventAppearance(currentCustomEvent);
-    }
-    public void DeclineCustomEventButton()
-    {
-        currentCustomEvent.DeclineEventAction();
-        UpdateMenu();
-        //CloseCustomEventButton();
-        FinishCustomEventAppearance(currentCustomEvent);
-    }
-    public void CloseCustomEventButton()
-    {
-        CustomEventSelection.gameObject.SetActive(false);
-        ResetTextCustomEvent();
-        InstantiateEventListOption(TimeSystem.instance.listEvents);
-        ResumeGame();
-    }
-    private void ResetTextCustomEvent()
-    {
-        AcceptEventButton.gameObject.SetActive(true);
-        DeclineEventButton.gameObject.SetActive(true);
-        CloseEventButton.gameObject.SetActive(true);
-        DetailsTextCustomEvent.text = " ";
-        TitleTextCustomEvent.text = "Event";
-    }
-    public void turnOffMenus()
-    {
-        GameObject[] overMenus;
-        overMenus = GameObject.FindGameObjectsWithTag("OverMenu");
-        foreach (GameObject overMenu in overMenus)
-        {
-            overMenu.SetActive(false);
-        }
-        ChangeStateTerritory(0);
-    }
-    void InitButtonMenuPause()
-    {
-        Button[] allPauseButton = PauseMenu.gameObject.transform.GetComponentsInChildren<Button>();
-
-        allPauseButton[0].onClick.AddListener(() => ResumeMenuGame());
-        allPauseButton[1].onClick.AddListener(() => GlobalVariables.instance.GoToMenuGame());
-        allPauseButton[2].onClick.AddListener(() => GlobalVariables.instance.ClosingApp());
-    }   
-    void InitEventsButtons()
-    {
-        AcceptEventButton.onClick.AddListener(() => AcceptCustomEventButton());
-        DeclineEventButton.onClick.AddListener(() => DeclineCustomEventButton());
-        CloseEventButton.onClick.AddListener(() => CloseCustomEventButton());
-    }
+    
+    
+ 
 }

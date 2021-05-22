@@ -13,8 +13,8 @@ public class MenuBlock : MonoBehaviour
     {
         
         yield return new WaitForSeconds(waitTime);
-        InGameMenuHandler.instance.TurnOnBlock();
-        InGameMenuHandler.instance.ChangeStateTerritory(2);
+        MenuManager.instance.TurnOnBlock();
+        TerritoryManager.instance.ChangeStateTerritory(2);
      //   print("3");
        
     }

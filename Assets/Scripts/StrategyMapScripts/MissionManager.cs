@@ -20,10 +20,15 @@ public class MissionManager : MonoBehaviour
     private void Start()
     {
         missionDefOption.Mission = new MissionDefeat();
+        missionDefOption.InitializeMission();
         missionConqOption.Mission = new MissionConquest();
+        missionConqOption.InitializeMission();
         missionExpOption.Mission = new MissionExpansion();
+        missionExpOption.InitializeMission();
         missionProtOption.Mission = new MissionProtect();
+        missionProtOption.InitializeMission();
         missionAllBOption.Mission = new MissionAllBuilds();
+        missionAllBOption.InitializeMission();
     }
     private void Update()
     {

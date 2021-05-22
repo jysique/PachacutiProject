@@ -101,7 +101,7 @@ public class TerritoryHandler : MonoBehaviour
         int i = Random.Range(0, adjacentTerritories.Count);
         int warriorsToSend = Random.Range(3, this.territoryStats.territory.Population);
         TerritoryHandler territoryToAttack = adjacentTerritories[i].GetComponent<TerritoryHandler>();
-        InGameMenuHandler.instance.SendWarriors(this, territoryToAttack, warriorsToSend);
+        WarManager.instance.SendWarriors(this, territoryToAttack, warriorsToSend);
     }
 
     private void OnMouseOver()
@@ -128,7 +128,7 @@ public class TerritoryHandler : MonoBehaviour
             //if (selected.territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.PLAYER) ca = false;
             if (selected == this && territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER) ca = true;
             if (war == true) ca = false;
-            InGameMenuHandler.instance.ActivateContextMenu(this, ca,war, Input.mousePosition);
+            MenuManager.instance.ActivateContextMenu(this, ca,war, Input.mousePosition);
 
         }
     }
@@ -156,7 +156,7 @@ public class TerritoryHandler : MonoBehaviour
                     {
                         InGameMenuHandler.instance.GoldPlayer -= 10;
                     }
-                    InGameMenuHandler.instance.SendWarriors(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>(), this, InGameMenuHandler.instance.warriorsNumber);
+                    WarManager.instance.SendWarriors(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>(), this, MenuManager.instance.contextMenu.GetComponent<ContextMenu>().WarriorsCount());
                 }
                 else
                 {
@@ -319,8 +319,8 @@ public class TerritoryHandler : MonoBehaviour
 
         WarManager.instance.selected = this;
         WarManager.instance.SetWarStatus(this.war);
-        InGameMenuHandler.instance.ChangeStateTerritory(0);
-        InGameMenuHandler.instance.TurnOffBlock();
+        TerritoryManager.instance.ChangeStateTerritory(0);
+        MenuManager.instance.TurnOffBlock();
 
     }
     public void GatherTerritoryGold()

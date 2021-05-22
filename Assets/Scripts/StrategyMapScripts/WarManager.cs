@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class WarManager : MonoBehaviour
 {
+    [SerializeField] private GameObject warriorsPrefab;
+
     [SerializeField] private float initialSpeed;
     private bool status;
 
@@ -215,7 +217,7 @@ public class WarManager : MonoBehaviour
             territory.territoryStats.territory.Population = survivors;
             if (type == Territory.TYPEPLAYER.PLAYER)
             {
-                InGameMenuHandler.instance.OpenCurrentCaseMenu(territory);
+                MenuManager.instance.OpenCurrentCaseMenu(territory);
               //  InGameMenuHandler.instance.InstantiateCharacterOption(territory);
 
             }
@@ -324,6 +326,52 @@ public class WarManager : MonoBehaviour
         V = V + ((strategyMod + warriorNumberBonus + experienceMod + governorMod+defenseMod+motivationMod) * 3);
         
         return V;
+    }
+
+    public void SelectTerritory(int warriorsNumber)
+    {
+        if (TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory.Population - warriorsNumber >= 0)
+        {
+            TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().ShowAdjacentTerritories();
+        }
+    }
+
+    public void SendWarriors(TerritoryHandler selected, TerritoryHandler otherTerritory, int _warriorsNumber)
+    {
+
+        selected.territoryStats.territory.Population = selected.territoryStats.territory.Population - _warriorsNumber;
+        warriorsPrefab.GetComponent<WarriorsMoving>().SetAttack(otherTerritory.gameObject, _warriorsNumber, selected);
+        Instantiate(warriorsPrefab, selected.transform.position, Quaternion.identity);
+
+    }
+
+    public void MoveWarriors(TerritoryHandler otherTerritory, int attackPower, TerritoryHandler attacker)
+    {
+        Territory.TYPEPLAYER temp = otherTerritory.territoryStats.territory.TypePlayer;
+        if (otherTerritory.territoryStats.territory.TypePlayer == attacker.territoryStats.territory.TypePlayer)
+        {
+            otherTerritory.territoryStats.territory.Population = otherTerritory.territoryStats.territory.Population + attackPower;
+        }
+        else
+        {
+            if (otherTerritory.war)
+            {
+                AddMoreWarriors(otherTerritory, attackPower);
+
+            }
+            else
+            {
+                float vAttack = SetAttackFormula(attacker, attackPower);
+                float vDef = SetDefenseFormula(otherTerritory);
+                AddWar(attackPower, otherTerritory.territoryStats.territory.Population, vAttack, vDef, otherTerritory, attacker.territoryStats.territory.TypePlayer);
+
+                otherTerritory.war = true;
+                otherTerritory.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            }
+
+        }
+
+
     }
 
 }

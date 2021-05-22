@@ -87,7 +87,7 @@ public class TerritoryManager : MonoBehaviour
             switch (tp)
             {
                 case Territory.TYPEPLAYER.NONE:
-                    territoryHandler.TintColorTerritory(new Color32(31, 97, 237, 255));
+                    territoryHandler.TintColorTerritory(new Color32(96, 142, 118, 255));
                     break;
                 case Territory.TYPEPLAYER.PLAYER:
                     territoryHandler.TintColorTerritory(new Color32(249, 85, 138, 255));
@@ -114,10 +114,7 @@ public class TerritoryManager : MonoBehaviour
         if (a == null)
         {
             a = GameObject.Find(_name.Remove(_name.Length - 1));
-            if(a == null)
-            {
-                print("unity de mierda, no encontro "+_name + " en "+ _a);
-            }
+            
         }
         return a;
     }
@@ -130,6 +127,13 @@ public class TerritoryManager : MonoBehaviour
                 TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
                 territoryHandler.territoryStats.territory.TypePlayer = type;
             }
+        }
+    }
+    public void ChangeStateTerritory(int _state)
+    {
+        foreach (GameObject t in territoryList)
+        {
+            if (t.GetComponent<TerritoryHandler>().state != 1) t.GetComponent<TerritoryHandler>().state = _state;
         }
     }
 

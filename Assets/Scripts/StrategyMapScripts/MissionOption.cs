@@ -15,7 +15,7 @@ public class MissionOption : MonoBehaviour
         get { return mission; }
         set { mission = value; }
     }
-    private void Start()
+    public void InitializeMission()
     {
         //transform.GetComponent<MenuToolTip>().SetNewInfo(mission.MessagePro);
         //        iconMission = transform.Find("Icon").gameObject;
