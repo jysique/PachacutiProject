@@ -47,8 +47,8 @@ public class TerritoryHandler : MonoBehaviour
         }            
         if(territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
         {
-            territoryStats.territory.IrrigationChannelTerritory.Level++;
-            territoryStats.territory.GoldMineTerritory.Level++;
+            territoryStats.territory.IrrigationChannelTerritory.ImproveBuilding(1);
+            territoryStats.territory.GoldMineTerritory.ImproveBuilding(1);
         }
 
         adjacentTerritories = TerritoryManager.instance.dictionary.Single(s => s.Key == territory.name).Value;

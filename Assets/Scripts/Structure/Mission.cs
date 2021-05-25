@@ -162,7 +162,7 @@ public class MissionConquest : Mission
     public override void InitBenefits()
     {
         base.InitBenefits();
-        TerritoryMission[0].MilitarBossTerritory.Experience += 5;
+        TerritoryMission[0].MilitarChiefTerritory.Experience += 15;
         base.MissionStatus = STATUS.IN_PROGRESS_BENEFITS;
     }
     public override void FinishBenefits()
@@ -170,7 +170,7 @@ public class MissionConquest : Mission
         base.FinishBenefits();
         if (base.MissionStatus == STATUS.DONE)
         {
-            TerritoryMission[0].MilitarBossTerritory.Experience -= 30;
+            TerritoryMission[0].MilitarChiefTerritory.Experience -= 10;
         }
     }
 }

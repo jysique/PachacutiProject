@@ -2,11 +2,12 @@ using UnityEngine;
 [System.Serializable]
 public class SacredPlace: Building
 {
-    private float motivation = 1.0f;
+    private float motivation = 0f;
 
     public SacredPlace()
     {
         this.Name = "SacredPlace";
+        this.AtributteToAdd = 0.6f;
     }
     public float Motivation
     {
@@ -16,6 +17,6 @@ public class SacredPlace: Building
     public override void ImproveBuilding(int _levels)
     {
         base.ImproveBuilding(_levels);
-        this.motivation += 0.6f * _levels;
+        this.motivation += this.AtributteToAdd * _levels;
     }
 }

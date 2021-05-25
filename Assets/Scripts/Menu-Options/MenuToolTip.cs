@@ -67,6 +67,7 @@ public class MenuToolTip : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             if(temp == timeToStart)
             {
                 ShowTooltip();
+                //print("toolTip:" + toolTip.transform.position);
                 canShow = false;
                 temp = 0;
             }

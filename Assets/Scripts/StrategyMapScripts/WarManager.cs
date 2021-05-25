@@ -217,16 +217,16 @@ public class WarManager : MonoBehaviour
             territory.territoryStats.territory.Population = survivors;
             if (type == Territory.TYPEPLAYER.PLAYER)
             {
-                MenuManager.instance.OpenCurrentCaseMenu(territory);
+                MenuManager.instance.OpenBattleWonMenu(territory);
               //  InGameMenuHandler.instance.InstantiateCharacterOption(territory);
 
             }
             else if(type == Territory.TYPEPLAYER.BOT)
             {
-                MilitarBoss newMilitarBoss = new MilitarBoss();
+                MilitarChief newMilitarBoss = new MilitarChief();
                 newMilitarBoss.GetMilitarBoss();
                 //print(newMilitarBoss.CharacterName);
-                territory.territoryStats.territory.MilitarBossTerritory = newMilitarBoss;
+                territory.territoryStats.territory.MilitarChiefTerritory = newMilitarBoss;
             }
         }
         if (territory == selected)
@@ -249,7 +249,7 @@ public class WarManager : MonoBehaviour
     public float SetAttackFormula(TerritoryHandler t, int warriorsNumber)
     {
         float V = initialSpeed;
-        MilitarBoss mb = t.territoryStats.territory.MilitarBossTerritory;
+        MilitarChief mb = t.territoryStats.territory.MilitarChiefTerritory;
         float strategyMod = 0;
         switch (mb.StrategyType)
         {
@@ -292,7 +292,7 @@ public class WarManager : MonoBehaviour
     {
         float V = initialSpeed;
         
-        MilitarBoss mb = t.territoryStats.territory.MilitarBossTerritory;
+        MilitarChief mb = t.territoryStats.territory.MilitarChiefTerritory;
         float strategyMod = 0;
         switch (mb.StrategyType)
         {

@@ -66,17 +66,17 @@ public class TerritoryManager : MonoBehaviour
             TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
             if (territoryHandler.territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.BOT)
             {
-                MilitarBoss newMilitarBoss = new MilitarBoss();
+                MilitarChief newMilitarBoss = new MilitarChief();
                 newMilitarBoss.GetMilitarBoss();
-                newMilitarBoss.StrategyType = MilitarBoss.TYPESTRAT.DEFENSIVE.ToString();
-                territoryHandler.territoryStats.territory.MilitarBossTerritory = newMilitarBoss;
+                newMilitarBoss.StrategyType = MilitarChief.TYPESTRAT.DEFENSIVE.ToString();
+                territoryHandler.territoryStats.territory.MilitarChiefTerritory = newMilitarBoss;
                 //a++;
             }
             else
             {
-                MilitarBoss newMilitarBoss = new MilitarBoss();
+                MilitarChief newMilitarBoss = new MilitarChief();
                 newMilitarBoss.GetMilitarBoss();
-                territoryHandler.territoryStats.territory.MilitarBossTerritory = newMilitarBoss;
+                territoryHandler.territoryStats.territory.MilitarChiefTerritory = newMilitarBoss;
             }
         }
     }

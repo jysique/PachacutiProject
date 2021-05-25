@@ -5,44 +5,44 @@ using UnityEngine;
 [System.Serializable]
 public class SubordinateList
 {
-    public List<Subordinate> MilitarBosses = new List<Subordinate>();
+    public List<Subordinate> Chiefs = new List<Subordinate>();
 
     public void AddSubodinateToList(Subordinate subordinate)
     {
-        MilitarBosses.Add(subordinate);
+        Chiefs.Add(subordinate);
     }
     public void DeleteSubodinateList()
     {
-        MilitarBosses.RemoveRange(0, MilitarBosses.Count);
+        Chiefs.RemoveRange(0, Chiefs.Count);
     }
-    public List<Subordinate> AddDataSubordinateToList(int size,string type)
+    public void AddDataSubordinateToList(int size,string type)
     {
         for (int i = 0; i < size; i++)
         {
             if(type== "militar")
             {
-                MilitarBoss _militar = new MilitarBoss();
+                MilitarChief _militar = new MilitarChief();
                 _militar.GetMilitarBoss();
-                MilitarBosses.Add(_militar);
+                Chiefs.Add(_militar);
+            }
+            else if(type == "comunal")
+            {
+                MilitarChief _militar = new MilitarChief();
+                _militar.GetMilitarBoss();
+                Chiefs.Add(_militar);
             }
         }
-        return MilitarBosses;
-    }
-    public MilitarBoss GetSubordinate(int index)
-    {
-        var m = (MilitarBoss)MilitarBosses[index];
-        Debug.LogError(index + " " + m.StrategyType);
-        return m;
+       // return MilitarBosses;
     }
     public int CountSubordinateList()
     {
-        return MilitarBosses.Count;
+        return Chiefs.Count;
     }
     public void ChangueCharacIconType(string type)
     {
-        for (int i = 0; i < MilitarBosses.Count; i++)
+        for (int i = 0; i < Chiefs.Count; i++)
         {
-            MilitarBosses[i].CharacIconType = type;
+            Chiefs[i].CharacIconType = type;
         }
     }
 }

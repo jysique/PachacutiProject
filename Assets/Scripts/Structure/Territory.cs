@@ -36,7 +36,7 @@ public class Territory
     private int costImprovePopulation = 10;
     [SerializeField] private bool selected;
 
-    [SerializeField] private MilitarBoss militarBossTerritory = null;
+    [SerializeField] private MilitarChief militarChiefTerritory = null;
     [SerializeField] private GoldMine goldMineTerritory = new GoldMine();
     [SerializeField] private SacredPlace sacredPlaceTerritory = new SacredPlace();
     [SerializeField] private Fortress fortressTerritory = new Fortress();
@@ -62,10 +62,10 @@ public class Territory
         get { return canUpgrade; }
         set { canUpgrade = value; }
     }
-    public MilitarBoss MilitarBossTerritory
+    public MilitarChief MilitarChiefTerritory
     {
-        get { return militarBossTerritory; }
-        set { militarBossTerritory = value; }
+        get { return militarChiefTerritory; }
+        set { militarChiefTerritory = value; }
     }
     public GoldMine GoldMineTerritory
     {

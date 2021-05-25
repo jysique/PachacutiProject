@@ -24,7 +24,14 @@ public class BuildOption : MonoBehaviour
         block = transform.Find("Block").gameObject;
         nameTxt = transform.Find("NameTxt").transform.GetComponent<Text>();
         nameTxt2 = block.gameObject.transform.Find("Text").gameObject.GetComponent<Text>();
-
+        costTxt = transform.Find("CostTxt").gameObject.GetComponent<Text>();
+        /*
+        upgradeBtn = this.gameObject.transform.GetChild(7).gameObject.GetComponent<Button>();
+        if (upgradeBtn)
+        {
+            print("encontre");
+        }
+        */
     }
 
     // Update is called once per frame
@@ -33,7 +40,7 @@ public class BuildOption : MonoBehaviour
         nameTxt.text = building.Name;
         nameTxt2.text = "Press '+' To Build " + building.Name;
         levelTxt.text = "Level:" + building.Level.ToString();
-       // costTxt.text = building.CostToUpgrade.ToString();
+
         bool a = building.Level > 0 ? false : true;
         block.SetActive(a);
     }

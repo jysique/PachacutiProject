@@ -36,7 +36,9 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private Text MotivationBonus;
     [SerializeField] private Text AttackBonus;
     [SerializeField] private Text DefenseBonus;
+
     [Header("Menu buildings")]
+    [SerializeField] private GameObject menuBlockBuildings;
     [SerializeField] private Image[] countdownImages;
     [SerializeField] private Button[] buttons;
     [SerializeField] private BuildOption IrrigationChannelOption;
@@ -71,19 +73,18 @@ public class InGameMenuHandler : MonoBehaviour
     public void UpdateMilitarMenu()
     {
         menuBlock.SetActive(false);
-        MilitarBoss boss = selectedTerritory.MilitarBossTerritory;
-        militaryBossName.text = boss.CharacterName;
-        militaryBossPicture.sprite = boss.Picture;
-        militaryBossExperience.text = boss.Experience.ToString()+ "/10";
-        militaryBossEstrategy.text = "Strategy: " + boss.StrategyType;
-        militaryBossInfluence.text = boss.Influence.ToString() +"/10";
+        MilitarChief mChief = selectedTerritory.MilitarChiefTerritory;
+        militaryBossName.text = mChief.CharacterName;
+        militaryBossPicture.sprite = mChief.Picture;
+        militaryBossExperience.text = mChief.Experience.ToString()+ "/10";
+        militaryBossEstrategy.text = "Strategy: " + mChief.StrategyType;
+        militaryBossInfluence.text = mChief.Influence.ToString() +"/10";
         GenerationSpeed.text = selectedTerritory.VelocityPopulation.ToString();
         warriorsLimit.text = selectedTerritory.LimitPopulation.ToString();
         if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
         {
             menuBlock.SetActive(true);                
         }
-       
     }
     public void UpdateTerritoryMenu()
     {
@@ -94,8 +95,14 @@ public class InGameMenuHandler : MonoBehaviour
             menuBlockTerritory.SetActive(true);
             
         }
-        
-        
+    }
+    public void UpdateBuildingsMenu()
+    {
+        menuBlockBuildings.SetActive(false);
+        if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
+        {
+            menuBlockBuildings.SetActive(true);
+        }
     }
     void UpdateCountDownImage()
     {
@@ -120,6 +127,7 @@ public class InGameMenuHandler : MonoBehaviour
         selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory;
         UpdateMilitarMenu();
         UpdateTerritoryMenu();
+        UpdateBuildingsMenu();
 
     }
     void Update()
@@ -359,8 +367,6 @@ public class InGameMenuHandler : MonoBehaviour
         buttons[2].onClick.AddListener(() => ImproveSacredPlaceButton());
         buttons[3].onClick.AddListener(() => ImproveFortressButton());
         buttons[4].onClick.AddListener(() => ImproveBarracksButton());
-        
-        
         UpdateMenu();
     }
 

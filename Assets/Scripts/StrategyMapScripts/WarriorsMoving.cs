@@ -11,8 +11,8 @@ public class WarriorsMoving : MonoBehaviour
     //stats
     [SerializeField]private int warriorsNumber;
     [SerializeField]private Territory.TYPEPLAYER territorytype;
-    private MilitarBoss mb;
-    private MilitarBoss.TYPESTRAT militaryBossStrategy;
+    private MilitarChief mb;
+    private MilitarChief.TYPESTRAT militaryBossStrategy;
     private int militaryBossExperience;
     [SerializeField]private TerritoryHandler attacker;
     //result
@@ -25,7 +25,7 @@ public class WarriorsMoving : MonoBehaviour
         warriorsNumber = _warriorsNumber;
         attacker = attackerTerritory;
         territorytype = attackerTerritory.territoryStats.territory.TypePlayer;
-        mb = attackerTerritory.territoryStats.territory.MilitarBossTerritory;
+        mb = attackerTerritory.territoryStats.territory.MilitarChiefTerritory;
         
         /*
         militaryBossStrategy = _mb.Type;

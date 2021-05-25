@@ -2,10 +2,11 @@ using UnityEngine;
 [System.Serializable]
 public class GoldMine:Building
 {
-    private float velocityGold = 1;
+    private float velocityGold = 0;
     public GoldMine()
     {
         this.Name = "Gold Mine";
+        this.AtributteToAdd = 0.6f;
     }
     public float VelocityGold
     {
@@ -15,6 +16,6 @@ public class GoldMine:Building
     public override void ImproveBuilding(int _levels)
     {
         base.ImproveBuilding(_levels);
-        this.velocityGold += 0.6f * _levels;
+        this.velocityGold += this.AtributteToAdd * _levels;
     }
 }

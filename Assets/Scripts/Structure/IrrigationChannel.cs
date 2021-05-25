@@ -2,10 +2,11 @@ using UnityEngine;
 [System.Serializable]
 public class IrrigationChannel : Building
 {
-    private float velocityfood = 1f;
+    private float velocityfood = 0f;
     public IrrigationChannel()
     {
         this.Name = "Irrigation Channel";
+        this.AtributteToAdd = 0.6f;
     }
     public float VelocityFood
     {
@@ -15,6 +16,6 @@ public class IrrigationChannel : Building
     public override void ImproveBuilding(int _levels)
     {
         base.ImproveBuilding(_levels);
-        this.velocityfood += 0.6f * _levels;
+        this.velocityfood += this.AtributteToAdd * _levels;
     }
 }
