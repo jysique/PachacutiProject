@@ -40,12 +40,12 @@ public class ButtonCustomize : MonoBehaviour, IPointerEnterHandler, IPointerExit
                 CheckCost(InGameMenuHandler.instance.GoldPlayer, t.CostPopulation, "gold",s,s2);
                 break;
             case TYPECUSTOM.UP_CHANNEL:
-                s = t.IrrigationChannelTerritory.VelocityFood;
+                s = t.IrrigationChannelTerritory.WorkersChannel;
                 s2 = s + t.IrrigationChannelTerritory.AtributteToAdd;
                 CheckCost(InGameMenuHandler.instance.GoldPlayer, t.IrrigationChannelTerritory.CostToUpgrade, "gold",s,s2);
                 break;
             case TYPECUSTOM.UP_MINE:
-                s = t.GoldMineTerritory.VelocityGold;
+                s = t.GoldMineTerritory.WorkersMine;
                 s2 = s + t.GoldMineTerritory.AtributteToAdd;
                 CheckCost(InGameMenuHandler.instance.GoldPlayer, t.GoldMineTerritory.CostToUpgrade, "gold",s,s2);
                 break;

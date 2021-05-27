@@ -2,20 +2,23 @@ using UnityEngine;
 [System.Serializable]
 public class GoldMine:Building
 {
-    private float velocityGold = 0;
+    //  private float velocityGold = 0;
+    private int workersMine = 0;
     public GoldMine()
     {
         this.Name = "Gold Mine";
-        this.AtributteToAdd = 0.6f;
+        this.AtributteToAdd = 5f;
     }
-    public float VelocityGold
+    public int WorkersMine
     {
-        get { return velocityGold; }
-        set { velocityGold = value; }
+      //  get { return velocityGold; }
+      //  set { velocityGold = value; }
+        get { return workersMine; }
+        set { workersMine = value; }
     }
     public override void ImproveBuilding(int _levels)
     {
         base.ImproveBuilding(_levels);
-        this.velocityGold += this.AtributteToAdd * _levels;
+        this.workersMine += (int)this.AtributteToAdd * _levels;
     }
 }

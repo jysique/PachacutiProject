@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class EventManager : MonoBehaviour
 {
     public static EventManager instance;
+
     [Header("Evento")]
     [SerializeField] private GameObject CustomEventSelection;
     [SerializeField] private Text TitleTextCustomEvent;
@@ -70,7 +71,7 @@ public class EventManager : MonoBehaviour
         }
         ResultsEvent.SetActive(true);
         ResultsTextEvent.text = "Results:\n" + custom.ResultsEvent();
-        custom.DeclineEventAction();
+        
     }
 
     public void WarningEventAppearance(CustomEvent custom, int daysToFinal)
@@ -89,6 +90,10 @@ public class EventManager : MonoBehaviour
         {
             AcceptEventButton.interactable = false;
         }
+        else
+        {
+            AcceptEventButton.interactable = true;
+        }
         ResultsTextEvent.text = "Requirements:\n" + custom.RequirementMessageEvent;
         currentCustomEvent = custom;
     }
@@ -96,14 +101,12 @@ public class EventManager : MonoBehaviour
     {
         currentCustomEvent.AcceptEventAction();
         InGameMenuHandler.instance.UpdateMenu();
-        //CloseCustomEventButton();
         FinishCustomEventAppearance(currentCustomEvent);
     }
     public void DeclineCustomEventButton()
     {
         currentCustomEvent.DeclineEventAction();
         InGameMenuHandler.instance.UpdateMenu();
-        //CloseCustomEventButton();
         FinishCustomEventAppearance(currentCustomEvent);
     }
     public void CloseCustomEventButton()
@@ -113,8 +116,6 @@ public class EventManager : MonoBehaviour
         CustomEventSelection.gameObject.SetActive(false);
         ResetTextCustomEvent();
         InstantiateEventListOption(TimeSystem.instance.listEvents);
-        
-        
     }
     private void ResetTextCustomEvent()
     {

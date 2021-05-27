@@ -2,20 +2,21 @@ using UnityEngine;
 [System.Serializable]
 public class IrrigationChannel : Building
 {
-    private float velocityfood = 0f;
+    //  private float velocityfood = 0f;
+    private int workersChannel = 0;
     public IrrigationChannel()
     {
         this.Name = "Irrigation Channel";
-        this.AtributteToAdd = 0.6f;
+        this.AtributteToAdd = 5f;
     }
-    public float VelocityFood
+    public int WorkersChannel
     {
-        get { return velocityfood; }
-        set { velocityfood = value; }
+        get { return workersChannel; }
+        set { workersChannel = value; }
     }
     public override void ImproveBuilding(int _levels)
     {
         base.ImproveBuilding(_levels);
-        this.velocityfood += this.AtributteToAdd * _levels;
+        this.workersChannel += (int)this.AtributteToAdd * _levels;
     }
 }

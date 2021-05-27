@@ -58,13 +58,13 @@ public class CharacterOption : MonoBehaviour
             var militar = (MilitarChief)character;
             allText[0].text = militar.Experience.ToString() + "/10"; 
             allText[2].text = "Strategy:" + militar.StrategyType.ToLower();
-            toggle.group = BattleWonMenu.instance.toggleGroupMilitar;
+            toggle.group = BattleWonMenu.instance.ToggleGroups[0];
         }else if (type == "comunal")
         {
             var militar = (MilitarChief)character;
             allText[0].text = militar.Experience.ToString() + "/10";
             allText[2].text = "Strategy:" + militar.StrategyType.ToLower();
-            toggle.group = BattleWonMenu.instance.toggleGroupCommunal;
+            toggle.group = BattleWonMenu.instance.ToggleGroups[1];
         }
     }
     /// <summary>

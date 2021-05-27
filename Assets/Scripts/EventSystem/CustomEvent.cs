@@ -88,18 +88,22 @@ public class CustomEvent
     /// </summary>
     /// <param name="_initTime"></param>
     /// <param name="days"></param>
-    public void GetCustomEvent(TimeSimulated _initTime,int days)
+    public void GetCustomEvent(TimeSimulated _initTime)
     {
         this.isAcceptedEvent = false;
 
         this.timeInit = new TimeSimulated(_initTime.Day, _initTime.Month, _initTime.Year);
-        timeInit.PlusDays(days);
+        int rDays1 = UnityEngine.Random.Range(TimeSystem.instance.MinDays, TimeSystem.instance.MaxDays);
+        timeInit.PlusDays(rDays1);
 
         this.timeFinal = new TimeSimulated(timeInit.Day, timeInit.Month, timeInit.Year);
-        int rDays = UnityEngine.Random.Range(10, 15);
-        timeFinal.PlusDays(rDays);
+        int rDays2 = UnityEngine.Random.Range(10, 15);
+        timeFinal.PlusDays(rDays2);
+
         EVENTTYPE _t = (EVENTTYPE)UnityEngine.Random.Range(0, Enum.GetNames(typeof(EVENTTYPE)).Length);
+        //EVENTTYPE _t = EVENTTYPE.REBELION;
         this.eventtype = _t.ToString();
+
         this.eventStatus = STATUS.ANNOUNCE;
         this.costEvent = UnityEngine.Random.Range(3, InGameMenuHandler.instance.GoldPlayer / 2);
         GetMessage();
@@ -221,6 +225,9 @@ public class CustomEvent
         switch (eventtype.ToString())
         {
             case "REBELION":
+          //      Debug.LogWarning("player gold: " + InGameMenuHandler.instance.GoldPlayer);
+         //       Debug.LogWarning("cost event: " + costEvent);
+        //        Debug.LogWarning("result: " + (InGameMenuHandler.instance.GoldPlayer - costEvent));
                 InGameMenuHandler.instance.GoldPlayer -= costEvent;
                 break;
             case "EVENT_PANDEMIC":
@@ -251,7 +258,7 @@ public class CustomEvent
                 break;
             case "GRACE_FOOD":
                 InGameMenuHandler.instance.GoldPlayer -= costEvent;
-                territoryEvent.IrrigationChannelTerritory.VelocityFood += 3;
+                territoryEvent.IrrigationChannelTerritory.ImproveBuilding(3);
                 break;
             default:
                 break;
@@ -269,6 +276,7 @@ public class CustomEvent
         {
             case "REBELION":
                 TerritoryEvent.TypePlayer = Territory.TYPEPLAYER.NONE;
+            //    Debug.LogError("perdimos el territorio");
                 break;
             case "EVENT_PANDEMIC":
                 List<TerritoryHandler> list = TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER);
@@ -291,7 +299,6 @@ public class CustomEvent
                 territoryEvent.IrrigationChannelTerritory.Level = 0;
                 break;
             case "PETITION_MIN":
-
                 //break;
             case "PETITION_FOR":
                // break;

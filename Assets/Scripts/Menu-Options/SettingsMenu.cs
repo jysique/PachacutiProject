@@ -34,16 +34,19 @@ public class SettingsMenu : MonoBehaviour
     }
     public void SetVolume(float vol)
     {
-        master.audioMixer.SetFloat("volume", vol);
+        //    master.audioMixer.SetFloat("volume", vol);
+        master.audioMixer.SetFloat("volume", Mathf.Log10(vol)*20);
     }
     public void SetVolumeMusic(float vol)
     {
-        master.audioMixer.SetFloat("volMusic", vol);
+        //master.audioMixer.SetFloat("volMusic", vol);
+        master.audioMixer.SetFloat("volMusic", Mathf.Log10(vol) * 20);
     }
     public void SetVolumeSFX(float vol)
     {
-        master.audioMixer.SetFloat("volSFX", vol);
-      //  AudioManager.instance.ReadAndPlaySFX("ButtonPush");
+        //  master.audioMixer.SetFloat("volSFX", vol);
+        master.audioMixer.SetFloat("volSFX", Mathf.Log10(vol) * 20);
+        //  AudioManager.instance.ReadAndPlaySFX("ButtonPush");
     }
     public void SetQuality(int qualityIndex)
     {

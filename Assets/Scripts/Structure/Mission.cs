@@ -76,12 +76,18 @@ public class Mission
         if (missionStatus == STATUS.IN_PROGRESS)
         {
             CheckMission();
-        }else if (missionStatus == STATUS.COMPLETE)
+        }
+        else if (missionStatus == STATUS.COMPLETE)
         {
             InitBenefits();
-        }else if (missionStatus == STATUS.IN_PROGRESS_BENEFITS)
+            MissionManager.instance.NotificationMission.SetActive(true);
+        }
+        else if (missionStatus == STATUS.IN_PROGRESS_BENEFITS)
         {
             FinishBenefits();
+        }else if(missionStatus == STATUS.DONE)
+        {
+            MissionManager.instance.NotificationMission.SetActive(true);
         }
     }
     void SetInitTimeMission()
@@ -149,7 +155,7 @@ public class MissionConquest : Mission
         this.NameMission = "Conquest Mission";
         TerritoryMission.Add(TerritoryManager.instance.GetTerritoryRandom(Territory.TYPEPLAYER.NONE).territoryStats.territory);
         this.Message = "Conquer " + TerritoryMission[0].name + " territory";
-        this.MessagePro = "+5 exp military boos for " + this.TimeMissionActive + " months";
+        this.MessagePro = "+5 exp military chief \nfor " + this.TimeMissionActive + " months";
     }
     public override void CheckMission()
     {
@@ -180,19 +186,33 @@ public class MissionExpansion : Mission
     {
         this.NameMission = "Expansion Mission";
         Territory.REGION region = (Territory.REGION)Random.Range(0, 2);
+        string regionString = region.ToString().ToLower().Replace("_", " ");
         List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesByZoneTerritory(region);
+        Debug.Log("r- "+ region.ToString() +"-t-" +t.Count);
         for (int i = 0; i < t.Count; i++)
         {
             this.TerritoryMission.Add(t[i].territoryStats.territory);
         }
-        this.Message = "Conquer " + GlobalVariables.instance.GetRegionName(region);
-        this.MessagePro = "+2 irrigation channels nivels in " + GlobalVariables.instance.GetRegionName(region) + " for " + this.TimeMissionActive + " months";
+        
+        this.Message = "Conquer " + regionString;
+        this.MessagePro = "+2 irrigation channels nivels in " + regionString + "\n for " + this.TimeMissionActive + " months";
     }
+    int a = 0;
     public override void CheckMission()
     {
         base.CheckMission();
-        bool complete = TerritoryMission.All(x => x.TypePlayer == Territory.TYPEPLAYER.PLAYER);
-        if (complete)
+        //bool complete = TerritoryMission.All(x => x.TypePlayer == Territory.TYPEPLAYER.PLAYER);
+        
+        for (int i = 0; i < TerritoryMission.Count; i++)
+        {
+            if(TerritoryMission[i].TypePlayer == Territory.TYPEPLAYER.PLAYER)
+            {
+                a++;
+            }
+        }
+
+        Debug.Log("bool_:" + a +"-"+ TerritoryMission.Count);
+        if (a == TerritoryMission.Count)
         {
             base.MissionStatus = STATUS.COMPLETE;
         }
@@ -235,7 +255,7 @@ public class MissionProtect : Mission
         TerritoryMission.Add(TerritoryManager.instance.GetTerritoryRandom(Territory.TYPEPLAYER.PLAYER).territoryStats.territory);
         this.NameMission = "Protect Mission";        
         this.Message = "Protect "+ this.TerritoryMission[0].name + " territory for 3 months";
-        this.MessagePro = "+2 irrigation channels nivels in "+ this.TerritoryMission[0].name + " territory for " + this.TimeMissionActive + " months";
+        this.MessagePro = "+2 irrigation channels nivels in "+ this.TerritoryMission[0].name + " territory\nfor " + this.TimeMissionActive + " months";
     }
     public override void CheckMission()
     {
@@ -276,7 +296,7 @@ public class MissionAllBuilds : Mission
     {
         this.NameMission = "All in One";
         this.Message = "Have all buildings in one territory";
-        this.MessagePro = "+20 opinion in all territories for " + this.TimeMissionActive + " months";
+        this.MessagePro = "+20 opinion in all territories \nfor " + this.TimeMissionActive + " months";
     }
     public override void CheckMission()
     {

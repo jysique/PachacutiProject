@@ -221,7 +221,7 @@ public class WarManager : MonoBehaviour
               //  InGameMenuHandler.instance.InstantiateCharacterOption(territory);
 
             }
-            else if(type == Territory.TYPEPLAYER.BOT)
+            else /*if(type == Territory.TYPEPLAYER.BOT)*/
             {
                 MilitarChief newMilitarBoss = new MilitarChief();
                 newMilitarBoss.GetMilitarBoss();

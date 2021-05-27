@@ -22,6 +22,10 @@ public class MenuToolTip : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         NewInfo = info;
     }
+    public void AddNewInfo(string info)
+    {
+        NewInfo += "\n" + info;
+    }
 
     private void Start()
     {

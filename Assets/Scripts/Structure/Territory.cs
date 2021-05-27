@@ -7,11 +7,12 @@ public class Territory
 {
    
     public string name;
+    
     public enum REGION
     {
-        REGION_A,
-        REGION_B,
-        REGION_C,
+        NORTH_REGION,
+        WESTERN_REGION,
+        SOUTHERN_REGION,
         NONE
     }
     public enum TYPEPLAYER
@@ -34,6 +35,7 @@ public class Territory
     [SerializeField] private float velocityPopulation;
 
     private int costImprovePopulation = 10;
+    private int perPeople = 5;
     [SerializeField] private bool selected;
 
     [SerializeField] private MilitarChief militarChiefTerritory = null;
@@ -47,6 +49,10 @@ public class Territory
     /// </summary>
     private float[] totalTime = new float[5] { 0, 0, 0, 0, 0 };
     private bool[] canUpgrade = new bool[5] { true, true, true, true, true };
+    public int PerPeople
+    {
+        get { return perPeople; }
+    }
     public int CostPopulation
     {
         get { return costImprovePopulation; }

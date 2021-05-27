@@ -136,8 +136,8 @@ public class InGameMenuHandler : MonoBehaviour
         militarWarriorsCount.text = selectedTerritory.Population.ToString() + " / " + selectedTerritory.LimitPopulation.ToString()+ " units" ;
         goldCount.text = selectedTerritory.Gold.ToString();
         foodCount.text = selectedTerritory.FoodReward.ToString();
-        GoldGeneration.text = selectedTerritory.GoldMineTerritory.VelocityGold.ToString();
-        FoodGeneration.text = selectedTerritory.IrrigationChannelTerritory.VelocityFood.ToString();
+        GoldGeneration.text = (selectedTerritory.GoldMineTerritory.WorkersMine/ 5) + " every day";
+        FoodGeneration.text = (selectedTerritory.IrrigationChannelTerritory.WorkersChannel / 5) + " every day";
         MotivationBonus.text = selectedTerritory.SacredPlaceTerritory.Motivation.ToString() + "/10"; 
         AttackBonus.text = selectedTerritory.FortressTerritory.PlusDefense.ToString() + "/10";
         DefenseBonus.text = selectedTerritory.BarracksTerritory.PlusAttack.ToString() + "/10";
@@ -307,7 +307,7 @@ public class InGameMenuHandler : MonoBehaviour
     }
 
 
-    public void ShowFloatingText(string text,string namePrefab,Transform _t, Color32 color)
+    public void ShowFloatingText(string text,string namePrefab,Transform _t, Color32 color,float posX = 0,float posY = 0)
     {
         GameObject prefab = Resources.Load("Prefabs/MenuPrefabs/"+namePrefab) as GameObject;
         
@@ -327,7 +327,8 @@ public class InGameMenuHandler : MonoBehaviour
             go.transform.GetComponentInChildren<Text>().color = color;
             listFloatingText.Add(go);
         }
-        go.transform.position = _t.position;
+        //go.transform.position = _t.position;
+        go.transform.position = new Vector3(_t.position.x+ posX,_t.position.y + posY,_t.position.z);
         StartCoroutine(ResetGameObjects(go));
         Resources.UnloadUnusedAssets();
     }

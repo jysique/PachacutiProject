@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 public class BattleWonMenu : MonoBehaviour
 {
     public static BattleWonMenu instance;
@@ -11,74 +12,105 @@ public class BattleWonMenu : MonoBehaviour
     private Button continueButton;
     [SerializeField] private GameObject MilitarChiefSelection;
     [SerializeField] private GameObject CommunalChiefSelection;
-    [SerializeField] public ToggleGroup toggleGroupMilitar;
-    [SerializeField] public ToggleGroup toggleGroupCommunal;
-    private List<GameObject> characterOptions;
-    private SubordinateList subordinateList;
-    
-    bool a;
-    bool b;
+
+    private List<GameObject> militarOptions = new List<GameObject>();
+    private List<GameObject> communalOptions = new List<GameObject>();
+    private int maxInstantiateCharacters = 3;
+    private int numberOfTab = 2;
+    private ToggleGroup[] toggleGroups;
+    private bool[] canContinue;
+
+    public ToggleGroup[] ToggleGroups
+    {
+        get { return toggleGroups; }
+    }
     private void Awake()
     {
         instance = this;
     }
     private void Start()
     {
+
+    }
+    private void OnEnable()
+    {
         continueButton = transform.Find("ButtonContinue").GetComponent<Button>();
-        continueButton.onClick.AddListener(() => HireButton());
+        territoryImage = transform.Find("BattleWonDescription/Territory").GetComponent<Image>();
+        titleBattle = transform.Find("BattleWonDescription/Title").GetComponent<Text>();
+        instructionTitle = transform.Find("InstructionText").GetComponent<Text>();
+
+        continueButton.onClick.AddListener(() => ContinueButton());
         continueButton.interactable = false;
+
+        toggleGroups = new ToggleGroup[numberOfTab];
+        canContinue = new bool[numberOfTab];
+        toggleGroups[0] = MilitarChiefSelection.GetComponent<ToggleGroup>();
+        toggleGroups[1] = CommunalChiefSelection.GetComponent<ToggleGroup>();
+
+        for (int i = 0; i < toggleGroups.Length; i++)
+        {
+            toggleGroups[i].SetAllTogglesOff();
+        }
+        ResetCanContinue();
     }
     private void Update()
     {
-        if (toggleGroupMilitar.AnyTogglesOn())
+        for (int i = 0; i < toggleGroups.Length; i++)
         {
-            a = true;
+            CheckToggleGruop(i);
         }
-        /*
-        if (toggleGroupCommunal.AnyTogglesOn())
-        {
-            b = true;
-        }
-        */
-        if (a)
+        if (canContinue.All(x=>x == true))
         {
             continueButton.interactable = true;
         }
     }
-    public void InitBattleWonMenu(TerritoryHandler territoryHandler)
+    void InstantiateCharacterOption(TerritoryHandler territoryHandler, GameObject selection, List<GameObject> list,string type)
     {
-        territoryImage = transform.Find("BattleWonDescription/Territory").GetComponent<Image>();
-        territoryImage.sprite = territoryHandler.sprite.sprite;
-        titleBattle = transform.Find("BattleWonDescription/Title").GetComponent<Text>();
-        titleBattle.text = "You just won the battle of " + territoryHandler.territoryStats.territory.name;
-        instructionTitle = transform.Find("InstructionText").GetComponent<Text>();
-        instructionTitle.text += territoryHandler.territoryStats.territory.name + " territory";
-        InstantiateCharacterOption(territoryHandler, MilitarChiefSelection, "militar");
-        InstantiateCharacterOption(territoryHandler, CommunalChiefSelection, "comunal");
-    }
-
-    public void InstantiateCharacterOption(TerritoryHandler territoryHandler, GameObject selection, string type)
-    {
-        subordinateList = new SubordinateList();
-        subordinateList.AddDataSubordinateToList(3, type);
-        characterOptions = new List<GameObject>();
+        SubordinateList subordinateList = new SubordinateList();
+        subordinateList.AddDataSubordinateToList(maxInstantiateCharacters, type);
         Transform gridLayout = selection.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
         foreach (Subordinate charac in subordinateList.Chiefs)
         {
-            GameObject characterOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/CharacterGameOption2")) as GameObject;
+            GameObject characterOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/CharacterGameOption")) as GameObject;
             characterOption.transform.SetParent(gridLayout.transform, false);
             characterOption.name = charac.CharacterName;
             characterOption.GetComponent<CharacterOption>().Type = type;
             characterOption.GetComponent<CharacterOption>().Character = charac;
             characterOption.GetComponent<CharacterOption>().territoryHandlerInCharacter = territoryHandler;
-            characterOptions.Add(characterOption);
+            list.Add(characterOption);
         }
         subordinateList.DeleteSubodinateList();
-        //PauseGame();
     }
-    private void HireButton()
+    void ContinueButton()
     {
-
+        ResetCanContinue();
+        for (int i = 0; i < militarOptions.Count; i++)
+        {
+            Destroy(militarOptions[i]);
+            Destroy(communalOptions[i]);
+        }
         MenuManager.instance.CloseBattleWonMenu();
+    }
+    void ResetCanContinue()
+    {
+        for (int i = 0; i < canContinue.Length; i++)
+        {
+            canContinue[i] = false;
+        }
+    }
+    void CheckToggleGruop(int i)
+    {
+        if (toggleGroups[i].AnyTogglesOn())
+        {
+            canContinue[i] = true;
+        }
+    }
+    public void InitBattleWonMenu(TerritoryHandler territoryHandler)
+    {
+        territoryImage.sprite = territoryHandler.sprite.sprite;
+        titleBattle.text = "You just won the battle of " + territoryHandler.territoryStats.territory.name;
+        instructionTitle.text += territoryHandler.territoryStats.territory.name + " territory";
+        InstantiateCharacterOption(territoryHandler, MilitarChiefSelection, militarOptions, "militar");
+        InstantiateCharacterOption(territoryHandler, CommunalChiefSelection, communalOptions, "comunal");
     }
 }
