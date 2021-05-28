@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 public class CharacterOption : MonoBehaviour
@@ -43,7 +44,7 @@ public class CharacterOption : MonoBehaviour
     /// </summary>
     void InitDescription()
     {
-        Text[] allText = DescriptionCharacter.gameObject.transform.GetComponentsInChildren<Text>();
+        TextMeshProUGUI[] allText = DescriptionCharacter.gameObject.transform.GetComponentsInChildren<TextMeshProUGUI>();
         allText[1].text = character.Influence.ToString() + "/10";
         if (type == "militar")
         {
@@ -59,7 +60,7 @@ public class CharacterOption : MonoBehaviour
     {
         Transform[] allGameObjects = ProfileCharacter.gameObject.transform.GetComponentsInChildren<Transform>();
         allGameObjects[1].GetComponent<Image>().sprite = character.Picture;
-        allGameObjects[2].GetChild(0).GetComponent<Text>().text = character.CharacterName;
+        allGameObjects[2].GetChild(0).GetComponent<TextMeshProUGUI>().text = character.CharacterName;
     }
     /// <summary>
     /// Function to use to replace a single Character of every territory

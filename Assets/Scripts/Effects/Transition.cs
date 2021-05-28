@@ -16,6 +16,7 @@ public class Transition : MonoBehaviour
     }
     public void MakeStayTransition()
     {
+        
         anim.SetBool("stay", true);
     }
     public void LoadScene(int _scene)

@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ResourceTableHandler : MonoBehaviour
 {
     public static ResourceTableHandler instance;
-    [SerializeField] private Text goldGenerated;
-    [SerializeField] private Text foodGenerated;
-    [SerializeField] private Text scoreTxt;
+    [SerializeField] private TextMeshProUGUI goldGenerated;
+    [SerializeField] private TextMeshProUGUI foodGenerated;
+    [SerializeField] private TextMeshProUGUI scoreTxt;
     [SerializeField] private Transform goldAnimation;
     [SerializeField] private Transform foodAnimation;
     public Transform GoldAnimation

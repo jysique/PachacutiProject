@@ -19,23 +19,23 @@ public class InGameMenuHandler : MonoBehaviour
     [Header("Menu military")]
     [SerializeField] private GameObject menuBlock;
     [SerializeField] private Image militaryBossPicture;
-    [SerializeField] private Text militarWarriorsCount;
-    [SerializeField] private Text GenerationSpeed;
-    [SerializeField] private Text warriorsLimit;
-    [SerializeField] private Text militaryBossName;
-    [SerializeField] private Text militaryBossExperience;
-    [SerializeField] private Text militaryBossEstrategy;
-    [SerializeField] private Text militaryBossInfluence;
+    [SerializeField] private TextMeshProUGUI militarWarriorsCount;
+    [SerializeField] private TextMeshProUGUI GenerationSpeed;
+    [SerializeField] private TextMeshProUGUI warriorsLimit;
+    [SerializeField] private TextMeshProUGUI militaryBossName;
+    [SerializeField] private TextMeshProUGUI militaryBossExperience;
+    [SerializeField] private TextMeshProUGUI militaryBossEstrategy;
+    [SerializeField] private TextMeshProUGUI militaryBossInfluence;
 
     [Header("Menu territory")]
     [SerializeField] private GameObject menuBlockTerritory;
-    [SerializeField] private Text goldCount;
-    [SerializeField] private Text foodCount;
-    [SerializeField] private Text GoldGeneration;
-    [SerializeField] private Text FoodGeneration;
-    [SerializeField] private Text MotivationBonus;
-    [SerializeField] private Text AttackBonus;
-    [SerializeField] private Text DefenseBonus;
+    [SerializeField] private TextMeshProUGUI goldCount;
+    [SerializeField] private TextMeshProUGUI foodCount;
+    [SerializeField] private TextMeshProUGUI GoldGeneration;
+    [SerializeField] private TextMeshProUGUI FoodGeneration;
+    [SerializeField] private TextMeshProUGUI MotivationBonus;
+    [SerializeField] private TextMeshProUGUI AttackBonus;
+    [SerializeField] private TextMeshProUGUI DefenseBonus;
     [Header("Menu buildings")]
     [SerializeField] private Image[] countdownImages;
     [SerializeField] private Button[] buttons;

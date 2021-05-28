@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 [System.Serializable]
 public class MissionOption : MonoBehaviour
 {
    // private GameObject iconMission;
-    private Text nameMission;
-    private Text descriptionMission;
+    private TextMeshProUGUI nameMission;
+    private TextMeshProUGUI descriptionMission;
     private Image statusMission;
     [SerializeField]private Mission mission;
     public Mission Mission
@@ -17,8 +18,8 @@ public class MissionOption : MonoBehaviour
     }
     public void InitializeMission()
     {
-        nameMission = transform.Find("NameTxt").transform.GetComponent<Text>();
-        descriptionMission = transform.Find("DescriptionTxt").transform.GetComponent<Text>();
+        nameMission = transform.Find("NameTxt").transform.GetComponent<TextMeshProUGUI>();
+        descriptionMission = transform.Find("DescriptionTxt").transform.GetComponent<TextMeshProUGUI>();
         descriptionMission.GetComponent<MenuToolTip>().SetNewInfo(mission.MessagePro);
         statusMission = transform.Find("StateMission").transform.GetComponent<Image>();
         nameMission.text = mission.NameMission;

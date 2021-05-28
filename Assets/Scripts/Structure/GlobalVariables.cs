@@ -13,7 +13,7 @@ public class GlobalVariables : MonoBehaviour
     // 2 = fast
     private int dificultyGame = 0;
 
-    public GameObject canvas;
+    
 
     //=======================================================
     //variables de tiempo
@@ -66,7 +66,6 @@ public class GlobalVariables : MonoBehaviour
 
         GovernorChoose = new Governor("Pachacuti");
         GovernorChoose.TimeInit = new TimeSimulated(14,1,1474);
-        canvas = GameObject.Find("Canvas");
         velocityMoving = 0.3f;
         maxTimeCount = 12;
         timeScale = 4;

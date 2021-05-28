@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 public class CustomEventOption : MonoBehaviour
 {
     private CustomEvent custom;
     [SerializeField] Image Icon;
-    [SerializeField] Text territoryNameTxt;
-    [SerializeField] Text typeEventTxt;
-    [SerializeField] Text initTxt;
-    [SerializeField] Text finishTxt;
+    [SerializeField] TextMeshProUGUI territoryNameTxt;
+    [SerializeField] TextMeshProUGUI typeEventTxt;
+    [SerializeField] TextMeshProUGUI initTxt;
+    [SerializeField] TextMeshProUGUI finishTxt;
     [SerializeField] Image estado;
     private Button btn;
     int diferenceDays;

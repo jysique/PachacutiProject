@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,8 @@ public class MenuManager : MonoBehaviour
     [SerializeField] public GameObject contextMenu;
     [SerializeField] public GameObject overMenuBlock;
     [SerializeField] public GameObject toolTip;
-    
+    public GameObject canvas;
+
     [Header("Menu de Pause")]
     [SerializeField] private GameObject PauseMenu;
 
@@ -20,7 +22,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject CharacterSelection;
 
     public static bool isGamePaused = false;
-    public float temporalTime;
+    public float temporalTime = 1;
     private List<GameObject> characterOptions;
     public SubordinateList subordinateList;
     private void Awake()
@@ -53,8 +55,7 @@ public class MenuManager : MonoBehaviour
     public void PauseGame()
     {
         turnOffMenus();
-
-        temporalTime = GlobalVariables.instance.timeModifier;
+        if(GlobalVariables.instance.timeModifier != 0) temporalTime = GlobalVariables.instance.timeModifier;
         print("pause" + temporalTime);
         GlobalVariables.instance.timeModifier = 0;
 
@@ -103,7 +104,7 @@ public class MenuManager : MonoBehaviour
     {
         CurrentCaseMenu.SetActive(true);
         CurrentCaseMenu.transform.Find("Territory").GetComponent<Image>().sprite = territoryHandler.sprite.sprite;
-        CurrentCaseMenu.transform.Find("Title").GetComponent<Text>().text = "You just won the battle of " + territoryHandler.territoryStats.territory.name;
+        CurrentCaseMenu.transform.Find("Title").GetComponent<TextMeshProUGUI>().text = "You just won the battle of " + territoryHandler.territoryStats.territory.name;
         InstantiateCharacterOption(territoryHandler, "militar");
     }
     public void CloseCurrentCaseMenu()
@@ -116,7 +117,7 @@ public class MenuManager : MonoBehaviour
         subordinateList.AddDataSubordinateToList(3, type);
         CharacterSelection.SetActive(true);
         characterOptions = new List<GameObject>();
-        Text instructionText = CharacterSelection.transform.Find("InstructionText").transform.GetComponent<Text>();
+        TextMeshProUGUI instructionText = CharacterSelection.transform.Find("InstructionText").transform.GetComponent<TextMeshProUGUI>();
         instructionText.text = "Select a " + type + " Chief to " + territoryHandler.territoryStats.territory.name;
         Transform gridLayout = CharacterSelection.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
         foreach (Subordinate charac in subordinateList.MilitarBosses)

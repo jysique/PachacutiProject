@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,9 +10,9 @@ public class EventManager : MonoBehaviour
     public static EventManager instance;
     [Header("Evento")]
     [SerializeField] private GameObject CustomEventSelection;
-    [SerializeField] private Text TitleTextCustomEvent;
-    [SerializeField] private Text DetailsTextCustomEvent;
-    [SerializeField] private Text ResultsTextEvent;
+    [SerializeField] private TextMeshProUGUI TitleTextCustomEvent;
+    [SerializeField] private TextMeshProUGUI DetailsTextCustomEvent;
+    [SerializeField] private TextMeshProUGUI ResultsTextEvent;
     [SerializeField] private Button AcceptEventButton;
     [SerializeField] private Button CloseEventButton;
     [SerializeField] private Button DeclineEventButton;

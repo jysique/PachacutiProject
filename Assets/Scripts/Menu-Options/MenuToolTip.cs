@@ -26,7 +26,7 @@ public class MenuToolTip : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private void Start()
     {
         NewInfo = NewInfo.Replace("\\n", "\n");
-        canvasRectTransform = GlobalVariables.instance.canvas.GetComponent<RectTransform>();
+        canvasRectTransform = MenuManager.instance.canvas.GetComponent<RectTransform>();
         toolTip = MenuManager.instance.toolTip;
         preventStart = true;
         background = toolTip.transform.GetChild(0).GetComponent<RectTransform>();

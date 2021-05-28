@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,15 +12,15 @@ public class CharacterManager : MonoBehaviour
 
     [Header("Menu personaje")]
 
-    [SerializeField] private Text governorName;
-    [SerializeField] private Text governorAge;
-    [SerializeField] private Text governorOrigin;
+    [SerializeField] private TextMeshProUGUI governorName;
+    [SerializeField] private TextMeshProUGUI governorAge;
+    [SerializeField] private TextMeshProUGUI governorOrigin;
     [SerializeField] private Image governorPicture;
-    [SerializeField] private Text governorDiplomacy;
-    [SerializeField] private Text governorMilitancy;
-    [SerializeField] private Text governorManagement;
-    [SerializeField] private Text governorPrestige;
-    [SerializeField] private Text governorPiety;
+    [SerializeField] private TextMeshProUGUI governorDiplomacy;
+    [SerializeField] private TextMeshProUGUI governorMilitancy;
+    [SerializeField] private TextMeshProUGUI governorManagement;
+    [SerializeField] private TextMeshProUGUI governorPrestige;
+    [SerializeField] private TextMeshProUGUI governorPiety;
 
     private void Awake()
     {
@@ -47,11 +48,11 @@ public class CharacterManager : MonoBehaviour
         governorAge.text = "Age: " + temp.Age.ToString();
         governorPicture.sprite = temp.Picture;
         governorOrigin.text = "Birth place: " + temp.Origin;
-        governorDiplomacy.text = temp.Diplomacy + "/10";
-        governorMilitancy.text =  temp.Militancy + "/10";
-        governorManagement.text = temp.Managment + "/10";
-        governorPrestige.text = temp.Prestige + "/10";
-        governorPiety.text = temp.Piety + "/10";
+        governorDiplomacy.text = temp.Diplomacy + "/20";
+        governorMilitancy.text =  temp.Militancy + "/20";
+        governorManagement.text = temp.Managment + "/20";
+        governorPrestige.text = temp.Prestige + "/20";
+        governorPiety.text = temp.Piety + "/20";
     }
 
     public SubordinateList MilitarBossList

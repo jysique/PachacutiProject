@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler
 {
     [SerializeField] private TabGroup tabGroup;
 
     public Image background;
-    public Text text;
+    public TextMeshProUGUI text;
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -29,7 +30,7 @@ public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandl
     private void Awake()
     {
         background = GetComponent<Image>();
-        text = transform.GetChild(0).GetComponent<Text>();
+        text = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         tabGroup.Subscribe(this);
     }
 

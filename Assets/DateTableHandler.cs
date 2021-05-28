@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class DateTableHandler : MonoBehaviour
 {
-    [SerializeField] private Text dayText;
-    [SerializeField] private Text monthText;
-    [SerializeField] private Text seasonText;
-    [SerializeField] private Text yearText;
-    [SerializeField] private Text weekText;
+    [SerializeField] private TextMeshProUGUI dayText;
+    [SerializeField] private TextMeshProUGUI monthText;
+    [SerializeField] private TextMeshProUGUI seasonText;
+    [SerializeField] private TextMeshProUGUI yearText;
+    [SerializeField] private TextMeshProUGUI weekText;
     private TimeSimulated timeGame;
     void Start()
     {

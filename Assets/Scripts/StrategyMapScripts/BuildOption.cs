@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 public class BuildOption : MonoBehaviour
 {
-    private Text nameTxt;
-    private Text levelTxt;
-    private Text costTxt;
+    private TextMeshProUGUI nameTxt;
+    private TextMeshProUGUI levelTxt;
+    private TextMeshProUGUI costTxt;
     private Button upgradeBtn;
     private Image linearBarProgress;
     private GameObject block;
-    private Text nameTxt2;
+    private TextMeshProUGUI nameTxt2;
     private Building building;
     public Building TerritoryBuilding
     {
@@ -19,11 +20,11 @@ public class BuildOption : MonoBehaviour
     }
     void Start()
     {
-        levelTxt = transform.Find("LevelTxt").transform.GetComponent<Text>();
-        costTxt = transform.Find("CostTxt").transform.GetComponent<Text>();
+        levelTxt = transform.Find("LevelTxt").transform.GetComponent<TextMeshProUGUI>();
+        costTxt = transform.Find("CostTxt").transform.GetComponent<TextMeshProUGUI>();
         block = transform.Find("Block").gameObject;
-        nameTxt = transform.Find("NameTxt").transform.GetComponent<Text>();
-        nameTxt2 = block.gameObject.transform.Find("Text").gameObject.GetComponent<Text>();
+        nameTxt = transform.Find("NameTxt").transform.GetComponent<TextMeshProUGUI>();
+        nameTxt2 = block.gameObject.transform.Find("Text").gameObject.GetComponent<TextMeshProUGUI>();
 
     }
 
