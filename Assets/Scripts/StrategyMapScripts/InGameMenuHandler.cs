@@ -136,7 +136,7 @@ public class InGameMenuHandler : MonoBehaviour
     /// </summary>
     public void UpdateMenu()
     {
-        //selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory;
+        selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory;
         UpdateMilitarMenu();
         UpdateTerritoryMenu();
         UpdateBuildingsMenu();

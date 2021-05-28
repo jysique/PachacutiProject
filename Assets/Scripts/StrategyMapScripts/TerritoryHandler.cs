@@ -126,15 +126,7 @@ public class TerritoryHandler : MonoBehaviour
             MakeOutline();
             bool ca = false;
             TerritoryHandler selected = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
-            /*
-            for (int i = 0; i < selected.adjacentTerritories.Count; i++)
-            {
-                //print(selected.adjacentTerritories[i]);
-                //print(this);
-                if (selected.adjacentTerritories[i].GetComponent<TerritoryHandler>() == this) ca = true;
-            }
-            */
-            //if (selected.territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.PLAYER) ca = false;
+        
             if (selected == this && territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER) ca = true;
             if (war == true) ca = false;
             MenuManager.instance.ActivateContextMenu(this, ca,war, Input.mousePosition);
