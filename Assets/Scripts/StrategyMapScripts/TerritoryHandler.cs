@@ -20,7 +20,11 @@ public class TerritoryHandler : MonoBehaviour
     private Color32 oldColor;
     private Color32 hoverColor;
     [SerializeField]private List<GameObject> adjacentTerritories;
-    //public List<GameObject> adjacent;
+    public List<GameObject> AdjacentTerritories
+    {
+        get { return adjacentTerritories; }
+        set { adjacentTerritories = value; }
+    }
 
     GameObject statsGO;
     [SerializeField] public TerritoryStats territoryStats;
@@ -48,10 +52,13 @@ public class TerritoryHandler : MonoBehaviour
         if(territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.NONE)
         {
             territoryStats.territory.IrrigationChannelTerritory.ImproveBuilding(1);
+            territoryStats.territory.IrrigationChannelTerritory.ImproveCostUpgrade();
             territoryStats.territory.GoldMineTerritory.ImproveBuilding(1);
+            territoryStats.territory.GoldMineTerritory.ImproveCostUpgrade();
         }
 
         adjacentTerritories = TerritoryManager.instance.dictionary.Single(s => s.Key == territory.name).Value;
+       // territoryStats.territory.RegionTerritory = TerritoryManager.instance.dictionary2.Single(s => s.Key == territory.name).Value;
     }
     void InstantiateStatTerritory()
     {
@@ -249,63 +256,34 @@ public class TerritoryHandler : MonoBehaviour
         territoryStats.territory.LimitPopulation += 20;
     }
     /// <summary>
-    /// Returns time to builds from any buildings in territory
+    /// Returns the builds from any buildings in territory
     /// </summary>
     /// <param name="_option"></param>
     /// <returns></returns>
-    public float CalculateDuration(int _option)
+    public Building GetBuilding(Building building)
     {
-        float duration = 0;
-        switch (_option)
+        //float duration = 0;
+        if (building is IrrigationChannel)
         {
-            case 0:
-                duration = territoryStats.territory.IrrigationChannelTerritory.TimeToBuild;
-                break;
-            case 1:
-                duration = territoryStats.territory.GoldMineTerritory.TimeToBuild;
-                break;
-            case 2:
-                duration = territoryStats.territory.SacredPlaceTerritory.TimeToBuild;
-                break;
-            case 3:
-                duration = territoryStats.territory.FortressTerritory.TimeToBuild;
-                break;
-            case 4:
-                duration = territoryStats.territory.BarracksTerritory.TimeToBuild;
-                break;
-            default:
-                break;
+            return territoryStats.territory.IrrigationChannelTerritory;
         }
-        return duration;
-    }
-    /// <summary>
-    /// Action : improve buildings to 1 level
-    /// </summary>
-    /// <param name="_option"></param>
-    public void ImproveBuildings(int _option)
-    {
-        switch (_option)
+        else if (building is GoldMine)
         {
-            case 0:
-                territoryStats.territory.IrrigationChannelTerritory.ImproveBuilding(1);
-                break;
-            case 1:
-                territoryStats.territory.GoldMineTerritory.ImproveBuilding(1);
-                break;
-            case 2:
-                territoryStats.territory.SacredPlaceTerritory.ImproveBuilding(1);
-                break;
-            case 3:
-                territoryStats.territory.FortressTerritory.ImproveBuilding(1);
-                break;
-            case 4:
-                territoryStats.territory.BarracksTerritory.ImproveBuilding(1);
-                break;
-            default:
-                break;
+            return territoryStats.territory.GoldMineTerritory;
         }
+        else if (building is SacredPlace)
+        {
+            return territoryStats.territory.SacredPlaceTerritory;
+        }
+        else if (building is Fortress)
+        {
+            return territoryStats.territory.FortressTerritory;
+        }
+        //else if (building is Barrack)
+        //{
+        return territoryStats.territory.ArmoryTerritory;
+        //}
     }
-
     public void ShowStateMenu()
     {
 

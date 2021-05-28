@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
+
 public class Mission
 {
     [SerializeField]private string name;
@@ -49,7 +51,7 @@ public class Mission
     public Mission()
     {
         //this.timeToFinish = 1;
-        this.timeToFinish = Random.Range(2, 6);
+        this.timeToFinish = UnityEngine.Random.Range(2, 6);
         this.missionStatus = STATUS.IN_PROGRESS;
     }
     public void GetFinishTimeMission()
@@ -110,7 +112,7 @@ public class MissionDefeat : Mission
     public MissionDefeat()
     {
         this.NameMission = "Defeat Mission";
-        this.typePlayer = (Territory.TYPEPLAYER)Random.Range(1, 4);
+        this.typePlayer = (Territory.TYPEPLAYER)UnityEngine.Random.Range(1, Enum.GetNames(typeof(Territory.TYPEPLAYER)).Length);
         this.Message = "Defeat "+ GlobalVariables.instance.GetPlayerName(typePlayer) + " civilization";
         this.MessagePro = "+2 fortress nivels for " + this.TimeMissionActive + " months";
     }
@@ -185,10 +187,10 @@ public class MissionExpansion : Mission
     public MissionExpansion()
     {
         this.NameMission = "Expansion Mission";
-        Territory.REGION region = (Territory.REGION)Random.Range(0, 2);
+        Territory.REGION region = (Territory.REGION)UnityEngine.Random.Range(0, Enum.GetNames(typeof(Territory.REGION)).Length -1);
         string regionString = region.ToString().ToLower().Replace("_", " ");
         List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesByZoneTerritory(region);
-        Debug.Log("r- "+ region.ToString() +"-t-" +t.Count);
+      //  Debug.Log("r- "+ region.ToString() +"-t-" +t.Count);
         for (int i = 0; i < t.Count; i++)
         {
             this.TerritoryMission.Add(t[i].territoryStats.territory);
@@ -211,7 +213,7 @@ public class MissionExpansion : Mission
             }
         }
 
-        Debug.Log("bool_:" + a +"-"+ TerritoryMission.Count);
+      //  Debug.Log("bool_:" + a +"-"+ TerritoryMission.Count);
         if (a == TerritoryMission.Count)
         {
             base.MissionStatus = STATUS.COMPLETE;

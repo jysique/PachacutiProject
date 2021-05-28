@@ -10,6 +10,7 @@ public class DateTableHandler : MonoBehaviour
     [SerializeField] private Text seasonText;
     [SerializeField] private Text yearText;
     [SerializeField] private Text weekText;
+    [SerializeField] private Image counterDay;
     private TimeSimulated timeGame;
     void Start()
     {
@@ -42,7 +43,31 @@ public class DateTableHandler : MonoBehaviour
 
     void Update()
     {
+        counterDay.fillAmount = (float)timeGame.Hour / 24.0f;
         TextCallFunction();
-        TimeSystem.instance.CalculateTime(timeGame);
+        CalculateTimeInUpdate(timeGame);
+    }
+    public void CalculateTimeInUpdate(TimeSimulated _time)
+    {
+
+        if (_time.Hour < 24)
+        {
+            _time.Hour += Time.deltaTime * GlobalVariables.instance.TimeScale;
+        }
+        else
+        {
+            _time.CalculateDay();
+            _time.Hour = 0;
+        }
+        _time.CalculateSeason();
+        _time.CalculateWeeks();
+        if (_time.Day > 30)
+        {
+            _time.CalculateMonth();
+        }
+        if (_time.Month > 12)
+        {
+            _time.CalculateYear();
+        }
     }
 }

@@ -7,7 +7,8 @@ public class CustomEvent
 {
     [SerializeField] private string eventtype;
     private string messagge;
-    private Territory territoryEvent;
+    // private Territory territoryEvent;
+    private TerritoryHandler territoryEvent;
     private string element;
     private int costEvent;
     private string requirementMessageEvent;
@@ -40,7 +41,7 @@ public class CustomEvent
         get { return messagge; }
         set { messagge = value; }
     }
-    public Territory TerritoryEvent
+    public TerritoryHandler TerritoryEvent
     {
         get { return territoryEvent; }
         set { territoryEvent = value; }
@@ -109,6 +110,21 @@ public class CustomEvent
         GetMessage();
     }
     
+    private Building building;
+    public Building Building
+    {
+        get { return building; }
+        set { building = value; }
+    }
+    
+    public void GetCustomEvent(TimeSimulated _initTime,TerritoryHandler territory, Building _building)
+    {
+        territoryEvent = territory;
+        building = territoryEvent.GetBuilding(_building);
+        building.TimeInit = new TimeSimulated(_initTime);
+       // building.TimeFinish = new TimeSimulated(_initTime);
+       // building.TimeFinish.PlusDays(building.DaysToBuild);
+    }
     /// <summary>
     /// Retuns if is posible to accept the custom event
     /// </summary>
@@ -152,9 +168,9 @@ public class CustomEvent
         switch (option)
         {
             case "REBELION":
-                this.messagge = "In "+ territoryEvent.name+ " territory they plan to rebel against you, if you do not complete the following requirements, we will lose this territory. ";
+                this.messagge = "In "+ TerritoryEvent.name+ " territory they plan to rebel against you, if you do not complete the following requirements, we will lose this territory. ";
                 this.requirementMessageEvent = "-" + costEvent + " gold.";
-                this.acceptMessageEvent = "Keep " + territoryEvent.name + " territory.";
+                this.acceptMessageEvent = "Keep " + TerritoryEvent.name + " territory.";
                 this.declineMessageEvent = "-" +territoryEvent.name + " territory.";
                 break;
             case "EVENT_PANDEMIC":
@@ -242,23 +258,23 @@ public class CustomEvent
                 break;
             case "PETITION_MIN":
                 InGameMenuHandler.instance.GoldPlayer -= costEvent;
-                territoryEvent.GoldMineTerritory.ImproveBuilding(2);
+                TerritoryEvent.territoryStats.territory.GoldMineTerritory.ImproveBuilding(2);
                 break;
             case "PETITION_FOR":
                 InGameMenuHandler.instance.GoldPlayer -= costEvent;
-                territoryEvent.FortressTerritory.ImproveBuilding(1);
+                TerritoryEvent.territoryStats.territory.FortressTerritory.ImproveBuilding(1);
                 break;
             case "GRACE_DIV":
                 InGameMenuHandler.instance.GoldPlayer -= costEvent;
-                territoryEvent.SacredPlaceTerritory.ImproveBuilding(2);
+                TerritoryEvent.territoryStats.territory.SacredPlaceTerritory.ImproveBuilding(2);
                 break;
             case "GRACE_MIN":
                 InGameMenuHandler.instance.GoldPlayer -= costEvent;
-                territoryEvent.GoldMineTerritory.ImproveBuilding(3);
+                TerritoryEvent.territoryStats.territory.GoldMineTerritory.ImproveBuilding(3);
                 break;
             case "GRACE_FOOD":
                 InGameMenuHandler.instance.GoldPlayer -= costEvent;
-                territoryEvent.IrrigationChannelTerritory.ImproveBuilding(3);
+                TerritoryEvent.territoryStats.territory.IrrigationChannelTerritory.ImproveBuilding(3);
                 break;
             default:
                 break;
@@ -275,7 +291,7 @@ public class CustomEvent
         switch (eventtype.ToString())
         {
             case "REBELION":
-                TerritoryEvent.TypePlayer = Territory.TYPEPLAYER.NONE;
+                TerritoryEvent.territoryStats.territory.TypePlayer = Territory.TYPEPLAYER.NONE;
             //    Debug.LogError("perdimos el territorio");
                 break;
             case "EVENT_PANDEMIC":
@@ -286,7 +302,7 @@ public class CustomEvent
                 }
                 break;
             case "EVENT_PANDEMIC2":
-                territoryEvent.Population /= 2;
+                TerritoryEvent.territoryStats.territory.Population /= 2;
                 break;
             case "EVENT_PLAGUE":
                 List<TerritoryHandler> list2 = TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER);
@@ -296,14 +312,14 @@ public class CustomEvent
                 }
                 break;
             case "EVENT_PLAGUE2":
-                territoryEvent.IrrigationChannelTerritory.Level = 0;
+                TerritoryEvent.territoryStats.territory.IrrigationChannelTerritory.Level = 0;
                 break;
             case "PETITION_MIN":
                 //break;
             case "PETITION_FOR":
                // break;
             case "GRACE_DIV":
-                TerritoryEvent.MotivationPeople -= 10;
+                TerritoryEvent.territoryStats.territory.MotivationPeople -= 10;
                 break;
             case "GRACE_MIN":
                 InGameMenuHandler.instance.GoldPlayer += 15;

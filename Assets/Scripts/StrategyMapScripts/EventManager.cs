@@ -71,7 +71,7 @@ public class EventManager : MonoBehaviour
         }
         ResultsEvent.SetActive(true);
         ResultsTextEvent.text = "Results:\n" + custom.ResultsEvent();
-        
+        MenuManager.instance.PauseGame();
     }
 
     public void WarningEventAppearance(CustomEvent custom, int daysToFinal)
@@ -111,7 +111,6 @@ public class EventManager : MonoBehaviour
     }
     public void CloseCustomEventButton()
     {
-        print("close");
         MenuManager.instance.ResumeGame();
         CustomEventSelection.gameObject.SetActive(false);
         ResetTextCustomEvent();

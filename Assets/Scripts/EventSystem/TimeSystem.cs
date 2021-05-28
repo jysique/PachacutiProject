@@ -14,7 +14,6 @@ public class TimeSystem : MonoBehaviour
     private TimeSimulated timeProduction;
     private TimeSimulated timeConsumption;
     private TimeSimulated timeAddEvent;
-    private int indexListEvent = 0;
     private int minDays = 15;
     private int maxDays = 20;
     private int daysToGather = 3;
@@ -22,13 +21,10 @@ public class TimeSystem : MonoBehaviour
     private int daysToConsume = 4;
 
     public CustomEventList listEvents;
+    public CustomEventList listUpgradesBuilds;
     public TimeSimulated TimeGame
     {
         get { return timeGame; }
-    }
-    public int IndexListEvent
-    {
-        get { return indexListEvent; }
     }
     public int MinDays
     {
@@ -49,14 +45,24 @@ public class TimeSystem : MonoBehaviour
         InitializeGameEvents();
         InitializeListEvents();
     }
+    /// <summary>
+    /// Initialize the time to gather, time to produce and time to consume
+    /// Initialize the list of events and updgradeBuilds events
+    /// Also add a new event
+    /// </summary>
     void InitializeListEvents()
     {
-        PlusDaysToTimeGather(daysToGather);
-        PlusDaysToTimeProduction(daysToProduce);
-        PlusDaysToTimeConsumption(daysToConsume);
+        timeGather = PlusDaysToTimeSimulated(daysToGather);
+        timeProduction = PlusDaysToTimeSimulated(daysToProduce);
+        timeConsumption = PlusDaysToTimeSimulated(daysToConsume);
+
         listEvents = new CustomEventList();
+        listUpgradesBuilds = new CustomEventList();
         AddEvent();
     }
+    /// <summary>
+    /// Initialize all events (gather, produce, consume and exit event)
+    /// </summary>
     void InitializeGameEvents()
     {
         GameEvents.instance.onGatherResourceTriggerEnter += onGatherResources;
@@ -64,122 +70,99 @@ public class TimeSystem : MonoBehaviour
         GameEvents.instance.onConsumptionResourceTriggerEnter += onConsumptionResources;
         GameEvents.instance.onCustomEventExit += onGatherExit;
     }
-    
-    public void CalculateTime(TimeSimulated _time)
-    {
-        _time.CalculateSeason();
-        if (_time.Hour < 20)
-        {
-            _time.Hour += Time.deltaTime * GlobalVariables.instance.TimeScale; 
-        }
-        else
-        {
-            _time.CalculateDay();
-            _time.Hour = 0;
-        }
-        _time.CalculateWeeks();
-        if (_time.Day > 30)
-        {
-            _time.CalculateMonth();
-        }
-        if (_time.Month > 12)
-        {
-            _time.CalculateYear();
-        }
-    }
     void Update()
     {
         GatherResourceInTime();
         ProductionResourceInTime();
         ConsumptionResourceInTime();
         CustomEventInTime();
+
         CheckListCustomEvent();
+        CheckLisBuildingsUpgrade();
     }
-
-    void PlusDaysToTimeGather(int daysToPlus)
-    {
-        timeGather = new TimeSimulated(timeGame.Day, timeGame.Month, timeGame.Year);
-        timeGather.PlusDays(daysToPlus);
-        CalculateTime(timeGather);
-    }
-
-    void PlusDaysToTimeProduction(int daysToPlus)
-    {
-        timeProduction = new TimeSimulated(timeGame.Day, timeGame.Month, timeGame.Year);
-        timeProduction.PlusDays(daysToPlus);
-        CalculateTime(timeProduction);
-    }
-
-    void PlusDaysToTimeConsumption(int daysToPlus)
-    {
-        timeConsumption = new TimeSimulated(timeGame);
-        timeConsumption.PlusDays(daysToPlus);
-        CalculateTime(timeConsumption);
-    }
-
     /// <summary>
-    /// every randomAddPlusDays add a new Event
+    /// Returns a time-simulated according to the timeGame
     /// </summary>
-    /// <param name="daysToFinishEvent"></param>
-    void AddEvent()
+    /// <param name="daysToPlus">That days to add</param>
+    /// <returns></returns>
+    private TimeSimulated PlusDaysToTimeSimulated(int daysToPlus )
     {
-        timeAddEvent = new TimeSimulated(timeGame.Day, timeGame.Month, timeGame.Year);
-        // every 5 days add new event
+        TimeSimulated time = new TimeSimulated(timeGame);
+        time.PlusDays(daysToPlus);
+        return time;
+    }
+    /// <summary>
+    /// Add a new Event to the list of events
+    /// </summary>
+    private void AddEvent()
+    {
+        timeAddEvent = new TimeSimulated(timeGame);
         listEvents.AddCustomEvent(timeAddEvent);
         int rAddPlusDays = Random.Range(minDays, maxDays);
         timeAddEvent.PlusDays(rAddPlusDays);
-        //   Debug.LogWarning("Time to add new event: " + timeAddEvent.PrintTimeSimulated());
-        
     }
     /// <summary>
-    /// Every 3 days automatically gather gold or food from all territories of the player
+    /// Add a new UpgradeBuilding Event to the list
+    /// </summary>
+    /// <param name="territoryHandler">That territory improvement</param>
+    /// <param name="building">That building improve</param>
+    public void AddEvent(TerritoryHandler territoryHandler, Building building)
+    {
+        listUpgradesBuilds.AddCustomEvent2(timeGame, territoryHandler, building);
+    }
+    /// <summary>
+    /// Check the timeGame with the time of gather resources
+    /// if is the same active the event of gather resources
     /// </summary>
     private void GatherResourceInTime()
     {
         if (timeGame.EqualsDate(timeGather))
         {
             GameEvents.instance.GatherResourceTriggerEnter();
-            PlusDaysToTimeGather(daysToGather);
         }
         else
         {
             GameEvents.instance.CustomEventExit();
         }
     }
-
+    /// <summary>
+    /// Check the timeGame with the time of production resources
+    /// if is the same active the event of production resources
+    /// </summary>
     private void ProductionResourceInTime()
     {
         if (timeGame.EqualsDate(timeProduction))
         {
             GameEvents.instance.ProductionResourceTriggerEnter();
-            PlusDaysToTimeProduction(daysToProduce);
         }
         else
         {
             GameEvents.instance.CustomEventExit();
         }
     }
+    /// <summary>
+    /// Check the timeGame with the time of consume resources
+    /// if is the same active the event of consume resources
+    /// </summary>
     private void ConsumptionResourceInTime()
     {
         if (timeGame.EqualsDate(timeConsumption))
         {
             GameEvents.instance.ConsumptionResourceTriggerEnter();
-            PlusDaysToTimeConsumption(daysToConsume);
         }
         else
         {
             GameEvents.instance.CustomEventExit();
         }
     }
-
     /// <summary>
-    /// Every random between 15 and 25 days automatically add a event to the list
+    /// Check the timeGame with the timeAddEvent
+    /// if is the same active the event to add a new custom event
     /// </summary>
     private void CustomEventInTime()
     {
         if (timeGame.EqualsDate(timeAddEvent))
         {
-            int rDays = Random.Range(15, 25);
             AddEvent();
         }
         else
@@ -188,8 +171,11 @@ public class TimeSystem : MonoBehaviour
         }
     }
     /// <summary>
-    /// check the status of the events in the list according 
-    /// to the time-simulated of the event comparing with the time game 
+    /// check the status of the events in the LIST-EVENTS according 
+    /// to the TIME-INIT and TIME-FINISH of every event comparing with the timeGame
+    /// state one - if is ANNOUNCE and timeGame is equals to timeInit of enent -> PROGRESS (warning event)
+    /// state two - if is in PROGRESS and timeGame is equales to timeFinish of event -> FINISH (finish event)
+    /// Also corroborate notification status
     /// </summary>
     private void CheckListCustomEvent()
     {
@@ -223,16 +209,52 @@ public class TimeSystem : MonoBehaviour
             notificationEvent.SetActive(false);
         }
     }
+    /// <summary>
+    /// check the diference days of the UPGRADE-BUILDS events in the list according
+    /// to the TIME-INIT of the upgrade of every event comparing with the timeGame
+    /// if is the same update the daysTotal to 0, can Upgrade the builds again, improve the 
+    /// building and remove the same event
+    /// </summary>
+    private void CheckLisBuildingsUpgrade()
+    {
+        for (int i = 0; i < listUpgradesBuilds.CustomEvents.Count; i++)
+        {
+            int diferenceDays = timeGame.DiferenceDays(listUpgradesBuilds.CustomEvents[i].Building.TimeInit);
+            listUpgradesBuilds.CustomEvents[i].Building.DaysTotal = diferenceDays;
+            if (diferenceDays == listUpgradesBuilds.CustomEvents[i].Building.DaysToBuild)
+            {
+                listUpgradesBuilds.CustomEvents[i].Building.CanUpdrade = true;
+                listUpgradesBuilds.CustomEvents[i].Building.DaysTotal = 0;
+                listUpgradesBuilds.CustomEvents[i].Building.ImproveBuilding(1);
+                listUpgradesBuilds.RemoveEvent(listUpgradesBuilds.CustomEvents[i]);
+            }
+            else
+            {
+                listUpgradesBuilds.CustomEvents[i].Building.CanUpdrade = false;
+            }
+        }
+    }
+    /// <summary>
+    /// Event to do notthing
+    /// </summary>
     private void onGatherExit()
     {
     }
+    /// <summary>
+    /// Event to gather gold and food resources from all territories of a player
+    /// </summary>
     private void onGatherResources()
     {
+        timeGather = PlusDaysToTimeSimulated(daysToGather);
         InGameMenuHandler.instance.GatherGoldResourceButton();
         InGameMenuHandler.instance.GatherFoodResourceButton();
     }
+    /// <summary>
+    /// Event to produce gold and food resources from all territories of a player
+    /// </summary>
     private void onProductionResources()
     {
+        timeProduction = PlusDaysToTimeSimulated(daysToProduce);
         List<TerritoryHandler> t = TerritoryManager.instance.GetAllTerritoriesHanlder();
         for (int i = 0; i < t.Count; i++)
         {
@@ -244,13 +266,14 @@ public class TimeSystem : MonoBehaviour
                 InGameMenuHandler.instance.ShowFloatingText("+" + territoryStats.territory.GoldMineTerritory.WorkersMine / territoryStats.territory.PerPeople + "gold", "TextMesh", t[i].transform, new Color32(0, 19, 152, 255));
                 InGameMenuHandler.instance.ShowFloatingText("+" + territoryStats.territory.IrrigationChannelTerritory.WorkersChannel / territoryStats.territory.PerPeople + "food", "TextMesh", t[i].transform, new Color32(0, 19, 152, 255), posY: -0.25f);
             }
-            //InGameMenuHandler.instance.ShowFloatingText("+" + TerritoryManager.instance.GetOveralRateResource(Territory.TYPEPLAYER.PLAYER, "goldmine"), "TextFloating", ResourceTableHandler.instance.GoldAnimation, Color.white);
-            //InGameMenuHandler.instance.ShowFloatingText("+" + TerritoryManager.instance.GetOveralRateResource(Territory.TYPEPLAYER.PLAYER, "channel"), "TextFloating", ResourceTableHandler.instance.FoodAnimation, Color.white);
         }
-
     }
+    /// <summary>
+    /// Event to consume food resources from all territories of a player depending to the population
+    /// </summary>
     private void onConsumptionResources()
     {
+        timeConsumption = PlusDaysToTimeSimulated(daysToConsume);
         int foodConsume = 0;
         List<TerritoryHandler> t = TerritoryManager.instance.GetAllTerritoriesHanlder();
         for (int i = 0; i < t.Count; i++)
@@ -272,7 +295,6 @@ public class TimeSystem : MonoBehaviour
             print("no le alcanza comida");
         }
     }
-
     /// <summary>
     /// Appears the Event Menu if it is in finish status
     /// </summary>
@@ -283,7 +305,7 @@ public class TimeSystem : MonoBehaviour
         listEvents.CustomEvents[id].DeclineEventAction();
     }
     /// <summary>
-    /// Appears the Event Menu if it is in warning status
+    /// Appears the Event Menu if it is in warning of init status
     /// </summary>
     /// <param name="id"></param>
     private void WarningCustomEvent(int id)
@@ -291,5 +313,4 @@ public class TimeSystem : MonoBehaviour
         EventManager.instance.InstantiateEventListOption(listEvents);
         EventManager.instance.WarningEventAppearance(listEvents.CustomEvents[id], listEvents.CustomEvents[id].DifferenceToFinal);
     }
-
 }
