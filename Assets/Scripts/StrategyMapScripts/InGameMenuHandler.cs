@@ -37,6 +37,7 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI AttackBonus;
     [SerializeField] private TextMeshProUGUI DefenseBonus;
     [Header("Menu buildings")]
+    [SerializeField] private GameObject menuBlockBuildings;
     [SerializeField] private Image[] countdownImages;
     [SerializeField] private Button[] buttons;
     [SerializeField] private BuildOption IrrigationChannelOption;
@@ -71,19 +72,18 @@ public class InGameMenuHandler : MonoBehaviour
     public void UpdateMilitarMenu()
     {
         menuBlock.SetActive(false);
-        MilitarBoss boss = selectedTerritory.MilitarBossTerritory;
-        militaryBossName.text = boss.CharacterName;
-        militaryBossPicture.sprite = boss.Picture;
-        militaryBossExperience.text = boss.Experience.ToString()+ "/10";
-        militaryBossEstrategy.text = "Strategy: " + boss.StrategyType;
-        militaryBossInfluence.text = boss.Influence.ToString() +"/10";
+        MilitarChief mChief = selectedTerritory.MilitarChiefTerritory;
+        militaryBossName.text = mChief.CharacterName;
+        militaryBossPicture.sprite = mChief.Picture;
+        militaryBossExperience.text = mChief.Experience.ToString()+ "/10";
+        militaryBossEstrategy.text = "Strategy: " + mChief.StrategyType;
+        militaryBossInfluence.text = mChief.Influence.ToString() +"/10";
         GenerationSpeed.text = selectedTerritory.VelocityPopulation.ToString();
         warriorsLimit.text = selectedTerritory.LimitPopulation.ToString();
         if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
         {
             menuBlock.SetActive(true);                
         }
-       
     }
     public void UpdateTerritoryMenu()
     {
@@ -94,8 +94,14 @@ public class InGameMenuHandler : MonoBehaviour
             menuBlockTerritory.SetActive(true);
             
         }
-        
-        
+    }
+    public void UpdateBuildingsMenu()
+    {
+        menuBlockBuildings.SetActive(false);
+        if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
+        {
+            menuBlockBuildings.SetActive(true);
+        }
     }
     void UpdateCountDownImage()
     {
@@ -120,6 +126,7 @@ public class InGameMenuHandler : MonoBehaviour
         selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory;
         UpdateMilitarMenu();
         UpdateTerritoryMenu();
+        UpdateBuildingsMenu();
 
     }
     void Update()
@@ -128,8 +135,8 @@ public class InGameMenuHandler : MonoBehaviour
         militarWarriorsCount.text = selectedTerritory.Population.ToString() + " / " + selectedTerritory.LimitPopulation.ToString()+ " units" ;
         goldCount.text = selectedTerritory.Gold.ToString();
         foodCount.text = selectedTerritory.FoodReward.ToString();
-        GoldGeneration.text = selectedTerritory.GoldMineTerritory.VelocityGold.ToString();
-        FoodGeneration.text = selectedTerritory.IrrigationChannelTerritory.VelocityFood.ToString();
+        GoldGeneration.text = (selectedTerritory.GoldMineTerritory.WorkersMine/ 5) + " every day";
+        FoodGeneration.text = (selectedTerritory.IrrigationChannelTerritory.WorkersChannel / 5) + " every day";
         MotivationBonus.text = selectedTerritory.SacredPlaceTerritory.Motivation.ToString() + "/10"; 
         AttackBonus.text = selectedTerritory.FortressTerritory.PlusDefense.ToString() + "/10";
         DefenseBonus.text = selectedTerritory.BarracksTerritory.PlusAttack.ToString() + "/10";
@@ -299,7 +306,7 @@ public class InGameMenuHandler : MonoBehaviour
     }
 
 
-    public void ShowFloatingText(string text,string namePrefab,Transform _t, Color32 color)
+    public void ShowFloatingText(string text,string namePrefab,Transform _t, Color32 color,float posX = 0,float posY = 0)
     {
         GameObject prefab = Resources.Load("Prefabs/MenuPrefabs/"+namePrefab) as GameObject;
         
@@ -319,7 +326,8 @@ public class InGameMenuHandler : MonoBehaviour
             go.transform.GetComponentInChildren<Text>().color = color;
             listFloatingText.Add(go);
         }
-        go.transform.position = _t.position;
+        //go.transform.position = _t.position;
+        go.transform.position = new Vector3(_t.position.x+ posX,_t.position.y + posY,_t.position.z);
         StartCoroutine(ResetGameObjects(go));
         Resources.UnloadUnusedAssets();
     }
@@ -359,8 +367,6 @@ public class InGameMenuHandler : MonoBehaviour
         buttons[2].onClick.AddListener(() => ImproveSacredPlaceButton());
         buttons[3].onClick.AddListener(() => ImproveFortressButton());
         buttons[4].onClick.AddListener(() => ImproveBarracksButton());
-        
-        
         UpdateMenu();
     }
 

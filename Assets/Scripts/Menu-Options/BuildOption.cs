@@ -25,7 +25,7 @@ public class BuildOption : MonoBehaviour
         block = transform.Find("Block").gameObject;
         nameTxt = transform.Find("NameTxt").transform.GetComponent<TextMeshProUGUI>();
         nameTxt2 = block.gameObject.transform.Find("Text").gameObject.GetComponent<TextMeshProUGUI>();
-
+        costTxt = transform.Find("CostTxt").gameObject.GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
@@ -34,7 +34,7 @@ public class BuildOption : MonoBehaviour
         nameTxt.text = building.Name;
         nameTxt2.text = "Press '+' To Build " + building.Name;
         levelTxt.text = "Level:" + building.Level.ToString();
-       // costTxt.text = building.CostToUpgrade.ToString();
+
         bool a = building.Level > 0 ? false : true;
         block.SetActive(a);
     }

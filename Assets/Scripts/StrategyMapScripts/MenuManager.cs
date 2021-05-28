@@ -18,13 +18,12 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject PauseMenu;
 
     [Header("Select MilitaryBoss variables")]
-    [SerializeField] GameObject CurrentCaseMenu;
-    [SerializeField] private GameObject CharacterSelection;
+    [SerializeField] GameObject BattlewonMenu;
+    
 
     public static bool isGamePaused = false;
-    public float temporalTime = 1;
-    private List<GameObject> characterOptions;
-    public SubordinateList subordinateList;
+    public float temporalTime;
+    
     private void Awake()
     {
         instance = this;
@@ -56,13 +55,12 @@ public class MenuManager : MonoBehaviour
     {
         turnOffMenus();
         if(GlobalVariables.instance.timeModifier != 0) temporalTime = GlobalVariables.instance.timeModifier;
-        print("pause" + temporalTime);
         GlobalVariables.instance.timeModifier = 0;
 
     }
     public void ResumeGame()
     {
-        print("temporal time" + temporalTime);
+       // print("temporal time" + temporalTime);
         GlobalVariables.instance.timeModifier = temporalTime;
         //        print(temporalTime);
     }
@@ -100,47 +98,18 @@ public class MenuManager : MonoBehaviour
         contextMenu.GetComponent<ContextMenu>().SetMenu(canAttack, isWar, territoryToAttack);
     }
 
-    public void OpenCurrentCaseMenu(TerritoryHandler territoryHandler)
+    public void OpenBattleWonMenu(TerritoryHandler territoryHandler)
     {
-        CurrentCaseMenu.SetActive(true);
-        CurrentCaseMenu.transform.Find("Territory").GetComponent<Image>().sprite = territoryHandler.sprite.sprite;
-        CurrentCaseMenu.transform.Find("Title").GetComponent<TextMeshProUGUI>().text = "You just won the battle of " + territoryHandler.territoryStats.territory.name;
-        InstantiateCharacterOption(territoryHandler, "militar");
-    }
-    public void CloseCurrentCaseMenu()
-    {
-        CurrentCaseMenu.SetActive(false);
-    }
-
-    public void InstantiateCharacterOption(TerritoryHandler territoryHandler, string type)
-    {
-        subordinateList.AddDataSubordinateToList(3, type);
-        CharacterSelection.SetActive(true);
-        characterOptions = new List<GameObject>();
-        TextMeshProUGUI instructionText = CharacterSelection.transform.Find("InstructionText").transform.GetComponent<TextMeshProUGUI>();
-        instructionText.text = "Select a " + type + " Chief to " + territoryHandler.territoryStats.territory.name;
-        Transform gridLayout = CharacterSelection.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
-        foreach (Subordinate charac in subordinateList.MilitarBosses)
-        {
-            GameObject characterOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/CharacterGameOption")) as GameObject;
-            characterOption.transform.SetParent(gridLayout.transform, false);
-            characterOption.name = charac.CharacterName;
-            characterOption.GetComponent<CharacterOption>().Type = type;
-            characterOption.GetComponent<CharacterOption>().Character = charac;
-            characterOption.GetComponent<CharacterOption>().territoryHandlerInCharacter = territoryHandler;
-            characterOptions.Add(characterOption);
-        }
+        BattlewonMenu.SetActive(true);
+        BattleWonMenu.instance.InitBattleWonMenu(territoryHandler);
         PauseGame();
     }
-    public void CloseCharacterSelection()
+    public void CloseBattleWonMenu()
     {
-        CharacterSelection.SetActive(false);
-        for (int i = 0; i < characterOptions.Count; i++)
-        {
-            Destroy(characterOptions[i]);
-        }
-        subordinateList.DeleteSubodinateList();
+        BattlewonMenu.SetActive(false);
+        ResumeGame();
     }
+
     public void turnOffMenus()
     {
         GameObject[] overMenus;

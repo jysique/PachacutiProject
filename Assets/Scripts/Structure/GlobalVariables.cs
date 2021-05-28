@@ -24,6 +24,7 @@ public class GlobalVariables : MonoBehaviour
     float maxTimeCount;
     float timeScale;
     float warSpeed;
+
     public int VelocityGame
     {
         get { return velocityGame; }
@@ -128,23 +129,7 @@ public class GlobalVariables : MonoBehaviour
         }
         return null;
     }
-    public string GetRegionName(Territory.REGION region )
-    {
-        switch (region)
-        {
-            case Territory.REGION.REGION_A:
-                return "North Region";
-            case Territory.REGION.REGION_B:
-                return "Western Region";
-            case Territory.REGION.REGION_C:
-                return "Southern Region";
-            case Territory.REGION.NONE:
-                return "No Region";
-            default:
-                break;
-        }
-        return null;
-    }
+   
 
     public void ClosingApp()
     {

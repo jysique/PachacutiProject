@@ -2,10 +2,11 @@ using UnityEngine;
 [System.Serializable]
 public class Fortress: Building
 {
-    private float plusDefense = 1f;
+    private float plusDefense = 0f;
     public Fortress()
     {
         this.Name = "Fortress";
+        this.AtributteToAdd = 1.0f;
     }
     public float PlusDefense
     {
@@ -15,6 +16,6 @@ public class Fortress: Building
     public override void ImproveBuilding(int _levels)
     {
         base.ImproveBuilding(_levels);
-        this.plusDefense += 1*_levels;
+        this.plusDefense += this.AtributteToAdd *_levels;
     }
 }

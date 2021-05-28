@@ -45,10 +45,10 @@ public class TerritoryHandler : MonoBehaviour
             WarManager.instance.SetWarStatus(this.war);
             //ShowAdjacentTerritories();
         }            
-        if(territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
+        if(territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.NONE)
         {
-            territoryStats.territory.IrrigationChannelTerritory.Level++;
-            territoryStats.territory.GoldMineTerritory.Level++;
+            territoryStats.territory.IrrigationChannelTerritory.ImproveBuilding(1);
+            territoryStats.territory.GoldMineTerritory.ImproveBuilding(1);
         }
 
         adjacentTerritories = TerritoryManager.instance.dictionary.Single(s => s.Key == territory.name).Value;
@@ -153,19 +153,22 @@ public class TerritoryHandler : MonoBehaviour
                 break;
             case 1:
                 //print("moving");
-                Territory.TYPEPLAYER typeSelected = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory.TypePlayer;
-                if (InGameMenuHandler.instance.GoldPlayer >= 10 || territoryStats.territory.TypePlayer == typeSelected)
+                TerritoryHandler territoryHandlerSelected = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
+                Territory.TYPEPLAYER typeSelected = territoryHandlerSelected.territoryStats.territory.TypePlayer;
+                int warriorsCount = MenuManager.instance.contextMenu.GetComponent<ContextMenu>().WarriorsCount();
+
+                if (InGameMenuHandler.instance.GoldPlayer >= warriorsCount || territoryStats.territory.TypePlayer == typeSelected)
                 {
                     if (territoryStats.territory.TypePlayer != typeSelected)
                     {
-                        InGameMenuHandler.instance.GoldPlayer -= 10;
+                        InGameMenuHandler.instance.GoldPlayer -= warriorsCount;
                     }
-                    WarManager.instance.SendWarriors(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>(), this, MenuManager.instance.contextMenu.GetComponent<ContextMenu>().WarriorsCount());
+                    WarManager.instance.SendWarriors(territoryHandlerSelected, this, warriorsCount);
                 }
                 else
                 {
                     //print("no tiene suficiente oro");
-                    InGameMenuHandler.instance.ShowFloatingText("you need 10 golds", "TextMesh", transform, new Color32(187, 27, 128, 255));
+                    InGameMenuHandler.instance.ShowFloatingText("you need "+warriorsCount+" golds", "TextMesh", transform, new Color32(187, 27, 128, 255));
                 }
                 HideAdjacentTerritories();
                 break;

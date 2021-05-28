@@ -7,11 +7,12 @@ public class Territory
 {
    
     public string name;
+    
     public enum REGION
     {
-        REGION_A,
-        REGION_B,
-        REGION_C,
+        NORTH_REGION,
+        WESTERN_REGION,
+        SOUTHERN_REGION,
         NONE
     }
     public enum TYPEPLAYER
@@ -34,9 +35,10 @@ public class Territory
     [SerializeField] private float velocityPopulation;
 
     private int costImprovePopulation = 10;
+    private int perPeople = 5;
     [SerializeField] private bool selected;
 
-    [SerializeField] private MilitarBoss militarBossTerritory = null;
+    [SerializeField] private MilitarChief militarChiefTerritory = null;
     [SerializeField] private GoldMine goldMineTerritory = new GoldMine();
     [SerializeField] private SacredPlace sacredPlaceTerritory = new SacredPlace();
     [SerializeField] private Fortress fortressTerritory = new Fortress();
@@ -47,6 +49,10 @@ public class Territory
     /// </summary>
     private float[] totalTime = new float[5] { 0, 0, 0, 0, 0 };
     private bool[] canUpgrade = new bool[5] { true, true, true, true, true };
+    public int PerPeople
+    {
+        get { return perPeople; }
+    }
     public int CostPopulation
     {
         get { return costImprovePopulation; }
@@ -62,10 +68,10 @@ public class Territory
         get { return canUpgrade; }
         set { canUpgrade = value; }
     }
-    public MilitarBoss MilitarBossTerritory
+    public MilitarChief MilitarChiefTerritory
     {
-        get { return militarBossTerritory; }
-        set { militarBossTerritory = value; }
+        get { return militarChiefTerritory; }
+        set { militarChiefTerritory = value; }
     }
     public GoldMine GoldMineTerritory
     {

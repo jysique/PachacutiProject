@@ -11,11 +11,11 @@ public class CustomEventList
     /// </summary>
     /// <param name="_initTime"></param>
     /// <param name="_days"></param>
-    public void AddCustomEvent(TimeSimulated _initTime,int _days)
+    public void AddCustomEvent(TimeSimulated _initTime)
     {
         CustomEvent _customEvent = new CustomEvent();
         _customEvent.TerritoryEvent = TerritoryManager.instance.GetTerritoryRandom(Territory.TYPEPLAYER.PLAYER).territoryStats.territory;
-        _customEvent.GetCustomEvent(_initTime, _days);
+        _customEvent.GetCustomEvent(_initTime);
         CustomEvents.Add(_customEvent);
     }
     public void PrintList()

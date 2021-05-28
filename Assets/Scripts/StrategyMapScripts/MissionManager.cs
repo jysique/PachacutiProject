@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 [System.Serializable]
 public class MissionManager : MonoBehaviour
 {
@@ -12,10 +13,16 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private MissionOption missionProtOption;
     [SerializeField] private MissionOption missionAllBOption;
 
+    [SerializeField] private Button btnMission;
+    [SerializeField] private GameObject notificationMission;
+    public GameObject NotificationMission
+    {
+        get { return notificationMission; }
+    }
     private void Awake()
     {
         instance = this;
-
+        notificationMission.SetActive(true);
     }
     private void Start()
     {
@@ -29,6 +36,7 @@ public class MissionManager : MonoBehaviour
         missionProtOption.InitializeMission();
         missionAllBOption.Mission = new MissionAllBuilds();
         missionAllBOption.InitializeMission();
+        btnMission.onClick.AddListener(() => CheckByPlayer());
     }
     private void Update()
     {
@@ -38,4 +46,10 @@ public class MissionManager : MonoBehaviour
         missionProtOption.Mission.CheckMissionStatus();
         missionAllBOption.Mission.CheckMissionStatus();
     }
+    private void CheckByPlayer()
+    {
+        print("hola");
+        notificationMission.SetActive(false);
+    }
+    
 }

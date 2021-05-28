@@ -20,10 +20,14 @@ public class MissionOption : MonoBehaviour
     {
         nameMission = transform.Find("NameTxt").transform.GetComponent<TextMeshProUGUI>();
         descriptionMission = transform.Find("DescriptionTxt").transform.GetComponent<TextMeshProUGUI>();
-        descriptionMission.GetComponent<MenuToolTip>().SetNewInfo(mission.MessagePro);
         statusMission = transform.Find("StateMission").transform.GetComponent<Image>();
         nameMission.text = mission.NameMission;
         descriptionMission.text = mission.Message;
+
+        descriptionMission.GetComponent<MenuToolTip>().AddNewInfo(mission.MessagePro);
+        nameMission.GetComponent<MenuToolTip>().AddNewInfo(mission.MessagePro);
+        statusMission.GetComponent<MenuToolTip>().AddNewInfo(mission.MessagePro);
+
     }
     private void Update()
     {

@@ -7,15 +7,15 @@ public class CharacterOption : MonoBehaviour
 {
     [SerializeField] private GameObject DescriptionCharacter;
     [SerializeField] private GameObject ProfileCharacter;
+    [SerializeField] private Toggle toggle;
     private string type;
     private Subordinate character;
     private TerritoryHandler territoryHandler;
-    private Button btn;
-    private int indexList;
-    public int Index
+ //   private Button btn;
+    private bool isSelected;
+    public bool IsSelected
     {
-        get { return indexList; }
-        set { indexList = value; }
+        get { return isSelected; }
     }
     public string Type
     {
@@ -36,8 +36,16 @@ public class CharacterOption : MonoBehaviour
     {
         InitDescription();
         InitProfile();
-        btn = transform.GetComponent<Button>();
-        btn.onClick.AddListener(() => HireButton());
+        
+     //   btn = transform.GetComponent<Button>();
+     //   btn.onClick.AddListener(() => HireButton());
+    }
+    private void Update()
+    {
+        if (toggle.isOn)
+        {
+            HireCharacter();
+        }
     }
     /// <summary>
     /// Initialize components in character description option prefab
@@ -48,9 +56,16 @@ public class CharacterOption : MonoBehaviour
         allText[1].text = character.Influence.ToString() + "/10";
         if (type == "militar")
         {
-            var militar = (MilitarBoss)character;
+            var militar = (MilitarChief)character;
             allText[0].text = militar.Experience.ToString() + "/10"; 
             allText[2].text = "Strategy:" + militar.StrategyType.ToLower();
+            toggle.group = BattleWonMenu.instance.ToggleGroups[0];
+        }else if (type == "comunal")
+        {
+            var militar = (MilitarChief)character;
+            allText[0].text = militar.Experience.ToString() + "/10";
+            allText[2].text = "Strategy:" + militar.StrategyType.ToLower();
+            toggle.group = BattleWonMenu.instance.ToggleGroups[1];
         }
     }
     /// <summary>
@@ -65,15 +80,17 @@ public class CharacterOption : MonoBehaviour
     /// <summary>
     /// Function to use to replace a single Character of every territory
     /// </summary>
-    public void HireButton()
+    public void HireCharacter()
     {
         if (type == "militar")
         {
-            var militar = (MilitarBoss)character;
-            territoryHandler.territoryStats.territory.MilitarBossTerritory = militar;
+            var militar = (MilitarChief)character;
+            territoryHandler.territoryStats.territory.MilitarChiefTerritory = militar;
+           // print("reemplazando jefe militar " + character.CharacterName);
         }
-        InGameMenuHandler.instance.UpdateMenu();
-        MenuManager.instance.CloseCharacterSelection();
-        MenuManager.instance.ResumeGame();
+        else if (type == "comunal")
+        {
+          //  print("reemplazando jefe comunal " + Character.CharacterName);
+        }
     }
 }

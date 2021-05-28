@@ -22,6 +22,10 @@ public class MenuToolTip : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         NewInfo = info;
     }
+    public void AddNewInfo(string info)
+    {
+        NewInfo += "\n" + info;
+    }
 
     private void Start()
     {
@@ -67,6 +71,7 @@ public class MenuToolTip : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             if(temp == timeToStart)
             {
                 ShowTooltip();
+                //print("toolTip:" + toolTip.transform.position);
                 canShow = false;
                 temp = 0;
             }

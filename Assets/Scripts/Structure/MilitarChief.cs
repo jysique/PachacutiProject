@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class MilitarBoss : Subordinate
+public class MilitarChief : Subordinate
 {
 
     [SerializeField] private int experience;

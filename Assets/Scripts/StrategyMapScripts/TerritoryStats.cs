@@ -45,8 +45,8 @@ public class TerritoryStats : MonoBehaviour
             IncresementPopulation();
 
         }
-        IncresementGold();
-        IncresementFood();
+        //IncresementGold();
+        //IncresementFood();
         
         populationTxt.text = territory.Population.ToString() + " / " + territory.LimitPopulation.ToString();
         /*
@@ -70,35 +70,13 @@ public class TerritoryStats : MonoBehaviour
             timeLeftP = 0;
         }
     }
-    private void IncresementGold()
+    public void IncresementGold()
     {
-
-        if (timeLeftG > 0)
-        {
-            // timeLeftG -= Time.deltaTime * velocityGold;
-            timeLeftG -= Time.deltaTime * territory.GoldMineTerritory.VelocityGold * GlobalVariables.instance.timeModifier;
-        }
-        else
-        {
-            territory.Gold++;
-            //gold++;
-            timeLeftG = maxTimeCount;
-        }
+        territory.Gold+= territory.GoldMineTerritory.WorkersMine / territory.PerPeople;
     }
-    private void IncresementFood()
+    public void IncresementFood()
     {
-
-        if (timeLeftF > 0)
-        {
-            // timeLeftF -= Time.deltaTime * velocityFood;
-            timeLeftF -= Time.deltaTime * territory.IrrigationChannelTerritory.VelocityFood * GlobalVariables.instance.timeModifier;
-        }
-        else
-        {
-            territory.FoodReward++;
-            //food++;
-            timeLeftF = maxTimeCount;
-        }
+        territory.FoodReward+= territory.IrrigationChannelTerritory.WorkersChannel / territory.PerPeople;
     }
-
+   
 }

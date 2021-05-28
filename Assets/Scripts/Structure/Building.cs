@@ -9,6 +9,7 @@ public class Building
     private float timeToBuild = 4;
     private float totalTime = 0;
     private bool canUpgrade = true;
+    private float atributteToAdd;
     public string Name
     {
         get { return nameBuilding; }
@@ -39,9 +40,13 @@ public class Building
         get { return canUpgrade; }
         set { canUpgrade = value; }
     }
+    public float AtributteToAdd
+    {
+        get { return atributteToAdd; }
+        set { atributteToAdd = value; }
+    }
     public virtual void ImproveBuilding(int _levels)
     {
-      //  Debug.LogWarning("improveBuilding");
         this.level += _levels;
         this.timeToBuild += 1 * _levels;
     }

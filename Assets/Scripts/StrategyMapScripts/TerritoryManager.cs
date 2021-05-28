@@ -34,7 +34,7 @@ public class TerritoryManager : MonoBehaviour
     }
     void ParseLine(string line)
     {
-        string[] a = line.Split(char.Parse(":"));
+        string[] a = line.Split(char.Parse(":")); // a[0]: territorio a[1]: territorios adyacentes 
         List<string> b = a[1].Split(char.Parse(",")).ToList();
         List<GameObject> c = new List<GameObject>();
         for (int i = 0; i < b.Count; i++)
@@ -42,7 +42,6 @@ public class TerritoryManager : MonoBehaviour
            c.Add(SearchTerritoryGameObject(b[i],a[0]));
         }
         dictionary.Add(a[0], c);
-           
     }
     /// <summary>
     /// Add territory to list
@@ -66,17 +65,17 @@ public class TerritoryManager : MonoBehaviour
             TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
             if (territoryHandler.territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.BOT)
             {
-                MilitarBoss newMilitarBoss = new MilitarBoss();
+                MilitarChief newMilitarBoss = new MilitarChief();
                 newMilitarBoss.GetMilitarBoss();
-                newMilitarBoss.StrategyType = MilitarBoss.TYPESTRAT.DEFENSIVE.ToString();
-                territoryHandler.territoryStats.territory.MilitarBossTerritory = newMilitarBoss;
+                newMilitarBoss.StrategyType = MilitarChief.TYPESTRAT.DEFENSIVE.ToString();
+                territoryHandler.territoryStats.territory.MilitarChiefTerritory = newMilitarBoss;
                 //a++;
             }
             else
             {
-                MilitarBoss newMilitarBoss = new MilitarBoss();
+                MilitarChief newMilitarBoss = new MilitarChief();
                 newMilitarBoss.GetMilitarBoss();
-                territoryHandler.territoryStats.territory.MilitarBossTerritory = newMilitarBoss;
+                territoryHandler.territoryStats.territory.MilitarChiefTerritory = newMilitarBoss;
             }
         }
     }
@@ -197,6 +196,17 @@ public class TerritoryManager : MonoBehaviour
             SceneManager.LoadScene(2);
         }
     }
+    public List<TerritoryHandler> GetAllTerritoriesHanlder()
+    {
+        List<TerritoryHandler> territoriesPlayer = new List<TerritoryHandler>();
+        for (int i = 0; i < territoryList.Count; i++)
+        {
+            TerritoryHandler _territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
+            territoriesPlayer.Add(_territoryHandler);
+        }
+        return territoriesPlayer;
+    }
+
     /// <summary>
     /// Returns a list of territories handler by type player
     /// </summary>
@@ -245,5 +255,21 @@ public class TerritoryManager : MonoBehaviour
         TerritoryHandler territoryHandler =  list[r];
         return territoryHandler;
     }
-
+    public int GetOveralRateResource(Territory.TYPEPLAYER typePlayer, string element)
+    {
+        int rate = 0;
+        List<TerritoryHandler> list = GetTerritoriesByTypePlayer(typePlayer);
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (element == "channel")
+            {
+                rate += list[i].territoryStats.territory.IrrigationChannelTerritory.WorkersChannel / list[i].territoryStats.territory.PerPeople;
+            }
+            else if (element == "goldmine")
+            {
+                rate += list[i].territoryStats.territory.GoldMineTerritory.WorkersMine / list[i].territoryStats.territory.PerPeople;
+            }
+        }
+        return rate;
+    }
 }

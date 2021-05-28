@@ -20,6 +20,15 @@ public class ContextMenu : MonoBehaviour
         int res = int.Parse(warriorsCount.text);
         return res;
     }
+
+    private void Update()
+    {
+        moveButton.GetComponent<MenuToolTip>().SetNewInfo("This button let you move the especified\n" +
+                                                          "quantity of units to another territory\n" +
+                                                          "the cost is " + WarriorsCount()+ " of gold\n" +
+                                                          "if is an enemy territory");
+        
+    }
     public void SetMenu(bool canAttack, bool isWar, TerritoryHandler ta)
     {
         int limit = ta.territoryStats.territory.Population;

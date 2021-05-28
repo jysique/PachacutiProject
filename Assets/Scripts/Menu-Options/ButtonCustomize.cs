@@ -23,57 +23,55 @@ public class ButtonCustomize : MonoBehaviour, IPointerEnterHandler, IPointerExit
     }
     private void Update()
     {
-        InstantiateFloatingText(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
+        InstantiateFloatingText(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory);
     }
-    private void InstantiateFloatingText(TerritoryHandler t)
+    private void InstantiateFloatingText(Territory t)
     {
-        if (typecustom == TYPECUSTOM.UP_LIMIT)
+        switch (typecustom)
         {
-            CheckCost(InGameMenuHandler.instance.FoodPlayer, t.territoryStats.territory.IrrigationChannelTerritory.CostToUpgrade, "food");
-            float s = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory.LimitPopulation;
-            float s2 = s + 20;
-            label.GetComponent<TextMeshProUGUI>().text += "\n" + s.ToString("F2") + " -> " + s2.ToString("F2");
-
-        }
-        else if (typecustom == TYPECUSTOM.UP_SPEED)
-        {
-            CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.CostPopulation, "gold");
-            float s = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory.VelocityPopulation;
-            float s2 = s + 0.3f;
-            label.GetComponent<TextMeshProUGUI>().text += "\n" + s.ToString("F2") + " -> " + s2.ToString("F2");
-        }
-        else if (typecustom == TYPECUSTOM.UP_MINE)
-        {
-            CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.GoldMineTerritory.CostToUpgrade, "gold");
-            float s = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory.GoldMineTerritory.VelocityGold;
-            float s2 = s + 0.6f;
-            label.GetComponent<TextMeshProUGUI>().text += "\n" + s.ToString("F2") + " -> " + s2.ToString("F2");
-        }
-        else if (typecustom == TYPECUSTOM.UP_SACRED)
-        {
-            CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.SacredPlaceTerritory.CostToUpgrade, "gold");
-            float s = t.territoryStats.territory.SacredPlaceTerritory.Motivation;
-            float s2 = s + 0.6f;
-            label.GetComponent<TextMeshProUGUI>().text += "\n" + s.ToString("F2") + " -> " + s2.ToString("F2");
-        }
-        else if (typecustom == TYPECUSTOM.UP_FORTRESS)
-        {
-            CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.FortressTerritory.CostToUpgrade, "gold");
-            float s = t.territoryStats.territory.FortressTerritory.PlusDefense;
-            float s2 = s + 0.6f;
-            label.GetComponent<TextMeshProUGUI>().text += "\n" + s.ToString("F2") + " -> " + s2.ToString("F2");
-        }
-        else if (typecustom == TYPECUSTOM.UP_BARRACKS)
-        {
-            CheckCost(InGameMenuHandler.instance.GoldPlayer, t.territoryStats.territory.BarracksTerritory.CostToUpgrade, "gold");
-            float s = t.territoryStats.territory.BarracksTerritory.PlusAttack;
-            float s2 = s + 0.6f;
-            label.GetComponent<TextMeshProUGUI>().text += "\n" + s.ToString("F2") + " -> " + s2.ToString("F2");
+            case TYPECUSTOM.UP_LIMIT:
+                
+                float s = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory.LimitPopulation;
+                float s2 = s + 20;
+                CheckCost(InGameMenuHandler.instance.FoodPlayer, t.IrrigationChannelTerritory.CostToUpgrade, "food",s,s2);
+                break;
+            case TYPECUSTOM.UP_SPEED:
+                s = t.VelocityPopulation;
+                s2 = s + 0.3f;
+                CheckCost(InGameMenuHandler.instance.GoldPlayer, t.CostPopulation, "gold",s,s2);
+                break;
+            case TYPECUSTOM.UP_CHANNEL:
+                s = t.IrrigationChannelTerritory.WorkersChannel;
+                s2 = s + t.IrrigationChannelTerritory.AtributteToAdd;
+                CheckCost(InGameMenuHandler.instance.GoldPlayer, t.IrrigationChannelTerritory.CostToUpgrade, "gold",s,s2);
+                break;
+            case TYPECUSTOM.UP_MINE:
+                s = t.GoldMineTerritory.WorkersMine;
+                s2 = s + t.GoldMineTerritory.AtributteToAdd;
+                CheckCost(InGameMenuHandler.instance.GoldPlayer, t.GoldMineTerritory.CostToUpgrade, "gold",s,s2);
+                break;
+            case TYPECUSTOM.UP_SACRED:
+                s = t.SacredPlaceTerritory.Motivation;
+                s2 = s + t.SacredPlaceTerritory.AtributteToAdd;
+                CheckCost(InGameMenuHandler.instance.GoldPlayer, t.SacredPlaceTerritory.CostToUpgrade, "gold",s,s2);
+                break;
+            case TYPECUSTOM.UP_FORTRESS:
+                s = t.FortressTerritory.PlusDefense;
+                s2 = s + t.FortressTerritory.AtributteToAdd;
+                CheckCost(InGameMenuHandler.instance.GoldPlayer, t.FortressTerritory.CostToUpgrade, "gold",s,s2);
+                break;
+            case TYPECUSTOM.UP_BARRACKS:
+                s = t.BarracksTerritory.PlusAttack;
+                s2 = s + t.BarracksTerritory.AtributteToAdd;
+                CheckCost(InGameMenuHandler.instance.GoldPlayer, t.BarracksTerritory.CostToUpgrade, "gold",s,s2);
+                break;
+            default:
+                break;
         }
     }
-    private void CheckCost(int goldPlayer, int goldNeed, string element)
+    private void CheckCost(int goldPlayer, int goldNeed, string element, float s, float s2)
     {
-        label.GetComponent<TextMeshProUGUI>().text = "Cost -" + goldNeed.ToString() + " "+ element;
+        label.GetComponent<TextMeshProUGUI>().text = "Cost -" + goldNeed.ToString() + " "+ element + "\n" + s.ToString("F2") + " -> " + s2.ToString("F2"); ;
         if (goldPlayer >= goldNeed)
         {
             label.GetComponent<TextMeshProUGUI>().color = Color.white;
@@ -85,9 +83,8 @@ public class ButtonCustomize : MonoBehaviour, IPointerEnterHandler, IPointerExit
     }
     public enum TYPECUSTOM
     {
-        BUTTON,
-        ICON,
         UP_LIMIT,
+        UP_CHANNEL,
         UP_SPEED,
         UP_MINE,
         UP_SACRED,

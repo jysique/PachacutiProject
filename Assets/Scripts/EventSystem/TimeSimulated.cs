@@ -42,6 +42,15 @@ public class TimeSimulated
     {
 
     }
+    public TimeSimulated(TimeSimulated _timeSimulated)
+    {
+        this.hour = 0f;
+        this.day = _timeSimulated.day;
+        this.month = _timeSimulated.month;
+        this.year = _timeSimulated.year;
+        CalculateWeeks();
+        CalculateSeason();
+    }
     public TimeSimulated( double _day, double _month, double _year)
     {
         this.hour = 0f;

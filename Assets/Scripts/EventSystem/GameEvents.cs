@@ -15,28 +15,34 @@ public class GameEvents : MonoBehaviour
     {
 
     }
+    public event Action onProductionResourceTriggerEnter;
+    public void ProductionResourceTriggerEnter()
+    {
+        if (onProductionResourceTriggerEnter != null)
+        {
+            onProductionResourceTriggerEnter();
+        }
+    }
+    public event Action onConsumptionResourceTriggerEnter;
+    public void ConsumptionResourceTriggerEnter()
+    {
+        if (onConsumptionResourceTriggerEnter != null)
+        {
+            onConsumptionResourceTriggerEnter();
+        }
+    }
     /// <summary>
     /// ===Gather gold event ====
     /// </summary>
-    public event Action onGatherGoldTriggerEnter;
-    public void GatherGoldTriggerEnter()
+    public event Action onGatherResourceTriggerEnter;
+    public void GatherResourceTriggerEnter()
     {
-        if (onGatherGoldTriggerEnter != null)
+        if (onGatherResourceTriggerEnter != null)
         {
-            onGatherGoldTriggerEnter();
+            onGatherResourceTriggerEnter();
         }
     }
-    /// <summary>
-    /// ===Gather food event ====
-    /// </summary>
-    public event Action onGatherFoodTriggerEnter;
-    public void GatherFoodTriggerEnter()
-    {
-        if (onGatherFoodTriggerEnter != null)
-        {
-            onGatherFoodTriggerEnter();
-        }
-    }
+    
     /// <summary>
     /// ===Custom event ====
     /// </summary>
