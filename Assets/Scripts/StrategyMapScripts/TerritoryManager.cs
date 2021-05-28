@@ -20,7 +20,6 @@ public class TerritoryManager : MonoBehaviour
     void Start()
     {
         AddMilitaryBoss();
-        
     }
     public Dictionary<string,List<GameObject>> dictionary = new Dictionary<string,List<GameObject>>();
     private void ReadAdjacentTerritories()
@@ -34,7 +33,7 @@ public class TerritoryManager : MonoBehaviour
     }
     void ParseLine(string line)
     {
-        string[] a = line.Split(char.Parse(":")); // a[0]: territorio a[1]: territorios adyacentes 
+        string[] a = line.Split(char.Parse(":")); // a[0]: territorio a[1]: region a[2]: territorios adyacentes 
         List<string> b = a[1].Split(char.Parse(",")).ToList();
         List<GameObject> c = new List<GameObject>();
         for (int i = 0; i < b.Count; i++)
@@ -236,8 +235,10 @@ public class TerritoryManager : MonoBehaviour
         for (int i = 0; i < territoryList.Count; i++)
         {
             TerritoryHandler _territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
+//            print(_territoryHandler.territoryStats.territory.RegionTerritory);
             if (_territoryHandler.territoryStats.territory.RegionTerritory == region)
             {
+//                print(_territoryHandler.territoryStats.territory.name);
                 territoriesZone.Add(_territoryHandler);
             }
         }

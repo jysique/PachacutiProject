@@ -48,8 +48,8 @@ public class InGameMenuHandler : MonoBehaviour
 
     
     //resources
-    private int goldPlayer= 20;
-    private int foodPlayer = 10;
+    private int goldPlayer= 100;
+    private int foodPlayer = 100;
     private int sucesionSizePlayer;
     private int scorePlayer;
     public int GoldPlayer
@@ -62,14 +62,21 @@ public class InGameMenuHandler : MonoBehaviour
         get { return foodPlayer; }
         set { foodPlayer= value; }
     }
-
     private void Awake()
     {
         instance = this;
     }
-    
-
-    public void UpdateMilitarMenu()
+    void Start()
+    {
+        InitializeButtons();
+        UpdateMenu();
+    }
+    /// <summary>
+    /// Update all elements of the militar menu of the territory-selected
+    /// if the territory-selected doesn't belong to the player 
+    /// it blocks
+    /// </summary>
+    private void UpdateMilitarMenu()
     {
         menuBlock.SetActive(false);
         MilitarChief mChief = selectedTerritory.MilitarChiefTerritory;
@@ -85,7 +92,12 @@ public class InGameMenuHandler : MonoBehaviour
             menuBlock.SetActive(true);                
         }
     }
-    public void UpdateTerritoryMenu()
+    /// <summary>
+    /// Update all elements of the territory menu of the territory-selected
+    /// if the territory-selected doesn't belong to the player 
+    /// it blocks
+    /// </summary>
+    private void UpdateTerritoryMenu()
     {
         menuBlockTerritory.SetActive(false);
         //territoryImage.sprite = selectedTerritory.
@@ -95,7 +107,12 @@ public class InGameMenuHandler : MonoBehaviour
             
         }
     }
-    public void UpdateBuildingsMenu()
+    /// <summary>
+    /// Update all elements of the buildings menu of the territory-selected
+    /// if the territory-selected doesn't belong to the player 
+    /// it blocks
+    /// </summary>
+    private void UpdateBuildingsMenu()
     {
         menuBlockBuildings.SetActive(false);
         if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
@@ -103,194 +120,132 @@ public class InGameMenuHandler : MonoBehaviour
             menuBlockBuildings.SetActive(true);
         }
     }
-    void UpdateCountDownImage()
+    /// <summary>
+    /// Update all buildings of the territory-selected
+    /// </summary>
+    private void UpdateCountDownImage()
     {
         IrrigationChannelOption.TerritoryBuilding = selectedTerritory.IrrigationChannelTerritory;
         GoldMineOption.TerritoryBuilding = selectedTerritory.GoldMineTerritory;
         SacredPlaceOption.TerritoryBuilding = selectedTerritory.SacredPlaceTerritory;
         FortressOption.TerritoryBuilding = selectedTerritory.FortressTerritory;
-        BarracksOption.TerritoryBuilding = selectedTerritory.BarracksTerritory;
-        countdownImages[0].fillAmount = selectedTerritory.TotalTime[0] / selectedTerritory.IrrigationChannelTerritory.TimeToBuild;
-        countdownImages[1].fillAmount = selectedTerritory.TotalTime[1] / selectedTerritory.GoldMineTerritory.TimeToBuild;
-        countdownImages[2].fillAmount = selectedTerritory.TotalTime[2] / selectedTerritory.SacredPlaceTerritory.TimeToBuild;
-        countdownImages[3].fillAmount = selectedTerritory.TotalTime[3] / selectedTerritory.FortressTerritory.TimeToBuild;
-        countdownImages[4].fillAmount = selectedTerritory.TotalTime[4] / selectedTerritory.BarracksTerritory.TimeToBuild;
-        for (int i = 0; i < 5; i++)
-        {
-            buttons[i].interactable = selectedTerritory.CanUpgrade[i];
-        }
+        BarracksOption.TerritoryBuilding = selectedTerritory.ArmoryTerritory;
     }
-    
+    /// <summary>
+    /// Update all menus of the territory-selected
+    /// </summary>
     public void UpdateMenu()
     {
-        selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory;
+        //selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory;
         UpdateMilitarMenu();
         UpdateTerritoryMenu();
         UpdateBuildingsMenu();
 
     }
-    void Update()
+    /// <summary>
+    /// Update all text depending of the territory-selected
+    /// </summary>
+    private void UpdateAllText()
     {
-        Territory selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory;
-        militarWarriorsCount.text = selectedTerritory.Population.ToString() + " / " + selectedTerritory.LimitPopulation.ToString()+ " units" ;
+        militarWarriorsCount.text = selectedTerritory.Population.ToString() + " / " + selectedTerritory.LimitPopulation.ToString() + " units";
         goldCount.text = selectedTerritory.Gold.ToString();
         foodCount.text = selectedTerritory.FoodReward.ToString();
-        GoldGeneration.text = (selectedTerritory.GoldMineTerritory.WorkersMine/ 5) + " every day";
+        GoldGeneration.text = (selectedTerritory.GoldMineTerritory.WorkersMine / 5) + " every day";
         FoodGeneration.text = (selectedTerritory.IrrigationChannelTerritory.WorkersChannel / 5) + " every day";
-        MotivationBonus.text = selectedTerritory.SacredPlaceTerritory.Motivation.ToString() + "/10"; 
+        MotivationBonus.text = selectedTerritory.SacredPlaceTerritory.Motivation.ToString() + "/10";
         AttackBonus.text = selectedTerritory.FortressTerritory.PlusDefense.ToString() + "/10";
-        DefenseBonus.text = selectedTerritory.BarracksTerritory.PlusAttack.ToString() + "/10";
-
-        //UpdateResourceTable();
-
+        DefenseBonus.text = selectedTerritory.ArmoryTerritory.PlusAttack.ToString() + "/10";
+    }
+    void Update()
+    {
+        selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory;
+        UpdateAllText();
         UpdateCountDownImage();
     }
-   
-    
-  
-    
-    
-    private void ImproveSpeedPopulation(TerritoryHandler territoryHandler)
+    private void InitializeButtons()
     {
-        if (goldPlayer >= territoryHandler.territoryStats.territory.CostPopulation)
-        {
-            territoryHandler.ImproveSpeedPopulation();
-            goldPlayer -= territoryHandler.territoryStats.territory.CostPopulation;
-            ShowFloatingText("+0.3 velocity population", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
-            ShowFloatingText("-" + territoryHandler.territoryStats.territory.CostPopulation.ToString(), "TextFloating", ResourceTableHandler.instance.GoldAnimation, Color.white);
-            territoryHandler.territoryStats.territory.CostPopulation += 10;
-        }
-
+        buttons[0].onClick.AddListener(() => ImproveIrrigateChannelButton());
+        buttons[1].onClick.AddListener(() => ImproveMineGoldButton());
+        buttons[2].onClick.AddListener(() => ImproveSacredPlaceButton());
+        buttons[3].onClick.AddListener(() => ImproveFortressButton());
+        buttons[4].onClick.AddListener(() => ImproveBarracksButton());
     }
     public void ImproveSpeedPopulationButton()
     {
         ImproveSpeedPopulation(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
-        //goldNeedSpeed += 2;
         UpdateMenu();
     }
-    
     public void ImproveLimitButton()
     {
-
-        ImproveLimit(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
-        //foodNeedLimit += 3;
+        ImproveLimitPopulation(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
         UpdateMenu();
     }
     public void ImproveIrrigateChannelButton()
     {
-
-        ImproveIrrigateChannel(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
+        TerritoryHandler territoryHandler = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
+        ImproveBuildingInHandler(territoryHandler, territoryHandler.territoryStats.territory.IrrigationChannelTerritory);
         UpdateMenu();
     }
     public void ImproveMineGoldButton()
     {
-
-        ImproveMineGold(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
+        TerritoryHandler territoryHandler = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
+        ImproveBuildingInHandler(territoryHandler, territoryHandler.territoryStats.territory.GoldMineTerritory);
         UpdateMenu();
     }
     public void ImproveSacredPlaceButton()
     {
-
-        ImproveSacredPlace(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
+        TerritoryHandler territoryHandler = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
+        ImproveBuildingInHandler(territoryHandler, territoryHandler.territoryStats.territory.SacredPlaceTerritory);
         UpdateMenu();
     }
     public void ImproveFortressButton()
     {
-
-        ImproveFortress(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
+        TerritoryHandler territoryHandler = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
+        ImproveBuildingInHandler(territoryHandler, territoryHandler.territoryStats.territory.FortressTerritory);
+        TimeSystem.instance.AddEvent(territoryHandler, territoryHandler.territoryStats.territory.FortressTerritory);
         UpdateMenu();
     }
     public void ImproveBarracksButton()
     {
-
-        ImproveBarracks(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
+        TerritoryHandler territoryHandler = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
+        ImproveBuildingInHandler(territoryHandler, territoryHandler.territoryStats.territory.ArmoryTerritory);
+        TimeSystem.instance.AddEvent(territoryHandler, territoryHandler.territoryStats.territory.ArmoryTerritory);
         UpdateMenu();
     }
-    private void ImproveLimit(TerritoryHandler territoryHandler)
+    private void ImproveSpeedPopulation(TerritoryHandler territoryHandler)
     {
-        if (foodPlayer >= territoryHandler.territoryStats.territory.IrrigationChannelTerritory.CostToUpgrade)
+        if (goldPlayer >= territoryHandler.territoryStats.territory.CostSpeedPopulation)
+        {
+            territoryHandler.ImproveSpeedPopulation();
+            goldPlayer -= territoryHandler.territoryStats.territory.CostSpeedPopulation;
+            ShowFloatingText("+0.3 speed population", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
+            ShowFloatingText("-" + territoryHandler.territoryStats.territory.CostSpeedPopulation.ToString(), "TextFloating", ResourceTableHandler.instance.GoldAnimation, Color.white);
+            territoryHandler.territoryStats.territory.CostSpeedPopulation += territoryHandler.territoryStats.territory.AddCost;
+        }
+
+    }
+    private void ImproveLimitPopulation(TerritoryHandler territoryHandler)
+    {
+        if (foodPlayer >= territoryHandler.territoryStats.territory.CostLimitPopulation)
         {
             territoryHandler.ImproveLimit();
-            foodPlayer -= territoryHandler.territoryStats.territory.IrrigationChannelTerritory.CostToUpgrade;
+            foodPlayer -= territoryHandler.territoryStats.territory.CostLimitPopulation;
             ShowFloatingText("+20 limit", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
-            ShowFloatingText("-" + territoryHandler.territoryStats.territory.IrrigationChannelTerritory.CostToUpgrade.ToString(), "TextFloating", ResourceTableHandler.instance.FoodAnimation, Color.white);
-            territoryHandler.territoryStats.territory.IrrigationChannelTerritory.CostToUpgrade += 10;
+            ShowFloatingText("-" + territoryHandler.territoryStats.territory.CostLimitPopulation.ToString(), "TextFloating", ResourceTableHandler.instance.FoodAnimation, Color.white);
+            territoryHandler.territoryStats.territory.CostLimitPopulation += territoryHandler.territoryStats.territory.AddCost;
         }
     }
-    private void ImproveIrrigateChannel(TerritoryHandler territoryHandler)
+    private void ImproveBuildingInHandler(TerritoryHandler territoryHandler, Building building)
     {
-        if (goldPlayer >= territoryHandler.territoryStats.territory.IrrigationChannelTerritory.CostToUpgrade)
+        if (goldPlayer >= building.CostToUpgrade)
         {
-            ImproveTerritory(territoryHandler, 0);
-            goldPlayer -= territoryHandler.territoryStats.territory.IrrigationChannelTerritory.CostToUpgrade;
-            ShowFloatingText("+0.3 velocity population", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
-            ShowFloatingText("-" + territoryHandler.territoryStats.territory.CostPopulation.ToString(), "TextFloating", ResourceTableHandler.instance.GoldAnimation, Color.white);
-            territoryHandler.territoryStats.territory.IrrigationChannelTerritory.CostToUpgrade += 3;
+            //ImproveTerritory(territoryHandler, territoryHandler.GetBuilding(building));
+            TimeSystem.instance.AddEvent(territoryHandler, territoryHandler.GetBuilding(building));
+            goldPlayer -= territoryHandler.GetBuilding(building).CostToUpgrade;
+            ShowFloatingText("+1 "+building.Name+" level", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
+            ShowFloatingText("-" + territoryHandler.GetBuilding(building).CostToUpgrade.ToString(), "TextFloating", ResourceTableHandler.instance.GoldAnimation, Color.white);
+            territoryHandler.GetBuilding(building).ImproveCostUpgrade();
         }
-    }
-
-    private void ImproveMineGold(TerritoryHandler territoryHandler)
-    {
-        if (goldPlayer >= territoryHandler.territoryStats.territory.GoldMineTerritory.CostToUpgrade)
-        {
-            ImproveTerritory(territoryHandler, 1);
-            goldPlayer -= territoryHandler.territoryStats.territory.GoldMineTerritory.CostToUpgrade;
-            ShowFloatingText("+1 gold mine level", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
-            ShowFloatingText("-" + territoryHandler.territoryStats.territory.GoldMineTerritory.CostToUpgrade.ToString(), "TextFloating", ResourceTableHandler.instance.GoldAnimation, Color.white);
-            territoryHandler.territoryStats.territory.GoldMineTerritory.CostToUpgrade += 3;
-        }
-    }
-    private void ImproveSacredPlace(TerritoryHandler territoryHandler)
-    {
-        if (goldPlayer >= territoryHandler.territoryStats.territory.SacredPlaceTerritory.CostToUpgrade)
-        {
-            ImproveTerritory(territoryHandler, 2);
-            goldPlayer -= territoryHandler.territoryStats.territory.SacredPlaceTerritory.CostToUpgrade;
-            ShowFloatingText("+1 sacredPlace level", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
-            ShowFloatingText("-" + territoryHandler.territoryStats.territory.SacredPlaceTerritory.CostToUpgrade.ToString(), "TextFloating", ResourceTableHandler.instance.GoldAnimation, Color.white);
-            territoryHandler.territoryStats.territory.SacredPlaceTerritory.CostToUpgrade += 3;
-        }
-    }
-    private void ImproveFortress(TerritoryHandler territoryHandler)
-    {
-        if (goldPlayer >= territoryHandler.territoryStats.territory.FortressTerritory.CostToUpgrade)
-        {
-            ImproveTerritory(territoryHandler, 3);
-            goldPlayer -= territoryHandler.territoryStats.territory.FortressTerritory.CostToUpgrade;
-            ShowFloatingText("+1 fortress level", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
-            ShowFloatingText("-" + territoryHandler.territoryStats.territory.FortressTerritory.CostToUpgrade.ToString(), "TextFloating", ResourceTableHandler.instance.GoldAnimation, Color.white);
-            territoryHandler.territoryStats.territory.FortressTerritory.CostToUpgrade += 3;
-        }
-    }
-    private void ImproveBarracks(TerritoryHandler territoryHandler)
-    {
-        if (goldPlayer >= territoryHandler.territoryStats.territory.BarracksTerritory.CostToUpgrade)
-        {
-            ImproveTerritory(territoryHandler, 4);
-            goldPlayer -= territoryHandler.territoryStats.territory.BarracksTerritory.CostToUpgrade;
-            ShowFloatingText("+1 barracks level", "TextMesh", territoryHandler.transform, new Color32(0,19,152,255));
-            ShowFloatingText("-" + territoryHandler.territoryStats.territory.BarracksTerritory.CostToUpgrade.ToString(), "TextFloating", ResourceTableHandler.instance.GoldAnimation,Color.white);
-            territoryHandler.territoryStats.territory.BarracksTerritory.CostToUpgrade += 3;
-        }
-    }
-    void ImproveTerritory(TerritoryHandler territoryHandler, int _option)
-    {
-        StartCoroutine(CountDownTimerCouroutine(territoryHandler,_option));
-    }
-    IEnumerator CountDownTimerCouroutine(TerritoryHandler territoryH, int option)
-    {
-        float duration = territoryH.CalculateDuration(option);
-        //while (territoryH.totalTime <= duration)
-        while (territoryH.territoryStats.territory.TotalTime[option] <= duration)
-        {
-            territoryH.territoryStats.territory.CanUpgrade[option] = false;
-            territoryH.territoryStats.territory.TotalTime[option] += Time.deltaTime * GlobalVariables.instance.timeModifier / duration;
-            yield return null;
-        }
-        territoryH.territoryStats.territory.TotalTime[option] = 0;
-        territoryH.territoryStats.territory.CanUpgrade[option] = true;
-        territoryH.ImproveBuildings(option);
-        UpdateTerritoryMenu();
     }
     private int GatherGold(TerritoryHandler territoryHandler)
     {
@@ -304,8 +259,6 @@ public class InGameMenuHandler : MonoBehaviour
         territoryHandler.GatherTerritoryFood();
         return gatherFood;
     }
-
-
     public void ShowFloatingText(string text,string namePrefab,Transform _t, Color32 color,float posX = 0,float posY = 0)
     {
         GameObject prefab = Resources.Load("Prefabs/MenuPrefabs/"+namePrefab) as GameObject;
@@ -358,21 +311,5 @@ public class InGameMenuHandler : MonoBehaviour
         foodPlayer += temp;
         
     }
-   
-   
-    void Start()
-    {
-        buttons[0].onClick.AddListener(() => ImproveIrrigateChannelButton());
-        buttons[1].onClick.AddListener(() => ImproveMineGoldButton());
-        buttons[2].onClick.AddListener(() => ImproveSacredPlaceButton());
-        buttons[3].onClick.AddListener(() => ImproveFortressButton());
-        buttons[4].onClick.AddListener(() => ImproveBarracksButton());
-        UpdateMenu();
-    }
 
-
-    
-    
-    
- 
 }

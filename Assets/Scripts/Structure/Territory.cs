@@ -13,6 +13,7 @@ public class Territory
         NORTH_REGION,
         WESTERN_REGION,
         SOUTHERN_REGION,
+        CENTRE_REGION,
         NONE
     }
     public enum TYPEPLAYER
@@ -31,10 +32,11 @@ public class Territory
     [SerializeField] private int food;
     [SerializeField] private int limitPopulation;
     [SerializeField] private int motivation;
-
     [SerializeField] private float velocityPopulation;
 
-    private int costImprovePopulation = 10;
+    private int costImproveSpeedPopulation = 10;
+    private int addCost = 5;
+    private int costImproveLimitPopulation = 10;
     private int perPeople = 5;
     [SerializeField] private bool selected;
 
@@ -42,7 +44,7 @@ public class Territory
     [SerializeField] private GoldMine goldMineTerritory = new GoldMine();
     [SerializeField] private SacredPlace sacredPlaceTerritory = new SacredPlace();
     [SerializeField] private Fortress fortressTerritory = new Fortress();
-    [SerializeField] private Barrack barracksTerritory = new Barrack();
+    [SerializeField] private Armory armoryTerritory = new Armory();
     [SerializeField] private IrrigationChannel irrigationChannelTerritory = new IrrigationChannel();
     /// <summary>
     /// variables for countDown timers in TerritoryMenu
@@ -53,10 +55,20 @@ public class Territory
     {
         get { return perPeople; }
     }
-    public int CostPopulation
+    public int AddCost
     {
-        get { return costImprovePopulation; }
-        set { costImprovePopulation = value; }
+        get { return addCost; }
+        set { addCost = value; }
+    }
+    public int CostSpeedPopulation
+    {
+        get { return costImproveSpeedPopulation; }
+        set { costImproveSpeedPopulation = value; }
+    }
+    public int CostLimitPopulation
+    {
+        get { return costImproveLimitPopulation; }
+        set { costImproveLimitPopulation = value; }
     }
     public float[] TotalTime
     {
@@ -88,10 +100,10 @@ public class Territory
         get { return fortressTerritory; }
         set { fortressTerritory = value; }
     }
-    public Barrack BarracksTerritory
+    public Armory ArmoryTerritory
     {
-        get { return barracksTerritory; }
-        set { barracksTerritory = value; }
+        get { return armoryTerritory; }
+        set { armoryTerritory = value; }
     }
     public IrrigationChannel IrrigationChannelTerritory
     {
@@ -108,7 +120,7 @@ public class Territory
         return goldMineTerritory.Level > 0 
             && sacredPlaceTerritory.Level > 0 
             && fortressTerritory.Level > 0 
-            && barracksTerritory.Level >0 
+            && armoryTerritory.Level >0 
             && irrigationChannelTerritory.Level > 0;
     }
     public REGION RegionTerritory

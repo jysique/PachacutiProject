@@ -26,6 +26,11 @@ public class MissionManager : MonoBehaviour
     }
     private void Start()
     {
+        InitializeMissions();
+        btnMission.onClick.AddListener(() => CheckByPlayer());
+    }
+    public void InitializeMissions()
+    {
         missionDefOption.Mission = new MissionDefeat();
         missionDefOption.InitializeMission();
         missionConqOption.Mission = new MissionConquest();
@@ -36,7 +41,6 @@ public class MissionManager : MonoBehaviour
         missionProtOption.InitializeMission();
         missionAllBOption.Mission = new MissionAllBuilds();
         missionAllBOption.InitializeMission();
-        btnMission.onClick.AddListener(() => CheckByPlayer());
     }
     private void Update()
     {
@@ -48,7 +52,6 @@ public class MissionManager : MonoBehaviour
     }
     private void CheckByPlayer()
     {
-        print("hola");
         notificationMission.SetActive(false);
     }
     

@@ -279,7 +279,7 @@ public class WarManager : MonoBehaviour
             governorMod = V * ((float)governor.Militancy / 50f);
         }
         float motivationMod = V * ((float)t.territoryStats.territory.SacredPlaceTerritory.Motivation / 10f);
-        float attackMod = V * ((float)t.territoryStats.territory.BarracksTerritory.PlusAttack / 50f);
+        float attackMod = V * ((float)t.territoryStats.territory.ArmoryTerritory.PlusAttack / 50f);
         //print("Ataque: inicial: " + V.ToString() + " estrategia: " + strategyMod.ToString() + " warriorNumberBonus: " + warriorNumberBonus.ToString() + " experiencia: " + experienceMod.ToString() + " governador: " + governorMod.ToString() + " motivacion: " + motivationMod.ToString() + " ataque: " + attackMod.ToString());
         V = V + ((strategyMod + warriorNumberBonus + experienceMod + governorMod+motivationMod+attackMod)*3);
         

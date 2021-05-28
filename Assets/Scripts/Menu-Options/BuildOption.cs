@@ -13,6 +13,7 @@ public class BuildOption : MonoBehaviour
     private GameObject block;
     private TextMeshProUGUI nameTxt2;
     private Building building;
+
     public Building TerritoryBuilding
     {
         get { return building; }
@@ -26,6 +27,10 @@ public class BuildOption : MonoBehaviour
         nameTxt = transform.Find("NameTxt").transform.GetComponent<TextMeshProUGUI>();
         nameTxt2 = block.gameObject.transform.Find("Text").gameObject.GetComponent<TextMeshProUGUI>();
         costTxt = transform.Find("CostTxt").gameObject.GetComponent<TextMeshProUGUI>();
+        
+        upgradeBtn = this.gameObject.transform.GetChild(7).gameObject.GetComponent<Button>();
+        linearBarProgress = this.gameObject.transform.GetChild(5).gameObject.GetComponent<Image>();
+
     }
 
     // Update is called once per frame
@@ -37,5 +42,9 @@ public class BuildOption : MonoBehaviour
 
         bool a = building.Level > 0 ? false : true;
         block.SetActive(a);
+        upgradeBtn.interactable = building.CanUpdrade;
+        // linearBarProgress.fillAmount = building.TimeTotal / building.TimeToBuild;
+        linearBarProgress.fillAmount = (float)building.DaysTotal / (float)building.DaysToBuild;
     }
+
 }

@@ -110,6 +110,7 @@ public class TimeSimulated
         day++;
         hour = 1;
     }
+
     /// <summary>
     /// Add plus days to a TimeSimulated
     /// </summary>

@@ -1,11 +1,11 @@
 using UnityEngine;
 [System.Serializable]
-public class Barrack : Building
+public class Armory : Building
 {
     private int plusAttack = 0;
-    public Barrack()
+    public Armory()
     {
-        this.Name = "Barrack";
+        this.Name = "Armory";
         this.AtributteToAdd = 1.0f;
     }
     public int PlusAttack

@@ -31,14 +31,15 @@ public class ButtonCustomize : MonoBehaviour, IPointerEnterHandler, IPointerExit
         {
             case TYPECUSTOM.UP_LIMIT:
                 
-                float s = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory.LimitPopulation;
-                float s2 = s + 20;
-                CheckCost(InGameMenuHandler.instance.FoodPlayer, t.IrrigationChannelTerritory.CostToUpgrade, "food",s,s2);
+                float s = t.LimitPopulation;
+                float s2 = s + t.AddCost;
+                CheckCost(InGameMenuHandler.instance.FoodPlayer, t.CostLimitPopulation, "food",s,s2);
                 break;
             case TYPECUSTOM.UP_SPEED:
                 s = t.VelocityPopulation;
-                s2 = s + 0.3f;
-                CheckCost(InGameMenuHandler.instance.GoldPlayer, t.CostPopulation, "gold",s,s2);
+                s2 = s + t.AddCost;
+                print(t.CostSpeedPopulation);
+                CheckCost(InGameMenuHandler.instance.GoldPlayer, t.CostSpeedPopulation, "gold",s,s2);
                 break;
             case TYPECUSTOM.UP_CHANNEL:
                 s = t.IrrigationChannelTerritory.WorkersChannel;
@@ -60,10 +61,10 @@ public class ButtonCustomize : MonoBehaviour, IPointerEnterHandler, IPointerExit
                 s2 = s + t.FortressTerritory.AtributteToAdd;
                 CheckCost(InGameMenuHandler.instance.GoldPlayer, t.FortressTerritory.CostToUpgrade, "gold",s,s2);
                 break;
-            case TYPECUSTOM.UP_BARRACKS:
-                s = t.BarracksTerritory.PlusAttack;
-                s2 = s + t.BarracksTerritory.AtributteToAdd;
-                CheckCost(InGameMenuHandler.instance.GoldPlayer, t.BarracksTerritory.CostToUpgrade, "gold",s,s2);
+            case TYPECUSTOM.UP_ARMORY:
+                s = t.ArmoryTerritory.PlusAttack;
+                s2 = s + t.ArmoryTerritory.AtributteToAdd;
+                CheckCost(InGameMenuHandler.instance.GoldPlayer, t.ArmoryTerritory.CostToUpgrade, "gold",s,s2);
                 break;
             default:
                 break;
@@ -84,11 +85,11 @@ public class ButtonCustomize : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public enum TYPECUSTOM
     {
         UP_LIMIT,
-        UP_CHANNEL,
         UP_SPEED,
+        UP_CHANNEL,
         UP_MINE,
         UP_SACRED,
         UP_FORTRESS,
-        UP_BARRACKS
+        UP_ARMORY
     }
 }

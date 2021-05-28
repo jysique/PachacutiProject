@@ -14,8 +14,14 @@ public class CustomEventList
     public void AddCustomEvent(TimeSimulated _initTime)
     {
         CustomEvent _customEvent = new CustomEvent();
-        _customEvent.TerritoryEvent = TerritoryManager.instance.GetTerritoryRandom(Territory.TYPEPLAYER.PLAYER).territoryStats.territory;
+        _customEvent.TerritoryEvent = TerritoryManager.instance.GetTerritoryRandom(Territory.TYPEPLAYER.PLAYER);
         _customEvent.GetCustomEvent(_initTime);
+        CustomEvents.Add(_customEvent);
+    }
+    public void AddCustomEvent2(TimeSimulated _initTime,TerritoryHandler territory, Building building)
+    {
+        CustomEvent _customEvent = new CustomEvent();
+        _customEvent.GetCustomEvent(_initTime,territory, building);
         CustomEvents.Add(_customEvent);
     }
     public void PrintList()
