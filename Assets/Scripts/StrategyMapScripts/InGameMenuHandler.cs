@@ -164,11 +164,12 @@ public class InGameMenuHandler : MonoBehaviour
     }
     private void InitializeButtons()
     {
-        buttons[0].onClick.AddListener(() => ImproveIrrigateChannelButton());
-        buttons[1].onClick.AddListener(() => ImproveMineGoldButton());
-        buttons[2].onClick.AddListener(() => ImproveSacredPlaceButton());
-        buttons[3].onClick.AddListener(() => ImproveFortressButton());
-        buttons[4].onClick.AddListener(() => ImproveBarracksButton());
+        buttons[0].onClick.AddListener(() => ImproveBuildingButton(1));
+        buttons[1].onClick.AddListener(() => ImproveBuildingButton(2));
+        buttons[2].onClick.AddListener(() => ImproveBuildingButton(3));
+        buttons[3].onClick.AddListener(() => ImproveBuildingButton(4));
+        buttons[4].onClick.AddListener(() => ImproveBuildingButton(5));
+
     }
     public void ImproveSpeedPopulationButton()
     {
@@ -180,36 +181,12 @@ public class InGameMenuHandler : MonoBehaviour
         ImproveLimitPopulation(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
         UpdateMenu();
     }
-    public void ImproveIrrigateChannelButton()
+    public void ImproveBuildingButton(int option)
     {
         TerritoryHandler territoryHandler = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
-        ImproveBuildingInHandler(territoryHandler, territoryHandler.territoryStats.territory.IrrigationChannelTerritory);
-        UpdateMenu();
-    }
-    public void ImproveMineGoldButton()
-    {
-        TerritoryHandler territoryHandler = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
-        ImproveBuildingInHandler(territoryHandler, territoryHandler.territoryStats.territory.GoldMineTerritory);
-        UpdateMenu();
-    }
-    public void ImproveSacredPlaceButton()
-    {
-        TerritoryHandler territoryHandler = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
-        ImproveBuildingInHandler(territoryHandler, territoryHandler.territoryStats.territory.SacredPlaceTerritory);
-        UpdateMenu();
-    }
-    public void ImproveFortressButton()
-    {
-        TerritoryHandler territoryHandler = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
-        ImproveBuildingInHandler(territoryHandler, territoryHandler.territoryStats.territory.FortressTerritory);
-        TimeSystem.instance.AddEvent(territoryHandler, territoryHandler.territoryStats.territory.FortressTerritory);
-        UpdateMenu();
-    }
-    public void ImproveBarracksButton()
-    {
-        TerritoryHandler territoryHandler = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
-        ImproveBuildingInHandler(territoryHandler, territoryHandler.territoryStats.territory.ArmoryTerritory);
-        TimeSystem.instance.AddEvent(territoryHandler, territoryHandler.territoryStats.territory.ArmoryTerritory);
+        Building building = territoryHandler.GetBuilding(option);
+        ImproveBuildingInHandler(territoryHandler, building);
+        TimeSystem.instance.AddEvent(territoryHandler, building);
         UpdateMenu();
     }
     private void ImproveSpeedPopulation(TerritoryHandler territoryHandler)
@@ -309,7 +286,5 @@ public class InGameMenuHandler : MonoBehaviour
         }
         ShowFloatingText("+" + temp.ToString(), "TextFloating", ResourceTableHandler.instance.FoodAnimation,Color.white);
         foodPlayer += temp;
-        
     }
-
 }

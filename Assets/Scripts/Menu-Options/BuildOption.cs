@@ -32,7 +32,6 @@ public class BuildOption : MonoBehaviour
         linearBarProgress = this.gameObject.transform.GetChild(5).gameObject.GetComponent<Image>();
 
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -43,7 +42,6 @@ public class BuildOption : MonoBehaviour
         bool a = building.Level > 0 ? false : true;
         block.SetActive(a);
         upgradeBtn.interactable = building.CanUpdrade;
-        // linearBarProgress.fillAmount = building.TimeTotal / building.TimeToBuild;
         linearBarProgress.fillAmount = (float)building.DaysTotal / (float)building.DaysToBuild;
     }
 

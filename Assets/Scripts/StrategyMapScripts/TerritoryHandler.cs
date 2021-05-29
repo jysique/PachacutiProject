@@ -271,10 +271,28 @@ public class TerritoryHandler : MonoBehaviour
         {
             return territoryStats.territory.FortressTerritory;
         }
-        //else if (building is Barrack)
-        //{
         return territoryStats.territory.ArmoryTerritory;
-        //}
+    }
+    public Building GetBuilding(int i)
+    {
+        //float duration = 0;
+        if (i == 1)
+        {
+            return territoryStats.territory.IrrigationChannelTerritory;
+        }
+        else if (i == 2)
+        {
+            return territoryStats.territory.GoldMineTerritory;
+        }
+        else if (i == 3)
+        {
+            return territoryStats.territory.SacredPlaceTerritory;
+        }
+        else if (i == 4)
+        {
+            return territoryStats.territory.FortressTerritory;
+        }
+        return territoryStats.territory.ArmoryTerritory;
     }
     public void ShowStateMenu()
     {

@@ -3,20 +3,56 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using UnityEngine.Events;
 public class SettingsMenu : MonoBehaviour
 {
     public AudioMixerGroup master;
-    public Dropdown resolutionDropdown;
-    [SerializeField] public Button btn1;
-    [SerializeField] public Button btn2;
+    
+    
+    [SerializeField] Slider volGeneral;
+    [SerializeField] Slider volMusic;
+    [SerializeField] Slider volSFX;
+    [SerializeField] Dropdown resolutionDropdown;
+    [SerializeField] Toggle fullScreenToggle;
 
+    private int screenInt;
     Resolution[] resolutions;
+    const string resName = "resolutionoption";
+
+    private void Awake()
+    {
+        screenInt = PlayerPrefs.GetInt("toggleState");
+        if (screenInt == 1)
+        {
+            fullScreenToggle.isOn = true;
+        }
+        else
+        {
+            fullScreenToggle.isOn = false;
+        }
+
+        resolutionDropdown.onValueChanged.AddListener(new UnityAction<int>(index =>
+        {
+           PlayerPrefs.SetInt(resName, resolutionDropdown.value);
+           PlayerPrefs.Save();
+        }));
+
+    }
     void Start()
     {
+        volGeneral.value = PlayerPrefs.GetFloat("volG",1f);
+        volMusic.value = PlayerPrefs.GetFloat("volM", 1f);
+        volSFX.value = PlayerPrefs.GetFloat("volS", 1f);
+        master.audioMixer.SetFloat("volume", Desibel(PlayerPrefs.GetFloat("volG")));
+        master.audioMixer.SetFloat("volMusic", Desibel(PlayerPrefs.GetFloat("volM")));
+        master.audioMixer.SetFloat("volSFX", Desibel(PlayerPrefs.GetFloat("volS")));
+
         resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
+        
         List<string> options = new List<string>();
         int currentResolutionIndex = 0;
+
         for (int i = 0; i < resolutions.Length; i++)
         {
             string option = resolutions[i].width + " x " + resolutions[i].height;
@@ -29,25 +65,32 @@ public class SettingsMenu : MonoBehaviour
             }
         }
         resolutionDropdown.AddOptions(options);
-        resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.value = PlayerPrefs.GetInt(resName,currentResolutionIndex);
         resolutionDropdown.RefreshShownValue();
+    }
+    public void SetResolution(int resolutionIndex)
+    {
+        Resolution reso = resolutions[resolutionIndex];
+        Screen.SetResolution(reso.width, reso.height, Screen.fullScreen);
     }
     public void SetVolume(float vol)
     {
-        //    master.audioMixer.SetFloat("volume", vol);
-        master.audioMixer.SetFloat("volume", Mathf.Log10(vol)*20);
+        PlayerPrefs.SetFloat("volG", vol);
+        master.audioMixer.SetFloat("volume", Desibel(PlayerPrefs.GetFloat("volG")));
     }
     public void SetVolumeMusic(float vol)
     {
-        //master.audioMixer.SetFloat("volMusic", vol);
-        master.audioMixer.SetFloat("volMusic", Mathf.Log10(vol) * 20);
+        PlayerPrefs.SetFloat("volM", vol);
+        // master.audioMixer.SetFloat("volMusic", Mathf.Log10(vol) * 20);
+        master.audioMixer.SetFloat("volMusic", Desibel(PlayerPrefs.GetFloat("volM")));
     }
     public void SetVolumeSFX(float vol)
     {
-        //  master.audioMixer.SetFloat("volSFX", vol);
-        master.audioMixer.SetFloat("volSFX", Mathf.Log10(vol) * 20);
-        //  AudioManager.instance.ReadAndPlaySFX("ButtonPush");
+        PlayerPrefs.SetFloat("volS", vol);
+        //master.audioMixer.SetFloat("volSFX", Mathf.Log10(vol) * 20);
+        master.audioMixer.SetFloat("volSFX", Desibel(PlayerPrefs.GetFloat("volS")));
     }
+
     public void SetQuality(int qualityIndex)
     {
         QualitySettings.SetQualityLevel(qualityIndex);
@@ -55,10 +98,18 @@ public class SettingsMenu : MonoBehaviour
     public void SetFullScreen(bool isFullScreen)
     {
         Screen.fullScreen = isFullScreen;
+        if (isFullScreen == false)
+        {
+            PlayerPrefs.SetInt("toggleState", 0);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("toggleState", 1);
+        }
     }
-    public void SetResolution(int resolutionIndex)
+    private float Desibel(float a)
     {
-        Resolution reso = resolutions[resolutionIndex];
-        Screen.SetResolution(reso.width,reso.height, Screen.fullScreen);
+        return Mathf.Log10(a) * 20;
     }
+
 }

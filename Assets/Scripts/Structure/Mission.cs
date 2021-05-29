@@ -112,7 +112,7 @@ public class MissionDefeat : Mission
     public MissionDefeat()
     {
         this.NameMission = "Defeat Mission";
-        this.typePlayer = (Territory.TYPEPLAYER)UnityEngine.Random.Range(1, Enum.GetNames(typeof(Territory.TYPEPLAYER)).Length);
+        this.typePlayer = (Territory.TYPEPLAYER)UnityEngine.Random.Range(1, Enum.GetNames(typeof(Territory.TYPEPLAYER)).Length-1);
         this.Message = "Defeat "+ GlobalVariables.instance.GetPlayerName(typePlayer) + " civilization";
         this.MessagePro = "+2 fortress nivels for " + this.TimeMissionActive + " months";
     }
