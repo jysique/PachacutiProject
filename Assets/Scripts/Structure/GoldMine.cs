@@ -21,4 +21,9 @@ public class GoldMine:Building
         base.ImproveBuilding(_levels);
         this.workersMine += (int)this.AtributteToAdd * _levels;
     }
+    public override void SubsideBuilding(int _levels)
+    {
+        base.SubsideBuilding(_levels);
+        this.workersMine -= (int)this.AtributteToAdd * _levels;
+    }
 }

@@ -27,7 +27,6 @@ public class CustomEventOption : MonoBehaviour
         typeEventTxt.text = custom.EventType;
         initTxt.text = custom.TimeInitEvent.PrintTimeSimulated();
         finishTxt.text = custom.TimeFinalEvent.PrintTimeSimulated();
-
     }
     private void Update()
     {

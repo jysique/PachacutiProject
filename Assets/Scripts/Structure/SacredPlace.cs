@@ -19,4 +19,9 @@ public class SacredPlace: Building
         base.ImproveBuilding(_levels);
         this.motivation += this.AtributteToAdd * _levels;
     }
+    public override void SubsideBuilding(int _levels)
+    {
+        base.SubsideBuilding(_levels);
+        this.motivation-= (int)this.AtributteToAdd * _levels;
+    }
 }

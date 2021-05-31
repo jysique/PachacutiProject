@@ -9,6 +9,8 @@ public class TerritoryManager : MonoBehaviour
     public static TerritoryManager instance;
     public List<GameObject> territoryList;
     public GameObject territorySelected;
+    public Dictionary<string, List<GameObject>> dictionary = new Dictionary<string, List<GameObject>>();
+    public Dictionary<string, string> dictionary2 = new Dictionary<string, string>();
     private void Awake()
     {
         instance = this;
@@ -20,8 +22,9 @@ public class TerritoryManager : MonoBehaviour
     void Start()
     {
         AddMilitaryBoss();
+        AddRegionData();
+        MissionManager.instance.InitializeMissions();
     }
-    public Dictionary<string,List<GameObject>> dictionary = new Dictionary<string,List<GameObject>>();
     private void ReadAdjacentTerritories()
     {
         string file = Resources.Load<TextAsset>("Data/Menu/ListAdyacentTerritories").text;
@@ -34,13 +37,14 @@ public class TerritoryManager : MonoBehaviour
     void ParseLine(string line)
     {
         string[] a = line.Split(char.Parse(":")); // a[0]: territorio a[1]: region a[2]: territorios adyacentes 
-        List<string> b = a[1].Split(char.Parse(",")).ToList();
+        List<string> b = a[2].Split(char.Parse(",")).ToList();
         List<GameObject> c = new List<GameObject>();
         for (int i = 0; i < b.Count; i++)
         {
            c.Add(SearchTerritoryGameObject(b[i],a[0]));
         }
         dictionary.Add(a[0], c);
+        dictionary2.Add(a[0], a[1]);
     }
     /// <summary>
     /// Add territory to list
@@ -62,7 +66,7 @@ public class TerritoryManager : MonoBehaviour
         for (int i = 0; i < territoryList.Count; i++)
         {
             TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-            if (territoryHandler.territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.BOT)
+            if (territoryHandler.territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.NONE)
             {
                 MilitarChief newMilitarBoss = new MilitarChief();
                 newMilitarBoss.GetMilitarBoss();
@@ -76,6 +80,15 @@ public class TerritoryManager : MonoBehaviour
                 newMilitarBoss.GetMilitarBoss();
                 territoryHandler.territoryStats.territory.MilitarChiefTerritory = newMilitarBoss;
             }
+        }
+    }
+
+    public void AddRegionData()
+    {
+        for (int i = 0; i < territoryList.Count; i++)
+        {
+            TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
+            territoryHandler.territoryStats.territory.RegionTerritory = TerritoryManager.instance.dictionary2.Single(s => s.Key == territoryHandler.territoryStats.territory.name).Value;
         }
     }
     /// <summary>
@@ -229,7 +242,7 @@ public class TerritoryManager : MonoBehaviour
     /// </summary>
     /// <param name="type"></param>
     /// <returns></returns>
-    public List<TerritoryHandler> GetTerritoriesByZoneTerritory(Territory.REGION region)
+    public List<TerritoryHandler> GetTerritoriesByZoneTerritory(string region)
     {
         List<TerritoryHandler> territoriesZone = new List<TerritoryHandler>();
         for (int i = 0; i < territoryList.Count; i++)

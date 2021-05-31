@@ -18,4 +18,9 @@ public class Armory : Building
         base.ImproveBuilding(_levels);
         this.plusAttack += (int)this.AtributteToAdd * _levels;
     }
+    public override void SubsideBuilding(int _levels)
+    {
+        base.SubsideBuilding(_levels);
+        this.plusAttack -= (int)this.AtributteToAdd * _levels;
+    }
 }

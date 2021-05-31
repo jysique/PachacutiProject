@@ -49,15 +49,21 @@ public class Building
         get { return daysTotal; }
         set { daysTotal = value; }
     }
+    /*
     public TimeSimulated TimeInit
     {
         get { return init; }
         set { init = value; }
     }
+    */
     public virtual void ImproveBuilding(int _levels)
     {
         this.level += _levels;
         this.daysToBuild += 1 * _levels;
+    }
+    public virtual void SubsideBuilding(int _levels)
+    {
+        this.level -= _levels;
     }
     public void ImproveCostUpgrade()
     {

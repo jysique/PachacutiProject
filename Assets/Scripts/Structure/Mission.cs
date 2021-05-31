@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
-
 public class Mission
 {
     [SerializeField]private string name;
@@ -83,11 +82,14 @@ public class Mission
         {
             InitBenefits();
             MissionManager.instance.NotificationMission.SetActive(true);
+            InGameMenuHandler.instance.UpdateMenu();
         }
         else if (missionStatus == STATUS.IN_PROGRESS_BENEFITS)
         {
             FinishBenefits();
-        }else if(missionStatus == STATUS.DONE)
+            InGameMenuHandler.instance.UpdateMenu();
+        }
+        else if(missionStatus == STATUS.DONE)
         {
             MissionManager.instance.NotificationMission.SetActive(true);
         }
@@ -112,7 +114,7 @@ public class MissionDefeat : Mission
     public MissionDefeat()
     {
         this.NameMission = "Defeat Mission";
-        this.typePlayer = (Territory.TYPEPLAYER)UnityEngine.Random.Range(1, Enum.GetNames(typeof(Territory.TYPEPLAYER)).Length-1);
+        this.typePlayer = (Territory.TYPEPLAYER)UnityEngine.Random.Range(1, Enum.GetNames(typeof(Territory.TYPEPLAYER)).Length-2);
         this.Message = "Defeat "+ GlobalVariables.instance.GetPlayerName(typePlayer) + " civilization";
         this.MessagePro = "+2 fortress nivels for " + this.TimeMissionActive + " months";
     }
@@ -188,23 +190,24 @@ public class MissionExpansion : Mission
     {
         this.NameMission = "Expansion Mission";
         Territory.REGION region = (Territory.REGION)UnityEngine.Random.Range(0, Enum.GetNames(typeof(Territory.REGION)).Length -1);
-        string regionString = region.ToString().ToLower().Replace("_", " ");
-        List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesByZoneTerritory(region);
-      //  Debug.Log("r- "+ region.ToString() +"-t-" +t.Count);
+        string regionString = region.ToString();
+        List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesByZoneTerritory(regionString);
+        //Debug.Log("r- "+ region.ToString() +"-t-" +t.Count);
         for (int i = 0; i < t.Count; i++)
         {
             this.TerritoryMission.Add(t[i].territoryStats.territory);
+          //Debug.Log(this.TerritoryMission[i].name);
         }
         
-        this.Message = "Conquer " + regionString;
-        this.MessagePro = "+2 irrigation channels nivels in " + regionString + "\n for " + this.TimeMissionActive + " months";
+        this.Message = "Conquer " + regionString.ToLower().Replace("_", " ");
+        this.MessagePro = "+2 irrigation channels nivels in " + regionString.ToLower().Replace("_", " ") + "\n for " + this.TimeMissionActive + " months";
     }
-    int a = 0;
+    
     public override void CheckMission()
     {
         base.CheckMission();
         //bool complete = TerritoryMission.All(x => x.TypePlayer == Territory.TYPEPLAYER.PLAYER);
-        
+        int a = 0;
         for (int i = 0; i < TerritoryMission.Count; i++)
         {
             if(TerritoryMission[i].TypePlayer == Territory.TYPEPLAYER.PLAYER)
@@ -213,7 +216,7 @@ public class MissionExpansion : Mission
             }
         }
 
-      //  Debug.Log("bool_:" + a +"-"+ TerritoryMission.Count);
+        //Debug.Log("bool_:" + a +"-"+ TerritoryMission.Count);
         if (a == TerritoryMission.Count)
         {
             base.MissionStatus = STATUS.COMPLETE;
@@ -224,7 +227,7 @@ public class MissionExpansion : Mission
         base.InitBenefits();
         for (int i = 0; i < TerritoryMission.Count; i++)
         {
-            TerritoryMission[i].IrrigationChannelTerritory.Level += 2;
+            TerritoryMission[i].IrrigationChannelTerritory.ImproveBuilding(2);
         }
         base.MissionStatus = STATUS.IN_PROGRESS_BENEFITS;
     }
@@ -235,12 +238,11 @@ public class MissionExpansion : Mission
         {
             for (int i = 0; i < TerritoryMission.Count; i++)
             {
-                TerritoryMission[i].IrrigationChannelTerritory.Level -= 2;
+                TerritoryMission[i].IrrigationChannelTerritory.SubsideBuilding(2);
             }
         }
     }
 }
- 
 public class MissionProtect : Mission
 {
     int monthTimePassed;
@@ -279,7 +281,7 @@ public class MissionProtect : Mission
     public override void InitBenefits()
     {
         base.InitBenefits();
-        TerritoryMission[0].IrrigationChannelTerritory.Level += 2;
+        TerritoryMission[0].IrrigationChannelTerritory.ImproveBuilding(2);
         base.MissionStatus = STATUS.IN_PROGRESS_BENEFITS;
     }
     public override void FinishBenefits()
@@ -287,11 +289,10 @@ public class MissionProtect : Mission
         base.FinishBenefits();
         if (base.MissionStatus == STATUS.DONE)
         {
-            TerritoryMission[0].IrrigationChannelTerritory.Level -= 2;
+            TerritoryMission[0].IrrigationChannelTerritory.SubsideBuilding(2);
         }
     }
 }
- 
 public class MissionAllBuilds : Mission
 {
     public MissionAllBuilds()
@@ -332,7 +333,8 @@ public class MissionAllBuilds : Mission
             List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER);
             for (int i = 0; i < t.Count; i++)
             {
-                this.TerritoryMission.Add(t[i].territoryStats.territory);
+                // this.TerritoryMission.Add(t[i].territoryStats.territory);
+                t[i].territoryStats.territory.MotivationPeople -= 20;
             }
         }
     }

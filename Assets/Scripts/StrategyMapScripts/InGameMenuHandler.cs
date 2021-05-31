@@ -38,18 +38,16 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI DefenseBonus;
     [Header("Menu buildings")]
     [SerializeField] private GameObject menuBlockBuildings;
-    [SerializeField] private Image[] countdownImages;
-    [SerializeField] private Button[] buttons;
     [SerializeField] private BuildOption IrrigationChannelOption;
     [SerializeField] private BuildOption GoldMineOption;
     [SerializeField] private BuildOption SacredPlaceOption;
     [SerializeField] private BuildOption FortressOption;
     [SerializeField] private BuildOption BarracksOption;
 
-    
+
     //resources
-    private int goldPlayer= 100;
-    private int foodPlayer = 100;
+    private int goldPlayer = 30;
+    private int foodPlayer = 30;
     private int sucesionSizePlayer;
     private int scorePlayer;
     public int GoldPlayer
@@ -68,7 +66,6 @@ public class InGameMenuHandler : MonoBehaviour
     }
     void Start()
     {
-        InitializeButtons();
         UpdateMenu();
     }
     /// <summary>
@@ -125,11 +122,11 @@ public class InGameMenuHandler : MonoBehaviour
     /// </summary>
     private void UpdateCountDownImage()
     {
-        IrrigationChannelOption.TerritoryBuilding = selectedTerritory.IrrigationChannelTerritory;
-        GoldMineOption.TerritoryBuilding = selectedTerritory.GoldMineTerritory;
-        SacredPlaceOption.TerritoryBuilding = selectedTerritory.SacredPlaceTerritory;
-        FortressOption.TerritoryBuilding = selectedTerritory.FortressTerritory;
-        BarracksOption.TerritoryBuilding = selectedTerritory.ArmoryTerritory;
+        IrrigationChannelOption.InitializeBuildingOption(selectedTerritory.IrrigationChannelTerritory);
+        GoldMineOption.InitializeBuildingOption(selectedTerritory.GoldMineTerritory);
+        SacredPlaceOption.InitializeBuildingOption(selectedTerritory.SacredPlaceTerritory);
+        FortressOption.InitializeBuildingOption(selectedTerritory.FortressTerritory);
+        BarracksOption.InitializeBuildingOption(selectedTerritory.ArmoryTerritory);
     }
     /// <summary>
     /// Update all menus of the territory-selected
@@ -148,10 +145,22 @@ public class InGameMenuHandler : MonoBehaviour
     private void UpdateAllText()
     {
         militarWarriorsCount.text = selectedTerritory.Population.ToString() + " / " + selectedTerritory.LimitPopulation.ToString() + " units";
+        if (selectedTerritory.Population > selectedTerritory.LimitPopulation)
+        {
+            militarWarriorsCount.color = Color.red;
+            militarWarriorsCount.GetComponent<MenuToolTip>().SetNewInfo("Population overflow \n " +
+                                                                         "You cannot generate troops until you \n" +
+                                                                         "have less than the population limit");
+        }
+        else
+        {
+            militarWarriorsCount.color = Color.black;
+            militarWarriorsCount.GetComponent<MenuToolTip>().SetNewInfo("Actual quantity of warriors.");
+        }
         goldCount.text = selectedTerritory.Gold.ToString();
         foodCount.text = selectedTerritory.FoodReward.ToString();
-        GoldGeneration.text = (selectedTerritory.GoldMineTerritory.WorkersMine / 5) + " every day";
-        FoodGeneration.text = (selectedTerritory.IrrigationChannelTerritory.WorkersChannel / 5) + " every day";
+        GoldGeneration.text = (selectedTerritory.GoldMineTerritory.WorkersMine / 5) + " per day";
+        FoodGeneration.text = (selectedTerritory.IrrigationChannelTerritory.WorkersChannel / 5) + " per day";
         MotivationBonus.text = selectedTerritory.SacredPlaceTerritory.Motivation.ToString() + "/10";
         AttackBonus.text = selectedTerritory.FortressTerritory.PlusDefense.ToString() + "/10";
         DefenseBonus.text = selectedTerritory.ArmoryTerritory.PlusAttack.ToString() + "/10";
@@ -161,15 +170,6 @@ public class InGameMenuHandler : MonoBehaviour
         selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory;
         UpdateAllText();
         UpdateCountDownImage();
-    }
-    private void InitializeButtons()
-    {
-        buttons[0].onClick.AddListener(() => ImproveBuildingButton(1));
-        buttons[1].onClick.AddListener(() => ImproveBuildingButton(2));
-        buttons[2].onClick.AddListener(() => ImproveBuildingButton(3));
-        buttons[3].onClick.AddListener(() => ImproveBuildingButton(4));
-        buttons[4].onClick.AddListener(() => ImproveBuildingButton(5));
-
     }
     public void ImproveSpeedPopulationButton()
     {
@@ -181,10 +181,10 @@ public class InGameMenuHandler : MonoBehaviour
         ImproveLimitPopulation(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
         UpdateMenu();
     }
-    public void ImproveBuildingButton(int option)
+    public void ImproveBuildingButton(Building _building)
     {
         TerritoryHandler territoryHandler = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
-        Building building = territoryHandler.GetBuilding(option);
+        Building building = territoryHandler.GetBuilding(_building);
         ImproveBuildingInHandler(territoryHandler, building);
         TimeSystem.instance.AddEvent(territoryHandler, building);
         UpdateMenu();
@@ -216,12 +216,10 @@ public class InGameMenuHandler : MonoBehaviour
     {
         if (goldPlayer >= building.CostToUpgrade)
         {
-            //ImproveTerritory(territoryHandler, territoryHandler.GetBuilding(building));
-            TimeSystem.instance.AddEvent(territoryHandler, territoryHandler.GetBuilding(building));
             goldPlayer -= territoryHandler.GetBuilding(building).CostToUpgrade;
-            ShowFloatingText("+1 "+building.Name+" level", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
-            ShowFloatingText("-" + territoryHandler.GetBuilding(building).CostToUpgrade.ToString(), "TextFloating", ResourceTableHandler.instance.GoldAnimation, Color.white);
             territoryHandler.GetBuilding(building).ImproveCostUpgrade();
+            ShowFloatingText("+1 " + building.Name + " level", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
+            ShowFloatingText("-" + territoryHandler.GetBuilding(building).CostToUpgrade.ToString(), "TextFloating", ResourceTableHandler.instance.GoldAnimation, Color.white);
         }
     }
     private int GatherGold(TerritoryHandler territoryHandler)

@@ -26,29 +26,19 @@ public class MissionManager : MonoBehaviour
     }
     private void Start()
     {
-        InitializeMissions();
+     //   InitializeMissions();
         btnMission.onClick.AddListener(() => CheckByPlayer());
     }
     public void InitializeMissions()
     {
-        missionDefOption.Mission = new MissionDefeat();
-        missionDefOption.InitializeMission();
-        missionConqOption.Mission = new MissionConquest();
-        missionConqOption.InitializeMission();
-        missionExpOption.Mission = new MissionExpansion();
-        missionExpOption.InitializeMission();
-        missionProtOption.Mission = new MissionProtect();
-        missionProtOption.InitializeMission();
-        missionAllBOption.Mission = new MissionAllBuilds();
-        missionAllBOption.InitializeMission();
+        missionDefOption.InitializeMissionOption(0);
+        missionConqOption.InitializeMissionOption(1);
+        missionExpOption.InitializeMissionOption(2);
+        missionProtOption.InitializeMissionOption(3);
+        missionAllBOption.InitializeMissionOption(4);
     }
     private void Update()
     {
-        missionDefOption.Mission.CheckMissionStatus();
-        missionConqOption.Mission.CheckMissionStatus();
-        missionExpOption.Mission.CheckMissionStatus();
-        missionProtOption.Mission.CheckMissionStatus();
-        missionAllBOption.Mission.CheckMissionStatus();
     }
     private void CheckByPlayer()
     {

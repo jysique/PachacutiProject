@@ -121,9 +121,10 @@ public class CustomEvent
     {
         territoryEvent = territory;
         building = territoryEvent.GetBuilding(_building);
-        building.TimeInit = new TimeSimulated(_initTime);
-       // building.TimeFinish = new TimeSimulated(_initTime);
-       // building.TimeFinish.PlusDays(building.DaysToBuild);
+    //    building.TimeInit = new TimeSimulated(_initTime);
+           timeInit = new TimeSimulated(_initTime);
+        // building.TimeFinish = new TimeSimulated(_initTime);
+        // building.TimeFinish.PlusDays(building.DaysToBuild);
     }
     /// <summary>
     /// Retuns if is posible to accept the custom event

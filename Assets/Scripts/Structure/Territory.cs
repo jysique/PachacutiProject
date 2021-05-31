@@ -11,7 +11,7 @@ public class Territory
     public enum REGION
     {
         NORTH_REGION,
-        WESTERN_REGION,
+        EAST_REGION,
         SOUTHERN_REGION,
         CENTRE_REGION,
         NONE
@@ -25,7 +25,8 @@ public class Territory
         BOT4,
         NONE
     }
-    [SerializeField] private REGION region;
+    // [SerializeField] private REGION region;
+    [SerializeField] private string region;
     [SerializeField] private TYPEPLAYER typePlayer;
     [SerializeField] private int population;
     [SerializeField] private int gold;
@@ -123,7 +124,7 @@ public class Territory
             && armoryTerritory.Level >0 
             && irrigationChannelTerritory.Level > 0;
     }
-    public REGION RegionTerritory
+    public string RegionTerritory
     {
         get { return region; }
         set { region = value; }

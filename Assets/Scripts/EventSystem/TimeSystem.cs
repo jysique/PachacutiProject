@@ -219,10 +219,11 @@ public class TimeSystem : MonoBehaviour
     {
         for (int i = 0; i < listUpgradesBuilds.CustomEvents.Count; i++)
         {
-            int diferenceDays = timeGame.DiferenceDays(listUpgradesBuilds.CustomEvents[i].Building.TimeInit);
+            int diferenceDays = timeGame.DiferenceDays(listUpgradesBuilds.CustomEvents[i].TimeInitEvent);
             listUpgradesBuilds.CustomEvents[i].Building.DaysTotal = diferenceDays;
             if (diferenceDays == listUpgradesBuilds.CustomEvents[i].Building.DaysToBuild)
             {
+//                print("hola"); 
                 listUpgradesBuilds.CustomEvents[i].Building.CanUpdrade = true;
                 listUpgradesBuilds.CustomEvents[i].Building.DaysTotal = 0;
                 listUpgradesBuilds.CustomEvents[i].Building.ImproveBuilding(1);
@@ -274,19 +275,19 @@ public class TimeSystem : MonoBehaviour
     private void onConsumptionResources()
     {
         timeConsumption = PlusDaysToTimeSimulated(daysToConsume);
-        int foodConsume = 0;
+        float foodConsume = 0;
         List<TerritoryHandler> t = TerritoryManager.instance.GetAllTerritoriesHanlder();
         for (int i = 0; i < t.Count; i++)
         {
             TerritoryStats territoryStats = t[i].territoryStats;
             if (territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
             {
-                foodConsume += territoryStats.territory.Population / territoryStats.territory.PerPeople;
+                foodConsume += Mathf.Ceil((float)territoryStats.territory.Population / (float)territoryStats.territory.PerPeople);
             }
         }
         if (InGameMenuHandler.instance.FoodPlayer >= foodConsume)
         {
-            InGameMenuHandler.instance.FoodPlayer -= foodConsume;
+            InGameMenuHandler.instance.FoodPlayer -= (int)foodConsume;
             InGameMenuHandler.instance.ShowFloatingText("-" + foodConsume, "TextFloating", ResourceTableHandler.instance.FoodAnimation, Color.white,posY:-10f);
         }
         else

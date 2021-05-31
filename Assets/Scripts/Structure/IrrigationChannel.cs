@@ -19,4 +19,9 @@ public class IrrigationChannel : Building
         base.ImproveBuilding(_levels);
         this.workersChannel += (int)this.AtributteToAdd * _levels;
     }
+    public override void SubsideBuilding(int _levels)
+    {
+        base.SubsideBuilding(_levels);
+        this.workersChannel -= (int)this.AtributteToAdd * _levels;
+    }
 }

@@ -11,34 +11,17 @@ public class CharacterOption : MonoBehaviour
     private string type;
     private Subordinate character;
     private TerritoryHandler territoryHandler;
- //   private Button btn;
-    private bool isSelected;
-    public bool IsSelected
-    {
-        get { return isSelected; }
-    }
-    public string Type
-    {
-        get { return type; }
-        set { type = value; }
-    }
-    public Subordinate Character
-    {
-        get { return character; }
-        set { character = value; }
-    }
-    public TerritoryHandler territoryHandlerInCharacter
-    {
-        get { return territoryHandler; }
-        set { territoryHandler = value; }
-    }
     void Start()
     {
+        // It can be in the "start" function because it is instantiated
         InitDescription();
         InitProfile();
-        
-     //   btn = transform.GetComponent<Button>();
-     //   btn.onClick.AddListener(() => HireButton());
+    }
+    public void InitializeCharacterOption(string _type, Subordinate _char,TerritoryHandler _territoryHandler)
+    {
+        this.type = _type;
+        this.character = _char;
+        this.territoryHandler = _territoryHandler;
     }
     private void Update()
     {

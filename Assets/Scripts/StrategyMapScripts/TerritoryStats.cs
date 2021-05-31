@@ -13,7 +13,7 @@ public class TerritoryStats : MonoBehaviour
     [SerializeField] private Image imageTerritory;
     [SerializeField] private GameObject iconsContainer;
 
-    private bool canPopulate = true;
+  //  private bool canPopulate = true;
     private float timeLeftP;
     private float timeLeftG;
     private float timeLeftF;
@@ -33,22 +33,38 @@ public class TerritoryStats : MonoBehaviour
         //allText = iconsContainer.gameObject.transform.GetComponentsInChildren<Text>();
         
     }
+    /*
     public void SetCanPopulate(bool temp)
     {
         timerBar.enabled = temp;
         canPopulate = temp;
     }
+    */
+    public void CanPopulate()
+    {
+        populationTxt.text = territory.Population.ToString() + " / " + territory.LimitPopulation.ToString();
+        if (territory.TypePlayer != Territory.TYPEPLAYER.NONE)
+        {
+            if (territory.Population < territory.LimitPopulation)
+            {
+                timerBar.enabled = true;
+                IncresementPopulation();
+            }
+            else if(territory.Population > territory.LimitPopulation)
+            {
+                populationTxt.color = Color.red;
+            }
+        }
+        else
+        {
+            timerBar.enabled = false;
+        }
+    }
     private void FixedUpdate()
     {
-        if (canPopulate)
-        {
-            IncresementPopulation();
-
-        }
+        CanPopulate();
         //IncresementGold();
         //IncresementFood();
-        
-        populationTxt.text = territory.Population.ToString() + " / " + territory.LimitPopulation.ToString();
         /*
         allText[0].text = territory.IrrigationChannelTerritory.Level.ToString();
         allText[1].text = territory.GoldMineTerritory.Level.ToString();

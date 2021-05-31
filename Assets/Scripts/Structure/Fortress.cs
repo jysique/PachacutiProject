@@ -18,4 +18,9 @@ public class Fortress: Building
         base.ImproveBuilding(_levels);
         this.plusDefense += this.AtributteToAdd *_levels;
     }
+    public override void SubsideBuilding(int _levels)
+    {
+        base.SubsideBuilding(_levels);
+        this.plusDefense -= (int)this.AtributteToAdd * _levels;
+    }
 }

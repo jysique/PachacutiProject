@@ -11,12 +11,12 @@ public class BattleWonMenu : MonoBehaviour
     private Text instructionTitle;
     private Button continueButton;
     [SerializeField] private GameObject MilitarChiefSelection;
-    [SerializeField] private GameObject CommunalChiefSelection;
+  //  [SerializeField] private GameObject CommunalChiefSelection;
 
     private List<GameObject> militarOptions = new List<GameObject>();
-    private List<GameObject> communalOptions = new List<GameObject>();
+  //  private List<GameObject> communalOptions = new List<GameObject>();
     private int maxInstantiateCharacters = 3;
-    private int numberOfTab = 2;
+    private int numberOfTab = 1;
     private ToggleGroup[] toggleGroups;
     private bool[] canContinue;
 
@@ -45,7 +45,7 @@ public class BattleWonMenu : MonoBehaviour
         toggleGroups = new ToggleGroup[numberOfTab];
         canContinue = new bool[numberOfTab];
         toggleGroups[0] = MilitarChiefSelection.GetComponent<ToggleGroup>();
-        toggleGroups[1] = CommunalChiefSelection.GetComponent<ToggleGroup>();
+     //   toggleGroups[1] = CommunalChiefSelection.GetComponent<ToggleGroup>();
 
         for (int i = 0; i < toggleGroups.Length; i++)
         {
@@ -74,9 +74,7 @@ public class BattleWonMenu : MonoBehaviour
             GameObject characterOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/CharacterGameOption")) as GameObject;
             characterOption.transform.SetParent(gridLayout.transform, false);
             characterOption.name = charac.CharacterName;
-            characterOption.GetComponent<CharacterOption>().Type = type;
-            characterOption.GetComponent<CharacterOption>().Character = charac;
-            characterOption.GetComponent<CharacterOption>().territoryHandlerInCharacter = territoryHandler;
+            characterOption.GetComponent<CharacterOption>().InitializeCharacterOption(type,charac,territoryHandler);
             list.Add(characterOption);
         }
         subordinateList.DeleteSubodinateList();
@@ -87,7 +85,7 @@ public class BattleWonMenu : MonoBehaviour
         for (int i = 0; i < militarOptions.Count; i++)
         {
             Destroy(militarOptions[i]);
-            Destroy(communalOptions[i]);
+          //  Destroy(communalOptions[i]);
         }
         MenuManager.instance.CloseBattleWonMenu();
     }
@@ -111,6 +109,6 @@ public class BattleWonMenu : MonoBehaviour
         titleBattle.text = "You just won the battle of " + territoryHandler.territoryStats.territory.name;
         instructionTitle.text += territoryHandler.territoryStats.territory.name + " territory";
         InstantiateCharacterOption(territoryHandler, MilitarChiefSelection, militarOptions, "militar");
-        InstantiateCharacterOption(territoryHandler, CommunalChiefSelection, communalOptions, "comunal");
+      //  InstantiateCharacterOption(territoryHandler, CommunalChiefSelection, communalOptions, "comunal");
     }
 }

@@ -58,7 +58,7 @@ public class TerritoryHandler : MonoBehaviour
         }
 
         adjacentTerritories = TerritoryManager.instance.dictionary.Single(s => s.Key == territory.name).Value;
-       // territoryStats.territory.RegionTerritory = TerritoryManager.instance.dictionary2.Single(s => s.Key == territory.name).Value;
+        //territoryStats.territory.RegionTerritory = TerritoryManager.instance.dictionary2.Single(s => s.Key == territory.name).Value;
     }
     void InstantiateStatTerritory()
     {
@@ -73,30 +73,13 @@ public class TerritoryHandler : MonoBehaviour
         territoryStats.territory = territory;
 
     }
-    /// <summary>
-    /// If is none type player and this territory is limit 
-    /// can populate the territory
-    /// </summary>
-    private void PopulateTerritory()
-    {
-        if (territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.NONE && territoryStats.territory.Population < territoryStats.territory.LimitPopulation)
-        {
-            territoryStats.SetCanPopulate(true);
-        }
-        else
-        {
-            territoryStats.SetCanPopulate(false);
-        }
-    }
     private void Update()
     {
-        PopulateTerritory();
     }
     private void FixedUpdate()
     {
         if(territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.NONE && territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.PLAYER && war == false)
         {
-           
             int prob = Random.Range(0, 401);
             if (prob < 1 && this.territoryStats.territory.Population > 2)
             {
@@ -254,7 +237,6 @@ public class TerritoryHandler : MonoBehaviour
     /// <returns></returns>
     public Building GetBuilding(Building building)
     {
-        //float duration = 0;
         if (building is IrrigationChannel)
         {
             return territoryStats.territory.IrrigationChannelTerritory;
@@ -273,22 +255,21 @@ public class TerritoryHandler : MonoBehaviour
         }
         return territoryStats.territory.ArmoryTerritory;
     }
-    public Building GetBuilding(int i)
+    public Building GetBuilding(int option)
     {
-        //float duration = 0;
-        if (i == 1)
+        if (option == 0)
         {
             return territoryStats.territory.IrrigationChannelTerritory;
         }
-        else if (i == 2)
+        else if (option == 1)
         {
             return territoryStats.territory.GoldMineTerritory;
         }
-        else if (i == 3)
+        else if (option == 2)
         {
             return territoryStats.territory.SacredPlaceTerritory;
         }
-        else if (i == 4)
+        else if (option == 3)
         {
             return territoryStats.territory.FortressTerritory;
         }
