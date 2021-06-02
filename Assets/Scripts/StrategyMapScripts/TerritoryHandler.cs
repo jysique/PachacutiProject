@@ -78,7 +78,7 @@ public class TerritoryHandler : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if(territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.NONE && territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.PLAYER && war == false)
+        if(territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.CLAIM &&territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.NONE && territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.PLAYER && war == false)
         {
             int prob = Random.Range(0, 401);
             if (prob < 1 && this.territoryStats.territory.Population > 2)
@@ -107,6 +107,7 @@ public class TerritoryHandler : MonoBehaviour
             territoryStats.territory.SetSelected(true);
             ShowStateMenu();
             MakeOutline();
+            
             bool ca = false;
             TerritoryHandler selected = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
         
@@ -115,6 +116,7 @@ public class TerritoryHandler : MonoBehaviour
             MenuManager.instance.ActivateContextMenu(this, ca,war, Input.mousePosition);
 
         }
+        MenuManager.instance.CloseSelectCharacterMenu();
     }
     private void OnMouseExit()
     {

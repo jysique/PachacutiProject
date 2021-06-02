@@ -30,6 +30,10 @@ public class MilitarChief : Subordinate
         SACRED_WARRIOR,
         SIEGE_EXPERT
     }
+    public MilitarChief()
+    {
+        this.Description = "The military chief strongly influences the strength of your warriors when attacking other territories.";
+    }
     public void GetMilitarBoss()
     {
         System.Random rnd = new System.Random(DateTime.Now.Second);

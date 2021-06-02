@@ -49,8 +49,9 @@ public class TerritoryStats : MonoBehaviour
             {
                 timerBar.enabled = true;
                 IncresementPopulation();
+                populationTxt.color = Color.white;
             }
-            else if(territory.Population > territory.LimitPopulation)
+            else if(territory.Population >= territory.LimitPopulation)
             {
                 populationTxt.color = Color.red;
             }

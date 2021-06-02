@@ -23,7 +23,8 @@ public class Territory
         BOT2,
         BOT3,
         BOT4,
-        NONE
+        NONE,
+        CLAIM
     }
     // [SerializeField] private REGION region;
     [SerializeField] private string region;
@@ -47,11 +48,6 @@ public class Territory
     [SerializeField] private Fortress fortressTerritory = new Fortress();
     [SerializeField] private Armory armoryTerritory = new Armory();
     [SerializeField] private IrrigationChannel irrigationChannelTerritory = new IrrigationChannel();
-    /// <summary>
-    /// variables for countDown timers in TerritoryMenu
-    /// </summary>
-    private float[] totalTime = new float[5] { 0, 0, 0, 0, 0 };
-    private bool[] canUpgrade = new bool[5] { true, true, true, true, true };
     public int PerPeople
     {
         get { return perPeople; }
@@ -70,16 +66,6 @@ public class Territory
     {
         get { return costImproveLimitPopulation; }
         set { costImproveLimitPopulation = value; }
-    }
-    public float[] TotalTime
-    {
-        get { return totalTime; }
-        set { totalTime = value; }
-    }
-    public bool[] CanUpgrade
-    {
-        get { return canUpgrade; }
-        set { canUpgrade = value; }
     }
     public MilitarChief MilitarChiefTerritory
     {

@@ -5,7 +5,7 @@ Canchis:SOUTHERN_REGION:Canas,Acomayo,Quispicanchi
 Chumbivilcas:SOUTHERN_REGION:Espinar,Acomayo,Canas
 Espinar:SOUTHERN_REGION:Canas,Chumbivilcas
 LaConvencion:NONE:Calca,Qosqo,Urubamba,Manu,Tahuania
-Qosqo:NONE:Calca,Acomayo,Quispicanchi,Urubamba
+Qosqo:NONE:Calca,Acomayo,Quispicanchi,Urubamba,LaConvencion
 Inambari:EAST_REGION:Huepetuhe,Tahuamanu,Tambopata
 Huepetuhe:NONE:Inambari,Manu,Tambopata,Paucartambo,Quispicanchi
 Manu:CENTRE_REGION:Calca,LaConvencion,Paucartambo,Huepetuhe,Tambopata,Iñapari,Tahuania

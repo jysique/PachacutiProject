@@ -106,6 +106,7 @@ public class TerritoryManager : MonoBehaviour
                 case Territory.TYPEPLAYER.NONE:
                     territoryHandler.TintColorTerritory(new Color32(96, 142, 118, 255));
                     break;
+                case Territory.TYPEPLAYER.CLAIM:
                 case Territory.TYPEPLAYER.PLAYER:
                     territoryHandler.TintColorTerritory(new Color32(249, 85, 138, 255));
                     break;

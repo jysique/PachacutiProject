@@ -30,7 +30,6 @@ public class ButtonCustomize : MonoBehaviour, IPointerEnterHandler, IPointerExit
         switch (typecustom)
         {
             case TYPECUSTOM.UP_LIMIT:
-                
                 float s = t.LimitPopulation;
                 float s2 = s + t.AddCost;
                 CheckCost(InGameMenuHandler.instance.FoodPlayer, t.CostLimitPopulation, "food",s,s2);
@@ -71,7 +70,7 @@ public class ButtonCustomize : MonoBehaviour, IPointerEnterHandler, IPointerExit
     }
     private void CheckCost(int goldPlayer, int goldNeed, string element, float s, float s2)
     {
-        label.GetComponent<TextMeshProUGUI>().text = "Cost -" + goldNeed.ToString() + " "+ element + "\n" + s.ToString("F2") + " -> " + s2.ToString("F2"); ;
+        label.GetComponent<TextMeshProUGUI>().text = "Cost -" + goldNeed.ToString() + " "+ element + " " + s.ToString("F2") + " -> " + s2.ToString("F2"); ;
         if (goldPlayer >= goldNeed)
         {
             label.GetComponent<TextMeshProUGUI>().color = Color.white;

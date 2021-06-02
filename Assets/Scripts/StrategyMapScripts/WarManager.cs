@@ -217,9 +217,9 @@ public class WarManager : MonoBehaviour
             territory.territoryStats.territory.Population = survivors;
             if (type == Territory.TYPEPLAYER.PLAYER)
             {
+                territory.territoryStats.territory.TypePlayer = Territory.TYPEPLAYER.CLAIM;
                 MenuManager.instance.OpenBattleWonMenu(territory);
               //  InGameMenuHandler.instance.InstantiateCharacterOption(territory);
-
             }
             else /*if(type == Territory.TYPEPLAYER.BOT)*/
             {
@@ -233,7 +233,7 @@ public class WarManager : MonoBehaviour
         {
             SetPeaceMenu();
         }
-
+        InGameMenuHandler.instance.UpdateMenu();
     }
     public void AddMoreWarriors(TerritoryHandler otherTerritory, int warriors)
     {

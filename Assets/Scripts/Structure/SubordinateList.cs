@@ -15,22 +15,23 @@ public class SubordinateList
     {
         Chiefs.RemoveRange(0, Chiefs.Count);
     }
-    public void AddDataSubordinateToList(int size,string type)
+    public void AddDataSubordinateToList(int size,Character character)
     {
         for (int i = 0; i < size; i++)
         {
-            if(type== "militar")
+            if (character is MilitarChief)
             {
                 MilitarChief _militar = new MilitarChief();
                 _militar.GetMilitarBoss();
                 Chiefs.Add(_militar);
             }
-            else if(type == "comunal")
+            /*else if(character is )
             {
                 MilitarChief _militar = new MilitarChief();
                 _militar.GetMilitarBoss();
                 Chiefs.Add(_militar);
             }
+            */
         }
        // return MilitarBosses;
     }

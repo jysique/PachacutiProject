@@ -12,6 +12,7 @@ public class Character
     [SerializeField] private string personality;
     [SerializeField] private string characIconType;
     [SerializeField] private string characIconIndex;
+    private string description;
     private Sprite picture;
     private bool canElegible;
     private bool canMove;
@@ -49,6 +50,11 @@ public class Character
     {
         get { return personality; }
         set { personality = value; }
+    }
+    public string Description
+    {
+        get { return description; }
+        set { description = value; }
     }
     public bool CanElegible
     {
