@@ -23,10 +23,27 @@ public class ContextMenu : MonoBehaviour
 
     private void Update()
     {
+        SetTextToolTip();
+        
+    }
+    public void SetTextToolTip()
+    {
         moveButton.GetComponent<MenuToolTip>().SetNewInfo("This button let you move the especified\n" +
                                                           "quantity of units to another territory\n" +
-                                                          "the cost is " + WarriorsCount()+ " of gold\n" +
+                                                          "the cost is " + WarriorsCount() + " of gold\n" +
                                                           "if is an enemy territory");
+        if (clickedTerritory.territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
+        {
+            buttonBlock.transform.Find("Text").transform.GetComponent<Text>().text = "You cannot control territories that don't belong to you";
+        }
+        else if (clickedTerritory.territoryStats.territory.IsClaimed == false)
+        {
+            buttonBlock.transform.Find("Text").transform.GetComponent<Text>().text = "Claim this territory to control in militar menu";
+        }
+        else if (TimeSystem.instance.GetIsTerritorieIsInPandemic() && TimeSystem.instance.GetIsTerritorieIsInPandemic(clickedTerritory))
+        {
+            buttonBlock.transform.Find("Text").transform.GetComponent<Text>().text = "You cannot move troops in a pandemic";
+        }
         
     }
     public void SetMenu(bool canAttack, bool isWar, TerritoryHandler ta)

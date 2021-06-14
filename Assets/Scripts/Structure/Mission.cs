@@ -2,11 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
+[System.Serializable]
 public class Mission
 {
     [SerializeField]private string name;
-    [SerializeField]private string message;
-    [SerializeField]private string messagePro;  
+    private string message;
+    private string messagePro;  
     [SerializeField]private List<Territory> territoryMission = new List<Territory>();
     private int timeToFinish;
     private int timeBenefitsPassed;
@@ -50,7 +51,8 @@ public class Mission
     public Mission()
     {
         //this.timeToFinish = 1;
-        this.timeToFinish = UnityEngine.Random.Range(2, 6);
+        //this.timeToFinish = UnityEngine.Random.Range(2, 6);
+        this.timeToFinish = 4;
         this.missionStatus = STATUS.IN_PROGRESS;
     }
     public void GetFinishTimeMission()
@@ -107,21 +109,22 @@ public class Mission
         DONE, // end of benefits
     }
 }
- 
+ [System.Serializable]
 public class MissionDefeat : Mission
 {
     Territory.TYPEPLAYER typePlayer;
     public MissionDefeat()
     {
         this.NameMission = "Defeat Mission";
-        this.typePlayer = (Territory.TYPEPLAYER)UnityEngine.Random.Range(1, Enum.GetNames(typeof(Territory.TYPEPLAYER)).Length-2);
+        this.typePlayer = GlobalVariables.instance.GetRandomTypePlayer();
+        TerritoryMission.Add(TerritoryManager.instance.GetTerritoryRandom(this.typePlayer).territoryStats.territory);
         this.Message = "Defeat "+ GlobalVariables.instance.GetPlayerName(typePlayer) + " civilization";
         this.MessagePro = "+2 fortress nivels for " + this.TimeMissionActive + " months";
     }
     public override void CheckMission()
     {
         base.CheckMission();
-        List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesByTypePlayer(typePlayer);
+        List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(typePlayer);
         if (t.Count == 0)
         {
             base.MissionStatus = STATUS.COMPLETE;
@@ -130,7 +133,7 @@ public class MissionDefeat : Mission
     public override void InitBenefits()
     {
         base.InitBenefits();
-        List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER);
+        List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER);
         for (int i = 0; i < t.Count; i++)
         {
             t[i].territoryStats.territory.FortressTerritory.Level += 2;
@@ -142,7 +145,7 @@ public class MissionDefeat : Mission
         base.FinishBenefits();
         if (base.MissionStatus == STATUS.DONE)
         {
-            List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER);
+            List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER);
             for (int i = 0; i < t.Count; i++)
             {
                 t[i].territoryStats.territory.FortressTerritory.Level -= 2;
@@ -189,14 +192,12 @@ public class MissionExpansion : Mission
     public MissionExpansion()
     {
         this.NameMission = "Expansion Mission";
-        Territory.REGION region = (Territory.REGION)UnityEngine.Random.Range(0, Enum.GetNames(typeof(Territory.REGION)).Length -1);
+        Territory.REGION region = GlobalVariables.instance.GetRandomRegion();
         string regionString = region.ToString();
         List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesByZoneTerritory(regionString);
-        //Debug.Log("r- "+ region.ToString() +"-t-" +t.Count);
         for (int i = 0; i < t.Count; i++)
         {
             this.TerritoryMission.Add(t[i].territoryStats.territory);
-          //Debug.Log(this.TerritoryMission[i].name);
         }
         
         this.Message = "Conquer " + regionString.ToLower().Replace("_", " ");
@@ -298,17 +299,15 @@ public class MissionAllBuilds : Mission
     public MissionAllBuilds()
     {
         this.NameMission = "All in One";
+        TerritoryMission.Add(TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER)[0].territoryStats.territory);
         this.Message = "Have all buildings in one territory";
         this.MessagePro = "+20 opinion in all territories \nfor " + this.TimeMissionActive + " months";
     }
     public override void CheckMission()
     {
         base.CheckMission();
-        List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER);
-        for (int i = 0; i < t.Count; i++)
-        {
-            this.TerritoryMission.Add(t[i].territoryStats.territory);
-        }
+        TerritoryMission = TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER);
+        
         bool complete = TerritoryMission.Any(x => x.AllBuilds() == true);
         if (complete)
         {
@@ -318,7 +317,7 @@ public class MissionAllBuilds : Mission
     public override void InitBenefits()
     {
         base.InitBenefits();
-        List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER);
+        List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER);
         for (int i = 0; i < t.Count; i++)
         {
             t[i].territoryStats.territory.MotivationPeople += 20;
@@ -330,7 +329,7 @@ public class MissionAllBuilds : Mission
         base.FinishBenefits();
         if (base.MissionStatus == STATUS.DONE)
         {
-            List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER);
+            List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER);
             for (int i = 0; i < t.Count; i++)
             {
                 // this.TerritoryMission.Add(t[i].territoryStats.territory);

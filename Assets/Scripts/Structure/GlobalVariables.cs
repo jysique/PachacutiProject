@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -156,5 +157,30 @@ public class GlobalVariables : MonoBehaviour
     public void GoToVisualNovel()
     {
         Transition.instance.LoadScene(2);
+    }
+
+    public void CenterCameraToTerritory(TerritoryHandler territoryHandler)
+    {
+        Camera main = Camera.main;
+        Vector3 origin = main.transform.position;
+        main.transform.position = new Vector3(territoryHandler.transform.position.x - 5, territoryHandler.transform.position.y, -10);
+        Vector3 difference = origin - main.transform.position;
+        foreach (GameObject i in TerritoryManager.instance.territoryList)
+        {
+            i.GetComponent<TerritoryHandler>().territoryStats.container.transform.position += difference;
+        }
+        foreach (GameObject i in InGameMenuHandler.instance.listFloatingText)
+        {
+            i.GetComponent<Transform>().transform.position += difference;
+        }
+    }
+
+    public Territory.TYPEPLAYER GetRandomTypePlayer()
+    {
+        return (Territory.TYPEPLAYER)UnityEngine.Random.Range(1, Enum.GetNames(typeof(Territory.TYPEPLAYER)).Length - 3);
+    }
+    public Territory.REGION GetRandomRegion()
+    {
+        return (Territory.REGION)UnityEngine.Random.Range(0, Enum.GetNames(typeof(Territory.REGION)).Length - 1);
     }
 }

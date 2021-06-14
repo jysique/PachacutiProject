@@ -49,13 +49,11 @@ public class Building
         get { return daysTotal; }
         set { daysTotal = value; }
     }
-    /*
     public TimeSimulated TimeInit
     {
         get { return init; }
         set { init = value; }
     }
-    */
     public virtual void ImproveBuilding(int _levels)
     {
         this.level += _levels;
@@ -68,5 +66,9 @@ public class Building
     public void ImproveCostUpgrade()
     {
         this.CostToUpgrade += 3;
+    }
+    public void ResetBuilding()
+    {
+        SubsideBuilding(Level);
     }
 }

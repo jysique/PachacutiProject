@@ -55,6 +55,7 @@ public class TerritoryHandler : MonoBehaviour
             territoryStats.territory.IrrigationChannelTerritory.ImproveCostUpgrade();
             territoryStats.territory.GoldMineTerritory.ImproveBuilding(1);
             territoryStats.territory.GoldMineTerritory.ImproveCostUpgrade();
+            territoryStats.territory.IsClaimed = true;
         }
 
         adjacentTerritories = TerritoryManager.instance.dictionary.Single(s => s.Key == territory.name).Value;
@@ -78,7 +79,7 @@ public class TerritoryHandler : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if(territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.CLAIM &&territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.NONE && territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.PLAYER && war == false)
+        if(territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.NONE && territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.PLAYER && war == false)
         {
             int prob = Random.Range(0, 401);
             if (prob < 1 && this.territoryStats.territory.Population > 2)
@@ -111,8 +112,24 @@ public class TerritoryHandler : MonoBehaviour
             bool ca = false;
             TerritoryHandler selected = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
         
-            if (selected == this && territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER) ca = true;
-            if (war == true) ca = false;
+            if (selected == this && territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
+            {
+                ca = true;
+                if (territoryStats.territory.IsClaimed == false)
+                {
+                    ca = false;
+                }
+            }
+       //     print("1|" + TimeSystem.instance.GetIsTerritorieIsInPandemic(this));
+       //     print("2|" + TimeSystem.instance.GetIsTerritorieIsInPandemic());
+            if (war == true || TimeSystem.instance.GetIsTerritorieIsInPandemic(this) || TimeSystem.instance.GetIsTerritorieIsInPandemic()) 
+            {
+//                print("b|");
+                ca = false;
+            }
+
+            
+   //         print(ca);
             MenuManager.instance.ActivateContextMenu(this, ca,war, Input.mousePosition);
 
         }
@@ -131,12 +148,12 @@ public class TerritoryHandler : MonoBehaviour
         switch (state)
         {
             case 0:
+
                 territoryStats.territory.SetSelected(true);
                 ShowStateMenu();
                 MakeOutline();
                 break;
             case 1:
-                //print("moving");
                 TerritoryHandler territoryHandlerSelected = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
                 Territory.TYPEPLAYER typeSelected = territoryHandlerSelected.territoryStats.territory.TypePlayer;
                 int warriorsCount = MenuManager.instance.contextMenu.GetComponent<ContextMenu>().WarriorsCount();
@@ -146,12 +163,12 @@ public class TerritoryHandler : MonoBehaviour
                     if (territoryStats.territory.TypePlayer != typeSelected)
                     {
                         InGameMenuHandler.instance.GoldPlayer -= warriorsCount;
+                        InGameMenuHandler.instance.FoodPlayer -= warriorsCount;
                     }
                     WarManager.instance.SendWarriors(territoryHandlerSelected, this, warriorsCount);
                 }
                 else
                 {
-                    //print("no tiene suficiente oro");
                     InGameMenuHandler.instance.ShowFloatingText("you need "+warriorsCount+" golds", "TextMesh", transform, new Color32(187, 27, 128, 255));
                 }
                 HideAdjacentTerritories();
@@ -226,11 +243,13 @@ public class TerritoryHandler : MonoBehaviour
     
     public void ImproveSpeedPopulation()
     {
-        territoryStats.territory.VelocityPopulation += 0.3f;
+        //territoryStats.territory.VelocityPopulation += 0.3f;
+        territoryStats.territory.VelocityPopulation += territoryStats.territory.ImproveSpeed;
     }
     public void ImproveLimit()
     {
-        territoryStats.territory.LimitPopulation += 20;
+        //territoryStats.territory.LimitPopulation += 20;
+        territoryStats.territory.LimitPopulation += territoryStats.territory.ImproveLimit;
     }
     /// <summary>
     /// Returns the builds from any buildings in territory

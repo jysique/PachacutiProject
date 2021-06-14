@@ -24,7 +24,7 @@ public class CustomEventOption : MonoBehaviour
         btn = transform.GetComponent<Button>();
         btn.onClick.AddListener(() => CustomEventApear());
         territoryNameTxt.text = custom.TerritoryEvent.name;
-        typeEventTxt.text = custom.EventType;
+        typeEventTxt.text = custom.EventType.ToString().ToLower().Replace("_", " ");
         initTxt.text = custom.TimeInitEvent.PrintTimeSimulated();
         finishTxt.text = custom.TimeFinalEvent.PrintTimeSimulated();
     }

@@ -217,9 +217,9 @@ public class WarManager : MonoBehaviour
             territory.territoryStats.territory.Population = survivors;
             if (type == Territory.TYPEPLAYER.PLAYER)
             {
-                territory.territoryStats.territory.TypePlayer = Territory.TYPEPLAYER.CLAIM;
+                territory.territoryStats.territory.TypePlayer = Territory.TYPEPLAYER.PLAYER;
+                territory.territoryStats.territory.IsClaimed = false;
                 MenuManager.instance.OpenBattleWonMenu(territory);
-              //  InGameMenuHandler.instance.InstantiateCharacterOption(territory);
             }
             else /*if(type == Territory.TYPEPLAYER.BOT)*/
             {
@@ -348,6 +348,7 @@ public class WarManager : MonoBehaviour
     public void MoveWarriors(TerritoryHandler otherTerritory, int attackPower, TerritoryHandler attacker)
     {
         Territory.TYPEPLAYER temp = otherTerritory.territoryStats.territory.TypePlayer;
+        //  if (otherTerritory.territoryStats.territory.TypePlayer == attacker.territoryStats.territory.TypePlayer || otherTerritory.territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.CLAIM)
         if (otherTerritory.territoryStats.territory.TypePlayer == attacker.territoryStats.territory.TypePlayer)
         {
             otherTerritory.territoryStats.territory.Population = otherTerritory.territoryStats.territory.Population + attackPower;

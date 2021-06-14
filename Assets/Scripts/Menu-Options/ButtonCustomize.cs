@@ -31,12 +31,12 @@ public class ButtonCustomize : MonoBehaviour, IPointerEnterHandler, IPointerExit
         {
             case TYPECUSTOM.UP_LIMIT:
                 float s = t.LimitPopulation;
-                float s2 = s + t.AddCost;
+                float s2 = s + t.ImproveLimit;
                 CheckCost(InGameMenuHandler.instance.FoodPlayer, t.CostLimitPopulation, "food",s,s2);
                 break;
             case TYPECUSTOM.UP_SPEED:
                 s = t.VelocityPopulation;
-                s2 = s + t.AddCost;
+                s2 = s + t.ImproveSpeed;
                 CheckCost(InGameMenuHandler.instance.GoldPlayer, t.CostSpeedPopulation, "gold",s,s2);
                 break;
             case TYPECUSTOM.UP_CHANNEL:

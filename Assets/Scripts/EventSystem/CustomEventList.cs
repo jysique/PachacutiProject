@@ -18,7 +18,7 @@ public class CustomEventList
         _customEvent.GetCustomEvent(_initTime);
         CustomEvents.Add(_customEvent);
     }
-    public void AddCustomEvent2(TimeSimulated _initTime,TerritoryHandler territory, Building building)
+    public void AddCustomEvent(TimeSimulated _initTime,TerritoryHandler territory, Building building)
     {
         CustomEvent _customEvent = new CustomEvent();
         _customEvent.GetCustomEvent(_initTime,territory, building);

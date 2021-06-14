@@ -66,11 +66,11 @@ public class CharacterOption : MonoBehaviour
             var militar = (MilitarChief)character;
             territory.MilitarChiefTerritory = militar;
         }
-       /* else if (type == "comunal")
-        {
+        /* else if (type == "comunal")
+         {
 
-        }*/
-        territory.TypePlayer = Territory.TYPEPLAYER.PLAYER;
+         }*/
+        territory.IsClaimed = true;
         MenuManager.instance.CloseSelectCharacterMenu();
         InGameMenuHandler.instance.UpdateMenu();
     }

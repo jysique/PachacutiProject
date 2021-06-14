@@ -15,6 +15,7 @@ public class MissionManager : MonoBehaviour
 
     [SerializeField] private Button btnMission;
     [SerializeField] private GameObject notificationMission;
+    int a = 0;
     public GameObject NotificationMission
     {
         get { return notificationMission; }
@@ -26,16 +27,15 @@ public class MissionManager : MonoBehaviour
     }
     private void Start()
     {
-     //   InitializeMissions();
         btnMission.onClick.AddListener(() => CheckByPlayer());
     }
     public void InitializeMissions()
     {
+        missionAllBOption.InitializeMissionOption(4);
         missionDefOption.InitializeMissionOption(0);
         missionConqOption.InitializeMissionOption(1);
         missionExpOption.InitializeMissionOption(2);
         missionProtOption.InitializeMissionOption(3);
-        missionAllBOption.InitializeMissionOption(4);
     }
     private void Update()
     {
@@ -43,6 +43,11 @@ public class MissionManager : MonoBehaviour
     private void CheckByPlayer()
     {
         notificationMission.SetActive(false);
+        a++;
+        if(a == 1)
+        {
+            InitializeMissions();
+        }
     }
     
 }

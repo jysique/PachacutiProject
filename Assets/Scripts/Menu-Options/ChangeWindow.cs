@@ -12,7 +12,7 @@ public class ChangeWindow : MonoBehaviour
 
         AudioManager.instance.ReadAndPlaySFX("ButtonPush");
     }
-
+    /*
     GovernorList governorList = new GovernorList();
     public void ChangeSceneButton()
     {
@@ -50,4 +50,5 @@ public class ChangeWindow : MonoBehaviour
     {
         GlobalVariables.instance.ClosingApp();
     }
+    */
 }

@@ -23,7 +23,7 @@ public class TerritoryManager : MonoBehaviour
     {
         AddMilitaryBoss();
         AddRegionData();
-        MissionManager.instance.InitializeMissions();
+     //   MissionManager.instance.InitializeMissions();
     }
     private void ReadAdjacentTerritories()
     {
@@ -106,7 +106,6 @@ public class TerritoryManager : MonoBehaviour
                 case Territory.TYPEPLAYER.NONE:
                     territoryHandler.TintColorTerritory(new Color32(96, 142, 118, 255));
                     break;
-                case Territory.TYPEPLAYER.CLAIM:
                 case Territory.TYPEPLAYER.PLAYER:
                     territoryHandler.TintColorTerritory(new Color32(249, 85, 138, 255));
                     break;
@@ -225,13 +224,26 @@ public class TerritoryManager : MonoBehaviour
     /// </summary>
     /// <param name="type"></param>
     /// <returns></returns>
-    public List<TerritoryHandler> GetTerritoriesByTypePlayer(Territory.TYPEPLAYER type)
+    public List<TerritoryHandler> GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER type)
     {
         List<TerritoryHandler> territoriesPlayer = new List<TerritoryHandler>();
         for (int i = 0; i < territoryList.Count; i++)
         {
             TerritoryHandler _territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
             if (_territoryHandler.territoryStats.territory.TypePlayer == type)
+            {
+                territoriesPlayer.Add(_territoryHandler);
+            }
+        }
+        return territoriesPlayer;
+    }
+     public List<Territory> GetTerritoriesByTypePlayer(Territory.TYPEPLAYER type)
+    {
+        List<Territory> territoriesPlayer = new List<Territory>();
+        for (int i = 0; i < territoryList.Count; i++)
+        {
+            Territory _territoryHandler = territoryList[i].GetComponent<TerritoryHandler>().territoryStats.territory;
+            if (_territoryHandler.TypePlayer == type)
             {
                 territoriesPlayer.Add(_territoryHandler);
             }
@@ -265,15 +277,28 @@ public class TerritoryManager : MonoBehaviour
     /// <returns></returns>
     public TerritoryHandler GetTerritoryRandom(Territory.TYPEPLAYER typePlayer)
     {
-        List<TerritoryHandler> list = GetTerritoriesByTypePlayer(typePlayer);
+        List<TerritoryHandler> list = GetTerritoriesHandlerByTypePlayer(typePlayer);
         int r = UnityEngine.Random.Range(0, list.Count);
         TerritoryHandler territoryHandler =  list[r];
         return territoryHandler;
     }
+    public TerritoryHandler GetTerritoryHandlerByTerritory(Territory territory)
+    {
+        for (int i = 0; i < territoryList.Count; i++)
+        {
+            TerritoryHandler _territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
+            if (_territoryHandler.territoryStats.territory.name == territory.name)
+            {
+                return _territoryHandler;
+            }
+        }
+        return null;
+    }
+
     public int GetOveralRateResource(Territory.TYPEPLAYER typePlayer, string element)
     {
         int rate = 0;
-        List<TerritoryHandler> list = GetTerritoriesByTypePlayer(typePlayer);
+        List<TerritoryHandler> list = GetTerritoriesHandlerByTypePlayer(typePlayer);
         for (int i = 0; i < list.Count; i++)
         {
             if (element == "channel")

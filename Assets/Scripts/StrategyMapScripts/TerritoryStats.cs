@@ -33,25 +33,18 @@ public class TerritoryStats : MonoBehaviour
         //allText = iconsContainer.gameObject.transform.GetComponentsInChildren<Text>();
         
     }
-    /*
-    public void SetCanPopulate(bool temp)
-    {
-        timerBar.enabled = temp;
-        canPopulate = temp;
-    }
-    */
     public void CanPopulate()
     {
         populationTxt.text = territory.Population.ToString() + " / " + territory.LimitPopulation.ToString();
         if (territory.TypePlayer != Territory.TYPEPLAYER.NONE)
         {
+            populationTxt.color = Color.white;
             if (territory.Population < territory.LimitPopulation)
             {
-                timerBar.enabled = true;
                 IncresementPopulation();
-                populationTxt.color = Color.white;
+                timerBar.enabled = true;
             }
-            else if(territory.Population >= territory.LimitPopulation)
+            else if(territory.Population > territory.LimitPopulation)
             {
                 populationTxt.color = Color.red;
             }

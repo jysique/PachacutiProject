@@ -10,14 +10,11 @@ public class InGameMenuHandler : MonoBehaviour
     //instance
     public static InGameMenuHandler instance;
 
- 
-    //
-
     [SerializeField] private Territory selectedTerritory;
     [NonSerialized] public List<GameObject> listFloatingText = new List<GameObject>();
 
     [Header("Menu military")]
-    [SerializeField] private GameObject menuBlock;
+    [SerializeField] private GameObject menuBlockWarriors;
     [SerializeField] private GameObject menuBlockCharacter;
     [SerializeField] private Button selectMilitarChief;
     [SerializeField] private Image militaryBossPicture;
@@ -47,7 +44,6 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private BuildOption FortressOption;
     [SerializeField] private BuildOption BarracksOption;
 
-
     //resources
     private int goldPlayer = 30;
     private int foodPlayer = 30;
@@ -69,8 +65,7 @@ public class InGameMenuHandler : MonoBehaviour
     }
     void Start()
     {
-        MilitarChief militarChief = new MilitarChief();
-        selectMilitarChief.onClick.AddListener(() => MenuManager.instance.OpenSelectCharacterMenu(selectedTerritory, militarChief));
+        InitButtons();
         UpdateMenu();
     }
     /// <summary>
@@ -80,7 +75,7 @@ public class InGameMenuHandler : MonoBehaviour
     /// </summary>
     private void UpdateMilitarMenu()
     {
-        menuBlock.SetActive(false);
+        menuBlockWarriors.SetActive(false);
         MilitarChief mChief = selectedTerritory.MilitarChiefTerritory;
         militaryBossName.text = mChief.CharacterName;
         militaryBossPicture.sprite = mChief.Picture;
@@ -89,16 +84,23 @@ public class InGameMenuHandler : MonoBehaviour
         militaryBossInfluence.text = mChief.Influence.ToString() +"/10";
         GenerationSpeed.text = selectedTerritory.VelocityPopulation.ToString();
         warriorsLimit.text = selectedTerritory.LimitPopulation.ToString();
-        if (selectedTerritory.TypePlayer == Territory.TYPEPLAYER.CLAIM)
-        {
-            menuBlockCharacter.SetActive(true);
-        }
-        else{
-            menuBlockCharacter.SetActive(false);
-        }
+
         if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
         {
-            menuBlock.SetActive(true);                
+            menuBlockWarriors.SetActive(true);
+        }
+        else
+        {
+            if (selectedTerritory.IsClaimed == false)
+            {
+                menuBlockCharacter.SetActive(true);
+                menuBlockWarriors.SetActive(true);
+            }
+            else
+            {
+                menuBlockCharacter.SetActive(false);
+                menuBlockWarriors.SetActive(false);
+            }
         }
     }
     /// <summary>
@@ -110,7 +112,7 @@ public class InGameMenuHandler : MonoBehaviour
     {
         menuBlockTerritory.SetActive(false);
         //territoryImage.sprite = selectedTerritory.
-        if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER && selectedTerritory.TypePlayer != Territory.TYPEPLAYER.CLAIM)
+        if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
         {
             menuBlockTerritory.SetActive(true);           
         }
@@ -123,7 +125,7 @@ public class InGameMenuHandler : MonoBehaviour
     private void UpdateBuildingsMenu()
     {
         menuBlockBuildings.SetActive(false);
-        if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER && selectedTerritory.TypePlayer != Territory.TYPEPLAYER.CLAIM)
+        if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
         {
             menuBlockBuildings.SetActive(true);
         }
@@ -165,7 +167,7 @@ public class InGameMenuHandler : MonoBehaviour
         }
         else
         {
-            militarWarriorsCount.color = new Color(50,50,50,255);
+            militarWarriorsCount.color = new Color32(50,50,50,255);
             militarWarriorsCount.GetComponent<MenuToolTip>().SetNewInfo("Actual quantity of warriors.");
         }
         goldCount.text = selectedTerritory.Gold.ToString();
@@ -279,9 +281,9 @@ public class InGameMenuHandler : MonoBehaviour
     public void GatherGoldResourceButton()
     {
         int temp = 0;
-        for (int i = 0; i < TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER).Count; i++)
+        for (int i = 0; i < TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER).Count; i++)
         {
-            temp+= GatherGold(TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER)[i]);
+            temp+= GatherGold(TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER)[i]);
         }
         ShowFloatingText("+"+ temp.ToString(), "TextFloating", ResourceTableHandler.instance.GoldAnimation, Color.white);
         goldPlayer += temp;
@@ -289,11 +291,16 @@ public class InGameMenuHandler : MonoBehaviour
     public void GatherFoodResourceButton()
     {
         int temp = 0;
-        for (int i = 0; i < TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER).Count; i++)
+        for (int i = 0; i < TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER).Count; i++)
         {
-            temp += GatherFood(TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER)[i]);
+            temp += GatherFood(TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER)[i]);
         }
         ShowFloatingText("+" + temp.ToString(), "TextFloating", ResourceTableHandler.instance.FoodAnimation,Color.white);
         foodPlayer += temp;
+    }
+    private void InitButtons()
+    {
+        MilitarChief militarChief = new MilitarChief();
+        selectMilitarChief.onClick.AddListener(() => MenuManager.instance.OpenSelectCharacterMenu(selectedTerritory, militarChief));
     }
 }

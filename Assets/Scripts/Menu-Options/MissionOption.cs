@@ -7,10 +7,13 @@ using UnityEngine.UI;
 public class MissionOption : MonoBehaviour
 {
    // private GameObject iconMission;
-    private TextMeshProUGUI nameMission;
-    private TextMeshProUGUI descriptionMission;
-    private Image statusMission;
-    [SerializeField]private Mission mission;
+    [SerializeField] private TextMeshProUGUI nameMission;
+    [SerializeField] private TextMeshProUGUI descriptionMission;
+    [SerializeField] private Toggle toggleMission;
+    [SerializeField] private Image statusMission;
+    [SerializeField] private Button goToBtn;
+    [SerializeField] private Mission mission;
+    
     private bool init;
     public Mission Mission
     {
@@ -20,10 +23,6 @@ public class MissionOption : MonoBehaviour
     private void Awake()
     {
         init = false;
-        nameMission = transform.Find("NameTxt").transform.GetComponent<TextMeshProUGUI>();
-        descriptionMission = transform.Find("DescriptionTxt").transform.GetComponent<TextMeshProUGUI>();
-        statusMission = transform.Find("StateMission").transform.GetComponent<Image>();
-
     }
     private void Start()
     {
@@ -32,8 +31,11 @@ public class MissionOption : MonoBehaviour
     {
         init = true;
         GetMission(option);
+        toggleMission.isOn = false;
         nameMission.text = mission.NameMission;
         descriptionMission.text = mission.Message;
+        TerritoryHandler t = TerritoryManager.instance.GetTerritoryHandlerByTerritory(mission.TerritoryMission[0]);
+        goToBtn.onClick.AddListener(() => GlobalVariables.instance.CenterCameraToTerritory(t));
         descriptionMission.GetComponent<MenuToolTip>().AddNewInfo(mission.MessagePro);
         nameMission.GetComponent<MenuToolTip>().AddNewInfo(mission.MessagePro);
         statusMission.GetComponent<MenuToolTip>().AddNewInfo(mission.MessagePro);
@@ -76,6 +78,7 @@ public class MissionOption : MonoBehaviour
     private void UpdateStatus()
     {
         statusMission.GetComponent<MenuToolTip>().SetNewInfo("Mission Status: " + mission.MissionStatus.ToString().ToLower().Replace("_", " "));
+        /*
         if (mission.MissionStatus == Mission.STATUS.IN_PROGRESS)
         {
             statusMission.color = new Color(0.25f, 0.5f, 1.0f, 1f);
@@ -87,6 +90,10 @@ public class MissionOption : MonoBehaviour
         else if (mission.MissionStatus == Mission.STATUS.DONE)
         {
             statusMission.color = new Color(0.5f, 1.0f, 0.5f, 1f);
+        }*/
+        if (mission.MissionStatus != Mission.STATUS.IN_PROGRESS)
+        {
+            toggleMission.isOn = true;
         }
     }
 }

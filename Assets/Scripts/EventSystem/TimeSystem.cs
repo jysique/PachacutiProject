@@ -78,7 +78,7 @@ public class TimeSystem : MonoBehaviour
         CustomEventInTime();
 
         CheckListCustomEvent();
-        CheckLisBuildingsUpgrade();
+        CheckListBuildingsUpgrade();
     }
     /// <summary>
     /// Returns a time-simulated according to the timeGame
@@ -108,7 +108,7 @@ public class TimeSystem : MonoBehaviour
     /// <param name="building">That building improve</param>
     public void AddEvent(TerritoryHandler territoryHandler, Building building)
     {
-        listUpgradesBuilds.AddCustomEvent2(timeGame, territoryHandler, building);
+        listUpgradesBuilds.AddCustomEvent(timeGame, territoryHandler, building);
     }
     /// <summary>
     /// Check the timeGame with the time of gather resources
@@ -215,7 +215,7 @@ public class TimeSystem : MonoBehaviour
     /// if is the same update the daysTotal to 0, can Upgrade the builds again, improve the 
     /// building and remove the same event
     /// </summary>
-    private void CheckLisBuildingsUpgrade()
+    private void CheckListBuildingsUpgrade()
     {
         for (int i = 0; i < listUpgradesBuilds.CustomEvents.Count; i++)
         {
@@ -263,6 +263,7 @@ public class TimeSystem : MonoBehaviour
             territoryStats.IncresementGold();
             territoryStats.IncresementFood();
             if (territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
+            //  if (territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER || territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.CLAIM)
             {
                 InGameMenuHandler.instance.ShowFloatingText("+" + territoryStats.territory.GoldMineTerritory.WorkersMine / territoryStats.territory.PerPeople + "gold", "TextMesh", t[i].transform, new Color32(0, 19, 152, 255));
                 InGameMenuHandler.instance.ShowFloatingText("+" + territoryStats.territory.IrrigationChannelTerritory.WorkersChannel / territoryStats.territory.PerPeople + "food", "TextMesh", t[i].transform, new Color32(0, 19, 152, 255), posY: -0.25f);
@@ -280,6 +281,7 @@ public class TimeSystem : MonoBehaviour
         for (int i = 0; i < t.Count; i++)
         {
             TerritoryStats territoryStats = t[i].territoryStats;
+            // if (territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER || territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.CLAIM)
             if (territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
             {
                 foodConsume += Mathf.Ceil((float)territoryStats.territory.Population / (float)territoryStats.territory.PerPeople);
@@ -313,5 +315,29 @@ public class TimeSystem : MonoBehaviour
     {
         EventManager.instance.InstantiateEventListOption(listEvents);
         EventManager.instance.WarningEventAppearance(listEvents.CustomEvents[id], listEvents.CustomEvents[id].DifferenceToFinal);
+    }
+    public bool GetIsTerritorieIsInPandemic(TerritoryHandler territoryEvent)
+    {
+        for (int i = 0; i < listEvents.CustomEvents.Count; i++)
+        {
+            if (listEvents.CustomEvents[i].EventStatus == CustomEvent.STATUS.PROGRESS && listEvents.CustomEvents[i].EventType == CustomEvent.EVENTTYPE.PANDEMIC && listEvents.CustomEvents[i].TerritoryEvent == territoryEvent)
+            {
+               // print("is in pandemic");
+                return true;
+            }
+        }
+        return false;
+    }
+    public bool GetIsTerritorieIsInPandemic()
+    {
+        for (int i = 0; i < listEvents.CustomEvents.Count; i++)
+        {
+            if (listEvents.CustomEvents[i].EventStatus == CustomEvent.STATUS.PROGRESS && listEvents.CustomEvents[i].EventType == CustomEvent.EVENTTYPE.ALL_T_PANDEMIC)
+            {
+               // print("is in all pandemic");
+                return true;
+            }
+        }
+        return false;
     }
 }

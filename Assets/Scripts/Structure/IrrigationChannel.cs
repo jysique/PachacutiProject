@@ -6,7 +6,7 @@ public class IrrigationChannel : Building
     private int workersChannel = 0;
     public IrrigationChannel()
     {
-        this.Name = "Irrigation Channel";
+        this.Name = "Irrigation";
         this.AtributteToAdd = 5f;
     }
     public int WorkersChannel
@@ -24,4 +24,5 @@ public class IrrigationChannel : Building
         base.SubsideBuilding(_levels);
         this.workersChannel -= (int)this.AtributteToAdd * _levels;
     }
+
 }

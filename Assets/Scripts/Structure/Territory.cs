@@ -24,8 +24,10 @@ public class Territory
         BOT3,
         BOT4,
         NONE,
-        CLAIM
+//        CLAIM
     }
+    private bool isClaim = false;
+
     // [SerializeField] private REGION region;
     [SerializeField] private string region;
     [SerializeField] private TYPEPLAYER typePlayer;
@@ -40,6 +42,8 @@ public class Territory
     private int addCost = 5;
     private int costImproveLimitPopulation = 10;
     private int perPeople = 5;
+    private float improveSpeed = 0.3f;
+    private int improveLimit = 10;
     [SerializeField] private bool selected;
 
     [SerializeField] private MilitarChief militarChiefTerritory = null;
@@ -48,6 +52,20 @@ public class Territory
     [SerializeField] private Fortress fortressTerritory = new Fortress();
     [SerializeField] private Armory armoryTerritory = new Armory();
     [SerializeField] private IrrigationChannel irrigationChannelTerritory = new IrrigationChannel();
+
+    public bool IsClaimed
+    {
+        get { return isClaim; }
+        set { isClaim = value; }
+    }
+    public float ImproveSpeed
+    {
+        get { return improveSpeed; }
+    }
+    public int ImproveLimit
+    {
+        get { return improveLimit; }
+    }
     public int PerPeople
     {
         get { return perPeople; }
@@ -150,7 +168,14 @@ public class Territory
     }
     public void SetSelected(bool _selected) { selected = _selected; }
     public bool GetSelected() { return selected; }
-
+    public void ResetAllBuilds()
+    {
+        irrigationChannelTerritory.ResetBuilding();
+        goldMineTerritory.ResetBuilding();
+        sacredPlaceTerritory.ResetBuilding();
+        FortressTerritory.ResetBuilding();
+        ArmoryTerritory.ResetBuilding();
+    }
 
 }
 

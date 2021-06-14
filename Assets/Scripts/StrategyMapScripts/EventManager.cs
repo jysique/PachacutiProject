@@ -62,6 +62,7 @@ public class EventManager : MonoBehaviour
         AcceptEventButton.gameObject.SetActive(false);
         DeclineEventButton.gameObject.SetActive(false);
         TitleTextCustomEvent.text = "Results Event";
+        /*
         if (custom.IsAccepted)
         {
             DetailsTextCustomEvent.text = "You complete the requirements of the " + custom.TerritoryEvent.name + " territory petition.";
@@ -70,15 +71,17 @@ public class EventManager : MonoBehaviour
         {
             DetailsTextCustomEvent.text = "You were unable to complete the requirements of the " + custom.TerritoryEvent.name + " territory petition.";
         }
+        */
         ResultsEvent.SetActive(true);
         ResultsTextEvent.text = "Results:\n" + custom.ResultsEvent();
-        MenuManager.instance.PauseGame();
+        DetailsTextCustomEvent.text = custom.ResultMessagetEvent;
+        DateTableHandler.instance.PauseTime();
     }
 
     public void WarningEventAppearance(CustomEvent custom, int daysToFinal)
     {
         InitCustomEvent(custom);
-        MenuManager.instance.PauseGame();
+        DateTableHandler.instance.PauseTime();
         CloseEventButton.gameObject.SetActive(true);
         DetailsTextCustomEvent.text = custom.MessageEvent + "\nTime remaining: " + daysToFinal + " days.";
     }
@@ -112,7 +115,7 @@ public class EventManager : MonoBehaviour
     }
     public void CloseCustomEventButton()
     {
-        MenuManager.instance.ResumeGame();
+        DateTableHandler.instance.ResumeTime();
         CustomEventSelection.gameObject.SetActive(false);
         ResetTextCustomEvent();
         InstantiateEventListOption(TimeSystem.instance.listEvents);

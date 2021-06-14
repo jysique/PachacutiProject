@@ -14,6 +14,8 @@ public class BuildOption : MonoBehaviour
     private TextMeshProUGUI nameTxt2;
     private Building building;
     private bool init;
+
+    private MenuToolTip upgradeToolTip;
     public Building TerritoryBuilding
     {
         get { return building; }
@@ -30,6 +32,7 @@ public class BuildOption : MonoBehaviour
         costTxt = transform.Find("CostTxt").gameObject.GetComponent<TextMeshProUGUI>();
 
         upgradeBtn = this.gameObject.transform.GetChild(7).gameObject.GetComponent<Button>();
+        upgradeToolTip = upgradeBtn.GetComponent<MenuToolTip>();
         linearBarProgress = this.gameObject.transform.GetChild(5).gameObject.GetComponent<Image>();
     }
     void Start()
@@ -46,19 +49,88 @@ public class BuildOption : MonoBehaviour
     {
         if (init == true)
         {
-            nameTxt.text = building.Name;
-            nameTxt2.text = "Press '+' To Build " + building.Name;
-            levelTxt.text = "Level:" + building.Level.ToString();
-
-            bool a = building.Level > 0 ? false : true;
-            block.SetActive(a);
-            upgradeBtn.interactable = building.CanUpdrade;
-            linearBarProgress.fillAmount = (float)building.DaysTotal / (float)building.DaysToBuild;
+            UpdateElements();
+            //linearBarProgress.fillAmount = (float)building.DaysTotal / (float)building.DaysToBuild;
+            UpdateLinearBarProgress();
+            CheckBlock();
+            SetStatus();
+            CheckStatusImprove();
         }
     }
+    void UpdateElements()
+    {
+        nameTxt.text = building.Name;
+        nameTxt2.text = "Press '+' to build " + building.Name;
+        levelTxt.text = "Level:" + building.Level.ToString();
 
+
+      //  upgradeBtn.interactable = building.CanUpdrade;
+    }
+    void UpdateLinearBarProgress()
+    {
+        if (!building.CanUpdrade)
+        {
+            int diference = TimeSystem.instance.TimeGame.DiferenceDays(building.TimeInit);
+            int hours = (int)TimeSystem.instance.TimeGame.Hour + (24 * diference);
+            linearBarProgress.fillAmount = hours / ((float)building.DaysToBuild * 24);
+        }
+        else
+        {
+            linearBarProgress.fillAmount = 0;
+        }
+    }
     void UpgradeButton()
     {
        InGameMenuHandler.instance.ImproveBuildingButton(building);
+    }
+    void CheckBlock()
+    {
+        bool a = building.Level > 0 ? false : true;
+        block.SetActive(a);
+    }
+    void CheckStatusImprove()
+    {
+        switch (status)
+        {
+            case STATE.UPGRADE:
+                upgradeBtn.interactable = true;
+                upgradeToolTip.SetNewInfo("¿Upgrade building?");
+                break;
+            case STATE.NOT_RESOURCES:
+                upgradeBtn.interactable = false;
+                upgradeToolTip.SetNewInfo("Not Enough Resources");
+                break;
+            case STATE.PROCESS:
+                upgradeBtn.interactable = false;
+                upgradeToolTip.SetNewInfo("Improvement in process");
+                break;
+            default:
+                break;
+        }
+    }
+    private void SetStatus()
+    {
+        if (InGameMenuHandler.instance.GoldPlayer < building.CostToUpgrade)
+        {
+            status = STATE.NOT_RESOURCES;
+        }
+        else
+        {
+            if (building.CanUpdrade)
+            {
+                status = STATE.UPGRADE;
+            }
+            else
+            {
+                status = STATE.PROCESS;
+            }
+        }
+    }
+    private STATE status;
+    private enum STATE
+    {
+        UPGRADE,
+        NOT_RESOURCES,
+        PROCESS
     }
 }
