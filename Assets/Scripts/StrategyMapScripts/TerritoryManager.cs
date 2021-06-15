@@ -237,6 +237,19 @@ public class TerritoryManager : MonoBehaviour
         }
         return territoriesPlayer;
     }
+    public TerritoryHandler GetTerritoriesHandlerByName(string nameTerritory)
+    {
+        TerritoryHandler territoryHandler = null;
+        for (int i = 0; i < territoryList.Count; i++)
+        {
+            TerritoryHandler _territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
+            if (_territoryHandler.territoryStats.territory.name == nameTerritory)
+            {
+                territoryHandler = _territoryHandler;
+            }
+        }
+        return territoryHandler;
+    }
      public List<Territory> GetTerritoriesByTypePlayer(Territory.TYPEPLAYER type)
     {
         List<Territory> territoriesPlayer = new List<Territory>();

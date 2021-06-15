@@ -49,6 +49,10 @@ public class InGameMenuHandler : MonoBehaviour
     private int foodPlayer = 30;
     private int sucesionSizePlayer;
     private int scorePlayer;
+    public Territory TerritorySelected
+    {
+        get { return selectedTerritory; }
+    }
     public int GoldPlayer
     {
         get { return goldPlayer; }

@@ -753,6 +753,7 @@ GameObject:
   - component: {fileID: 7839025372627886286}
   - component: {fileID: 2365161961268101940}
   - component: {fileID: 7731866386208309812}
+  - component: {fileID: 6954655993136532303}
   m_Layer: 5
   m_Name: CostTxt
   m_TagString: Untagged
@@ -820,7 +821,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Costo:'
+  m_text: 'Cost:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9380d2ae8f0a4f64c9ed791fb641a47d, type: 2}
   m_sharedMaterial: {fileID: -277145532077745091, guid: 9380d2ae8f0a4f64c9ed791fb641a47d, type: 2}
@@ -889,6 +890,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6954655993136532303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5752435012240071222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e994fffe7d194c4b85351aaf19b0dd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6804321111869558013
 GameObject:
   m_ObjectHideFlags: 0

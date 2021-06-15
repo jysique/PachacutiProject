@@ -78,8 +78,6 @@ public class ContextMenu : MonoBehaviour
         {
 
             WarManager.instance.SelectTerritory(int.Parse(warriorsCount.text));
-            
-
             MenuManager.instance.TurnOffBlock();
             TerritoryManager.instance.ChangeStateTerritory(0);
             this.gameObject.SetActive(false);

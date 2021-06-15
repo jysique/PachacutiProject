@@ -5,14 +5,17 @@ using UnityEngine;
 public class CreateGlobalVariables : MonoBehaviour
 {
     public GameObject gvPrefab;
+    public GameObject langPrefab;
     private void Awake()
     {
       
         if (GlobalVariables.instance == null)
         {
 
-            var prefab = Instantiate(gvPrefab);
-            prefab.transform.SetParent(this.transform);
+            var gvprefab = Instantiate(gvPrefab);
+            var langprefab = Instantiate(langPrefab);
+            gvprefab.transform.SetParent(this.transform);
+            langprefab.transform.SetParent(this.transform);
         }
     }
 }
