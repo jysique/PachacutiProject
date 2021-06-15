@@ -107,11 +107,12 @@ public class TerritoryHandler : MonoBehaviour
 
     private void EnemyMoveWarriors()
     {
-        
+        /*
         int i = Random.Range(0, adjacentTerritories.Count);
         int warriorsToSend = Random.Range(3, this.territoryStats.territory.Population);
         TerritoryHandler territoryToAttack = adjacentTerritories[i].GetComponent<TerritoryHandler>();
         WarManager.instance.SendWarriors(this, territoryToAttack, warriorsToSend);
+        */
     }
 
     private void OnMouseOver()

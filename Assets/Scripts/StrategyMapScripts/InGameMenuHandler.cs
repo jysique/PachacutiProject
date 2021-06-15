@@ -29,6 +29,9 @@ public class InGameMenuHandler : MonoBehaviour
 
     [Header("Menu territory")]
     [SerializeField] private GameObject menuBlockTerritory;
+    [SerializeField] private TextMeshProUGUI territoryEmpire;
+    [SerializeField] private TextMeshProUGUI territoryRegion;
+    [SerializeField] private TextMeshProUGUI territoryReligion;
     [SerializeField] private TextMeshProUGUI goldCount;
     [SerializeField] private TextMeshProUGUI foodCount;
     [SerializeField] private TextMeshProUGUI GoldGeneration;
@@ -100,7 +103,14 @@ public class InGameMenuHandler : MonoBehaviour
     private void UpdateTerritoryMenu()
     {
         menuBlockTerritory.SetActive(false);
-        //territoryImage.sprite = selectedTerritory.
+        territoryEmpire.text = TerritoryManager.instance.GetTerritoryEmpire(selectedTerritory);
+        territoryRegion.text = selectedTerritory.RegionTerritory.ToString().Split(char.Parse("_"))[0];
+        MotivationBonus.text = selectedTerritory.SacredPlaceTerritory.Motivation.ToString() + "/10";
+        AttackBonus.text = selectedTerritory.FortressTerritory.PlusDefense.ToString() + "/10";
+        DefenseBonus.text = selectedTerritory.ArmoryTerritory.PlusAttack.ToString() + "/10";
+        GoldGeneration.text = (selectedTerritory.GoldMineTerritory.WorkersMine / 5) + " every day";
+        FoodGeneration.text = (selectedTerritory.IrrigationChannelTerritory.WorkersChannel / 5) + " every day";
+        
         if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
         {
             menuBlockTerritory.SetActive(true);
@@ -150,11 +160,6 @@ public class InGameMenuHandler : MonoBehaviour
         militarWarriorsCount.text = selectedTerritory.Population.ToString() + " / " + selectedTerritory.LimitPopulation.ToString() + " units";
         goldCount.text = selectedTerritory.Gold.ToString();
         foodCount.text = selectedTerritory.FoodReward.ToString();
-        GoldGeneration.text = (selectedTerritory.GoldMineTerritory.WorkersMine / 5) + " every day";
-        FoodGeneration.text = (selectedTerritory.IrrigationChannelTerritory.WorkersChannel / 5) + " every day";
-        MotivationBonus.text = selectedTerritory.SacredPlaceTerritory.Motivation.ToString() + "/10";
-        AttackBonus.text = selectedTerritory.FortressTerritory.PlusDefense.ToString() + "/10";
-        DefenseBonus.text = selectedTerritory.ArmoryTerritory.PlusAttack.ToString() + "/10";
     }
     void Update()
     {
