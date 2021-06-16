@@ -43,7 +43,7 @@ public class War
         get { return attackers; }
         set { attackers = value; }
     }
-    public TerritoryHandler Territory
+    public TerritoryHandler TerritoryWar
     {
         get { return territory; }
         set { territory = value; }
@@ -53,7 +53,14 @@ public class War
     {
         if(status == 1)
         {
+            if (territory.territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.PLAYER && territory.territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.NONE)
+            {
+                
+                BotManager.instance.DeleteTerritory(territory.territoryStats.territory.TypePlayer, territory);
+            }
+
             WarManager.instance.FinishWar(territory,attackers,warriors1Count);
+            
             if(WarManager.instance.selectedWar == this)
             {
                 MenuManager.instance.overMenuBlock.GetComponent<OverMenu>().turnOffMenus();

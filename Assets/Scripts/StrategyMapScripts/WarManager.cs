@@ -39,7 +39,9 @@ public class WarManager : MonoBehaviour
     [SerializeField] private Image hatP1;
     [SerializeField] private Image hatP2;
     [SerializeField] private Image hatP3;
-
+    //
+    private Color32 playerColor;
+    private Color32 enemyColor;
 
     private void Awake()
     {
@@ -48,6 +50,8 @@ public class WarManager : MonoBehaviour
     private void Start()
     {
         status = false;
+        enemyColor = new Color32(248, 147, 146,255);
+        playerColor = new Color32(114, 165, 195,255);
     }
    
     public void AddWar(int c1, int c2, float s1, float s2, TerritoryHandler ta, Territory.TYPEPLAYER a)
@@ -87,87 +91,66 @@ public class WarManager : MonoBehaviour
     {
         foreach (War w in warList)
         {
+
             if (w.GetTerritory() == selected)
             {
-                //hats
-                switch (w.Attackers)
-                {
-                    case Territory.TYPEPLAYER.PLAYER:
-                        hatAttacker.sprite = incaHat;
-                        empire.text = "Incas";
-                        attackColor.color = new Color(0.627f, 0.858f, 1,1);
-                        break;
-                    case Territory.TYPEPLAYER.NONE:
-                        hatAttacker.sprite = null;
-                        empire.text = "No empire";
-                        attackColor.color = Color.white;
-                        break;
-                    case Territory.TYPEPLAYER.BOT:
-                        hatAttacker.sprite = chancaHat;
-                        empire.text = "Chancas";
-                        attackColor.color = new Color(0.973f, 0.576f, 0.57f,1);
-                        break;
-                    case Territory.TYPEPLAYER.BOT2:
-                        hatAttacker.sprite = mochicaHat;
-                        empire.text = "Mochica";
-                        attackColor.color = new Color(0.973f, 0.576f, 0.57f, 1);
-                        break;
-                    case Territory.TYPEPLAYER.BOT3:
-                        hatAttacker.sprite = chavinHat;
-                        empire.text = "Chavin";
-                        attackColor.color = new Color(0.973f, 0.576f, 0.57f, 1);
-                        break;
-                    case Territory.TYPEPLAYER.BOT4:
-                        hatAttacker.sprite = chancaHat;
-                        empire.text = "Pendiente";
-                        attackColor.color = new Color(0.973f, 0.576f, 0.57f, 1);
-                        break;
-                }
-                switch (w.Territory.territoryStats.territory.TypePlayer)
-                {
-                    case Territory.TYPEPLAYER.PLAYER:
-                        hatDefender.sprite = incaHat;
-                        empireD.text = "Incas";
-                        deffendColor.color = new Color(160,219,255);
-                        break;
-                    case Territory.TYPEPLAYER.NONE:
-                        hatDefender.sprite = null;
-                        empireD.text = "No empire";
-                        deffendColor.color = Color.white;
-                        break;
-                    case Territory.TYPEPLAYER.BOT:
-                        hatDefender.sprite = mochicaHat;
-                        empireD.text = "Chancas";
-                        deffendColor.color = new Color(248, 147, 146);
-                        break;
-                    case Territory.TYPEPLAYER.BOT2:
-                        hatDefender.sprite = chavinHat;
-                        empireD.text = "Mochica";
-                        deffendColor.color = new Color(248, 147, 146);
-                        break;
-                    case Territory.TYPEPLAYER.BOT3:
-                        hatDefender.sprite = chancaHat;
-                        empireD.text = "Chavin";
-                        deffendColor.color = new Color(248, 147, 146);
-                        break;
-                    case Territory.TYPEPLAYER.BOT4:
-                        hatDefender.sprite = chancaHat;
-                        empireD.text = "Pendiente";
-                        deffendColor.color = new Color(248, 147, 146);
-                        break;
-                }
+                peaceContainer.SetActive(false);
                 warContainer.SetActive(true);
+                SetWarriorAnimation(w.Attackers, hatAttacker, attackColor ,empire);
+                SetWarriorAnimation(w.TerritoryWar.territoryStats.territory.TypePlayer, hatDefender, deffendColor, empireD);
+              
                 title.text = "Battle of " + selected.territoryStats.territory.name;
+
                 power.text = (w.Speed1*10).ToString();
                 powerD.text = (w.Speed2*10).ToString();
+
                 territorySprite.sprite = selected.sprite.sprite;
+
                 selectedWar = w;
-                peaceContainer.SetActive(false);
+
+                
             }
         }
         
     }
     
+    private void SetWarriorAnimation(Territory.TYPEPLAYER type, Image hat, Image background, Text empire)
+    {
+        switch (type)
+        {
+            case Territory.TYPEPLAYER.PLAYER:
+                hat.sprite = incaHat;
+                empire.text = "Incas";
+                background.color = playerColor;
+                break;
+            case Territory.TYPEPLAYER.NONE:
+                hat.sprite = null;
+                empire.text = "No empire";
+                background.color = Color.white;
+                break;
+            case Territory.TYPEPLAYER.BOT:
+                hat.sprite = mochicaHat;
+                empire.text = "Chancas";
+                background.color = enemyColor;
+                break;
+            case Territory.TYPEPLAYER.BOT2:
+                hat.sprite = chavinHat;
+                empire.text = "Mochica";
+                background.color = enemyColor;
+                break;
+            case Territory.TYPEPLAYER.BOT3:
+                hat.sprite = chancaHat;
+                empire.text = "Chavin";
+                background.color = enemyColor;
+                break;
+            case Territory.TYPEPLAYER.BOT4:
+                hat.sprite = chancaHat;
+                empire.text = "Pendiente";
+                background.color = enemyColor;
+                break;
+        }
+    }
+
     private void SetPeaceMenu()
     {
         switch (selected.territoryStats.territory.TypePlayer)
@@ -220,6 +203,9 @@ public class WarManager : MonoBehaviour
                 territory.territoryStats.territory.TypePlayer = Territory.TYPEPLAYER.PLAYER;
                 territory.territoryStats.territory.IsClaimed = false;
                 MenuManager.instance.OpenBattleWonMenu(territory);
+                
+              //  InGameMenuHandler.instance.InstantiateCharacterOption(territory);
+
             }
             else /*if(type == Territory.TYPEPLAYER.BOT)*/
             {
@@ -227,6 +213,7 @@ public class WarManager : MonoBehaviour
                 newMilitarBoss.GetMilitarBoss();
                 //print(newMilitarBoss.CharacterName);
                 territory.territoryStats.territory.MilitarChiefTerritory = newMilitarBoss;
+                BotManager.instance.CreateOrAdd(type, territory);
             }
         }
         if (territory == selected)

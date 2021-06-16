@@ -308,6 +308,38 @@ public class TerritoryManager : MonoBehaviour
         return null;
     }
 
+    /// <summary>
+    /// Returns the empire of a territory
+    /// </summary>
+    /// <param name="territory"></param>
+    /// <returns></returns>
+    public string GetTerritoryEmpire(Territory territory)
+    {
+        string result = "";
+        switch (territory.TypePlayer)
+        {
+            case Territory.TYPEPLAYER.PLAYER:
+                result = "Inca";
+                break;
+            case Territory.TYPEPLAYER.NONE:
+                result = "No empire";
+                break;
+            case Territory.TYPEPLAYER.BOT:
+                result = "Chanca";
+                break;
+            case Territory.TYPEPLAYER.BOT2:
+                result = "Moche";
+                break;
+            case Territory.TYPEPLAYER.BOT3:
+                result = "Chavin";
+                break;
+            case Territory.TYPEPLAYER.BOT4:
+                result = "Pendiente";
+                break;
+
+        }
+        return result;
+    }
     public int GetOveralRateResource(Territory.TYPEPLAYER typePlayer, string element)
     {
         int rate = 0;
@@ -324,5 +356,18 @@ public class TerritoryManager : MonoBehaviour
             }
         }
         return rate;
+    }
+
+    public bool IsLimit(TerritoryHandler territory)
+    {
+        List<GameObject> adjacentTerritories = territory.AdjacentTerritories;
+        foreach (GameObject t in adjacentTerritories)
+        {
+            if(t.GetComponent<TerritoryHandler>().territoryStats.territory.TypePlayer != territory.territoryStats.territory.TypePlayer)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
