@@ -97,7 +97,7 @@ public class WarManager : MonoBehaviour
                 peaceContainer.SetActive(false);
                 warContainer.SetActive(true);
                 SetWarriorAnimation(w.Attackers, hatAttacker, attackColor ,empire);
-                SetWarriorAnimation(w.Territory.territoryStats.territory.TypePlayer, hatDefender, deffendColor, empireD);
+                SetWarriorAnimation(w.TerritoryWar.territoryStats.territory.TypePlayer, hatDefender, deffendColor, empireD);
               
                 title.text = "Battle of " + selected.territoryStats.territory.name;
 
@@ -201,6 +201,7 @@ public class WarManager : MonoBehaviour
             if (type == Territory.TYPEPLAYER.PLAYER)
             {
                 MenuManager.instance.OpenBattleWonMenu(territory);
+                
               //  InGameMenuHandler.instance.InstantiateCharacterOption(territory);
 
             }

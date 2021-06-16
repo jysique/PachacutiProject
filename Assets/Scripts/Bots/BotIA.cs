@@ -81,7 +81,7 @@ public class BotIA
         options.Clear();
         foreach (TerritoryHandler t in territories)
         {
-            Debug.Log("check");
+
             if (t.war)
             {
                 List<GameObject> adjacents = t.AdjacentTerritories;
@@ -101,7 +101,7 @@ public class BotIA
             }
             if (!TerritoryManager.instance.IsLimit(t))
             {
-                Debug.Log("no limite");
+
                 List<GameObject> adjacents = t.AdjacentTerritories;
                 foreach (GameObject a in adjacents)
                 {
@@ -117,7 +117,7 @@ public class BotIA
             }
             else
             {
-                Debug.Log("limite");
+
                 List<GameObject> adjacents = t.AdjacentTerritories;
                 foreach (GameObject a in adjacents)
                 {
@@ -141,7 +141,7 @@ public class BotIA
 
     private void SelectOptions()
     {
-        Debug.Log(options.Count);
+
         int i = Random.Range(0, options.Count);
         if(options[i].Number != 0)
         {
@@ -180,7 +180,10 @@ public class BotIA
         }
     }
 
-
+    public void DeleteTerritory(TerritoryHandler t)
+    {
+        territories.Remove(t);
+    }
 
 
 

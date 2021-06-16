@@ -53,4 +53,15 @@ public class BotManager : MonoBehaviour
       
     }
 
+    public void DeleteTerritory(Territory.TYPEPLAYER type, TerritoryHandler t)
+    {
+        foreach (BotIA bot in bots)
+        {
+            if (bot.TypeBot == type)
+            {
+                bot.DeleteTerritory(t);
+            }
+        }
+    }
+
 }
