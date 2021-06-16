@@ -89,7 +89,7 @@ public class MissionOption : MonoBehaviour
     /// </summary>
     private void UpdateStatus()
     {
-        statusMission.GetComponent<MenuToolTip>().SetNewInfo("Mission Status: " + mission.MissionStatus.ToString().ToLower().Replace("_", " "));
+        statusMission.GetComponent<MenuToolTip>().SetNewInfo(GameMultiLang.GetTraduction("MissionStatus") + mission.MissionStatus.ToString().ToLower().Replace("_", " "));
         /*
         if (mission.MissionStatus == Mission.STATUS.IN_PROGRESS)
         {

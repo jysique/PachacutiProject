@@ -50,3 +50,6 @@ CloseLabel=Cerrar
 PauseLabel=Pausa
 StartLabel=Comenzar
 MessageText=En la siguiente demostración, eres el gobernador de una civilización. \nTu misión es conquistar todos los territorios del mapa. &¡Buena suerte!
+BattleWon=Acabas de ganar la batalla de 
+SelectTerritory=Seleccione los personajes para 
+MissionStatus=Estado de la mision: 

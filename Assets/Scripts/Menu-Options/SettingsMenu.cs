@@ -4,13 +4,16 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using TMPro;
+
 public class SettingsMenu : MonoBehaviour
 {
     public AudioMixerGroup master;    
     [SerializeField] Slider volGeneral;
     [SerializeField] Slider volMusic;
     [SerializeField] Slider volSFX;
-    [SerializeField] Dropdown resolutionDropdown;
+   // [SerializeField] Dropdown resolutionDropdown;
+    [SerializeField] TMP_Dropdown resolutionDropdown;
     [SerializeField] Toggle fullScreenToggle;
 
     [Header("Buttons")]
@@ -18,7 +21,7 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField] Button closeButton;
 
     private int screenInt;
-    Resolution[] resolutions;
+    
     const string resName = "resolutionoption";
 
     private void Awake()
@@ -39,9 +42,18 @@ public class SettingsMenu : MonoBehaviour
         }));
 
     }
+    List<Resolution> resolutions = new List<Resolution>();
     void Start()
     {
-        resolutions = Screen.resolutions;
+        Resolution[] r;
+        r = Screen.resolutions;
+        for (int i = 0; i < r.Length; i++)
+        {
+            if ((r[i].width % 16.0f) == 0 && (r[i].height % 9.0f) == 0)
+            {
+                resolutions.Add(r[i]);
+            }
+        }
         resolutionDropdown.ClearOptions();
         InitializedValues();
         InitializedValuesResolution();
@@ -66,13 +78,10 @@ public class SettingsMenu : MonoBehaviour
         List<string> options = new List<string>();
         int currentResolutionIndex = 0;
 
-        for (int i = 0; i < resolutions.Length; i++)
+        for (int i = 0; i < resolutions.Count; i++)
         {
             string option = resolutions[i].width + " x " + resolutions[i].height;
-            if ((resolutions[i].width % 16.0f) == 0 && (resolutions[i].height % 9.0f) == 0)
-            {
-                options.Add(option);
-            }
+            options.Add(option);
             if (resolutions[i].width == Screen.currentResolution.width &&
                 resolutions[i].height == Screen.currentResolution.height)
             {
@@ -86,6 +95,7 @@ public class SettingsMenu : MonoBehaviour
     public void SetResolution(int resolutionIndex)
     {
         Resolution reso = resolutions[resolutionIndex];
+    //    print(reso.width + "|" + reso.height);
         Screen.SetResolution(reso.width, reso.height, Screen.fullScreen);
     }
     public void SetVolume(float vol)

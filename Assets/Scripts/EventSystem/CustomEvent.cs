@@ -213,7 +213,6 @@ public class CustomEvent
             case EVENTTYPE.EARTHQUAKER:
                 this.message = "An earthquake has occurred in "+ TerritoryEvent.name+" territory";
                 this.requirementMessageEvent = "No requirements";
-             //   this.acceptMessageEvent = "Keep " + TerritoryEvent.name + " territory.";
                 this.declineMessageEvent = "Reset builds in " + territoryEvent.name + " territory.";
                 break;
             case EVENTTYPE.DROUGHT:

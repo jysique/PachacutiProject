@@ -50,3 +50,6 @@ CloseLabel=Close
 PauseLabel=Pause
 StartLabel=Start
 MessageText=In the following demo you are the governor of a civilization. &Your mission is to conquer all the territories on the map. &Good Luck!
+BattleWon=You just won the battle of 
+SelectTerritory=Select the characters for 
+MissionStatus=Mission Status: 
