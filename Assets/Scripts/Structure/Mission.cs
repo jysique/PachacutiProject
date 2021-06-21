@@ -11,7 +11,7 @@ public class Mission
     [SerializeField]private List<Territory> territoryMission = new List<Territory>();
     private int timeToFinish;
     private int timeBenefitsPassed;
-    private STATUS missionStatus;
+    [SerializeField]private STATUS missionStatus;
     private TimeSimulated timeMission;
     public STATUS MissionStatus
     {
@@ -84,6 +84,7 @@ public class Mission
         {
             InitBenefits();
             MissionManager.instance.NotificationMission.SetActive(true);
+            MissionManager.instance.currentMission++;
             InGameMenuHandler.instance.UpdateMenu();
         }
         else if (missionStatus == STATUS.IN_PROGRESS_BENEFITS)
@@ -153,7 +154,6 @@ public class MissionDefeat : Mission
         }
     }
 }
-
 public class MissionConquest : Mission
 {
     public MissionConquest()
@@ -345,22 +345,22 @@ public class MissionTutorial : Mission
         optionTutorial = option;
         switch (optionTutorial)
         {
-            case 1:
+            case 0:
                 this.NameMission = "Check terrotiries";
                 TerritoryMission.Add(TerritoryManager.instance.GetTerritoriesHandlerByName("Calca").territoryStats.territory);
                 this.Message = "Click on Calca to see information in that territory";
                 break;
-            case 2:
+            case 1:
                 this.NameMission = "Check troops";
                 TerritoryMission.Add(TerritoryManager.instance.GetTerritoriesHandlerByName("LaConvencion").territoryStats.territory);
                 this.Message = "You can see your troops with right click in LaConvencion";
                 break;
-            case 3:
+            case 2:
                 this.NameMission = "Move 10 troops";
                 TerritoryMission.Add(TerritoryManager.instance.GetTerritoriesHandlerByName("LaConvencion").territoryStats.territory);
                 this.Message = "You can move your troops to another territory";
                 break;
-            case 4:
+            case 3:
                 this.NameMission = "Conquist Calca";
                 TerritoryMission.Add(TerritoryManager.instance.GetTerritoriesHandlerByName("Calca").territoryStats.territory);
                 this.Message = "If you win your first battle you can give more motivation to your people";
@@ -376,26 +376,26 @@ public class MissionTutorial : Mission
         base.CheckMission();
         switch (optionTutorial)
         {
-            case 1:
+            case 0:
                 if (InGameMenuHandler.instance.TerritorySelected == TerritoryMission[0])
                 {
                     count++;
                 }
                 break;
-            case 2:
+            case 1:
                 if (InGameMenuHandler.instance.TerritorySelected == TerritoryMission[0] && 
                     MenuManager.instance.contextMenu.activeSelf == true)
                 {
                     count++;
                 }
                 break;
-            case 3:
+            case 2:
                 if (TerritoryMission[0].Population == 0)
                 {
                     count++;
                 }
                 break;
-            case 4:
+            case 3:
                 if (TerritoryMission[0].TypePlayer == Territory.TYPEPLAYER.PLAYER)
                 {
                     count++;

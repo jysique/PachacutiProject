@@ -110,6 +110,10 @@ public class TimeSystem : MonoBehaviour
     {
         listUpgradesBuilds.AddCustomEvent(timeGame, territoryHandler, building);
     }
+    public void AddEvent(TerritoryHandler territoryHandler)
+    {
+        listEvents.AddCustomEvent(timeGame, territoryHandler);
+    }
     /// <summary>
     /// Check the timeGame with the time of gather resources
     /// if is the same active the event of gather resources
@@ -313,8 +317,10 @@ public class TimeSystem : MonoBehaviour
     /// <param name="id"></param>
     private void WarningCustomEvent(int id)
     {
-        EventManager.instance.InstantiateEventListOption(listEvents);
+        //EventManager.instance.InstantiateEventListOption(listEvents);
+        EventManager.instance.InstantiateEventListOption();
         AlertManager.AlertEvent();
+        
        // EventManager.instance.WarningEventAppearance(listEvents.CustomEvents[id], listEvents.CustomEvents[id].DifferenceToFinal);
     }
     public bool GetIsTerritorieIsInPandemic(TerritoryHandler territoryEvent)

@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8492313090951433588
 RectTransform:
   m_ObjectHideFlags: 0
@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 2569488931750683332}
   - component: {fileID: 8181538890600902868}
   m_Layer: 5
-  m_Name: TerritoryNameTxt
+  m_Name: DescriptionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -181,10 +181,10 @@ RectTransform:
   m_Father: {fileID: 5081783468237024149}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.15556411, y: 0.56666666}
-  m_AnchorMax: {x: 0.5298207, y: 0.8983624}
-  m_AnchoredPosition: {x: -0.1000061, y: 0.06000042}
-  m_SizeDelta: {x: 0.010000229, y: -0.12999916}
+  m_AnchorMin: {x: 0.12573043, y: 0.20269628}
+  m_AnchorMax: {x: 0.88047194, y: 0.86324346}
+  m_AnchoredPosition: {x: -0.038772583, y: -0.5307331}
+  m_SizeDelta: {x: -0.35203195, y: -1.9302099}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1158322266520776382
 CanvasRenderer:
@@ -227,7 +227,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LaConvencion
+  m_text: short description event
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ebc16f7a1ed9a52409520f5110364a3b, type: 2}
   m_sharedMaterial: {fileID: -4070752333062155656, guid: ebc16f7a1ed9a52409520f5110364a3b, type: 2}
@@ -314,7 +314,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8729018031285022154
 RectTransform:
   m_ObjectHideFlags: 0
@@ -461,7 +461,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4766576308598216551
 RectTransform:
   m_ObjectHideFlags: 0
@@ -718,6 +718,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Icon: {fileID: 4349437100269207199}
+  descriptionTxt: {fileID: 8181538890600902868}
   territoryNameTxt: {fileID: 8181538890600902868}
   typeEventTxt: {fileID: 6966506682666399799}
   initTxt: {fileID: 7671484110095281630}

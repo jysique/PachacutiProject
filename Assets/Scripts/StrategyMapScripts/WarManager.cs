@@ -202,13 +202,18 @@ public class WarManager : MonoBehaviour
                // territory.territoryStats.territory.TypePlayer = Territory.TYPEPLAYER.PLAYER;
                 territory.territoryStats.territory.IsClaimed = false;
                 //  MenuManager.instance.OpenBattleWonMenu(territory);
-                AlertManager.AlertConquered();
+                // AlertManager.AlertConquered(territory);
+                TimeSystem.instance.AddEvent(territory);
+                //  EventManager.instance.InstantiateEventListOption(TimeSystem.instance.listEvents);
+                EventManager.instance.InstantiateEventListOption();
+                AlertManager.AlertConquered(territory);
+
             }
             else /*if(type == Territory.TYPEPLAYER.BOT)*/
             {
                 if (territory.territoryStats.territory.TypePlayer==Territory.TYPEPLAYER.PLAYER)
                 {
-                    AlertManager.AlertLost();
+                    AlertManager.AlertLost(territory);
                 }
 
                 MilitarChief newMilitarBoss = new MilitarChief();

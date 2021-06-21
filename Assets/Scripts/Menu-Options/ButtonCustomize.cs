@@ -27,7 +27,7 @@ public class ButtonCustomize : MonoBehaviour, IPointerEnterHandler, IPointerExit
     }
     private void InstantiateFloatingText(Territory t)
     {
-        print("sapo cochino");
+//        print("sapo cochino");
         switch (typecustom)
         {
             case TYPECUSTOM.UP_LIMIT:

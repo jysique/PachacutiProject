@@ -163,7 +163,8 @@ public class GlobalVariables : MonoBehaviour
     {
         Camera main = Camera.main;
         Vector3 origin = main.transform.position;
-        main.transform.position = new Vector3(territoryHandler.transform.position.x - 5, territoryHandler.transform.position.y, -10);
+        //  main.transform.position = new Vector3(territoryHandler.transform.position.x - 5, territoryHandler.transform.position.y, -10);
+        main.transform.position = new Vector3(territoryHandler.transform.position.x, territoryHandler.transform.position.y, -10);
         Vector3 difference = origin - main.transform.position;
         foreach (GameObject i in TerritoryManager.instance.territoryList)
         {

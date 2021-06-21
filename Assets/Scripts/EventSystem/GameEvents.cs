@@ -42,6 +42,7 @@ public class GameEvents : MonoBehaviour
             onGatherResourceTriggerEnter();
         }
     }
+
     
     /// <summary>
     /// ===Custom event ====
@@ -71,6 +72,15 @@ public class GameEvents : MonoBehaviour
         if (onCustomEventExit != null)
         {
             onCustomEventExit();
+        }
+    }
+
+    public event Action onMissionTriggerEnter;
+    public void MissionTriggerEnter()
+    {
+        if (onMissionTriggerEnter != null)
+        {
+            onMissionTriggerEnter();
         }
     }
 }

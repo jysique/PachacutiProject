@@ -33,14 +33,14 @@ public class EventManager : MonoBehaviour
         InitEventsButtons();
     }
 
-    public void InstantiateEventListOption(CustomEventList customlist)
+    public void InstantiateEventListOption()
     {
         Transform gridLayout = CustomEventList.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
         foreach (Transform child in gridLayout.transform)
         {
             Destroy(child.gameObject);
         }
-        foreach (CustomEvent customEvent in customlist.CustomEvents)
+        foreach (CustomEvent customEvent in TimeSystem.instance.listEvents.CustomEvents)
         {
             GameObject customEventOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/CustomEventOption")) as GameObject;
             customEventOption.transform.SetParent(gridLayout.transform, false);
@@ -62,16 +62,6 @@ public class EventManager : MonoBehaviour
         AcceptEventButton.gameObject.SetActive(false);
         DeclineEventButton.gameObject.SetActive(false);
         TitleTextCustomEvent.text = "Results Event";
-        /*
-        if (custom.IsAccepted)
-        {
-            DetailsTextCustomEvent.text = "You complete the requirements of the " + custom.TerritoryEvent.name + " territory petition.";
-        }
-        else
-        {
-            DetailsTextCustomEvent.text = "You were unable to complete the requirements of the " + custom.TerritoryEvent.name + " territory petition.";
-        }
-        */
         ResultsEvent.SetActive(true);
         ResultsTextEvent.text = "Results:\n" + custom.ResultsEvent();
         DetailsTextCustomEvent.text = custom.ResultMessagetEvent;
@@ -118,7 +108,7 @@ public class EventManager : MonoBehaviour
         DateTableHandler.instance.ResumeTime();
         CustomEventSelection.gameObject.SetActive(false);
         ResetTextCustomEvent();
-        InstantiateEventListOption(TimeSystem.instance.listEvents);
+        InstantiateEventListOption();
     }
     private void ResetTextCustomEvent()
     {

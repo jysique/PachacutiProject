@@ -18,6 +18,7 @@ public class AlertOption : MonoBehaviour
     Animator anim;
     RectTransform a;
     TimeSimulated timeInit;
+    TerritoryHandler focusTerritory;
     void Start()
     {
         anim = container.GetComponent<Animator>();
@@ -34,10 +35,11 @@ public class AlertOption : MonoBehaviour
         a = container.GetComponent<RectTransform>();
         
     }
-    public void Init(string tittle,string suggest,string type)
+    public void Init(string tittle,string suggest,string type,TerritoryHandler focus= null)
     {
         tittleAlertText.text = tittle;
         suggertAlertText.text = suggest;
+        focusTerritory = focus;
         this.type = type;
     }
     void CloseAlertBtn()
@@ -48,13 +50,22 @@ public class AlertOption : MonoBehaviour
     void OpenTabEvent()
     {
         CloseAlertBtn();
-        if (type== "ALERT2")
+        switch (type)
         {
-            AlertManager.TabEventMenu();
-        }
-        else
-        {
-            AlertManager.TabMissionMenu();
+            case "ALERT1":
+            case "ALERT3":
+                AlertManager.TabEventMenu();
+                break;
+            case "ALERT2":
+                AlertManager.TabMissionMenu();
+                break;
+            case "ALERT4":
+                GlobalVariables.instance.CenterCameraToTerritory(focusTerritory);
+                focusTerritory.MakeOutline();
+                AlertManager.TabEventMenu();
+                break;
+            default:
+                break;
         }
         
     }

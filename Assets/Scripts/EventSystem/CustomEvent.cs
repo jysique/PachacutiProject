@@ -20,8 +20,7 @@ public class CustomEvent
     [SerializeField] private EVENTTYPE eventType;
     private bool isAcceptedEvent;
     private Building building;
-    
-    
+
     public STATUS EventStatus {
         get { return eventStatus; }
         set { eventStatus = value; }
@@ -102,14 +101,26 @@ public class CustomEvent
     /// </summary>
     /// <param name="_initTime"></param>
     /// <param name="days"></param>
-    public void GetCustomEvent(TimeSimulated _initTime)
+    public void GetCustomEvent(TimeSimulated _initTime,TerritoryHandler territory)
     {
         this.isAcceptedEvent = false;
 
         //this.eventType = (EVENTTYPE)UnityEngine.Random.Range(0, 3);
-        this.eventType = (EVENTTYPE)UnityEngine.Random.Range(0, Enum.GetNames(typeof(EVENTTYPE)).Length);
+        if (territory!=null)
+        {
+            this.eventType = EVENTTYPE.CONQUIST;
+            this.territoryEvent = territory;
+            
+        }
+        else
+        {
+            this.eventType = (EVENTTYPE)UnityEngine.Random.Range(0, Enum.GetNames(typeof(EVENTTYPE)).Length - 1);
+            //this.eventType = EVENTTYPE.EARTHQUAKER;
+            this.territoryEvent = TerritoryManager.instance.GetTerritoryRandom(Territory.TYPEPLAYER.PLAYER);
+        }
+        
         this.eventStatus = STATUS.ANNOUNCE;
-        this.costEvent = UnityEngine.Random.Range(3, InGameMenuHandler.instance.GoldPlayer / 2);
+        this.costEvent = UnityEngine.Random.Range(1, InGameMenuHandler.instance.GoldPlayer / 2);
         GetTimesEvents(_initTime);
         GetMessage();
     }
@@ -125,9 +136,8 @@ public class CustomEvent
         building = territoryEvent.GetBuilding(_building);
         building.TimeInit = new TimeSimulated(_initTime);
         timeInit = new TimeSimulated(_initTime);
-        // building.TimeFinish = new TimeSimulated(_initTime);
-        // building.TimeFinish.PlusDays(building.DaysToBuild);
     }
+
     /// <summary>
     /// Retuns if is posible to accept the custom event
     /// </summary>
@@ -191,16 +201,21 @@ public class CustomEvent
         int rDays1 = UnityEngine.Random.Range(TimeSystem.instance.MinDays, TimeSystem.instance.MaxDays);
         timeInit.PlusDays(rDays1);
 
-        if (this.eventType != EVENTTYPE.EARTHQUAKER)
+        if (this.eventType == EVENTTYPE.EARTHQUAKER)
         {
             this.timeFinal = new TimeSimulated(timeInit);
-            int rDays2 = UnityEngine.Random.Range(10, 15);
-            timeFinal.PlusDays(rDays2);
+            timeFinal.PlusDays(1);
+        }else if (this.eventType == EVENTTYPE.CONQUIST)
+        {
+            this.timeFinal = new TimeSimulated(timeInit);
+            timeFinal.PlusDays(200);
+            this.eventStatus = STATUS.PROGRESS;
         }
         else
         {
             this.timeFinal = new TimeSimulated(timeInit);
-            timeFinal.PlusDays(1);
+            int rDays2 = UnityEngine.Random.Range(10, 15);
+            timeFinal.PlusDays(rDays2);
         }
     }
     /// <summary>
@@ -375,7 +390,8 @@ public class CustomEvent
         PETITION_FOR,
         GRACE_DIV,
         GRACE_MIN,
-        GRACE_FOOD
+        GRACE_FOOD,
+        CONQUIST
     }
     public enum STATUS
     {

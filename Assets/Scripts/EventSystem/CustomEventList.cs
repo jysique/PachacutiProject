@@ -11,11 +11,11 @@ public class CustomEventList
     /// </summary>
     /// <param name="_initTime"></param>
     /// <param name="_days"></param>
-    public void AddCustomEvent(TimeSimulated _initTime)
+    public void AddCustomEvent(TimeSimulated _initTime,TerritoryHandler territory = null)
     {
         CustomEvent _customEvent = new CustomEvent();
-        _customEvent.TerritoryEvent = TerritoryManager.instance.GetTerritoryRandom(Territory.TYPEPLAYER.PLAYER);
-        _customEvent.GetCustomEvent(_initTime);
+     //   _customEvent.TerritoryEvent = TerritoryManager.instance.GetTerritoryRandom(Territory.TYPEPLAYER.PLAYER);
+        _customEvent.GetCustomEvent(_initTime,territory);
         CustomEvents.Add(_customEvent);
     }
     public void AddCustomEvent(TimeSimulated _initTime,TerritoryHandler territory, Building building)
@@ -34,5 +34,17 @@ public class CustomEventList
     public void RemoveEvent(CustomEvent @event)
     {
         CustomEvents.Remove(@event);
+    }
+    public CustomEvent GetEvent(Territory @territory)
+    {
+        CustomEvent @event = new CustomEvent();
+        for (int i = 0; i < CustomEvents.Count; i++)
+        {
+            if (CustomEvents[i].TerritoryEvent.territoryStats.territory == territory && CustomEvents[i].EventType == CustomEvent.EVENTTYPE.CONQUIST)
+            {
+                @event = CustomEvents[i];
+            }
+        }
+        return @event;
     }
 }

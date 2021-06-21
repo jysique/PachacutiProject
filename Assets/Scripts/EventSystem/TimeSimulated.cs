@@ -5,7 +5,7 @@ public class TimeSimulated
     [SerializeField] private double day;
     [SerializeField] private double month;
     [SerializeField] private double year;
-    private double hour;
+    [SerializeField] private double hour;
     private double week;
     private string season;
     public double Hour
@@ -152,7 +152,7 @@ public class TimeSimulated
     /// <returns></returns>
     public bool EqualsDate(TimeSimulated time2)
     {
-        return this.day == time2.day && this.month == time2.month && this.year == time2.year;
+        return this.hour == time2.hour && this.day == time2.day && this.month == time2.month && this.year == time2.year;
     }
 
     /// <summary>

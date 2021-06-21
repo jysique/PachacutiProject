@@ -198,9 +198,8 @@ public class TerritoryHandler : MonoBehaviour
         hoverColor.a = 180;
     }
 
-    private void MakeOutline()
+    public void MakeOutline()
     {
-        
         foreach (GameObject t in TerritoryManager.instance.territoryList)
         {
             t.GetComponent<TerritoryHandler>().Deselect();

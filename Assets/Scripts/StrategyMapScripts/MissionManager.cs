@@ -6,20 +6,12 @@ using UnityEngine.UI;
 public class MissionManager : MonoBehaviour
 {
     public static MissionManager instance;
-
-    [SerializeField] private MissionOption missionSelectOtherTerritory;
-    [SerializeField] private MissionOption missionOpenContextMenu;
-    [SerializeField] private MissionOption missionMoveTroops;
-    [SerializeField] private MissionOption missionFirstBattle;
-    [SerializeField] private MissionOption missionDefOption;
-    [SerializeField] private MissionOption missionConqOption;
-    [SerializeField] private MissionOption missionExpOption;
-    [SerializeField] private MissionOption missionProtOption;
-    [SerializeField] private MissionOption missionAllBOption;
-
+    [SerializeField]private TimeSimulated timeMission;
     [SerializeField] private Button btnMission;
     [SerializeField] private GameObject notificationMission;
-    int a = 0;
+    [SerializeField] private GameObject missionList;
+    public int currentMission = 0;
+    public List<Mission> listMission = new List<Mission>();
     public GameObject NotificationMission
     {
         get { return notificationMission; }
@@ -31,31 +23,46 @@ public class MissionManager : MonoBehaviour
     }
     private void Start()
     {
+        GameEvents.instance.onMissionTriggerEnter += onMissionEnter;
         btnMission.onClick.AddListener(() => CheckByPlayer());
-    }
-    public void InitializeMissions()
-    {
-        missionSelectOtherTerritory.InitializeMissionOption(0);
-        missionOpenContextMenu.InitializeMissionOption(1);
-        missionMoveTroops.InitializeMissionOption(2);
-        missionFirstBattle.InitializeMissionOption(3);
-        missionDefOption.InitializeMissionOption(4);
-        missionConqOption.InitializeMissionOption(5);
-        missionExpOption.InitializeMissionOption(6);
-        missionProtOption.InitializeMissionOption(7);
-        missionAllBOption.InitializeMissionOption(8);
+        timeMission = new TimeSimulated(TimeSystem.instance.TimeGame);
+        timeMission.PlusDays(2);
     }
     private void Update()
     {
+        if (TimeSystem.instance.TimeGame.EqualsDate(timeMission))
+        {
+            GameEvents.instance.MissionTriggerEnter();
+        }
+        else
+        {
+            GameEvents.instance.CustomEventExit();
+        }
+        if (listMission.Count ==currentMission+1 && listMission[currentMission].MissionStatus == Mission.STATUS.COMPLETE)
+        {
+            timeMission = new TimeSimulated(TimeSystem.instance.TimeGame);
+            timeMission.PlusDays(1);
+        }
+       // print("l|" + listMission.Count);
     }
     private void CheckByPlayer()
     {
         notificationMission.SetActive(false);
-        a++;
-        if(a == 1)
-        {
-            InitializeMissions();
-        }
     }
-    
+    private void onMissionEnter()
+    {
+        if (currentMission <9)
+        {
+            Transform gridLayout = missionList.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
+            GameObject missionOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/MissionOption")) as GameObject;
+            missionOption.transform.SetParent(gridLayout.transform, false);
+            missionOption.GetComponent<MissionOption>().InitializeMissionOption(currentMission);
+            listMission.Add(missionOption.GetComponent<MissionOption>().Mission);
+            AlertManager.AlertMission();
+//            print("mission|" + currentMission);
+        }
+        
+    }
+
+
 }

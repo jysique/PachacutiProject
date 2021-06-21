@@ -72,6 +72,8 @@ public class CharacterOption : MonoBehaviour
          }*/
         territory.IsClaimed = true;
         MenuManager.instance.CloseSelectCharacterMenu();
+        TimeSystem.instance.listEvents.GetEvent(territory).DeclineEventAction();
+        EventManager.instance.InstantiateEventListOption();
         InGameMenuHandler.instance.UpdateMenu();
     }
 }
