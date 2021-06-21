@@ -54,9 +54,9 @@ public class WarManager : MonoBehaviour
         playerColor = new Color32(114, 165, 195,255);
     }
    
-    public void AddWar(int c1, int c2, float s1, float s2, TerritoryHandler ta, Territory.TYPEPLAYER a)
+    public void AddWar(int c1, int c2, float s1, float s2,float cr1, float cr2 ,TerritoryHandler ta, Territory.TYPEPLAYER a)
     {
-        War w = new War(c1, s1, s2,ta, a);
+        War w = new War(c1, s1, s2,ta, a, cr1, cr2);
         warList.Add(w);
     }
     private void FixedUpdate()
@@ -360,7 +360,9 @@ public class WarManager : MonoBehaviour
             {
                 float vAttack = SetAttackFormula(attacker, attackPower);
                 float vDef = SetDefenseFormula(otherTerritory);
-                AddWar(attackPower, otherTerritory.territoryStats.territory.Population, vAttack, vDef, otherTerritory, attacker.territoryStats.territory.TypePlayer);
+                float critic1 = 20;
+                float critic2 = 20;
+                AddWar(attackPower, otherTerritory.territoryStats.territory.Population, vAttack, vDef,critic1,critic2, otherTerritory, attacker.territoryStats.territory.TypePlayer);
 
                 otherTerritory.war = true;
                 otherTerritory.gameObject.transform.GetChild(0).gameObject.SetActive(true);
@@ -369,6 +371,20 @@ public class WarManager : MonoBehaviour
         }
 
 
+    }
+
+    public void ShowCritic(War war, bool side)
+    {
+        if (selectedWar != war) return;
+        if (side)
+        {
+            InGameMenuHandler.instance.ShowFloatingText("Critic!", "TextFloating", hatAttacker.transform, Color.black);
+        }
+        else
+        {
+            InGameMenuHandler.instance.ShowFloatingText("Critic!", "TextFloating", hatDefender.transform, Color.black);
+        }
+        
     }
 
 }
