@@ -314,7 +314,8 @@ public class TimeSystem : MonoBehaviour
     private void WarningCustomEvent(int id)
     {
         EventManager.instance.InstantiateEventListOption(listEvents);
-        EventManager.instance.WarningEventAppearance(listEvents.CustomEvents[id], listEvents.CustomEvents[id].DifferenceToFinal);
+        AlertManager.AlertEvent();
+       // EventManager.instance.WarningEventAppearance(listEvents.CustomEvents[id], listEvents.CustomEvents[id].DifferenceToFinal);
     }
     public bool GetIsTerritorieIsInPandemic(TerritoryHandler territoryEvent)
     {

@@ -12,11 +12,10 @@ public class MenuManager : MonoBehaviour
     [SerializeField] public GameObject contextMenu;
     [SerializeField] public GameObject overMenuBlock;
     [SerializeField] public GameObject toolTip;
-    [SerializeField] public Button ContinueBattleWon;
-    [SerializeField] public TextMeshProUGUI titleBattleWonMenu;
-    [SerializeField] public TextMeshProUGUI titleSelectCharacterMenu;
-    [SerializeField] public TextMeshProUGUI descriptionSelectCharacterMenu;
-    [SerializeField] public Image imageBattleWonMenu;
+
+
+   
+   
     public GameObject canvas;
 
     [Header("Menu de Pause")]
@@ -24,8 +23,9 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject ChiefSelection;
 
     [Header("Select MilitaryBoss variables")]
-    [SerializeField] GameObject BattlewonMenu;
     [SerializeField] GameObject SelecCharacterMenu;
+    [SerializeField] public TextMeshProUGUI titleSelectCharacterMenu;
+    [SerializeField] public TextMeshProUGUI descriptionSelectCharacterMenu;
     private int maxInstantiateCharacters = 3;
     List<GameObject> options = new List<GameObject>();
 
@@ -55,8 +55,6 @@ public class MenuManager : MonoBehaviour
         allPauseButton[0].onClick.AddListener(() => ResumeMenuGame());
         allPauseButton[1].onClick.AddListener(() => GlobalVariables.instance.GoToMenuGame());
         allPauseButton[2].onClick.AddListener(() => GlobalVariables.instance.ClosingApp());
-
-        ContinueBattleWon.onClick.AddListener(() => CloseBattleWonMenu());
     }
     public void TurnOffBlock()
     {
@@ -77,20 +75,6 @@ public class MenuManager : MonoBehaviour
         contextMenu.GetComponent<ContextMenu>().SetMenu(canAttack, isWar, territoryToAttack);
     }
 
-    public void OpenBattleWonMenu(TerritoryHandler territoryHandler)
-    {
-        BattlewonMenu.SetActive(true);
-        BattlewonMenu.transform.Find("BattleWonDescription").GetComponent<Button>().onClick.AddListener(() => GlobalVariables.instance.CenterCameraToTerritory(territoryHandler));
-        //   titleBattleWonMenu.text = "You just won the battle of " + territoryHandler.territoryStats.territory.name;
-        titleBattleWonMenu.text = GameMultiLang.GetTraduction("BattleWon") + territoryHandler.territoryStats.territory.name;
-        imageBattleWonMenu.sprite = territoryHandler.sprite.sprite;
-        DateTableHandler.instance.PauseTime();
-    }
-    public void CloseBattleWonMenu()
-    {
-        BattlewonMenu.SetActive(false);
-        DateTableHandler.instance.ResumeTime();
-    }
 
     public void turnOffMenus()
     {
