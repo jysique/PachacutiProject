@@ -14,6 +14,10 @@ public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandl
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.ReadAndPlaySFX("menu_click");
+        }
         tabGroup.OnTabSelected(this);
 
     }

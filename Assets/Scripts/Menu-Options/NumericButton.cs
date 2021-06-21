@@ -15,13 +15,20 @@ public class NumericButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     private int total = 5;
     public void IncreaseNumber()
     {
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.ReadAndPlaySFX("increase");
+        }
         int temporal = int.Parse(number.text)+1;
         if (temporal <= limit) number.text = temporal.ToString();
         //else number.text = 1.ToString();
     }
     public void DecreaseNumber()
     {
-
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.ReadAndPlaySFX("decrease");
+        }
         int temporal = int.Parse(number.text) - 1;
         if(temporal > 0) {
             number.text = temporal.ToString();

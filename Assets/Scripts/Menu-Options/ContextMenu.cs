@@ -48,6 +48,11 @@ public class ContextMenu : MonoBehaviour
     }
     public void SetMenu(bool canAttack, bool isWar, TerritoryHandler ta)
     {
+        
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.ReadAndPlaySFX("context_menu");
+        }
         int limit = ta.territoryStats.territory.Population;
         clickedTerritory = ta;
         warriorsCount.text = limit.ToString();
@@ -73,7 +78,10 @@ public class ContextMenu : MonoBehaviour
     public void AttackTerritory()
     {
         TerritoryHandler selected = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
-        
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.ReadAndPlaySFX("send_units");
+        }
         if (selected.territoryStats.territory.Population > 0)
         {
 
@@ -88,6 +96,10 @@ public class ContextMenu : MonoBehaviour
 
     public void ShowMilitarMenu()
     {
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.ReadAndPlaySFX("menu_click");
+        }
         tabManager.OnTabSelected(tabMilitar);
         MenuManager.instance.TurnOffBlock();
         TerritoryManager.instance.ChangeStateTerritory(0);
@@ -95,6 +107,10 @@ public class ContextMenu : MonoBehaviour
     }
     public void ShowTerritoryMenu()
     {
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.ReadAndPlaySFX("menu_click");
+        }
         tabManager.OnTabSelected(tabTerritory);
         MenuManager.instance.TurnOffBlock();
         TerritoryManager.instance.ChangeStateTerritory(0);

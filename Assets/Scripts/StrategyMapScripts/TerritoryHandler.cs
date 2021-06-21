@@ -103,9 +103,10 @@ public class TerritoryHandler : MonoBehaviour
     {
         if(EventSystem.current.IsPointerOverGameObject())
             return;
-
+        
         if (Input.GetMouseButtonDown(1) && state == 0)
         {
+            
             territoryStats.territory.SetSelected(true);
             ShowStateMenu();
             MakeOutline();
@@ -146,6 +147,11 @@ public class TerritoryHandler : MonoBehaviour
     private void OnMouseUpAsButton()
     {
         if (EventSystem.current.IsPointerOverGameObject()) return;
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.ReadAndPlaySFX("territory_button");
+        }
+        
         switch (state)
         {
             case 0:

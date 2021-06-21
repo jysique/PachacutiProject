@@ -81,7 +81,11 @@ public class BuildOption : MonoBehaviour
     }
     void UpgradeButton()
     {
-       InGameMenuHandler.instance.ImproveBuildingButton(building);
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.ReadAndPlaySFX("construct");
+        }
+        InGameMenuHandler.instance.ImproveBuildingButton(building);
     }
     void CheckBlock()
     {

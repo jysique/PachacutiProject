@@ -200,11 +200,19 @@ public class InGameMenuHandler : MonoBehaviour
     }
     public void ImproveSpeedPopulationButton()
     {
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.ReadAndPlaySFX("upgrade");
+        }
         ImproveSpeedPopulation(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
         UpdateMenu();
     }
     public void ImproveLimitButton()
     {
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.ReadAndPlaySFX("upgrade");
+        }
         ImproveLimitPopulation(TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>());
         UpdateMenu();
     }
@@ -294,6 +302,10 @@ public class InGameMenuHandler : MonoBehaviour
     }
     public void GatherGoldResourceButton()
     {
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.ReadAndPlaySFX("coins");
+        }
         int temp = 0;
         for (int i = 0; i < TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER).Count; i++)
         {
@@ -304,6 +316,10 @@ public class InGameMenuHandler : MonoBehaviour
     }
     public void GatherFoodResourceButton()
     {
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.ReadAndPlaySFX("food");
+        }
         int temp = 0;
         for (int i = 0; i < TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER).Count; i++)
         {
