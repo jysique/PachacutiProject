@@ -16,9 +16,16 @@ public class War
     [SerializeField]private float time1;
     [SerializeField] private float time2;
     [SerializeField] private float limit;
+    [SerializeField] private float critic1;
+    [SerializeField] private float critic2;
 
-    public War(int c1,float s1,float s2, TerritoryHandler _territoryHandler, Territory.TYPEPLAYER _attackers )
+    private int criticMod1;
+    private int criticMod2;
+
+    public War(int c1,float s1,float s2, TerritoryHandler _territoryHandler, Territory.TYPEPLAYER _attackers, float _critic1, float _critic2)
     {
+        critic1 = _critic1;
+        critic2 = _critic2;
         status = 0;
         time1 = 0;
         time2 = 0;
@@ -78,8 +85,19 @@ public class War
         }
         else
         {
-            time1 += (warriors2Speed* GlobalVariables.instance.WarSpeed);
-            time2 += (warriors1Speed* GlobalVariables.instance.WarSpeed);
+            if (Random.Range(0, 5000) < critic1)
+            {
+                criticMod1 = 2;
+                WarManager.instance.ShowCritic(this, true);
+            }
+            else criticMod1 = 1;
+            if (Random.Range(0, 5000) < critic2) { 
+                criticMod2 = 2;
+                WarManager.instance.ShowCritic(this, false);
+            }
+            else criticMod2 = 1;
+            time1 += (warriors2Speed* GlobalVariables.instance.WarSpeed)*criticMod1;
+            time2 += (warriors1Speed* GlobalVariables.instance.WarSpeed)*criticMod2;
             if (time1 >= limit)
             {
                 time1 = 0;
