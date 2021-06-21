@@ -13,6 +13,13 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private Territory selectedTerritory;
     [NonSerialized] public List<GameObject> listFloatingText = new List<GameObject>();
 
+    [Header("State Menu")]
+    [SerializeField] private TextMeshProUGUI irrigateLevel;
+    [SerializeField] private TextMeshProUGUI goldMineLevel;
+    [SerializeField] private TextMeshProUGUI sacredPlaceLevel;
+    [SerializeField] private TextMeshProUGUI fortressLevel;
+    [SerializeField] private TextMeshProUGUI armoryLevel;
+
     [Header("Menu military")]
     [SerializeField] private GameObject menuBlockWarriors;
     [SerializeField] private GameObject menuBlockCharacter;
@@ -74,6 +81,14 @@ public class InGameMenuHandler : MonoBehaviour
     {
         InitButtons();
         UpdateMenu();
+    }
+    private void UpdateStateMenu()
+    {
+        irrigateLevel.text = selectedTerritory.IrrigationChannelTerritory.Level.ToString();
+        goldMineLevel.text = selectedTerritory.GoldMineTerritory.Level.ToString();
+        sacredPlaceLevel.text = selectedTerritory.SacredPlaceTerritory.Level.ToString();
+        fortressLevel.text = selectedTerritory.FortressTerritory.Level.ToString();
+        armoryLevel.text = selectedTerritory.ArmoryTerritory.Level.ToString();
     }
     /// <summary>
     /// Update all elements of the militar menu of the territory-selected
@@ -161,6 +176,7 @@ public class InGameMenuHandler : MonoBehaviour
     public void UpdateMenu()
     {
         selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory;
+        UpdateStateMenu();
         UpdateMilitarMenu();
         UpdateTerritoryMenu();
         UpdateBuildingsMenu();

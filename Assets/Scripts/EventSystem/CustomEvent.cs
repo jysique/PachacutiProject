@@ -106,7 +106,7 @@ public class CustomEvent
     {
         this.isAcceptedEvent = false;
 
-        //this.eventType = (EVENTTYPE)UnityEngine.Random.Range(3, 5);
+        //this.eventType = (EVENTTYPE)UnityEngine.Random.Range(0, 3);
         this.eventType = (EVENTTYPE)UnityEngine.Random.Range(0, Enum.GetNames(typeof(EVENTTYPE)).Length);
         this.eventStatus = STATUS.ANNOUNCE;
         this.costEvent = UnityEngine.Random.Range(3, InGameMenuHandler.instance.GoldPlayer / 2);
@@ -161,7 +161,7 @@ public class CustomEvent
             default:
                 break;
         }
-        Debug.LogError("canAccept|" + accept);
+        //Debug.LogError("canAccept|" + accept);
         return accept;
     }
     /*
@@ -208,78 +208,30 @@ public class CustomEvent
     /// </summary>
     public void GetMessage()
     {
+        this.message = GameMultiLang.GetTraduction(eventType.ToString() + "M").Replace("TERRITORYEVENT", TerritoryEvent.name);
+        this.acceptMessageEvent = GameMultiLang.GetTraduction(eventType.ToString() + "A").Replace("TERRITORYEVENT", TerritoryEvent.name);
+        this.declineMessageEvent = GameMultiLang.GetTraduction(eventType.ToString() + "D").Replace("TERRITORYEVENT", TerritoryEvent.name);
         switch (eventType)
         {
             case EVENTTYPE.EARTHQUAKER:
-                this.message = "An earthquake has occurred in "+ TerritoryEvent.name+" territory";
-                this.requirementMessageEvent = "No requirements";
-                this.declineMessageEvent = "Reset builds in " + territoryEvent.name + " territory.";
+                this.requirementMessageEvent = GameMultiLang.GetTraduction("NoRequirements");
                 break;
             case EVENTTYPE.DROUGHT:
-                this.message = "Drought continues in "+ TerritoryEvent.name +" territory. The villagers are going through a bad time. That is why they ask you for the following requirements";
-                this.requirementMessageEvent = "-" + costEvent + " gold | -" + costEvent + " food.";
-                this.acceptMessageEvent = "The residents can continue harvesting.";
-                this.declineMessageEvent = "Conditions worsen for irrigation canals and troops in " + territoryEvent.name + " territory.";
-                break;
-            case EVENTTYPE.REBELION:
-                this.message = "In "+ TerritoryEvent.name+ " territory they plan to rebel against you, if you do not complete the following requirements, we will lose this territory. ";
-                this.requirementMessageEvent = "-" + costEvent + " gold.";
-                this.acceptMessageEvent = "Keep " + TerritoryEvent.name + " territory.";
-                this.declineMessageEvent = "-" +territoryEvent.name + " territory.";
-                break;
             case EVENTTYPE.ALL_T_PANDEMIC:
-                this.message = "We have found a disease in our territories, if we don't do something we will lose half of our men. ";
-                this.requirementMessageEvent = "-" + costEvent + " gold | -" + costEvent + " food.";
-                this.acceptMessageEvent = "Cure the desease in all territories.";
-                this.declineMessageEvent = "-50% trops in all territories.";
-                break;
             case EVENTTYPE.PANDEMIC:
-                this.message = "We have found a disease in "+ territoryEvent.name+ " territory, if we don't do something we will lose half of our men. ";
-                this.requirementMessageEvent = "-" + costEvent + " gold | -" + costEvent + " food.";
-                this.acceptMessageEvent = "Cure the desease in "+ territoryEvent.name + " territory.";
-                this.declineMessageEvent = "-50% trops in " + territoryEvent.name + " territory.";
-                break;
             case EVENTTYPE.ALL_T_PLAGUE:
-                this.message = "Our crops may be in danger from the ALL_T_PLAGUE. if we don't do something we will lose our food. ";
-                this.requirementMessageEvent = "-" + costEvent + " gold | -" + costEvent + " food.";
-                this.acceptMessageEvent = "Eliminate the ALL_T_PLAGUE in all territories.";
-                this.declineMessageEvent = "Reduce to level 0 of irrigation channels in all territories.";
-                break;
             case EVENTTYPE.PLAGUE:
-                this.message = "Our crops in "+ territoryEvent.name+ " territory may be in danger from the ALL_T_PLAGUE. if we don't do something we will lose the food of that place. ";
-                this.requirementMessageEvent = "-" + costEvent + " gold | -" + costEvent + " food.";
-                this.acceptMessageEvent = "Eliminate the ALL_T_PLAGUE in " + territoryEvent.name + " territory.";
-                this.declineMessageEvent = "Reduce to level 0 of irrigation channels in " + territoryEvent.name + " territory.";
+                this.requirementMessageEvent = GameMultiLang.GetTraduction("REQ1").Replace("COSTEVENT", costEvent.ToString());
                 break;
             case EVENTTYPE.PETITION_MIN:
-                this.message = "In "+ territoryEvent.name+ " territory they want to ask you to improve the mine, they are somewhat short of resources. ";
-                this.requirementMessageEvent = "-" + costEvent + " gold.";
-                this.acceptMessageEvent = "+2 mine gold level in " + territoryEvent.name + " territory.";
-                this.declineMessageEvent = "-10 opinion in " + territoryEvent.name+ " territory.";
-                break;
             case EVENTTYPE.PETITION_FOR:
-                this.message = "In "+ territoryEvent.name+ " territory they want to ask you to improve your defenses, they are very unprotected. ";
-                this.requirementMessageEvent = "-" + costEvent +" gold.";
-                this.acceptMessageEvent = "+2 fortress level in " + territoryEvent.name + " territory.";
-                this.declineMessageEvent = "-10 opinion in " + territoryEvent.name + " territory.";
+            case EVENTTYPE.REBELION:
+                this.requirementMessageEvent = GameMultiLang.GetTraduction("REQ2").Replace("COSTEVENT", costEvent.ToString());
                 break;
             case EVENTTYPE.GRACE_DIV:
-                this.message = "A sanctuary has been found in "+ territoryEvent.name+ " territory. To appropriate them to our territories, meet the following requirements. ";
-                this.requirementMessageEvent = "-" + costEvent + " gold to repair";
-                this.acceptMessageEvent = "+ 2 sacred place level in " + territoryEvent.name + " territory.";
-                this.declineMessageEvent = "-10 opinion in " + territoryEvent.name + " territory.";
-                break;
             case EVENTTYPE.GRACE_MIN:
-                this.message = "An abandoned mine has been found in "+ territoryEvent.name+ " territory. To appropriate them to our territories, meet the following requirements. ";
-                this.requirementMessageEvent = "-" + costEvent + " gold to repair";
-                this.acceptMessageEvent = "+3 gold mine level in " + territoryEvent.name + " territory.";
-                this.declineMessageEvent = "+15 gold.";
-                break;
             case EVENTTYPE.GRACE_FOOD:
-                this.message = "We want to expand the seeding in "+ territoryEvent.name+ " territory. To run this, meet the following requirements. ";
-                this.requirementMessageEvent = "-" + costEvent + " gold to repair";
-                this.acceptMessageEvent = "+3 irrigate chanel level in " + territoryEvent.name + " territory.";
-                this.declineMessageEvent = "+15 food.";
+                this.requirementMessageEvent = GameMultiLang.GetTraduction("REQ3").Replace("COSTEVENT", costEvent.ToString());
                 break;
             default:
                 break;

@@ -196,25 +196,29 @@ public class WarManager : MonoBehaviour
         if(territory.territoryStats.territory.Population == 0)
         {
             
-            territory.territoryStats.territory.TypePlayer = type;
-            territory.territoryStats.territory.Population = survivors;
+            
             if (type == Territory.TYPEPLAYER.PLAYER)
             {
-                territory.territoryStats.territory.TypePlayer = Territory.TYPEPLAYER.PLAYER;
+               // territory.territoryStats.territory.TypePlayer = Territory.TYPEPLAYER.PLAYER;
                 territory.territoryStats.territory.IsClaimed = false;
-                MenuManager.instance.OpenBattleWonMenu(territory);
-                
-              //  InGameMenuHandler.instance.InstantiateCharacterOption(territory);
-
+                //  MenuManager.instance.OpenBattleWonMenu(territory);
+                AlertManager.AlertConquered();
             }
             else /*if(type == Territory.TYPEPLAYER.BOT)*/
             {
+                if (territory.territoryStats.territory.TypePlayer==Territory.TYPEPLAYER.PLAYER)
+                {
+                    AlertManager.AlertLost();
+                }
+
                 MilitarChief newMilitarBoss = new MilitarChief();
                 newMilitarBoss.GetMilitarBoss();
                 //print(newMilitarBoss.CharacterName);
                 territory.territoryStats.territory.MilitarChiefTerritory = newMilitarBoss;
                 BotManager.instance.CreateOrAdd(type, territory);
             }
+            territory.territoryStats.territory.TypePlayer = type;
+            territory.territoryStats.territory.Population = survivors;
         }
         if (territory == selected)
         {

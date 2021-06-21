@@ -8,8 +8,9 @@ public class DateTableHandler : MonoBehaviour
 {
     public static DateTableHandler instance;
     [SerializeField] private Button PauseBtn;
-    [SerializeField] private Button QuicknessBtn;
-    [SerializeField] private Button SlownessBtn;
+    [SerializeField] private Button PlayBtn;
+    [SerializeField] private Button Quicknessx1Btn;
+    [SerializeField] private Button Quicknessx2Btn;
 
     [SerializeField] private TextMeshProUGUI dayText;
     [SerializeField] private TextMeshProUGUI monthText;
@@ -30,8 +31,9 @@ public class DateTableHandler : MonoBehaviour
         timeGame = TimeSystem.instance.TimeGame;
         TextCallFunction();
         PauseBtn.onClick.AddListener(() => PauseButton());
-        QuicknessBtn.onClick.AddListener(() => QuicknessButton());
-        SlownessBtn.onClick.AddListener(() => SlownessButton());
+        PlayBtn.onClick.AddListener(() => PlayButton());
+        Quicknessx1Btn.onClick.AddListener(() => Quicknessx1Button());
+        Quicknessx2Btn.onClick.AddListener(() => Quicknessx2Button());
     }
     void Update()
     {
@@ -39,6 +41,12 @@ public class DateTableHandler : MonoBehaviour
         TextCallFunction();
         CalculateTimeInUpdate(timeGame);
         MenuEscapeGame();
+        /*
+        PauseBtn.interactable = !isMenuPaused;
+        PlayBtn.interactable = !isMenuPaused;
+        Quicknessx1Btn.interactable = !isMenuPaused;
+        Quicknessx2Btn.interactable = !isMenuPaused;
+        */
     }
     private void TextCallFunction()
     {
@@ -88,35 +96,47 @@ public class DateTableHandler : MonoBehaviour
 
     public void PauseButton()
     {
-        if (!isMenuPaused)
+        if (!isMenuPaused && !isTimePaused)
         {
-            if (!isTimePaused)
-            {
-                PauseTime();
-                isTimePaused = true;
-            }
-            else
+
+            PauseTime();
+            isTimePaused = true;
+        }
+    }
+
+    public void PlayButton()
+    {
+        if (GlobalVariables.instance.timeModifier==0)
+        {
+            if (!isMenuPaused && isTimePaused)
             {
                 ResumeTime();
                 isTimePaused = false;
             }
         }
-    }
-    public void QuicknessButton()
-    {
-        if (GlobalVariables.instance.timeModifier <= 10 && !isTimePaused)
+        else
         {
-            GlobalVariables.instance.timeModifier += 0.2f;
+            GlobalVariables.instance.timeModifier = 1;
         }
         
     }
-    public void SlownessButton()
+
+
+    public void Quicknessx1Button()
     {
-        if (GlobalVariables.instance.timeModifier >= 0.6 && !isTimePaused)
+        if (!isTimePaused)
         {
-            print(isTimePaused);
-            GlobalVariables.instance.timeModifier -= 0.2f;
+            GlobalVariables.instance.timeModifier = 1.5f;
         }
+        
+    }
+    public void Quicknessx2Button()
+    {
+        if (!isTimePaused)
+        {
+            GlobalVariables.instance.timeModifier = 2f;
+        }
+
     }
 
     public void PauseTime()
@@ -128,7 +148,8 @@ public class DateTableHandler : MonoBehaviour
     }
     public void ResumeTime()
     {
-        GlobalVariables.instance.timeModifier = temporalTime;
+        // GlobalVariables.instance.timeModifier = temporalTime;
+        GlobalVariables.instance.timeModifier = 1;
     }
 
     public void MenuEscapeGame()

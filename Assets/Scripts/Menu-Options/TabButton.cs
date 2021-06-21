@@ -40,6 +40,12 @@ public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandl
         tabGroup.Subscribe(this);
     }
 
+    public void AccessToMenu()
+    {
+        tabGroup.OnTabSelected(this);
+        tabGroup.OnTabEnter(this);
+    }
+
     private void Update()
     {
         
