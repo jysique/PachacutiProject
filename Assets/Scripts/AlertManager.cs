@@ -31,28 +31,14 @@ public class AlertManager : MonoBehaviour
             alertContainer = this.gameObject;
         }
     }
-    /*
-    public static void NewAlert(string alerttextId, string alertIconId = "")
-    {
-        string alertTitle = GameMultiLang.GetTraduction(alerttextId+ "_TITLE");
-        string alertSuggest = GameMultiLang.GetTraduction(alerttextId + "_SUGG");
-        GameObject alertGo =  (GameObject)Instantiate(instance.alertOption);
-        alertGo.transform.SetParent(instance.alertContainer.transform);
-        alertGo.GetComponent<AlertOption>().Init(alertTitle, alertSuggest,alerttextId);
-        alertGo.transform.localScale= Vector3.one;
-    }
-    */
     public static void NewAlert(string alerttextId, string alertIconId = "", TerritoryHandler focusTerritory= null)
     {
-        string alertTitle = GameMultiLang.GetTraduction(alerttextId + "_TITLE");
-        string alertSuggest = GameMultiLang.GetTraduction(alerttextId + "_SUGG");
+
         GameObject alertGo = (GameObject)Instantiate(instance.alertOption);
         alertGo.transform.SetParent(instance.alertContainer.transform);
-        alertGo.GetComponent<AlertOption>().Init(alertTitle, alertSuggest, alerttextId,focusTerritory);
+        alertGo.GetComponent<AlertOption>().Init(alerttextId,alertIconId,focusTerritory);
         alertGo.transform.localScale = Vector3.one;
     }
-
-
     public static void NewAlert(string alerttextID)
     {
         NewAlert(alerttextID,"");
@@ -76,6 +62,10 @@ public class AlertManager : MonoBehaviour
     public static void AlertLost(TerritoryHandler territoryfocus)
     {
         NewAlert("ALERT4", territoryfocus);
+    }
+    public static void AlertEventEnd()
+    {
+        NewAlert("ALERT5");
     }
     public static void TabEventMenu()
     {

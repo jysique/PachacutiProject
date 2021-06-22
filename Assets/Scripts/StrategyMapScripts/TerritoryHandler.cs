@@ -124,7 +124,7 @@ public class TerritoryHandler : MonoBehaviour
             }
        //     print("1|" + TimeSystem.instance.GetIsTerritorieIsInPandemic(this));
        //     print("2|" + TimeSystem.instance.GetIsTerritorieIsInPandemic());
-            if (war == true || TimeSystem.instance.GetIsTerritorieIsInPandemic(this) || TimeSystem.instance.GetIsTerritorieIsInPandemic()) 
+            if (war == true || EventManager.instance.GetIsTerritorieIsInPandemic(this) || EventManager.instance.GetIsTerritorieIsInPandemic()) 
             {
 //                print("b|");
                 ca = false;

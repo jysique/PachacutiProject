@@ -6,20 +6,23 @@ using UnityEngine.UI;
 public class MissionManager : MonoBehaviour
 {
     public static MissionManager instance;
-    [SerializeField]private TimeSimulated timeMission;
+    
     [SerializeField] private Button btnMission;
     [SerializeField] private GameObject notificationMission;
     [SerializeField] private GameObject missionList;
-    public int currentMission = 0;
-    public List<Mission> listMission = new List<Mission>();
-    public GameObject NotificationMission
+    [HideInInspector] public int currentMission = 0;
+
+    private TimeSimulated timeMission;
+    private List<Mission> listMission = new List<Mission>();
+    
+    public void SetNotificationMission(bool active)
     {
-        get { return notificationMission; }
+        notificationMission.SetActive(active);
     }
     private void Awake()
     {
         instance = this;
-        notificationMission.SetActive(true);
+        SetNotificationMission(false);
     }
     private void Start()
     {
@@ -59,7 +62,7 @@ public class MissionManager : MonoBehaviour
             missionOption.GetComponent<MissionOption>().InitializeMissionOption(currentMission);
             listMission.Add(missionOption.GetComponent<MissionOption>().Mission);
             AlertManager.AlertMission();
-//            print("mission|" + currentMission);
+            SetNotificationMission(true);
         }
         
     }

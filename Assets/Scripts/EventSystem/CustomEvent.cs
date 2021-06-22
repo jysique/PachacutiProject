@@ -19,8 +19,13 @@ public class CustomEvent
     [SerializeField] private STATUS eventStatus;
     [SerializeField] private EVENTTYPE eventType;
     private bool isAcceptedEvent;
+    private bool w = false;
     private Building building;
-
+    public bool W
+    {
+        get { return w; }
+        set { w = value; }
+    }
     public STATUS EventStatus {
         get { return eventStatus; }
         set { eventStatus = value; }
@@ -198,7 +203,7 @@ public class CustomEvent
     private void GetTimesEvents(TimeSimulated _initTime)
     {
         this.timeInit = new TimeSimulated(_initTime);
-        int rDays1 = UnityEngine.Random.Range(TimeSystem.instance.MinDays, TimeSystem.instance.MaxDays);
+        int rDays1 = UnityEngine.Random.Range(EventManager.instance.MinDays, EventManager.instance.MaxDays);
         timeInit.PlusDays(rDays1);
 
         if (this.eventType == EVENTTYPE.EARTHQUAKER)

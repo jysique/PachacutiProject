@@ -83,7 +83,7 @@ public class Mission
         else if (missionStatus == STATUS.COMPLETE)
         {
             InitBenefits();
-            MissionManager.instance.NotificationMission.SetActive(true);
+            MissionManager.instance.SetNotificationMission(true);
             MissionManager.instance.currentMission++;
             InGameMenuHandler.instance.UpdateMenu();
         }
@@ -94,7 +94,7 @@ public class Mission
         }
         else if(missionStatus == STATUS.DONE)
         {
-            MissionManager.instance.NotificationMission.SetActive(true);
+            MissionManager.instance.SetNotificationMission(true);
         }
     }
     void SetInitTimeMission()

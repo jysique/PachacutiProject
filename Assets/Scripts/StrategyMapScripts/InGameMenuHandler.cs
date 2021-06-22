@@ -237,7 +237,7 @@ public class InGameMenuHandler : MonoBehaviour
         TerritoryHandler territoryHandler = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
         Building building = territoryHandler.GetBuilding(_building);
         ImproveBuildingInHandler(territoryHandler, building);
-        TimeSystem.instance.AddEvent(territoryHandler, building);
+        EventManager.instance.AddEvent(territoryHandler, building);
         UpdateMenu();
     }
     private void ImproveSpeedPopulation(TerritoryHandler territoryHandler)

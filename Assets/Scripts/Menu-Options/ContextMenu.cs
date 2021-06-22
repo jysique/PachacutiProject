@@ -40,7 +40,7 @@ public class ContextMenu : MonoBehaviour
         {
             buttonBlock.transform.Find("Text").transform.GetComponent<Text>().text = "Claim this territory to control in militar menu";
         }
-        else if (TimeSystem.instance.GetIsTerritorieIsInPandemic() && TimeSystem.instance.GetIsTerritorieIsInPandemic(clickedTerritory))
+        else if (EventManager.instance.GetIsTerritorieIsInPandemic() && EventManager.instance.GetIsTerritorieIsInPandemic(clickedTerritory))
         {
             buttonBlock.transform.Find("Text").transform.GetComponent<Text>().text = "You cannot move troops in a pandemic";
         }

@@ -203,7 +203,7 @@ public class WarManager : MonoBehaviour
                 territory.territoryStats.territory.IsClaimed = false;
                 //  MenuManager.instance.OpenBattleWonMenu(territory);
                 // AlertManager.AlertConquered(territory);
-                TimeSystem.instance.AddEvent(territory);
+                EventManager.instance.AddEvent(territory);
                 //  EventManager.instance.InstantiateEventListOption(TimeSystem.instance.listEvents);
                 EventManager.instance.InstantiateEventListOption();
                 AlertManager.AlertConquered(territory);

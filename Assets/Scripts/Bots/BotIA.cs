@@ -5,8 +5,6 @@ using UnityEngine;
 [System.Serializable]
 
 
-
-
 public class BotIA 
 {
     private bool actionRealized;
@@ -65,7 +63,7 @@ public class BotIA
         {
             c = 0;
             ObtainActionNumber();
-            GetGold();
+            GetResources();
             actionRealized = false;
         }
     }
@@ -171,12 +169,14 @@ public class BotIA
         }
     }
 
-    private void GetGold()
+    public void GetResources()
     {
         foreach (TerritoryHandler t in territories)
         {
             gold += t.territoryStats.territory.Gold;
+            food += t.territoryStats.territory.FoodReward;
             t.territoryStats.territory.Gold = 0;
+            t.territoryStats.territory.FoodReward = 0;
         }
     }
 

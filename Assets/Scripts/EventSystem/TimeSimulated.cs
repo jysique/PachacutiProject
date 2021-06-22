@@ -162,9 +162,11 @@ public class TimeSimulated
     /// <returns></returns>
     public int DiferenceDays(TimeSimulated time2)
     {
+        
         int difYear = (int)(this.year - time2.year);
         int difMonth =(int)(this.month - time2.month);
         int difDays = (int)(this.day - time2.day);
+//        int hour = (int)(this.hour - time2.hour);
         return difYear*360 + difMonth * 30 + difDays;
     }
 }
