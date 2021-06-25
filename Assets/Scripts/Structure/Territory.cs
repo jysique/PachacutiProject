@@ -41,7 +41,7 @@ public class Territory
     private int costImproveSpeedPopulation = 10;
     private int addCost = 5;
     private int costImproveLimitPopulation = 10;
-    private int perPeople = 5;
+    private int perPeople = 2;
     private float improveSpeed = 0.3f;
     private int improveLimit = 10;
     [SerializeField] private bool selected;

@@ -91,7 +91,8 @@ public class MenuManager : MonoBehaviour
     {
         SelecCharacterMenu.SetActive(true);
         InstantiateCharacterOption(territory, ChiefSelection, character , options);
-        descriptionSelectCharacterMenu.text = character.Description;
+        descriptionSelectCharacterMenu.text = GameMultiLang.GetTraduction(character.CharacIconType+"Description");
+        //descriptionSelectCharacterMenu.text = character.Description;
         //titleSelectCharacterMenu.text = "Select the characters for " + territory.name + " territory";
         titleSelectCharacterMenu.text = GameMultiLang.GetTraduction("SelectTerritory") + territory.name + " " +GameMultiLang.GetTraduction("TerritoryLabel");
         //  territory.TypePlayer = Territory.TYPEPLAYER.PLAYER;

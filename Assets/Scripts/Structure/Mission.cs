@@ -50,7 +50,6 @@ public class Mission
     }
     public Mission()
     {
-        //this.timeToFinish = 1;
         //this.timeToFinish = UnityEngine.Random.Range(2, 6);
         this.timeToFinish = 1;
         this.missionStatus = STATUS.IN_PROGRESS;
@@ -116,11 +115,11 @@ public class MissionDefeat : Mission
     Territory.TYPEPLAYER typePlayer;
     public MissionDefeat()
     {
-        this.NameMission = "Defeat Mission";
+        this.NameMission = GameMultiLang.GetTraduction("MissionDefeat_name");
         this.typePlayer = GlobalVariables.instance.GetRandomTypePlayer();
         TerritoryMission.Add(TerritoryManager.instance.GetTerritoryRandom(this.typePlayer).territoryStats.territory);
-        this.Message = "Defeat "+ GlobalVariables.instance.GetPlayerName(typePlayer) + " civilization";
-        this.MessagePro = "+2 fortress nivels for " + this.TimeMissionActive + " months";
+        this.Message = GameMultiLang.GetTraduction("MissionDefeat_message").Replace("&", GlobalVariables.instance.GetPlayerName(typePlayer));
+        this.MessagePro = GameMultiLang.GetTraduction("MissionDefeat_message_pro").Replace("TIME", this.TimeMissionActive.ToString());
     }
     public override void CheckMission()
     {
@@ -158,10 +157,10 @@ public class MissionConquest : Mission
 {
     public MissionConquest()
     {
-        this.NameMission = "Conquest Mission";
+        this.NameMission = GameMultiLang.GetTraduction("MissionConquest_name");
         TerritoryMission.Add(TerritoryManager.instance.GetTerritoryRandom(Territory.TYPEPLAYER.NONE).territoryStats.territory);
-        this.Message = "Conquer " + TerritoryMission[0].name + " territory";
-        this.MessagePro = "+5 exp military chief \nfor " + this.TimeMissionActive + " months";
+        this.Message = GameMultiLang.GetTraduction("MissionDefeat_message").Replace("&", TerritoryMission[0].name);
+        this.MessagePro = GameMultiLang.GetTraduction("MissionConquest_message_pro").Replace("TIME", this.TimeMissionActive.ToString());
     }
     public override void CheckMission()
     {
@@ -190,7 +189,7 @@ public class MissionExpansion : Mission
 {
     public MissionExpansion()
     {
-        this.NameMission = "Expansion Mission";
+        this.NameMission = GameMultiLang.GetTraduction("MissionExpansion_name");
         Territory.REGION region = GlobalVariables.instance.GetRandomRegion();
         string regionString = region.ToString();
         List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesByZoneTerritory(regionString);
@@ -198,9 +197,10 @@ public class MissionExpansion : Mission
         {
             this.TerritoryMission.Add(t[i].territoryStats.territory);
         }
-        
-        this.Message = "Conquer " + regionString.ToLower().Replace("_", " ");
-        this.MessagePro = "+2 irrigation channels nivels in " + regionString.ToLower().Replace("_", " ") + "\n for " + this.TimeMissionActive + " months";
+
+        this.Message = GameMultiLang.GetTraduction("MissionExpansion_message").Replace("&", regionString.ToLower().Replace("_", " "));
+        this.MessagePro = GameMultiLang.GetTraduction("MissionExpansion_message_pro").Replace("&", regionString.ToLower().Replace("_", " ")).Replace("TIME", this.TimeMissionActive.ToString());
+//        this.MessagePro = "+2 irrigation channels nivels in " + regionString.ToLower().Replace("_", " ") + "\n for " + this.TimeMissionActive + " months";
     }
     public override void CheckMission()
     {
@@ -256,9 +256,9 @@ public class MissionProtect : Mission
         monthTimePassed = 0;
         SetInitTimeProtection();
         TerritoryMission.Add(TerritoryManager.instance.GetTerritoryRandom(Territory.TYPEPLAYER.PLAYER).territoryStats.territory);
-        this.NameMission = "Protect Mission";        
-        this.Message = "Protect "+ this.TerritoryMission[0].name + " territory for 3 months";
-        this.MessagePro = "+2 irrigation channels nivels in "+ this.TerritoryMission[0].name + " territory\nfor " + this.TimeMissionActive + " months";
+        this.NameMission = GameMultiLang.GetTraduction("MissionProtect_name");
+        this.Message = GameMultiLang.GetTraduction("MissionProtect_message").Replace("&", this.TerritoryMission[0].name);
+        this.MessagePro = GameMultiLang.GetTraduction("MissionProtect_message_pro").Replace("&", this.TerritoryMission[0].name).Replace("TIME", this.TimeMissionActive.ToString());
     }
     public override void CheckMission()
     {
@@ -296,10 +296,10 @@ public class MissionAllBuilds : Mission
 {
     public MissionAllBuilds()
     {
-        this.NameMission = "All in One";
+        this.NameMission = GameMultiLang.GetTraduction("MissionAllBuilds_name");
         TerritoryMission.Add(TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER)[0].territoryStats.territory);
-        this.Message = "Have all buildings in one territory";
-        this.MessagePro = "+20 motivation in all territories \nfor " + this.TimeMissionActive + " months";
+        this.Message = GameMultiLang.GetTraduction("MissionAllBuilds_message"); ;
+        this.MessagePro = GameMultiLang.GetTraduction("MissionAllBuilds_message_pro").Replace("TIME",this.TimeMissionActive.ToString());
     }
     public override void CheckMission()
     {

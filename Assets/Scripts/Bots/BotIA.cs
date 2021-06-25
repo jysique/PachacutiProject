@@ -19,7 +19,16 @@ public class BotIA
     [SerializeField] Territory.TYPEPLAYER typeBot;
     [SerializeField] int gold;
     [SerializeField] int food;
-
+    public int GoldBot
+    {
+        get { return gold; }
+        set { gold = value; }
+    }
+    public int FoodBot
+    {
+        get { return food; }
+        set { food = value; }
+    }
     public BotIA(Territory.TYPEPLAYER _typeBot, int _gold, int _food)
     {
         actionRealized = false;

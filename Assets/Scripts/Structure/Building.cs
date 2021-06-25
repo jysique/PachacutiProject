@@ -13,7 +13,7 @@ public class Building
     private TimeSimulated init;
     private float daysToBuild = 4;
     private float daysTotal = 0;
-
+        
     public string Name
     {
         get { return nameBuilding; }

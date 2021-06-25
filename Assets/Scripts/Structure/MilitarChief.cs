@@ -33,6 +33,7 @@ public class MilitarChief : Subordinate
     public MilitarChief()
     {
         this.Description = "The military chief strongly influences the strength of your warriors when attacking other territories.";
+        //this.Description = GameMultiLang.GetTraduction("MILITARYDESCRIPTION");
     }
     public void GetMilitarBoss()
     {

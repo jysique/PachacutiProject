@@ -5,7 +5,7 @@ public class Armory : Building
     private int plusAttack = 0;
     public Armory()
     {
-        this.Name = "Armory";
+        this.Name ="Armory";
         this.AtributteToAdd = 1.0f;
     }
     public int PlusAttack

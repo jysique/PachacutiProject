@@ -129,13 +129,10 @@ public class TimeSystem : MonoBehaviour
         timeGather = PlusDaysToTimeSimulated(daysToGather);
         InGameMenuHandler.instance.GatherGoldResourceButton();
         InGameMenuHandler.instance.GatherFoodResourceButton();
-        /*
         for (int i = 0; i < BotManager.instance.bots.Count; i++)
         {
             BotManager.instance.bots[i].GetResources();
         }
-        */
-        
     }
     /// <summary>
     /// Event to produce gold and food resources from all territories of a player
@@ -163,19 +160,33 @@ public class TimeSystem : MonoBehaviour
     private void onConsumptionResources()
     {
         timeConsumption = PlusDaysToTimeSimulated(daysToConsume);
+
+        float foodConsumePlayer = GetConsumeByPlayer(Territory.TYPEPLAYER.PLAYER);
+        Consume(InGameMenuHandler.instance.FoodPlayer, foodConsumePlayer, Territory.TYPEPLAYER.PLAYER);
+
+        for (int i = 0; i < BotManager.instance.bots.Count; i++)
+        {
+
+            float foodConsumeBot = GetConsumeByPlayer(BotManager.instance.bots[i].TypeBot);
+            Consume(BotManager.instance.bots[i].FoodBot, foodConsumeBot, BotManager.instance.bots[i].TypeBot);
+        }
+    }
+
+    private float GetConsumeByPlayer(Territory.TYPEPLAYER typePlayer)
+    {
         float foodConsume = 0;
-        List<Territory> t = TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER);
+        List<Territory> t = TerritoryManager.instance.GetTerritoriesByTypePlayer(typePlayer);
         for (int i = 0; i < t.Count; i++)
         {
             foodConsume += Mathf.Ceil((float)t[i].Population / (float)t[i].PerPeople);
         }
-        ConsumePlayer(InGameMenuHandler.instance.FoodPlayer, foodConsume, Territory.TYPEPLAYER.PLAYER);
+        return foodConsume;
     }
-    private void ConsumePlayer(int foodPlayer, float foodConsume,Territory.TYPEPLAYER typePlayer)
+    private void Consume(int foodPlayer, float foodConsume,Territory.TYPEPLAYER typePlayer = Territory.TYPEPLAYER.PLAYER)
     {
         if (foodPlayer >= foodConsume)
         {
-            print("consumiendo|" + foodConsume);
+            print("consumiendo "+ typePlayer +"|"+foodPlayer+"|" + foodConsume);
             foodPlayer -= (int)foodConsume;
             if (typePlayer == Territory.TYPEPLAYER.PLAYER)
             {

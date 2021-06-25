@@ -28,21 +28,21 @@ public class ContextMenu : MonoBehaviour
     }
     public void SetTextToolTip()
     {
-        moveButton.GetComponent<MenuToolTip>().SetNewInfo("This button let you move the especified\n" +
-                                                          "quantity of units to another territory\n" +
-                                                          "the cost is " + WarriorsCount() + " of gold\n" +
-                                                          "if is an enemy territory");
+        moveButton.GetComponent<MenuToolTip>().SetNewInfo(GameMultiLang.GetTraduction("tooltip4A")+"\n" +
+                                                          GameMultiLang.GetTraduction("tooltip4B") +"\n" +
+                                                          GameMultiLang.GetTraduction("tooltip4C").Replace("W",WarriorsCount().ToString()) +"\n" +
+                                                          GameMultiLang.GetTraduction("tooltip4B"));
         if (clickedTerritory.territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
         {
-            buttonBlock.transform.Find("Text").transform.GetComponent<Text>().text = "You cannot control territories that don't belong to you";
+            buttonBlock.transform.Find("Text").transform.GetComponent<Text>().text = GameMultiLang.GetTraduction("territoryStats1");
         }
         else if (clickedTerritory.territoryStats.territory.IsClaimed == false)
         {
-            buttonBlock.transform.Find("Text").transform.GetComponent<Text>().text = "Claim this territory to control in militar menu";
+            buttonBlock.transform.Find("Text").transform.GetComponent<Text>().text = GameMultiLang.GetTraduction("territoryStats2");
         }
         else if (EventManager.instance.GetIsTerritorieIsInPandemic() && EventManager.instance.GetIsTerritorieIsInPandemic(clickedTerritory))
         {
-            buttonBlock.transform.Find("Text").transform.GetComponent<Text>().text = "You cannot move troops in a pandemic";
+            buttonBlock.transform.Find("Text").transform.GetComponent<Text>().text = GameMultiLang.GetTraduction("territoryStats3");
         }
         
     }

@@ -4,6 +4,7 @@ public class IrrigationChannel : Building
 {
     //  private float velocityfood = 0f;
     private int workersChannel = 0;
+
     public IrrigationChannel()
     {
         this.Name = "Irrigation";

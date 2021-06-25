@@ -99,7 +99,7 @@ public class WarManager : MonoBehaviour
                 SetWarriorAnimation(w.Attackers, hatAttacker, attackColor ,empire);
                 SetWarriorAnimation(w.TerritoryWar.territoryStats.territory.TypePlayer, hatDefender, deffendColor, empireD);
               
-                title.text = "Battle of " + selected.territoryStats.territory.name;
+                title.text = GameMultiLang.GetTraduction("BattleOf") + selected.territoryStats.territory.name;
 
                 power.text = (w.Speed1*10).ToString();
                 powerD.text = (w.Speed2*10).ToString();

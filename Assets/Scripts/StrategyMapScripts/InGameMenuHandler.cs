@@ -102,7 +102,7 @@ public class InGameMenuHandler : MonoBehaviour
         militaryBossName.text = mChief.CharacterName;
         militaryBossPicture.sprite = mChief.Picture;
         militaryBossExperience.text = mChief.Experience.ToString()+ "/10";
-        militaryBossEstrategy.text = "Strategy: " + mChief.StrategyType;
+        militaryBossEstrategy.text = GameMultiLang.GetTraduction("StrategyTitle") + mChief.StrategyType;
         militaryBossInfluence.text = mChief.Influence.ToString() +"/10";
         GenerationSpeed.text = selectedTerritory.VelocityPopulation.ToString();
         warriorsLimit.text = selectedTerritory.LimitPopulation.ToString();
@@ -138,8 +138,8 @@ public class InGameMenuHandler : MonoBehaviour
         MotivationBonus.text = selectedTerritory.SacredPlaceTerritory.Motivation.ToString() + "/10";
         AttackBonus.text = selectedTerritory.FortressTerritory.PlusDefense.ToString() + "/10";
         DefenseBonus.text = selectedTerritory.ArmoryTerritory.PlusAttack.ToString() + "/10";
-        GoldGeneration.text = (selectedTerritory.GoldMineTerritory.WorkersMine / 5) + " every day";
-        FoodGeneration.text = (selectedTerritory.IrrigationChannelTerritory.WorkersChannel / 5) + " every day";
+        GoldGeneration.text = (selectedTerritory.GoldMineTerritory.WorkersMine / 5) + GameMultiLang.GetTraduction("EveryDay");
+        FoodGeneration.text = (selectedTerritory.IrrigationChannelTerritory.WorkersChannel / 5) + GameMultiLang.GetTraduction("EveryDay");
         
         if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
         {
@@ -191,19 +191,19 @@ public class InGameMenuHandler : MonoBehaviour
         if (selectedTerritory.Population > selectedTerritory.LimitPopulation)
         {
             militarWarriorsCount.color = Color.red;
-            militarWarriorsCount.GetComponent<MenuToolTip>().SetNewInfo("Population overflow \n " +
-                                                                         "You cannot generate troops until you \n" +
-                                                                         "have less than the population limit");
+            militarWarriorsCount.GetComponent<MenuToolTip>().SetNewInfo(GameMultiLang.GetTraduction("tooltip5A") +"\n " +
+                                                                         GameMultiLang.GetTraduction("tooltip5B") + "\n" +
+                                                                         GameMultiLang.GetTraduction("tooltip5C"));
         }
         else
         {
             militarWarriorsCount.color = new Color32(50,50,50,255);
-            militarWarriorsCount.GetComponent<MenuToolTip>().SetNewInfo("Actual quantity of warriors.");
+            militarWarriorsCount.GetComponent<MenuToolTip>().SetNewInfo(GameMultiLang.GetTraduction("tooltip6"));
         }
         goldCount.text = selectedTerritory.Gold.ToString();
         foodCount.text = selectedTerritory.FoodReward.ToString();
-        GoldGeneration.text = (selectedTerritory.GoldMineTerritory.WorkersMine / 5) + " per day";
-        FoodGeneration.text = (selectedTerritory.IrrigationChannelTerritory.WorkersChannel / 5) + " per day";
+        GoldGeneration.text = (selectedTerritory.GoldMineTerritory.WorkersMine / 5) + GameMultiLang.GetTraduction("PerDay");
+        FoodGeneration.text = (selectedTerritory.IrrigationChannelTerritory.WorkersChannel / 5) + GameMultiLang.GetTraduction("PerDay");
         MotivationBonus.text = selectedTerritory.SacredPlaceTerritory.Motivation.ToString() + "/10";
         AttackBonus.text = selectedTerritory.FortressTerritory.PlusDefense.ToString() + "/10";
         DefenseBonus.text = selectedTerritory.ArmoryTerritory.PlusAttack.ToString() + "/10";
@@ -269,7 +269,7 @@ public class InGameMenuHandler : MonoBehaviour
         {
             goldPlayer -= territoryHandler.GetBuilding(building).CostToUpgrade;
             territoryHandler.GetBuilding(building).ImproveCostUpgrade();
-            ShowFloatingText("+1 " + building.Name + " level", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
+            ShowFloatingText("+1 " + GameMultiLang.GetTraduction(building.Name) + " level", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
             ShowFloatingText("-" + territoryHandler.GetBuilding(building).CostToUpgrade.ToString(), "TextFloating", ResourceTableHandler.instance.GoldAnimation, Color.white);
         }
     }

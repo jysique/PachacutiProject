@@ -59,8 +59,8 @@ public class BuildOption : MonoBehaviour
     }
     void UpdateElements()
     {
-        nameTxt.text = building.Name;
-        nameTxt2.text = "Press '+' to build " + building.Name;
+        nameTxt.text = GameMultiLang.GetTraduction(building.Name);
+        nameTxt2.text = GameMultiLang.GetTraduction("Press") + GameMultiLang.GetTraduction(building.Name);
         levelTxt.text = "Level:" + building.Level.ToString();
 
 
@@ -98,15 +98,15 @@ public class BuildOption : MonoBehaviour
         {
             case STATE.UPGRADE:
                 upgradeBtn.interactable = true;
-                upgradeToolTip.SetNewInfo("¿Upgrade building?");
+                upgradeToolTip.SetNewInfo(GameMultiLang.GetTraduction("tooltip1"));
                 break;
             case STATE.NOT_RESOURCES:
                 upgradeBtn.interactable = false;
-                upgradeToolTip.SetNewInfo("Not Enough Resources");
+                upgradeToolTip.SetNewInfo(GameMultiLang.GetTraduction("tooltip2"));
                 break;
             case STATE.PROCESS:
                 upgradeBtn.interactable = false;
-                upgradeToolTip.SetNewInfo("Improvement in process");
+                upgradeToolTip.SetNewInfo(GameMultiLang.GetTraduction("tooltip3"));
                 break;
             default:
                 break;

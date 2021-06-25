@@ -99,9 +99,9 @@ public class EventManager : MonoBehaviour
         InitCustomEvent(custom);
         AcceptEventButton.gameObject.SetActive(false);
         DeclineEventButton.gameObject.SetActive(false);
-        TitleTextCustomEvent.text = "Results Event";
+        TitleTextCustomEvent.text = GameMultiLang.GetTraduction("ResultEvent");
         ResultsEvent.SetActive(true);
-        ResultsTextEvent.text = "Results:\n" + custom.ResultsEvent();
+        ResultsTextEvent.text = GameMultiLang.GetTraduction("Results")+"\n" + custom.ResultsEvent();
         DetailsTextCustomEvent.text = custom.ResultMessagetEvent;
         DateTableHandler.instance.PauseTime();
     }
@@ -110,7 +110,7 @@ public class EventManager : MonoBehaviour
         InitCustomEvent(custom);
         DateTableHandler.instance.PauseTime();
         CloseEventButton.gameObject.SetActive(true);
-        DetailsTextCustomEvent.text = custom.MessageEvent + "\nTime remaining: " + daysToFinal + " days.";
+        DetailsTextCustomEvent.text = custom.MessageEvent + "\n"+GameMultiLang.GetTraduction("TimeRemaining").Replace("%", daysToFinal.ToString());
     }
     public void InitCustomEvent(CustomEvent custom)
     {
@@ -124,7 +124,7 @@ public class EventManager : MonoBehaviour
         {
             AcceptEventButton.interactable = true;
         }
-        ResultsTextEvent.text = "Requirements:\n" + custom.RequirementMessageEvent;
+        ResultsTextEvent.text = GameMultiLang.GetTraduction("Requirements")+"\n" + custom.RequirementMessageEvent;
         currentCustomEvent = custom;
     }
     public void AcceptCustomEventButton()
@@ -152,7 +152,7 @@ public class EventManager : MonoBehaviour
         DeclineEventButton.gameObject.SetActive(true);
         CloseEventButton.gameObject.SetActive(true);
         DetailsTextCustomEvent.text = " ";
-        TitleTextCustomEvent.text = "Event";
+        TitleTextCustomEvent.text = GameMultiLang.GetTraduction("EventLabel");
     }
     void InitEventsButtons()
     {
