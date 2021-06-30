@@ -66,19 +66,19 @@ public class TerritoryManager : MonoBehaviour
         for (int i = 0; i < territoryList.Count; i++)
         {
             TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-            if (territoryHandler.territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.NONE)
+            if (territoryHandler.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.NONE)
             {
                 MilitarChief newMilitarBoss = new MilitarChief();
                 newMilitarBoss.GetMilitarBoss();
                 newMilitarBoss.StrategyType = MilitarChief.TYPESTRAT.DEFENSIVE.ToString();
-                territoryHandler.territoryStats.territory.MilitarChiefTerritory = newMilitarBoss;
+                territoryHandler.TerritoryStats.Territory.MilitarChiefTerritory = newMilitarBoss;
                 //a++;
             }
             else
             {
                 MilitarChief newMilitarBoss = new MilitarChief();
                 newMilitarBoss.GetMilitarBoss();
-                territoryHandler.territoryStats.territory.MilitarChiefTerritory = newMilitarBoss;
+                territoryHandler.TerritoryStats.Territory.MilitarChiefTerritory = newMilitarBoss;
             }
         }
     }
@@ -88,7 +88,7 @@ public class TerritoryManager : MonoBehaviour
         for (int i = 0; i < territoryList.Count; i++)
         {
             TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-            territoryHandler.territoryStats.territory.RegionTerritory = TerritoryManager.instance.dictionary2.Single(s => s.Key == territoryHandler.territoryStats.territory.name).Value;
+            territoryHandler.TerritoryStats.Territory.RegionTerritory = TerritoryManager.instance.dictionary2.Single(s => s.Key == territoryHandler.TerritoryStats.Territory.name).Value;
         }
     }
     /// <summary>
@@ -100,7 +100,7 @@ public class TerritoryManager : MonoBehaviour
         {
 
             TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-            Territory.TYPEPLAYER tp = territoryHandler.territoryStats.territory.TypePlayer;
+            Territory.TYPEPLAYER tp = territoryHandler.TerritoryStats.Territory.TypePlayer;
             switch (tp)
             {
                 case Territory.TYPEPLAYER.NONE:
@@ -148,7 +148,7 @@ public class TerritoryManager : MonoBehaviour
             if (territoryList[i].name == _name)
             {
                 TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-                territoryHandler.territoryStats.territory.TypePlayer = type;
+                territoryHandler.TerritoryStats.Territory.TypePlayer = type;
             }
         }
     }
@@ -178,7 +178,7 @@ public class TerritoryManager : MonoBehaviour
         {
             int index = i;
             TerritoryHandler territoryHandler = territoryList[index].GetComponent<TerritoryHandler>();
-            if (territoryHandler.territoryStats.territory.TypePlayer == type)
+            if (territoryHandler.TerritoryStats.Territory.TypePlayer == type)
             {
                count++;
             }
@@ -230,7 +230,7 @@ public class TerritoryManager : MonoBehaviour
         for (int i = 0; i < territoryList.Count; i++)
         {
             TerritoryHandler _territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-            if (_territoryHandler.territoryStats.territory.TypePlayer == type)
+            if (_territoryHandler.TerritoryStats.Territory.TypePlayer == type)
             {
                 territoriesPlayer.Add(_territoryHandler);
             }
@@ -243,7 +243,7 @@ public class TerritoryManager : MonoBehaviour
         for (int i = 0; i < territoryList.Count; i++)
         {
             TerritoryHandler _territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-            if (_territoryHandler.territoryStats.territory.name == nameTerritory)
+            if (_territoryHandler.TerritoryStats.Territory.name == nameTerritory)
             {
                 territoryHandler = _territoryHandler;
             }
@@ -255,7 +255,7 @@ public class TerritoryManager : MonoBehaviour
         List<Territory> territoriesPlayer = new List<Territory>();
         for (int i = 0; i < territoryList.Count; i++)
         {
-            Territory _territoryHandler = territoryList[i].GetComponent<TerritoryHandler>().territoryStats.territory;
+            Territory _territoryHandler = territoryList[i].GetComponent<TerritoryHandler>().TerritoryStats.Territory;
             if (_territoryHandler.TypePlayer == type)
             {
                 territoriesPlayer.Add(_territoryHandler);
@@ -274,10 +274,10 @@ public class TerritoryManager : MonoBehaviour
         for (int i = 0; i < territoryList.Count; i++)
         {
             TerritoryHandler _territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-//            print(_territoryHandler.territoryStats.territory.RegionTerritory);
-            if (_territoryHandler.territoryStats.territory.RegionTerritory == region)
+//            print(_territoryHandler.TerritoryStats.Territory.RegionTerritory);
+            if (_territoryHandler.TerritoryStats.Territory.RegionTerritory == region)
             {
-//                print(_territoryHandler.territoryStats.territory.name);
+//                print(_territoryHandler.TerritoryStats.Territory.name);
                 territoriesZone.Add(_territoryHandler);
             }
         }
@@ -300,7 +300,7 @@ public class TerritoryManager : MonoBehaviour
         for (int i = 0; i < territoryList.Count; i++)
         {
             TerritoryHandler _territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-            if (_territoryHandler.territoryStats.territory.name == territory.name)
+            if (_territoryHandler.TerritoryStats.Territory.name == territory.name)
             {
                 return _territoryHandler;
             }
@@ -348,11 +348,11 @@ public class TerritoryManager : MonoBehaviour
         {
             if (element == "channel")
             {
-                rate += list[i].territoryStats.territory.IrrigationChannelTerritory.WorkersChannel / list[i].territoryStats.territory.PerPeople;
+                rate += list[i].TerritoryStats.Territory.IrrigationChannelTerritory.WorkersChannel / list[i].TerritoryStats.Territory.PerPeople;
             }
             else if (element == "goldmine")
             {
-                rate += list[i].territoryStats.territory.GoldMineTerritory.WorkersMine / list[i].territoryStats.territory.PerPeople;
+                rate += list[i].TerritoryStats.Territory.GoldMineTerritory.WorkersMine / list[i].TerritoryStats.Territory.PerPeople;
             }
         }
         return rate;
@@ -363,7 +363,7 @@ public class TerritoryManager : MonoBehaviour
         List<GameObject> adjacentTerritories = territory.AdjacentTerritories;
         foreach (GameObject t in adjacentTerritories)
         {
-            if(t.GetComponent<TerritoryHandler>().territoryStats.territory.TypePlayer != territory.territoryStats.territory.TypePlayer)
+            if(t.GetComponent<TerritoryHandler>().TerritoryStats.Territory.TypePlayer != territory.TerritoryStats.Territory.TypePlayer)
             {
                 return true;
             }

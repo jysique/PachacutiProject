@@ -35,12 +35,12 @@ public class CustomEventList
     {
         CustomEvents.Remove(@event);
     }
-    public CustomEvent GetEvent(Territory @territory)
+    public CustomEvent GetEventByTerritory(Territory @territory)
     {
         CustomEvent @event = new CustomEvent();
         for (int i = 0; i < CustomEvents.Count; i++)
         {
-            if (CustomEvents[i].TerritoryEvent.territoryStats.territory == territory && CustomEvents[i].EventType == CustomEvent.EVENTTYPE.CONQUIST)
+            if (CustomEvents[i].TerritoryEvent.TerritoryStats.Territory == territory && CustomEvents[i].EventType == CustomEvent.EVENTTYPE.CONQUIST)
             {
                 @event = CustomEvents[i];
             }

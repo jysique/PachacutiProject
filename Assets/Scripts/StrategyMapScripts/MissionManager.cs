@@ -7,7 +7,7 @@ public class MissionManager : MonoBehaviour
 {
     public static MissionManager instance;
     
-    [SerializeField] private Button btnMission;
+    [SerializeField] private TabButton btnMission;
     [SerializeField] private GameObject notificationMission;
     [SerializeField] private GameObject missionList;
     [HideInInspector] public int currentMission = 0;
@@ -27,7 +27,7 @@ public class MissionManager : MonoBehaviour
     private void Start()
     {
         GameEvents.instance.onMissionTriggerEnter += onMissionEnter;
-        btnMission.onClick.AddListener(() => CheckByPlayer());
+        btnMission.Notification = notificationMission;
         timeMission = new TimeSimulated(TimeSystem.instance.TimeGame);
         timeMission.PlusDays(2);
     }
@@ -50,7 +50,7 @@ public class MissionManager : MonoBehaviour
     }
     private void CheckByPlayer()
     {
-        notificationMission.SetActive(false);
+        SetNotificationMission(false);
     }
     private void onMissionEnter()
     {
@@ -66,6 +66,4 @@ public class MissionManager : MonoBehaviour
         }
         
     }
-
-
 }

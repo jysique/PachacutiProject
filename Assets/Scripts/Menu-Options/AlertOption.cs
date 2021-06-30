@@ -17,7 +17,7 @@ public class AlertOption : MonoBehaviour
     void Start()
     {
         anim = container.GetComponent<Animator>();
-        anim.speed = GlobalVariables.instance.timeModifier;
+        anim.speed = GlobalVariables.instance.timeModifier+1.5f;
         timeInit = new TimeSimulated(TimeSystem.instance.TimeGame);
         timeInit.PlusDays(3);
         closeAlertBtn.onClick.AddListener(() => CloseAlertBtn());
@@ -26,35 +26,38 @@ public class AlertOption : MonoBehaviour
     public void Init(string type,string iconId,TerritoryHandler focus= null)
     {
         this.type = type;
-        tittleAlertText.text = GameMultiLang.GetTraduction(type + "_TITLE");
-        suggertAlertText.text = GameMultiLang.GetTraduction(type + "_SUGG");
+        tittleAlertText.text = GameMultiLang.GetTraduction(type + "_title");
+        suggertAlertText.text = GameMultiLang.GetTraduction(type + "_sugg");
         focusTerritory = focus;
     }
     void CloseAlertBtn()
     {
         anim.SetBool("Appeance", false);
-        anim.speed = GlobalVariables.instance.timeModifier;
-        Destroy(this.gameObject,1+GlobalVariables.instance.timeModifier);
+        anim.speed = GlobalVariables.instance.timeModifier + 1.5f;
+        Destroy(this.gameObject,GlobalVariables.instance.timeModifier);
     }
     void OpenTabEvent()
     {
         CloseAlertBtn();
         switch (type)
         {
-            case "ALERT1":
-            case "ALERT2":
-            case "ALERT3":
+            case "Alert_NewEvent":
+            case "Alert_EndEvent":
                 AlertManager.TabEventMenu();
                 EventManager.instance.SetNotificationEvent(false);
                 break;
-            case "ALERT4":
+            case "Alert_NewMission":
                 AlertManager.TabMissionMenu();
                 MissionManager.instance.SetNotificationMission(false);
                 break;
-            case "ALERT5":
+            case "Alert_NewConq":
+                AlertManager.TabEventMenu();
+                EventManager.instance.SetNotificationEvent(false);
                 GlobalVariables.instance.CenterCameraToTerritory(focusTerritory);
                 focusTerritory.MakeOutline();
-                AlertManager.TabEventMenu();
+                break;
+            case "Alert_LostTerr":
+                GlobalVariables.instance.CenterCameraToTerritory(focusTerritory);
                 break;
             default:
                 break;

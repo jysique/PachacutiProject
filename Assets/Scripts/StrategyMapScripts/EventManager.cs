@@ -8,7 +8,10 @@ public class EventManager : MonoBehaviour
 {
     public static EventManager instance;
 
-    [Header("Evento")]
+    
+    [SerializeField] private TabButton btnEvent;
+
+    [Header("Event Menu")]
     [SerializeField] private GameObject CustomEventSelection;
     [SerializeField] private TextMeshProUGUI TitleTextCustomEvent;
     [SerializeField] private TextMeshProUGUI DetailsTextCustomEvent;
@@ -19,13 +22,20 @@ public class EventManager : MonoBehaviour
     [SerializeField] private GameObject ResultsEvent;
     [SerializeField] private GameObject notificationEvent;
     [SerializeField] private GameObject CustomEventList;
+
+    [SerializeField] private TextMeshProUGUI MotivationTxt;
+    [SerializeField] private TextMeshProUGUI OpinionTxt;
+    [SerializeField] private Button goToBtn;
+
+    [Header("Listas de Eventos")]
     public CustomEventList listEvents;
     public CustomEventList listUpgradesBuilds;
     private TimeSimulated timeAddEvent;
     private CustomEvent currentCustomEvent;
 
-    private int minDays = 15;
-    private int maxDays = 20;
+    private int minDays = 10;
+    private int maxDays = 15;
+    //public int current = 0;
     public void SetNotificationEvent(bool active)
     {
         notificationEvent.SetActive(active);
@@ -54,6 +64,7 @@ public class EventManager : MonoBehaviour
         InitEventsButtons();
         InitializeEvents();
         SetNotificationEvent(false);
+        btnEvent.Notification = notificationEvent;
     }
     void InitializeEvents()
     {
@@ -111,6 +122,14 @@ public class EventManager : MonoBehaviour
         DateTableHandler.instance.PauseTime();
         CloseEventButton.gameObject.SetActive(true);
         DetailsTextCustomEvent.text = custom.MessageEvent + "\n"+GameMultiLang.GetTraduction("TimeRemaining").Replace("%", daysToFinal.ToString());
+        MotivationTxt.text = ":" + custom.TerritoryEvent.TerritoryStats.Territory.MotivationTerritory;
+        OpinionTxt.text = ":" + custom.TerritoryEvent.TerritoryStats.Territory.OpinionTerritory;
+        goToBtn.onClick.AddListener(() => GoToButton(custom));
+    }
+    private void GoToButton(CustomEvent custom)
+    {
+        CloseCustomEventButton();
+        GlobalVariables.instance.CenterCameraToTerritory(custom.TerritoryEvent);
     }
     public void InitCustomEvent(CustomEvent custom)
     {
@@ -200,26 +219,33 @@ public class EventManager : MonoBehaviour
     {
         for (int i = 0; i < listEvents.CustomEvents.Count; i++)
         {
-            if (listEvents.CustomEvents[i].EventStatus == CustomEvent.STATUS.ANNOUNCE)
+            if (listEvents.CustomEvents[i].TerritoryEvent.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
             {
-                if (TimeSystem.instance.TimeGame.EqualsDate(listEvents.CustomEvents[i].TimeInitEvent))
-                {
-                    listEvents.CustomEvents[i].EventStatus = CustomEvent.STATUS.PROGRESS;
-                    WarningCustomEvent(i);
 
+                if (listEvents.CustomEvents[i].EventStatus == CustomEvent.STATUS.ANNOUNCE)
+                {
+                    if (TimeSystem.instance.TimeGame.EqualsDate(listEvents.CustomEvents[i].TimeInitEvent))
+                    {
+                        listEvents.CustomEvents[i].EventStatus = CustomEvent.STATUS.PROGRESS;
+                        WarningCustomEvent();
+                    }
+                }
+                else if (TimeSystem.instance.TimeGame.EqualsDate(listEvents.CustomEvents[i].TimeFinalEvent) && listEvents.CustomEvents[i].EventStatus == CustomEvent.STATUS.PROGRESS)
+                {
+                    listEvents.CustomEvents[i].EventStatus = CustomEvent.STATUS.FINISH;
+                    FinishCustomEvent(i);
+                }
+                if (listEvents.CustomEvents[i].TimeFinalEvent.DiferenceDays(TimeSystem.instance.TimeGame) == 1 && !listEvents.CustomEvents[i].W)
+                {
+                    listEvents.CustomEvents[i].W = true;
+                    AlertManager.AlertEventEnd();
                 }
             }
-            else if (TimeSystem.instance.TimeGame.EqualsDate(listEvents.CustomEvents[i].TimeFinalEvent) && listEvents.CustomEvents[i].EventStatus == CustomEvent.STATUS.PROGRESS)
+            else
             {
-                listEvents.CustomEvents[i].EventStatus = CustomEvent.STATUS.FINISH;
-                FinishCustomEvent(i);
+                listEvents.RemoveEvent(listEvents.CustomEvents[i]);
+                InstantiateEventListOption();
             }
-            if (listEvents.CustomEvents[i].TimeFinalEvent.DiferenceDays(TimeSystem.instance.TimeGame) == 1 && !listEvents.CustomEvents[i].W)
-            {
-                listEvents.CustomEvents[i].W = true;
-                AlertManager.AlertEventEnd();
-            }
-            //print("d"+i+"|"+ );
         }
     }
 
@@ -260,8 +286,7 @@ public class EventManager : MonoBehaviour
     /// <summary>
     /// Appears the Event Menu if it is in warning of init status
     /// </summary>
-    /// <param name="id"></param>
-    private void WarningCustomEvent(int id)
+    private void WarningCustomEvent()
     {
         InstantiateEventListOption();
         SetNotificationEvent(true);

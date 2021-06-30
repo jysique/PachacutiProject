@@ -5,32 +5,30 @@ using UnityEngine;
 using UnityEngine.UI;
 public class BuildOption : MonoBehaviour
 {
-    private TextMeshProUGUI nameTxt;
-    private TextMeshProUGUI levelTxt;
-    private TextMeshProUGUI costTxt;
-    private Button upgradeBtn;
-    private Image linearBarProgress;
-    private GameObject block;
-    private TextMeshProUGUI nameTxt2;
-    private Building building;
+    
+    
+    [SerializeField] private TextMeshProUGUI costTxt;
+    [SerializeField] private TextMeshProUGUI nameTxt;
+    [SerializeField] private TextMeshProUGUI nameBlockTxt;
+    [SerializeField] private TextMeshProUGUI levelTxt;
+    [SerializeField] private Button upgradeBtn;
+    [SerializeField] private Image linearBarProgress;
+    [SerializeField] private GameObject block;
+    
+    private Building territoryBuilding;
     private bool init;
+    
 
     private MenuToolTip upgradeToolTip;
     public Building TerritoryBuilding
     {
-        get { return building; }
-        set { building = value; }
+        get { return territoryBuilding; }
+        set { territoryBuilding = value; }
     }
     private void Awake()
     {
         init = false;
         levelTxt = transform.Find("LevelTxt").transform.GetComponent<TextMeshProUGUI>();
-        costTxt = transform.Find("CostTxt").transform.GetComponent<TextMeshProUGUI>();
-        block = transform.Find("Block").gameObject;
-        nameTxt = transform.Find("NameTxt").transform.GetComponent<TextMeshProUGUI>();
-        nameTxt2 = block.gameObject.transform.Find("Text").gameObject.GetComponent<TextMeshProUGUI>();
-        costTxt = transform.Find("CostTxt").gameObject.GetComponent<TextMeshProUGUI>();
-
         upgradeBtn = this.gameObject.transform.GetChild(7).gameObject.GetComponent<Button>();
         upgradeToolTip = upgradeBtn.GetComponent<MenuToolTip>();
         linearBarProgress = this.gameObject.transform.GetChild(5).gameObject.GetComponent<Image>();
@@ -41,16 +39,71 @@ public class BuildOption : MonoBehaviour
     }
     public void InitializeBuildingOption(Building building)
     {
-        TerritoryBuilding = building;
+        territoryBuilding = building;
         init = true;
+        CheckCost();
+        UpdateElements();
     }
+    private void CheckCost()
+    {
+        Territory t = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().TerritoryStats.Territory;
+        float s = 0;
+        float s2 = 0;
+        switch (territoryBuilding.GetType().ToString())
+        {
+            case "IrrigationChannel":
+                s = t.IrrigationChannelTerritory.WorkersChannel;
+                s2 = s + t.IrrigationChannelTerritory.AtributteToAdd;
+                UploadCost(InGameMenuHandler.instance.GoldPlayer, t.IrrigationChannelTerritory.CostToUpgrade, "gold", s, s2);
+                break;
+            case "GoldMine":
+                s = t.GoldMineTerritory.WorkersMine;
+                s2 = s + t.GoldMineTerritory.AtributteToAdd;
+                UploadCost(InGameMenuHandler.instance.GoldPlayer, t.GoldMineTerritory.CostToUpgrade, "gold", s, s2);
+                break;
+            case "Fortress":
+                s = t.FortressTerritory.PlusDefense;
+                s2 = s + t.FortressTerritory.AtributteToAdd;
+                UploadCost(InGameMenuHandler.instance.GoldPlayer, t.FortressTerritory.CostToUpgrade, "gold", s, s2);
+                break;
+            case "Academy":
+                s = t.AcademyTerritory.SpeedSwordsmen;
+                s2 = s + t.AcademyTerritory.AtributteSpeed;
+                UploadCost(InGameMenuHandler.instance.GoldPlayer, t.AcademyTerritory.CostToUpgrade, "gold", s, s2);
+                break;
+            case "Barracks":
+                s = t.BarracksTerritory.SpeedLancer;
+                s2 = s + t.BarracksTerritory.AtributteSpeed;
+                UploadCost(InGameMenuHandler.instance.GoldPlayer, t.BarracksTerritory.CostToUpgrade, "gold", s, s2);
+                break;
+            case "Archery":
+                s = t.BarracksTerritory.SpeedLancer;
+                s2 = s + t.BarracksTerritory.AtributteSpeed;
+                UploadCost(InGameMenuHandler.instance.GoldPlayer, t.BarracksTerritory.CostToUpgrade, "gold", s, s2);
+                break;
+            default:
+                break;
+        }
+    }
+    private void UploadCost(int goldPlayer, int goldNeed, string element, float s, float s2)
+    {
+        costTxt.text = "Cost -" + goldNeed.ToString() + " " + element + " " + s.ToString("F2") + " -> " + s2.ToString("F2"); ;
+        if (goldPlayer >= goldNeed)
+        {
+            costTxt.color = Color.white;
+        }
+        else
+        {
+            costTxt.color = Color.red;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (init == true)
         {
-            UpdateElements();
-            //linearBarProgress.fillAmount = (float)building.DaysTotal / (float)building.DaysToBuild;
+            
             UpdateLinearBarProgress();
             CheckBlock();
             SetStatus();
@@ -59,20 +112,17 @@ public class BuildOption : MonoBehaviour
     }
     void UpdateElements()
     {
-        nameTxt.text = GameMultiLang.GetTraduction(building.Name);
-        nameTxt2.text = GameMultiLang.GetTraduction("Press") + GameMultiLang.GetTraduction(building.Name);
-        levelTxt.text = "Level:" + building.Level.ToString();
-
-
-      //  upgradeBtn.interactable = building.CanUpdrade;
+        nameTxt.text = GameMultiLang.GetTraduction(territoryBuilding.Name);
+        nameBlockTxt.text = GameMultiLang.GetTraduction("Press") + GameMultiLang.GetTraduction(territoryBuilding.Name);
+        levelTxt.text = "Level:" + territoryBuilding.Level.ToString();
     }
     void UpdateLinearBarProgress()
     {
-        if (!building.CanUpdrade)
+        if (!territoryBuilding.CanUpdrade)
         {
-            int diference = TimeSystem.instance.TimeGame.DiferenceDays(building.TimeInit);
+            int diference = TimeSystem.instance.TimeGame.DiferenceDays(territoryBuilding.TimeInit);
             int hours = (int)TimeSystem.instance.TimeGame.Hour + (24 * diference);
-            linearBarProgress.fillAmount = hours / ((float)building.DaysToBuild * 24);
+            linearBarProgress.fillAmount = hours / ((float)territoryBuilding.DaysToBuild * 24);
         }
         else
         {
@@ -85,11 +135,13 @@ public class BuildOption : MonoBehaviour
         {
             AudioManager.instance.ReadAndPlaySFX("construct");
         }
-        InGameMenuHandler.instance.ImproveBuildingButton(building);
+        InGameMenuHandler.instance.ImproveBuildingButton(territoryBuilding);
+        CheckCost();
+        UpdateElements();
     }
     void CheckBlock()
     {
-        bool a = building.Level > 0 ? false : true;
+        bool a = territoryBuilding.Level > 0 ? false : true;
         block.SetActive(a);
     }
     void CheckStatusImprove()
@@ -114,13 +166,13 @@ public class BuildOption : MonoBehaviour
     }
     private void SetStatus()
     {
-        if (InGameMenuHandler.instance.GoldPlayer < building.CostToUpgrade)
+        if (InGameMenuHandler.instance.GoldPlayer < territoryBuilding.CostToUpgrade)
         {
             status = STATE.NOT_RESOURCES;
         }
         else
         {
-            if (building.CanUpdrade)
+            if (territoryBuilding.CanUpdrade)
             {
                 status = STATE.UPGRADE;
             }

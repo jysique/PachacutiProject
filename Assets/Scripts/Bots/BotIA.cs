@@ -95,14 +95,14 @@ public class BotIA
                 foreach (GameObject a in adjacents)
                 {
                     TerritoryHandler te = a.GetComponent<TerritoryHandler>();
-                    if (te.territoryStats.territory.TypePlayer == typeBot)
+                    if (te.TerritoryStats.Territory.TypePlayer == typeBot)
                     {
-                        options.Add(new OptionBot(te, t, t.territoryStats.territory.Population/2));
-                        options.Add(new OptionBot(te, t, t.territoryStats.territory.Population/2));
-                        options.Add(new OptionBot(te, t, t.territoryStats.territory.Population / 2));
-                        options.Add(new OptionBot(te, t, t.territoryStats.territory.Population / 2));
-                        options.Add(new OptionBot(te, t, t.territoryStats.territory.Population / 2));
-                        options.Add(new OptionBot(te, t, t.territoryStats.territory.Population / 2));
+                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.NumbersUnit / 2, t.TerritoryStats.Territory.Lancers.NumbersUnit / 2, t.TerritoryStats.Territory.Archer.NumbersUnit / 2));
+                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.NumbersUnit / 2, t.TerritoryStats.Territory.Lancers.NumbersUnit / 2, t.TerritoryStats.Territory.Archer.NumbersUnit / 2));
+                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.NumbersUnit / 2, t.TerritoryStats.Territory.Lancers.NumbersUnit / 2, t.TerritoryStats.Territory.Archer.NumbersUnit / 2));
+                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.NumbersUnit / 2, t.TerritoryStats.Territory.Lancers.NumbersUnit / 2, t.TerritoryStats.Territory.Archer.NumbersUnit / 2));
+                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.NumbersUnit / 2, t.TerritoryStats.Territory.Lancers.NumbersUnit / 2, t.TerritoryStats.Territory.Archer.NumbersUnit / 2));
+                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.NumbersUnit / 2, t.TerritoryStats.Territory.Lancers.NumbersUnit / 2, t.TerritoryStats.Territory.Archer.NumbersUnit / 2));
                     }
                 }
             }
@@ -113,11 +113,11 @@ public class BotIA
                 foreach (GameObject a in adjacents)
                 {
                     TerritoryHandler te = a.GetComponent<TerritoryHandler>();
-                    options.Add(new OptionBot(t, te, t.territoryStats.territory.Population));
+                    options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.NumbersUnit, t.TerritoryStats.Territory.Lancers.NumbersUnit, t.TerritoryStats.Territory.Archer.NumbersUnit));
                     if (TerritoryManager.instance.IsLimit(te))
                     {
-                        options.Add(new OptionBot(t, te, t.territoryStats.territory.Population));
-                        options.Add(new OptionBot(t, te, t.territoryStats.territory.Population));
+                        options.Add(new OptionBot(t, te,t.TerritoryStats.Territory.Swordsmen.NumbersUnit, t.TerritoryStats.Territory.Lancers.NumbersUnit, t.TerritoryStats.Territory.Archer.NumbersUnit));
+                        options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.NumbersUnit, t.TerritoryStats.Territory.Lancers.NumbersUnit, t.TerritoryStats.Territory.Archer.NumbersUnit));
                     }
                 }
 
@@ -129,15 +129,17 @@ public class BotIA
                 foreach (GameObject a in adjacents)
                 {
                     TerritoryHandler te = a.GetComponent<TerritoryHandler>();
-                    if(te.territoryStats.territory.TypePlayer != t.territoryStats.territory.TypePlayer)
+                    if(te.TerritoryStats.Territory.TypePlayer != t.TerritoryStats.Territory.TypePlayer)
                     {
-                        options.Add(new OptionBot(t, te, 0));
-                        if(te.territoryStats.territory.Population <= t.territoryStats.territory.Population && gold - warTax >= 0 && t.territoryStats.territory.Population >= 5)
+                        options.Add(new OptionBot(t, te, 0,0,0));
+                        if(te.TerritoryStats.Territory.Population <= t.TerritoryStats.Territory.Population && 
+                            gold - warTax >= 0 && 
+                            t.TerritoryStats.Territory.Population >= 5)
                         {
-                            options.Add(new OptionBot(t, te, t.territoryStats.territory.Population));
-                            options.Add(new OptionBot(t, te, t.territoryStats.territory.Population));
-                            options.Add(new OptionBot(t, te, t.territoryStats.territory.Population));
-                            options.Add(new OptionBot(t, te, t.territoryStats.territory.Population));
+                            options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.NumbersUnit, t.TerritoryStats.Territory.Lancers.NumbersUnit, t.TerritoryStats.Territory.Archer.NumbersUnit));
+                            options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.NumbersUnit, t.TerritoryStats.Territory.Lancers.NumbersUnit, t.TerritoryStats.Territory.Archer.NumbersUnit));
+                            options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.NumbersUnit, t.TerritoryStats.Territory.Lancers.NumbersUnit, t.TerritoryStats.Territory.Archer.NumbersUnit));
+                            options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.NumbersUnit, t.TerritoryStats.Territory.Lancers.NumbersUnit, t.TerritoryStats.Territory.Archer.NumbersUnit));
                         }
                         
                     }
@@ -152,27 +154,27 @@ public class BotIA
         int i = Random.Range(0, options.Count);
         if(options[i].Number != 0)
         {
-            MoveTroops(options[i].Begin, options[i].End, options[i].Number);
+            MoveTroops(options[i].Begin, options[i].End, options[i].Number, options[i].Number2, options[i].Number3);
         }
         
     }
 
-    private void MoveTroops(TerritoryHandler begin, TerritoryHandler end, int number)
+    private void MoveTroops(TerritoryHandler begin, TerritoryHandler end, int number,int number2,int number3)
     {
 
         if (number != 0)
         {
-            if (begin.territoryStats.territory.TypePlayer != end.territoryStats.territory.TypePlayer)//conquista
+            if (begin.TerritoryStats.Territory.TypePlayer != end.TerritoryStats.Territory.TypePlayer)//conquista
             {
                 if(gold - warTax >= 0)
                 {
                     gold -= warTax;
-                    WarManager.instance.SendWarriors(begin, end, number);
+                    WarManager.instance.SendWarriors(begin, end, number,number2,number3);
                 }
             }
             else//movimiento
             {
-                WarManager.instance.SendWarriors(begin, end, number);
+                WarManager.instance.SendWarriors(begin, end, number,number2,number3);
             }
             
         }
@@ -182,10 +184,10 @@ public class BotIA
     {
         foreach (TerritoryHandler t in territories)
         {
-            gold += t.territoryStats.territory.Gold;
-            food += t.territoryStats.territory.FoodReward;
-            t.territoryStats.territory.Gold = 0;
-            t.territoryStats.territory.FoodReward = 0;
+            gold += t.TerritoryStats.Territory.Gold;
+            food += t.TerritoryStats.Territory.FoodReward;
+            t.TerritoryStats.Territory.Gold = 0;
+            t.TerritoryStats.Territory.FoodReward = 0;
         }
     }
 
@@ -204,7 +206,8 @@ public class OptionBot
     [SerializeField] private TerritoryHandler begin;
     [SerializeField] private TerritoryHandler end;
     [SerializeField] private int number;
-
+    [SerializeField] private int number2;
+    [SerializeField] private int number3;
     public TerritoryHandler Begin
     {
         get { return begin; }
@@ -217,10 +220,20 @@ public class OptionBot
     {
         get { return number; }
     }
-    public OptionBot(TerritoryHandler _begin, TerritoryHandler _end, int _number)
+    public int Number2
+    {
+        get { return number2; }
+    }
+    public int Number3
+    {
+        get { return number3; }
+    }
+    public OptionBot(TerritoryHandler _begin, TerritoryHandler _end, int _number,int _number2, int _number3)
     {
         begin = _begin;
         end = _end;
         number = _number;
+        number2 = _number2;
+        number3 = _number3;
     }
 }

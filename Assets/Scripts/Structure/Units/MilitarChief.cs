@@ -33,6 +33,7 @@ public class MilitarChief : Subordinate
     public MilitarChief()
     {
         this.Description = "The military chief strongly influences the strength of your warriors when attacking other territories.";
+        this.CharacIconType = "Military";
         //this.Description = GameMultiLang.GetTraduction("MILITARYDESCRIPTION");
     }
     public void GetMilitarBoss()
@@ -43,7 +44,8 @@ public class MilitarChief : Subordinate
         this.Origin = "Qosqo";
         this.Campaign = "DEFAULT_CAMPAIGN";
         this.Personality = "DEFAULT_PERSONALITY";
-        this.CharacIconType = "Military";
+        
+//        Debug.LogError("GET|"+this.CharacIconType);
         this.CharacIconIndex = "0" + UnityEngine.Random.Range(1, 3).ToString();
         this.Influence = UnityEngine.Random.Range(3, 10);
         this.Opinion = UnityEngine.Random.Range(3, 10);

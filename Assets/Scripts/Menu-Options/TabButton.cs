@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using TMPro;
 
@@ -11,7 +12,7 @@ public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandl
 
     public Image background;
     public TextMeshProUGUI text;
-
+    GameObject notification;
     public void OnPointerClick(PointerEventData eventData)
     {
         if (AudioManager.instance != null)
@@ -19,7 +20,10 @@ public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandl
             AudioManager.instance.ReadAndPlaySFX("menu_click");
         }
         tabGroup.OnTabSelected(this);
-
+        if (notification!=null)
+        {
+            notification.gameObject.SetActive(false);
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -45,9 +49,10 @@ public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandl
         tabGroup.OnTabSelected(this);
         tabGroup.OnTabEnter(this);
     }
-
-    private void Update()
+    public GameObject Notification
     {
-        
+        get{return notification; }
+        set { notification = value; }
     }
+
 }

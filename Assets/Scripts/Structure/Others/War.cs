@@ -31,7 +31,7 @@ public class War
         time2 = 0;
         limit = 400;
         warriors1Count = c1;
-        warriors2Count = _territoryHandler.territoryStats.territory.Population;
+        warriors2Count = _territoryHandler.TerritoryStats.Territory.Population;
         warriors1Speed = s1;
         warriors2Speed = s2;
         territory = _territoryHandler;
@@ -60,10 +60,10 @@ public class War
     {
         if(status == 1)
         {
-            if (territory.territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.PLAYER && territory.territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.NONE)
+            if (territory.TerritoryStats.Territory.TypePlayer != Territory.TYPEPLAYER.PLAYER && territory.TerritoryStats.Territory.TypePlayer != Territory.TYPEPLAYER.NONE)
             {
                 
-                BotManager.instance.DeleteTerritory(territory.territoryStats.territory.TypePlayer, territory);
+                BotManager.instance.DeleteTerritory(territory.TerritoryStats.Territory.TypePlayer, territory);
             }
 
             WarManager.instance.FinishWar(territory,attackers,warriors1Count);
@@ -102,19 +102,36 @@ public class War
             {
                 time1 = 0;
                 warriors1Count--;
-                
             }
             if (time2 >= limit)
             {
                 time2 = 0;
-                territory.territoryStats.territory.Population--;
-                warriors2Count = territory.territoryStats.territory.Population;
+                // territory.TerritoryStats.Territory.Population--;
+                if (index == 0)
+                {
+                    territory.TerritoryStats.Territory.Swordsmen.NumbersUnit--;
+                }
+                else if (index ==1)
+                {
+                    territory.TerritoryStats.Territory.Lancers.NumbersUnit--;
+                }else if (index == 2)
+                {
+                    territory.TerritoryStats.Territory.Archer.NumbersUnit--;
+                }
+                if (territory.TerritoryStats.Territory.Swordsmen.NumbersUnit == 0)
+                {
+                    index = 1;
+                    if (territory.TerritoryStats.Territory.Lancers.NumbersUnit == 0)
+                    {
+                        index = 2;
+                    }
+                }
+                warriors2Count = territory.TerritoryStats.Territory.Population;
             }
             if (warriors1Count <= 0 || warriors2Count <= 0) status = 1;
         }
-        
-
     }
+    public int index = 0;
     public TerritoryHandler GetTerritory()
     {
         return territory;

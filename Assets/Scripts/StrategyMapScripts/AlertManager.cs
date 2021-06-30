@@ -33,7 +33,7 @@ public class AlertManager : MonoBehaviour
     }
     public static void NewAlert(string alerttextId, string alertIconId = "", TerritoryHandler focusTerritory= null)
     {
-
+      //  print("A|"+alerttextId);
         GameObject alertGo = (GameObject)Instantiate(instance.alertOption);
         alertGo.transform.SetParent(instance.alertContainer.transform);
         alertGo.GetComponent<AlertOption>().Init(alerttextId,alertIconId,focusTerritory);
@@ -41,31 +41,31 @@ public class AlertManager : MonoBehaviour
     }
     public static void NewAlert(string alerttextID)
     {
-        NewAlert(alerttextID,"");
+        NewAlert("Alert_"+ alerttextID,"");
     }
     public static void NewAlert(string alerttextID, TerritoryHandler focusObject)
     {
-        NewAlert(alerttextID, "", focusObject);
+        NewAlert("Alert_" + alerttextID, "", focusObject);
     }
     public static void AlertEvent()
     {
-        NewAlert("ALERT1");
-    }
-    public static void AlertMission()
-    {
-        NewAlert("ALERT2");
+        NewAlert("NewEvent");
     }
     public static void AlertConquered(TerritoryHandler territoryfocus)
     {
-        NewAlert("ALERT3",territoryfocus);
-    }
-    public static void AlertLost(TerritoryHandler territoryfocus)
-    {
-        NewAlert("ALERT4", territoryfocus);
+        NewAlert("NewConq", territoryfocus);
     }
     public static void AlertEventEnd()
     {
-        NewAlert("ALERT5");
+        NewAlert("EndEvent");
+    }
+    public static void AlertMission()
+    {
+        NewAlert("NewMission");
+    }
+    public static void AlertLost(TerritoryHandler territoryfocus)
+    {
+        NewAlert("LostTerr", territoryfocus);
     }
     public static void TabEventMenu()
     {

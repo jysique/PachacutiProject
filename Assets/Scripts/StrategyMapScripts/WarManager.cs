@@ -97,9 +97,9 @@ public class WarManager : MonoBehaviour
                 peaceContainer.SetActive(false);
                 warContainer.SetActive(true);
                 SetWarriorAnimation(w.Attackers, hatAttacker, attackColor ,empire);
-                SetWarriorAnimation(w.TerritoryWar.territoryStats.territory.TypePlayer, hatDefender, deffendColor, empireD);
+                SetWarriorAnimation(w.TerritoryWar.TerritoryStats.Territory.TypePlayer, hatDefender, deffendColor, empireD);
               
-                title.text = GameMultiLang.GetTraduction("BattleOf") + selected.territoryStats.territory.name;
+                title.text = GameMultiLang.GetTraduction("BattleOf") + selected.TerritoryStats.Territory.name;
 
                 power.text = (w.Speed1*10).ToString();
                 powerD.text = (w.Speed2*10).ToString();
@@ -113,7 +113,6 @@ public class WarManager : MonoBehaviour
         }
         
     }
-    
     private void SetWarriorAnimation(Territory.TYPEPLAYER type, Image hat, Image background, Text empire)
     {
         switch (type)
@@ -150,10 +149,9 @@ public class WarManager : MonoBehaviour
                 break;
         }
     }
-
     private void SetPeaceMenu()
     {
-        switch (selected.territoryStats.territory.TypePlayer)
+        switch (selected.TerritoryStats.Territory.TypePlayer)
         {
             case Territory.TYPEPLAYER.PLAYER:
                 hatP1.sprite = incaHat;
@@ -183,35 +181,30 @@ public class WarManager : MonoBehaviour
         }
         territorySprite.sprite = selected.sprite.sprite;
         warContainer.SetActive(false);
-        title.text = selected.territoryStats.territory.name;
+        title.text = selected.TerritoryStats.Territory.name;
         peaceContainer.SetActive(true);
     }
-
     public void FinishWar(TerritoryHandler territory, Territory.TYPEPLAYER type, int survivors)
     {
         territory.gameObject.transform.GetChild(0).gameObject.SetActive(false);
         territory.war = false;
         
 
-        if(territory.territoryStats.territory.Population == 0)
+        if(territory.TerritoryStats.Territory.Population == 0)
         {
             
             
             if (type == Territory.TYPEPLAYER.PLAYER)
             {
-               // territory.territoryStats.territory.TypePlayer = Territory.TYPEPLAYER.PLAYER;
-                territory.territoryStats.territory.IsClaimed = false;
-                //  MenuManager.instance.OpenBattleWonMenu(territory);
-                // AlertManager.AlertConquered(territory);
+                territory.TerritoryStats.Territory.IsClaimed = false;
                 EventManager.instance.AddEvent(territory);
-                //  EventManager.instance.InstantiateEventListOption(TimeSystem.instance.listEvents);
                 EventManager.instance.InstantiateEventListOption();
                 AlertManager.AlertConquered(territory);
 
             }
             else /*if(type == Territory.TYPEPLAYER.BOT)*/
             {
-                if (territory.territoryStats.territory.TypePlayer==Territory.TYPEPLAYER.PLAYER)
+                if (territory.TerritoryStats.Territory.TypePlayer==Territory.TYPEPLAYER.PLAYER)
                 {
                     AlertManager.AlertLost(territory);
                 }
@@ -219,11 +212,11 @@ public class WarManager : MonoBehaviour
                 MilitarChief newMilitarBoss = new MilitarChief();
                 newMilitarBoss.GetMilitarBoss();
                 //print(newMilitarBoss.CharacterName);
-                territory.territoryStats.territory.MilitarChiefTerritory = newMilitarBoss;
+                territory.TerritoryStats.Territory.MilitarChiefTerritory = newMilitarBoss;
                 BotManager.instance.CreateOrAdd(type, territory);
             }
-            territory.territoryStats.territory.TypePlayer = type;
-            territory.territoryStats.territory.Population = survivors;
+            territory.TerritoryStats.Territory.TypePlayer = type;
+            //territory.TerritoryStats.Territory.Population = survivors;
         }
         if (territory == selected)
         {
@@ -245,7 +238,7 @@ public class WarManager : MonoBehaviour
     public float SetAttackFormula(TerritoryHandler t, int warriorsNumber)
     {
         float V = initialSpeed;
-        MilitarChief mb = t.territoryStats.territory.MilitarChiefTerritory;
+        MilitarChief mb = t.TerritoryStats.Territory.MilitarChiefTerritory;
         float strategyMod = 0;
         switch (mb.StrategyType)
         {
@@ -269,15 +262,15 @@ public class WarManager : MonoBehaviour
         //print(warriorNumberBonus);
         float experienceMod = V * ((float)mb.Experience/50f);
         float governorMod = 0;
-        if(t.territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
+        if(t.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
         {
             RoyalFamily governor = CharacterManager.instance.Governor;
             governorMod = V * ((float)governor.Militancy / 50f);
         }
-        float motivationMod = V * ((float)t.territoryStats.territory.SacredPlaceTerritory.Motivation / 10f);
-        float attackMod = V * ((float)t.territoryStats.territory.ArmoryTerritory.PlusAttack / 50f);
+      //  float motivationMod = V * ((float)t.TerritoryStats.Territory.SacredPlaceTerritory.Motivation / 10f);
+      //  float attackMod = V * ((float)t.TerritoryStats.Territory.ArmoryTerritory.PlusAttack / 50f);
         //print("Ataque: inicial: " + V.ToString() + " estrategia: " + strategyMod.ToString() + " warriorNumberBonus: " + warriorNumberBonus.ToString() + " experiencia: " + experienceMod.ToString() + " governador: " + governorMod.ToString() + " motivacion: " + motivationMod.ToString() + " ataque: " + attackMod.ToString());
-        V = V + ((strategyMod + warriorNumberBonus + experienceMod + governorMod+motivationMod+attackMod)*3);
+        V = V + ((strategyMod + warriorNumberBonus + experienceMod + governorMod/*+motivationMod+attackMod*/)*3);
         
     //    print((warriorNumberBonus + experienceMod + governorMod));
     //    print(V);
@@ -288,7 +281,7 @@ public class WarManager : MonoBehaviour
     {
         float V = initialSpeed;
         
-        MilitarChief mb = t.territoryStats.territory.MilitarChiefTerritory;
+        MilitarChief mb = t.TerritoryStats.Territory.MilitarChiefTerritory;
         float strategyMod = 0;
         switch (mb.StrategyType)
         {
@@ -308,46 +301,53 @@ public class WarManager : MonoBehaviour
                 strategyMod = V * -0.06f;
                 break;
         }
-        float warriorNumberBonus = V * ((float)t.territoryStats.territory.Population / 100);
+        float warriorNumberBonus = V * ((float)t.TerritoryStats.Territory.Population / 100);
         float experienceMod = V * ((float)mb.Experience / 50);
         float governorMod = 0;
-        if (t.territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
+        if (t.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
         {
             RoyalFamily governor = CharacterManager.instance.Governor;
             governorMod = V * ((float)governor.Militancy / 50);
         }
-        float motivationMod = V * ((float)t.territoryStats.territory.SacredPlaceTerritory.Motivation / 10f);
-        float defenseMod = V * ((float)t.territoryStats.territory.FortressTerritory.PlusDefense / 50f);
+   //     float motivationMod = V * ((float)t.TerritoryStats.Territory.SacredPlaceTerritory.Motivation / 10f);
+        float defenseMod = V * ((float)t.TerritoryStats.Territory.FortressTerritory.PlusDefense / 50f);
         //print("Defensa: inicial: " + V.ToString() + " estrategia: " + strategyMod.ToString() + " warriorNumberBonus: " + warriorNumberBonus.ToString() + " experiencia: " + experienceMod.ToString() + " governador: " + governorMod.ToString() + " motivacion: " + motivationMod.ToString() + " defensa: " + defenseMod.ToString());
-        V = V + ((strategyMod + warriorNumberBonus + experienceMod + governorMod+defenseMod+motivationMod) * 3);
+        V = V + ((strategyMod + warriorNumberBonus + experienceMod + governorMod+defenseMod/*+motivationMod*/) * 3);
         
         return V;
     }
 
-    public void SelectTerritory(int warriorsNumber)
+    public void SelectTerritory(int _warriorsSword,int _warriorsLance, int _warriorsArch)
     {
-        if (TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().territoryStats.territory.Population - warriorsNumber >= 0)
+        if (TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().TerritoryStats.Territory.Swordsmen.NumbersUnit - _warriorsSword >= 0 ||
+            TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().TerritoryStats.Territory.Lancers.NumbersUnit - _warriorsLance >= 0 ||
+            TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().TerritoryStats.Territory.Archer.NumbersUnit - _warriorsArch >= 0)
         {
             TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().ShowAdjacentTerritories();
         }
     }
 
-    public void SendWarriors(TerritoryHandler selected, TerritoryHandler otherTerritory, int _warriorsNumber)
-    {
-
-        selected.territoryStats.territory.Population = selected.territoryStats.territory.Population - _warriorsNumber;
-        warriorsPrefab.GetComponent<WarriorsMoving>().SetAttack(otherTerritory.gameObject, _warriorsNumber, selected);
+    public void SendWarriors(TerritoryHandler selected, TerritoryHandler otherTerritory, int _warriorsSword, int _warriorsLance, int _warriorsArch)
+    {   
+        selected.TerritoryStats.Territory.Swordsmen.NumbersUnit = selected.TerritoryStats.Territory.Swordsmen.NumbersUnit - _warriorsSword;
+        selected.TerritoryStats.Territory.Lancers.NumbersUnit = selected.TerritoryStats.Territory.Lancers.NumbersUnit - _warriorsLance;
+        selected.TerritoryStats.Territory.Archer.NumbersUnit = selected.TerritoryStats.Territory.Archer.NumbersUnit - _warriorsArch;
+        warriorsPrefab.GetComponent<WarriorsMoving>().SetAttack(otherTerritory.gameObject, _warriorsSword,_warriorsLance,_warriorsArch, selected);
         Instantiate(warriorsPrefab, selected.transform.position, Quaternion.identity);
 
     }
 
-    public void MoveWarriors(TerritoryHandler otherTerritory, int attackPower, TerritoryHandler attacker)
+    public void MoveWarriors(TerritoryHandler otherTerritory, int _warriorsSword, int _warriorsLance, int _warriorsArch, TerritoryHandler attacker)
     {
-        Territory.TYPEPLAYER temp = otherTerritory.territoryStats.territory.TypePlayer;
-        //  if (otherTerritory.territoryStats.territory.TypePlayer == attacker.territoryStats.territory.TypePlayer || otherTerritory.territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.CLAIM)
-        if (otherTerritory.territoryStats.territory.TypePlayer == attacker.territoryStats.territory.TypePlayer)
+        int attackPower = _warriorsSword + _warriorsLance + _warriorsArch;
+        Territory.TYPEPLAYER temp = otherTerritory.TerritoryStats.Territory.TypePlayer;
+        //  if (otherTerritory.TerritoryStats.Territory.TypePlayer == attacker.TerritoryStats.Territory.TypePlayer || otherTerritory.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.CLAIM)
+        if (otherTerritory.TerritoryStats.Territory.TypePlayer == attacker.TerritoryStats.Territory.TypePlayer)
         {
-            otherTerritory.territoryStats.territory.Population = otherTerritory.territoryStats.territory.Population + attackPower;
+            otherTerritory.TerritoryStats.Territory.Swordsmen.NumbersUnit += _warriorsSword;
+            otherTerritory.TerritoryStats.Territory.Lancers.NumbersUnit += _warriorsLance;
+            otherTerritory.TerritoryStats.Territory.Archer.NumbersUnit += _warriorsArch;
+            //otherTerritory.TerritoryStats.Territory.Population = otherTerritory.TerritoryStats.Territory.Population + attackPower;
         }
         else
         {
@@ -362,7 +362,7 @@ public class WarManager : MonoBehaviour
                 float vDef = SetDefenseFormula(otherTerritory);
                 float critic1 = 20;
                 float critic2 = 20;
-                AddWar(attackPower, otherTerritory.territoryStats.territory.Population, vAttack, vDef,critic1,critic2, otherTerritory, attacker.territoryStats.territory.TypePlayer);
+                AddWar(attackPower, otherTerritory.TerritoryStats.Territory.Population, vAttack, vDef,critic1,critic2, otherTerritory, attacker.TerritoryStats.Territory.TypePlayer);
 
                 otherTerritory.war = true;
                 otherTerritory.gameObject.transform.GetChild(0).gameObject.SetActive(true);

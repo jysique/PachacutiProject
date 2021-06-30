@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
+using TMPro;
 public class NumericButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    [SerializeField] private Text number;
+    [SerializeField] private TextMeshProUGUI number;
+    [SerializeField] private bool inc;
     public int limit;
     public bool lockButton;
-    [SerializeField] private bool inc;
     public bool pointerDown = false;
     private int t = 0;
     private int total = 5;
@@ -37,8 +37,7 @@ public class NumericButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
             number.text = limit.ToString();
         }
     }
-  
-
+ 
     public void OnPointerDown(PointerEventData eventData)
     {
         pointerDown = true;

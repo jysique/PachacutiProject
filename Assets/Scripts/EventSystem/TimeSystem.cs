@@ -143,14 +143,14 @@ public class TimeSystem : MonoBehaviour
         List<TerritoryHandler> t = TerritoryManager.instance.GetAllTerritoriesHanlder();
         for (int i = 0; i < t.Count; i++)
         {
-            TerritoryStats territoryStats = t[i].territoryStats;
+            TerritoryStats territoryStats = t[i].TerritoryStats;
             territoryStats.IncresementGold();
             territoryStats.IncresementFood();
-            if (territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
+            if (territoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
             //  if (territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER || territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.CLAIM)
             {
-                InGameMenuHandler.instance.ShowFloatingText("+" + territoryStats.territory.GoldMineTerritory.WorkersMine / territoryStats.territory.PerPeople + "gold", "TextMesh", t[i].transform, new Color32(0, 19, 152, 255));
-                InGameMenuHandler.instance.ShowFloatingText("+" + territoryStats.territory.IrrigationChannelTerritory.WorkersChannel / territoryStats.territory.PerPeople + "food", "TextMesh", t[i].transform, new Color32(0, 19, 152, 255), posY: -0.25f);
+                InGameMenuHandler.instance.ShowFloatingText("+" + territoryStats.Territory.GoldMineTerritory.WorkersMine / territoryStats.Territory.PerPeople + "gold", "TextMesh", t[i].transform, new Color32(0, 19, 152, 255));
+                InGameMenuHandler.instance.ShowFloatingText("+" + territoryStats.Territory.IrrigationChannelTerritory.WorkersChannel / territoryStats.Territory.PerPeople + "food", "TextMesh", t[i].transform, new Color32(0, 19, 152, 255), posY: -0.25f);
             }
         }
     }
@@ -186,7 +186,7 @@ public class TimeSystem : MonoBehaviour
     {
         if (foodPlayer >= foodConsume)
         {
-            print("consumiendo "+ typePlayer +"|"+foodPlayer+"|" + foodConsume);
+          //  print("consumiendo "+ typePlayer +"|"+foodPlayer+"|" + foodConsume);
             foodPlayer -= (int)foodConsume;
             if (typePlayer == Territory.TYPEPLAYER.PLAYER)
             {

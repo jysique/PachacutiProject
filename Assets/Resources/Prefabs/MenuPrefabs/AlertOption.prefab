@@ -828,7 +828,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3502675013087685901}
-  - component: {fileID: 8982296877681952964}
+  - component: {fileID: 8224100554477745317}
   m_Layer: 5
   m_Name: Container
   m_TagString: Untagged
@@ -853,12 +853,12 @@ RectTransform:
   m_Father: {fileID: 3410701934901781439}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 413, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 395, y: 0}
+  m_SizeDelta: {x: 370, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!95 &8982296877681952964
+--- !u!95 &8224100554477745317
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0

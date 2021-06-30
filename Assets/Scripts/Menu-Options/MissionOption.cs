@@ -90,19 +90,6 @@ public class MissionOption : MonoBehaviour
     private void UpdateStatus()
     {
         statusMission.GetComponent<MenuToolTip>().SetNewInfo(GameMultiLang.GetTraduction("MissionStatus") + mission.MissionStatus.ToString().ToLower().Replace("_", " "));
-        /*
-        if (mission.MissionStatus == Mission.STATUS.IN_PROGRESS)
-        {
-            statusMission.color = new Color(0.25f, 0.5f, 1.0f, 1f);
-        }
-        if (mission.MissionStatus == Mission.STATUS.IN_PROGRESS_BENEFITS)
-        {
-            statusMission.color = new Color(1.0f, 0f, 0f, 1f);
-        }
-        else if (mission.MissionStatus == Mission.STATUS.DONE)
-        {
-            statusMission.color = new Color(0.5f, 1.0f, 0.5f, 1f);
-        }*/
         if (mission.MissionStatus != Mission.STATUS.IN_PROGRESS)
         {
             toggleMission.isOn = true;
