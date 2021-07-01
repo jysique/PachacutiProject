@@ -47,6 +47,7 @@ public class TerritoryStats : MonoBehaviour
             else if(territory.Population > territory.LimitPopulation)
             {
                 populationTxt.color = Color.red;
+                DecreasementPopulation();
             }
         }
         else
@@ -77,6 +78,19 @@ public class TerritoryStats : MonoBehaviour
         else
         {
             territory.Population++;
+            timeLeftP = 0;
+        }
+    }
+
+    private void DecreasementPopulation()
+    {
+        if (timeLeftP <= maxTimeCount)
+        {
+            timeLeftP += Time.deltaTime * GlobalVariables.instance.timeModifier * 12;
+        }
+        else
+        {
+            territory.Population--;
             timeLeftP = 0;
         }
     }

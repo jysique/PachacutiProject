@@ -8,6 +8,7 @@ public class Armory : Building
         this.Name = "Armory";
         this.AtributteToAdd = 1.0f;
     }
+
     public int PlusAttack
     {
         get { return plusAttack; }

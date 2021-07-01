@@ -68,7 +68,7 @@ public class TerritoryHandler : MonoBehaviour
 
         statsGO.transform.SetParent(GameObject.Find("StatsContainer").transform,false);
 //        print(canvas.GetComponent<Canvas>().scaleFactor);
-        statsGO.GetComponent<RectTransform>().anchoredPosition =  new Vector3(transform.position.x*110+paddingX, transform.position.y*110+paddingY,transform.position.z);
+        statsGO.GetComponent<RectTransform>().anchoredPosition =  new Vector3(transform.position.x*160+paddingX, transform.position.y*110+paddingY,transform.position.z);
 
         territoryStats = statsGO.GetComponent<TerritoryStats>();
         territoryStats.territory = territory;
