@@ -10,7 +10,7 @@ public class CharacterOption : MonoBehaviour
     private Button CharacterButton;
     //private  type;
     private Subordinate character;
-    private Territory territory;
+ //   private Territory territory;
     void Start()
     {
         // It can be in the "start" function because it is instantiated
@@ -19,11 +19,11 @@ public class CharacterOption : MonoBehaviour
         CharacterButton = transform.GetComponent<Button>();
         CharacterButton.onClick.AddListener(()=>HireCharacter());
     }
-    public void InitializeCharacterOption(Subordinate _char,Territory _territory)
+    public void InitializeCharacterOption(Subordinate _char,Territory _territory=null)
     {
         //this.type = _type;
         this.character = _char;
-        this.territory = _territory;
+      //  this.territory = _territory;
     }
     private void Update()
     {
@@ -64,15 +64,17 @@ public class CharacterOption : MonoBehaviour
         if (this.character is MilitarChief)
         {
             var militar = (MilitarChief)character;
-            territory.MilitarChiefTerritory = militar;
+            InGameMenuHandler.instance.TerritorySelected.MilitarChiefTerritory = militar;
+        //    territory.MilitarChiefTerritory = militar;
         }
         /* else if (type == "comunal")
          {
 
          }*/
-        territory.IsClaimed = true;
+        InGameMenuHandler.instance.TerritorySelected.IsClaimed = true;
+        //territory.IsClaimed = true;
         MenuManager.instance.CloseSelectCharacterMenu();
-        TimeSystem.instance.listEvents.GetEvent(territory).DeclineEventAction();
+        EventManager.instance.listEvents.GetEventByTerritory(InGameMenuHandler.instance.TerritorySelected).DeclineEventAction();
         EventManager.instance.InstantiateEventListOption();
         InGameMenuHandler.instance.UpdateMenu();
     }

@@ -45,9 +45,9 @@ public class CharacterManager : MonoBehaviour
     {
         Governor temp = CharacterManager.instance.Governor;
         governorName.text =  temp.CharacterName;
-        governorAge.text = "Age: " + temp.Age.ToString();
+        governorAge.text = GameMultiLang.GetTraduction("AgeLabel") + temp.Age.ToString();
         governorPicture.sprite = temp.Picture;
-        governorOrigin.text = "Birth place: " + temp.Origin;
+        governorOrigin.text = GameMultiLang.GetTraduction("BirthLabel") + temp.Origin;
         governorDiplomacy.text = temp.Diplomacy + "/20";
         governorMilitancy.text =  temp.Militancy + "/20";
         governorManagement.text = temp.Managment + "/20";

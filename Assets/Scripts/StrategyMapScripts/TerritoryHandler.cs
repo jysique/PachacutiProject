@@ -27,7 +27,12 @@ public class TerritoryHandler : MonoBehaviour
     }
 
     GameObject statsGO;
-    [SerializeField] public TerritoryStats territoryStats;
+    [SerializeField] private TerritoryStats territoryStats;
+    
+    public TerritoryStats TerritoryStats
+    {
+        get { return territoryStats; }
+    }
 
     private void Awake()
     {
@@ -40,7 +45,7 @@ public class TerritoryHandler : MonoBehaviour
     private void Start()
     {
         sr = this.GetComponent<SpriteRenderer>();
-        if (territoryStats.territory.GetSelected())
+        if (TerritoryStats.Territory.GetSelected())
         {
             TerritoryManager.instance.territorySelected = this.gameObject;
             sr.material = outlineMaterial;
@@ -49,17 +54,24 @@ public class TerritoryHandler : MonoBehaviour
             WarManager.instance.SetWarStatus(this.war);
             //ShowAdjacentTerritories();
         }            
-        if(territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.NONE)
+        if(TerritoryStats.Territory.TypePlayer != Territory.TYPEPLAYER.NONE)
         {
-            territoryStats.territory.IrrigationChannelTerritory.ImproveBuilding(1);
-            territoryStats.territory.IrrigationChannelTerritory.ImproveCostUpgrade();
-            territoryStats.territory.GoldMineTerritory.ImproveBuilding(1);
-            territoryStats.territory.GoldMineTerritory.ImproveCostUpgrade();
-            territoryStats.territory.IsClaimed = true;
+            TerritoryStats.Territory.IrrigationChannelTerritory.ImproveBuilding(1);
+            TerritoryStats.Territory.IrrigationChannelTerritory.ImproveCostUpgrade();
+            TerritoryStats.Territory.GoldMineTerritory.ImproveBuilding(1);
+            TerritoryStats.Territory.GoldMineTerritory.ImproveCostUpgrade();
+
+            TerritoryStats.Territory.AcademyTerritory.ImproveBuilding(1);
+            TerritoryStats.Territory.AcademyTerritory.ImproveCostUpgrade();
+            TerritoryStats.Territory.BarracksTerritory.ImproveBuilding(1);
+            TerritoryStats.Territory.BarracksTerritory.ImproveCostUpgrade();
+            TerritoryStats.Territory.ArcheryTerritory.ImproveBuilding(1);
+            TerritoryStats.Territory.ArcheryTerritory.ImproveCostUpgrade();
+            TerritoryStats.Territory.IsClaimed = true;
         }
 
         adjacentTerritories = TerritoryManager.instance.dictionary.Single(s => s.Key == territory.name).Value;
-        //territoryStats.territory.RegionTerritory = TerritoryManager.instance.dictionary2.Single(s => s.Key == territory.name).Value;
+        //TerritoryStats.Territory.RegionTerritory = TerritoryManager.instance.dictionary2.Single(s => s.Key == territory.name).Value;
     }
     void InstantiateStatTerritory()
     {
@@ -71,7 +83,7 @@ public class TerritoryHandler : MonoBehaviour
         statsGO.GetComponent<RectTransform>().anchoredPosition =  new Vector3(transform.position.x*160+paddingX, transform.position.y*110+paddingY,transform.position.z);
 
         territoryStats = statsGO.GetComponent<TerritoryStats>();
-        territoryStats.territory = territory;
+        TerritoryStats.Territory = territory;
 
     }
     private void Update()
@@ -79,10 +91,10 @@ public class TerritoryHandler : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if(territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.NONE && territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.PLAYER && war == false)
+        if(TerritoryStats.Territory.TypePlayer != Territory.TYPEPLAYER.NONE && TerritoryStats.Territory.TypePlayer != Territory.TYPEPLAYER.PLAYER && war == false)
         {
             int prob = Random.Range(0, 401);
-            if (prob < 1 && this.territoryStats.territory.Population > 2)
+            if (prob < 1 && this.TerritoryStats.Territory.Population > 2)
             {
                 EnemyMoveWarriors();
             }
@@ -93,7 +105,7 @@ public class TerritoryHandler : MonoBehaviour
     {
         /*
         int i = Random.Range(0, adjacentTerritories.Count);
-        int warriorsToSend = Random.Range(3, this.territoryStats.territory.Population);
+        int warriorsToSend = Random.Range(3, this.TerritoryStats.Territory.Population);
         TerritoryHandler territoryToAttack = adjacentTerritories[i].GetComponent<TerritoryHandler>();
         WarManager.instance.SendWarriors(this, territoryToAttack, warriorsToSend);
         */
@@ -107,24 +119,24 @@ public class TerritoryHandler : MonoBehaviour
         if (Input.GetMouseButtonDown(1) && state == 0)
         {
             
-            territoryStats.territory.SetSelected(true);
+            TerritoryStats.Territory.SetSelected(true);
             ShowStateMenu();
             MakeOutline();
             
             bool ca = false;
             TerritoryHandler selected = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
         
-            if (selected == this && territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
+            if (selected == this && TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
             {
                 ca = true;
-                if (territoryStats.territory.IsClaimed == false)
+                if (TerritoryStats.Territory.IsClaimed == false)
                 {
                     ca = false;
                 }
             }
        //     print("1|" + TimeSystem.instance.GetIsTerritorieIsInPandemic(this));
        //     print("2|" + TimeSystem.instance.GetIsTerritorieIsInPandemic());
-            if (war == true || TimeSystem.instance.GetIsTerritorieIsInPandemic(this) || TimeSystem.instance.GetIsTerritorieIsInPandemic()) 
+            if (war == true || EventManager.instance.GetIsTerritorieIsInPandemic(this) || EventManager.instance.GetIsTerritorieIsInPandemic()) 
             {
 //                print("b|");
                 ca = false;
@@ -156,27 +168,29 @@ public class TerritoryHandler : MonoBehaviour
         {
             case 0:
 
-                territoryStats.territory.SetSelected(true);
+                TerritoryStats.Territory.SetSelected(true);
                 ShowStateMenu();
                 MakeOutline();
                 break;
             case 1:
                 TerritoryHandler territoryHandlerSelected = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
-                Territory.TYPEPLAYER typeSelected = territoryHandlerSelected.territoryStats.territory.TypePlayer;
-                int warriorsCount = MenuManager.instance.contextMenu.GetComponent<ContextMenu>().WarriorsCount();
-
-                if (InGameMenuHandler.instance.GoldPlayer >= warriorsCount || territoryStats.territory.TypePlayer == typeSelected)
+                Territory.TYPEPLAYER typeSelected = territoryHandlerSelected.TerritoryStats.Territory.TypePlayer;
+                int _warriorsSword = MenuManager.instance.contextMenu.GetComponent<ContextMenu>().WarriorsSword();
+                int _warriorsLance = MenuManager.instance.contextMenu.GetComponent<ContextMenu>().WarriorsLance();
+                int _warriorsArch = MenuManager.instance.contextMenu.GetComponent<ContextMenu>().WarriorsArch();
+                int totalWarriors = MenuManager.instance.contextMenu.GetComponent<ContextMenu>().TotalWarriors();
+                if (InGameMenuHandler.instance.GoldPlayer >= totalWarriors || TerritoryStats.Territory.TypePlayer == typeSelected)
                 {
-                    if (territoryStats.territory.TypePlayer != typeSelected)
+                    if (TerritoryStats.Territory.TypePlayer != typeSelected)
                     {
-                        InGameMenuHandler.instance.GoldPlayer -= warriorsCount;
-                        InGameMenuHandler.instance.FoodPlayer -= warriorsCount;
+                        InGameMenuHandler.instance.GoldPlayer -= totalWarriors;
+                        InGameMenuHandler.instance.FoodPlayer -= totalWarriors;
                     }
-                    WarManager.instance.SendWarriors(territoryHandlerSelected, this, warriorsCount);
+                    WarManager.instance.SendWarriors(territoryHandlerSelected, this, _warriorsSword,_warriorsLance,_warriorsArch);
                 }
                 else
                 {
-                    InGameMenuHandler.instance.ShowFloatingText("you need "+warriorsCount+" golds", "TextMesh", transform, new Color32(187, 27, 128, 255));
+                    InGameMenuHandler.instance.ShowFloatingText("you need "+totalWarriors+" golds", "TextMesh", transform, new Color32(187, 27, 128, 255));
                 }
                 HideAdjacentTerritories();
                 break;
@@ -205,7 +219,7 @@ public class TerritoryHandler : MonoBehaviour
             t.GetComponent<TerritoryHandler>().Deselect();
             t.GetComponent<TerritoryHandler>().state = 0;
         }
-        territoryStats.territory.SetSelected(true);
+        TerritoryStats.Territory.SetSelected(true);
         outlineMaterial.SetColor("_SolidOutline", Color.green);
         sr.material = outlineMaterial;
         sr.sortingOrder = -8;
@@ -242,21 +256,22 @@ public class TerritoryHandler : MonoBehaviour
     }
     public void Deselect()
     {
-        territoryStats.territory.SetSelected(false);
+        TerritoryStats.Territory.SetSelected(false);
         sr.sortingOrder = -8;
         sr.material = normalMaterial;
     }
-    
+    /*
     public void ImproveSpeedPopulation()
     {
-        //territoryStats.territory.VelocityPopulation += 0.3f;
-        territoryStats.territory.VelocityPopulation += territoryStats.territory.ImproveSpeed;
+        //TerritoryStats.Territory.VelocityPopulation += 0.3f;
+        TerritoryStats.Territory.VelocityPopulation += TerritoryStats.Territory.ImproveSpeed;
     }
     public void ImproveLimit()
     {
-        //territoryStats.territory.LimitPopulation += 20;
-        territoryStats.territory.LimitPopulation += territoryStats.territory.ImproveLimit;
+        //TerritoryStats.Territory.LimitPopulation += 20;
+        TerritoryStats.Territory.LimitPopulation += TerritoryStats.Territory.ImproveLimit;
     }
+    */
     /// <summary>
     /// Returns the builds from any buildings in territory
     /// </summary>
@@ -266,42 +281,48 @@ public class TerritoryHandler : MonoBehaviour
     {
         if (building is IrrigationChannel)
         {
-            return territoryStats.territory.IrrigationChannelTerritory;
+            return TerritoryStats.Territory.IrrigationChannelTerritory;
         }
         else if (building is GoldMine)
         {
-            return territoryStats.territory.GoldMineTerritory;
-        }
-        else if (building is SacredPlace)
-        {
-            return territoryStats.territory.SacredPlaceTerritory;
+            return TerritoryStats.Territory.GoldMineTerritory;
         }
         else if (building is Fortress)
         {
-            return territoryStats.territory.FortressTerritory;
+            return TerritoryStats.Territory.FortressTerritory;
         }
-        return territoryStats.territory.ArmoryTerritory;
+        else if (building is Academy)
+        {
+            return TerritoryStats.Territory.AcademyTerritory;
+        }
+        else if (building is Barracks)
+        {
+            return TerritoryStats.Territory.BarracksTerritory;
+        }
+        return TerritoryStats.Territory.ArcheryTerritory;
     }
+    /*
     public Building GetBuilding(int option)
     {
         if (option == 0)
         {
-            return territoryStats.territory.IrrigationChannelTerritory;
+            return TerritoryStats.Territory.IrrigationChannelTerritory;
         }
         else if (option == 1)
         {
-            return territoryStats.territory.GoldMineTerritory;
+            return TerritoryStats.Territory.GoldMineTerritory;
         }
         else if (option == 2)
         {
-            return territoryStats.territory.SacredPlaceTerritory;
+            return TerritoryStats.Territory.SacredPlaceTerritory;
         }
         else if (option == 3)
         {
-            return territoryStats.territory.FortressTerritory;
+            return TerritoryStats.Territory.FortressTerritory;
         }
-        return territoryStats.territory.ArmoryTerritory;
+        return TerritoryStats.Territory.ArmoryTerritory;
     }
+    */
     public void ShowStateMenu()
     {
 
@@ -316,12 +337,12 @@ public class TerritoryHandler : MonoBehaviour
     /// </summary>
     public void GatherTerritoryGold()
     {
-        int gather = territoryStats.territory.Gold;
-        territoryStats.territory.Gold -= gather;
+        int gather = TerritoryStats.Territory.Gold;
+        TerritoryStats.Territory.Gold -= gather;
     }
     public void GatherTerritoryFood()
     {
-        int gather = territoryStats.territory.FoodReward;
-        territoryStats.territory.FoodReward-= gather;
+        int gather = TerritoryStats.Territory.FoodReward;
+        TerritoryStats.Territory.FoodReward-= gather;
     }
 }

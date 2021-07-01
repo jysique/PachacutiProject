@@ -102,7 +102,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press "+" to build Sacred Place
+  m_text: Press "+" obrar Mina de oro
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ebc16f7a1ed9a52409520f5110364a3b, type: 2}
   m_sharedMaterial: {fileID: -4070752333062155656, guid: ebc16f7a1ed9a52409520f5110364a3b, type: 2}
@@ -652,6 +652,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31aaa1cb1a4d00d4db9ec5a0d278ae58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  costTxt: {fileID: 7731866386208309812}
+  nameTxt: {fileID: 1551848107073888002}
+  nameBlockTxt: {fileID: 1697862538556683877}
+  levelTxt: {fileID: 7372555089582207789}
+  upgradeBtn: {fileID: 4404254783992147083}
+  linearBarProgress: {fileID: 2847894327862750611}
+  block: {fileID: 2034895735334271016}
 --- !u!1 &4704842386412340977
 GameObject:
   m_ObjectHideFlags: 0
@@ -1048,10 +1055,9 @@ GameObject:
   - component: {fileID: 657060808230893917}
   - component: {fileID: 2170092945434221369}
   - component: {fileID: 4404254783992147083}
-  - component: {fileID: 6882772329498916333}
   - component: {fileID: 6666141716958233981}
   m_Layer: 5
-  m_Name: UpgradeButton0
+  m_Name: UpgradeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1159,20 +1165,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6882772329498916333
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7903676542292569618}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e18e7088167e6f546bf87c3e4d13b9ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  label: {fileID: 5752435012240071222}
-  typecustom: 1
 --- !u!114 &6666141716958233981
 MonoBehaviour:
   m_ObjectHideFlags: 0

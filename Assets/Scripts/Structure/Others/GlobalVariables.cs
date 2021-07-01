@@ -13,9 +13,6 @@ public class GlobalVariables : MonoBehaviour
     // 1 = normal
     // 2 = fast
     private int dificultyGame = 0;
-
-    
-
     //=======================================================
     //variables de tiempo
     //
@@ -168,7 +165,7 @@ public class GlobalVariables : MonoBehaviour
         Vector3 difference = origin - main.transform.position;
         foreach (GameObject i in TerritoryManager.instance.territoryList)
         {
-            i.GetComponent<TerritoryHandler>().territoryStats.container.transform.position += difference;
+            i.GetComponent<TerritoryHandler>().TerritoryStats.container.transform.position += difference;
         }
         foreach (GameObject i in InGameMenuHandler.instance.listFloatingText)
         {
@@ -183,5 +180,21 @@ public class GlobalVariables : MonoBehaviour
     public Territory.REGION GetRandomRegion()
     {
         return (Territory.REGION)UnityEngine.Random.Range(0, Enum.GetNames(typeof(Territory.REGION)).Length - 1);
+    }
+
+    public List<Transform> GetAllChildren(Transform aTransform, List<Transform> aList = null)
+    {
+        if (aList == null)
+            aList = new List<Transform>();
+        int start = aList.Count;
+        for (int n = 0; n < aTransform.childCount; n++)
+            aList.Add(aTransform.GetChild(n));
+        for (int i = start; i < aList.Count; i++)
+        {
+            var t = aList[i];
+            for (int n = 0; n < t.childCount; n++)
+                aList.Add(t.GetChild(n));
+        }
+        return aList;
     }
 }

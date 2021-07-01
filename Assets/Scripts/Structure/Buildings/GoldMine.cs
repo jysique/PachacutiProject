@@ -6,7 +6,7 @@ public class GoldMine:Building
     private int workersMine = 0;
     public GoldMine()
     {
-        this.Name = "Gold Mine";
+        this.Name = "GoldMine";
         this.AtributteToAdd = 5f;
     }
     public int WorkersMine

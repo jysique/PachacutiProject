@@ -13,9 +13,6 @@ public class MenuManager : MonoBehaviour
     [SerializeField] public GameObject overMenuBlock;
     [SerializeField] public GameObject toolTip;
 
-
-   
-   
     public GameObject canvas;
 
     [Header("Menu de Pause")]
@@ -75,7 +72,6 @@ public class MenuManager : MonoBehaviour
         contextMenu.GetComponent<ContextMenu>().SetMenu(canAttack, isWar, territoryToAttack);
     }
 
-
     public void turnOffMenus()
     {
         GameObject[] overMenus;
@@ -87,14 +83,12 @@ public class MenuManager : MonoBehaviour
         TerritoryManager.instance.ChangeStateTerritory(0);
     }
     
-    public void OpenSelectCharacterMenu(Territory territory, Character character)
+    public void OpenSelectCharacterMenu(MilitarChief character)
     {
         SelecCharacterMenu.SetActive(true);
-        InstantiateCharacterOption(territory, ChiefSelection, character , options);
-        descriptionSelectCharacterMenu.text = character.Description;
-        //titleSelectCharacterMenu.text = "Select the characters for " + territory.name + " territory";
-        titleSelectCharacterMenu.text = GameMultiLang.GetTraduction("SelectTerritory") + territory.name + " " +GameMultiLang.GetTraduction("TerritoryLabel");
-        //  territory.TypePlayer = Territory.TYPEPLAYER.PLAYER;
+        InstantiateCharacterOption( ChiefSelection, character , options);
+        descriptionSelectCharacterMenu.text = GameMultiLang.GetTraduction(character.CharacIconType+"Description");
+        titleSelectCharacterMenu.text = GameMultiLang.GetTraduction("SelectTerritory") + InGameMenuHandler.instance.TerritorySelected.name + " " +GameMultiLang.GetTraduction("TerritoryLabel");
     }
     public void CloseSelectCharacterMenu()
     {
@@ -105,7 +99,7 @@ public class MenuManager : MonoBehaviour
         }
     }
     
-    void InstantiateCharacterOption(Territory territory, GameObject selection,Character character, List<GameObject> list)
+    void InstantiateCharacterOption( GameObject selection,Character character, List<GameObject> list)
     {
         SubordinateList subordinateList = new SubordinateList();
         subordinateList.AddDataSubordinateToList(maxInstantiateCharacters, character);
@@ -119,7 +113,7 @@ public class MenuManager : MonoBehaviour
             GameObject characterOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/CharacterGameOption")) as GameObject;
             characterOption.transform.SetParent(gridLayout.transform, false);
             characterOption.name = charac.CharacterName;
-            characterOption.GetComponent<CharacterOption>().InitializeCharacterOption(charac, territory);
+            characterOption.GetComponent<CharacterOption>().InitializeCharacterOption(charac);
             list.Add(characterOption);
         }
         subordinateList.DeleteSubodinateList();

@@ -29,9 +29,9 @@ public class BotManager : MonoBehaviour
         foreach(GameObject t in TerritoryManager.instance.territoryList )
         {
             TerritoryHandler th = t.GetComponent<TerritoryHandler>();
-            if(th.territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.PLAYER && th.territoryStats.territory.TypePlayer != Territory.TYPEPLAYER.NONE)
+            if(th.TerritoryStats.Territory.TypePlayer != Territory.TYPEPLAYER.PLAYER && th.TerritoryStats.Territory.TypePlayer != Territory.TYPEPLAYER.NONE)
             {
-                CreateOrAdd(th.territoryStats.territory.TypePlayer, th);
+                CreateOrAdd(th.TerritoryStats.Territory.TypePlayer, th);
             }
         }
     }
@@ -46,7 +46,7 @@ public class BotManager : MonoBehaviour
                 return;
             }
         }
-        BotIA newBot = new BotIA(type,40,40);
+        BotIA newBot = new BotIA(type,500,500);
         newBot.AddTerritory(t);
         bots.Add(newBot);
        

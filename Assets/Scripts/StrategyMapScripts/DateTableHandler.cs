@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class DateTableHandler : MonoBehaviour
 {
     public static DateTableHandler instance;
+    [SerializeField] private GameObject pauseGO;
     [SerializeField] private Button PauseBtn;
     [SerializeField] private Button PlayBtn;
     [SerializeField] private Button Quicknessx1Btn;
@@ -41,12 +42,6 @@ public class DateTableHandler : MonoBehaviour
         TextCallFunction();
         CalculateTimeInUpdate(timeGame);
         MenuEscapeGame();
-        /*
-        PauseBtn.interactable = !isMenuPaused;
-        PlayBtn.interactable = !isMenuPaused;
-        Quicknessx1Btn.interactable = !isMenuPaused;
-        Quicknessx2Btn.interactable = !isMenuPaused;
-        */
     }
     private void TextCallFunction()
     {
@@ -93,9 +88,9 @@ public class DateTableHandler : MonoBehaviour
             _time.CalculateYear();
         }
     }
-
     public void PauseButton()
     {
+        pauseGO.SetActive(true);
         if (!isMenuPaused && !isTimePaused)
         {
 
@@ -103,11 +98,11 @@ public class DateTableHandler : MonoBehaviour
             isTimePaused = true;
         }
     }
-
     public void PlayButton()
     {
         if (GlobalVariables.instance.timeModifier==0)
         {
+            pauseGO.SetActive(false);
             if (!isMenuPaused && isTimePaused)
             {
                 ResumeTime();
@@ -120,15 +115,12 @@ public class DateTableHandler : MonoBehaviour
         }
         
     }
-
-
     public void Quicknessx1Button()
     {
         if (!isTimePaused)
         {
             GlobalVariables.instance.timeModifier = 1.5f;
-        }
-        
+        } 
     }
     public void Quicknessx2Button()
     {
@@ -136,9 +128,7 @@ public class DateTableHandler : MonoBehaviour
         {
             GlobalVariables.instance.timeModifier = 2f;
         }
-
     }
-
     public void PauseTime()
     {
         MenuManager.instance.turnOffMenus();
@@ -151,7 +141,6 @@ public class DateTableHandler : MonoBehaviour
         // GlobalVariables.instance.timeModifier = temporalTime;
         GlobalVariables.instance.timeModifier = 1;
     }
-
     public void MenuEscapeGame()
     {
         if (Input.GetKeyDown(KeyCode.Escape))

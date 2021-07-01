@@ -6,12 +6,12 @@ using System;
 public class Mission
 {
     [SerializeField]private string name;
-    private string message;
-    private string messagePro;  
     [SerializeField]private List<Territory> territoryMission = new List<Territory>();
+    [SerializeField] private STATUS missionStatus;
+    private string message;
+    private string messagePro;
     private int timeToFinish;
     private int timeBenefitsPassed;
-    [SerializeField]private STATUS missionStatus;
     private TimeSimulated timeMission;
     public STATUS MissionStatus
     {
@@ -50,7 +50,6 @@ public class Mission
     }
     public Mission()
     {
-        //this.timeToFinish = 1;
         //this.timeToFinish = UnityEngine.Random.Range(2, 6);
         this.timeToFinish = 1;
         this.missionStatus = STATUS.IN_PROGRESS;
@@ -83,7 +82,7 @@ public class Mission
         else if (missionStatus == STATUS.COMPLETE)
         {
             InitBenefits();
-            MissionManager.instance.NotificationMission.SetActive(true);
+            MissionManager.instance.SetNotificationMission(true);
             MissionManager.instance.currentMission++;
             InGameMenuHandler.instance.UpdateMenu();
         }
@@ -94,7 +93,7 @@ public class Mission
         }
         else if(missionStatus == STATUS.DONE)
         {
-            MissionManager.instance.NotificationMission.SetActive(true);
+            MissionManager.instance.SetNotificationMission(true);
         }
     }
     void SetInitTimeMission()
@@ -109,18 +108,111 @@ public class Mission
         IN_PROGRESS_BENEFITS,
         DONE, // end of benefits
     }
+    public void GetInfo(Mission mission,int option = -1)
+    {
+        if (option>=0)
+        {
+            this.NameMission = GameMultiLang.GetTraduction(mission.GetType().ToString()+option + "_name");
+            this.Message = GameMultiLang.GetTraduction(mission.GetType().ToString()+ option + "_message");
+            this.MessagePro = GameMultiLang.GetTraduction(mission.GetType().ToString() + "_message_pro");
+        }
+        else
+        {
+            this.NameMission = GameMultiLang.GetTraduction(mission.GetType().ToString() + "_name");
+            this.Message = GameMultiLang.GetTraduction(mission.GetType().ToString() + "_message");
+            this.MessagePro = GameMultiLang.GetTraduction(mission.GetType().ToString() + "_message_pro");
+        }
+        this.Message = this.Message.Replace("TERRITORY", TerritoryMission[0].name);
+        this.MessagePro = this.MessagePro.Replace("TIME", this.TimeMissionActive.ToString()).Replace("TERRITORY", this.TerritoryMission[0].name);
+    }
 }
- [System.Serializable]
+[System.Serializable]
+public class MissionTutorial : Mission
+{
+    private int count = 0;
+    private int optionTutorial;
+    public MissionTutorial(int option)
+    {
+        optionTutorial = option;
+        switch (optionTutorial)
+        {
+            case 0:
+            case 3:
+                TerritoryMission.Add(TerritoryManager.instance.GetTerritoriesHandlerByName("Calca").TerritoryStats.Territory);
+                break;
+            case 1:
+            case 2:
+                TerritoryMission.Add(TerritoryManager.instance.GetTerritoriesHandlerByName("LaConvencion").TerritoryStats.Territory);
+                break;
+            default:
+                break;
+        }
+        GetInfo(this, option);
+    }
+    public override void CheckMission()
+    {
+        base.CheckMission();
+        switch (optionTutorial)
+        {
+            case 0:
+                if (InGameMenuHandler.instance.TerritorySelected == TerritoryMission[0])
+                {
+                    count++;
+                }
+                break;
+            case 1:
+                if (InGameMenuHandler.instance.TerritorySelected == TerritoryMission[0] &&
+                    MenuManager.instance.contextMenu.activeSelf == true)
+                {
+                    count++;
+                }
+                break;
+            case 2:
+                if (TerritoryMission[0].Population == 0)
+                {
+                    count++;
+                }
+                break;
+            case 3:
+                if (TerritoryMission[0].TypePlayer == Territory.TYPEPLAYER.PLAYER)
+                {
+                    count++;
+                }
+                break;
+            default:
+                break;
+
+        }
+        if (count == 1)
+        {
+            base.MissionStatus = STATUS.COMPLETE;
+        }
+    }
+    public override void InitBenefits()
+    {
+        base.InitBenefits();
+        TerritoryManager.instance.GetTerritoriesHandlerByName("LaConvencion").TerritoryStats.Territory.MotivationTerritory += 10;
+        //  Debug.LogError("in progress");
+        base.MissionStatus = STATUS.IN_PROGRESS_BENEFITS;
+    }
+    public override void FinishBenefits()
+    {
+        base.FinishBenefits();
+        if (base.MissionStatus == STATUS.DONE)
+        {
+            TerritoryManager.instance.GetTerritoriesHandlerByName("LaConvencion").TerritoryStats.Territory.MotivationTerritory -= 10;
+        }
+    }
+}
 public class MissionDefeat : Mission
 {
     Territory.TYPEPLAYER typePlayer;
     public MissionDefeat()
     {
-        this.NameMission = "Defeat Mission";
         this.typePlayer = GlobalVariables.instance.GetRandomTypePlayer();
-        TerritoryMission.Add(TerritoryManager.instance.GetTerritoryRandom(this.typePlayer).territoryStats.territory);
-        this.Message = "Defeat "+ GlobalVariables.instance.GetPlayerName(typePlayer) + " civilization";
-        this.MessagePro = "+2 fortress nivels for " + this.TimeMissionActive + " months";
+        TerritoryMission.Add(TerritoryManager.instance.GetTerritoryRandom(this.typePlayer).TerritoryStats.Territory);
+        GetInfo(this);
+        this.Message = this.Message.Replace("CIV", GlobalVariables.instance.GetPlayerName(typePlayer));
     }
     public override void CheckMission()
     {
@@ -137,7 +229,7 @@ public class MissionDefeat : Mission
         List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER);
         for (int i = 0; i < t.Count; i++)
         {
-            t[i].territoryStats.territory.FortressTerritory.Level += 2;
+            t[i].TerritoryStats.Territory.FortressTerritory.Level += 2;
         }
         base.MissionStatus = STATUS.IN_PROGRESS_BENEFITS;
     }
@@ -149,7 +241,7 @@ public class MissionDefeat : Mission
             List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER);
             for (int i = 0; i < t.Count; i++)
             {
-                t[i].territoryStats.territory.FortressTerritory.Level -= 2;
+                t[i].TerritoryStats.Territory.FortressTerritory.Level -= 2;
             }
         }
     }
@@ -158,10 +250,9 @@ public class MissionConquest : Mission
 {
     public MissionConquest()
     {
-        this.NameMission = "Conquest Mission";
-        TerritoryMission.Add(TerritoryManager.instance.GetTerritoryRandom(Territory.TYPEPLAYER.NONE).territoryStats.territory);
-        this.Message = "Conquer " + TerritoryMission[0].name + " territory";
-        this.MessagePro = "+5 exp military chief \nfor " + this.TimeMissionActive + " months";
+        TerritoryMission.Add(TerritoryManager.instance.GetTerritoryRandom(Territory.TYPEPLAYER.NONE).TerritoryStats.Territory);
+        GetInfo(this);
+
     }
     public override void CheckMission()
     {
@@ -190,17 +281,16 @@ public class MissionExpansion : Mission
 {
     public MissionExpansion()
     {
-        this.NameMission = "Expansion Mission";
         Territory.REGION region = GlobalVariables.instance.GetRandomRegion();
         string regionString = region.ToString();
         List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesByZoneTerritory(regionString);
         for (int i = 0; i < t.Count; i++)
         {
-            this.TerritoryMission.Add(t[i].territoryStats.territory);
+            this.TerritoryMission.Add(t[i].TerritoryStats.Territory);
         }
-        
-        this.Message = "Conquer " + regionString.ToLower().Replace("_", " ");
-        this.MessagePro = "+2 irrigation channels nivels in " + regionString.ToLower().Replace("_", " ") + "\n for " + this.TimeMissionActive + " months";
+        GetInfo(this);
+        this.Message =this.Message.Replace("REGION", regionString.ToLower().Replace("_", " "));
+        this.Message= this.MessagePro.Replace("REGION", regionString.ToLower().Replace("_", " "));
     }
     public override void CheckMission()
     {
@@ -248,17 +338,15 @@ public class MissionProtect : Mission
     TimeSimulated initProtectionTime;
     void SetInitTimeProtection()
     {
+        monthTimePassed = 0;
         TimeSimulated _timeGame = TimeSystem.instance.TimeGame;
         initProtectionTime = new TimeSimulated(_timeGame.Day, _timeGame.Month, _timeGame.Year);
     }
     public MissionProtect()
     {
-        monthTimePassed = 0;
         SetInitTimeProtection();
-        TerritoryMission.Add(TerritoryManager.instance.GetTerritoryRandom(Territory.TYPEPLAYER.PLAYER).territoryStats.territory);
-        this.NameMission = "Protect Mission";        
-        this.Message = "Protect "+ this.TerritoryMission[0].name + " territory for 3 months";
-        this.MessagePro = "+2 irrigation channels nivels in "+ this.TerritoryMission[0].name + " territory\nfor " + this.TimeMissionActive + " months";
+        TerritoryMission.Add(TerritoryManager.instance.GetTerritoryRandom(Territory.TYPEPLAYER.PLAYER).TerritoryStats.Territory);
+        GetInfo(this);
     }
     public override void CheckMission()
     {
@@ -274,7 +362,6 @@ public class MissionProtect : Mission
         else
         {
             SetInitTimeProtection();
-            monthTimePassed = 0;
         }
     }
     public override void InitBenefits()
@@ -296,10 +383,8 @@ public class MissionAllBuilds : Mission
 {
     public MissionAllBuilds()
     {
-        this.NameMission = "All in One";
-        TerritoryMission.Add(TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER)[0].territoryStats.territory);
-        this.Message = "Have all buildings in one territory";
-        this.MessagePro = "+20 motivation in all territories \nfor " + this.TimeMissionActive + " months";
+        TerritoryMission.Add(TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER)[0].TerritoryStats.Territory);
+        GetInfo(this);
     }
     public override void CheckMission()
     {
@@ -318,7 +403,7 @@ public class MissionAllBuilds : Mission
         List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER);
         for (int i = 0; i < t.Count; i++)
         {
-            t[i].territoryStats.territory.MotivationPeople += 20;
+            t[i].TerritoryStats.Territory.MotivationTerritory += 20;
         }
         base.MissionStatus = STATUS.IN_PROGRESS_BENEFITS;
     }
@@ -330,99 +415,9 @@ public class MissionAllBuilds : Mission
             List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER);
             for (int i = 0; i < t.Count; i++)
             {
-                // this.TerritoryMission.Add(t[i].territoryStats.territory);
-                t[i].territoryStats.territory.MotivationPeople -= 20;
+                // this.TerritoryMission.Add(t[i].TerritoryStats.Territory);
+                t[i].TerritoryStats.Territory.MotivationTerritory -= 20;
             }
-        }
-    }
-}
-public class MissionTutorial : Mission
-{
-    private int count = 0;
-    private int optionTutorial;
-    public MissionTutorial(int option)
-    {
-        optionTutorial = option;
-        switch (optionTutorial)
-        {
-            case 0:
-                this.NameMission = "Check terrotiries";
-                TerritoryMission.Add(TerritoryManager.instance.GetTerritoriesHandlerByName("Calca").territoryStats.territory);
-                this.Message = "Click on Calca to see information in that territory";
-                break;
-            case 1:
-                this.NameMission = "Check troops";
-                TerritoryMission.Add(TerritoryManager.instance.GetTerritoriesHandlerByName("LaConvencion").territoryStats.territory);
-                this.Message = "You can see your troops with right click in LaConvencion";
-                break;
-            case 2:
-                this.NameMission = "Move 10 troops";
-                TerritoryMission.Add(TerritoryManager.instance.GetTerritoriesHandlerByName("LaConvencion").territoryStats.territory);
-                this.Message = "You can move your troops to another territory";
-                break;
-            case 3:
-                this.NameMission = "Conquist Calca";
-                TerritoryMission.Add(TerritoryManager.instance.GetTerritoriesHandlerByName("Calca").territoryStats.territory);
-                this.Message = "If you win your first battle you can give more motivation to your people";
-                break;
-            default:
-                break;
-        }
-        this.MessagePro = "+10 opinion in LaConvencion";
-    }
-
-    public override void CheckMission()
-    {
-        base.CheckMission();
-        switch (optionTutorial)
-        {
-            case 0:
-                if (InGameMenuHandler.instance.TerritorySelected == TerritoryMission[0])
-                {
-                    count++;
-                }
-                break;
-            case 1:
-                if (InGameMenuHandler.instance.TerritorySelected == TerritoryMission[0] && 
-                    MenuManager.instance.contextMenu.activeSelf == true)
-                {
-                    count++;
-                }
-                break;
-            case 2:
-                if (TerritoryMission[0].Population == 0)
-                {
-                    count++;
-                }
-                break;
-            case 3:
-                if (TerritoryMission[0].TypePlayer == Territory.TYPEPLAYER.PLAYER)
-                {
-                    count++;
-                }
-                break;
-            default:
-                break;
-
-        }
-        if (count == 1)
-        {
-            base.MissionStatus = STATUS.COMPLETE;
-        }
-    }
-    public override void InitBenefits()
-    {
-        base.InitBenefits();
-        TerritoryManager.instance.GetTerritoriesHandlerByName("LaConvencion").territoryStats.territory.MotivationPeople += 10;
-      //  Debug.LogError("in progress");
-        base.MissionStatus = STATUS.IN_PROGRESS_BENEFITS;
-    }
-    public override void FinishBenefits()
-    {
-        base.FinishBenefits();
-        if (base.MissionStatus == STATUS.DONE)
-        {
-            TerritoryManager.instance.GetTerritoriesHandlerByName("LaConvencion").territoryStats.territory.MotivationPeople -= 10;
         }
     }
 }

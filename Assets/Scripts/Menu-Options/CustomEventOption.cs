@@ -34,11 +34,18 @@ public class CustomEventOption : MonoBehaviour
     }
     private void Update()
     {
+        /*
+        if (TimeSystem.instance.TimeGame.DiferenceDays(custom.TimeFinalEvent) == 1)
+        {
+            AlertManager.AlertEventEnd();
+            print("holi");
+        }
+        */
         if (custom.EventStatus == CustomEvent.STATUS.FINISH)
         {
             estado.color = new Color32(193, 39, 4,255);
             btn.interactable = false;
-            TimeSystem.instance.listEvents.RemoveEvent(custom);
+            EventManager.instance.listEvents.RemoveEvent(custom);
         }
     }
     void OnClickCustomEvent()

@@ -10,6 +10,9 @@ public class WarriorsMoving : MonoBehaviour
     [SerializeField]private GameObject target;
     //stats
     [SerializeField]private int warriorsNumber;
+    [SerializeField] private int warriorsNumber2;
+    [SerializeField] private int warriorsNumber3;
+
     [SerializeField]private Territory.TYPEPLAYER territorytype;
     private MilitarChief mb;
     private MilitarChief.TYPESTRAT militaryBossStrategy;
@@ -18,14 +21,16 @@ public class WarriorsMoving : MonoBehaviour
     //result
     [SerializeField] private float attackPower;
 
-    public void SetAttack(GameObject _target, int _warriorsNumber,TerritoryHandler attackerTerritory)
+    public void SetAttack(GameObject _target, int _warriorsNumber, int _warriorsNumber2, int _warriorsNumber3, TerritoryHandler attackerTerritory)
     {
         target = _target;
         
         warriorsNumber = _warriorsNumber;
+        warriorsNumber2 = _warriorsNumber2;
+        warriorsNumber3 = _warriorsNumber3;
         attacker = attackerTerritory;
-        territorytype = attackerTerritory.territoryStats.territory.TypePlayer;
-        mb = attackerTerritory.territoryStats.territory.MilitarChiefTerritory;
+        territorytype = attackerTerritory.TerritoryStats.Territory.TypePlayer;
+        mb = attackerTerritory.TerritoryStats.Territory.MilitarChiefTerritory;
         
         /*
         militaryBossStrategy = _mb.Type;
@@ -53,7 +58,7 @@ public class WarriorsMoving : MonoBehaviour
         attackPower = warriorsNumber + strategyMod + militaryBossExperience;
         this.transform.GetChild(0).gameObject.GetComponent<TextMeshPro>().text = attackPower.ToString("F2");
         */
-        this.transform.GetChild(0).gameObject.GetComponent<TextMeshPro>().text = warriorsNumber.ToString();
+        this.transform.GetChild(0).gameObject.GetComponent<TextMeshPro>().text = warriorsNumber.ToString() + "/" + warriorsNumber2.ToString() + "/" + warriorsNumber3.ToString();
 
     }
 
@@ -73,7 +78,7 @@ public class WarriorsMoving : MonoBehaviour
         {
             if(target.GetComponent<TerritoryHandler>() == TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>())
                 MenuManager.instance.overMenuBlock.GetComponent<OverMenu>().turnOffMenus();
-            WarManager.instance.MoveWarriors(target.GetComponent<TerritoryHandler>(), warriorsNumber, attacker);
+            WarManager.instance.MoveWarriors(target.GetComponent<TerritoryHandler>(), warriorsNumber,warriorsNumber2,warriorsNumber3, attacker);
             if(target.GetComponent<TerritoryHandler>() == WarManager.instance.selected)
             {
                 WarManager.instance.SetWarStatus(true);

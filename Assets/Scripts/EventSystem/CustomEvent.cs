@@ -19,8 +19,13 @@ public class CustomEvent
     [SerializeField] private STATUS eventStatus;
     [SerializeField] private EVENTTYPE eventType;
     private bool isAcceptedEvent;
+    private bool w = false;
     private Building building;
-
+    public bool W
+    {
+        get { return w; }
+        set { w = value; }
+    }
     public STATUS EventStatus {
         get { return eventStatus; }
         set { eventStatus = value; }
@@ -104,8 +109,6 @@ public class CustomEvent
     public void GetCustomEvent(TimeSimulated _initTime,TerritoryHandler territory)
     {
         this.isAcceptedEvent = false;
-
-        //this.eventType = (EVENTTYPE)UnityEngine.Random.Range(0, 3);
         if (territory!=null)
         {
             this.eventType = EVENTTYPE.CONQUIST;
@@ -115,7 +118,9 @@ public class CustomEvent
         else
         {
             this.eventType = (EVENTTYPE)UnityEngine.Random.Range(0, Enum.GetNames(typeof(EVENTTYPE)).Length - 1);
-            //this.eventType = EVENTTYPE.EARTHQUAKER;
+           // Debug.LogWarning("C|"+EventManager.instance.current);
+           // this.eventType = (EVENTTYPE)EventManager.instance.current++;
+            
             this.territoryEvent = TerritoryManager.instance.GetTerritoryRandom(Territory.TYPEPLAYER.PLAYER);
         }
         
@@ -198,7 +203,7 @@ public class CustomEvent
     private void GetTimesEvents(TimeSimulated _initTime)
     {
         this.timeInit = new TimeSimulated(_initTime);
-        int rDays1 = UnityEngine.Random.Range(TimeSystem.instance.MinDays, TimeSystem.instance.MaxDays);
+        int rDays1 = UnityEngine.Random.Range(EventManager.instance.MinDays, EventManager.instance.MaxDays);
         timeInit.PlusDays(rDays1);
 
         if (this.eventType == EVENTTYPE.EARTHQUAKER)
@@ -274,23 +279,23 @@ public class CustomEvent
                 break;
             case EVENTTYPE.PETITION_MIN:
                 InGameMenuHandler.instance.GoldPlayer -= costEvent;
-                TerritoryEvent.territoryStats.territory.GoldMineTerritory.ImproveBuilding(2);
+                TerritoryEvent.TerritoryStats.Territory.GoldMineTerritory.ImproveBuilding(2);
                 break;
             case EVENTTYPE.PETITION_FOR:
                 InGameMenuHandler.instance.GoldPlayer -= costEvent;
-                TerritoryEvent.territoryStats.territory.FortressTerritory.ImproveBuilding(1);
+                TerritoryEvent.TerritoryStats.Territory.FortressTerritory.ImproveBuilding(1);
                 break;
             case EVENTTYPE.GRACE_DIV:
                 InGameMenuHandler.instance.GoldPlayer -= costEvent;
-                TerritoryEvent.territoryStats.territory.SacredPlaceTerritory.ImproveBuilding(2);
+                TerritoryEvent.TerritoryStats.Territory.OpinionTerritory += 10;
                 break;
             case EVENTTYPE.GRACE_MIN:
                 InGameMenuHandler.instance.GoldPlayer -= costEvent;
-                TerritoryEvent.territoryStats.territory.GoldMineTerritory.ImproveBuilding(3);
+                TerritoryEvent.TerritoryStats.Territory.GoldMineTerritory.ImproveBuilding(3);
                 break;
             case EVENTTYPE.GRACE_FOOD:
                 InGameMenuHandler.instance.GoldPlayer -= costEvent;
-                TerritoryEvent.territoryStats.territory.IrrigationChannelTerritory.ImproveBuilding(3);
+                TerritoryEvent.TerritoryStats.Territory.IrrigationChannelTerritory.ImproveBuilding(3);
                 break;
             default:
                 break;
@@ -306,42 +311,51 @@ public class CustomEvent
         switch (eventType)
         {
             case EVENTTYPE.EARTHQUAKER:
-                TerritoryEvent.territoryStats.territory.ResetAllBuilds();
+                TerritoryEvent.TerritoryStats.Territory.ResetAllBuilds();
                 break;
             case EVENTTYPE.REBELION:
-                TerritoryEvent.territoryStats.territory.TypePlayer = Territory.TYPEPLAYER.NONE;
+                TerritoryEvent.TerritoryStats.Territory.TypePlayer = Territory.TYPEPLAYER.NONE;
                 //    Debug.LogError("perdimos el territorio");
                 break;
             case EVENTTYPE.DROUGHT:
-                TerritoryEvent.territoryStats.territory.IrrigationChannelTerritory.ResetBuilding();
-                TerritoryEvent.territoryStats.territory.Population /= 2;
+                TerritoryEvent.TerritoryStats.Territory.IrrigationChannelTerritory.ResetBuilding();
+                // TerritoryEvent.TerritoryStats.Territory.Population /= 2;
+                TerritoryEvent.TerritoryStats.Territory.Lancers.NumbersUnit /= 2;
+                TerritoryEvent.TerritoryStats.Territory.Swordsmen.NumbersUnit /= 2;
+                TerritoryEvent.TerritoryStats.Territory.Archer.NumbersUnit /= 2;
                 break;
             case EVENTTYPE.ALL_T_PANDEMIC:
                 List<TerritoryHandler> list = TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER);
                 for (int i = 0; i < list.Count; i++)
                 {
-                    list[i].territoryStats.territory.Population /= 2;
+                    //   list[i].TerritoryStats.Territory.Population /= 2;
+                    list[i].TerritoryStats.Territory.Lancers.NumbersUnit /= 2;
+                    list[i].TerritoryStats.Territory.Swordsmen.NumbersUnit /= 2;
+                    list[i].TerritoryStats.Territory.Archer.NumbersUnit /= 2;
                 }
                 break;
             case EVENTTYPE.PANDEMIC:
-                TerritoryEvent.territoryStats.territory.Population /= 2;
+                //TerritoryEvent.TerritoryStats.Territory.Population /= 2;
+                TerritoryEvent.TerritoryStats.Territory.Lancers.NumbersUnit /= 2;
+                TerritoryEvent.TerritoryStats.Territory.Swordsmen.NumbersUnit /= 2;
+                TerritoryEvent.TerritoryStats.Territory.Archer.NumbersUnit /= 2;
                 break;
             case EVENTTYPE.ALL_T_PLAGUE:
                 List<TerritoryHandler> list2 = TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER);
                 for (int i = 0; i < list2.Count; i++)
                 {
-                    list2[i].territoryStats.territory.IrrigationChannelTerritory.ResetBuilding();
+                    list2[i].TerritoryStats.Territory.IrrigationChannelTerritory.ResetBuilding();
                 }
                 break;
             case EVENTTYPE.PLAGUE:
-                TerritoryEvent.territoryStats.territory.IrrigationChannelTerritory.ResetBuilding();
+                TerritoryEvent.TerritoryStats.Territory.IrrigationChannelTerritory.ResetBuilding();
                 break;
             case EVENTTYPE.PETITION_MIN:
                 break;
             case EVENTTYPE.PETITION_FOR:
                 break;
             case EVENTTYPE.GRACE_DIV:
-                TerritoryEvent.territoryStats.territory.MotivationPeople -= 10;
+                TerritoryEvent.TerritoryStats.Territory.OpinionTerritory -= 10;
                 break;
             case EVENTTYPE.GRACE_MIN:
                 InGameMenuHandler.instance.GoldPlayer += 15;

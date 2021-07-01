@@ -10,59 +10,54 @@ public class AlertOption : MonoBehaviour
     [SerializeField] TextMeshProUGUI tittleAlertText;
     [SerializeField] TextMeshProUGUI suggertAlertText;
     [SerializeField] GameObject container;
-   // public float timeLearping;
-   // public float learpTime;
-    private Vector2 startPosition;
-    private Vector2 endPosition ;
     private string type;
     Animator anim;
-    RectTransform a;
     TimeSimulated timeInit;
     TerritoryHandler focusTerritory;
     void Start()
     {
         anim = container.GetComponent<Animator>();
+        anim.speed = GlobalVariables.instance.timeModifier+1.5f;
         timeInit = new TimeSimulated(TimeSystem.instance.TimeGame);
         timeInit.PlusDays(3);
-        //a.anchoredPosition= new Vector2(392,0);
-
-        startPosition = new Vector3(392, 0);
-        endPosition= new Vector3(0, 0, 0);
         closeAlertBtn.onClick.AddListener(() => CloseAlertBtn());
         alertBtn.onClick.AddListener(() => OpenTabEvent());
-       // timeLearping = Time.time;
-
-        a = container.GetComponent<RectTransform>();
-        
     }
-    public void Init(string tittle,string suggest,string type,TerritoryHandler focus= null)
+    public void Init(string type,string iconId,TerritoryHandler focus= null)
     {
-        tittleAlertText.text = tittle;
-        suggertAlertText.text = suggest;
-        focusTerritory = focus;
         this.type = type;
+        tittleAlertText.text = GameMultiLang.GetTraduction(type + "_title");
+        suggertAlertText.text = GameMultiLang.GetTraduction(type + "_sugg");
+        focusTerritory = focus;
     }
     void CloseAlertBtn()
     {
         anim.SetBool("Appeance", false);
-        Destroy(this.gameObject,2.5f);
+        anim.speed = GlobalVariables.instance.timeModifier + 1.5f;
+        Destroy(this.gameObject,GlobalVariables.instance.timeModifier);
     }
     void OpenTabEvent()
     {
         CloseAlertBtn();
         switch (type)
         {
-            case "ALERT1":
-            case "ALERT3":
+            case "Alert_NewEvent":
+            case "Alert_EndEvent":
                 AlertManager.TabEventMenu();
+                EventManager.instance.SetNotificationEvent(false);
                 break;
-            case "ALERT2":
+            case "Alert_NewMission":
                 AlertManager.TabMissionMenu();
+                MissionManager.instance.SetNotificationMission(false);
                 break;
-            case "ALERT4":
+            case "Alert_NewConq":
+                AlertManager.TabEventMenu();
+                EventManager.instance.SetNotificationEvent(false);
                 GlobalVariables.instance.CenterCameraToTerritory(focusTerritory);
                 focusTerritory.MakeOutline();
-                AlertManager.TabEventMenu();
+                break;
+            case "Alert_LostTerr":
+                GlobalVariables.instance.CenterCameraToTerritory(focusTerritory);
                 break;
             default:
                 break;
@@ -80,18 +75,5 @@ public class AlertOption : MonoBehaviour
             CloseAlertBtn();
         }
     }
-    /*
-    private void Update()
-    {
-        a.localPosition = Learp(startPosition, endPosition, timeLearping, learpTime);
-    }
 
-    private Vector2 Learp(Vector3 start, Vector3 end, float _timeStarted, float learpTime = 1)
-    {
-        float _time = Time.time - _timeStarted;
-        float percentage = _time / learpTime;
-        print(percentage);
-        var result = Vector3.Lerp(start, end, percentage);
-        return result;
-    }*/
 }

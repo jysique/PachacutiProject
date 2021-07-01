@@ -3,8 +3,10 @@ using UnityEngine.UI;
 [System.Serializable]
 public class Building
 {
-    private string nameBuilding;
-    private int level = 0;
+    [SerializeField] private string nameBuilding;
+    [SerializeField] private int level = 0;
+    private float atributteSpeed = 0.6f;
+    private int atributteLimit= 10;
     private float atributteToAdd;
 
     private int costToUpgrade = 7;
@@ -13,7 +15,7 @@ public class Building
     private TimeSimulated init;
     private float daysToBuild = 4;
     private float daysTotal = 0;
-
+        
     public string Name
     {
         get { return nameBuilding; }
@@ -28,6 +30,16 @@ public class Building
     {
         get { return atributteToAdd; }
         set { atributteToAdd = value; }
+    }
+    public float AtributteSpeed
+    {
+        get { return atributteSpeed; }
+        set { atributteSpeed = value; }
+    }
+    public int AtributteLimit
+    {
+        get { return atributteLimit; }
+        set { atributteLimit = value; }
     }
     public int CostToUpgrade
     {

@@ -6,25 +6,28 @@ using UnityEngine.UI;
 public class MissionManager : MonoBehaviour
 {
     public static MissionManager instance;
-    [SerializeField]private TimeSimulated timeMission;
-    [SerializeField] private Button btnMission;
+    
+    [SerializeField] private TabButton btnMission;
     [SerializeField] private GameObject notificationMission;
     [SerializeField] private GameObject missionList;
-    public int currentMission = 0;
-    public List<Mission> listMission = new List<Mission>();
-    public GameObject NotificationMission
+    [HideInInspector] public int currentMission = 0;
+
+    private TimeSimulated timeMission;
+    private List<Mission> listMission = new List<Mission>();
+    
+    public void SetNotificationMission(bool active)
     {
-        get { return notificationMission; }
+        notificationMission.SetActive(active);
     }
     private void Awake()
     {
         instance = this;
-        notificationMission.SetActive(true);
+        SetNotificationMission(false);
     }
     private void Start()
     {
         GameEvents.instance.onMissionTriggerEnter += onMissionEnter;
-        btnMission.onClick.AddListener(() => CheckByPlayer());
+        btnMission.Notification = notificationMission;
         timeMission = new TimeSimulated(TimeSystem.instance.TimeGame);
         timeMission.PlusDays(2);
     }
@@ -47,7 +50,7 @@ public class MissionManager : MonoBehaviour
     }
     private void CheckByPlayer()
     {
-        notificationMission.SetActive(false);
+        SetNotificationMission(false);
     }
     private void onMissionEnter()
     {
@@ -59,10 +62,8 @@ public class MissionManager : MonoBehaviour
             missionOption.GetComponent<MissionOption>().InitializeMissionOption(currentMission);
             listMission.Add(missionOption.GetComponent<MissionOption>().Mission);
             AlertManager.AlertMission();
-//            print("mission|" + currentMission);
+            SetNotificationMission(true);
         }
         
     }
-
-
 }
