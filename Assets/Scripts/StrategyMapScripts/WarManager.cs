@@ -10,7 +10,7 @@ public class WarManager : MonoBehaviour
 
     [SerializeField] private float initialSpeed;
     private bool status;
-
+    public GameObject battleCanvas;
     public TerritoryHandler selected;
     public War selectedWar;
     public static WarManager instance;
@@ -49,6 +49,7 @@ public class WarManager : MonoBehaviour
     }
     private void Start()
     {
+        //battleCanvas = GameObject.Find("Battle");
         status = false;
         enemyColor = new Color32(248, 147, 146,255);
         playerColor = new Color32(114, 165, 195,255);
@@ -351,6 +352,22 @@ public class WarManager : MonoBehaviour
         }
         else
         {
+            if(attacker.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER || attacker.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
+            {
+                DateTableHandler.instance.PauseButton();
+                battleCanvas.SetActive(true);
+                CombatManager.instance.StartWar(
+                    _warriorsSword,
+                    _warriorsLance,
+                    _warriorsArch,
+                    otherTerritory.TerritoryStats.Territory.Swordsmen.NumbersUnit,
+                    otherTerritory.TerritoryStats.Territory.Lancers.NumbersUnit,
+                    otherTerritory.TerritoryStats.Territory.Archer.NumbersUnit,
+                    attacker.TerritoryStats.Territory.TypePlayer,
+                    otherTerritory.TerritoryStats.Territory.TypePlayer,
+                    attacker,otherTerritory);
+                return;
+            }
             if (otherTerritory.war)
             {
                 AddMoreWarriors(otherTerritory, attackPower);
@@ -367,6 +384,9 @@ public class WarManager : MonoBehaviour
                 otherTerritory.war = true;
                 otherTerritory.gameObject.transform.GetChild(0).gameObject.SetActive(true);
             }
+            
+            
+
 
         }
 

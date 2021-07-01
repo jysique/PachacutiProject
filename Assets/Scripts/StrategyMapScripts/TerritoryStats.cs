@@ -68,7 +68,7 @@ public class TerritoryStats : MonoBehaviour
             else if (unitCombat.NumbersUnit < territory.GetLimit(unitCombat))
             {
                 populationTxt.color = Color.red;
-                DecreasementPopulation();
+                //DecreasementPopulation();
             }
         }
         else

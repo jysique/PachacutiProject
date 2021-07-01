@@ -9,6 +9,7 @@ public class CombatManager : MonoBehaviour
     public static CombatManager instance;
     [SerializeField] private Text turnsCounter;
     [SerializeField]private List<UnitGroup> units = new List<UnitGroup>();
+    private List<GameObject> unitsGO = new List<GameObject>();
     private GameObject canvas;
     Vector3[] positions = new []{
         new Vector3( 0.5f, -0.7f, 90.0f ), //espada
@@ -25,6 +26,8 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private GameObject unitGroupPrefab;
     [SerializeField] private GameObject menu;
 
+    TerritoryHandler attackerTerritory;
+    TerritoryHandler territory;
 
     [SerializeField] private int turns;
     [SerializeField] private int c;
@@ -36,8 +39,8 @@ public class CombatManager : MonoBehaviour
     {
         turns = 10;
         c = -1;
-        canvas = GameObject.Find("Canvas");
-        StartWar(150,150,150,150,150,150,Territory.TYPEPLAYER.PLAYER, Territory.TYPEPLAYER.BOT);
+        canvas = GameObject.Find("Battle");
+        
     }
 
     void Update()
@@ -58,7 +61,10 @@ public class CombatManager : MonoBehaviour
 
     private void InstantiateUnit(int number, Sprite _sprite, int pos, Territory.TYPEPLAYER _type, UnitGroup.TYPE weapontype)
     {
-        
+        if(number <= 0)
+        {
+            return;
+        }
         var pref = Instantiate(unitGroupPrefab);
         pref.transform.SetParent(canvas.transform, false);
         pref.GetComponent<RectTransform>().anchoredPosition = new Vector3(positions[pos].x * 100  , positions[pos].y * 100  , positions[pos].z); ;
@@ -77,10 +83,12 @@ public class CombatManager : MonoBehaviour
         
         units.Add(unit);
         pref.GetComponent<GroupClassContainer>().stats = unit;
+        unitsGO.Add(pref);
     }
-    public void StartWar(int swordWarriors, int spearWarriors, int axeWarriors, int swordWarriors2, int spearWarriors2, int axeWarriors2, Territory.TYPEPLAYER attacker, Territory.TYPEPLAYER defender)
+    public void StartWar(int swordWarriors, int spearWarriors, int axeWarriors, int swordWarriors2, int spearWarriors2, int axeWarriors2, Territory.TYPEPLAYER attacker, Territory.TYPEPLAYER defender, TerritoryHandler _attackerTerritory, TerritoryHandler _territory)
     {
-        
+        attackerTerritory = _attackerTerritory;
+        territory = _territory; 
         InstantiateUnit(swordWarriors, swordGuy, 0, attacker, UnitGroup.TYPE.SWORD);
         InstantiateUnit(spearWarriors, spearGuy, 1, attacker, UnitGroup.TYPE.SPEAR);
         InstantiateUnit(axeWarriors, axeGuy, 2, attacker, UnitGroup.TYPE.AXE);
@@ -111,9 +119,64 @@ public class CombatManager : MonoBehaviour
         //}
         turns--;
         turnsCounter.text = "Turnos restantes: "+ turns.ToString();
+        if (turns <= 0)
+        {
+
+            FinishCombat();
+        }
         
     }
-
+    private void SetStats(UnitGroup u)
+    {
+        if (u.TypePlayer == attackerTerritory.TerritoryStats.Territory.TypePlayer)
+        {
+            switch (u.Type)
+            {
+                case UnitGroup.TYPE.SWORD:
+                    attackerTerritory.TerritoryStats.Territory.Swordsmen.NumbersUnit += u.Quantity;
+                    break;
+                case UnitGroup.TYPE.SPEAR:
+                    attackerTerritory.TerritoryStats.Territory.Lancers.NumbersUnit += u.Quantity;
+                    break;
+                case UnitGroup.TYPE.AXE:
+                    attackerTerritory.TerritoryStats.Territory.Archer.NumbersUnit += u.Quantity;
+                    break;
+            }
+        }
+        if (u.TypePlayer == territory.TerritoryStats.Territory.TypePlayer)
+        {
+            switch (u.Type)
+            {
+                case UnitGroup.TYPE.SWORD:
+                    territory.TerritoryStats.Territory.Swordsmen.NumbersUnit = u.Quantity;
+                    break;
+                case UnitGroup.TYPE.SPEAR:
+                    territory.TerritoryStats.Territory.Lancers.NumbersUnit = u.Quantity;
+                    break;
+                case UnitGroup.TYPE.AXE:
+                    territory.TerritoryStats.Territory.Archer.NumbersUnit = u.Quantity;
+                    break;
+            }
+        }
+    }
+    public void FinishCombat()
+    {
+        c = -1;
+        turns = 10;
+        foreach (UnitGroup u in units)
+        {
+            SetStats(u);
+        }
+        DateTableHandler.instance.PlayButton();
+        WarManager.instance.FinishWar(territory, attackerTerritory.TerritoryStats.Territory.TypePlayer, 0);
+        foreach(GameObject g in unitsGO)
+        {
+            Destroy(g);
+        }
+        units.Clear();
+        unitsGO.Clear();
+        canvas.SetActive(false);
+    }
     public void Attack()
     {
         foreach(UnitGroup u in units)
@@ -129,6 +192,7 @@ public class CombatManager : MonoBehaviour
     {
         units[c].UnitsGO.GetComponent<Image>().color = Color.blue;
         units[c].Defense = true;
+        MakeMovement();
     }
 
 
@@ -151,9 +215,24 @@ public class CombatManager : MonoBehaviour
         print(defenseGroup.Quantity);
         print(damage);
         defenseGroup.Quantity = defenseGroup.Quantity - damage;
-        
+
         defenseGroup.UnitsGO.transform.GetChild(0).GetComponent<Text>().text = defenseGroup.Quantity.ToString();
+
         TurnOffButtons();
+        if (defenseGroup.Quantity <= 0)
+        {
+
+            defenseGroup.Quantity = 0;
+            defenseGroup.UnitsGO.transform.GetChild(0).GetComponent<Text>().text = "0";
+            defenseGroup.UnitsGO.transform.GetChild(0).GetComponent<Text>().color = Color.red;
+            SetStats(defenseGroup);
+            units.Remove(defenseGroup);
+        }
+        if (EndBattle())
+        {
+            FinishCombat();
+        }
+
 
     }
 
@@ -201,6 +280,18 @@ public class CombatManager : MonoBehaviour
             if (defenseWeapon == UnitGroup.TYPE.SPEAR)
             {
                 return true;
+            }
+        }
+        return true;
+    }
+    private bool EndBattle()
+    {
+        Territory.TYPEPLAYER check = units[0].TypePlayer;
+        foreach (UnitGroup u in units)
+        {
+            if(u.TypePlayer != check)
+            {
+                return false;
             }
         }
         return true;
