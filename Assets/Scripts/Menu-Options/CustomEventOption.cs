@@ -26,8 +26,8 @@ public class CustomEventOption : MonoBehaviour
         btn.onClick.AddListener(() => OnClickCustomEvent());
         territoryNameTxt.text = custom.TerritoryEvent.name;
         typeEventTxt.text = custom.EventType.ToString().ToLower().Replace("_", " ");
-        initTxt.text = custom.TimeInitEvent.PrintTimeSimulated();
-        finishTxt.text = custom.TimeFinalEvent.PrintTimeSimulated();
+      //  initTxt.text = custom.TimeInitEvent.PrintTimeSimulated();
+      //  finishTxt.text = custom.TimeFinalEvent.PrintTimeSimulated();
         string[] splitArray = custom.MessageEvent.Split(char.Parse("."));
         descriptionTxt.text = splitArray[0];
         
@@ -50,16 +50,16 @@ public class CustomEventOption : MonoBehaviour
     }
     void OnClickCustomEvent()
     {
-        if (custom.EventType != CustomEvent.EVENTTYPE.CONQUIST)
-        {
-            diferenceDays = custom.TimeFinalEvent.DiferenceDays(TimeSystem.instance.TimeGame);
-            EventManager.instance.WarningEventAppearance(custom, diferenceDays);
-        }
-        else
+        diferenceDays = custom.TimeFinalEvent.DiferenceDays(TimeSystem.instance.TimeGame);
+        if (custom.EventType == CustomEvent.EVENTTYPE.CONQUIST)
         {
             GlobalVariables.instance.CenterCameraToTerritory(custom.TerritoryEvent);
             custom.TerritoryEvent.MakeOutline();
-            AlertManager.TabMilitarMenu();
+            MenuManager.instance.AccessTabMilitar();
+        }
+        else
+        {
+            EventManager.instance.WarningEventAppearance(custom, diferenceDays);
         }
         
     }

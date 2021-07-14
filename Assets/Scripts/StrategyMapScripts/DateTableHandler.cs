@@ -131,7 +131,7 @@ public class DateTableHandler : MonoBehaviour
     }
     public void PauseTime()
     {
-        MenuManager.instance.turnOffMenus();
+      //  MenuManager.instance.turnOffMenus();
         if (GlobalVariables.instance.timeModifier != 0)
             temporalTime = GlobalVariables.instance.timeModifier;
         GlobalVariables.instance.timeModifier = 0;

@@ -10,6 +10,7 @@ public class MenuManager : MonoBehaviour
     public static MenuManager instance;
 
     [SerializeField] public GameObject contextMenu;
+    [SerializeField] public GameObject selectTroopsMenu;
     [SerializeField] public GameObject overMenuBlock;
     [SerializeField] public GameObject toolTip;
 
@@ -25,6 +26,42 @@ public class MenuManager : MonoBehaviour
     [SerializeField] public TextMeshProUGUI descriptionSelectCharacterMenu;
     private int maxInstantiateCharacters = 3;
     List<GameObject> options = new List<GameObject>();
+
+    [Header("Tabs Button")]
+    [SerializeField] private TabButton tabProfile;
+    [SerializeField] private TabButton tabEvent;
+    [SerializeField] private TabButton tabMission;
+    [SerializeField] private TabButton tabTerritory;
+    [SerializeField] private TabButton tabMilitar;
+    [SerializeField] private TabButton tabBuilding;
+    public TabButton TabMilitar
+    {
+        get { return tabMilitar; }
+    }
+    public void AccessTabProfile()
+    {
+        tabProfile.AccessToMenu();
+    }
+    public void AccessTabEvent()
+    {
+        tabEvent.AccessToMenu();
+    }
+    public void AccessTabMission()
+    {
+        tabMission.AccessToMenu();
+    }
+    public void AccessTabTerritory()
+    {
+        tabTerritory.AccessToMenu();
+    }
+    public void AccessTabMilitar()
+    {
+        tabMilitar.AccessToMenu();
+    }
+    public void AccessTabBuildings()
+    {
+        tabBuilding.AccessToMenu();
+    }
 
     public static bool isGamePaused = false;
     public float temporalTime;
@@ -70,6 +107,12 @@ public class MenuManager : MonoBehaviour
         Vector3 mousePosCamera = Camera.main.ScreenToWorldPoint(mousePosition);
         contextMenu.transform.position = new Vector3(mousePosCamera.x, mousePosCamera.y, contextMenu.transform.position.z);
         contextMenu.GetComponent<ContextMenu>().SetMenu(canAttack, isWar, territoryToAttack);
+    }
+
+    public void ActivateSelectTroopsMenu(TerritoryHandler territoryToAttack)
+    {
+        selectTroopsMenu.SetActive(true);
+        selectTroopsMenu.GetComponent<SelectTropsMenu>().InitMenu(territoryToAttack);
     }
 
     public void turnOffMenus()

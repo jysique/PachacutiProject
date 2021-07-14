@@ -2,12 +2,16 @@ using UnityEngine;
 [System.Serializable]
 public class Barracks : Building
 {
-    [SerializeField] private float speedLancer = 0f;
-    [SerializeField] private int limitLancer = 70;
+    private float speedLancer = 0f;
+    private int limitLancer = 70;
 
     public Barracks()
     {
         this.Name ="Barracks";
+        this.speedLancer = 0f;
+        this.limitLancer = 70;
+        this.AtributteSpeed = 0.6f;
+        this.AtributteLimit = 10;
     }
     public float SpeedLancer
     {

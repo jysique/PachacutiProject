@@ -6,9 +6,6 @@ using TMPro;
 public class AlertManager : MonoBehaviour
 {
     private static AlertManager instance;
-    [SerializeField] private TabButton tabEvent;
-    [SerializeField] private TabButton tabMission;
-    [SerializeField] private TabButton tabMilitar;
     [SerializeField] private GameObject alertOption;
     [SerializeField] private GameObject alertContainer;
 
@@ -51,6 +48,10 @@ public class AlertManager : MonoBehaviour
     {
         NewAlert("NewEvent");
     }
+    public static void AlertExpedition()
+    {
+        NewAlert("NewExped");
+    }
     public static void AlertConquered(TerritoryHandler territoryfocus)
     {
         NewAlert("NewConq", territoryfocus);
@@ -66,17 +67,5 @@ public class AlertManager : MonoBehaviour
     public static void AlertLost(TerritoryHandler territoryfocus)
     {
         NewAlert("LostTerr", territoryfocus);
-    }
-    public static void TabEventMenu()
-    {
-        instance.tabEvent.AccessToMenu();
-    }
-    public static void TabMissionMenu()
-    {
-        instance.tabMission.AccessToMenu();
-    }
-    public static void TabMilitarMenu()
-    {
-        instance.tabMilitar.AccessToMenu();
     }
 }

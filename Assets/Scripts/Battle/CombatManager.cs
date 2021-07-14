@@ -34,12 +34,13 @@ public class CombatManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        canvas = GameObject.Find("Battle");
     }
     void Start()
     {
         turns = 10;
         c = -1;
-        canvas = GameObject.Find("Battle");
+        
         
     }
 
@@ -139,7 +140,7 @@ public class CombatManager : MonoBehaviour
                     attackerTerritory.TerritoryStats.Territory.Lancers.NumbersUnit += u.Quantity;
                     break;
                 case UnitGroup.TYPE.AXE:
-                    attackerTerritory.TerritoryStats.Territory.Archer.NumbersUnit += u.Quantity;
+                    attackerTerritory.TerritoryStats.Territory.Axemen.NumbersUnit += u.Quantity;
                     break;
             }
         }
@@ -154,7 +155,7 @@ public class CombatManager : MonoBehaviour
                     territory.TerritoryStats.Territory.Lancers.NumbersUnit = u.Quantity;
                     break;
                 case UnitGroup.TYPE.AXE:
-                    territory.TerritoryStats.Territory.Archer.NumbersUnit = u.Quantity;
+                    territory.TerritoryStats.Territory.Axemen.NumbersUnit = u.Quantity;
                     break;
             }
         }
@@ -184,6 +185,7 @@ public class CombatManager : MonoBehaviour
             //if(u.TypePlayer != Territory.TYPEPLAYER.PLAYER)
             if (u != units[c])
             {
+                print(c);
                 u.UnitsGO.transform.GetChild(1).gameObject.SetActive(true);
             }
         }

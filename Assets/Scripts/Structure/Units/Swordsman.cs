@@ -6,8 +6,8 @@ public class Swordsman:UnitCombat
 {
     public Swordsman()
     {
-        this.CharacterName = "Sword";
-        this.UnitName = "Sword";
+        this.CharacterName = "Swordsman";
+        this.UnitName = "Swordsman";
         this.PlusDamage = 3;
     }
 

@@ -24,20 +24,17 @@ public class InGameMenuHandler : MonoBehaviour
     [Header("Menu military")]
     [SerializeField] private GameObject menuBlockWarriors;
     [SerializeField] private GameObject menuBlockCharacter;
+    [SerializeField] private GameObject menuBlockMilitaryWaste;
+    [SerializeField] private GameObject containerTroops;
     [SerializeField] private Button selectMilitarChief;
     [SerializeField] private Image militaryBossPicture;
-    [SerializeField] private GameObject swordMenWarriors;
-    [SerializeField] private GameObject lancersWarriors;
-    [SerializeField] private GameObject archersWarriors;
-    // [SerializeField] private TextMeshProUGUI militarWarriorsCount;
-    // [SerializeField] private TextMeshProUGUI GenerationSpeed;
-    // [SerializeField] private TextMeshProUGUI warriorsLimit;
     [SerializeField] private TextMeshProUGUI militaryBossName;
     [SerializeField] private TextMeshProUGUI militaryBossExperience;
     [SerializeField] private TextMeshProUGUI militaryBossEstrategy;
     [SerializeField] private TextMeshProUGUI militaryBossInfluence;
 
     [Header("Menu territory")]
+    [SerializeField] private GameObject menuBlockWasteTerritory;
     [SerializeField] private GameObject menuBlockTerritory;
     [SerializeField] private TextMeshProUGUI territoryEmpire;
     [SerializeField] private TextMeshProUGUI territoryRegion;
@@ -51,13 +48,10 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI DefenseBonus;
 
     [Header("Menu buildings")]
+    [SerializeField] private GameObject containerBuildings;
     [SerializeField] private GameObject menuBlockBuildings;
-    [SerializeField] private BuildOption IrrigationChannelOption;
-    [SerializeField] private BuildOption GoldMineOption;
-    [SerializeField] private BuildOption FortressOption;
-    [SerializeField] private BuildOption AcademyOption;
-    [SerializeField] private BuildOption BarracksOption;
-    [SerializeField] private BuildOption ArcheryOption;
+    [SerializeField] private GameObject menuBlockBuildWaste;
+    [SerializeField] private TMP_Dropdown dropdownBuildings;
 
     //resources
     private int goldPlayer = 500;
@@ -86,15 +80,16 @@ public class InGameMenuHandler : MonoBehaviour
     {
         InitButtons();
         UpdateMenu();
+        dropdownBuildings.onValueChanged.AddListener(delegate { DropdownItemSelected(selectedTerritory); });
     }
     private void UpdateStateMenu()
     {
-        irrigateLevel.text = selectedTerritory.IrrigationChannelTerritory.Level.ToString();
+        irrigateLevel.text = selectedTerritory.FarmTerritory.Level.ToString();
         goldMineLevel.text = selectedTerritory.GoldMineTerritory.Level.ToString();
         fortressLevel.text = selectedTerritory.FortressTerritory.Level.ToString();
         academyLevel.text = selectedTerritory.AcademyTerritory.Level.ToString();
         barracksLevel.text = selectedTerritory.BarracksTerritory.Level.ToString();
-        archeryLevel.text = selectedTerritory.ArcheryTerritory.Level.ToString();
+        archeryLevel.text = selectedTerritory.CastleTerritory.Level.ToString();
     }
     /// <summary>
     /// Update all elements of the militar menu of the territory-selected
@@ -103,7 +98,8 @@ public class InGameMenuHandler : MonoBehaviour
     /// </summary>
     private void UpdateMilitarMenu()
     {
-        menuBlockWarriors.SetActive(false);
+        //  menuBlockWarriors.SetActive(false);
+        menuBlockMilitaryWaste.SetActive(false);
         MilitarChief mChief = selectedTerritory.MilitarChiefTerritory;
         militaryBossName.text = mChief.CharacterName;
         militaryBossPicture.sprite = mChief.Picture;
@@ -115,19 +111,20 @@ public class InGameMenuHandler : MonoBehaviour
 
         if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
         {
-            menuBlockWarriors.SetActive(true);
+            if (selectedTerritory.TypePlayer == Territory.TYPEPLAYER.WASTE)
+            {
+                menuBlockMilitaryWaste.SetActive(true);
+            }
         }
         else
         {
             if (selectedTerritory.IsClaimed == false)
             {
                 menuBlockCharacter.SetActive(true);
-                menuBlockWarriors.SetActive(true);
             }
             else
             {
                 menuBlockCharacter.SetActive(false);
-                menuBlockWarriors.SetActive(false);
             }
         }
     }
@@ -139,18 +136,24 @@ public class InGameMenuHandler : MonoBehaviour
     private void UpdateTerritoryMenu()
     {
         menuBlockTerritory.SetActive(false);
+        menuBlockWasteTerritory.SetActive(false);
         territoryEmpire.text = TerritoryManager.instance.GetTerritoryEmpire(selectedTerritory);
         territoryRegion.text = selectedTerritory.RegionTerritory.ToString().Split(char.Parse("_"))[0];
         MotivationBonus.text = selectedTerritory.MotivationTerritory.ToString() + "/10";
      //   AttackBonus.text = selectedTerritory.FortressTerritory.PlusDefense.ToString() + "/10";
      //   DefenseBonus.text = selectedTerritory.ArmoryTerritory.PlusAttack.ToString() + "/10";
         GoldGeneration.text = (selectedTerritory.GoldMineTerritory.WorkersMine / 5) + GameMultiLang.GetTraduction("EveryDay");
-        FoodGeneration.text = (selectedTerritory.IrrigationChannelTerritory.WorkersChannel / 5) + GameMultiLang.GetTraduction("EveryDay");
+        FoodGeneration.text = (selectedTerritory.FarmTerritory.WorkersChannel / 5) + GameMultiLang.GetTraduction("EveryDay");
         
         if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
         {
             menuBlockTerritory.SetActive(true);           
         }
+        if (selectedTerritory.TypePlayer == Territory.TYPEPLAYER.WASTE)
+        {
+            menuBlockWasteTerritory.SetActive(true);
+        }
+        UpdateTroopsContainer(selectedTerritory);
     }
     /// <summary>
     /// Update all elements of the buildings menu of the territory-selected
@@ -160,22 +163,17 @@ public class InGameMenuHandler : MonoBehaviour
     private void UpdateBuildingsMenu()
     {
         menuBlockBuildings.SetActive(false);
+        menuBlockBuildWaste.SetActive(false);
         if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
         {
             menuBlockBuildings.SetActive(true);
         }
-    }
-    /// <summary>
-    /// Update all buildings of the territory-selected
-    /// </summary>
-    private void UpdateCountDownImage()
-    {
-        IrrigationChannelOption.InitializeBuildingOption(selectedTerritory.IrrigationChannelTerritory);
-        GoldMineOption.InitializeBuildingOption(selectedTerritory.GoldMineTerritory);
-        FortressOption.InitializeBuildingOption(selectedTerritory.FortressTerritory);
-        AcademyOption.InitializeBuildingOption(selectedTerritory.AcademyTerritory);
-        BarracksOption.InitializeBuildingOption(selectedTerritory.BarracksTerritory);
-        ArcheryOption.InitializeBuildingOption(selectedTerritory.ArcheryTerritory);
+        if (selectedTerritory.TypePlayer == Territory.TYPEPLAYER.WASTE)
+        {
+            menuBlockBuildWaste.SetActive(true);
+        }
+        UpdateDropdown(dropdownBuildings, selectedTerritory.BuildingList);
+        UpdateBuildings(selectedTerritory);
     }
     /// <summary>
     /// Update all menus of the territory-selected
@@ -194,75 +192,37 @@ public class InGameMenuHandler : MonoBehaviour
     /// </summary>
     private void UpdateAllText()
     {
-        // militarWarriorsCount.text = selectedTerritory.Population.ToString() + " / " + selectedTerritory.LimitPopulation.ToString() + " units";
-        /*
-         if (selectedTerritory.Population > selectedTerritory.LimitPopulation)
-         {
-             militarWarriorsCount.color = Color.red;
-             militarWarriorsCount.GetComponent<MenuToolTip>().SetNewInfo(GameMultiLang.GetTraduction("tooltip5A") +"\n " +
-                                                                          GameMultiLang.GetTraduction("tooltip5B") + "\n" +
-                                                                          GameMultiLang.GetTraduction("tooltip5C"));
-         }
-         else
-         {
-             militarWarriorsCount.color = new Color32(50,50,50,255);
-             militarWarriorsCount.GetComponent<MenuToolTip>().SetNewInfo(GameMultiLang.GetTraduction("tooltip6"));
-         }
-        */
-        CheckPopulation(swordMenWarriors, selectedTerritory.Swordsmen);
-        CheckPopulation(lancersWarriors, selectedTerritory.Lancers);
-        CheckPopulation(archersWarriors, selectedTerritory.Archer);
+
         goldCount.text = selectedTerritory.Gold.ToString();
         foodCount.text = selectedTerritory.FoodReward.ToString();
         GoldGeneration.text = (selectedTerritory.GoldMineTerritory.WorkersMine / 5) + GameMultiLang.GetTraduction("PerDay");
-        FoodGeneration.text = (selectedTerritory.IrrigationChannelTerritory.WorkersChannel / 5) + GameMultiLang.GetTraduction("PerDay");
+        FoodGeneration.text = (selectedTerritory.FarmTerritory.WorkersChannel / 5) + GameMultiLang.GetTraduction("PerDay");
         MotivationBonus.text = selectedTerritory.MotivationTerritory.ToString() + "/10";
         DefenseBonus.text = selectedTerritory.FortressTerritory.PlusDefense.ToString() + "/10";
-    }
-
-    void CheckPopulation(GameObject groupstexts, UnitCombat unit)
-    {
-        TextMeshProUGUI[] texts = groupstexts.GetComponentsInChildren<TextMeshProUGUI>();
-        texts[0].text = GameMultiLang.GetTraduction(unit.UnitName);
-        texts[1].text = unit.NumbersUnit + " / " + selectedTerritory.GetLimit(unit) + GameMultiLang.GetTraduction("units");
-        texts[2].text = selectedTerritory.GetSpeed(unit).ToString();
-        if (unit.NumbersUnit > selectedTerritory.GetLimit(unit))
-        {
-            texts[1].color = Color.red;
-            texts[1].GetComponent<MenuToolTip>().SetNewInfo(GameMultiLang.GetTraduction("tooltip5"));
-        }
-        else
-        {
-            texts[1].color = new Color32(50, 50, 50, 255);
-            texts[1].GetComponent<MenuToolTip>().SetNewInfo(GameMultiLang.GetTraduction("tooltip6"));
-        }
-        
     }
 
     void Update()
     {
         selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().TerritoryStats.Territory;
         UpdateAllText();
-        UpdateCountDownImage();
     }
 
     public void ImproveBuildingButton(Building _building)
     {
         TerritoryHandler territoryHandler = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
-        Building building = territoryHandler.GetBuilding(_building);
+        Building building = territoryHandler.TerritoryStats.Territory.GetBuilding(_building);
         ImproveBuildingInHandler(territoryHandler, building);
         EventManager.instance.AddEvent(territoryHandler, building);
-        UpdateMenu();
+      //  UpdateMenu();
     }
     private void ImproveBuildingInHandler(TerritoryHandler territoryHandler, Building building)
     {
         if (goldPlayer >= building.CostToUpgrade)
         {
-            goldPlayer -= territoryHandler.GetBuilding(building).CostToUpgrade;
-            territoryHandler.GetBuilding(building).ImproveCostUpgrade();
-            territoryHandler.TerritoryStats.Territory.OpinionTerritory += 10;
+            goldPlayer -= territoryHandler.TerritoryStats.Territory.GetBuilding(building).CostToUpgrade;
+
             ShowFloatingText("+1 " + GameMultiLang.GetTraduction(building.Name) + " level", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
-            ShowFloatingText("-" + territoryHandler.GetBuilding(building).CostToUpgrade.ToString(), "TextFloating", ResourceTableHandler.instance.GoldAnimation, Color.white);
+            ShowFloatingText("-" + territoryHandler.TerritoryStats.Territory.GetBuilding(building).CostToUpgrade.ToString(), "TextFloating", ResourceTableHandler.instance.GoldAnimation, Color.white);
         }
     }
     private int GetGoldGather(TerritoryHandler territoryHandler)
@@ -339,5 +299,110 @@ public class InGameMenuHandler : MonoBehaviour
     {
         MilitarChief militarChief = new MilitarChief();
         selectMilitarChief.onClick.AddListener(() => MenuManager.instance.OpenSelectCharacterMenu(militarChief));
+    }
+
+    public void UpdateDropdown(TMP_Dropdown _dropdown, List<string> _items)
+    {
+        GlobalVariables.instance.InitDropdown(_dropdown,_items);
+
+    }
+
+    void DropdownItemSelected(Territory territory)
+    {
+        
+        int index = dropdownBuildings.value;
+        string _type = dropdownBuildings.options[index].text;
+
+        string type = GameMultiLang.GetTraductionReverse(_type);
+
+        TerritoryHandler handler = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
+        Building building = handler.TerritoryStats.Territory.GetBuilding(type);
+        if (building != null)
+        {
+            if (territory.numberOfBuildings < TerritoryManager.instance.ClassifyTerritory(territory))
+            {
+                territory.numberOfBuildings++;
+                building.Status++;
+                ImproveBuildingButton(building);
+                InstantiateBuilding(building);
+            }
+            else
+            {
+                print("alcanzaste maximo numero de edificios");
+            }
+
+        }
+        
+        UpdateDropdown(dropdownBuildings, territory.BuildingList);
+        dropdownBuildings.value = 0;
+    }
+    
+    public void InstantiateBuilding(Building building)
+    {
+        if (building.Status>=0)
+        {
+            Transform gridLayout = containerBuildings.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
+            GameObject buildingOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/BuildingOption")) as GameObject;
+            buildingOption.name = building.GetType().ToString();
+            buildingOption.transform.SetParent(gridLayout.transform, false);
+            if (building.PositionInGridLayout< 0)
+            {
+                buildingOption.transform.SetSiblingIndex(0);
+            }
+            else
+            {
+                buildingOption.transform.SetSiblingIndex(building.PositionInGridLayout);
+            }
+            buildingOption.GetComponent<BuildOption>().InitializeBuildingOption(building);
+            selectedTerritory.BuildingList.Remove(building.GetType().ToString());
+        }
+    }
+    public void UpdateBuildings(Territory territory)
+    {
+        Transform gridLayout = containerBuildings.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
+        foreach (Transform child in gridLayout.transform)
+        {
+            if (child.name != "CreateBuiding")
+            {
+                Destroy(child.gameObject);
+            }
+            else
+            {
+                child.SetAsLastSibling();
+            }
+        }
+        InstantiateBuilding(territory.FarmTerritory);
+        InstantiateBuilding(territory.GoldMineTerritory);
+        InstantiateBuilding(territory.FortressTerritory);
+        InstantiateBuilding(territory.AcademyTerritory);
+        InstantiateBuilding(territory.BarracksTerritory);
+        InstantiateBuilding(territory.CastleTerritory);
+        InstantiateBuilding(territory.StableTerritory);
+        InstantiateBuilding(territory.ArcheryTerritory);
+    }
+
+    public void InstantiateTroopContainer(UnitCombat unit)
+    {
+        if (unit.NumbersUnit > 0 || selectedTerritory.GetBuilding(unit).Level > 0)
+        {
+            Transform gridLayout = containerTroops.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
+            GameObject troopContainerOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/TroopsContainer")) as GameObject;
+            troopContainerOption.transform.SetParent(gridLayout.transform, false);
+            troopContainerOption.GetComponent<TroopContainerOption>().InitializeTroopContainerOption(unit);
+        }
+    }
+
+    public void UpdateTroopsContainer(Territory territory)
+    {
+        Transform gridLayout = containerTroops.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
+        foreach (Transform child in gridLayout.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        InstantiateTroopContainer(territory.Swordsmen);
+        InstantiateTroopContainer(territory.Lancers);
+        InstantiateTroopContainer(territory.Axemen);
+        InstantiateTroopContainer(territory.Scouts);
+        InstantiateTroopContainer(territory.Archers);
     }
 }

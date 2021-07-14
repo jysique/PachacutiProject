@@ -2,25 +2,25 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+
 [System.Serializable]
 public class CustomEvent
 {
-  //  [SerializeField] private string eventtype;
-    private string message;
-    [SerializeField] private TerritoryHandler territoryEvent;
-    private string element;
-    private int costEvent;
-    private string requirementMessageEvent;
-    private string acceptMessageEvent;
-    private string declineMessageEvent;
-    private string resultMessageEvent;
-    [SerializeField] private TimeSimulated timeInit;
-    [SerializeField] private TimeSimulated timeFinal;
-    [SerializeField] private STATUS eventStatus;
-    [SerializeField] private EVENTTYPE eventType;
-    private bool isAcceptedEvent;
-    private bool w = false;
-    private Building building;
+    [SerializeField] protected string message;
+    [SerializeField] protected int costEvent;
+    [SerializeField] protected string acceptMessageEvent;
+    [SerializeField] protected string declineMessageEvent;
+    [SerializeField] protected string requirementMessageEvent;
+    [SerializeField] protected string resultMessageEvent;
+    [SerializeField] protected bool w = false;
+    [SerializeField] protected TerritoryHandler territoryEvent;
+    [SerializeField] protected TimeSimulated timeInit;
+    [SerializeField] protected TimeSimulated timeFinal;
+    [SerializeField] protected STATUS eventStatus;
+    [SerializeField] protected EVENTTYPE eventType;
+    [SerializeField] protected bool isAcceptedEvent;
+
+    
     public bool W
     {
         get { return w; }
@@ -54,11 +54,6 @@ public class CustomEvent
         get { return territoryEvent; }
         set { territoryEvent = value; }
     }
-    public string ElementEvent
-    {
-        get { return element; }
-        set { element = value; }
-    }
     public string AcceptMessageEvent
     {
         get { return acceptMessageEvent; }
@@ -89,11 +84,6 @@ public class CustomEvent
         get { return timeFinal; }
         set { timeFinal = value; }
     }
-    public Building Building
-    {
-        get { return building; }
-        set { building = value; }
-    }
     public void PrintEvent(int i)
     {
         Debug.Log(i + " eventType - " + eventType.ToString());
@@ -101,46 +91,90 @@ public class CustomEvent
         Debug.Log(i + " init time- " + TimeInitEvent.PrintTimeSimulated());
         Debug.Log(i + " final time- " + TimeFinalEvent.PrintTimeSimulated());
     }
-    /// <summary>
-    /// Initialize custom event
-    /// </summary>
-    /// <param name="_initTime"></param>
-    /// <param name="days"></param>
-    public void GetCustomEvent(TimeSimulated _initTime,TerritoryHandler territory)
+    public CustomEvent()
+    {
+
+    }
+
+    public CustomEvent(TimeSimulated _initTime, TerritoryHandler territory)
     {
         this.isAcceptedEvent = false;
-        if (territory!=null)
+        if (territory != null)
         {
             this.eventType = EVENTTYPE.CONQUIST;
             this.territoryEvent = territory;
-            
         }
         else
         {
-            this.eventType = (EVENTTYPE)UnityEngine.Random.Range(0, Enum.GetNames(typeof(EVENTTYPE)).Length - 1);
-           // Debug.LogWarning("C|"+EventManager.instance.current);
-           // this.eventType = (EVENTTYPE)EventManager.instance.current++;
-            
+            this.eventType = (EVENTTYPE)UnityEngine.Random.Range(0, Enum.GetNames(typeof(EVENTTYPE)).Length - 2);
             this.territoryEvent = TerritoryManager.instance.GetTerritoryRandom(Territory.TYPEPLAYER.PLAYER);
         }
-        
+
         this.eventStatus = STATUS.ANNOUNCE;
         this.costEvent = UnityEngine.Random.Range(1, InGameMenuHandler.instance.GoldPlayer / 2);
-        GetTimesEvents(_initTime);
+        GetTimesEvents(_initTime );
         GetMessage();
+        GetRequirement();
+    }
+    protected void GetTimesEvents(TimeSimulated _initTime)
+    {
+        this.timeInit = new TimeSimulated(_initTime);
+        int rDays1 = UnityEngine.Random.Range(EventManager.instance.MinDays, EventManager.instance.MaxDays);
+        timeInit.PlusDays(rDays1);
+
+        if (this.eventType == EVENTTYPE.EARTHQUAKER)
+        {
+            this.timeFinal = new TimeSimulated(timeInit);
+            timeFinal.PlusDays(1);
+        }else if (this.eventType == EVENTTYPE.CONQUIST)
+        {
+            this.timeFinal = new TimeSimulated(timeInit);
+            timeFinal.PlusDays(1000);
+            this.eventStatus = STATUS.PROGRESS;
+        }
+        else
+        {
+            this.timeFinal = new TimeSimulated(timeInit);
+            int rDays2 = UnityEngine.Random.Range(10, 15);
+            timeFinal.PlusDays(rDays2);
+        }
     }
     /// <summary>
-    ///  Initialize improve build event
+    /// Change messages of the custom event
     /// </summary>
-    /// <param name="_initTime"></param>
-    /// <param name="territory"></param>
-    /// <param name="_building"></param>
-    public void GetCustomEvent(TimeSimulated _initTime,TerritoryHandler territory, Building _building)
+    protected void GetMessage()
     {
-        territoryEvent = territory;
-        building = territoryEvent.GetBuilding(_building);
-        building.TimeInit = new TimeSimulated(_initTime);
-        timeInit = new TimeSimulated(_initTime);
+        this.message = GameMultiLang.GetTraduction(eventType.ToString() + "M").Replace("TERRITORYEVENT", TerritoryEvent.name);
+        this.acceptMessageEvent = GameMultiLang.GetTraduction(eventType.ToString() + "A").Replace("TERRITORYEVENT", TerritoryEvent.name);
+        this.declineMessageEvent = GameMultiLang.GetTraduction(eventType.ToString() + "D").Replace("TERRITORYEVENT", TerritoryEvent.name);
+    }
+    protected void GetRequirement()
+    {
+        switch (eventType)
+        {
+            case EVENTTYPE.EARTHQUAKER:
+                this.requirementMessageEvent = "";
+                break;
+            case EVENTTYPE.DROUGHT:
+            case EVENTTYPE.ALL_T_PANDEMIC:
+            case EVENTTYPE.PANDEMIC:
+            case EVENTTYPE.ALL_T_PLAGUE:
+            case EVENTTYPE.PLAGUE:
+                this.requirementMessageEvent = GameMultiLang.GetTraduction("Requirements") + "\n" + GameMultiLang.GetTraduction("REQ1").Replace("COSTEVENT", costEvent.ToString());
+                break;
+            case EVENTTYPE.PETITION_MIN:
+            case EVENTTYPE.PETITION_FOR:
+            case EVENTTYPE.REBELION:
+                this.requirementMessageEvent = GameMultiLang.GetTraduction("Requirements") + "\n" + GameMultiLang.GetTraduction("REQ2").Replace("COSTEVENT", costEvent.ToString());
+                break;
+            case EVENTTYPE.GRACE_DIV:
+            case EVENTTYPE.GRACE_MIN:
+            case EVENTTYPE.GRACE_FOOD:
+                this.requirementMessageEvent = GameMultiLang.GetTraduction("Requirements") + "\n" + GameMultiLang.GetTraduction("REQ3").Replace("COSTEVENT", costEvent.ToString());
+                break;
+            default:
+                break;
+        }
     }
 
     /// <summary>
@@ -178,84 +212,6 @@ public class CustomEvent
         }
         //Debug.LogError("canAccept|" + accept);
         return accept;
-    }
-    /*
-        if (this.eventType != EVENTTYPE.EARTHQUAKER)
-        {
-            this.timeInit = new TimeSimulated(_initTime.Day, _initTime.Month, _initTime.Year);
-            int rDays1 = UnityEngine.Random.Range(TimeSystem.instance.MinDays, TimeSystem.instance.MaxDays);
-            timeInit.PlusDays(rDays1);
-
-            this.timeFinal = new TimeSimulated(timeInit.Day, timeInit.Month, timeInit.Year);
-            int rDays2 = UnityEngine.Random.Range(10, 15);
-            timeFinal.PlusDays(rDays2);
-            this.eventStatus = STATUS.ANNOUNCE;
-        }
-        else
-        {
-            this.timeFinal = new TimeSimulated(_initTime);
-            int rDays2 = UnityEngine.Random.Range(10, 15);
-            timeFinal.PlusDays(rDays2);
-            this.eventStatus = STATUS.PROGRESS;
-            this.isAcceptedEvent = false;
-        }
-        */
-    private void GetTimesEvents(TimeSimulated _initTime)
-    {
-        this.timeInit = new TimeSimulated(_initTime);
-        int rDays1 = UnityEngine.Random.Range(EventManager.instance.MinDays, EventManager.instance.MaxDays);
-        timeInit.PlusDays(rDays1);
-
-        if (this.eventType == EVENTTYPE.EARTHQUAKER)
-        {
-            this.timeFinal = new TimeSimulated(timeInit);
-            timeFinal.PlusDays(1);
-        }else if (this.eventType == EVENTTYPE.CONQUIST)
-        {
-            this.timeFinal = new TimeSimulated(timeInit);
-            timeFinal.PlusDays(200);
-            this.eventStatus = STATUS.PROGRESS;
-        }
-        else
-        {
-            this.timeFinal = new TimeSimulated(timeInit);
-            int rDays2 = UnityEngine.Random.Range(10, 15);
-            timeFinal.PlusDays(rDays2);
-        }
-    }
-    /// <summary>
-    /// Change messages of the custom event
-    /// </summary>
-    public void GetMessage()
-    {
-        this.message = GameMultiLang.GetTraduction(eventType.ToString() + "M").Replace("TERRITORYEVENT", TerritoryEvent.name);
-        this.acceptMessageEvent = GameMultiLang.GetTraduction(eventType.ToString() + "A").Replace("TERRITORYEVENT", TerritoryEvent.name);
-        this.declineMessageEvent = GameMultiLang.GetTraduction(eventType.ToString() + "D").Replace("TERRITORYEVENT", TerritoryEvent.name);
-        switch (eventType)
-        {
-            case EVENTTYPE.EARTHQUAKER:
-                this.requirementMessageEvent = GameMultiLang.GetTraduction("NoRequirements");
-                break;
-            case EVENTTYPE.DROUGHT:
-            case EVENTTYPE.ALL_T_PANDEMIC:
-            case EVENTTYPE.PANDEMIC:
-            case EVENTTYPE.ALL_T_PLAGUE:
-            case EVENTTYPE.PLAGUE:
-                this.requirementMessageEvent = GameMultiLang.GetTraduction("REQ1").Replace("COSTEVENT", costEvent.ToString());
-                break;
-            case EVENTTYPE.PETITION_MIN:
-            case EVENTTYPE.PETITION_FOR:
-            case EVENTTYPE.REBELION:
-                this.requirementMessageEvent = GameMultiLang.GetTraduction("REQ2").Replace("COSTEVENT", costEvent.ToString());
-                break;
-            case EVENTTYPE.GRACE_DIV:
-            case EVENTTYPE.GRACE_MIN:
-            case EVENTTYPE.GRACE_FOOD:
-                this.requirementMessageEvent = GameMultiLang.GetTraduction("REQ3").Replace("COSTEVENT", costEvent.ToString());
-                break;
-            default:
-                break;
-        }
     }
     /// <summary>
     /// Accept Action event
@@ -295,7 +251,7 @@ public class CustomEvent
                 break;
             case EVENTTYPE.GRACE_FOOD:
                 InGameMenuHandler.instance.GoldPlayer -= costEvent;
-                TerritoryEvent.TerritoryStats.Territory.IrrigationChannelTerritory.ImproveBuilding(3);
+                TerritoryEvent.TerritoryStats.Territory.FarmTerritory.ImproveBuilding(3);
                 break;
             default:
                 break;
@@ -318,37 +274,37 @@ public class CustomEvent
                 //    Debug.LogError("perdimos el territorio");
                 break;
             case EVENTTYPE.DROUGHT:
-                TerritoryEvent.TerritoryStats.Territory.IrrigationChannelTerritory.ResetBuilding();
-                // TerritoryEvent.TerritoryStats.Territory.Population /= 2;
+                TerritoryEvent.TerritoryStats.Territory.FarmTerritory.ResetBuilding();
                 TerritoryEvent.TerritoryStats.Territory.Lancers.NumbersUnit /= 2;
                 TerritoryEvent.TerritoryStats.Territory.Swordsmen.NumbersUnit /= 2;
-                TerritoryEvent.TerritoryStats.Territory.Archer.NumbersUnit /= 2;
+                TerritoryEvent.TerritoryStats.Territory.Axemen.NumbersUnit /= 2;
+                TerritoryEvent.TerritoryStats.Territory.Scouts.NumbersUnit /= 2;
                 break;
             case EVENTTYPE.ALL_T_PANDEMIC:
                 List<TerritoryHandler> list = TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER);
                 for (int i = 0; i < list.Count; i++)
                 {
-                    //   list[i].TerritoryStats.Territory.Population /= 2;
                     list[i].TerritoryStats.Territory.Lancers.NumbersUnit /= 2;
                     list[i].TerritoryStats.Territory.Swordsmen.NumbersUnit /= 2;
-                    list[i].TerritoryStats.Territory.Archer.NumbersUnit /= 2;
+                    list[i].TerritoryStats.Territory.Axemen.NumbersUnit /= 2;
+                    list[i].TerritoryStats.Territory.Scouts.NumbersUnit /= 2;
                 }
                 break;
             case EVENTTYPE.PANDEMIC:
-                //TerritoryEvent.TerritoryStats.Territory.Population /= 2;
                 TerritoryEvent.TerritoryStats.Territory.Lancers.NumbersUnit /= 2;
                 TerritoryEvent.TerritoryStats.Territory.Swordsmen.NumbersUnit /= 2;
-                TerritoryEvent.TerritoryStats.Territory.Archer.NumbersUnit /= 2;
+                TerritoryEvent.TerritoryStats.Territory.Axemen.NumbersUnit /= 2;
+                TerritoryEvent.TerritoryStats.Territory.Scouts.NumbersUnit /= 2;
                 break;
             case EVENTTYPE.ALL_T_PLAGUE:
                 List<TerritoryHandler> list2 = TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER);
                 for (int i = 0; i < list2.Count; i++)
                 {
-                    list2[i].TerritoryStats.Territory.IrrigationChannelTerritory.ResetBuilding();
+                    list2[i].TerritoryStats.Territory.FarmTerritory.ResetBuilding();
                 }
                 break;
             case EVENTTYPE.PLAGUE:
-                TerritoryEvent.TerritoryStats.Territory.IrrigationChannelTerritory.ResetBuilding();
+                TerritoryEvent.TerritoryStats.Territory.FarmTerritory.ResetBuilding();
                 break;
             case EVENTTYPE.PETITION_MIN:
                 break;
@@ -379,14 +335,18 @@ public class CustomEvent
     {
         if (isAcceptedEvent)
         {
-            this.resultMessageEvent = "You complete the requirements of the " + TerritoryEvent.name + " territory petition.";
+            this.resultMessageEvent = GameMultiLang.GetTraduction("CompleteResults").Replace("TERRITORYEVENT", TerritoryEvent.name);
             return this.acceptMessageEvent;
         }
         else {
-            this.resultMessageEvent = "You were unable to complete the requirements of the " + TerritoryEvent.name + " territory petition.";
-            if(eventType == EVENTTYPE.EARTHQUAKER)
+            this.resultMessageEvent = GameMultiLang.GetTraduction("IncompleteResults").Replace("TERRITORYEVENT", TerritoryEvent.name);
+            if (eventType == EVENTTYPE.EARTHQUAKER)
             {
-                this.resultMessageEvent = "The results from the event in "+ TerritoryEvent.name + "territory.";
+                this.resultMessageEvent = GameMultiLang.GetTraduction("EarthquarkeResults").Replace("TERRITORYEVENT", TerritoryEvent.name);
+            }
+            if (eventType == EVENTTYPE.EXPLORATION)
+            {
+                this.resultMessageEvent = GameMultiLang.GetTraduction("ExplorationResults").Replace("TERRITORYEVENT", TerritoryEvent.name);
             }
             return this.declineMessageEvent;
         }
@@ -405,12 +365,88 @@ public class CustomEvent
         GRACE_DIV,
         GRACE_MIN,
         GRACE_FOOD,
-        CONQUIST
+        CONQUIST,
+        EXPLORATION
     }
     public enum STATUS
     {
         ANNOUNCE, // creado
         PROGRESS, // entre init time y finish time
         FINISH //finishTime
+    }
+}
+[Serializable]
+public class CustomBuilding : CustomEvent
+{
+    [SerializeField] private Building building;
+    public Building BuildingEvent
+    {
+        get { return building; }
+        set { building = value; }
+    }
+    public CustomBuilding(TimeSimulated _initTime, TerritoryHandler territory, Building _building)
+    {
+        this.territoryEvent = territory;
+        building = territoryEvent.TerritoryStats.Territory.GetBuilding(_building);
+        building.TimeInit = new TimeSimulated(_initTime);
+        timeInit = new TimeSimulated(_initTime);
+    }
+    public void FinishUpgradeBuilding(int levels)
+    {
+        building.CanUpdrade = true;
+        building.DaysTotal = 0;
+        building.ImproveBuilding(levels);
+        building.ImproveCostUpgrade(levels);
+    }
+}
+
+[Serializable]
+public class CustomExpedition : CustomEvent
+{
+    [SerializeField] private int sword;
+    [SerializeField] private int lance;
+    [SerializeField] private int axe;
+    [SerializeField] private TerritoryHandler attacker;
+    public int SwordEvent
+    {
+        get { return sword; }
+        set { sword = value; }
+    }
+    public int LanceEvent
+    {
+        get { return lance; }
+        set { lance = value; }
+    }
+    public int AxeEvent
+    {
+        get { return axe; }
+        set { axe = value; }
+    }
+    public CustomExpedition(TimeSimulated _initTime, int a, int b, int c, TerritoryHandler attackerterritory, TerritoryHandler wasterterritory)
+    {
+        this.sword = a;
+        this.lance = b;
+        this.axe = c;
+        this.isAcceptedEvent = false;
+        this.attacker = attackerterritory;
+        this.territoryEvent = wasterterritory;
+        this.eventType = EVENTTYPE.EXPLORATION;
+        this.eventStatus = STATUS.PROGRESS;
+        this.requirementMessageEvent = " ";
+      //  this.costEvent = UnityEngine.Random.Range(1, InGameMenuHandler.instance.GoldPlayer / 2);
+        GetTimesExpeditionEvents(_initTime);
+        GetMessage();
+    }
+    void GetTimesExpeditionEvents(TimeSimulated _initTime)
+    {
+        this.timeInit = new TimeSimulated(_initTime);
+        this.timeFinal = new TimeSimulated(timeInit);
+        int rDays2 = UnityEngine.Random.Range(10, 15);
+        timeFinal.PlusDays(rDays2);
+    }
+    public void ReturnUnits()
+    {
+        Troop troop = new Troop(sword, lance, axe);
+        WarManager.instance.SendWarriors(territoryEvent, attacker, troop);
     }
 }

@@ -9,32 +9,36 @@ using TMPro;
 public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler
 {
     [SerializeField] private TabGroup tabGroup;
-
+    private bool isOpen;
     public Image background;
     public TextMeshProUGUI text;
-    GameObject notification;
+
+    public bool IsOpen
+    {
+        get { return isOpen; }
+        set { isOpen = value; }
+    }
     public void OnPointerClick(PointerEventData eventData)
     {
         if (AudioManager.instance != null)
         {
             AudioManager.instance.ReadAndPlaySFX("menu_click");
+            
         }
+        InGameMenuHandler.instance.UpdateMenu();
         tabGroup.OnTabSelected(this);
-        if (notification!=null)
-        {
-            notification.gameObject.SetActive(false);
-        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         tabGroup.OnTabEnter(this);
-
+        isOpen = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         tabGroup.OnTabExit(this);
+        isOpen = false;
     }
 
     private void Awake()
@@ -48,11 +52,6 @@ public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandl
     {
         tabGroup.OnTabSelected(this);
         tabGroup.OnTabEnter(this);
-    }
-    public GameObject Notification
-    {
-        get{return notification; }
-        set { notification = value; }
     }
 
 }

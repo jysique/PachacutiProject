@@ -6,6 +6,8 @@ using System.Linq;
 public class CustomEventList
 {
     public List<CustomEvent> CustomEvents = new List<CustomEvent>();
+    public List<CustomExpedition> ExpedicionEvents = new List<CustomExpedition>();
+    public List<CustomBuilding> BuildingsEvents = new List<CustomBuilding>();
     /// <summary>
     /// Add a event to list with a time simulated init and days to finish event
     /// </summary>
@@ -13,17 +15,23 @@ public class CustomEventList
     /// <param name="_days"></param>
     public void AddCustomEvent(TimeSimulated _initTime,TerritoryHandler territory = null)
     {
-        CustomEvent _customEvent = new CustomEvent();
-     //   _customEvent.TerritoryEvent = TerritoryManager.instance.GetTerritoryRandom(Territory.TYPEPLAYER.PLAYER);
-        _customEvent.GetCustomEvent(_initTime,territory);
+        CustomEvent _customEvent = new CustomEvent(_initTime, territory);
         CustomEvents.Add(_customEvent);
     }
-    public void AddCustomEvent(TimeSimulated _initTime,TerritoryHandler territory, Building building)
+
+    public void AddExpedicionEvent(TimeSimulated _initTime,int a, int b, int c, TerritoryHandler attackerTerritory = null, TerritoryHandler wasteTerritory = null)
     {
-        CustomEvent _customEvent = new CustomEvent();
-        _customEvent.GetCustomEvent(_initTime,territory, building);
-        CustomEvents.Add(_customEvent);
+        CustomExpedition _customEvent = new CustomExpedition(_initTime,a,b,c,attackerTerritory, wasteTerritory);
+        ExpedicionEvents.Add(_customEvent);
     }
+
+    public void AddBuildingEvent(TimeSimulated _initTime,TerritoryHandler territory, Building building)
+    {
+        CustomBuilding _customEvent = new CustomBuilding(_initTime, territory, building);
+        BuildingsEvents.Add(_customEvent);
+    }
+
+
     public void PrintList()
     {
         for (int i = 0; i < CustomEvents.Count; i++)
@@ -35,7 +43,15 @@ public class CustomEventList
     {
         CustomEvents.Remove(@event);
     }
-    public CustomEvent GetEventByTerritory(Territory @territory)
+    public void RemoveEvent(CustomExpedition @event)
+    {
+        ExpedicionEvents.Remove(@event);
+    }
+    public void RemoveEvent(CustomBuilding @event)
+    {
+        BuildingsEvents.Remove(@event);
+    }
+    public CustomEvent GetCustomEventByTerritory(Territory @territory)
     {
         CustomEvent @event = new CustomEvent();
         for (int i = 0; i < CustomEvents.Count; i++)
@@ -47,4 +63,5 @@ public class CustomEventList
         }
         return @event;
     }
+
 }

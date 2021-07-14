@@ -177,7 +177,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8741098266662478781
 RectTransform:
   m_ObjectHideFlags: 0
@@ -333,7 +333,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &509804416018888921
 RectTransform:
   m_ObjectHideFlags: 0
@@ -412,7 +412,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4116933516510257692
 RectTransform:
   m_ObjectHideFlags: 0
@@ -603,105 +603,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0ab6532e72ea924d9644bc1ca1da0bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerBar1: {fileID: 6616176299814522694}
-  timerBar2: {fileID: 222715705449225384}
-  timerBar3: {fileID: 9076000194288323895}
   container: {fileID: 2572432285932690924}
+  populationTxt: {fileID: 7147964992078687494}
   nameTerritoryTxt: {fileID: 5615789684908975236}
   imageTerritory: {fileID: 1377313050332303906}
   iconsContainer: {fileID: 8901835952172715691}
-  swordmanTxt: {fileID: 8104118092108271342}
-  archerTxt: {fileID: 5276468817898962600}
-  lancerTxt: {fileID: 2881144708677294582}
-  territory:
-    name: 
-    region: 0
-    typePlayer: 0
-    swordsmen:
-      characterName: 
-      age: 0
-      origin: 
-      campaign: 
-      personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 10
-      plus_damage: 0
-      movement: 0
-      _timeLeft: 0
-      _totalTime: 12
-    lancers:
-      characterName: 
-      age: 0
-      origin: 
-      campaign: 
-      personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
-      plus_damage: 0
-      movement: 0
-      _timeLeft: 0
-      _totalTime: 12
-    archers:
-      characterName: 
-      age: 0
-      origin: 
-      campaign: 
-      personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
-      plus_damage: 0
-      movement: 0
-      _timeLeft: 0
-      _totalTime: 12
-    gold: 0
-    food: 0
-    motivation: 0
-    selected: 0
-    militarChiefTerritory:
-      characterName: 
-      age: 0
-      origin: 
-      campaign: 
-      personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      experience: 0
-      strategyType: 
-    irrigationChannelTerritory:
-      nameBuilding: Irrigation
-      level: 0
-    goldMineTerritory:
-      nameBuilding: GoldMine
-      level: 0
-    fortressTerritory:
-      nameBuilding: Fortress
-      level: 0
-    academyTerritory:
-      nameBuilding: Academy
-      level: 0
-      speedSwordsmen: 0
-      limitSwordsmen: 70
-    barracksTerritory:
-      nameBuilding: Barracks
-      level: 0
-      speedLancer: 0
-      limitLancer: 70
-    archeryTerritory:
-      nameBuilding: Archery
-      level: 0
-      speedArchers: 0
-      limitArchers: 70
 --- !u!1 &2668773386640250066
 GameObject:
   m_ObjectHideFlags: 0
@@ -794,7 +700,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3246887641658855555
 RectTransform:
   m_ObjectHideFlags: 0
@@ -869,7 +775,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6093776181099416643
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1258,7 +1164,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3429757115293294590
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1412,7 +1318,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2681864948555879010
 RectTransform:
   m_ObjectHideFlags: 0

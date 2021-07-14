@@ -67,6 +67,26 @@ public class GameMultiLang : MonoBehaviour
 
 		return Fields [key];
 	}
+
+	public static string GetTraductionReverse(string value)
+	{
+		if (!Fields.ContainsValue(value))
+		{
+			Debug.LogError("There is no value with name: [" + value + "] in your text files");
+			return null;
+		}
+		string a = "";
+        foreach (var item in Fields)
+        {
+            if (item.Value==value)
+            {
+				a = item.Key;
+            }
+        }
+		return a;
+		//return Fields[key];
+	}
+
 	public void TranslateAllText()
     {
 		int i = 0;

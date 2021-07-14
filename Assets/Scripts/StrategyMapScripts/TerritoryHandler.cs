@@ -19,7 +19,7 @@ public class TerritoryHandler : MonoBehaviour
     public SpriteRenderer sprite;
     private Color32 oldColor;
     private Color32 hoverColor;
-    [SerializeField]private List<GameObject> adjacentTerritories;
+    [SerializeField] private List<GameObject> adjacentTerritories;
     public List<GameObject> AdjacentTerritories
     {
         get { return adjacentTerritories; }
@@ -28,11 +28,19 @@ public class TerritoryHandler : MonoBehaviour
 
     GameObject statsGO;
     [SerializeField] private TerritoryStats territoryStats;
-    
+
     public TerritoryStats TerritoryStats
     {
         get { return territoryStats; }
     }
+    public SpriteRenderer SpriteRender
+    {
+        get { return sr; }
+    }
+    public Material OutlineMaterial
+    {
+        get { return outlineMaterial; }
+}
 
     private void Awake()
     {
@@ -56,17 +64,6 @@ public class TerritoryHandler : MonoBehaviour
         }            
         if(TerritoryStats.Territory.TypePlayer != Territory.TYPEPLAYER.NONE)
         {
-            TerritoryStats.Territory.IrrigationChannelTerritory.ImproveBuilding(1);
-            TerritoryStats.Territory.IrrigationChannelTerritory.ImproveCostUpgrade();
-            TerritoryStats.Territory.GoldMineTerritory.ImproveBuilding(1);
-            TerritoryStats.Territory.GoldMineTerritory.ImproveCostUpgrade();
-
-            TerritoryStats.Territory.AcademyTerritory.ImproveBuilding(1);
-            TerritoryStats.Territory.AcademyTerritory.ImproveCostUpgrade();
-            TerritoryStats.Territory.BarracksTerritory.ImproveBuilding(1);
-            TerritoryStats.Territory.BarracksTerritory.ImproveCostUpgrade();
-            TerritoryStats.Territory.ArcheryTerritory.ImproveBuilding(1);
-            TerritoryStats.Territory.ArcheryTerritory.ImproveCostUpgrade();
             TerritoryStats.Territory.IsClaimed = true;
         }
 
@@ -79,8 +76,8 @@ public class TerritoryHandler : MonoBehaviour
         statsGO = Instantiate(Resources.Load("Prefabs/MenuPrefabs/TerritoryStats")) as GameObject;
 
         statsGO.transform.SetParent(GameObject.Find("StatsContainer").transform,false);
-//        print(canvas.GetComponent<Canvas>().scaleFactor);
-        statsGO.GetComponent<RectTransform>().anchoredPosition =  new Vector3(transform.position.x*160+paddingX, transform.position.y*110+paddingY,transform.position.z);
+        //        print(canvas.GetComponent<Canvas>().scaleFactor);
+        statsGO.GetComponent<RectTransform>().anchoredPosition =  new Vector3(transform.position.x*110+paddingX, transform.position.y*110+paddingY,transform.position.z);
 
         territoryStats = statsGO.GetComponent<TerritoryStats>();
         TerritoryStats.Territory = territory;
@@ -122,7 +119,7 @@ public class TerritoryHandler : MonoBehaviour
             TerritoryStats.Territory.SetSelected(true);
             ShowStateMenu();
             MakeOutline();
-            
+
             bool ca = false;
             TerritoryHandler selected = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
         
@@ -134,16 +131,10 @@ public class TerritoryHandler : MonoBehaviour
                     ca = false;
                 }
             }
-       //     print("1|" + TimeSystem.instance.GetIsTerritorieIsInPandemic(this));
-       //     print("2|" + TimeSystem.instance.GetIsTerritorieIsInPandemic());
-            if (war == true || EventManager.instance.GetIsTerritorieIsInPandemic(this) || EventManager.instance.GetIsTerritorieIsInPandemic()) 
+            if (war == true || EventManager.instance.GetIsTerritoriesIsInPandemic(this) || EventManager.instance.GetIsTerritoriesIsInPandemic()) 
             {
-//                print("b|");
                 ca = false;
             }
-
-            
-   //         print(ca);
             MenuManager.instance.ActivateContextMenu(this, ca,war, Input.mousePosition);
 
         }
@@ -167,31 +158,12 @@ public class TerritoryHandler : MonoBehaviour
         switch (state)
         {
             case 0:
-
                 TerritoryStats.Territory.SetSelected(true);
                 ShowStateMenu();
                 MakeOutline();
                 break;
             case 1:
-                TerritoryHandler territoryHandlerSelected = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
-                Territory.TYPEPLAYER typeSelected = territoryHandlerSelected.TerritoryStats.Territory.TypePlayer;
-                int _warriorsSword = MenuManager.instance.contextMenu.GetComponent<ContextMenu>().WarriorsSword();
-                int _warriorsLance = MenuManager.instance.contextMenu.GetComponent<ContextMenu>().WarriorsLance();
-                int _warriorsArch = MenuManager.instance.contextMenu.GetComponent<ContextMenu>().WarriorsArch();
-                int totalWarriors = MenuManager.instance.contextMenu.GetComponent<ContextMenu>().TotalWarriors();
-                if (InGameMenuHandler.instance.GoldPlayer >= totalWarriors || TerritoryStats.Territory.TypePlayer == typeSelected)
-                {
-                    if (TerritoryStats.Territory.TypePlayer != typeSelected)
-                    {
-                        InGameMenuHandler.instance.GoldPlayer -= totalWarriors;
-                        InGameMenuHandler.instance.FoodPlayer -= totalWarriors;
-                    }
-                    WarManager.instance.SendWarriors(territoryHandlerSelected, this, _warriorsSword,_warriorsLance,_warriorsArch);
-                }
-                else
-                {
-                    InGameMenuHandler.instance.ShowFloatingText("you need "+totalWarriors+" golds", "TextMesh", transform, new Color32(187, 27, 128, 255));
-                }
+                MenuManager.instance.ActivateSelectTroopsMenu(this);
                 HideAdjacentTerritories();
                 break;
             case 2:
@@ -214,17 +186,8 @@ public class TerritoryHandler : MonoBehaviour
 
     public void MakeOutline()
     {
-        foreach (GameObject t in TerritoryManager.instance.territoryList)
-        {
-            t.GetComponent<TerritoryHandler>().Deselect();
-            t.GetComponent<TerritoryHandler>().state = 0;
-        }
-        TerritoryStats.Territory.SetSelected(true);
-        outlineMaterial.SetColor("_SolidOutline", Color.green);
-        sr.material = outlineMaterial;
-        sr.sortingOrder = -8;
-        TerritoryManager.instance.territorySelected = this.gameObject;
-        InGameMenuHandler.instance.UpdateMenu();
+        TerritoryManager.instance.MakeOutline(this);
+
     }
     /// <summary>
     /// See which territories adjacent you can select
@@ -260,69 +223,15 @@ public class TerritoryHandler : MonoBehaviour
         sr.sortingOrder = -8;
         sr.material = normalMaterial;
     }
-    /*
-    public void ImproveSpeedPopulation()
+    
+    
+    public void GetSizeMap()
     {
-        //TerritoryStats.Territory.VelocityPopulation += 0.3f;
-        TerritoryStats.Territory.VelocityPopulation += TerritoryStats.Territory.ImproveSpeed;
+        territoryStats.Territory.width = sprite.sprite.texture.width;
+        territoryStats.Territory.height = sprite.sprite.texture.height;
+       // print("|w|"+ territoryStats.Territory.width + "|h|" + territoryStats.Territory.height);
     }
-    public void ImproveLimit()
-    {
-        //TerritoryStats.Territory.LimitPopulation += 20;
-        TerritoryStats.Territory.LimitPopulation += TerritoryStats.Territory.ImproveLimit;
-    }
-    */
-    /// <summary>
-    /// Returns the builds from any buildings in territory
-    /// </summary>
-    /// <param name="_option"></param>
-    /// <returns></returns>
-    public Building GetBuilding(Building building)
-    {
-        if (building is IrrigationChannel)
-        {
-            return TerritoryStats.Territory.IrrigationChannelTerritory;
-        }
-        else if (building is GoldMine)
-        {
-            return TerritoryStats.Territory.GoldMineTerritory;
-        }
-        else if (building is Fortress)
-        {
-            return TerritoryStats.Territory.FortressTerritory;
-        }
-        else if (building is Academy)
-        {
-            return TerritoryStats.Territory.AcademyTerritory;
-        }
-        else if (building is Barracks)
-        {
-            return TerritoryStats.Territory.BarracksTerritory;
-        }
-        return TerritoryStats.Territory.ArcheryTerritory;
-    }
-    /*
-    public Building GetBuilding(int option)
-    {
-        if (option == 0)
-        {
-            return TerritoryStats.Territory.IrrigationChannelTerritory;
-        }
-        else if (option == 1)
-        {
-            return TerritoryStats.Territory.GoldMineTerritory;
-        }
-        else if (option == 2)
-        {
-            return TerritoryStats.Territory.SacredPlaceTerritory;
-        }
-        else if (option == 3)
-        {
-            return TerritoryStats.Territory.FortressTerritory;
-        }
-        return TerritoryStats.Territory.ArmoryTerritory;
-    }
-    */
+
     public void ShowStateMenu()
     {
 

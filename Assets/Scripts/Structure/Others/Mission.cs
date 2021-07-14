@@ -50,8 +50,8 @@ public class Mission
     }
     public Mission()
     {
-        //this.timeToFinish = UnityEngine.Random.Range(2, 6);
-        this.timeToFinish = 1;
+        this.timeToFinish = UnityEngine.Random.Range(2, 6);
+        //this.timeToFinish = 1;
         this.missionStatus = STATUS.IN_PROGRESS;
     }
     public void GetFinishTimeMission()
@@ -71,6 +71,7 @@ public class Mission
         if (timeToFinish == timeBenefitsPassed)
         {
             this.MissionStatus = STATUS.DONE;
+            InGameMenuHandler.instance.UpdateMenu();
         }
     }
     public void CheckMissionStatus()
@@ -84,12 +85,11 @@ public class Mission
             InitBenefits();
             MissionManager.instance.SetNotificationMission(true);
             MissionManager.instance.currentMission++;
-            InGameMenuHandler.instance.UpdateMenu();
+            //InGameMenuHandler.instance.UpdateMenu();
         }
         else if (missionStatus == STATUS.IN_PROGRESS_BENEFITS)
         {
             FinishBenefits();
-            InGameMenuHandler.instance.UpdateMenu();
         }
         else if(missionStatus == STATUS.DONE)
         {
@@ -137,11 +137,12 @@ public class MissionTutorial : Mission
         switch (optionTutorial)
         {
             case 0:
-            case 3:
+            case 4:
                 TerritoryMission.Add(TerritoryManager.instance.GetTerritoriesHandlerByName("Calca").TerritoryStats.Territory);
                 break;
             case 1:
             case 2:
+            case 3:
                 TerritoryMission.Add(TerritoryManager.instance.GetTerritoriesHandlerByName("LaConvencion").TerritoryStats.Territory);
                 break;
             default:
@@ -162,18 +163,27 @@ public class MissionTutorial : Mission
                 break;
             case 1:
                 if (InGameMenuHandler.instance.TerritorySelected == TerritoryMission[0] &&
-                    MenuManager.instance.contextMenu.activeSelf == true)
+                    MenuManager.instance.TabMilitar.IsOpen == true)
                 {
                     count++;
                 }
                 break;
             case 2:
-                if (TerritoryMission[0].Population == 0)
+                if (InGameMenuHandler.instance.TerritorySelected == TerritoryMission[0] &&
+                    TerritoryMission[0].AcademyTerritory.Level == 1)
                 {
                     count++;
                 }
                 break;
             case 3:
+                if (SelectTropsMenu.instance!=null && SelectTropsMenu.instance.acumulated >= 70)
+                {
+                    Debug.LogError("yasta");
+                    count++;
+                }
+                
+                break;
+            case 4:
                 if (TerritoryMission[0].TypePlayer == Territory.TYPEPLAYER.PLAYER)
                 {
                     count++;
@@ -316,7 +326,7 @@ public class MissionExpansion : Mission
         base.InitBenefits();
         for (int i = 0; i < TerritoryMission.Count; i++)
         {
-            TerritoryMission[i].IrrigationChannelTerritory.ImproveBuilding(2);
+            TerritoryMission[i].FarmTerritory.ImproveBuilding(2);
         }
         base.MissionStatus = STATUS.IN_PROGRESS_BENEFITS;
     }
@@ -327,7 +337,7 @@ public class MissionExpansion : Mission
         {
             for (int i = 0; i < TerritoryMission.Count; i++)
             {
-                TerritoryMission[i].IrrigationChannelTerritory.SubsideBuilding(2);
+                TerritoryMission[i].FarmTerritory.SubsideBuilding(2);
             }
         }
     }
@@ -367,7 +377,7 @@ public class MissionProtect : Mission
     public override void InitBenefits()
     {
         base.InitBenefits();
-        TerritoryMission[0].IrrigationChannelTerritory.ImproveBuilding(2);
+        TerritoryMission[0].FarmTerritory.ImproveBuilding(2);
         base.MissionStatus = STATUS.IN_PROGRESS_BENEFITS;
     }
     public override void FinishBenefits()
@@ -375,7 +385,7 @@ public class MissionProtect : Mission
         base.FinishBenefits();
         if (base.MissionStatus == STATUS.DONE)
         {
-            TerritoryMission[0].IrrigationChannelTerritory.SubsideBuilding(2);
+            TerritoryMission[0].FarmTerritory.SubsideBuilding(2);
         }
     }
 }
@@ -391,7 +401,7 @@ public class MissionAllBuilds : Mission
         base.CheckMission();
         TerritoryMission = TerritoryManager.instance.GetTerritoriesByTypePlayer(Territory.TYPEPLAYER.PLAYER);
         
-        bool complete = TerritoryMission.Any(x => x.AllBuilds() == true);
+        bool complete = TerritoryMission.Any(x => x.AllBuildsLevels() == true);
         if (complete)
         {
             base.MissionStatus = STATUS.COMPLETE;

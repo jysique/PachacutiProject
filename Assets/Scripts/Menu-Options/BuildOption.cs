@@ -5,8 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 public class BuildOption : MonoBehaviour
 {
-    
-    
     [SerializeField] private TextMeshProUGUI costTxt;
     [SerializeField] private TextMeshProUGUI nameTxt;
     [SerializeField] private TextMeshProUGUI nameBlockTxt;
@@ -19,7 +17,8 @@ public class BuildOption : MonoBehaviour
     private bool init;
     
 
-    private MenuToolTip upgradeToolTip;
+    //private 
+
     public Building TerritoryBuilding
     {
         get { return territoryBuilding; }
@@ -28,10 +27,7 @@ public class BuildOption : MonoBehaviour
     private void Awake()
     {
         init = false;
-        levelTxt = transform.Find("LevelTxt").transform.GetComponent<TextMeshProUGUI>();
-        upgradeBtn = this.gameObject.transform.GetChild(7).gameObject.GetComponent<Button>();
-        upgradeToolTip = upgradeBtn.GetComponent<MenuToolTip>();
-        linearBarProgress = this.gameObject.transform.GetChild(5).gameObject.GetComponent<Image>();
+       // linearBarProgress = this.gameObject.transform.GetChild(5).gameObject.GetComponent<Image>();
     }
     void Start()
     {
@@ -51,10 +47,10 @@ public class BuildOption : MonoBehaviour
         float s2 = 0;
         switch (territoryBuilding.GetType().ToString())
         {
-            case "IrrigationChannel":
-                s = t.IrrigationChannelTerritory.WorkersChannel;
-                s2 = s + t.IrrigationChannelTerritory.AtributteToAdd;
-                UploadCost(InGameMenuHandler.instance.GoldPlayer, t.IrrigationChannelTerritory.CostToUpgrade, "gold", s, s2);
+            case "Farm":
+                s = t.FarmTerritory.WorkersChannel;
+                s2 = s + t.FarmTerritory.AtributteToAdd;
+                UploadCost(InGameMenuHandler.instance.GoldPlayer, t.FarmTerritory.CostToUpgrade, "gold", s, s2);
                 break;
             case "GoldMine":
                 s = t.GoldMineTerritory.WorkersMine;
@@ -76,10 +72,15 @@ public class BuildOption : MonoBehaviour
                 s2 = s + t.BarracksTerritory.AtributteSpeed;
                 UploadCost(InGameMenuHandler.instance.GoldPlayer, t.BarracksTerritory.CostToUpgrade, "gold", s, s2);
                 break;
-            case "Archery":
-                s = t.BarracksTerritory.SpeedLancer;
-                s2 = s + t.BarracksTerritory.AtributteSpeed;
-                UploadCost(InGameMenuHandler.instance.GoldPlayer, t.BarracksTerritory.CostToUpgrade, "gold", s, s2);
+            case "Castle":
+                s = t.CastleTerritory.SpeedAxemen;
+                s2 = s + t.CastleTerritory.AtributteSpeed;
+                UploadCost(InGameMenuHandler.instance.GoldPlayer, t.CastleTerritory.CostToUpgrade, "gold", s, s2);
+                break;
+            case "Stable":
+                s = t.StableTerritory.SpeedScouts;
+                s2 = s + t.StableTerritory.AtributteSpeed;
+                UploadCost(InGameMenuHandler.instance.GoldPlayer, t.StableTerritory.CostToUpgrade, "gold", s, s2);
                 break;
             default:
                 break;
@@ -101,20 +102,22 @@ public class BuildOption : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (init == true)
+        if (init)
         {
-            
             UpdateLinearBarProgress();
             CheckBlock();
             SetStatus();
             CheckStatusImprove();
+            int a = this.transform.GetSiblingIndex();
+            territoryBuilding.PositionInGridLayout = a;
         }
     }
     void UpdateElements()
     {
         nameTxt.text = GameMultiLang.GetTraduction(territoryBuilding.Name);
         nameBlockTxt.text = GameMultiLang.GetTraduction("Press") + GameMultiLang.GetTraduction(territoryBuilding.Name);
-        levelTxt.text = "Level:" + territoryBuilding.Level.ToString();
+        levelTxt.text = "(" + territoryBuilding.Level.ToString() + ")";
+        
     }
     void UpdateLinearBarProgress()
     {
@@ -146,6 +149,7 @@ public class BuildOption : MonoBehaviour
     }
     void CheckStatusImprove()
     {
+        MenuToolTip upgradeToolTip = upgradeBtn.GetComponent<MenuToolTip>();
         switch (status)
         {
             case STATE.UPGRADE:

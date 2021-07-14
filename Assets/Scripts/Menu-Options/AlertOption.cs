@@ -41,20 +41,22 @@ public class AlertOption : MonoBehaviour
         CloseAlertBtn();
         switch (type)
         {
-            case "Alert_NewEvent":
-            case "Alert_EndEvent":
-                AlertManager.TabEventMenu();
-                EventManager.instance.SetNotificationEvent(false);
-                break;
-            case "Alert_NewMission":
-                AlertManager.TabMissionMenu();
-                MissionManager.instance.SetNotificationMission(false);
-                break;
             case "Alert_NewConq":
-                AlertManager.TabEventMenu();
+                MenuManager.instance.AccessTabEvent();
                 EventManager.instance.SetNotificationEvent(false);
                 GlobalVariables.instance.CenterCameraToTerritory(focusTerritory);
                 focusTerritory.MakeOutline();
+                break;
+            case "Alert_NewEvent":
+            case "Alert_EndEvent":
+            case "Alert_NewExped":
+                //AlertManager.TabEventMenu();
+                MenuManager.instance.AccessTabEvent();
+                EventManager.instance.SetNotificationEvent(false);
+                break;
+            case "Alert_NewMission":
+                MenuManager.instance.AccessTabMission();
+                MissionManager.instance.SetNotificationMission(false);
                 break;
             case "Alert_LostTerr":
                 GlobalVariables.instance.CenterCameraToTerritory(focusTerritory);

@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [System.Serializable]
-public class Archer:UnitCombat
+public class Archer: UnitCombat
 {
     public Archer()
     {
-        this.CharacterName = "Archers";
-        this.UnitName = "Archers";
+        this.CharacterName = "Archer";
+        this.UnitName = "Archer";
         this.PlusDamage = 1;
     }
 }

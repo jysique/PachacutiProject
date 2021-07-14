@@ -1,14 +1,16 @@
 using UnityEngine;
 [System.Serializable]
-public class IrrigationChannel : Building
+public class Farm : Building
 {
     //  private float velocityfood = 0f;
     private int workersChannel = 0;
 
-    public IrrigationChannel()
+    public Farm()
     {
-        this.Name = "Irrigation";
+        this.Name = "Farm";
         this.AtributteToAdd = 5f;
+        this.AtributteSpeed = 0;
+        this.AtributteLimit = 0;
     }
     public int WorkersChannel
     {

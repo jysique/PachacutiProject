@@ -8,6 +8,8 @@ public class GoldMine:Building
     {
         this.Name = "GoldMine";
         this.AtributteToAdd = 5f;
+        this.AtributteSpeed = 0;
+        this.AtributteLimit = 0;
     }
     public int WorkersMine
     {

@@ -5,8 +5,8 @@ public class Building
 {
     [SerializeField] private string nameBuilding;
     [SerializeField] private int level = 0;
-    private float atributteSpeed = 0.6f;
-    private int atributteLimit= 10;
+    private float atributteSpeed;
+    private int atributteLimit;
     private float atributteToAdd;
 
     private int costToUpgrade = 7;
@@ -15,7 +15,18 @@ public class Building
     private TimeSimulated init;
     private float daysToBuild = 4;
     private float daysTotal = 0;
-        
+    private int status = -1;
+    private int position=-1;
+    public int PositionInGridLayout
+    {
+        get { return position; }
+        set { position = value; }
+    }
+    public int Status
+    {
+        get { return status; }
+        set { status = value; }
+    }
     public string Name
     {
         get { return nameBuilding; }
@@ -75,9 +86,9 @@ public class Building
     {
         this.level -= _levels;
     }
-    public void ImproveCostUpgrade()
+    public void ImproveCostUpgrade(int _levels)
     {
-        this.CostToUpgrade += 3;
+        this.CostToUpgrade += 3* _levels;
     }
     public void ResetBuilding()
     {

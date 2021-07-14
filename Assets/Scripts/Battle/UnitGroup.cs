@@ -25,7 +25,10 @@ public class UnitGroup
         quantity = q;
         defense = false;
     }
-
+    public void Log()
+    {
+        Debug.Log("type|" + type + "|q|" + quantity + "|d|" + defense);
+    }
     public GameObject UnitsGO
     {
         get { return unitsGO; }

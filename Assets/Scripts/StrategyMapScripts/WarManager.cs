@@ -199,7 +199,7 @@ public class WarManager : MonoBehaviour
             {
                 territory.TerritoryStats.Territory.IsClaimed = false;
                 EventManager.instance.AddEvent(territory);
-                EventManager.instance.InstantiateEventListOption();
+                EventManager.instance.UpdateEventListOption();
                 AlertManager.AlertConquered(territory);
 
             }
@@ -322,47 +322,75 @@ public class WarManager : MonoBehaviour
     {
         if (TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().TerritoryStats.Territory.Swordsmen.NumbersUnit - _warriorsSword >= 0 ||
             TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().TerritoryStats.Territory.Lancers.NumbersUnit - _warriorsLance >= 0 ||
-            TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().TerritoryStats.Territory.Archer.NumbersUnit - _warriorsArch >= 0)
+            TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().TerritoryStats.Territory.Axemen.NumbersUnit - _warriorsArch >= 0)
         {
             TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().ShowAdjacentTerritories();
         }
     }
 
-    public void SendWarriors(TerritoryHandler selected, TerritoryHandler otherTerritory, int _warriorsSword, int _warriorsLance, int _warriorsArch)
-    {   
-        selected.TerritoryStats.Territory.Swordsmen.NumbersUnit = selected.TerritoryStats.Territory.Swordsmen.NumbersUnit - _warriorsSword;
-        selected.TerritoryStats.Territory.Lancers.NumbersUnit = selected.TerritoryStats.Territory.Lancers.NumbersUnit - _warriorsLance;
-        selected.TerritoryStats.Territory.Archer.NumbersUnit = selected.TerritoryStats.Territory.Archer.NumbersUnit - _warriorsArch;
-        warriorsPrefab.GetComponent<WarriorsMoving>().SetAttack(otherTerritory.gameObject, _warriorsSword,_warriorsLance,_warriorsArch, selected);
+    public void SelectTerritory()
+    {
+        TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().ShowAdjacentTerritories();
+    }
+
+    //    public void SendWarriors(TerritoryHandler selected, TerritoryHandler otherTerritory, int _warriorsSword, int _warriorsLance, int _warriorsAxe)
+    public void SendWarriors(TerritoryHandler selected, TerritoryHandler otherTerritory, Troop troopSelect)
+    {
+        int warriorsSword = troopSelect.GetNumberUnity("Swordsman");
+        int warriorsLance = troopSelect.GetNumberUnity("Lancer");
+        int warriorsAxe = troopSelect.GetNumberUnity("Axeman");
+        warriorsPrefab.GetComponent<WarriorsMoving>().SetAttack(otherTerritory.gameObject, warriorsSword,warriorsLance,warriorsAxe, selected);
+        Instantiate(warriorsPrefab, selected.transform.position, Quaternion.identity);
+    }
+    /*
+    public void SendWarriors(TerritoryHandler selected, TerritoryHandler otherTerritory, int _warriorsSword, int _warriorsLance, int _warriorsAxe)
+    {
+        //selected.TerritoryStats.Territory.Swordsmen.NumbersUnit = selected.TerritoryStats.Territory.Swordsmen.NumbersUnit - _warriorsSword;
+        //selected.TerritoryStats.Territory.Lancers.NumbersUnit = selected.TerritoryStats.Territory.Lancers.NumbersUnit - _warriorsLance;
+        //selected.TerritoryStats.Territory.Axemen.NumbersUnit = selected.TerritoryStats.Territory.Axemen.NumbersUnit - _warriorsAxe;
+        warriorsPrefab.GetComponent<WarriorsMoving>().SetAttack(otherTerritory.gameObject, _warriorsSword, _warriorsLance, _warriorsAxe, selected);
         Instantiate(warriorsPrefab, selected.transform.position, Quaternion.identity);
 
     }
+    */
 
-    public void MoveWarriors(TerritoryHandler otherTerritory, int _warriorsSword, int _warriorsLance, int _warriorsArch, TerritoryHandler attacker)
+    public void MoveWarriors(TerritoryHandler otherTerritory,  TerritoryHandler attacker, int _warriorsSword, int _warriorsLance, int _warriorsAxe)
     {
-        int attackPower = _warriorsSword + _warriorsLance + _warriorsArch;
+        int attackPower = _warriorsSword + _warriorsLance + _warriorsAxe;
         Territory.TYPEPLAYER temp = otherTerritory.TerritoryStats.Territory.TypePlayer;
         //  if (otherTerritory.TerritoryStats.Territory.TypePlayer == attacker.TerritoryStats.Territory.TypePlayer || otherTerritory.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.CLAIM)
         if (otherTerritory.TerritoryStats.Territory.TypePlayer == attacker.TerritoryStats.Territory.TypePlayer)
         {
             otherTerritory.TerritoryStats.Territory.Swordsmen.NumbersUnit += _warriorsSword;
             otherTerritory.TerritoryStats.Territory.Lancers.NumbersUnit += _warriorsLance;
-            otherTerritory.TerritoryStats.Territory.Archer.NumbersUnit += _warriorsArch;
+            otherTerritory.TerritoryStats.Territory.Axemen.NumbersUnit += _warriorsAxe;
             //otherTerritory.TerritoryStats.Territory.Population = otherTerritory.TerritoryStats.Territory.Population + attackPower;
+        }
+        else if (otherTerritory.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.WASTE)
+        {
+            AlertManager.AlertExpedition();
+            EventManager.instance.AddExpedicionEvent(attacker, otherTerritory,_warriorsSword,_warriorsLance,_warriorsAxe);
+            EventManager.instance.UpdateEventListOption();
+        }
+        else if (attacker.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.WASTE)
+        {
+            otherTerritory.TerritoryStats.Territory.Swordsmen.NumbersUnit += _warriorsSword;
+            otherTerritory.TerritoryStats.Territory.Lancers.NumbersUnit += _warriorsLance;
+            otherTerritory.TerritoryStats.Territory.Axemen.NumbersUnit += _warriorsAxe;
         }
         else
         {
-            if(attacker.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER || attacker.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
+            if(attacker.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER || otherTerritory.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
             {
                 DateTableHandler.instance.PauseButton();
                 battleCanvas.SetActive(true);
                 CombatManager.instance.StartWar(
                     _warriorsSword,
                     _warriorsLance,
-                    _warriorsArch,
+                    _warriorsAxe,
                     otherTerritory.TerritoryStats.Territory.Swordsmen.NumbersUnit,
                     otherTerritory.TerritoryStats.Territory.Lancers.NumbersUnit,
-                    otherTerritory.TerritoryStats.Territory.Archer.NumbersUnit,
+                    otherTerritory.TerritoryStats.Territory.Axemen.NumbersUnit,
                     attacker.TerritoryStats.Territory.TypePlayer,
                     otherTerritory.TerritoryStats.Territory.TypePlayer,
                     attacker,otherTerritory);

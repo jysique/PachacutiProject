@@ -97,27 +97,26 @@ public class BotIA
                     TerritoryHandler te = a.GetComponent<TerritoryHandler>();
                     if (te.TerritoryStats.Territory.TypePlayer == typeBot)
                     {
-                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.NumbersUnit / 2, t.TerritoryStats.Territory.Lancers.NumbersUnit / 2, t.TerritoryStats.Territory.Archer.NumbersUnit / 2));
-                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.NumbersUnit / 2, t.TerritoryStats.Territory.Lancers.NumbersUnit / 2, t.TerritoryStats.Territory.Archer.NumbersUnit / 2));
-                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.NumbersUnit / 2, t.TerritoryStats.Territory.Lancers.NumbersUnit / 2, t.TerritoryStats.Territory.Archer.NumbersUnit / 2));
-                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.NumbersUnit / 2, t.TerritoryStats.Territory.Lancers.NumbersUnit / 2, t.TerritoryStats.Territory.Archer.NumbersUnit / 2));
-                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.NumbersUnit / 2, t.TerritoryStats.Territory.Lancers.NumbersUnit / 2, t.TerritoryStats.Territory.Archer.NumbersUnit / 2));
-                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.NumbersUnit / 2, t.TerritoryStats.Territory.Lancers.NumbersUnit / 2, t.TerritoryStats.Territory.Archer.NumbersUnit / 2));
+                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.NumbersUnit / 2, t.TerritoryStats.Territory.Lancers.NumbersUnit / 2, t.TerritoryStats.Territory.Axemen.NumbersUnit / 2));
+                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.NumbersUnit / 2, t.TerritoryStats.Territory.Lancers.NumbersUnit / 2, t.TerritoryStats.Territory.Axemen.NumbersUnit / 2));
+                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.NumbersUnit / 2, t.TerritoryStats.Territory.Lancers.NumbersUnit / 2, t.TerritoryStats.Territory.Axemen.NumbersUnit / 2));
+                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.NumbersUnit / 2, t.TerritoryStats.Territory.Lancers.NumbersUnit / 2, t.TerritoryStats.Territory.Axemen.NumbersUnit / 2));
+                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.NumbersUnit / 2, t.TerritoryStats.Territory.Lancers.NumbersUnit / 2, t.TerritoryStats.Territory.Axemen.NumbersUnit / 2));
+                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.NumbersUnit / 2, t.TerritoryStats.Territory.Lancers.NumbersUnit / 2, t.TerritoryStats.Territory.Axemen.NumbersUnit / 2));
                     }
                 }
             }
             if (!TerritoryManager.instance.IsLimit(t))
             {
-
                 List<GameObject> adjacents = t.AdjacentTerritories;
                 foreach (GameObject a in adjacents)
                 {
                     TerritoryHandler te = a.GetComponent<TerritoryHandler>();
-                    options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.NumbersUnit, t.TerritoryStats.Territory.Lancers.NumbersUnit, t.TerritoryStats.Territory.Archer.NumbersUnit));
+                    options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.NumbersUnit, t.TerritoryStats.Territory.Lancers.NumbersUnit, t.TerritoryStats.Territory.Axemen.NumbersUnit));
                     if (TerritoryManager.instance.IsLimit(te))
                     {
-                        options.Add(new OptionBot(t, te,t.TerritoryStats.Territory.Swordsmen.NumbersUnit, t.TerritoryStats.Territory.Lancers.NumbersUnit, t.TerritoryStats.Territory.Archer.NumbersUnit));
-                        options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.NumbersUnit, t.TerritoryStats.Territory.Lancers.NumbersUnit, t.TerritoryStats.Territory.Archer.NumbersUnit));
+                        options.Add(new OptionBot(t, te,t.TerritoryStats.Territory.Swordsmen.NumbersUnit, t.TerritoryStats.Territory.Lancers.NumbersUnit, t.TerritoryStats.Territory.Axemen.NumbersUnit));
+                        options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.NumbersUnit, t.TerritoryStats.Territory.Lancers.NumbersUnit, t.TerritoryStats.Territory.Axemen.NumbersUnit));
                     }
                 }
 
@@ -129,17 +128,17 @@ public class BotIA
                 foreach (GameObject a in adjacents)
                 {
                     TerritoryHandler te = a.GetComponent<TerritoryHandler>();
-                    if(te.TerritoryStats.Territory.TypePlayer != t.TerritoryStats.Territory.TypePlayer)
+                    if(te.TerritoryStats.Territory.TypePlayer != t.TerritoryStats.Territory.TypePlayer && te.TerritoryStats.Territory.TypePlayer != Territory.TYPEPLAYER.WASTE)
                     {
                         options.Add(new OptionBot(t, te, 0,0,0));
                         if(te.TerritoryStats.Territory.Population <= t.TerritoryStats.Territory.Population && 
                             gold - warTax >= 0 && 
                             t.TerritoryStats.Territory.Population >= 5)
                         {
-                            options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.NumbersUnit, t.TerritoryStats.Territory.Lancers.NumbersUnit, t.TerritoryStats.Territory.Archer.NumbersUnit));
-                            options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.NumbersUnit, t.TerritoryStats.Territory.Lancers.NumbersUnit, t.TerritoryStats.Territory.Archer.NumbersUnit));
-                            options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.NumbersUnit, t.TerritoryStats.Territory.Lancers.NumbersUnit, t.TerritoryStats.Territory.Archer.NumbersUnit));
-                            options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.NumbersUnit, t.TerritoryStats.Territory.Lancers.NumbersUnit, t.TerritoryStats.Territory.Archer.NumbersUnit));
+                            options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.NumbersUnit, t.TerritoryStats.Territory.Lancers.NumbersUnit, t.TerritoryStats.Territory.Axemen.NumbersUnit));
+                            options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.NumbersUnit, t.TerritoryStats.Territory.Lancers.NumbersUnit, t.TerritoryStats.Territory.Axemen.NumbersUnit));
+                            options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.NumbersUnit, t.TerritoryStats.Territory.Lancers.NumbersUnit, t.TerritoryStats.Territory.Axemen.NumbersUnit));
+                            options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.NumbersUnit, t.TerritoryStats.Territory.Lancers.NumbersUnit, t.TerritoryStats.Territory.Axemen.NumbersUnit));
                         }
                         
                     }
@@ -161,7 +160,7 @@ public class BotIA
 
     private void MoveTroops(TerritoryHandler begin, TerritoryHandler end, int number,int number2,int number3)
     {
-
+        Troop troop = new Troop(number, number2, number3);
         if (number != 0)
         {
             if (begin.TerritoryStats.Territory.TypePlayer != end.TerritoryStats.Territory.TypePlayer)//conquista
@@ -169,12 +168,16 @@ public class BotIA
                 if(gold - warTax >= 0)
                 {
                     gold -= warTax;
-                    WarManager.instance.SendWarriors(begin, end, number,number2,number3);
+                    begin.TerritoryStats.Territory.Swordsmen.NumbersUnit -= number;
+                    begin.TerritoryStats.Territory.Lancers.NumbersUnit -= number2;
+                    begin.TerritoryStats.Territory.Axemen.NumbersUnit -= number3;
+                    WarManager.instance.SendWarriors(begin, end, troop);
                 }
             }
             else//movimiento
             {
-                WarManager.instance.SendWarriors(begin, end, number,number2,number3);
+                //    WarManager.instance.SendWarriors(begin, end, number,number2,number3);
+                WarManager.instance.SendWarriors(begin, end, troop);
             }
             
         }

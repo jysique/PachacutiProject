@@ -85,12 +85,43 @@ public class TerritoryManager : MonoBehaviour
 
     public void AddRegionData()
     {
+
         for (int i = 0; i < territoryList.Count; i++)
         {
             TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
             territoryHandler.TerritoryStats.Territory.RegionTerritory = TerritoryManager.instance.dictionary2.Single(s => s.Key == territoryHandler.TerritoryStats.Territory.name).Value;
+            territoryHandler.GetSizeMap();
+            float w = territoryHandler.TerritoryStats.Territory.width;
+            float h = territoryHandler.TerritoryStats.Territory.height;
+            float area = w * h;
+            areas.Add(area);
         }
+        
+      //  areas = areas.OrderBy(l => l).ToList();
+        for (int i = 0; i < territoryList.Count; i++)
+        {
+     //       print(i + "|" +territoryList[i].name +"|area|" + areas[i]);
+        }
+        area_min = areas.Min();
+        area_max = areas.Max();
+     //   print("Min|" + area_min);
+     //   print("Max|" + area_max);
     }
+    float area_min;
+    float area_max;
+    [SerializeField] public List<float> areas = new List<float>();
+
+    public int ClassifyTerritory(Territory territory)
+    {
+        float x = (area_max - area_min) / 4;
+        float territory_area = territory.width * territory.height;
+        float b = territory_area - area_min;
+        float c = b / x;
+        int maxbuilding = 3 + (int)Math.Round(c);
+        
+        return maxbuilding;
+    }
+
     /// <summary>
     /// Tint territory according to its type (NONE,PLAYER or BOTS)
     /// </summary>
@@ -121,9 +152,26 @@ public class TerritoryManager : MonoBehaviour
                 case Territory.TYPEPLAYER.BOT4:
                     territoryHandler.TintColorTerritory(new Color32(82, 110, 123, 255));
                     break;
+                case Territory.TYPEPLAYER.WASTE:
+                    territoryHandler.TintColorTerritory(new Color32(71, 75, 78, 255));
+                    break;
             }
             
         }
+    }
+    public void MakeOutline(TerritoryHandler territoryHandler)
+    {
+        foreach (GameObject t in TerritoryManager.instance.territoryList)
+        {
+            t.GetComponent<TerritoryHandler>().Deselect();
+            t.GetComponent<TerritoryHandler>().state = 0;
+        }
+        territoryHandler.TerritoryStats.Territory.SetSelected(true);
+        territoryHandler.OutlineMaterial.SetColor("_SolidOutline", Color.green);
+        territoryHandler.SpriteRender.material = territoryHandler.OutlineMaterial;
+        territoryHandler.SpriteRender.sortingOrder = -8;
+        territorySelected = territoryHandler.gameObject;
+        InGameMenuHandler.instance.UpdateMenu();
     }
     /// <summary>
     /// Returns a territory gameObject by _name 
@@ -348,7 +396,7 @@ public class TerritoryManager : MonoBehaviour
         {
             if (element == "channel")
             {
-                rate += list[i].TerritoryStats.Territory.IrrigationChannelTerritory.WorkersChannel / list[i].TerritoryStats.Territory.PerPeople;
+                rate += list[i].TerritoryStats.Territory.FarmTerritory.WorkersChannel / list[i].TerritoryStats.Territory.PerPeople;
             }
             else if (element == "goldmine")
             {
@@ -370,4 +418,11 @@ public class TerritoryManager : MonoBehaviour
         }
         return false;
     }
+}
+
+public class info
+{
+    float area;
+    float width;
+    float height;
 }

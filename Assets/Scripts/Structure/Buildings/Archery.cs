@@ -4,33 +4,36 @@ using UnityEngine;
 [System.Serializable]
 public class Archery : Building
 {
-    [SerializeField] private float speedArchers = 0f;
-    [SerializeField] private int limitArchers = 70;
-
+    private float speedArcher ;
+    private int limitArcher;
     public Archery()
     {
         this.Name = "Archery";
+        this.speedArcher = 0f;
+        this.limitArcher = 70;
+        this.AtributteSpeed = 0.6f;
+        this.AtributteLimit = 10;
     }
-    public float SpeedArchers
+    public float SpeedArcher
     {
-        get { return speedArchers; }
-        set { speedArchers = value; }
+        get { return speedArcher; }
+        set { speedArcher = value; }
     }
-    public int LimitArchers
+    public int LimitArcher
     {
-        get { return limitArchers; }
-        set { limitArchers = value; }
+        get { return limitArcher; }
+        set { limitArcher = value; }
     }
     public override void ImproveBuilding(int _levels)
     {
         base.ImproveBuilding(_levels);
-        this.speedArchers += this.AtributteSpeed * _levels;
-        this.limitArchers += this.AtributteLimit * _levels;
+        this.speedArcher += this.AtributteSpeed * _levels;
+        this.limitArcher += this.AtributteLimit * _levels;
     }
     public override void SubsideBuilding(int _levels)
     {
         base.SubsideBuilding(_levels);
-        this.speedArchers -= this.AtributteSpeed * _levels;
-        this.limitArchers -= this.AtributteLimit * _levels;
+        this.speedArcher -= this.AtributteSpeed * _levels;
+        this.limitArcher -= this.AtributteLimit * _levels;
     }
 }

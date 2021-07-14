@@ -58,18 +58,21 @@ public class MissionOption : MonoBehaviour
                 this.mission = new MissionTutorial(3);
                 break;
             case 4:
-                this.mission = new MissionDefeat();
+                this.mission = new MissionTutorial(4);
                 break;
             case 5:
-                this.mission = new MissionAllBuilds();
+                this.mission = new MissionDefeat();
                 break;
             case 6:
-                this.mission = new MissionConquest();
+                this.mission = new MissionAllBuilds();
                 break;
             case 7:
-                this.mission = new MissionExpansion();
+                this.mission = new MissionConquest();
                 break;
             case 8:
+                this.mission = new MissionExpansion();
+                break;
+            case 9:
                 this.mission = new MissionProtect();
                 break;
             default:

@@ -2,13 +2,16 @@ using UnityEngine;
 [System.Serializable]
 public class Academy: Building
 {
-    //private float motivation = 0f;
-    [SerializeField] private float speedSwordsmen = 0f;
-    [SerializeField] private int limitSwordsmen ;
+    private float speedSwordsmen;
+    private int limitSwordsmen ;
 
     public Academy()
     {
         this.Name = "Academy";
+        this.speedSwordsmen = 0f;
+        this.limitSwordsmen = 70;
+        this.AtributteSpeed = 0.6f;
+        this.AtributteLimit = 10;
     }
     public float SpeedSwordsmen
     {

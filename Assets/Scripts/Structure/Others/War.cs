@@ -116,7 +116,7 @@ public class War
                     territory.TerritoryStats.Territory.Lancers.NumbersUnit--;
                 }else if (index == 2)
                 {
-                    territory.TerritoryStats.Territory.Archer.NumbersUnit--;
+                    territory.TerritoryStats.Territory.Axemen.NumbersUnit--;
                 }
                 if (territory.TerritoryStats.Territory.Swordsmen.NumbersUnit == 0)
                 {

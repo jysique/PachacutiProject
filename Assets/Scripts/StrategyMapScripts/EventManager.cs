@@ -8,9 +8,6 @@ public class EventManager : MonoBehaviour
 {
     public static EventManager instance;
 
-    
-    [SerializeField] private TabButton btnEvent;
-
     [Header("Event Menu")]
     [SerializeField] private GameObject CustomEventSelection;
     [SerializeField] private TextMeshProUGUI TitleTextCustomEvent;
@@ -29,9 +26,7 @@ public class EventManager : MonoBehaviour
 
     [Header("Listas de Eventos")]
     public CustomEventList listEvents;
-    public CustomEventList listUpgradesBuilds;
     private TimeSimulated timeAddEvent;
-    private CustomEvent currentCustomEvent;
 
     private int minDays = 10;
     private int maxDays = 15;
@@ -64,12 +59,10 @@ public class EventManager : MonoBehaviour
         InitEventsButtons();
         InitializeEvents();
         SetNotificationEvent(false);
-        btnEvent.Notification = notificationEvent;
     }
     void InitializeEvents()
     {
         listEvents = new CustomEventList();
-        listUpgradesBuilds = new CustomEventList();
         AddEvent();
     }
     /// <summary>
@@ -82,7 +75,7 @@ public class EventManager : MonoBehaviour
         int rAddPlusDays = Random.Range(minDays, maxDays);
         timeAddEvent.PlusDays(rAddPlusDays);
     }
-    public void InstantiateEventListOption()
+    public void UpdateEventListOption()
     {
         Transform gridLayout = CustomEventList.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
         foreach (Transform child in gridLayout.transform)
@@ -91,20 +84,29 @@ public class EventManager : MonoBehaviour
         }
         foreach (CustomEvent customEvent in listEvents.CustomEvents)
         {
-            GameObject customEventOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/CustomEventOption")) as GameObject;
-            customEventOption.transform.SetParent(gridLayout.transform, false);
-            customEventOption.GetComponent<CustomEventOption>().Custom = customEvent;
-            if (customEvent.EventStatus == CustomEvent.STATUS.ANNOUNCE)
-            {
-                DestroyImmediate(customEventOption);
-            }
-            else if (customEvent.EventStatus == CustomEvent.STATUS.FINISH)
-            {
-                Destroy(customEventOption, 1);
-            }
-        }
+            InstantiateCustomEventOption(customEvent, gridLayout);
 
+        }
+        foreach (CustomExpedition customEvent in listEvents.ExpedicionEvents)
+        {
+            InstantiateCustomEventOption(customEvent, gridLayout);
+        }
     }
+    public void InstantiateCustomEventOption(CustomEvent _customEvent, Transform _gridLayout)
+    {
+        GameObject customEventOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/CustomEventOption")) as GameObject;
+        customEventOption.transform.SetParent(_gridLayout.transform, false);
+        customEventOption.GetComponent<CustomEventOption>().Custom = _customEvent;
+        if (_customEvent.EventStatus == CustomEvent.STATUS.ANNOUNCE)
+        {
+            DestroyImmediate(customEventOption);
+        }
+        else if (_customEvent.EventStatus == CustomEvent.STATUS.FINISH)
+        {
+            Destroy(customEventOption, 1);
+        }
+    }
+
     public void FinishCustomEventAppearance(CustomEvent custom)
     {
         InitCustomEvent(custom);
@@ -143,40 +145,46 @@ public class EventManager : MonoBehaviour
         {
             AcceptEventButton.interactable = true;
         }
-        ResultsTextEvent.text = GameMultiLang.GetTraduction("Requirements")+"\n" + custom.RequirementMessageEvent;
-        currentCustomEvent = custom;
+        if (custom.EventType == CustomEvent.EVENTTYPE.EXPLORATION)
+        {
+            DeclineEventButton.gameObject.SetActive(false);
+            AcceptEventButton.gameObject.SetActive(false);
+        }
+        ResultsTextEvent.text = custom.RequirementMessageEvent;
+        AcceptEventButton.onClick.AddListener(() => AcceptCustomEventButton(custom));
+        DeclineEventButton.onClick.AddListener(() => DeclineCustomEventButton(custom));
     }
-    public void AcceptCustomEventButton()
+    public void AcceptCustomEventButton(CustomEvent custom)
     {
-        currentCustomEvent.AcceptEventAction();
+        custom.AcceptEventAction();
         InGameMenuHandler.instance.UpdateMenu();
-        FinishCustomEventAppearance(currentCustomEvent);
+        FinishCustomEventAppearance(custom);
     }
-    public void DeclineCustomEventButton()
+    public void DeclineCustomEventButton(CustomEvent custom)
     {
-        currentCustomEvent.DeclineEventAction();
+        custom.DeclineEventAction();
         InGameMenuHandler.instance.UpdateMenu();
-        FinishCustomEventAppearance(currentCustomEvent);
+        FinishCustomEventAppearance(custom);
     }
     public void CloseCustomEventButton()
     {
         DateTableHandler.instance.ResumeTime();
         CustomEventSelection.gameObject.SetActive(false);
         ResetTextCustomEvent();
-        InstantiateEventListOption();
+        UpdateEventListOption();
     }
     private void ResetTextCustomEvent()
     {
         AcceptEventButton.gameObject.SetActive(true);
         DeclineEventButton.gameObject.SetActive(true);
         CloseEventButton.gameObject.SetActive(true);
+        DeclineEventButton.gameObject.SetActive(true);
+        AcceptEventButton.gameObject.SetActive(true);
         DetailsTextCustomEvent.text = " ";
         TitleTextCustomEvent.text = GameMultiLang.GetTraduction("EventLabel");
     }
     void InitEventsButtons()
     {
-        AcceptEventButton.onClick.AddListener(() => AcceptCustomEventButton());
-        DeclineEventButton.onClick.AddListener(() => DeclineCustomEventButton());
         CloseEventButton.onClick.AddListener(() => CloseCustomEventButton());
     }
     /// <summary>
@@ -186,11 +194,16 @@ public class EventManager : MonoBehaviour
     /// <param name="building">That building improve</param>
     public void AddEvent(TerritoryHandler territoryHandler, Building building)
     {
-        listUpgradesBuilds.AddCustomEvent(TimeSystem.instance.TimeGame, territoryHandler, building);
+        listEvents.AddBuildingEvent(TimeSystem.instance.TimeGame, territoryHandler, building);
     }
     public void AddEvent(TerritoryHandler territoryHandler)
     {
         listEvents.AddCustomEvent(TimeSystem.instance.TimeGame, territoryHandler);
+    }
+    public void AddExpedicionEvent(TerritoryHandler attacker , TerritoryHandler wasteTerritory, int sword, int lance , int axe)
+    {
+        listEvents.AddExpedicionEvent(TimeSystem.instance.TimeGame, sword, lance, axe, attacker, wasteTerritory);
+        SetNotificationEvent(true);
     }
     /// <summary>
     /// Check the timeGame with the timeAddEvent
@@ -232,8 +245,7 @@ public class EventManager : MonoBehaviour
                 }
                 else if (TimeSystem.instance.TimeGame.EqualsDate(listEvents.CustomEvents[i].TimeFinalEvent) && listEvents.CustomEvents[i].EventStatus == CustomEvent.STATUS.PROGRESS)
                 {
-                    listEvents.CustomEvents[i].EventStatus = CustomEvent.STATUS.FINISH;
-                    FinishCustomEvent(i);
+                    FinishCustomEvent(listEvents.CustomEvents[i]);
                 }
                 if (listEvents.CustomEvents[i].TimeFinalEvent.DiferenceDays(TimeSystem.instance.TimeGame) == 1 && !listEvents.CustomEvents[i].W)
                 {
@@ -244,33 +256,41 @@ public class EventManager : MonoBehaviour
             else
             {
                 listEvents.RemoveEvent(listEvents.CustomEvents[i]);
-                InstantiateEventListOption();
+                UpdateEventListOption();
+            }
+        }
+
+        for (int i = 0; i < listEvents.ExpedicionEvents.Count; i++)
+        {
+            if (TimeSystem.instance.TimeGame.EqualsDate(listEvents.ExpedicionEvents[i].TimeFinalEvent) && listEvents.ExpedicionEvents[i].EventStatus == CustomEvent.STATUS.PROGRESS)
+            {
+                FinishCustomEvent(listEvents.ExpedicionEvents[i]);
+                listEvents.ExpedicionEvents[i].ReturnUnits();
             }
         }
     }
-
+    
     /// <summary>
     /// check the diference days of the UPGRADE-BUILDS events in the list according
     /// to the TIME-INIT of the upgrade of every event comparing with the timeGame
     /// if is the same update the daysTotal to 0, can Upgrade the builds again, improve the 
     /// building and remove the same event
     /// </summary>
+    /// 
     private void CheckListBuildingsUpgrade()
     {
-        for (int i = 0; i < listUpgradesBuilds.CustomEvents.Count; i++)
+        for (int i = 0; i < listEvents.BuildingsEvents.Count; i++)
         {
-            int diferenceDays = TimeSystem.instance.TimeGame.DiferenceDays(listUpgradesBuilds.CustomEvents[i].TimeInitEvent);
-            listUpgradesBuilds.CustomEvents[i].Building.DaysTotal = diferenceDays;
-            if (diferenceDays == listUpgradesBuilds.CustomEvents[i].Building.DaysToBuild)
+            int diferenceDays = TimeSystem.instance.TimeGame.DiferenceDays(listEvents.BuildingsEvents[i].TimeInitEvent);
+            listEvents.BuildingsEvents[i].BuildingEvent.DaysTotal = diferenceDays;
+            if (diferenceDays == listEvents.BuildingsEvents[i].BuildingEvent.DaysToBuild)
             {
-                listUpgradesBuilds.CustomEvents[i].Building.CanUpdrade = true;
-                listUpgradesBuilds.CustomEvents[i].Building.DaysTotal = 0;
-                listUpgradesBuilds.CustomEvents[i].Building.ImproveBuilding(1);
-                listUpgradesBuilds.RemoveEvent(listUpgradesBuilds.CustomEvents[i]);
+                listEvents.BuildingsEvents[i].FinishUpgradeBuilding(1);
+                listEvents.RemoveEvent(listEvents.BuildingsEvents[i]);
             }
             else
             {
-                listUpgradesBuilds.CustomEvents[i].Building.CanUpdrade = false;
+                listEvents.BuildingsEvents[i].BuildingEvent.CanUpdrade = false;
             }
         }
     }
@@ -278,39 +298,38 @@ public class EventManager : MonoBehaviour
     /// Appears the Event Menu if it is in finish status
     /// </summary>
     /// <param name="id"></param>
-    private void FinishCustomEvent(int id)
+    private void FinishCustomEvent(CustomEvent custom)
     {
-        FinishCustomEventAppearance(listEvents.CustomEvents[id]);
-        listEvents.CustomEvents[id].DeclineEventAction();
+        custom.EventStatus = CustomEvent.STATUS.FINISH;
+        FinishCustomEventAppearance(custom);
+        custom.DeclineEventAction();
     }
     /// <summary>
     /// Appears the Event Menu if it is in warning of init status
     /// </summary>
     private void WarningCustomEvent()
     {
-        InstantiateEventListOption();
+        UpdateEventListOption();
         SetNotificationEvent(true);
         AlertManager.AlertEvent();
     }
-    public bool GetIsTerritorieIsInPandemic(TerritoryHandler territoryEvent)
+    public bool GetIsTerritoriesIsInPandemic(TerritoryHandler territoryEvent)
     {
         for (int i = 0; i < listEvents.CustomEvents.Count; i++)
         {
             if (listEvents.CustomEvents[i].EventStatus == CustomEvent.STATUS.PROGRESS && listEvents.CustomEvents[i].EventType == CustomEvent.EVENTTYPE.PANDEMIC && listEvents.CustomEvents[i].TerritoryEvent == territoryEvent)
             {
-                // print("is in pandemic");
                 return true;
             }
         }
         return false;
     }
-    public bool GetIsTerritorieIsInPandemic()
+    public bool GetIsTerritoriesIsInPandemic()
     {
         for (int i = 0; i < listEvents.CustomEvents.Count; i++)
         {
             if (listEvents.CustomEvents[i].EventStatus == CustomEvent.STATUS.PROGRESS && listEvents.CustomEvents[i].EventType == CustomEvent.EVENTTYPE.ALL_T_PANDEMIC)
             {
-                // print("is in all pandemic");
                 return true;
             }
         }

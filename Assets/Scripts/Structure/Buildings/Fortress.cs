@@ -7,6 +7,8 @@ public class Fortress: Building
     {
         this.Name = "Fortress";
         this.AtributteToAdd = 1.0f;
+        this.AtributteSpeed = 0;
+        this.AtributteLimit = 0;
     }
     public float PlusDefense
     {

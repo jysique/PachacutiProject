@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 public class GlobalVariables : MonoBehaviour
 {
     public static GlobalVariables instance { get; private set; }
@@ -196,5 +197,18 @@ public class GlobalVariables : MonoBehaviour
                 aList.Add(t.GetChild(n));
         }
         return aList;
+    }
+    public void InitDropdown(TMP_Dropdown _dropdown, List<string> _items)
+    {
+        _dropdown.options.Clear();
+
+        foreach (var item in _items)
+        {
+            _dropdown.options.Add(new TMP_Dropdown.OptionData()
+            {
+                //text = item
+                text = GameMultiLang.GetTraduction(item)
+            }) ;
+        }
     }
 }
