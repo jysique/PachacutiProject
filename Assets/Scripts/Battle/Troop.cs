@@ -34,9 +34,13 @@ public class Troop
 
     public void AddElement(string _type, int _position, int _number)
     {
-        types.Add(_type);
-        positions.Add(_position);
-        numbers.Add(_number);
+        if (_number>0)
+        {
+            types.Add(_type);
+            positions.Add(_position);
+            numbers.Add(_number);
+        }
+
     }
     public void Reset()
     {

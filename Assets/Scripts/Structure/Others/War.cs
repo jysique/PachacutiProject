@@ -66,7 +66,7 @@ public class War
                 BotManager.instance.DeleteTerritory(territory.TerritoryStats.Territory.TypePlayer, territory);
             }
 
-            WarManager.instance.FinishWar(territory,attackers,warriors1Count);
+            WarManager.instance.FinishWar(territory,attackers);
             
             if(WarManager.instance.selectedWar == this)
             {

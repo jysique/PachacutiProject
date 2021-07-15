@@ -8,7 +8,7 @@ public class GroupClassContainer : MonoBehaviour
 
     public void ReceiveDamage() {
         CombatManager.instance.MakeDamage(stats);
-        CombatManager.instance.MakeMovement();
+        //CombatManager.instance.MakeMovement();
     }
 
 

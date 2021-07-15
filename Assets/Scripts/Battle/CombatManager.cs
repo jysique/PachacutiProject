@@ -53,7 +53,7 @@ public class CombatManager : MonoBehaviour
 
 
         //unidades
-        UnitType swordman = new UnitType("Swordsman", 10, 100, 1, new string[] { "Axeman"}, new string[] { "Lancer" }, Resources.Load<Sprite>("Textures/TemporalAssets/warriors/w1"));
+        UnitType swordman = new UnitType("Swordsman", 10, 95, 1, new string[] { "Axeman"}, new string[] { "Lancer" }, Resources.Load<Sprite>("Textures/TemporalAssets/warriors/w1"));
         unitTypes.Add("Swordsman", swordman);
         UnitType lancer = new UnitType("Lancer", 15, 85, 1, new string[] { "Swordsman" }, new string[] { "Axeman" }, Resources.Load<Sprite>("Textures/TemporalAssets/warriors/spear"));
         unitTypes.Add("Lancer", lancer);
@@ -72,6 +72,7 @@ public class CombatManager : MonoBehaviour
         territoryPictures.Add(SquareType.TYPESQUARE.MOUNTAIN, Resources.Load<Sprite>("Textures/TemporalAssets/terrain/mountain"));
 
         //pruebas
+        /*
         TerritoryHandler ph = new TerritoryHandler();
         TerritoryStats prueba = new TerritoryStats();
         Territory pr = new Territory();
@@ -97,7 +98,7 @@ public class CombatManager : MonoBehaviour
         eTroop.AddElement("Axeman", 2, 150);
         eTroop.AddElement("Scout", 3, 50);
         StartWar(pTroop,eTroop,ph,eh,true);
-        
+        */
 
     }
 
@@ -141,10 +142,12 @@ public class CombatManager : MonoBehaviour
         units.Add(unit);
         pref.GetComponent<GroupClassContainer>().stats = unit;
     }
+    bool isPlayer;
     public void StartWar(Troop playerTroop, Troop enemyTroop, TerritoryHandler _playerTerritory, TerritoryHandler _enemyTerritory, bool isPlayerTerritory)
     {
+        isPlayer = isPlayerTerritory;
         playerTerritory = _playerTerritory;
-        enemyTerritory = _playerTerritory;
+        enemyTerritory = _enemyTerritory;
         TerritoryHandler territoryOfWar;
         List<SquareType.TYPESQUARE> tiles;
         //establecer las casillas de jugador
@@ -158,14 +161,24 @@ public class CombatManager : MonoBehaviour
             territoryOfWar = enemyTerritory;
             tiles = territoryOfWar.TerritoryStats.Territory.Tiles;
             List<SquareType.TYPESQUARE> newTiles = new List<SquareType.TYPESQUARE>();
-            for (int y = (tiles.Count/2)-1; y > 0; y--)
+            
+            for (int y = (tiles.Count/2)-1; y >= 0; y--)
             {
                 newTiles.Add(tiles[y]);
             }
-            for (int y = tiles.Count - 1; y > (tiles.Count / 2); y--)
+            for (int y = tiles.Count - 1; y >= (tiles.Count / 2); y--)
             {
                 newTiles.Add(tiles[y]);
             }
+            /*
+            for (int i = 1; i <= tiles.Count / 4; i++)
+            {
+                int num = i*4-1;
+                for (int j = num; j>=num-3 ; j--)
+                {
+                    newTiles.Add(tiles[j]);
+                }
+            }*/
             tiles = newTiles;
         }
 
@@ -173,7 +186,8 @@ public class CombatManager : MonoBehaviour
 
         for(int j = 0; j < squares.transform.childCount; j ++)
         {
-            squares.transform.GetChild(j).GetComponent<SquareType>().typeSquare = SquareType.TYPESQUARE.GRASSLAND;
+            // squares.transform.GetChild(j).GetComponent<SquareType>().typeSquare = SquareType.TYPESQUARE.GRASSLAND;
+            squares.transform.GetChild(j).GetComponent<SquareType>().typeSquare = tiles[j];
             squares.transform.GetChild(j).GetComponent<SquareType>().index = j;
             squares.transform.GetChild(j).GetComponent<Image>().sprite = territoryPictures[squares.transform.GetChild(j).GetComponent<SquareType>().typeSquare];
             //squares.transform.GetChild(j).GetComponent<SquareType>().typeSquare = tiles[j];              
@@ -199,12 +213,17 @@ public class CombatManager : MonoBehaviour
        //MakeMovement();
         
     }
-
+    private void DestroyGameObjectAndChildren(GameObject gameObject)
+    {
+        gameObject.GetComponentInParent<SquareType>().unitGroup = null;
+        foreach (Transform item in gameObject.transform)
+        {
+            DestroyImmediate(item.gameObject);
+        }
+        DestroyImmediate(gameObject);
+    }
     public void MakeMovement()
     {
-        
-
-
         //reiniciar unidad
         c++;
         if (c >= units.Count) c = 0;
@@ -233,7 +252,35 @@ public class CombatManager : MonoBehaviour
     }
     private void SetStats(UnitGroup u)
     {
-        //restar las unidades perdidas al final
+      //  print("type player|" + u.TypePlayer);
+      //  print("type|" + u.Type);
+      //  print("q|" + u.Quantity);
+        if (u.TypePlayer == Territory.TYPEPLAYER.PLAYER)
+        {
+            if (isPlayer)
+            {
+        //        print(playerTerritory.TerritoryStats.Territory.name + " es atacado entonces "+ u.Type +" es igual a " + u.Quantity);
+                playerTerritory.TerritoryStats.Territory.GetUnit(u.Type).NumbersUnit = u.Quantity;
+            }
+            else
+            {
+          //      print(playerTerritory.TerritoryStats.Territory.name + " ataca entonces " + u.Type + " recupera " + u.Quantity);
+                playerTerritory.TerritoryStats.Territory.GetUnit(u.Type).NumbersUnit += u.Quantity;
+            }
+        }
+        else
+        {
+            if (isPlayer)
+            {
+            //    print(enemyTerritory.TerritoryStats.Territory.name + " ataca entonces " + u.Type + " recupera " + u.Quantity);
+                enemyTerritory.TerritoryStats.Territory.GetUnit(u.Type).NumbersUnit += u.Quantity;
+            }
+            else
+            {
+            //    print(enemyTerritory.TerritoryStats.Territory.name + " es atacado entonces " + u.Type + " es igual a " + u.Quantity);
+                enemyTerritory.TerritoryStats.Territory.GetUnit(u.Type).NumbersUnit = u.Quantity;
+            }
+        }
     }
     public void FinishCombat()
     {
@@ -241,31 +288,51 @@ public class CombatManager : MonoBehaviour
         turns = 20;
         foreach (UnitGroup u in units)
         {
-            //SetStats(u);
+            SetStats(u);
         }
         DateTableHandler.instance.PlayButton();
-        //WarManager.instance.FinishWar(territory, attackerTerritory.TerritoryStats.Territory.TypePlayer, 0);
+
+        // is player si el territorio atacado es del jugador
+        if (isPlayer)
+        {
+            WarManager.instance.FinishWar(playerTerritory, enemyTerritory.TerritoryStats.Territory.TypePlayer);
+        }
+        else
+        {
+            WarManager.instance.FinishWar(enemyTerritory, playerTerritory.TerritoryStats.Territory.TypePlayer);
+        }
+        
         for(int i = 0; i < squares.transform.childCount; i++)
         {
-            Destroy(squares.transform.GetChild(0).GetChild(0));
+            if (SquareByIndex(i).haveUnit)
+            {
+                //        Destroy(squares.transform.GetChild(i).GetChild(0));
+                SquareByIndex(i).unitGroup = null;
+                DestroyGameObjectAndChildren(squares.transform.GetChild(i).GetChild(0).gameObject);
+            }
         }
+
         units.Clear();
-        //canvas.SetActive(false);
+        canvas.SetActive(false);
     }
     public void Attack()
     {
         SetPosibleAttack(units[c]);
+        ClearSquares();
     }
     public void Defend()
     {
         units[c].UnitsGO.GetComponent<Image>().color = Color.blue;
         units[c].Defense = true;
         MakeMovement();
+        ClearSquares();
+        TurnOffButtons();
     }
 
     public void Move()
     {
         CheckPosibleMoves(units[c]);
+        TurnOffButtons();
     }
 
     private int CheckAdvantage(UnitGroup attackGroup, UnitGroup defenseGroup)
@@ -287,23 +354,38 @@ public class CombatManager : MonoBehaviour
     {
         UnitGroup attackGroup = units[c];
 
-        int damage = 10;
-
-        int advantage = CheckAdvantage(attackGroup, defenseGroup);
-        if (advantage==2)
+        //DAÑO VARIA RESPECTO AL TYPE
+        int damage = unitTypes[attackGroup.Type].Attack;
+        int presicion = unitTypes[attackGroup.Type].Presicion;
+        int presicion_hit = Random.Range(1, 100);
+        if (presicion > presicion_hit)
         {
-            damage *= 2;
+            int advantage = CheckAdvantage(attackGroup, defenseGroup);
+            if (advantage == 2)
+            {
+                damage *= 2;
+            }
+            else if (advantage == 1)
+            {
+                damage /= 2;
+            }
+            int critic = Random.Range(1, 100);
+            if (critic < 10) 
+            {
+                damage *= 2;
+                ShowFloatText("Critic!", attackGroup.UnitsGO);
+            }
+            if (defenseGroup.Defense) damage /= 2;
+            print(defenseGroup.Quantity);
+            print(damage);
+            
         }
-        else if (advantage == 1)
+        else
         {
-            damage /= 2;
+            ShowFloatText("Miss!", attackGroup.UnitsGO);
+            damage = 0;
         }
-        int critic = Random.Range(1,100);
-        if (critic < 10) damage *= 2;
-        if (defenseGroup.Defense) damage /= 2;
-        print(defenseGroup.Quantity);
-        print(damage);
-
+        
         defenseGroup.Quantity = defenseGroup.Quantity - damage;
 
         defenseGroup.UnitsGO.transform.GetChild(0).GetComponent<Text>().text = defenseGroup.Quantity.ToString();
@@ -311,19 +393,27 @@ public class CombatManager : MonoBehaviour
         TurnOffButtons();
         if (defenseGroup.Quantity <= 0)
         {
-
             defenseGroup.Quantity = 0;
             defenseGroup.UnitsGO.transform.GetChild(0).GetComponent<Text>().text = "0";
             defenseGroup.UnitsGO.transform.GetChild(0).GetComponent<Text>().color = Color.red;
-            //SetStats(defenseGroup);
+            SetStats(defenseGroup);
             units.Remove(defenseGroup);
+            defenseGroup.UnitsGO.GetComponentInParent<SquareType>().unitGroup = null;
+            defenseGroup.UnitsGO.GetComponentInParent<SquareType>().haveUnit = false;
+            DestroyGameObjectAndChildren(defenseGroup.UnitsGO);
         }
         if (EndBattle())
         {
             FinishCombat();
         }
-
-
+        else
+        {
+            MakeMovement();
+        }
+    }
+    private void ShowFloatText(string text, GameObject go)
+    {
+        InGameMenuHandler.instance.ShowFloatingText(text, "TextFloating", go.transform, Color.black);
     }
 
     private void TurnOffButtons()

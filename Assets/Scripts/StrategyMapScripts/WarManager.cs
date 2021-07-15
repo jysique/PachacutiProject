@@ -185,18 +185,18 @@ public class WarManager : MonoBehaviour
         title.text = selected.TerritoryStats.Territory.name;
         peaceContainer.SetActive(true);
     }
-    public void FinishWar(TerritoryHandler territory, Territory.TYPEPLAYER type, int survivors)
+    public void FinishWar(TerritoryHandler territory, Territory.TYPEPLAYER type)
     {
+        // TYPE es el tipo de jugador atacante
         territory.gameObject.transform.GetChild(0).gameObject.SetActive(false);
         territory.war = false;
         
 
         if(territory.TerritoryStats.Territory.Population == 0)
         {
-            
-            
             if (type == Territory.TYPEPLAYER.PLAYER)
             {
+                // SI GANA EL PLAYER
                 territory.TerritoryStats.Territory.IsClaimed = false;
                 EventManager.instance.AddEvent(territory);
                 EventManager.instance.UpdateEventListOption();
@@ -205,6 +205,7 @@ public class WarManager : MonoBehaviour
             }
             else /*if(type == Territory.TYPEPLAYER.BOT)*/
             {
+                // SI GANABA EL BOT
                 if (territory.TerritoryStats.Territory.TypePlayer==Territory.TYPEPLAYER.PLAYER)
                 {
                     AlertManager.AlertLost(territory);
@@ -336,10 +337,12 @@ public class WarManager : MonoBehaviour
     //    public void SendWarriors(TerritoryHandler selected, TerritoryHandler otherTerritory, int _warriorsSword, int _warriorsLance, int _warriorsAxe)
     public void SendWarriors(TerritoryHandler selected, TerritoryHandler otherTerritory, Troop troopSelect)
     {
+        /*
         int warriorsSword = troopSelect.GetNumberUnity("Swordsman");
         int warriorsLance = troopSelect.GetNumberUnity("Lancer");
         int warriorsAxe = troopSelect.GetNumberUnity("Axeman");
-        warriorsPrefab.GetComponent<WarriorsMoving>().SetAttack(otherTerritory.gameObject, warriorsSword,warriorsLance,warriorsAxe, selected);
+        */
+        warriorsPrefab.GetComponent<WarriorsMoving>().SetAttack(otherTerritory.gameObject, troopSelect, selected);
         Instantiate(warriorsPrefab, selected.transform.position, Quaternion.identity);
     }
     /*
@@ -354,29 +357,39 @@ public class WarManager : MonoBehaviour
     }
     */
 
-    public void MoveWarriors(TerritoryHandler otherTerritory,  TerritoryHandler attacker, int _warriorsSword, int _warriorsLance, int _warriorsAxe)
+    public void MoveWarriors(TerritoryHandler otherTerritory,  TerritoryHandler attacker, Troop attackerTroop)
     {
-        int attackPower = _warriorsSword + _warriorsLance + _warriorsAxe;
+        bool otherTerritoryIsPlayer = otherTerritory.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER;
+        //int attackPower = _warriorsSword + _warriorsLance + _warriorsAxe;
         Territory.TYPEPLAYER temp = otherTerritory.TerritoryStats.Territory.TypePlayer;
         //  if (otherTerritory.TerritoryStats.Territory.TypePlayer == attacker.TerritoryStats.Territory.TypePlayer || otherTerritory.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.CLAIM)
         if (otherTerritory.TerritoryStats.Territory.TypePlayer == attacker.TerritoryStats.Territory.TypePlayer)
         {
+            //SuMA SI ES DEL MISMO TERRITORIO
+            /*
             otherTerritory.TerritoryStats.Territory.Swordsmen.NumbersUnit += _warriorsSword;
             otherTerritory.TerritoryStats.Territory.Lancers.NumbersUnit += _warriorsLance;
             otherTerritory.TerritoryStats.Territory.Axemen.NumbersUnit += _warriorsAxe;
+            */
             //otherTerritory.TerritoryStats.Territory.Population = otherTerritory.TerritoryStats.Territory.Population + attackPower;
         }
         else if (otherTerritory.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.WASTE)
         {
+            // WASTE
             AlertManager.AlertExpedition();
+            /*
             EventManager.instance.AddExpedicionEvent(attacker, otherTerritory,_warriorsSword,_warriorsLance,_warriorsAxe);
             EventManager.instance.UpdateEventListOption();
+            */
         }
         else if (attacker.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.WASTE)
         {
+            // VUELVE DEL WASTE
+            /*
             otherTerritory.TerritoryStats.Territory.Swordsmen.NumbersUnit += _warriorsSword;
             otherTerritory.TerritoryStats.Territory.Lancers.NumbersUnit += _warriorsLance;
             otherTerritory.TerritoryStats.Territory.Axemen.NumbersUnit += _warriorsAxe;
+            */
         }
         else
         {
@@ -384,20 +397,42 @@ public class WarManager : MonoBehaviour
             {
                 DateTableHandler.instance.PauseButton();
                 battleCanvas.SetActive(true);
-                /*CombatManager.instance.StartWar(
-                    _warriorsSword,
-                    _warriorsLance,
-                    _warriorsAxe,
-                    otherTerritory.TerritoryStats.Territory.Swordsmen.NumbersUnit,
-                    otherTerritory.TerritoryStats.Territory.Lancers.NumbersUnit,
-                    otherTerritory.TerritoryStats.Territory.Axemen.NumbersUnit,
-                    attacker.TerritoryStats.Territory.TypePlayer,
-                    otherTerritory.TerritoryStats.Territory.TypePlayer,
-                    attacker,otherTerritory);*/
+                print("attacker|" + attacker.TerritoryStats.Territory.name);
+                print("other|" + otherTerritory.TerritoryStats.Territory.name);
+                Troop playerTroop;
+                Troop enemyTroop;
+                TerritoryHandler playerTerritory;
+                TerritoryHandler enemyTerritory;
+                if (attacker.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
+                {
+                    playerTroop = attackerTroop;
+                    enemyTroop = new Troop(otherTerritory.TerritoryStats.Territory.Swordsmen.NumbersUnit,
+                                otherTerritory.TerritoryStats.Territory.Lancers.NumbersUnit,
+                                otherTerritory.TerritoryStats.Territory.Axemen.NumbersUnit);
+                    playerTerritory = attacker;
+                    enemyTerritory = otherTerritory;
+                }
+                else
+                {
+                    enemyTroop = attackerTroop;
+                    playerTroop = new Troop(otherTerritory.TerritoryStats.Territory.Swordsmen.NumbersUnit,
+                                otherTerritory.TerritoryStats.Territory.Lancers.NumbersUnit,
+                                otherTerritory.TerritoryStats.Territory.Axemen.NumbersUnit);
+                    playerTerritory = otherTerritory;
+                    enemyTerritory =  attacker;
+                }
+                CombatManager.instance.StartWar(
+                    playerTroop,
+                    enemyTroop,
+                    playerTerritory,
+                    enemyTerritory,
+                    otherTerritoryIsPlayer);;
                 return;
             }
+            int attackPower = attackerTroop.GetAllNumbersUnit();
             if (otherTerritory.war)
             {
+
                 AddMoreWarriors(otherTerritory, attackPower);
 
             }
@@ -412,13 +447,8 @@ public class WarManager : MonoBehaviour
                 otherTerritory.war = true;
                 otherTerritory.gameObject.transform.GetChild(0).gameObject.SetActive(true);
             }
-            
-            
-
 
         }
-
-
     }
 
     public void ShowCritic(War war, bool side)
