@@ -34,8 +34,18 @@ public class TerritoryStats : MonoBehaviour
         
         //imageTerritory.color = new Color( Random.Range(0f, 1f), Random.Range(0f, 1f),Random.Range(0f, 1f));
         nameTerritoryTxt.text = territory.name;
+        //cambiar por un generador o configurar manualmente
+        territory.Tiles.Add(SquareType.TYPESQUARE.GRASSLAND);
+        territory.Tiles.Add(SquareType.TYPESQUARE.GRASSLAND);
+        territory.Tiles.Add(SquareType.TYPESQUARE.GRASSLAND);
+        territory.Tiles.Add(SquareType.TYPESQUARE.FOREST);
+
+        territory.Tiles.Add(SquareType.TYPESQUARE.GRASSLAND);
+        territory.Tiles.Add(SquareType.TYPESQUARE.GRASSLAND);
+        territory.Tiles.Add(SquareType.TYPESQUARE.GRASSLAND);
+        territory.Tiles.Add(SquareType.TYPESQUARE.GRASSLAND);
         //allText = iconsContainer.gameObject.transform.GetComponentsInChildren<Text>();
-        
+
     }
     public void CanPopulate()
     {

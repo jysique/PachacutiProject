@@ -8,29 +8,22 @@ public class CombatManager : MonoBehaviour
 
     public static CombatManager instance;
     [SerializeField] private Text turnsCounter;
-    [SerializeField]private List<UnitGroup> units = new List<UnitGroup>();
-    private List<GameObject> unitsGO = new List<GameObject>();
+    public List<UnitGroup> units = new List<UnitGroup>();
+    [SerializeField]private GameObject squares;
     private GameObject canvas;
-    Vector3[] positions = new []{
-        new Vector3( 0.5f, -0.7f, 90.0f ), //espada
-        new Vector3( -4.2f, -2.1f, 90.0f ), //lanza
-        new Vector3(0.5f, -3.8f, 90.0f) , //hacha
-        new Vector3( 4.8f, -0.7f, 90.0f ), //espada2
-        new Vector3( 8.5f, -2.1f, 90.0f ), //lanza2
-        new Vector3(4.8f, -3.8f, 90.0f)  //hacha2
-    };
+    Dictionary<string, UnitType> unitTypes = new Dictionary<string , UnitType>();
+    Dictionary<SquareType.TYPESQUARE, Sprite> territoryPictures = new Dictionary<SquareType.TYPESQUARE, Sprite>();
+    Dictionary<int, int> playerPositions = new Dictionary<int, int>();
+    Dictionary<int, int> enemyPositions = new Dictionary<int, int>();
 
-    [SerializeField] private Sprite swordGuy;
-    [SerializeField] private Sprite spearGuy;
-    [SerializeField] private Sprite axeGuy;
     [SerializeField] private GameObject unitGroupPrefab;
     [SerializeField] private GameObject menu;
 
-    TerritoryHandler attackerTerritory;
-    TerritoryHandler territory;
+    TerritoryHandler playerTerritory;
+    TerritoryHandler enemyTerritory;
 
     [SerializeField] private int turns;
-    [SerializeField] private int c;
+    public int c;
     private void Awake()
     {
         instance = this;
@@ -38,14 +31,73 @@ public class CombatManager : MonoBehaviour
     void Start()
     {
         turns = 10;
-        c = -1;
+        c = -1;//contador de turnos
         canvas = GameObject.Find("Battle");
-        
-    }
 
-    void Update()
-    {
+
+        //posiciones de unidades
+        playerPositions.Add(0,0);
+        playerPositions.Add(1,1);
+        playerPositions.Add(2,4);
+        playerPositions.Add(3,5);
+        playerPositions.Add(4,8);
+        playerPositions.Add(5,9);
+
+        enemyPositions.Add(0, 3);
+        enemyPositions.Add(1, 2);
+        enemyPositions.Add(2, 7);
+        enemyPositions.Add(3, 6);
+        enemyPositions.Add(4, 11);
+        enemyPositions.Add(5, 10);
+
+
+        //unidades
+        UnitType swordman = new UnitType("Swordsman", 10, 10, 1, new string[] { "Axeman"}, new string[] { "Lancer" }, Resources.Load<Sprite>("Textures/TemporalAssets/warriors/w1"));
+        unitTypes.Add("Swordsman", swordman);
+        UnitType lancer = new UnitType("Lancer", 15, 10, 1, new string[] { "Swordsman" }, new string[] { "Axeman" }, Resources.Load<Sprite>("Textures/TemporalAssets/warriors/spear"));
+        unitTypes.Add("Lancer", lancer);
+        UnitType axeman = new UnitType("Axeman", 20, 10, 1, new string[] { "Lancer" }, new string[] { "Swordsman" }, Resources.Load<Sprite>("Textures/TemporalAssets/warriors/axe"));
+        unitTypes.Add("Axeman", axeman);
+        UnitType archer = new UnitType("Archer", 10, 10, 2, new string[] { "Scout" }, new string[] { "Archer" }, Resources.Load<Sprite>("Textures/TemporalAssets/warriors/archer"));
+        unitTypes.Add("Archer", archer);
+        UnitType scout = new UnitType("Scout", 10, 10, 1, new string[] { "Archer" }, new string[] { "Scout" }, Resources.Load<Sprite>("Textures/TemporalAssets/warriors/horseman"));
+        unitTypes.Add("Scout", scout);
+
+
+        //Diccionario de territorios
+        territoryPictures.Add(SquareType.TYPESQUARE.FOREST, Resources.Load<Sprite>("Textures/TemporalAssets/terrain/forest"));
+        territoryPictures.Add(SquareType.TYPESQUARE.SAND, Resources.Load<Sprite>("Textures/TemporalAssets/terrain/sand"));
+        territoryPictures.Add(SquareType.TYPESQUARE.GRASSLAND, Resources.Load<Sprite>("Textures/TemporalAssets/terrain/grassland"));
+        territoryPictures.Add(SquareType.TYPESQUARE.MOUNTAIN, Resources.Load<Sprite>("Textures/TemporalAssets/terrain/mountain"));
+
+        //pruebas
+        TerritoryHandler ph = new TerritoryHandler();
+        TerritoryStats prueba = new TerritoryStats();
+        Territory pr = new Territory();
+        pr.TypePlayer = Territory.TYPEPLAYER.PLAYER;
+        prueba.Territory = pr;
+        ph.TerritoryStats = prueba;
+
         
+
+        TerritoryHandler eh = new TerritoryHandler();
+        TerritoryStats prueba2 = new TerritoryStats();
+        Territory pr2 = new Territory();
+        pr2.TypePlayer = Territory.TYPEPLAYER.BOT;
+        prueba2.Territory = pr2;
+        eh.TerritoryStats = prueba2;
+
+        Troop pTroop = new Troop();
+        Troop eTroop = new Troop();
+        pTroop.AddElement("Swordsman",1,150);
+        pTroop.AddElement("Archer", 2, 150);
+        pTroop.AddElement("Lancer", 3, 150);
+        eTroop.AddElement("Axeman", 1, 150);
+        eTroop.AddElement("Axeman", 2, 150);
+        eTroop.AddElement("Scout", 3, 50);
+        StartWar(pTroop,eTroop,ph,eh,true);
+        
+
     }
 
     void SortList(List<UnitGroup> alpha)
@@ -59,15 +111,17 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    private void InstantiateUnit(int number, Sprite _sprite, int pos, Territory.TYPEPLAYER _type, UnitGroup.TYPE weapontype)
+    private void InstantiateUnit(int number, Sprite _sprite, GameObject square, Territory.TYPEPLAYER _type, string weapontype)
     {
-        if(number <= 0)
-        {
-            return;
-        }
+        
         var pref = Instantiate(unitGroupPrefab);
-        pref.transform.SetParent(canvas.transform, false);
-        pref.GetComponent<RectTransform>().anchoredPosition = new Vector3(positions[pos].x * 100  , positions[pos].y * 100  , positions[pos].z); ;
+        pref.transform.SetParent(square.transform, false);
+        RectTransform rt = pref.GetComponent<RectTransform>();
+        rt.offsetMin = new Vector2(-60,rt.offsetMin.y);
+        rt.offsetMax = new Vector2(118, rt.offsetMax.y);
+        rt.offsetMax = new Vector2(rt.offsetMax.x, 46);
+        rt.offsetMin = new Vector2(rt.offsetMin.x, -116);
+        //pref.GetComponent<RectTransform>().anchoredPosition = new Vector3(positions[pos].x * 100  , positions[pos].y * 100  , positions[pos].z); ;
         pref.transform.GetChild(0).GetComponent<Text>().text = number.ToString();
         pref.GetComponent<Image>().sprite = _sprite;
         if(_type != Territory.TYPEPLAYER.PLAYER)
@@ -80,43 +134,93 @@ public class CombatManager : MonoBehaviour
             pref.transform.GetChild(0).localScale = scale2;
         }
         UnitGroup unit = new UnitGroup(_type, weapontype, number, pref);
-        
+        square.GetComponent<SquareType>().unitGroup = unit;
+        square.GetComponent<SquareType>().haveUnit = true;
+
         units.Add(unit);
         pref.GetComponent<GroupClassContainer>().stats = unit;
-        unitsGO.Add(pref);
     }
-    public void StartWar(int swordWarriors, int spearWarriors, int axeWarriors, int swordWarriors2, int spearWarriors2, int axeWarriors2, Territory.TYPEPLAYER attacker, Territory.TYPEPLAYER defender, TerritoryHandler _attackerTerritory, TerritoryHandler _territory)
+    public void StartWar(Troop playerTroop, Troop enemyTroop, TerritoryHandler _playerTerritory, TerritoryHandler _enemyTerritory, bool isPlayerTerritory)
     {
-        attackerTerritory = _attackerTerritory;
-        territory = _territory; 
-        InstantiateUnit(swordWarriors, swordGuy, 0, attacker, UnitGroup.TYPE.SWORD);
-        InstantiateUnit(spearWarriors, spearGuy, 1, attacker, UnitGroup.TYPE.SPEAR);
-        InstantiateUnit(axeWarriors, axeGuy, 2, attacker, UnitGroup.TYPE.AXE);
-        InstantiateUnit(swordWarriors2, swordGuy, 3, defender, UnitGroup.TYPE.SWORD);
-        InstantiateUnit(spearWarriors2, spearGuy, 4, defender, UnitGroup.TYPE.SPEAR);
-        InstantiateUnit(axeWarriors2, axeGuy, 5, defender, UnitGroup.TYPE.AXE);
+        playerTerritory = _playerTerritory;
+        enemyTerritory = _playerTerritory;
+        TerritoryHandler territoryOfWar;
+        List<SquareType.TYPESQUARE> tiles;
+        //establecer las casillas de jugador
+        if (isPlayerTerritory)
+        {
+            territoryOfWar = playerTerritory;
+            tiles = territoryOfWar.TerritoryStats.Territory.Tiles;
+        }
+        else
+        {
+            territoryOfWar = enemyTerritory;
+            tiles = territoryOfWar.TerritoryStats.Territory.Tiles;
+            List<SquareType.TYPESQUARE> newTiles = new List<SquareType.TYPESQUARE>();
+            for (int y = (tiles.Count/2)-1; y > 0; y--)
+            {
+                newTiles.Add(tiles[y]);
+            }
+            for (int y = tiles.Count - 1; y > (tiles.Count / 2); y--)
+            {
+                newTiles.Add(tiles[y]);
+            }
+            tiles = newTiles;
+        }
 
-        SortList(units);
-        MakeMovement();
+        
 
+        for(int j = 0; j < squares.transform.childCount; j ++)
+        {
+            squares.transform.GetChild(j).GetComponent<SquareType>().typeSquare = SquareType.TYPESQUARE.GRASSLAND;
+            squares.transform.GetChild(j).GetComponent<SquareType>().index = j;
+            squares.transform.GetChild(j).GetComponent<Image>().sprite = territoryPictures[squares.transform.GetChild(j).GetComponent<SquareType>().typeSquare];
+            //squares.transform.GetChild(j).GetComponent<SquareType>().typeSquare = tiles[j];              
+        }
+        
+
+
+       for (int i = 0; i < playerTroop.Positions.Count; i++)
+       {
+           int up = playerPositions[playerTroop.Positions[i]];
+           InstantiateUnit(playerTroop.Numbers[i], unitTypes[playerTroop.Types[i]].Picture, squares.transform.GetChild(up).gameObject, _playerTerritory.TerritoryStats.Territory.TypePlayer, playerTroop.Types[i]);
+       }
+
+       for (int i = 0; i < enemyTroop.Positions.Count; i++)
+       {
+           int up = enemyPositions[enemyTroop.Positions[i]];
+           InstantiateUnit(enemyTroop.Numbers[i], unitTypes[enemyTroop.Types[i]].Picture , squares.transform.GetChild(up).gameObject, _enemyTerritory.TerritoryStats.Territory.TypePlayer, enemyTroop.Types[i]);
+       }
+
+
+       SortList(units);
+       Invoke("MakeMovement",0.01f);
+       //MakeMovement();
+        
     }
 
     public void MakeMovement()
     {
+        
+
+
+        //reiniciar unidad
         c++;
         if (c >= units.Count) c = 0;
         units[c].Defense = false;
         units[c].UnitsGO.GetComponent<Image>().color = Color.white;
-        
 
+        //menu
 
-        Vector3 newpos = units[c].UnitsGO.transform.position;
-        //if(units[c].TypePlayer == Territory.TYPEPLAYER.PLAYER)
+        Vector3 newpos = units[c].UnitsGO.transform.parent.position;
+        print(units[c].UnitsGO.transform.parent.position);
+            
         menu.transform.position = new Vector3(newpos.x+1,newpos.y-1,newpos.z);
-        //else
-        //{
+        print(menu.transform.position);
 
-        //}
+        print(units[1].UnitsGO.transform.parent.position);
+        
+        //turnos
         turns--;
         turnsCounter.text = "Turnos restantes: "+ turns.ToString();
         if (turns <= 0)
@@ -128,36 +232,7 @@ public class CombatManager : MonoBehaviour
     }
     private void SetStats(UnitGroup u)
     {
-        if (u.TypePlayer == attackerTerritory.TerritoryStats.Territory.TypePlayer)
-        {
-            switch (u.Type)
-            {
-                case UnitGroup.TYPE.SWORD:
-                    attackerTerritory.TerritoryStats.Territory.Swordsmen.NumbersUnit += u.Quantity;
-                    break;
-                case UnitGroup.TYPE.SPEAR:
-                    attackerTerritory.TerritoryStats.Territory.Lancers.NumbersUnit += u.Quantity;
-                    break;
-                case UnitGroup.TYPE.AXE:
-                    attackerTerritory.TerritoryStats.Territory.Archer.NumbersUnit += u.Quantity;
-                    break;
-            }
-        }
-        if (u.TypePlayer == territory.TerritoryStats.Territory.TypePlayer)
-        {
-            switch (u.Type)
-            {
-                case UnitGroup.TYPE.SWORD:
-                    territory.TerritoryStats.Territory.Swordsmen.NumbersUnit = u.Quantity;
-                    break;
-                case UnitGroup.TYPE.SPEAR:
-                    territory.TerritoryStats.Territory.Lancers.NumbersUnit = u.Quantity;
-                    break;
-                case UnitGroup.TYPE.AXE:
-                    territory.TerritoryStats.Territory.Archer.NumbersUnit = u.Quantity;
-                    break;
-            }
-        }
+        //restar las unidades perdidas al final
     }
     public void FinishCombat()
     {
@@ -165,28 +240,20 @@ public class CombatManager : MonoBehaviour
         turns = 10;
         foreach (UnitGroup u in units)
         {
-            SetStats(u);
+            //SetStats(u);
         }
         DateTableHandler.instance.PlayButton();
-        WarManager.instance.FinishWar(territory, attackerTerritory.TerritoryStats.Territory.TypePlayer, 0);
-        foreach(GameObject g in unitsGO)
+        //WarManager.instance.FinishWar(territory, attackerTerritory.TerritoryStats.Territory.TypePlayer, 0);
+        for(int i = 0; i < squares.transform.childCount; i++)
         {
-            Destroy(g);
+            Destroy(squares.transform.GetChild(0).GetChild(0));
         }
         units.Clear();
-        unitsGO.Clear();
-        canvas.SetActive(false);
+        //canvas.SetActive(false);
     }
     public void Attack()
     {
-        foreach(UnitGroup u in units)
-        {
-            //if(u.TypePlayer != Territory.TYPEPLAYER.PLAYER)
-            if (u != units[c])
-            {
-                u.UnitsGO.transform.GetChild(1).gameObject.SetActive(true);
-            }
-        }
+        SetPosibleAttack(units[c]);
     }
     public void Defend()
     {
@@ -195,17 +262,38 @@ public class CombatManager : MonoBehaviour
         MakeMovement();
     }
 
+    public void Move()
+    {
+        CheckPosibleMoves(units[c]);
+    }
 
+    private int CheckAdvantage(UnitGroup attackGroup, UnitGroup defenseGroup)
+    {
+        string[] strongTo = unitTypes[attackGroup.Type].StrongTo;
+        for(int i = 0; i < strongTo.Length; i++)
+        {
+            if (defenseGroup.Type == strongTo[i]) return 2;
+        }
+        string[] weakTo = unitTypes[attackGroup.Type].WeakTo;
+        for (int i = 0; i < weakTo.Length; i++)
+        {
+            if (defenseGroup.Type == weakTo[i]) return 1;
+        }
+        return 0;
+    }
 
     public void MakeDamage(UnitGroup defenseGroup)
     {
         UnitGroup attackGroup = units[c];
+
         int damage = 10;
-        if (WeaponTriangle(attackGroup.Type, defenseGroup.Type))
+
+        int advantage = CheckAdvantage(attackGroup, defenseGroup);
+        if (advantage==2)
         {
             damage *= 2;
         }
-        else
+        else if (advantage == 1)
         {
             damage /= 2;
         }
@@ -225,7 +313,7 @@ public class CombatManager : MonoBehaviour
             defenseGroup.Quantity = 0;
             defenseGroup.UnitsGO.transform.GetChild(0).GetComponent<Text>().text = "0";
             defenseGroup.UnitsGO.transform.GetChild(0).GetComponent<Text>().color = Color.red;
-            SetStats(defenseGroup);
+            //SetStats(defenseGroup);
             units.Remove(defenseGroup);
         }
         if (EndBattle())
@@ -247,43 +335,6 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    private bool WeaponTriangle(UnitGroup.TYPE attackWeapon, UnitGroup.TYPE defenseWeapon)
-    {
-        if(attackWeapon == UnitGroup.TYPE.SWORD)
-        {
-            if(defenseWeapon == UnitGroup.TYPE.SPEAR)
-            {
-                return false;
-            }
-            if (defenseWeapon == UnitGroup.TYPE.AXE)
-            {
-                return true;
-            }
-        }
-        if (attackWeapon == UnitGroup.TYPE.SPEAR)
-        {
-            if (defenseWeapon == UnitGroup.TYPE.AXE)
-            {
-                return false;
-            }
-            if (defenseWeapon == UnitGroup.TYPE.SWORD)
-            {
-                return true;
-            }
-        }
-        if (attackWeapon == UnitGroup.TYPE.AXE)
-        {
-            if (defenseWeapon == UnitGroup.TYPE.SWORD)
-            {
-                return false;
-            }
-            if (defenseWeapon == UnitGroup.TYPE.SPEAR)
-            {
-                return true;
-            }
-        }
-        return true;
-    }
     private bool EndBattle()
     {
         Territory.TYPEPLAYER check = units[0].TypePlayer;
@@ -296,4 +347,168 @@ public class CombatManager : MonoBehaviour
         }
         return true;
     }
+    
+    private void SetPosibleAttack(UnitGroup attacker)
+    {
+        int axisy = 4;
+        int axisx = 1;
+        int d1 = 5;
+        int d2 = 3;
+        int index = attacker.UnitsGO.transform.parent.GetComponent<SquareType>().index;
+        int range = unitTypes[attacker.Type].Range;
+        int newIndex = 0;
+
+        for (int i = 1; i <= range; i++)
+        {
+            //left
+            newIndex = index - (axisx * i);
+            if (index % 4 != 0)AttackUnitByIndex(newIndex,attacker);
+            //right
+            newIndex = index + (axisx * i);
+            if (newIndex % 4 != 0) AttackUnitByIndex(newIndex, attacker);
+            //top
+            newIndex = index - (axisy * i);
+            AttackUnitByIndex(newIndex, attacker);
+            //down
+            newIndex = index + (axisy * i);
+            AttackUnitByIndex(newIndex, attacker);
+
+            //topleft
+            newIndex = index - (d1 * i);
+            if (index % 4 != 0) AttackUnitByIndex(newIndex, attacker);
+            //downright
+            newIndex = index + (d1 * i);
+            if (newIndex % 4 != 0) AttackUnitByIndex(newIndex, attacker);
+            //topright
+            newIndex = index - (d2 * i);
+            if (newIndex % 4 != 0) AttackUnitByIndex(newIndex, attacker);
+            //downleft
+            newIndex = index + (d2 * i);
+            if (index % 4 != 0) AttackUnitByIndex(newIndex, attacker);
+        }
+        
+
+    }
+
+    private void AttackUnitByIndex(int index, UnitGroup attacker)
+    {
+        if (index > 0 && index < squares.transform.childCount && UnitByIndex(index) != null)
+        {
+            if (UnitByIndex(index).TypePlayer != attacker.TypePlayer)
+            {
+                UnitByIndex(index).UnitsGO.transform.GetChild(1).gameObject.SetActive(true);
+            }
+        }
+    }
+
+    private UnitGroup UnitByIndex(int index)
+    {
+        return squares.transform.GetChild(index).GetComponent<SquareType>().unitGroup;
+    }
+
+    private SquareType SquareByIndex(int index)
+    {
+        return squares.transform.GetChild(index).GetComponent<SquareType>();
+    }
+
+    private void CheckPosibleMoves(UnitGroup unit)
+    {
+
+        int index = unit.UnitsGO.transform.parent.GetComponent<SquareType>().index;
+        int newIndex;
+        print(index);
+        //left
+        newIndex = index - 1;
+        if (newIndex >= 0 && newIndex < squares.transform.childCount) {
+            if (index % 4 != 0)
+            {
+                if (SquareByIndex(newIndex).haveUnit == false || SquareByIndex(newIndex).unitGroup.TypePlayer == SquareByIndex(index).unitGroup.TypePlayer)
+                {
+
+                    squares.transform.GetChild(newIndex).GetComponent<Image>().color = Color.magenta;
+                    squares.transform.GetChild(newIndex).GetComponent<SquareType>().ActivateChange();
+                }
+            }
+        }
+               
+        //right
+        newIndex = index + 1;
+        if (newIndex >= 0 && newIndex < squares.transform.childCount)
+        {
+            if (newIndex % 4 != 0)
+            {
+                if (SquareByIndex(newIndex).haveUnit == false || SquareByIndex(newIndex).unitGroup.TypePlayer == SquareByIndex(index).unitGroup.TypePlayer)
+                {
+                    squares.transform.GetChild(newIndex).GetComponent<Image>().color = Color.magenta;
+                    squares.transform.GetChild(newIndex).GetComponent<SquareType>().ActivateChange();
+                }
+            }
+        }
+        
+        //top
+        newIndex = index - 4;
+        if (newIndex >= 0 && newIndex < squares.transform.childCount)
+        {
+            if (SquareByIndex(newIndex).haveUnit == false || SquareByIndex(newIndex).unitGroup.TypePlayer == SquareByIndex(index).unitGroup.TypePlayer)
+            {
+                squares.transform.GetChild(newIndex).GetComponent<Image>().color = Color.magenta;
+                squares.transform.GetChild(newIndex).GetComponent<SquareType>().ActivateChange();
+            }
+        }
+        
+        //down
+        newIndex = index + 4;
+        if (newIndex >= 0 && newIndex < squares.transform.childCount)
+        {
+            if (SquareByIndex(newIndex).haveUnit == false || SquareByIndex(newIndex).unitGroup.TypePlayer == SquareByIndex(index).unitGroup.TypePlayer)
+            {
+                squares.transform.GetChild(newIndex).GetComponent<Image>().color = Color.magenta;
+                squares.transform.GetChild(newIndex).GetComponent<SquareType>().ActivateChange();
+            }
+        }
+        
+    }
+
+    public int ActualUnitIndex()
+    {
+        return units[c].UnitsGO.transform.parent.GetComponent<SquareType>().index;
+    }
+    public void ChangeUnits(int index, int newIndex)
+    {
+        print(index);
+        print(newIndex);
+        SquareType square1 = SquareByIndex(index);
+        SquareType square2 = SquareByIndex(newIndex);
+        UnitGroup saveug = square1.unitGroup;
+
+        print(saveug);
+        if (square1.haveUnit)
+        {
+            square1.gameObject.transform.GetChild(0).transform.position = square2.gameObject.transform.position;
+            square1.gameObject.transform.GetChild(0).transform.SetParent(square2.transform);
+            
+            
+        }
+        square1.unitGroup = square2.unitGroup;
+        if (square2.haveUnit) 
+        {
+            square2.gameObject.transform.GetChild(0).transform.position = square1.gameObject.transform.position;
+            square2.gameObject.transform.GetChild(0).transform.SetParent(square1.transform);
+            
+            
+        }
+        square2.unitGroup = saveug;
+        MakeMovement();
+        ClearSquares();
+    }
+
+    public void ClearSquares()
+    {
+        for(int i = 0; i < squares.transform.childCount; i++)
+        {
+            squares.transform.GetChild(i).GetComponent<Image>().color = Color.white;
+            squares.transform.GetChild(i).GetComponent<SquareType>().DeactivateChange();
+        }
+    }
+    
 }
