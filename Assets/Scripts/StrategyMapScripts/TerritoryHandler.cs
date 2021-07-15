@@ -32,6 +32,7 @@ public class TerritoryHandler : MonoBehaviour
     public TerritoryStats TerritoryStats
     {
         get { return territoryStats; }
+        set { territoryStats = value; }
     }
     public SpriteRenderer SpriteRender
     {

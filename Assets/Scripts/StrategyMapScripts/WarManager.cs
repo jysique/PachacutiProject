@@ -384,7 +384,7 @@ public class WarManager : MonoBehaviour
             {
                 DateTableHandler.instance.PauseButton();
                 battleCanvas.SetActive(true);
-                CombatManager.instance.StartWar(
+                /*CombatManager.instance.StartWar(
                     _warriorsSword,
                     _warriorsLance,
                     _warriorsAxe,
@@ -393,7 +393,7 @@ public class WarManager : MonoBehaviour
                     otherTerritory.TerritoryStats.Territory.Axemen.NumbersUnit,
                     attacker.TerritoryStats.Territory.TypePlayer,
                     otherTerritory.TerritoryStats.Territory.TypePlayer,
-                    attacker,otherTerritory);
+                    attacker,otherTerritory);*/
                 return;
             }
             if (otherTerritory.war)

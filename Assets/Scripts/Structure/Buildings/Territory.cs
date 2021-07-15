@@ -38,6 +38,7 @@ public class Territory
     [SerializeField] private Stable stableTerritory = new Stable();
     [SerializeField] private Archery archeryTerritory = new Archery();
 
+    [SerializeField] private List<SquareType.TYPESQUARE> tiles = new List<SquareType.TYPESQUARE>();
 
     private int costImproveSpeedPopulation = 10;
     private int costImproveLimitPopulation = 10;
@@ -142,6 +143,10 @@ public class Territory
     {
         get { return typePlayer; }
         set { typePlayer = value; }
+    }
+    public List<SquareType.TYPESQUARE> Tiles
+    {
+        get { return tiles; }
     }
     public bool AllBuildsLevels()
     {

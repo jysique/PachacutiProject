@@ -5,19 +5,14 @@ using UnityEngine;
 
 public class UnitGroup
 {
-    public enum TYPE
-    {
-        SWORD,
-        SPEAR,
-        AXE
-    }
-    TYPE type;
+    
+    string type;
     int quantity;
     bool defense;
     Territory.TYPEPLAYER typePlayer;
     GameObject unitsGO;
 
-    public UnitGroup(Territory.TYPEPLAYER tp,TYPE t, int q, GameObject ugo)
+    public UnitGroup(Territory.TYPEPLAYER tp,string t, int q, GameObject ugo)
     {
         unitsGO = ugo;
         typePlayer = tp;
@@ -52,7 +47,7 @@ public class UnitGroup
         set { typePlayer = value; }
     }
 
-    public TYPE Type
+    public string Type
     {
         get { return type; }
     }

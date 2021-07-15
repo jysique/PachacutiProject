@@ -19,6 +19,19 @@ public class Troop
         AddElement("Axeman", 2, c);
 
     }
+    public List<string> Types
+    {
+        get { return types; }
+    }
+    public List<int> Positions
+    {
+        get { return positions; }
+    }
+    public List<int> Numbers
+    {
+        get { return numbers; }
+    }
+
     public void AddElement(string _type, int _position, int _number)
     {
         types.Add(_type);
