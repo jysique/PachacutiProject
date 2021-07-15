@@ -23,11 +23,15 @@ public class AlertOption : MonoBehaviour
         closeAlertBtn.onClick.AddListener(() => CloseAlertBtn());
         alertBtn.onClick.AddListener(() => OpenTabEvent());
     }
-    public void Init(string type,string iconId,TerritoryHandler focus= null)
+    public void Init(string type,string iconId,TerritoryHandler focus= null,string textToAdd = "")
     {
         this.type = type;
         tittleAlertText.text = GameMultiLang.GetTraduction(type + "_title");
         suggertAlertText.text = GameMultiLang.GetTraduction(type + "_sugg");
+        if (textToAdd.Length >0 )
+        {
+            suggertAlertText.text = suggertAlertText.text.Replace("TERRITORY", textToAdd);
+        }
         focusTerritory = focus;
     }
     void CloseAlertBtn()

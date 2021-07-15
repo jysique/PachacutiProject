@@ -2174,7 +2174,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.029000001, y: 0.023548566}
   m_AnchorMax: {x: 0.9777585, y: 0.9061871}
-  m_AnchoredPosition: {x: -0.020019531, y: -4.8079834}
+  m_AnchoredPosition: {x: -0.020019531, y: -4.807968}
   m_SizeDelta: {x: 1.67, y: -8.966}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &89653454
@@ -3336,7 +3336,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.337}
   m_AnchorMax: {x: 1, y: 0.5083289}
-  m_AnchoredPosition: {x: 0.12475586, y: 46.963676}
+  m_AnchoredPosition: {x: 0.12475586, y: 46.963657}
   m_SizeDelta: {x: -0.29943848, y: 18.188126}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &128476422
@@ -3732,6 +3732,9 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
+    width: 0
+    height: 0
+    numberOfBuildings: 0
     name: Paucartambo
     isClaim: 0
     region: 
@@ -3842,16 +3845,6 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    buildings:
-    - CreateBuilding
-    - Farm
-    - GoldMine
-    - Fortress
-    - Academy
-    - Barracks
-    - Castle
-    - Stable
-    - Archery
   paddingX: -10
   paddingY: -20
   sprite: {fileID: 0}
@@ -4451,6 +4444,9 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
+    width: 0
+    height: 0
+    numberOfBuildings: 0
     name: Urubamba
     isClaim: 0
     region: 
@@ -4561,16 +4557,6 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    buildings:
-    - CreateBuilding
-    - Farm
-    - GoldMine
-    - Fortress
-    - Academy
-    - Barracks
-    - Castle
-    - Stable
-    - Archery
   paddingX: 0
   paddingY: 0
   sprite: {fileID: 0}
@@ -6177,6 +6163,9 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
+    width: 0
+    height: 0
+    numberOfBuildings: 0
     name: Masisea
     isClaim: 0
     region: 
@@ -6287,16 +6276,6 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    buildings:
-    - CreateBuilding
-    - Farm
-    - GoldMine
-    - Fortress
-    - Academy
-    - Barracks
-    - Castle
-    - Stable
-    - Archery
   paddingX: 0
   paddingY: 0
   sprite: {fileID: 0}
@@ -6794,7 +6773,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.026121186, y: 0.5437914}
   m_AnchorMax: {x: 0.2544909, y: 0.9425828}
-  m_AnchoredPosition: {x: 0.9998779, y: 0.50920105}
+  m_AnchoredPosition: {x: 0.9999695, y: 0.50920105}
   m_SizeDelta: {x: 0.73999786, y: 2.8600006}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &298918814
@@ -7051,6 +7030,9 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
+    width: 0
+    height: 0
+    numberOfBuildings: 0
     name: "I\xF1apari"
     isClaim: 0
     region: 
@@ -7161,16 +7143,6 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    buildings:
-    - CreateBuilding
-    - Farm
-    - GoldMine
-    - Fortress
-    - Academy
-    - Barracks
-    - Castle
-    - Stable
-    - Archery
   paddingX: 50
   paddingY: -150
   sprite: {fileID: 0}
@@ -7578,6 +7550,9 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
+    width: 0
+    height: 0
+    numberOfBuildings: 0
     name: Quispicanchi
     isClaim: 0
     region: 
@@ -7688,16 +7663,6 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    buildings:
-    - CreateBuilding
-    - Farm
-    - GoldMine
-    - Fortress
-    - Academy
-    - Barracks
-    - Castle
-    - Stable
-    - Archery
   paddingX: -20
   paddingY: -50
   sprite: {fileID: 0}
@@ -8540,7 +8505,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.017, y: 0.015375941}
   m_AnchorMax: {x: 0.9850001, y: 0.54923534}
-  m_AnchoredPosition: {x: -0.38241577, y: -0.47998047}
+  m_AnchoredPosition: {x: -0.3824463, y: -0.47998047}
   m_SizeDelta: {x: 0.31999993, y: 0.8499985}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &378084251
@@ -8618,7 +8583,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.019592822, y: 0.053000003}
   m_AnchorMax: {x: 0.9851517, y: 0.569}
-  m_AnchoredPosition: {x: -1.4324493, y: 0.77001953}
+  m_AnchoredPosition: {x: -1.4326324, y: 0.77001953}
   m_SizeDelta: {x: -0.5699997, y: 0.58999634}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &381020032
@@ -9041,7 +9006,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.030787874, y: 0.040102433}
   m_AnchorMax: {x: 0.568727, y: 0.19659029}
-  m_AnchoredPosition: {x: -1.9049988, y: -0.49706268}
+  m_AnchoredPosition: {x: -1.9049988, y: -0.4970703}
   m_SizeDelta: {x: 3.800003, y: 1.2900009}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &396667126
@@ -9366,6 +9331,9 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
+    width: 0
+    height: 0
+    numberOfBuildings: 0
     name: Chaccho
     isClaim: 0
     region: 
@@ -9476,16 +9444,6 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    buildings:
-    - CreateBuilding
-    - Farm
-    - GoldMine
-    - Fortress
-    - Academy
-    - Barracks
-    - Castle
-    - Stable
-    - Archery
   paddingX: 0
   paddingY: 0
   sprite: {fileID: 0}
@@ -10243,6 +10201,9 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
+    width: 0
+    height: 0
+    numberOfBuildings: 0
     name: Espinar
     isClaim: 0
     region: 
@@ -10353,16 +10314,6 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    buildings:
-    - CreateBuilding
-    - Farm
-    - GoldMine
-    - Fortress
-    - Academy
-    - Barracks
-    - Castle
-    - Stable
-    - Archery
   paddingX: 0
   paddingY: 40
   sprite: {fileID: 0}
@@ -10860,6 +10811,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   territoryList: []
   territorySelected: {fileID: 0}
+  areas: []
 --- !u!4 &486223160
 Transform:
   m_ObjectHideFlags: 0
@@ -11078,7 +11030,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.38300002, y: 0.08157394}
   m_AnchorMax: {x: 0.648, y: 0.63386977}
-  m_AnchoredPosition: {x: 0.000045776367, y: -1.5950108}
+  m_AnchoredPosition: {x: 0.000045776367, y: -1.5950127}
   m_SizeDelta: {x: -0.6800003, y: -0.23999977}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &490927920
@@ -12610,6 +12562,9 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
+    width: 0
+    height: 0
+    numberOfBuildings: 0
     name: LaConvencion
     isClaim: 0
     region: 
@@ -12667,7 +12622,7 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 1
+      number: 0
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -12680,7 +12635,7 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 1
+      number: 0
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -12693,7 +12648,7 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 1
+      number: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -12720,16 +12675,6 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    buildings:
-    - CreateBuilding
-    - Farm
-    - GoldMine
-    - Fortress
-    - Academy
-    - Barracks
-    - Castle
-    - Stable
-    - Archery
   paddingX: 0
   paddingY: 0
   sprite: {fileID: 0}
@@ -12917,7 +12862,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.51500005, y: 0.09252045}
   m_AnchorMax: {x: 0.931119, y: 0.5}
-  m_AnchoredPosition: {x: 77.39978, y: -29.790024}
+  m_AnchoredPosition: {x: 77.399796, y: -29.790026}
   m_SizeDelta: {x: -114.63, y: -17.66}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &589492775
@@ -15835,6 +15780,9 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
+    width: 0
+    height: 0
+    numberOfBuildings: 0
     name: Acomayo
     isClaim: 0
     region: 
@@ -15945,16 +15893,6 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    buildings:
-    - CreateBuilding
-    - Farm
-    - GoldMine
-    - Fortress
-    - Academy
-    - Barracks
-    - Castle
-    - Stable
-    - Archery
   paddingX: 0
   paddingY: 0
   sprite: {fileID: 0}
@@ -16428,7 +16366,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1548390072}
   m_HandleRect: {fileID: 1548390071}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -17669,6 +17607,9 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
+    width: 0
+    height: 0
+    numberOfBuildings: 0
     name: Yarinacocha
     isClaim: 0
     region: 
@@ -17779,16 +17720,6 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    buildings:
-    - CreateBuilding
-    - Farm
-    - GoldMine
-    - Fortress
-    - Academy
-    - Barracks
-    - Castle
-    - Stable
-    - Archery
   paddingX: 0
   paddingY: -100
   sprite: {fileID: 0}
@@ -18354,7 +18285,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.24333224}
-  m_AnchoredPosition: {x: 0.5003052, y: -4.3000336}
+  m_AnchoredPosition: {x: 0.5003052, y: -4.300049}
   m_SizeDelta: {x: -0.02, y: -7.83}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &913405924
@@ -18431,6 +18362,9 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
+    width: 0
+    height: 0
+    numberOfBuildings: 0
     name: Canchis
     isClaim: 0
     region: 
@@ -18541,16 +18475,6 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    buildings:
-    - CreateBuilding
-    - Farm
-    - GoldMine
-    - Fortress
-    - Academy
-    - Barracks
-    - Castle
-    - Stable
-    - Archery
   paddingX: 0
   paddingY: -10
   sprite: {fileID: 0}
@@ -18768,6 +18692,9 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
+    width: 0
+    height: 0
+    numberOfBuildings: 0
     name: Yurua
     isClaim: 0
     region: 
@@ -18878,16 +18805,6 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    buildings:
-    - CreateBuilding
-    - Farm
-    - GoldMine
-    - Fortress
-    - Academy
-    - Barracks
-    - Castle
-    - Stable
-    - Archery
   paddingX: 0
   paddingY: -50
   sprite: {fileID: 0}
@@ -18979,7 +18896,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.038762163, y: 0.11418636}
   m_AnchorMax: {x: 0.353619, y: 0.9148137}
-  m_AnchoredPosition: {x: -0.10977173, y: 0.2081337}
+  m_AnchoredPosition: {x: -0.10977936, y: 0.2081337}
   m_SizeDelta: {x: -0.5275574, y: -0.7710457}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &934718069
@@ -19320,7 +19237,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.305}
-  m_AnchoredPosition: {x: -0.119903564, y: -1.3707123}
+  m_AnchoredPosition: {x: -0.119903564, y: -1.3706818}
   m_SizeDelta: {x: 0.29, y: 1.58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &949515573
@@ -19784,6 +19701,9 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
+    width: 0
+    height: 0
+    numberOfBuildings: 0
     name: Canas
     isClaim: 0
     region: 
@@ -19894,16 +19814,6 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    buildings:
-    - CreateBuilding
-    - Farm
-    - GoldMine
-    - Fortress
-    - Academy
-    - Barracks
-    - Castle
-    - Stable
-    - Archery
   paddingX: -20
   paddingY: -30
   sprite: {fileID: 0}
@@ -20925,6 +20835,9 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
+    width: 0
+    height: 0
+    numberOfBuildings: 0
     name: Tahuamanu
     isClaim: 0
     region: 
@@ -21035,16 +20948,6 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    buildings:
-    - CreateBuilding
-    - Farm
-    - GoldMine
-    - Fortress
-    - Academy
-    - Barracks
-    - Castle
-    - Stable
-    - Archery
   paddingX: 0
   paddingY: 0
   sprite: {fileID: 0}
@@ -22170,6 +22073,9 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
+    width: 0
+    height: 0
+    numberOfBuildings: 0
     name: Curimana
     isClaim: 0
     region: 
@@ -22280,16 +22186,6 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    buildings:
-    - CreateBuilding
-    - Farm
-    - GoldMine
-    - Fortress
-    - Academy
-    - Barracks
-    - Castle
-    - Stable
-    - Archery
   paddingX: 0
   paddingY: -50
   sprite: {fileID: 0}
@@ -22650,6 +22546,9 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
+    width: 0
+    height: 0
+    numberOfBuildings: 0
     name: Inambari
     isClaim: 0
     region: 
@@ -22760,16 +22659,6 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    buildings:
-    - CreateBuilding
-    - Farm
-    - GoldMine
-    - Fortress
-    - Academy
-    - Barracks
-    - Castle
-    - Stable
-    - Archery
   paddingX: 0
   paddingY: -50
   sprite: {fileID: 0}
@@ -24997,6 +24886,9 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
+    width: 0
+    height: 0
+    numberOfBuildings: 0
     name: Tambopata
     isClaim: 0
     region: 
@@ -25107,16 +24999,6 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    buildings:
-    - CreateBuilding
-    - Farm
-    - GoldMine
-    - Fortress
-    - Academy
-    - Barracks
-    - Castle
-    - Stable
-    - Archery
   paddingX: -100
   paddingY: -50
   sprite: {fileID: 0}
@@ -26116,6 +25998,9 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
+    width: 0
+    height: 0
+    numberOfBuildings: 0
     name: Purus
     isClaim: 0
     region: 
@@ -26226,16 +26111,6 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    buildings:
-    - CreateBuilding
-    - Farm
-    - GoldMine
-    - Fortress
-    - Academy
-    - Barracks
-    - Castle
-    - Stable
-    - Archery
   paddingX: 0
   paddingY: -100
   sprite: {fileID: 0}
@@ -28230,7 +28105,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.3250141}
+  m_AnchoredPosition: {x: 0, y: -0.32501316}
   m_SizeDelta: {x: -0.2800293, y: 0.84000015}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1381826186
@@ -28884,7 +28759,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.029000001, y: 0.023548566}
   m_AnchorMax: {x: 0.9777585, y: 0.9061871}
-  m_AnchoredPosition: {x: -0.020019531, y: -4.819977}
+  m_AnchoredPosition: {x: -0.020019531, y: -4.8199615}
   m_SizeDelta: {x: 1.67, y: -9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1391906898
@@ -29205,6 +29080,9 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
+    width: 0
+    height: 0
+    numberOfBuildings: 0
     name: Chumbivilcas
     isClaim: 0
     region: 
@@ -29315,16 +29193,6 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    buildings:
-    - CreateBuilding
-    - Farm
-    - GoldMine
-    - Fortress
-    - Academy
-    - Barracks
-    - Castle
-    - Stable
-    - Archery
   paddingX: 10
   paddingY: -30
   sprite: {fileID: 0}
@@ -31149,6 +31017,9 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
+    width: 0
+    height: 0
+    numberOfBuildings: 0
     name: Manu
     isClaim: 0
     region: 
@@ -31259,16 +31130,6 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    buildings:
-    - CreateBuilding
-    - Farm
-    - GoldMine
-    - Fortress
-    - Academy
-    - Barracks
-    - Castle
-    - Stable
-    - Archery
   paddingX: 10
   paddingY: 0
   sprite: {fileID: 0}
@@ -31862,7 +31723,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 64.03412, y: -912.3799}
+  m_AnchoredPosition: {x: 64.03418, y: -912.37964}
   m_SizeDelta: {x: -1660.7789, y: -956.12}
   m_Pivot: {x: -0.03491106, y: 1.0390935}
 --- !u!222 &1548868806
@@ -32603,6 +32464,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedTerritory:
+    width: 0
+    height: 0
+    numberOfBuildings: 0
     name: 
     isClaim: 0
     region: 
@@ -32713,16 +32577,6 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    buildings:
-    - CreateBuilding
-    - Farm
-    - GoldMine
-    - Fortress
-    - Academy
-    - Barracks
-    - Castle
-    - Stable
-    - Archery
   irrigateLevel: {fileID: 2135157835}
   goldMineLevel: {fileID: 1945386951}
   fortressLevel: {fileID: 1187320710}
@@ -32755,6 +32609,7 @@ MonoBehaviour:
   menuBlockBuildings: {fileID: 195125298}
   menuBlockBuildWaste: {fileID: 623535585}
   dropdownBuildings: {fileID: 226222566}
+  aa: {fileID: 6750863535329728878}
 --- !u!1 &1617681545
 GameObject:
   m_ObjectHideFlags: 0
@@ -33611,6 +33466,9 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
+    width: 0
+    height: 0
+    numberOfBuildings: 0
     name: Calca
     isClaim: 0
     region: 
@@ -33721,16 +33579,6 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    buildings:
-    - CreateBuilding
-    - Farm
-    - GoldMine
-    - Fortress
-    - Academy
-    - Barracks
-    - Castle
-    - Stable
-    - Archery
   paddingX: 0
   paddingY: 0
   sprite: {fileID: 0}
@@ -33946,7 +33794,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.017, y: 0.015375941}
   m_AnchorMax: {x: 0.9850001, y: 0.9742791}
-  m_AnchoredPosition: {x: -0.8930054, y: 0.019317627}
+  m_AnchoredPosition: {x: -0.8930359, y: 0.019317627}
   m_SizeDelta: {x: 0.4584961, y: 0.572876}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1657764103
@@ -34605,7 +34453,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.9075241, y: 0.1770935}
+  m_AnchoredPosition: {x: 0.9075279, y: 0.1770935}
   m_SizeDelta: {x: 1.815, y: -0.18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1694867416
@@ -35480,6 +35328,9 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
+    width: 0
+    height: 0
+    numberOfBuildings: 0
     name: Tahuania
     isClaim: 0
     region: 
@@ -35590,16 +35441,6 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    buildings:
-    - CreateBuilding
-    - Farm
-    - GoldMine
-    - Fortress
-    - Academy
-    - Barracks
-    - Castle
-    - Stable
-    - Archery
   paddingX: 0
   paddingY: 0
   sprite: {fileID: 0}
@@ -35722,6 +35563,9 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
+    width: 0
+    height: 0
+    numberOfBuildings: 0
     name: Huepetuhe
     isClaim: 0
     region: 
@@ -35832,16 +35676,6 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    buildings:
-    - CreateBuilding
-    - Farm
-    - GoldMine
-    - Fortress
-    - Academy
-    - Barracks
-    - Castle
-    - Stable
-    - Archery
   paddingX: -30
   paddingY: -30
   sprite: {fileID: 0}
@@ -36146,7 +35980,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -101.68995, y: -0.0025100708}
+  m_AnchoredPosition: {x: -101.68994, y: -0.0025100708}
   m_SizeDelta: {x: -203.37, y: -0.01}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1750732951
@@ -36339,7 +36173,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.065000005, y: 0.39000002}
   m_AnchorMax: {x: 0.294, y: 0.65827054}
-  m_AnchoredPosition: {x: 0.60009766, y: 1.4285011}
+  m_AnchoredPosition: {x: 0.60006714, y: 1.4285011}
   m_SizeDelta: {x: 2, y: 0.8689995}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1760856199
@@ -36654,7 +36488,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.0075270683, y: 0.020896813}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.6799927, y: -2.079605}
+  m_AnchoredPosition: {x: -0.6799927, y: -2.0796661}
   m_SizeDelta: {x: -0.44000006, y: -4.37}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1769767212
@@ -39090,7 +38924,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.38500002, y: 0.08157394}
   m_AnchorMax: {x: 0.648, y: 0.63386977}
-  m_AnchoredPosition: {x: -0.49995422, y: -1.5949707}
+  m_AnchoredPosition: {x: -0.49995422, y: -1.5949697}
   m_SizeDelta: {x: 0.3199997, y: -0.23999977}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1882229257
@@ -40043,7 +39877,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.16167112}
   m_AnchorMax: {x: 1, y: 0.337}
-  m_AnchoredPosition: {x: 0.12475586, y: 27.78124}
+  m_AnchoredPosition: {x: 0.12475586, y: 27.78126}
   m_SizeDelta: {x: -2.2994385, y: 18.038086}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1940143359
@@ -41623,7 +41457,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.040000003, y: 0.10959318}
   m_AnchorMax: {x: 0.36371917, y: 0.8943478}
-  m_AnchoredPosition: {x: 0.49998474, y: -0.11700058}
+  m_AnchoredPosition: {x: 0.49998474, y: -0.11700249}
   m_SizeDelta: {x: -0.5275574, y: 1.0214863}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2027348084
@@ -41750,7 +41584,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.02523801, y: 0.53300005}
   m_AnchorMax: {x: 0.252643, y: 0.86424035}
-  m_AnchoredPosition: {x: 1.2282715, y: 1.0992203}
+  m_AnchoredPosition: {x: 1.228302, y: 1.0992203}
   m_SizeDelta: {x: 0.66999817, y: -1.5900002}
   m_Pivot: {x: 1.0417047, y: 0.13231432}
 --- !u!114 &2032278077
@@ -42080,6 +41914,9 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
+    width: 0
+    height: 0
+    numberOfBuildings: 0
     name: Qosqo
     isClaim: 0
     region: 
@@ -42190,16 +42027,6 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    buildings:
-    - CreateBuilding
-    - Farm
-    - GoldMine
-    - Fortress
-    - Academy
-    - Barracks
-    - Castle
-    - Stable
-    - Archery
   paddingX: 0
   paddingY: -10
   sprite: {fileID: 0}
@@ -43200,7 +43027,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.305}
-  m_AnchoredPosition: {x: 0.58999634, y: -0.71035767}
+  m_AnchoredPosition: {x: 0.58999634, y: -0.7103424}
   m_SizeDelta: {x: 0.59, y: 2.02}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2130016271

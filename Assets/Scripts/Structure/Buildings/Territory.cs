@@ -219,24 +219,44 @@ public class Territory
         }
         return unitCombat;
     }
-
-    public List<string> BuildingList
+    public List<string> GetListBuildings()
     {
-        get { return buildings; }
+        List<string> buildings = new List<string>();
+        buildings.Add("CreateBuilding");
+        if (farmTerritory.Status < 0)
+        {
+            buildings.Add("Farm");
+        }
+        if (goldMineTerritory.Status < 0)
+        {
+            buildings.Add("GoldMine");
+        }
+        if (fortressTerritory.Status < 0)
+        {
+            buildings.Add("Fortress");
+        }
+        if (academyTerritory.Status < 0)
+        {
+            buildings.Add("Academy");
+        }
+        if (barracksTerritory.Status < 0)
+        {
+            buildings.Add("Barracks");
+        }
+        if (castleTerritory.Status < 0)
+        {
+            buildings.Add("Castle");
+        }
+        if (stableTerritory.Status < 0)
+        {
+            buildings.Add("Stable");
+        }
+        if (archeryTerritory.Status < 0)
+        {
+            buildings.Add("Archery");
+        }        
+         return buildings;
     }
-    [SerializeField]
-    private List<string> buildings = new List<string>()
-    {
-        "CreateBuilding",
-        "Farm",
-        "GoldMine",
-        "Fortress",
-        "Academy",
-        "Barracks",
-        "Castle",
-        "Stable",
-        "Archery"
-    };
 
     public Building GetBuilding(Building building)
     {

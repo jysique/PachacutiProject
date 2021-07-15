@@ -162,6 +162,16 @@ public class InGameMenuHandler : MonoBehaviour
     /// </summary>
     private void UpdateBuildingsMenu()
     {
+        Transform gridLayout = containerBuildings.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
+        foreach (Transform child in gridLayout.transform)
+        {
+            if (child.name != "CreateBuiding")
+            {
+                Destroy(child.gameObject);
+
+            }
+        }
+
         menuBlockBuildings.SetActive(false);
         menuBlockBuildWaste.SetActive(false);
         if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
@@ -172,7 +182,7 @@ public class InGameMenuHandler : MonoBehaviour
         {
             menuBlockBuildWaste.SetActive(true);
         }
-        UpdateDropdown(dropdownBuildings, selectedTerritory.BuildingList);
+        UpdateDropdown(dropdownBuildings, selectedTerritory.GetListBuildings());
         UpdateBuildings(selectedTerritory);
     }
     /// <summary>
@@ -204,6 +214,7 @@ public class InGameMenuHandler : MonoBehaviour
     void Update()
     {
         selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().TerritoryStats.Territory;
+        CreateBuidingGO.transform.SetAsLastSibling();
         UpdateAllText();
     }
 
@@ -220,7 +231,6 @@ public class InGameMenuHandler : MonoBehaviour
         if (goldPlayer >= building.CostToUpgrade)
         {
             goldPlayer -= territoryHandler.TerritoryStats.Territory.GetBuilding(building).CostToUpgrade;
-
             ShowFloatingText("+1 " + GameMultiLang.GetTraduction(building.Name) + " level", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
             ShowFloatingText("-" + territoryHandler.TerritoryStats.Territory.GetBuilding(building).CostToUpgrade.ToString(), "TextFloating", ResourceTableHandler.instance.GoldAnimation, Color.white);
         }
@@ -323,28 +333,33 @@ public class InGameMenuHandler : MonoBehaviour
             {
                 territory.numberOfBuildings++;
                 building.Status++;
+               //building.ImproveBuilding(1);
+                //building.ImproveCostUpgrade(1);
                 ImproveBuildingButton(building);
                 InstantiateBuilding(building);
+                
             }
             else
             {
-                print("alcanzaste maximo numero de edificios");
+                AlertManager.AlertLimitBuilding(territory.name);
             }
 
         }
         
-        UpdateDropdown(dropdownBuildings, territory.BuildingList);
+        UpdateDropdown(dropdownBuildings, territory.GetListBuildings());
         dropdownBuildings.value = 0;
     }
-    
+    [SerializeField] GameObject CreateBuidingGO;
     public void InstantiateBuilding(Building building)
     {
-        if (building.Status>=0)
+        if (building.Level>0|| building.Status>-1)
         {
+            
             Transform gridLayout = containerBuildings.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
             GameObject buildingOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/BuildingOption")) as GameObject;
             buildingOption.name = building.GetType().ToString();
             buildingOption.transform.SetParent(gridLayout.transform, false);
+            
             if (building.PositionInGridLayout< 0)
             {
                 buildingOption.transform.SetSiblingIndex(0);
@@ -353,24 +368,12 @@ public class InGameMenuHandler : MonoBehaviour
             {
                 buildingOption.transform.SetSiblingIndex(building.PositionInGridLayout);
             }
+            
             buildingOption.GetComponent<BuildOption>().InitializeBuildingOption(building);
-            selectedTerritory.BuildingList.Remove(building.GetType().ToString());
         }
     }
     public void UpdateBuildings(Territory territory)
     {
-        Transform gridLayout = containerBuildings.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
-        foreach (Transform child in gridLayout.transform)
-        {
-            if (child.name != "CreateBuiding")
-            {
-                Destroy(child.gameObject);
-            }
-            else
-            {
-                child.SetAsLastSibling();
-            }
-        }
         InstantiateBuilding(territory.FarmTerritory);
         InstantiateBuilding(territory.GoldMineTerritory);
         InstantiateBuilding(territory.FortressTerritory);

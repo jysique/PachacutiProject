@@ -114,6 +114,8 @@ Alert_LostTerr_title=Lost territory
 Alert_LostTerr_sugg=Click here to see the location
 Alert_NewExped_title=Exploration started
 Alert_NewExped_sugg=Click here to see more information
+Alert_LimitBuilding_title=Building limit
+Alert_LimitBuilding_sugg=You have reached the limit of buildings in TERRITORY 
 
 Farm=Farm
 GoldMine=Gold mine

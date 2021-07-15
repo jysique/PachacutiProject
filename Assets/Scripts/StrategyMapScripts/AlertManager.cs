@@ -28,7 +28,7 @@ public class AlertManager : MonoBehaviour
             alertContainer = this.gameObject;
         }
     }
-    public static void NewAlert(string alerttextId, string alertIconId = "", TerritoryHandler focusTerritory= null)
+    public static void NewAlert(string alerttextId, string alertIconId = "", TerritoryHandler focusTerritory= null,string textToAdd=null)
     {
       //  print("A|"+alerttextId);
         GameObject alertGo = (GameObject)Instantiate(instance.alertOption);
@@ -36,36 +36,41 @@ public class AlertManager : MonoBehaviour
         alertGo.GetComponent<AlertOption>().Init(alerttextId,alertIconId,focusTerritory);
         alertGo.transform.localScale = Vector3.one;
     }
-    public static void NewAlert(string alerttextID)
+    public static void NewAlertText(string alerttextID,string textToAdd = null)
     {
-        NewAlert("Alert_"+ alerttextID,"");
+        NewAlert("Alert_"+ alerttextID,"",null,textToAdd);
     }
-    public static void NewAlert(string alerttextID, TerritoryHandler focusObject)
+    public static void NewAlertTerrytoryHandler(string alerttextID, TerritoryHandler focusObject)
     {
         NewAlert("Alert_" + alerttextID, "", focusObject);
     }
     public static void AlertEvent()
     {
-        NewAlert("NewEvent");
+        NewAlertText("NewEvent");
     }
     public static void AlertExpedition()
     {
-        NewAlert("NewExped");
+        NewAlertText("NewExped");
     }
     public static void AlertConquered(TerritoryHandler territoryfocus)
     {
-        NewAlert("NewConq", territoryfocus);
+        NewAlertTerrytoryHandler("NewConq", territoryfocus);
     }
     public static void AlertEventEnd()
     {
-        NewAlert("EndEvent");
+        NewAlertText("EndEvent");
+    }
+
+    public static void AlertLimitBuilding(string territory)
+    {
+        NewAlertText("LimitBuilding",territory);
     }
     public static void AlertMission()
     {
-        NewAlert("NewMission");
+        NewAlertText("NewMission");
     }
     public static void AlertLost(TerritoryHandler territoryfocus)
     {
-        NewAlert("LostTerr", territoryfocus);
+        NewAlertTerrytoryHandler("LostTerr", territoryfocus);
     }
 }

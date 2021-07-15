@@ -171,7 +171,7 @@ public class TerritoryManager : MonoBehaviour
         territoryHandler.SpriteRender.material = territoryHandler.OutlineMaterial;
         territoryHandler.SpriteRender.sortingOrder = -8;
         territorySelected = territoryHandler.gameObject;
-        InGameMenuHandler.instance.UpdateMenu();
+      //  InGameMenuHandler.instance.UpdateMenu();
     }
     /// <summary>
     /// Returns a territory gameObject by _name 

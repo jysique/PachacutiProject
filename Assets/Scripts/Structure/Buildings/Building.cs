@@ -8,25 +8,26 @@ public class Building
     private float atributteSpeed;
     private int atributteLimit;
     private float atributteToAdd;
-
+    
     private int costToUpgrade = 7;
     private bool canUpgrade = true;
 
     private TimeSimulated init;
     private float daysToBuild = 4;
     private float daysTotal = 0;
+    private int postion = -1;
     private int status = -1;
-    private int position=-1;
-    public int PositionInGridLayout
-    {
-        get { return position; }
-        set { position = value; }
-    }
     public int Status
     {
         get { return status; }
         set { status = value; }
     }
+    public int PositionInGridLayout
+    {
+        get { return postion; }
+        set { postion = value; }
+    }
+    
     public string Name
     {
         get { return nameBuilding; }

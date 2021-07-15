@@ -114,6 +114,8 @@ Alert_LostTerr_title=Territorio perdido
 Alert_LostTerr_sugg=Haga clic aquí para ver la ubicacion
 Alert_NewExped_title=Exploracion iniciada
 Alert_NewExped_sugg=Haga clic aquí para ver mas informacion
+Alert_LimitBuilding_title=Limite de edificios
+Alert_LimitBuilding_sugg=Has llegado al limite de edificios en TERRITORY
 
 Farm=Granjas
 GoldMine=Mina de oro

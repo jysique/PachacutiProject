@@ -13,7 +13,7 @@ public class BuildOption : MonoBehaviour
     [SerializeField] private Image linearBarProgress;
     [SerializeField] private GameObject block;
     
-    private Building territoryBuilding;
+    [SerializeField] private Building territoryBuilding;
     private bool init;
     
 
@@ -27,7 +27,6 @@ public class BuildOption : MonoBehaviour
     private void Awake()
     {
         init = false;
-       // linearBarProgress = this.gameObject.transform.GetChild(5).gameObject.GetComponent<Image>();
     }
     void Start()
     {
@@ -82,6 +81,11 @@ public class BuildOption : MonoBehaviour
                 s2 = s + t.StableTerritory.AtributteSpeed;
                 UploadCost(InGameMenuHandler.instance.GoldPlayer, t.StableTerritory.CostToUpgrade, "gold", s, s2);
                 break;
+            case "Archery":
+                s = t.ArcheryTerritory.SpeedArcher;
+                s2 = s + t.ArcheryTerritory.AtributteSpeed;
+                UploadCost(InGameMenuHandler.instance.GoldPlayer, t.ArcheryTerritory.CostToUpgrade, "gold", s, s2);
+                break;
             default:
                 break;
         }
@@ -108,11 +112,12 @@ public class BuildOption : MonoBehaviour
             CheckBlock();
             SetStatus();
             CheckStatusImprove();
+            UpdateElements();
             int a = this.transform.GetSiblingIndex();
             territoryBuilding.PositionInGridLayout = a;
         }
     }
-    void UpdateElements()
+    public void UpdateElements()
     {
         nameTxt.text = GameMultiLang.GetTraduction(territoryBuilding.Name);
         nameBlockTxt.text = GameMultiLang.GetTraduction("Press") + GameMultiLang.GetTraduction(territoryBuilding.Name);

@@ -57,7 +57,7 @@ public class TerritoryHandler : MonoBehaviour
         {
             TerritoryManager.instance.territorySelected = this.gameObject;
             sr.material = outlineMaterial;
-            InGameMenuHandler.instance.UpdateMenu();
+//            InGameMenuHandler.instance.UpdateMenu();
             WarManager.instance.selected = this;
             WarManager.instance.SetWarStatus(this.war);
             //ShowAdjacentTerritories();
@@ -115,7 +115,7 @@ public class TerritoryHandler : MonoBehaviour
         
         if (Input.GetMouseButtonDown(1) && state == 0)
         {
-            
+            print("a");
             TerritoryStats.Territory.SetSelected(true);
             ShowStateMenu();
             MakeOutline();
@@ -161,8 +161,11 @@ public class TerritoryHandler : MonoBehaviour
                 TerritoryStats.Territory.SetSelected(true);
                 ShowStateMenu();
                 MakeOutline();
+                InGameMenuHandler.instance.UpdateMenu();
+                //InGameMenuHandler.instance.UpdateBuildings(this.territoryStats.Territory);
                 break;
             case 1:
+                print("c");
                 MenuManager.instance.ActivateSelectTroopsMenu(this);
                 HideAdjacentTerritories();
                 break;
@@ -254,4 +257,5 @@ public class TerritoryHandler : MonoBehaviour
         int gather = TerritoryStats.Territory.FoodReward;
         TerritoryStats.Territory.FoodReward-= gather;
     }
+
 }

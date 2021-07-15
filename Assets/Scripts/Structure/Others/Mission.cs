@@ -50,8 +50,8 @@ public class Mission
     }
     public Mission()
     {
-        this.timeToFinish = UnityEngine.Random.Range(2, 6);
-        //this.timeToFinish = 1;
+      //  this.timeToFinish = UnityEngine.Random.Range(2, 6);
+        this.timeToFinish = 1;
         this.missionStatus = STATUS.IN_PROGRESS;
     }
     public void GetFinishTimeMission()
