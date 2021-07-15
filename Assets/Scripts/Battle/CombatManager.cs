@@ -30,7 +30,7 @@ public class CombatManager : MonoBehaviour
     }
     void Start()
     {
-        turns = 10;
+        turns = 20;
         c = -1;//contador de turnos
         canvas = GameObject.Find("Battle");
 
@@ -52,15 +52,15 @@ public class CombatManager : MonoBehaviour
 
 
         //unidades
-        UnitType swordman = new UnitType("Swordsman", 10, 10, 1, new string[] { "Axeman"}, new string[] { "Lancer" }, Resources.Load<Sprite>("Textures/TemporalAssets/warriors/w1"));
+        UnitType swordman = new UnitType("Swordsman", 10, 100, 1, new string[] { "Axeman"}, new string[] { "Lancer" }, Resources.Load<Sprite>("Textures/TemporalAssets/warriors/w1"));
         unitTypes.Add("Swordsman", swordman);
-        UnitType lancer = new UnitType("Lancer", 15, 10, 1, new string[] { "Swordsman" }, new string[] { "Axeman" }, Resources.Load<Sprite>("Textures/TemporalAssets/warriors/spear"));
+        UnitType lancer = new UnitType("Lancer", 15, 85, 1, new string[] { "Swordsman" }, new string[] { "Axeman" }, Resources.Load<Sprite>("Textures/TemporalAssets/warriors/spear"));
         unitTypes.Add("Lancer", lancer);
-        UnitType axeman = new UnitType("Axeman", 20, 10, 1, new string[] { "Lancer" }, new string[] { "Swordsman" }, Resources.Load<Sprite>("Textures/TemporalAssets/warriors/axe"));
+        UnitType axeman = new UnitType("Axeman", 20, 75, 1, new string[] { "Lancer" }, new string[] { "Swordsman" }, Resources.Load<Sprite>("Textures/TemporalAssets/warriors/axe"));
         unitTypes.Add("Axeman", axeman);
-        UnitType archer = new UnitType("Archer", 10, 10, 2, new string[] { "Scout" }, new string[] { "Archer" }, Resources.Load<Sprite>("Textures/TemporalAssets/warriors/archer"));
+        UnitType archer = new UnitType("Archer", 10, 70, 2, new string[] { "Scout" }, new string[] { "Archer" }, Resources.Load<Sprite>("Textures/TemporalAssets/warriors/archer"));
         unitTypes.Add("Archer", archer);
-        UnitType scout = new UnitType("Scout", 10, 10, 1, new string[] { "Archer" }, new string[] { "Scout" }, Resources.Load<Sprite>("Textures/TemporalAssets/warriors/horseman"));
+        UnitType scout = new UnitType("Scout", 25, 70, 1, new string[] { "Archer" }, new string[] { "Scout" }, Resources.Load<Sprite>("Textures/TemporalAssets/warriors/horseman"));
         unitTypes.Add("Scout", scout);
 
 
@@ -237,7 +237,7 @@ public class CombatManager : MonoBehaviour
     public void FinishCombat()
     {
         c = -1;
-        turns = 10;
+        turns = 20;
         foreach (UnitGroup u in units)
         {
             //SetStats(u);
@@ -302,6 +302,7 @@ public class CombatManager : MonoBehaviour
         if (defenseGroup.Defense) damage /= 2;
         print(defenseGroup.Quantity);
         print(damage);
+
         defenseGroup.Quantity = defenseGroup.Quantity - damage;
 
         defenseGroup.UnitsGO.transform.GetChild(0).GetComponent<Text>().text = defenseGroup.Quantity.ToString();

@@ -18,6 +18,10 @@ public class SquareType : MonoBehaviour
     public TYPESQUARE typeSquare;
     public UnitGroup unitGroup;
 
+    private void Start()
+    {
+        DeactivateChange();
+    }
     public void MoveButton()
     {
         CombatManager.instance.ChangeUnits(index, CombatManager.instance.ActualUnitIndex());
