@@ -8,6 +8,5 @@ public class Axeman : UnitCombat
     {
         this.CharacterName = "Axeman";
         this.UnitName = "Axeman";
-        this.PlusDamage = 1;
     }
 }

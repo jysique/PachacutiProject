@@ -8,6 +8,5 @@ public class Archer: UnitCombat
     {
         this.CharacterName = "Archer";
         this.UnitName = "Archer";
-        this.PlusDamage = 1;
     }
 }

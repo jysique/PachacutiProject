@@ -8,6 +8,5 @@ public class Lancer:UnitCombat
     {
         this.CharacterName = "Lancer";
         this.UnitName = "Lancer";
-        this.PlusDamage = 4;
     }
 }

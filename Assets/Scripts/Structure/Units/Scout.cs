@@ -8,6 +8,5 @@ public class Scout : UnitCombat
     {
         this.CharacterName = "Scout";
         this.UnitName = "Scout";
-        this.PlusDamage = 4;
     }
 }
