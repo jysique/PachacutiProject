@@ -38,8 +38,8 @@ public class Territory
     [SerializeField] private Stable stableTerritory = new Stable();
     [SerializeField] private Archery archeryTerritory = new Archery();
 
-    [SerializeField] private List<SquareType.TYPESQUARE> tiles = new List<SquareType.TYPESQUARE>();
-
+   // [SerializeField] private List<SquareType.TYPESQUARE> tiles = new List<SquareType.TYPESQUARE>();
+    [SerializeField] private List<Ambience> ambienceList = new List<Ambience>();
     private int costImproveSpeedPopulation = 10;
     private int costImproveLimitPopulation = 10;
     private int addCost = 5;
@@ -144,9 +144,17 @@ public class Territory
         get { return typePlayer; }
         set { typePlayer = value; }
     }
+    /*
     public List<SquareType.TYPESQUARE> Tiles
     {
         get { return tiles; }
+        set { tiles = value; }
+    }
+    */
+    public List<Ambience> AmbiencesList
+    {
+        get { return ambienceList; }
+        set { ambienceList = value; }
     }
     public bool AllBuildsLevels()
     {
@@ -168,11 +176,11 @@ public class Territory
     
     public int Population
     {
-        get { return lancers.NumbersUnit 
-                + axemen.NumbersUnit
-                + swordsmen.NumbersUnit 
-                + scouts.NumbersUnit
-                + archers.NumbersUnit; }
+        get { return lancers.Quantity 
+                + axemen.Quantity
+                + swordsmen.Quantity 
+                + scouts.Quantity
+                + archers.Quantity; }
     }
     public int MotivationTerritory
     {
@@ -202,23 +210,23 @@ public class Territory
     {
         List<string> unitCombat = new List<string>();
         unitCombat.Add("SelectUnit");
-        if (swordsmen.NumbersUnit > 0)
+        if (swordsmen.Quantity > 0)
         {
             unitCombat.Add("Swordsman");
         }
-        if (lancers.NumbersUnit > 0)
+        if (lancers.Quantity > 0)
         {
             unitCombat.Add("Lancer");
         }
-        if (axemen.NumbersUnit > 0)
+        if (axemen.Quantity > 0)
         {
             unitCombat.Add("Axeman");
         }
-        if (scouts.NumbersUnit > 0)
+        if (scouts.Quantity > 0)
         {
             unitCombat.Add("Scout");
         }
-        if (archers.NumbersUnit > 0)
+        if (archers.Quantity > 0)
         {
             unitCombat.Add("Archer");
         }

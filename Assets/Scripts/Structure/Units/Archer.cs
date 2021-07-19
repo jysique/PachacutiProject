@@ -8,5 +8,13 @@ public class Archer: UnitCombat
     {
         this.CharacterName = "Archer";
         this.UnitName = "Archer";
+        this.CharacIconType = "warriors";
+        this.CharacIconIndex = "archer";
+        this.Attack = 10;
+        this.Precision = 70;
+        this.Range = 2;
+        this.StrongTo = new string[] { "Scout" };
+        this.WeakTo = new string[] { "Archer" };
+        //this.Picture = Resources.Load<Sprite>("Textures/TemporalAssets/warriors/archer");
     }
 }

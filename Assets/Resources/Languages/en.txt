@@ -98,7 +98,7 @@ GRACE_FOODD=+15 food.
 CONQUISTM=Assigns a military chied in TERRITORYEVENT territory.
 CONQUISTA=
 CONQUISTD=
-EXPLORATIONM=Exploration in progress.
+EXPLORATIONM=Exploration in progress. You have sent NUMBER units.
 EXPLORATIONA=
 EXPLORATIOND=
 

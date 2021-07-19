@@ -97,12 +97,12 @@ public class BotIA
                     TerritoryHandler te = a.GetComponent<TerritoryHandler>();
                     if (te.TerritoryStats.Territory.TypePlayer == typeBot)
                     {
-                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.NumbersUnit / 2, t.TerritoryStats.Territory.Lancers.NumbersUnit / 2, t.TerritoryStats.Territory.Axemen.NumbersUnit / 2));
-                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.NumbersUnit / 2, t.TerritoryStats.Territory.Lancers.NumbersUnit / 2, t.TerritoryStats.Territory.Axemen.NumbersUnit / 2));
-                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.NumbersUnit / 2, t.TerritoryStats.Territory.Lancers.NumbersUnit / 2, t.TerritoryStats.Territory.Axemen.NumbersUnit / 2));
-                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.NumbersUnit / 2, t.TerritoryStats.Territory.Lancers.NumbersUnit / 2, t.TerritoryStats.Territory.Axemen.NumbersUnit / 2));
-                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.NumbersUnit / 2, t.TerritoryStats.Territory.Lancers.NumbersUnit / 2, t.TerritoryStats.Territory.Axemen.NumbersUnit / 2));
-                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.NumbersUnit / 2, t.TerritoryStats.Territory.Lancers.NumbersUnit / 2, t.TerritoryStats.Territory.Axemen.NumbersUnit / 2));
+                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.Quantity / 2, t.TerritoryStats.Territory.Lancers.Quantity / 2, t.TerritoryStats.Territory.Axemen.Quantity / 2));
+                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.Quantity / 2, t.TerritoryStats.Territory.Lancers.Quantity / 2, t.TerritoryStats.Territory.Axemen.Quantity / 2));
+                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.Quantity / 2, t.TerritoryStats.Territory.Lancers.Quantity / 2, t.TerritoryStats.Territory.Axemen.Quantity / 2));
+                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.Quantity / 2, t.TerritoryStats.Territory.Lancers.Quantity / 2, t.TerritoryStats.Territory.Axemen.Quantity / 2));
+                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.Quantity / 2, t.TerritoryStats.Territory.Lancers.Quantity / 2, t.TerritoryStats.Territory.Axemen.Quantity / 2));
+                        options.Add(new OptionBot(te, t, t.TerritoryStats.Territory.Swordsmen.Quantity / 2, t.TerritoryStats.Territory.Lancers.Quantity / 2, t.TerritoryStats.Territory.Axemen.Quantity / 2));
                     }
                 }
             }
@@ -112,11 +112,11 @@ public class BotIA
                 foreach (GameObject a in adjacents)
                 {
                     TerritoryHandler te = a.GetComponent<TerritoryHandler>();
-                    options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.NumbersUnit, t.TerritoryStats.Territory.Lancers.NumbersUnit, t.TerritoryStats.Territory.Axemen.NumbersUnit));
+                    options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.Quantity, t.TerritoryStats.Territory.Lancers.Quantity, t.TerritoryStats.Territory.Axemen.Quantity));
                     if (TerritoryManager.instance.IsLimit(te))
                     {
-                        options.Add(new OptionBot(t, te,t.TerritoryStats.Territory.Swordsmen.NumbersUnit, t.TerritoryStats.Territory.Lancers.NumbersUnit, t.TerritoryStats.Territory.Axemen.NumbersUnit));
-                        options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.NumbersUnit, t.TerritoryStats.Territory.Lancers.NumbersUnit, t.TerritoryStats.Territory.Axemen.NumbersUnit));
+                        options.Add(new OptionBot(t, te,t.TerritoryStats.Territory.Swordsmen.Quantity, t.TerritoryStats.Territory.Lancers.Quantity, t.TerritoryStats.Territory.Axemen.Quantity));
+                        options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.Quantity, t.TerritoryStats.Territory.Lancers.Quantity, t.TerritoryStats.Territory.Axemen.Quantity));
                     }
                 }
 
@@ -135,10 +135,10 @@ public class BotIA
                             gold - warTax >= 0 && 
                             t.TerritoryStats.Territory.Population >= 5)
                         {
-                            options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.NumbersUnit, t.TerritoryStats.Territory.Lancers.NumbersUnit, t.TerritoryStats.Territory.Axemen.NumbersUnit));
-                            options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.NumbersUnit, t.TerritoryStats.Territory.Lancers.NumbersUnit, t.TerritoryStats.Territory.Axemen.NumbersUnit));
-                            options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.NumbersUnit, t.TerritoryStats.Territory.Lancers.NumbersUnit, t.TerritoryStats.Territory.Axemen.NumbersUnit));
-                            options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.NumbersUnit, t.TerritoryStats.Territory.Lancers.NumbersUnit, t.TerritoryStats.Territory.Axemen.NumbersUnit));
+                            options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.Quantity, t.TerritoryStats.Territory.Lancers.Quantity, t.TerritoryStats.Territory.Axemen.Quantity));
+                            options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.Quantity, t.TerritoryStats.Territory.Lancers.Quantity, t.TerritoryStats.Territory.Axemen.Quantity));
+                            options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.Quantity, t.TerritoryStats.Territory.Lancers.Quantity, t.TerritoryStats.Territory.Axemen.Quantity));
+                            options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.Quantity, t.TerritoryStats.Territory.Lancers.Quantity, t.TerritoryStats.Territory.Axemen.Quantity));
                         }
                         
                     }
@@ -168,9 +168,9 @@ public class BotIA
                 if(gold - warTax >= 0)
                 {
                     gold -= warTax;
-                    begin.TerritoryStats.Territory.Swordsmen.NumbersUnit -= number;
-                    begin.TerritoryStats.Territory.Lancers.NumbersUnit -= number2;
-                    begin.TerritoryStats.Territory.Axemen.NumbersUnit -= number3;
+                    begin.TerritoryStats.Territory.Swordsmen.Quantity -= number;
+                    begin.TerritoryStats.Territory.Lancers.Quantity -= number2;
+                    begin.TerritoryStats.Territory.Axemen.Quantity -= number3;
                     WarManager.instance.SendWarriors(begin, end, troop);
                 }
             }

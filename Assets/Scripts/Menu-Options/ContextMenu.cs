@@ -63,7 +63,6 @@ public class ContextMenu : MonoBehaviour
     }
     public void AttackTerritory()
     {
-
         TerritoryHandler selected = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
         if (AudioManager.instance != null)
         {

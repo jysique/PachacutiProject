@@ -4,9 +4,10 @@ using UnityEngine;
 [System.Serializable]
 public class Troop
 {
-    [SerializeField] List<string> types= new List<string>();
+  //  [SerializeField] List<string> types= new List<string>();
+    [SerializeField] List<UnitCombat> unitCombats = new List<UnitCombat>();
     [SerializeField] List<int> positions = new List<int>();
-    [SerializeField] List<int> numbers = new List<int>();
+  //  [SerializeField] List<int> numbers = new List<int>();
 
     public Troop()
     {
@@ -17,55 +18,94 @@ public class Troop
         AddElement("Swordsman", 0, a);
         AddElement("Lancer", 1, b);
         AddElement("Axeman", 2, c);
-
     }
-    public List<string> Types
+    public List<UnitCombat> UnitCombats
     {
-        get { return types; }
+          get { return unitCombats; }
     }
+
     public List<int> Positions
     {
         get { return positions; }
-    }
-    public List<int> Numbers
-    {
-        get { return numbers; }
     }
 
     public void AddElement(string _type, int _position, int _number)
     {
         if (_number>0)
         {
-            types.Add(_type);
+            var unitCombat = GetNewUnitCombat(_type);
+            unitCombat.Quantity = _number;
+            unitCombats.Add(unitCombat);
+            //types.Add(_type);
             positions.Add(_position);
-            numbers.Add(_number);
+           // numbers.Add(_number);
         }
-
+    }
+    public UnitCombat GetNewUnitCombat(string _type)
+    {
+        switch (_type)
+        {
+            case "Swordsman":
+                return new Swordsman();
+            case "Lancer":
+                return new Lancer();
+            case "Axeman":
+                return new Axeman();
+            case "Archer":
+                return new Archer();
+            case "Scout":
+                return new Scout();
+            default:
+                return null;
+        }
     }
     public void Reset()
     {
-        types.Clear();
+        unitCombats.Clear();
+      //  types.Clear();
         positions.Clear();
-        numbers.Clear();
+      //  numbers.Clear();
     }
     public int GetAllNumbersUnit()
     {
         int result = 0;
+        /*
         for (int i = 0; i < numbers.Count; i++)
         {
             result += numbers[i];
         }
+        */
+        for (int i = 0; i < unitCombats.Count; i++)
+        {
+            result += unitCombats[i].Quantity;
+        }
         return result;
     }
+    /*
     public int GetNumberUnity(string _type)
     {
         int result = 0;
         for (int i = 0; i < numbers.Count; i++)
         {
-            if (types[i] == _type) {
+            if (types[i] == _type)
+            {
                 result += numbers[i];
             }
         }
         return result;
     }
+    
+    public int GetNumberUnity(UnitCombat _type)
+    {
+        int result = 0;
+        for (int i = 0; i < numbers.Count; i++)
+        {
+            if (unitCombats[i] == _type)
+            {
+                result += numbers[i];
+            }
+        }
+        return result;
+    }
+    */
 }

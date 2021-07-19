@@ -27,33 +27,6 @@ public class WarriorsMoving : MonoBehaviour
         attacker = attackerTerritory;
         territorytype = attackerTerritory.TerritoryStats.Territory.TypePlayer;
         mb = attackerTerritory.TerritoryStats.Territory.MilitarChiefTerritory;
-
-        /*
-        militaryBossStrategy = _mb.Type;
-        militaryBossExperience = _mb.Experience;
-        
-        switch (militaryBossStrategy)
-        {
-            case MilitarBoss.TYPESTRAT.AGGRESSIVE:
-                strategyMod = warriorsNumber * 0.1f;
-                break;
-            case MilitarBoss.TYPESTRAT.TERRAIN_MASTER:
-                strategyMod = warriorsNumber * 0.06f;
-                break;
-            case MilitarBoss.TYPESTRAT.DEFENSIVE:
-                strategyMod = warriorsNumber * -0.02f;
-                break;
-            case MilitarBoss.TYPESTRAT.SACRED_WARRIOR:
-                strategyMod = warriorsNumber * 0.2f;
-                break;
-            case MilitarBoss.TYPESTRAT.SIEGE_EXPERT:
-                strategyMod = warriorsNumber * 0.12f;
-                break;
-
-        }
-        attackPower = warriorsNumber + strategyMod + militaryBossExperience;
-        this.transform.GetChild(0).gameObject.GetComponent<TextMeshPro>().text = attackPower.ToString("F2");
-        */
         //TOTAL DE GUERREROS
         this.transform.GetChild(0).gameObject.GetComponent<TextMeshPro>().text = playerTroop.GetAllNumbersUnit().ToString();
 

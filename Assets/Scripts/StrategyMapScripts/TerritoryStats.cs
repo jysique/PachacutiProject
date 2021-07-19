@@ -29,6 +29,7 @@ public class TerritoryStats : MonoBehaviour
         {
             populationTxt.enabled = false;
         }
+        /*
         //cambiar por un generador o configurar manualmente
         territory.Tiles.Add(SquareType.TYPESQUARE.GRASSLAND);
         territory.Tiles.Add(SquareType.TYPESQUARE.GRASSLAND);
@@ -39,6 +40,7 @@ public class TerritoryStats : MonoBehaviour
         territory.Tiles.Add(SquareType.TYPESQUARE.GRASSLAND);
         territory.Tiles.Add(SquareType.TYPESQUARE.GRASSLAND);
         territory.Tiles.Add(SquareType.TYPESQUARE.GRASSLAND);
+        */  
         //allText = iconsContainer.gameObject.transform.GetComponentsInChildren<Text>();
 
     }
@@ -62,12 +64,12 @@ public class TerritoryStats : MonoBehaviour
         if (territory.TypePlayer != Territory.TYPEPLAYER.NONE)
         {
         //    populationTxt.color = Color.white;
-            if (unitCombat.NumbersUnit < territory.GetLimit(unitCombat))
+            if (unitCombat.Quantity < territory.GetLimit(unitCombat))
             {
                 IncresementUnit(_timerBar,unitCombat);
               //  _timerBar.enabled = true;
             }
-            else if (unitCombat.NumbersUnit < territory.GetLimit(unitCombat))
+            else if (unitCombat.Quantity < territory.GetLimit(unitCombat))
             {
           //      populationTxt.color = Color.red;
                 //DecreasementPopulation();
@@ -89,7 +91,7 @@ public class TerritoryStats : MonoBehaviour
         else
         {
 
-            _subordinate.NumbersUnit++;
+            _subordinate.Quantity++;
             _subordinate._timeLeft = 0;
         }
         

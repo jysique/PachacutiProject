@@ -4,21 +4,21 @@ using UnityEngine;
 [System.Serializable]
 public class UnitCombat : Subordinate
 {
-    [SerializeField] private int number;
-    private string unitName;
-    private int attack;
-    private int precision;
-    private int range;
-    private string[] strongTo;
-    private string[] weakTo;
+    [SerializeField] private int quantity;
+    [SerializeField] private string unitName;
+    [SerializeField] private int attack;
+    [SerializeField] private int precision;
+    [SerializeField] private int range;
+    [SerializeField] private string[] strongTo;
+    [SerializeField] private string[] weakTo;
 
     public float _timeLeft = 0;
     public int _totalTime = 12;
 
-    public int NumbersUnit
+    public int Quantity
     {
-        get { return number; }
-        set { number = value; }
+        get { return quantity; }
+        set { quantity = value; }
     }
     public string UnitName
     {

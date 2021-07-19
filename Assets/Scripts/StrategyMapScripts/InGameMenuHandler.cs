@@ -386,7 +386,7 @@ public class InGameMenuHandler : MonoBehaviour
 
     public void InstantiateTroopContainer(UnitCombat unit)
     {
-        if (unit.NumbersUnit > 0 || selectedTerritory.GetBuilding(unit).Level > 0)
+        if (unit.Quantity > 0 || selectedTerritory.GetBuilding(unit).Level > 0)
         {
             Transform gridLayout = containerTroops.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
             GameObject troopContainerOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/TroopsContainer")) as GameObject;

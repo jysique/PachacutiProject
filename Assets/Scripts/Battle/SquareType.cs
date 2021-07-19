@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class SquareType : MonoBehaviour
 {
+    /*
     public enum TYPESQUARE
     {
         GRASSLAND,
@@ -13,14 +14,17 @@ public class SquareType : MonoBehaviour
         SAND,
         NONE 
     }
+    */
     public bool haveUnit = false;
     public int index;
-    public TYPESQUARE typeSquare;
-    public UnitGroup unitGroup;
+    //public TYPESQUARE typeSquare;
+    public Ambience ambience;
+    public UnitGroup unitGroup = null;
 
     private void Start()
     {
         DeactivateChange();
+        
     }
     public void MoveButton()
     {
@@ -50,4 +54,30 @@ public class SquareType : MonoBehaviour
     {
         GetComponent<Button>().enabled = false;
     }
+}
+[System.Serializable]
+public class Ambience
+{
+    public enum TYPE
+    {
+        GRASSLAND,
+        FOREST,
+        MOUNTAIN,
+        SAND,
+        NONE
+    }
+    [SerializeField]private TYPE type;
+    private Sprite picture;
+
+    public TYPE Type
+    {
+        get { return type; }
+        set { type = value; }
+    }
+    public Sprite Picture
+    {
+        get { return Resources.Load<Sprite>("Textures/TemporalAssets/terrain/" + type.ToString().ToLower()); }
+        set { picture = value; }
+    }
+
 }

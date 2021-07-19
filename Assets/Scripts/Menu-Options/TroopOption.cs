@@ -51,8 +51,8 @@ public class TroopOption : MonoBehaviour
         {
             //  print(unit.NumbersUnit);
             moveUnits.SetActive(true);
-            limit = unitcombat.NumbersUnit;
-            UpdateMenuByUnits(moveUnits, unitcombat.NumbersUnit, true);
+            limit = unitcombat.Quantity;
+            UpdateMenuByUnits(moveUnits, unitcombat.Quantity, true);
         }
         UpdateDropDown();
     }
@@ -83,7 +83,7 @@ public class TroopOption : MonoBehaviour
     {
         isSelected = true;
         numberSelected = int.Parse(numberUnitsText.text);
-        territoryAttacker.TerritoryStats.Territory.GetUnit(unitcombat.GetType().ToString()).NumbersUnit -= numberSelected;
+        territoryAttacker.TerritoryStats.Territory.GetUnit(unitcombat.GetType().ToString()).Quantity -= numberSelected;
         block.SetActive(true);
         SelectTropsMenu.instance.UpdateAllDropdown();
         SelectTropsMenu.instance.TroopSelected.AddElement(unitcombat.GetType().ToString(), SelectTropsMenu.instance.GetIndexTroopOption(this), numberSelected);

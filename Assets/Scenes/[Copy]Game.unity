@@ -3261,7 +3261,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.337}
   m_AnchorMax: {x: 1, y: 0.5083289}
-  m_AnchoredPosition: {x: 0.12475586, y: 46.96364}
+  m_AnchoredPosition: {x: 0.12475586, y: 46.963547}
   m_SizeDelta: {x: -0.29943848, y: 18.188126}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &128476422
@@ -3770,7 +3770,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 50
+      quantity: 50
+      unitName: Swordsman
+      attack: 10
+      precision: 95
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -3783,7 +3791,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 50
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -3796,7 +3812,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -3809,7 +3833,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -3822,7 +3854,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -3849,7 +3889,15 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    ambienceList:
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
   paddingX: -10
   paddingY: -20
   sprite: {fileID: 0}
@@ -4483,7 +4531,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 50
+      quantity: 20
+      unitName: Swordsman
+      attack: 10
+      precision: 95
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -4496,7 +4552,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 50
+      quantity: 20
+      unitName: Lancer
+      attack: 15
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -4509,7 +4573,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -4522,7 +4594,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -4535,7 +4615,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -4562,7 +4650,15 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    ambienceList:
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
   paddingX: 0
   paddingY: 0
   sprite: {fileID: 0}
@@ -5675,7 +5771,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   haveUnit: 0
   index: 0
-  typeSquare: 0
+  ambience:
+    type: 0
 --- !u!114 &234339977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6351,7 +6448,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 40
+      quantity: 50
+      unitName: Swordsman
+      attack: 10
+      precision: 95
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -6364,7 +6469,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 40
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -6377,7 +6490,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -6390,7 +6511,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -6403,7 +6532,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 2
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -6430,7 +6567,15 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    ambienceList:
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
   paddingX: 0
   paddingY: 0
   sprite: {fileID: 0}
@@ -7219,7 +7364,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 40
+      quantity: 50
+      unitName: Swordsman
+      attack: 10
+      precision: 95
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -7232,7 +7385,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 40
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -7245,7 +7406,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -7258,7 +7427,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -7271,7 +7448,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 2
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -7298,7 +7483,15 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    ambienceList:
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
   paddingX: 50
   paddingY: -150
   sprite: {fileID: 0}
@@ -7740,7 +7933,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 50
+      quantity: 50
+      unitName: Swordsman
+      attack: 10
+      precision: 95
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -7753,7 +7954,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 50
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -7766,7 +7975,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -7779,7 +7996,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -7792,7 +8017,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -7819,7 +8052,15 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    ambienceList:
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
   paddingX: -20
   paddingY: -50
   sprite: {fileID: 0}
@@ -8740,7 +8981,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.019592822, y: 0.053000003}
   m_AnchorMax: {x: 0.9851517, y: 0.569}
-  m_AnchoredPosition: {x: -1.4327698, y: 0.77001953}
+  m_AnchoredPosition: {x: -1.4328461, y: 0.77001953}
   m_SizeDelta: {x: -0.5699997, y: 0.58999634}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &381020032
@@ -9522,7 +9763,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 40
+      quantity: 50
+      unitName: Swordsman
+      attack: 10
+      precision: 95
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -9535,7 +9784,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 40
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -9548,7 +9805,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -9561,7 +9826,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -9574,7 +9847,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 2
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -9601,7 +9882,15 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    ambienceList:
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
   paddingX: 0
   paddingY: 0
   sprite: {fileID: 0}
@@ -10393,7 +10682,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 50
+      quantity: 50
+      unitName: Swordsman
+      attack: 10
+      precision: 95
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -10406,7 +10703,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 50
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -10419,7 +10724,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -10432,7 +10745,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -10445,7 +10766,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -10472,7 +10801,15 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    ambienceList:
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
   paddingX: 0
   paddingY: 40
   sprite: {fileID: 0}
@@ -11813,7 +12150,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   haveUnit: 0
   index: 0
-  typeSquare: 0
+  ambience:
+    type: 0
 --- !u!114 &521251265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12526,7 +12864,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.4116042, y: 0.88600004}
   m_AnchorMax: {x: 0.52222925, y: 1}
-  m_AnchoredPosition: {x: 0.7100067, y: 194.49991}
+  m_AnchoredPosition: {x: 0.7100067, y: 194.4999}
   m_SizeDelta: {x: 5.42, y: 17.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &562174567
@@ -13056,7 +13394,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 50
+      quantity: 50
+      unitName: Swordsman
+      attack: 10
+      precision: 95
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -13069,7 +13415,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 50
+      quantity: 50
+      unitName: Lancer
+      attack: 15
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -13082,7 +13436,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 50
+      unitName: Axeman
+      attack: 20
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -13095,7 +13457,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -13108,7 +13478,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -13135,7 +13513,15 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    ambienceList:
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
   paddingX: 0
   paddingY: 0
   sprite: {fileID: 0}
@@ -13323,7 +13709,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.51500005, y: 0.09252045}
   m_AnchorMax: {x: 0.931119, y: 0.5}
-  m_AnchoredPosition: {x: 77.39979, y: -29.790024}
+  m_AnchoredPosition: {x: 77.39976, y: -29.790026}
   m_SizeDelta: {x: -114.63, y: -17.66}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &589492775
@@ -13638,7 +14024,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   haveUnit: 0
   index: 0
-  typeSquare: 0
+  ambience:
+    type: 0
 --- !u!114 &603993214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16596,7 +16983,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 1
+      quantity: 50
+      unitName: Swordsman
+      attack: 10
+      precision: 95
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -16609,7 +17004,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 40
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -16622,7 +17025,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -16635,7 +17046,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -16648,7 +17067,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -16675,7 +17102,15 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    ambienceList:
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
   paddingX: 0
   paddingY: 0
   sprite: {fileID: 0}
@@ -16814,7 +17249,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.38785675, y: 0.059000004}
   m_AnchorMax: {x: 0.6267622, y: 0.33136475}
-  m_AnchoredPosition: {x: 0.19229889, y: 0.29992676}
+  m_AnchoredPosition: {x: 0.19229889, y: 0.29981995}
   m_SizeDelta: {x: 0, y: 0.8689995}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &765405754
@@ -17149,7 +17584,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1548390072}
   m_HandleRect: {fileID: 1548390071}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -18438,7 +18873,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 40
+      quantity: 50
+      unitName: Swordsman
+      attack: 10
+      precision: 95
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -18451,7 +18894,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 40
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -18464,7 +18915,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -18477,7 +18936,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -18490,7 +18957,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 2
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -18517,7 +18992,15 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    ambienceList:
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
   paddingX: 0
   paddingY: -100
   sprite: {fileID: 0}
@@ -19194,7 +19677,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 50
+      quantity: 50
+      unitName: Swordsman
+      attack: 10
+      precision: 95
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -19207,7 +19698,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 50
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -19220,7 +19719,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -19233,7 +19740,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -19246,7 +19761,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -19273,7 +19796,15 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    ambienceList:
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
   paddingX: 0
   paddingY: -10
   sprite: {fileID: 0}
@@ -19525,7 +20056,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 40
+      quantity: 50
+      unitName: Swordsman
+      attack: 10
+      precision: 95
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -19538,7 +20077,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 40
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -19551,7 +20098,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -19564,7 +20119,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -19577,7 +20140,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 2
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -19604,7 +20175,15 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    ambienceList:
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
   paddingX: 0
   paddingY: -50
   sprite: {fileID: 0}
@@ -20535,7 +21114,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 50
+      quantity: 50
+      unitName: Swordsman
+      attack: 10
+      precision: 95
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -20548,7 +21135,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 50
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -20561,7 +21156,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -20574,7 +21177,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -20587,7 +21198,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -20614,7 +21233,15 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    ambienceList:
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
   paddingX: -20
   paddingY: -30
   sprite: {fileID: 0}
@@ -21670,7 +22297,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 40
+      quantity: 50
+      unitName: Swordsman
+      attack: 10
+      precision: 95
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -21683,7 +22318,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 40
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -21696,7 +22339,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -21709,7 +22360,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -21722,7 +22381,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 2
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -21749,7 +22416,15 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    ambienceList:
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
   paddingX: 0
   paddingY: 0
   sprite: {fileID: 0}
@@ -22785,7 +23460,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 40
+      quantity: 50
+      unitName: Swordsman
+      attack: 10
+      precision: 95
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -22798,7 +23481,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 40
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -22811,7 +23502,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -22824,7 +23523,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -22837,7 +23544,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 2
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -22864,7 +23579,15 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    ambienceList:
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
   paddingX: 0
   paddingY: -50
   sprite: {fileID: 0}
@@ -23259,7 +23982,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 40
+      quantity: 50
+      unitName: Swordsman
+      attack: 10
+      precision: 95
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -23272,7 +24003,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 40
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -23285,7 +24024,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -23298,7 +24045,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -23311,7 +24066,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 2
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -23338,7 +24101,15 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    ambienceList:
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
   paddingX: 0
   paddingY: -50
   sprite: {fileID: 0}
@@ -23857,7 +24628,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   haveUnit: 0
   index: 0
-  typeSquare: 0
+  ambience:
+    type: 0
 --- !u!114 &1128577235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23931,7 +24703,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.051814087, y: 0.13174777}
   m_AnchorMax: {x: 0.37637186, y: 0.9188131}
-  m_AnchoredPosition: {x: -0.61359024, y: 0.038784027}
+  m_AnchoredPosition: {x: -0.61359406, y: 0.038784027}
   m_SizeDelta: {x: 0.21809006, y: 1.2696342}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1131478617
@@ -25748,7 +26520,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 40
+      quantity: 50
+      unitName: Swordsman
+      attack: 10
+      precision: 95
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -25761,7 +26541,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 40
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -25774,7 +26562,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -25787,7 +26583,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -25800,7 +26604,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 2
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -25827,7 +26639,15 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    ambienceList:
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
   paddingX: -100
   paddingY: -50
   sprite: {fileID: 0}
@@ -26342,7 +27162,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   haveUnit: 0
   index: 0
-  typeSquare: 0
+  ambience:
+    type: 0
 --- !u!114 &1238960554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27009,7 +27830,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 40
+      quantity: 50
+      unitName: Swordsman
+      attack: 10
+      precision: 95
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -27022,7 +27851,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 40
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -27035,7 +27872,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -27048,7 +27893,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -27061,7 +27914,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 2
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -27088,7 +27949,15 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    ambienceList:
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
   paddingX: 0
   paddingY: -100
   sprite: {fileID: 0}
@@ -30015,7 +30884,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 50
+      quantity: 50
+      unitName: Swordsman
+      attack: 10
+      precision: 95
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -30028,7 +30905,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 50
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -30041,7 +30926,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -30054,7 +30947,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -30067,7 +30968,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -30094,7 +31003,15 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    ambienceList:
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
   paddingX: 10
   paddingY: -30
   sprite: {fileID: 0}
@@ -30778,9 +31695,8 @@ MonoBehaviour:
   moveUnits: {fileID: 640801427}
   options: []
   troopSelected:
-    types: []
+    unitCombats: []
     positions: 
-    numbers: 
   acumulated: 0
 --- !u!1 &1468871725
 GameObject:
@@ -32086,7 +33002,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 40
+      quantity: 50
+      unitName: Swordsman
+      attack: 10
+      precision: 95
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -32099,7 +33023,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 40
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -32112,7 +33044,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -32125,7 +33065,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -32138,7 +33086,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 2
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -32165,7 +33121,15 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    ambienceList:
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
   paddingX: 10
   paddingY: 0
   sprite: {fileID: 0}
@@ -32759,7 +33723,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 64.03363, y: -912.3795}
+  m_AnchoredPosition: {x: 64.03375, y: -912.3794}
   m_SizeDelta: {x: -1660.7789, y: -956.12}
   m_Pivot: {x: -0.03491106, y: 1.0390935}
 --- !u!222 &1548868806
@@ -33534,7 +34498,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 10
+      quantity: 0
+      unitName: Swordsman
+      attack: 10
+      precision: 95
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -33547,7 +34519,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -33560,7 +34540,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -33573,7 +34561,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -33586,7 +34582,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -33613,7 +34617,7 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    ambienceList: []
   irrigateLevel: {fileID: 2135157835}
   goldMineLevel: {fileID: 1945386951}
   fortressLevel: {fileID: 1187320710}
@@ -34537,7 +35541,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 40
+      quantity: 50
+      unitName: Swordsman
+      attack: 10
+      precision: 95
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -34550,7 +35562,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -34563,7 +35583,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -34576,7 +35604,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -34589,7 +35625,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -34616,7 +35660,15 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    ambienceList:
+    - type: 1
+    - type: 2
+    - type: 2
+    - type: 2
+    - type: 0
+    - type: 1
+    - type: 2
+    - type: 0
   paddingX: 0
   paddingY: 0
   sprite: {fileID: 0}
@@ -36454,7 +37506,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 40
+      quantity: 50
+      unitName: Swordsman
+      attack: 10
+      precision: 95
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -36467,7 +37527,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 40
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -36480,7 +37548,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -36493,7 +37569,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -36506,7 +37590,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 2
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -36533,7 +37625,15 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    ambienceList:
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
   paddingX: 0
   paddingY: 0
   sprite: {fileID: 0}
@@ -36690,7 +37790,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 40
+      quantity: 50
+      unitName: Swordsman
+      attack: 10
+      precision: 95
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -36703,7 +37811,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 40
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -36716,7 +37832,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -36729,7 +37853,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -36742,7 +37874,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 2
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -36769,7 +37909,15 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    ambienceList:
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
   paddingX: -30
   paddingY: -30
   sprite: {fileID: 0}
@@ -37074,7 +38222,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -101.68995, y: -0.0025100708}
+  m_AnchoredPosition: {x: -101.68996, y: -0.0025100708}
   m_SizeDelta: {x: -203.37, y: -0.01}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1750732951
@@ -37582,7 +38730,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.0075270683, y: 0.020896813}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.6799927, y: -2.0796509}
+  m_AnchoredPosition: {x: -0.6799927, y: -2.0796661}
   m_SizeDelta: {x: -0.44000006, y: -4.37}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1769767212
@@ -37978,7 +39126,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   haveUnit: 0
   index: 0
-  typeSquare: 0
+  ambience:
+    type: 0
 --- !u!114 &1779368241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38457,7 +39606,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.065000005, y: 0.059000004}
   m_AnchorMax: {x: 0.30114326, y: 0.33136475}
-  m_AnchoredPosition: {x: -0.58999634, y: 0.29992676}
+  m_AnchoredPosition: {x: -0.58999634, y: 0.29981995}
   m_SizeDelta: {x: 1, y: 0.8689995}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1795188283
@@ -39871,7 +41020,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   haveUnit: 0
   index: 0
-  typeSquare: 0
+  ambience:
+    type: 0
 --- !u!114 &1869561376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41213,7 +42363,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.16167112}
   m_AnchorMax: {x: 1, y: 0.337}
-  m_AnchoredPosition: {x: 0.12475586, y: 27.781324}
+  m_AnchoredPosition: {x: 0.12475586, y: 27.781313}
   m_SizeDelta: {x: -2.2994385, y: 18.038086}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1940143359
@@ -42871,7 +44021,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   haveUnit: 0
   index: 0
-  typeSquare: 0
+  ambience:
+    type: 0
 --- !u!114 &2013995251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42945,7 +44096,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.040000003, y: 0.10959318}
   m_AnchorMax: {x: 0.36371917, y: 0.8943478}
-  m_AnchoredPosition: {x: 0.49998093, y: -0.11700249}
+  m_AnchoredPosition: {x: 0.49998474, y: -0.11700249}
   m_SizeDelta: {x: -0.5275574, y: 1.0214863}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2027348084
@@ -43436,7 +44587,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 50
+      quantity: 50
+      unitName: Swordsman
+      attack: 10
+      precision: 95
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -43449,7 +44608,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 50
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -43462,7 +44629,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -43475,7 +44650,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -43488,7 +44671,15 @@ MonoBehaviour:
       characIconIndex: 
       influence: 0
       opinion: 0
-      number: 0
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -43515,7 +44706,15 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    ambienceList:
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
+    - type: 0
   paddingX: 0
   paddingY: -10
   sprite: {fileID: 0}

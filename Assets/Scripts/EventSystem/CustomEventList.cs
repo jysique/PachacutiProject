@@ -19,9 +19,9 @@ public class CustomEventList
         CustomEvents.Add(_customEvent);
     }
 
-    public void AddExpedicionEvent(TimeSimulated _initTime,int a, int b, int c, TerritoryHandler attackerTerritory = null, TerritoryHandler wasteTerritory = null)
+    public void AddExpedicionEvent(TimeSimulated _initTime,Troop troopToWaste, TerritoryHandler attackerTerritory = null, TerritoryHandler wasteTerritory = null)
     {
-        CustomExpedition _customEvent = new CustomExpedition(_initTime,a,b,c,attackerTerritory, wasteTerritory);
+        CustomExpedition _customEvent = new CustomExpedition(_initTime,troopToWaste,attackerTerritory, wasteTerritory);
         ExpedicionEvents.Add(_customEvent);
     }
 

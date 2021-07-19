@@ -275,26 +275,26 @@ public class CustomEvent
                 break;
             case EVENTTYPE.DROUGHT:
                 TerritoryEvent.TerritoryStats.Territory.FarmTerritory.ResetBuilding();
-                TerritoryEvent.TerritoryStats.Territory.Lancers.NumbersUnit /= 2;
-                TerritoryEvent.TerritoryStats.Territory.Swordsmen.NumbersUnit /= 2;
-                TerritoryEvent.TerritoryStats.Territory.Axemen.NumbersUnit /= 2;
-                TerritoryEvent.TerritoryStats.Territory.Scouts.NumbersUnit /= 2;
+                TerritoryEvent.TerritoryStats.Territory.Lancers.Quantity /= 2;
+                TerritoryEvent.TerritoryStats.Territory.Swordsmen.Quantity /= 2;
+                TerritoryEvent.TerritoryStats.Territory.Axemen.Quantity /= 2;
+                TerritoryEvent.TerritoryStats.Territory.Scouts.Quantity /= 2;
                 break;
             case EVENTTYPE.ALL_T_PANDEMIC:
                 List<TerritoryHandler> list = TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER);
                 for (int i = 0; i < list.Count; i++)
                 {
-                    list[i].TerritoryStats.Territory.Lancers.NumbersUnit /= 2;
-                    list[i].TerritoryStats.Territory.Swordsmen.NumbersUnit /= 2;
-                    list[i].TerritoryStats.Territory.Axemen.NumbersUnit /= 2;
-                    list[i].TerritoryStats.Territory.Scouts.NumbersUnit /= 2;
+                    list[i].TerritoryStats.Territory.Lancers.Quantity /= 2;
+                    list[i].TerritoryStats.Territory.Swordsmen.Quantity /= 2;
+                    list[i].TerritoryStats.Territory.Axemen.Quantity /= 2;
+                    list[i].TerritoryStats.Territory.Scouts.Quantity /= 2;
                 }
                 break;
             case EVENTTYPE.PANDEMIC:
-                TerritoryEvent.TerritoryStats.Territory.Lancers.NumbersUnit /= 2;
-                TerritoryEvent.TerritoryStats.Territory.Swordsmen.NumbersUnit /= 2;
-                TerritoryEvent.TerritoryStats.Territory.Axemen.NumbersUnit /= 2;
-                TerritoryEvent.TerritoryStats.Territory.Scouts.NumbersUnit /= 2;
+                TerritoryEvent.TerritoryStats.Territory.Lancers.Quantity /= 2;
+                TerritoryEvent.TerritoryStats.Territory.Swordsmen.Quantity /= 2;
+                TerritoryEvent.TerritoryStats.Territory.Axemen.Quantity /= 2;
+                TerritoryEvent.TerritoryStats.Territory.Scouts.Quantity /= 2;
                 break;
             case EVENTTYPE.ALL_T_PLAGUE:
                 List<TerritoryHandler> list2 = TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER);
@@ -403,30 +403,16 @@ public class CustomBuilding : CustomEvent
 [Serializable]
 public class CustomExpedition : CustomEvent
 {
-    [SerializeField] private int sword;
-    [SerializeField] private int lance;
-    [SerializeField] private int axe;
+    [SerializeField] private Troop troop;
     [SerializeField] private TerritoryHandler attacker;
-    public int SwordEvent
+    public Troop TroopEvent
     {
-        get { return sword; }
-        set { sword = value; }
+        get { return troop; }
+        set { troop = value; }
     }
-    public int LanceEvent
+    public CustomExpedition(TimeSimulated _initTime, Troop troopToWaste, TerritoryHandler attackerterritory, TerritoryHandler wasterterritory)
     {
-        get { return lance; }
-        set { lance = value; }
-    }
-    public int AxeEvent
-    {
-        get { return axe; }
-        set { axe = value; }
-    }
-    public CustomExpedition(TimeSimulated _initTime, int a, int b, int c, TerritoryHandler attackerterritory, TerritoryHandler wasterterritory)
-    {
-        this.sword = a;
-        this.lance = b;
-        this.axe = c;
+        this.troop = troopToWaste;
         this.isAcceptedEvent = false;
         this.attacker = attackerterritory;
         this.territoryEvent = wasterterritory;
@@ -436,6 +422,7 @@ public class CustomExpedition : CustomEvent
       //  this.costEvent = UnityEngine.Random.Range(1, InGameMenuHandler.instance.GoldPlayer / 2);
         GetTimesExpeditionEvents(_initTime);
         GetMessage();
+        this.MessageEvent = this.MessageEvent.Replace("NUMBER", troop.GetAllNumbersUnit().ToString());
     }
     void GetTimesExpeditionEvents(TimeSimulated _initTime)
     {
@@ -446,7 +433,6 @@ public class CustomExpedition : CustomEvent
     }
     public void ReturnUnits()
     {
-        Troop troop = new Troop(sword, lance, axe);
         WarManager.instance.SendWarriors(territoryEvent, attacker, troop);
     }
 }

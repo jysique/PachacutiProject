@@ -109,19 +109,19 @@ public class War
                 // territory.TerritoryStats.Territory.Population--;
                 if (index == 0)
                 {
-                    territory.TerritoryStats.Territory.Swordsmen.NumbersUnit--;
+                    territory.TerritoryStats.Territory.Swordsmen.Quantity--;
                 }
                 else if (index ==1)
                 {
-                    territory.TerritoryStats.Territory.Lancers.NumbersUnit--;
+                    territory.TerritoryStats.Territory.Lancers.Quantity--;
                 }else if (index == 2)
                 {
-                    territory.TerritoryStats.Territory.Axemen.NumbersUnit--;
+                    territory.TerritoryStats.Territory.Axemen.Quantity--;
                 }
-                if (territory.TerritoryStats.Territory.Swordsmen.NumbersUnit == 0)
+                if (territory.TerritoryStats.Territory.Swordsmen.Quantity == 0)
                 {
                     index = 1;
-                    if (territory.TerritoryStats.Territory.Lancers.NumbersUnit == 0)
+                    if (territory.TerritoryStats.Territory.Lancers.Quantity == 0)
                     {
                         index = 2;
                     }

@@ -200,9 +200,9 @@ public class EventManager : MonoBehaviour
     {
         listEvents.AddCustomEvent(TimeSystem.instance.TimeGame, territoryHandler);
     }
-    public void AddExpedicionEvent(TerritoryHandler attacker , TerritoryHandler wasteTerritory, int sword, int lance , int axe)
+    public void AddExpedicionEvent(TerritoryHandler attacker , TerritoryHandler wasteTerritory, Troop troopToWaste)
     {
-        listEvents.AddExpedicionEvent(TimeSystem.instance.TimeGame, sword, lance, axe, attacker, wasteTerritory);
+        listEvents.AddExpedicionEvent(TimeSystem.instance.TimeGame,troopToWaste, attacker, wasteTerritory);
         SetNotificationEvent(true);
     }
     /// <summary>

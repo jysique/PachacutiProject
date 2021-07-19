@@ -98,7 +98,7 @@ GRACE_FOODD=+15 comida.
 CONQUISTM=Asigna un jefe militar en TERRITORYEVENT.
 CONQUISTA=
 CONQUISTD=
-EXPLORATIONM=Exploracion en proceso. 
+EXPLORATIONM=Exploracion en proceso. Has Enviado NUMBER unidades.
 EXPLORATIONA=
 EXPLORATIOND=
 

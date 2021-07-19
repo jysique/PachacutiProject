@@ -116,7 +116,7 @@ public class TerritoryHandler : MonoBehaviour
         
         if (Input.GetMouseButtonDown(1) && state == 0)
         {
-            print("a");
+//            print("a");
             TerritoryStats.Territory.SetSelected(true);
             ShowStateMenu();
             MakeOutline();
@@ -166,7 +166,7 @@ public class TerritoryHandler : MonoBehaviour
                 //InGameMenuHandler.instance.UpdateBuildings(this.territoryStats.Territory);
                 break;
             case 1:
-                print("c");
+               // print("c");
                 MenuManager.instance.ActivateSelectTroopsMenu(this);
                 HideAdjacentTerritories();
                 break;

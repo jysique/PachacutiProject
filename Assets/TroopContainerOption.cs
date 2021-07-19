@@ -28,9 +28,9 @@ public class TroopContainerOption : MonoBehaviour
     {
         Territory territorySelected = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().TerritoryStats.Territory;
         warriorsName.text = GameMultiLang.GetTraduction(unitContainer.UnitName);
-        warriorsCount.text = unitContainer.NumbersUnit + " / " + territorySelected.GetLimit(unitContainer) + GameMultiLang.GetTraduction("units");
+        warriorsCount.text = unitContainer.Quantity + " / " + territorySelected.GetLimit(unitContainer) + GameMultiLang.GetTraduction("units");
         warriorsSpeed.text = territorySelected.GetSpeed(unitContainer).ToString();
-        if (unitContainer.NumbersUnit > territorySelected.GetLimit(unitContainer))
+        if (unitContainer.Quantity > territorySelected.GetLimit(unitContainer))
         {
             warriorsCount.color = Color.red;
             warriorsCount.GetComponent<MenuToolTip>().SetNewInfo(GameMultiLang.GetTraduction("tooltip5"));
