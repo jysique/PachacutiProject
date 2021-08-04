@@ -30,6 +30,12 @@ public class TimeSystem : MonoBehaviour
         InitializeGameEvents();
         InitializeEvents();
     }
+    void Update()
+    {
+        GatherResourceInTime();
+        ProductionResourceInTime();
+        ConsumptionResourceInTime();
+    }
     /// <summary>
     /// Initialize the time to gather, time to produce and time to consume
     /// Initialize the list of events and updgradeBuilds events
@@ -51,12 +57,7 @@ public class TimeSystem : MonoBehaviour
         GameEvents.instance.onConsumptionResourceTriggerEnter += onConsumptionResources;
         GameEvents.instance.onCustomEventExit += onGatherExit;
     }
-    void Update()
-    {
-        GatherResourceInTime();
-        ProductionResourceInTime();
-        ConsumptionResourceInTime();
-    }
+
     /// <summary>
     /// Returns a time-simulated according to the timeGame
     /// </summary>

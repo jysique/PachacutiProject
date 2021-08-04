@@ -218,6 +218,7 @@ public class CustomEvent
     /// </summary>
     public void AcceptEventAction()
     {
+        TerritoryManager.instance.UpdateUnitsDeffend(territoryEvent.TerritoryStats.Territory);
         this.eventStatus = STATUS.FINISH;
         this.isAcceptedEvent = true;
         switch (eventType)
@@ -262,6 +263,7 @@ public class CustomEvent
     /// </summary>
     public void DeclineEventAction()
     {
+        TerritoryManager.instance.UpdateUnitsDeffend(territoryEvent.TerritoryStats.Territory);
         this.eventStatus= STATUS.FINISH;
         this.isAcceptedEvent = false;
         switch (eventType)

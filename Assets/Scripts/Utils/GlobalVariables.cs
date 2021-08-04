@@ -141,7 +141,7 @@ public class GlobalVariables : MonoBehaviour
         {
             timeModifier = MenuManager.instance.temporalTime;//aca cambiarlo para que sea una funcion
         }
-        print("go to menu game");
+        //print("go to menu game");
         Transition.instance.LoadScene(0);
     }
     public void GoToMenuMessage()
@@ -156,12 +156,15 @@ public class GlobalVariables : MonoBehaviour
     {
         Transition.instance.LoadScene(2);
     }
-
-    public void CenterCameraToTerritory(TerritoryHandler territoryHandler)
+    /// <summary>
+    /// Place the camera on the territory 
+    /// </summary>
+    /// <param name="territoryHandler">territory</param>
+    /// <param name="isSelected">if is outline/selected</param>
+    public void CenterCameraToTerritory(TerritoryHandler territoryHandler,bool isSelected)
     {
         Camera main = Camera.main;
         Vector3 origin = main.transform.position;
-        //  main.transform.position = new Vector3(territoryHandler.transform.position.x - 5, territoryHandler.transform.position.y, -10);
         main.transform.position = new Vector3(territoryHandler.transform.position.x, territoryHandler.transform.position.y, -10);
         Vector3 difference = origin - main.transform.position;
         foreach (GameObject i in TerritoryManager.instance.territoryList)
@@ -172,6 +175,10 @@ public class GlobalVariables : MonoBehaviour
         {
             i.GetComponent<Transform>().transform.position += difference;
         }
+        if (isSelected)
+        {
+            territoryHandler.MakeOutline();
+        }
     }
 
     public Territory.TYPEPLAYER GetRandomTypePlayer()
@@ -181,34 +188,5 @@ public class GlobalVariables : MonoBehaviour
     public Territory.REGION GetRandomRegion()
     {
         return (Territory.REGION)UnityEngine.Random.Range(0, Enum.GetNames(typeof(Territory.REGION)).Length - 1);
-    }
-
-    public List<Transform> GetAllChildren(Transform aTransform, List<Transform> aList = null)
-    {
-        if (aList == null)
-            aList = new List<Transform>();
-        int start = aList.Count;
-        for (int n = 0; n < aTransform.childCount; n++)
-            aList.Add(aTransform.GetChild(n));
-        for (int i = start; i < aList.Count; i++)
-        {
-            var t = aList[i];
-            for (int n = 0; n < t.childCount; n++)
-                aList.Add(t.GetChild(n));
-        }
-        return aList;
-    }
-    public void InitDropdown(TMP_Dropdown _dropdown, List<string> _items)
-    {
-        _dropdown.options.Clear();
-
-        foreach (var item in _items)
-        {
-            _dropdown.options.Add(new TMP_Dropdown.OptionData()
-            {
-                //text = item
-                text = GameMultiLang.GetTraduction(item)
-            }) ;
-        }
     }
 }

@@ -4,10 +4,8 @@ using UnityEngine;
 [System.Serializable]
 public class Troop
 {
-  //  [SerializeField] List<string> types= new List<string>();
     [SerializeField] List<UnitCombat> unitCombats = new List<UnitCombat>();
     [SerializeField] List<int> positions = new List<int>();
-  //  [SerializeField] List<int> numbers = new List<int>();
 
     public Troop()
     {
@@ -19,6 +17,13 @@ public class Troop
         AddElement("Lancer", 1, b);
         AddElement("Axeman", 2, c);
     }
+    public Troop(List<UnitCombat> unitCombats)
+    {
+        for (int i = 0; i < unitCombats.Count; i++)
+        {
+            AddElement(unitCombats[i].GetType().ToString(), i, unitCombats[i].Quantity);
+        }
+    }
     public List<UnitCombat> UnitCombats
     {
           get { return unitCombats; }
@@ -28,7 +33,7 @@ public class Troop
     {
         get { return positions; }
     }
-
+    
     public void AddElement(string _type, int _position, int _number)
     {
         if (_number>0)
@@ -36,10 +41,42 @@ public class Troop
             var unitCombat = GetNewUnitCombat(_type);
             unitCombat.Quantity = _number;
             unitCombats.Add(unitCombat);
-            //types.Add(_type);
             positions.Add(_position);
-           // numbers.Add(_number);
         }
+    }
+    public void MoveUnits(Territory territory)
+    {
+        for (int i = 0; i < unitCombats.Count; i++)
+        {
+            territory.GetUnit(unitCombats[i].GetType().ToString()).Quantity -= unitCombats[i].Quantity;
+        }
+    }
+    public void AddMoreWarriors(Troop _troop)
+    {
+        for (int i = 0; i < unitCombats.Count; i++)
+        {
+            for (int j = 0; j < _troop.UnitCombats.Count; j++)
+            {
+                if (_troop.UnitCombats[j].GetType().ToString() == unitCombats[i].GetType().ToString())
+                {
+                    unitCombats[i].Quantity += _troop.UnitCombats[j].Quantity;
+                }
+            }
+        }
+    }
+
+    public void AddElement(UnitCombat _unit, int _position)
+    {
+        if (_unit.Quantity>0)
+        {
+            unitCombats.Add(_unit);
+            positions.Add(_position);
+        }
+    }
+    public void DeleteElement(int _positionInArray)
+    {
+        unitCombats.Remove(unitCombats[_positionInArray]);
+        positions.Remove(positions[_positionInArray]);
     }
     public UnitCombat GetNewUnitCombat(string _type)
     {
@@ -62,50 +99,15 @@ public class Troop
     public void Reset()
     {
         unitCombats.Clear();
-      //  types.Clear();
         positions.Clear();
-      //  numbers.Clear();
     }
     public int GetAllNumbersUnit()
     {
         int result = 0;
-        /*
-        for (int i = 0; i < numbers.Count; i++)
-        {
-            result += numbers[i];
-        }
-        */
         for (int i = 0; i < unitCombats.Count; i++)
         {
             result += unitCombats[i].Quantity;
         }
         return result;
     }
-    /*
-    public int GetNumberUnity(string _type)
-    {
-        int result = 0;
-        for (int i = 0; i < numbers.Count; i++)
-        {
-            if (types[i] == _type)
-            {
-                result += numbers[i];
-            }
-        }
-        return result;
-    }
-    
-    public int GetNumberUnity(UnitCombat _type)
-    {
-        int result = 0;
-        for (int i = 0; i < numbers.Count; i++)
-        {
-            if (unitCombats[i] == _type)
-            {
-                result += numbers[i];
-            }
-        }
-        return result;
-    }
-    */
 }

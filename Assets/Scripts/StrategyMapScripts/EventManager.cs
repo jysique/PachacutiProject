@@ -131,7 +131,7 @@ public class EventManager : MonoBehaviour
     private void GoToButton(CustomEvent custom)
     {
         CloseCustomEventButton();
-        GlobalVariables.instance.CenterCameraToTerritory(custom.TerritoryEvent);
+        GlobalVariables.instance.CenterCameraToTerritory(custom.TerritoryEvent,false);
     }
     public void InitCustomEvent(CustomEvent custom)
     {

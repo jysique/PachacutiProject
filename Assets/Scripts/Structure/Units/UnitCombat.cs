@@ -11,10 +11,16 @@ public class UnitCombat : Subordinate
     [SerializeField] private int range;
     [SerializeField] private string[] strongTo;
     [SerializeField] private string[] weakTo;
-
+    [SerializeField] private int position;
+   
     public float _timeLeft = 0;
     public int _totalTime = 12;
-
+   
+    public int PositionInBattle
+    {
+        get { return position; }
+        set { position = value; }
+    }
     public int Quantity
     {
         get { return quantity; }

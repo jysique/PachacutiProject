@@ -63,54 +63,11 @@ public class TimeSimulated
     /// <summary>
     /// Season of a TimeSimulated
     /// </summary>
-    public void CalculateSeason()
-    {
-        if (month == 12 || month == 1 || month == 2)
-        {
-            season = "Temporada 1";
-        }
-        if (month == 3 || month == 4 || month == 5)
-        {
-            season= "Temporada 2";
-        }
-        if (month == 6 || month == 7 || month == 8)
-        {
-            season = "Temporada 3";
-        }
-        if (month == 9 || month == 10 || month == 11)
-        {
-            season = "Temporada 4";
-        }
-    }
-    public string PrintTimeSimulated()
-    {
-        return this.day.ToString() + " / " + this.month.ToString() + " / " + this.year.ToString();
-    }
-    /// <summary>
-    /// Number weeks of a TimeSimulated
-    /// </summary>
-    public void CalculateWeeks()
-    {
-        double total_days = day + 30 * (month - 1)-1;
-        week = (int)(total_days / 10) + 1;
-    }
-    public void CalculateYear()
-    {
-        year++;
-        month = 1;
-    }
-    public void CalculateMonth()
-    {
-        month++;
-        day = 1;
-    }
-
     public void CalculateDay()
     {
         day++;
         hour = 1;
     }
-
     /// <summary>
     /// Add plus days to a TimeSimulated
     /// </summary>
@@ -154,7 +111,6 @@ public class TimeSimulated
     {
         return this.hour == time2.hour && this.day == time2.day && this.month == time2.month && this.year == time2.year;
     }
-
     /// <summary>
     /// Returns days from two time simulated
     /// </summary>
@@ -168,5 +124,46 @@ public class TimeSimulated
         int difDays = (int)(this.day - time2.day);
 //        int hour = (int)(this.hour - time2.hour);
         return difYear*360 + difMonth * 30 + difDays;
+    }
+    public void CalculateSeason()
+    {
+        if (month == 12 || month == 1 || month == 2)
+        {
+            season = "Temporada 1";
+        }
+        if (month == 3 || month == 4 || month == 5)
+        {
+            season = "Temporada 2";
+        }
+        if (month == 6 || month == 7 || month == 8)
+        {
+            season = "Temporada 3";
+        }
+        if (month == 9 || month == 10 || month == 11)
+        {
+            season = "Temporada 4";
+        }
+    }
+    public string PrintTimeSimulated()
+    {
+        return this.day.ToString() + " / " + this.month.ToString() + " / " + this.year.ToString();
+    }
+    /// <summary>
+    /// Number weeks of a TimeSimulated
+    /// </summary>
+    public void CalculateWeeks()
+    {
+        double total_days = day + 30 * (month - 1) - 1;
+        week = (int)(total_days / 10) + 1;
+    }
+    public void CalculateYear()
+    {
+        year++;
+        month = 1;
+    }
+    public void CalculateMonth()
+    {
+        month++;
+        day = 1;
     }
 }

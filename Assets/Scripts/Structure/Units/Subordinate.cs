@@ -4,8 +4,8 @@ using UnityEngine;
 [System.Serializable]
 public class Subordinate : Character
 {
-    [SerializeField] private int influence;
-    [SerializeField] private int opinion;
+    private int influence;
+    private int opinion;
     
     public int Influence
     {

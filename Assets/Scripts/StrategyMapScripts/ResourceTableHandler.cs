@@ -36,10 +36,10 @@ public class ResourceTableHandler : MonoBehaviour
         foodGenerated.text = InGameMenuHandler.instance.FoodPlayer.ToString();
         scoreTxt.text = TerritoryManager.instance.CountTerrytorry(Territory.TYPEPLAYER.PLAYER).ToString();
 
-        string a = GameMultiLang.GetTraduction("tooltip7A")+"\n"+GameMultiLang.GetTraduction("tooltip7A") +"\n+" + TerritoryManager.instance.GetOveralRateResource(Territory.TYPEPLAYER.PLAYER, "goldmine") + GameMultiLang.GetTraduction("PerDay");
+        string a = GameMultiLang.GetTraduction("tooltip7")+"\n+" + TerritoryManager.instance.GetOveralRateResource(Territory.TYPEPLAYER.PLAYER, "goldmine") + GameMultiLang.GetTraduction("PerDay");
         goldIcon.GetComponent<MenuToolTip>().SetNewInfo(a);
         goldGenerated.GetComponent<MenuToolTip>().SetNewInfo(a);
-        string b = GameMultiLang.GetTraduction("tooltip8A") + "\n" + GameMultiLang.GetTraduction("tooltip8A") + "\n+" + TerritoryManager.instance.GetOveralRateResource(Territory.TYPEPLAYER.PLAYER, "channel") + GameMultiLang.GetTraduction("PerDay");
+        string b = GameMultiLang.GetTraduction("tooltip8")+ "\n+" + TerritoryManager.instance.GetOveralRateResource(Territory.TYPEPLAYER.PLAYER, "channel") + GameMultiLang.GetTraduction("PerDay");
         foodIcon.GetComponent<MenuToolTip>().SetNewInfo(b);
         foodGenerated.GetComponent<MenuToolTip>().SetNewInfo(b);
     }

@@ -17,5 +17,4 @@ public class Swordsman:UnitCombat
         this.WeakTo = new string[] { "Lancer" };
        // this.Picture = Resources.Load<Sprite>("Textures/TemporalAssets/warriors/w1");
     }
-
 }

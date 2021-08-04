@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2730049172042437848}
   - component: {fileID: 2730049172042437849}
+  - component: {fileID: 544538652985982693}
   m_Layer: 0
   m_Name: GlobalVariables
   m_TagString: Untagged
@@ -41,5 +42,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 30b08b53cea08f242a01f71aed63904b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeModifier: 1
+--- !u!114 &544538652985982693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2730049172042437850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 996b3192b69038749aa7c19773b027b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

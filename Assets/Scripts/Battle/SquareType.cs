@@ -1,3 +1,5 @@
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,20 +7,9 @@ using UnityEngine.UI;
 
 public class SquareType : MonoBehaviour
 {
-    /*
-    public enum TYPESQUARE
-    {
-        GRASSLAND,
-        FOREST,
-        MOUNTAIN,
-        SAND,
-        NONE 
-    }
-    */
     public bool haveUnit = false;
     public int index;
-    //public TYPESQUARE typeSquare;
-    public Ambience ambience;
+    public Terrain terrain;
     public UnitGroup unitGroup = null;
 
     private void Start()
@@ -37,14 +28,10 @@ public class SquareType : MonoBehaviour
         if (unitGroup != null)
         {
             haveUnit = true;
-            
         }
         else { 
             haveUnit = false;
-            
-
         }
-        
     }
 
     public void ActivateChange()
@@ -57,7 +44,7 @@ public class SquareType : MonoBehaviour
     }
 }
 [System.Serializable]
-public class Ambience
+public class Terrain
 {
     public enum TYPE
     {
@@ -67,9 +54,17 @@ public class Ambience
         SAND,
         NONE
     }
+
     [SerializeField]private TYPE type;
     private Sprite picture;
+    public Terrain(string _type)
+    {
+        this.type = (TYPE)Enum.Parse(typeof(TYPE), _type);
+    }
+    public Terrain()
+    {
 
+    }
     public TYPE Type
     {
         get { return type; }

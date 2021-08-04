@@ -293,7 +293,7 @@ public class MissionExpansion : Mission
     {
         Territory.REGION region = GlobalVariables.instance.GetRandomRegion();
         string regionString = region.ToString();
-        List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesByZoneTerritory(regionString);
+        List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesByZoneTerritory(region);
         for (int i = 0; i < t.Count; i++)
         {
             this.TerritoryMission.Add(t[i].TerritoryStats.Territory);
