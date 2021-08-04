@@ -8,7 +8,7 @@ using System.Linq;
 [RequireComponent(typeof(PolygonCollider2D))]
 public class TerritoryHandler : MonoBehaviour
 {
-    private SpriteRenderer sr;
+   // private SpriteRenderer sr;
     public int state;
     public bool war;
     [SerializeField] private Material outlineMaterial;
@@ -16,7 +16,7 @@ public class TerritoryHandler : MonoBehaviour
     [SerializeField] private Territory territory;
     [SerializeField] private float paddingX;
     [SerializeField] private float paddingY;
-    public SpriteRenderer sprite;
+    private SpriteRenderer sprite;
     private Color32 oldColor;
     private Color32 hoverColor;
     [SerializeField] private List<GameObject> adjacentTerritories;
@@ -36,7 +36,8 @@ public class TerritoryHandler : MonoBehaviour
     }
     public SpriteRenderer SpriteRender
     {
-        get { return sr; }
+        get { return sprite; }
+        set { sprite = value; }
     }
     public Material OutlineMaterial
     {
@@ -48,28 +49,22 @@ public class TerritoryHandler : MonoBehaviour
         war = false;
         state = 0;
         sprite = GetComponent<SpriteRenderer>();
-     //   sprite.color = startColor;
+
         InstantiateStatTerritory();
     }
     private void Start()
     {
-        sr = this.GetComponent<SpriteRenderer>();
-        if (TerritoryStats.Territory.GetSelected())
+        if (TerritoryStats.Territory.Selected)
         {
             TerritoryManager.instance.territorySelected = this.gameObject;
-            sr.material = outlineMaterial;
-//            InGameMenuHandler.instance.UpdateMenu();
+            sprite.material = outlineMaterial;
             WarManager.instance.selected = this;
             WarManager.instance.SetWarStatus(this.war);
-            //ShowAdjacentTerritories();
         }            
         if(TerritoryStats.Territory.TypePlayer != Territory.TYPEPLAYER.NONE)
         {
             TerritoryStats.Territory.IsClaimed = true;
         }
-
-        adjacentTerritories = TerritoryManager.instance.dictionary.Single(s => s.Key == territory.name).Value;
-        //TerritoryStats.Territory.RegionTerritory = TerritoryManager.instance.dictionary2.Single(s => s.Key == territory.name).Value;
     }
     void InstantiateStatTerritory()
     {
@@ -98,7 +93,6 @@ public class TerritoryHandler : MonoBehaviour
             }
         }
     }
-
     private void EnemyMoveWarriors()
     {
         /*
@@ -117,7 +111,7 @@ public class TerritoryHandler : MonoBehaviour
         if (Input.GetMouseButtonDown(1) && state == 0)
         {
 //            print("a");
-            TerritoryStats.Territory.SetSelected(true);
+            TerritoryStats.Territory.Selected = true;
             ShowStateMenu();
             MakeOutline();
 
@@ -127,10 +121,12 @@ public class TerritoryHandler : MonoBehaviour
             if (selected == this && TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
             {
                 ca = true;
+                /*
                 if (TerritoryStats.Territory.IsClaimed == false)
                 {
                     ca = false;
                 }
+                */
             }
             if (war == true || EventManager.instance.GetIsTerritoriesIsInPandemic(this) || EventManager.instance.GetIsTerritoriesIsInPandemic()) 
             {
@@ -159,7 +155,7 @@ public class TerritoryHandler : MonoBehaviour
         switch (state)
         {
             case 0:
-                TerritoryStats.Territory.SetSelected(true);
+                TerritoryStats.Territory.Selected =true;
                 ShowStateMenu();
                 MakeOutline();
                 InGameMenuHandler.instance.UpdateMenu();
@@ -198,14 +194,14 @@ public class TerritoryHandler : MonoBehaviour
     /// </summary>
     public void ShowAdjacentTerritories()
     {
-        sr.material = normalMaterial;
-        sr.sortingOrder =-9;
+        sprite.material = normalMaterial;
+        sprite.sortingOrder =-9;
         foreach(GameObject t in adjacentTerritories)
         {
             t.GetComponent<TerritoryHandler>().state = 1;
             outlineMaterial.SetColor("_SolidOutline", Color.yellow);
-            t.GetComponent<TerritoryHandler>().sr.material = outlineMaterial;
-            t.GetComponent<TerritoryHandler>().sr.sortingOrder = -8;
+            t.GetComponent<TerritoryHandler>().sprite.material = outlineMaterial;
+            t.GetComponent<TerritoryHandler>().sprite.sortingOrder = -8;
         }
     }
     /// <summary>
@@ -223,16 +219,16 @@ public class TerritoryHandler : MonoBehaviour
     }
     public void Deselect()
     {
-        TerritoryStats.Territory.SetSelected(false);
-        sr.sortingOrder = -8;
-        sr.material = normalMaterial;
+        TerritoryStats.Territory.Selected = false;
+        sprite.sortingOrder = -8;
+        sprite.material = normalMaterial;
     }
     
     
     public void GetSizeMap()
     {
-        territoryStats.Territory.width = sprite.sprite.texture.width;
-        territoryStats.Territory.height = sprite.sprite.texture.height;
+        territoryStats.Territory.Width = sprite.sprite.texture.width;
+        territoryStats.Territory.Height = sprite.sprite.texture.height;
        // print("|w|"+ territoryStats.Territory.width + "|h|" + territoryStats.Territory.height);
     }
 

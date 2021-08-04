@@ -46,6 +46,7 @@ public class CustomEventOption : MonoBehaviour
             estado.color = new Color32(193, 39, 4,255);
             btn.interactable = false;
             EventManager.instance.listEvents.RemoveEvent(custom);
+            
         }
     }
     void OnClickCustomEvent()
@@ -53,8 +54,8 @@ public class CustomEventOption : MonoBehaviour
         diferenceDays = custom.TimeFinalEvent.DiferenceDays(TimeSystem.instance.TimeGame);
         if (custom.EventType == CustomEvent.EVENTTYPE.CONQUIST)
         {
-            GlobalVariables.instance.CenterCameraToTerritory(custom.TerritoryEvent);
-            custom.TerritoryEvent.MakeOutline();
+            GlobalVariables.instance.CenterCameraToTerritory(custom.TerritoryEvent,true);
+            //custom.TerritoryEvent.MakeOutline();
             MenuManager.instance.AccessTabMilitar();
         }
         else

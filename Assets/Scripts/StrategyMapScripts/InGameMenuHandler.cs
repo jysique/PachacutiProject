@@ -22,9 +22,10 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI archeryLevel;
 
     [Header("Menu military")]
-    [SerializeField] private GameObject menuBlockWarriors;
-    [SerializeField] private GameObject menuBlockCharacter;
+    [SerializeField] private GameObject menuBlockMilitaryOther;
+    [SerializeField] private GameObject menuBlockMilitaryCharacter;
     [SerializeField] private GameObject menuBlockMilitaryWaste;
+
     [SerializeField] private GameObject containerTroops;
     [SerializeField] private Button selectMilitarChief;
     [SerializeField] private Image militaryBossPicture;
@@ -34,8 +35,9 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI militaryBossInfluence;
 
     [Header("Menu territory")]
-    [SerializeField] private GameObject menuBlockWasteTerritory;
-    [SerializeField] private GameObject menuBlockTerritory;
+    [SerializeField] private GameObject menuBlockTerritoryWaste;
+    [SerializeField] private GameObject menuBlockTerritoryOther;
+
     [SerializeField] private TextMeshProUGUI territoryEmpire;
     [SerializeField] private TextMeshProUGUI territoryRegion;
     [SerializeField] private TextMeshProUGUI territoryReligion;
@@ -47,11 +49,16 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI AttackBonus;
     [SerializeField] private TextMeshProUGUI DefenseBonus;
 
+    [Header("Menu strategy")]
+    [SerializeField] private GameObject menuBlockStrategyWaste;
+    [SerializeField] private GameObject menuBlockStrategyOther;
+
     [Header("Menu buildings")]
     [SerializeField] private GameObject containerBuildings;
-    [SerializeField] private GameObject menuBlockBuildings;
-    [SerializeField] private GameObject menuBlockBuildWaste;
+    [SerializeField] private GameObject menuBlockBuildingsOther;
+    [SerializeField] private GameObject menuBlockBuildingsWaste;
     [SerializeField] private TMP_Dropdown dropdownBuildings;
+    [SerializeField] GameObject CreateBuidingGO;
 
     //resources
     private int goldPlayer = 500;
@@ -79,7 +86,6 @@ public class InGameMenuHandler : MonoBehaviour
     void Start()
     {
         InitButtons();
-        UpdateMenu();
         dropdownBuildings.onValueChanged.AddListener(delegate { DropdownItemSelected(selectedTerritory); });
     }
     private void UpdateStateMenu()
@@ -98,16 +104,15 @@ public class InGameMenuHandler : MonoBehaviour
     /// </summary>
     private void UpdateMilitarMenu()
     {
-        //  menuBlockWarriors.SetActive(false);
+        menuBlockMilitaryOther.SetActive(false);
         menuBlockMilitaryWaste.SetActive(false);
+        menuBlockMilitaryCharacter.SetActive(false);
         MilitarChief mChief = selectedTerritory.MilitarChiefTerritory;
         militaryBossName.text = mChief.CharacterName;
         militaryBossPicture.sprite = mChief.Picture;
         militaryBossExperience.text = mChief.Experience.ToString()+ "/10";
         militaryBossEstrategy.text = GameMultiLang.GetTraduction("StrategyTitle") + mChief.StrategyType;
         militaryBossInfluence.text = mChief.Influence.ToString() +"/10";
-    //    GenerationSpeed.text = selectedTerritory.VelocityPopulation.ToString();
-    //    warriorsLimit.text = selectedTerritory.LimitPopulation.ToString();
 
         if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
         {
@@ -115,16 +120,20 @@ public class InGameMenuHandler : MonoBehaviour
             {
                 menuBlockMilitaryWaste.SetActive(true);
             }
+            else
+            {
+                menuBlockMilitaryOther.SetActive(true);
+            }
         }
         else
         {
             if (selectedTerritory.IsClaimed == false)
             {
-                menuBlockCharacter.SetActive(true);
+                menuBlockMilitaryCharacter.SetActive(true);
             }
             else
             {
-                menuBlockCharacter.SetActive(false);
+                menuBlockMilitaryCharacter.SetActive(false);
             }
         }
     }
@@ -135,8 +144,8 @@ public class InGameMenuHandler : MonoBehaviour
     /// </summary>
     private void UpdateTerritoryMenu()
     {
-        menuBlockTerritory.SetActive(false);
-        menuBlockWasteTerritory.SetActive(false);
+        menuBlockTerritoryOther.SetActive(false);
+        menuBlockTerritoryWaste.SetActive(false);
         territoryEmpire.text = TerritoryManager.instance.GetTerritoryEmpire(selectedTerritory);
         territoryRegion.text = selectedTerritory.RegionTerritory.ToString().Split(char.Parse("_"))[0];
         MotivationBonus.text = selectedTerritory.MotivationTerritory.ToString() + "/10";
@@ -147,13 +156,32 @@ public class InGameMenuHandler : MonoBehaviour
         
         if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
         {
-            menuBlockTerritory.SetActive(true);           
+            menuBlockTerritoryOther.SetActive(true);           
         }
         if (selectedTerritory.TypePlayer == Territory.TYPEPLAYER.WASTE)
         {
-            menuBlockWasteTerritory.SetActive(true);
+            menuBlockTerritoryWaste.SetActive(true);
         }
         UpdateTroopsContainer(selectedTerritory);
+    }
+    /// <summary>
+    /// Update all elements of the strategy menu of the territory-selected
+    /// if the territory-selected doesn't belong to the player 
+    /// it blocks
+    /// </summary>
+    private void UpdateStrategyMenu()
+    {
+        menuBlockStrategyOther.SetActive(false);
+        menuBlockStrategyWaste.SetActive(false);
+        if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
+        {
+            menuBlockStrategyOther.SetActive(true);
+        }
+        if (selectedTerritory.TypePlayer == Territory.TYPEPLAYER.WASTE)
+        {
+            menuBlockStrategyWaste.SetActive(true);
+        }
+        UpdateTroopOptions(selectedTerritory);
     }
     /// <summary>
     /// Update all elements of the buildings menu of the territory-selected
@@ -172,17 +200,18 @@ public class InGameMenuHandler : MonoBehaviour
             }
         }
 
-        menuBlockBuildings.SetActive(false);
-        menuBlockBuildWaste.SetActive(false);
+        menuBlockBuildingsOther.SetActive(false);
+        menuBlockBuildingsWaste.SetActive(false);
         if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
         {
-            menuBlockBuildings.SetActive(true);
+            menuBlockBuildingsOther.SetActive(true);
         }
         if (selectedTerritory.TypePlayer == Territory.TYPEPLAYER.WASTE)
         {
-            menuBlockBuildWaste.SetActive(true);
+            menuBlockBuildingsWaste.SetActive(true);
         }
-        UpdateDropdown(dropdownBuildings, selectedTerritory.GetListBuildings());
+       //   UpdateDropdown(dropdownBuildings, selectedTerritory.GetListBuildings());
+        UpdateDropdown(dropdownBuildings, Utils.instance.GetListBuildings(selectedTerritory));
         UpdateBuildings(selectedTerritory);
     }
     /// <summary>
@@ -194,6 +223,7 @@ public class InGameMenuHandler : MonoBehaviour
         UpdateStateMenu();
         UpdateMilitarMenu();
         UpdateTerritoryMenu();
+        UpdateStrategyMenu();
         UpdateBuildingsMenu();
 
     }
@@ -213,7 +243,7 @@ public class InGameMenuHandler : MonoBehaviour
 
     void Update()
     {
-        selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().TerritoryStats.Territory;
+        //selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().TerritoryStats.Territory;
         CreateBuidingGO.transform.SetAsLastSibling();
         UpdateAllText();
     }
@@ -307,13 +337,13 @@ public class InGameMenuHandler : MonoBehaviour
     }
     private void InitButtons()
     {
-        MilitarChief militarChief = new MilitarChief();
-        selectMilitarChief.onClick.AddListener(() => MenuManager.instance.OpenSelectCharacterMenu(militarChief));
+       // MilitarChief militarChief = new MilitarChief();
+        selectMilitarChief.onClick.AddListener(() => MenuManager.instance.OpenSelectCharacterMenu(new MilitarChief()));
     }
 
     public void UpdateDropdown(TMP_Dropdown _dropdown, List<string> _items)
     {
-        GlobalVariables.instance.InitDropdown(_dropdown,_items);
+        Utils.instance.InitDropdown(_dropdown,_items);
 
     }
 
@@ -333,11 +363,8 @@ public class InGameMenuHandler : MonoBehaviour
             {
                 territory.numberOfBuildings++;
                 building.Status++;
-               //building.ImproveBuilding(1);
-                //building.ImproveCostUpgrade(1);
                 ImproveBuildingButton(building);
                 InstantiateBuilding(building);
-                
             }
             else
             {
@@ -345,11 +372,12 @@ public class InGameMenuHandler : MonoBehaviour
             }
 
         }
-        
-        UpdateDropdown(dropdownBuildings, territory.GetListBuildings());
+
+        // UpdateDropdown(dropdownBuildings, territory.GetListBuildings());
+        UpdateDropdown(dropdownBuildings, Utils.instance.GetListBuildings(territory));
         dropdownBuildings.value = 0;
     }
-    [SerializeField] GameObject CreateBuidingGO;
+
     public void InstantiateBuilding(Building building)
     {
         if (building.Level>0|| building.Status>-1)
@@ -383,7 +411,6 @@ public class InGameMenuHandler : MonoBehaviour
         InstantiateBuilding(territory.StableTerritory);
         InstantiateBuilding(territory.ArcheryTerritory);
     }
-
     public void InstantiateTroopContainer(UnitCombat unit)
     {
         if (unit.Quantity > 0 || selectedTerritory.GetBuilding(unit).Level > 0)
@@ -394,7 +421,6 @@ public class InGameMenuHandler : MonoBehaviour
             troopContainerOption.GetComponent<TroopContainerOption>().InitializeTroopContainerOption(unit);
         }
     }
-
     public void UpdateTroopsContainer(Territory territory)
     {
         Transform gridLayout = containerTroops.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
@@ -407,5 +433,37 @@ public class InGameMenuHandler : MonoBehaviour
         InstantiateTroopContainer(territory.Axemen);
         InstantiateTroopContainer(territory.Scouts);
         InstantiateTroopContainer(territory.Archers);
+    }
+    
+    [SerializeField] public TroopOption[] optionsInDefend { get; private set; }
+    [SerializeField] GameObject strategyBackground;
+    public void UpdateTroopOptions(Territory territory)
+    {
+
+        if (territory.TypePlayer == Territory.TYPEPLAYER.NONE || territory.TypePlayer == Territory.TYPEPLAYER.WASTE)
+        {
+            return;
+        }
+        optionsInDefend = strategyBackground.transform.GetComponentsInChildren<TroopOption>();
+        List<UnitCombat> list = territory.TroopDefending;
+        // all options are initialized/reset with unit = null
+        for (int i = 0; i < optionsInDefend.Length; i++)
+        {
+            optionsInDefend[i].InitTroopOption(2, i, territory);
+        }
+    }
+
+    public void UpdateAllOptions()
+    {
+        foreach (var o in optionsInDefend)
+        {
+            o.UpdateLimit();
+            o.UpdateDropDownValues();
+        }
+    }
+
+    public int GetIndexTroopOption(TroopOption troopOption)
+    {
+        return System.Array.IndexOf(optionsInDefend, troopOption);
     }
 }

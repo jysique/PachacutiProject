@@ -35,7 +35,7 @@ public class MissionOption : MonoBehaviour
         nameMission.text = mission.NameMission;
         descriptionMission.text = mission.Message;
         TerritoryHandler t = TerritoryManager.instance.GetTerritoryHandlerByTerritory(mission.TerritoryMission[0]);
-        goToBtn.onClick.AddListener(() => GlobalVariables.instance.CenterCameraToTerritory(t));
+        goToBtn.onClick.AddListener(() => GlobalVariables.instance.CenterCameraToTerritory(t,false));
         descriptionMission.GetComponent<MenuToolTip>().AddNewInfo(mission.MessagePro);
         nameMission.GetComponent<MenuToolTip>().AddNewInfo(mission.MessagePro);
         statusMission.GetComponent<MenuToolTip>().AddNewInfo(mission.MessagePro);

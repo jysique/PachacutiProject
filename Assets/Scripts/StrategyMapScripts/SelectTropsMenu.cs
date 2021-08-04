@@ -7,11 +7,13 @@ public class SelectTropsMenu : MonoBehaviour
 {
     public static SelectTropsMenu instance;
     [SerializeField] public Button moveUnits;
+    [SerializeField] public Button cancel;
     TerritoryHandler territoryAttacker;
     TerritoryHandler territoryToAttack;
-    [SerializeField] TroopOption[] options;
+    [SerializeField] public TroopOption[] optionsInAttack { get; private set; }
     [SerializeField] Troop troopSelected = new Troop();
     public int acumulated = 0;
+
     public Troop TroopSelected
     {
         get { return troopSelected; }
@@ -27,61 +29,71 @@ public class SelectTropsMenu : MonoBehaviour
     }
     private void Start()
     {
+        cancel.onClick.AddListener(() => CancelMoveUnits());
         moveUnits.onClick.AddListener(() => MoveUnits());
+    }
+    public void CancelMoveUnits()
+    {
+        troopSelected.Reset();
+        this.gameObject.SetActive(false);
+        DateTableHandler.instance.ResumeTime();
     }
     public void InitMenu(TerritoryHandler _territoryToAttack)
     {
         DateTableHandler.instance.PauseTime();
         territoryToAttack = _territoryToAttack;
         territoryAttacker = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
-        options = GetComponentsInChildren<TroopOption>();
-        foreach (var o in options)
+        optionsInAttack = GetComponentsInChildren<TroopOption>();
+        for (int i = 0; i < optionsInAttack.Length; i++)
         {
-            o.InitTroopOption();
+            optionsInAttack[i].InitTroopOption(1, i, territoryAttacker.TerritoryStats.Territory, territoryToAttack.TerritoryStats.Territory);
         }
     }
     public void MoveUnits()
     {
+        foreach (TroopOption item in optionsInAttack)
+        {
+            if (item.UnitCombatInBattle!= null && item.UnitCombatInBattle.Quantity > 0)
+            {
+                troopSelected.AddElement(item.UnitCombatInBattle, item.PosInBattle);
+            }
+        }
         Territory.TYPEPLAYER typeSelected = territoryAttacker.TerritoryStats.Territory.TypePlayer;
+
         int totalWarriors = troopSelected.GetAllNumbersUnit();
-        acumulated += totalWarriors;
         if (InGameMenuHandler.instance.GoldPlayer >= totalWarriors || territoryToAttack.TerritoryStats.Territory.TypePlayer == typeSelected)
         {
+            acumulated += totalWarriors;
             if (territoryToAttack.TerritoryStats.Territory.TypePlayer != typeSelected)
             {
                 InGameMenuHandler.instance.GoldPlayer -= totalWarriors;
                 InGameMenuHandler.instance.FoodPlayer -= totalWarriors;
             }
+            troopSelected.MoveUnits(territoryAttacker.TerritoryStats.Territory);
+
             WarManager.instance.SendWarriors(territoryAttacker, territoryToAttack, troopSelected);
         }
         else
         {
             InGameMenuHandler.instance.ShowFloatingText("you need "+totalWarriors+" golds", "TextMesh", transform, new Color32(187, 27, 128, 255));
         }
-        troopSelected.Reset();
-        this.gameObject.SetActive(false);
-        DateTableHandler.instance.ResumeTime();
+        CancelMoveUnits();
     }
-    public int GetIndexTroopOption(TroopOption troopOption)
+
+    public void UpdateAllOptions()
     {
-        return System.Array.IndexOf(options, troopOption);
-    }
-    public void UpdateAllDropdown()
-    {
-        foreach (var o in options)
+        foreach (var o in optionsInAttack)
         {
-            o.UpdateDropDown();
-            if (o.isSelected == false) {
-                o.ResetValue();
-            }
+            o.UpdateDropDownValues();
+            o.UpdateLimit();
         }
     }
     public bool GetIsAllSelected() 
     {
         bool a = false;
-        for (int i = 0; i < options.Length; i++)
+        for (int i = 0; i < optionsInAttack.Length; i++)
         {
-            if (options[i].isSelected == true)
+            if (optionsInAttack[i].IsSelected == true)
             {
                 a = true;
             }

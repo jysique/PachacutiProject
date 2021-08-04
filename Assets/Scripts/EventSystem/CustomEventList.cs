@@ -51,13 +51,14 @@ public class CustomEventList
     {
         BuildingsEvents.Remove(@event);
     }
-    public CustomEvent GetCustomEventByTerritory(Territory @territory)
+    public CustomEvent GetCustomEventByTerritory(Territory @territory, CustomEvent.EVENTTYPE  @type)
     {
-        CustomEvent @event = new CustomEvent();
+        CustomEvent @event = null;
         for (int i = 0; i < CustomEvents.Count; i++)
         {
-            if (CustomEvents[i].TerritoryEvent.TerritoryStats.Territory == territory && CustomEvents[i].EventType == CustomEvent.EVENTTYPE.CONQUIST)
+            if (CustomEvents[i].TerritoryEvent.TerritoryStats.Territory == territory && CustomEvents[i].EventType == @type)
             {
+                Debug.Log("encontre");
                 @event = CustomEvents[i];
             }
         }

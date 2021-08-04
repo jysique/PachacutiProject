@@ -26,10 +26,6 @@ public class ContextMenu : MonoBehaviour
         {
             buttonBlock.transform.Find("Text").transform.GetComponent<Text>().text = GameMultiLang.GetTraduction("territoryStats1");
         }
-        else if (clickedTerritory.TerritoryStats.Territory.IsClaimed == false)
-        {
-            buttonBlock.transform.Find("Text").transform.GetComponent<Text>().text = GameMultiLang.GetTraduction("territoryStats2");
-        }
         else if (EventManager.instance.GetIsTerritoriesIsInPandemic() && EventManager.instance.GetIsTerritoriesIsInPandemic(clickedTerritory))
         {
             buttonBlock.transform.Find("Text").transform.GetComponent<Text>().text = GameMultiLang.GetTraduction("territoryStats3");
@@ -67,6 +63,14 @@ public class ContextMenu : MonoBehaviour
         if (AudioManager.instance != null)
         {
             AudioManager.instance.ReadAndPlaySFX("send_units");
+        }
+        if (selected.TerritoryStats.Territory.IsClaimed == false)
+        {
+            MenuManager.instance.AccessTabMilitar();
+            MenuManager.instance.OpenSelectCharacterMenu(new MilitarChief());
+            GlobalVariables.instance.CenterCameraToTerritory(selected,true);
+            this.gameObject.SetActive(false);
+            return;
         }
         if (selected.TerritoryStats.Territory.Population > 0)
         {

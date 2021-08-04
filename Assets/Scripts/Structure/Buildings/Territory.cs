@@ -5,13 +5,13 @@ using UnityEngine.UI;
 [System.Serializable]
 public class Territory
 {
-    public float width;
-    public float height;
+    private float width;
+    private float height;
     public int numberOfBuildings = 0;
     public string name;
     [SerializeField] private bool isClaim = false;
 
-    [SerializeField] private string region;
+    [SerializeField] private REGION region;
     [SerializeField] private TYPEPLAYER typePlayer;
 
     [SerializeField] private int gold;
@@ -38,12 +38,21 @@ public class Territory
     [SerializeField] private Stable stableTerritory = new Stable();
     [SerializeField] private Archery archeryTerritory = new Archery();
 
-   // [SerializeField] private List<SquareType.TYPESQUARE> tiles = new List<SquareType.TYPESQUARE>();
-    [SerializeField] private List<Ambience> ambienceList = new List<Ambience>();
+    [SerializeField] private List<Terrain> terrainList = new List<Terrain>();
     private int costImproveSpeedPopulation = 10;
     private int costImproveLimitPopulation = 10;
     private int addCost = 5;
     private int perPeople = 2;
+    public float Width
+    {
+        get { return width; }
+        set { width = value; }
+    }
+    public float Height
+    {
+        get { return height; }
+        set { height = value; }
+    }
     public Swordsman Swordsmen
     {
         get { return swordsmen; }
@@ -144,17 +153,10 @@ public class Territory
         get { return typePlayer; }
         set { typePlayer = value; }
     }
-    /*
-    public List<SquareType.TYPESQUARE> Tiles
+    public List<Terrain> TerrainList
     {
-        get { return tiles; }
-        set { tiles = value; }
-    }
-    */
-    public List<Ambience> AmbiencesList
-    {
-        get { return ambienceList; }
-        set { ambienceList = value; }
+        get { return terrainList; }
+        set { terrainList = value; }
     }
     public bool AllBuildsLevels()
     {
@@ -168,7 +170,7 @@ public class Territory
             && archeryTerritory.Level >0;
     }
 
-    public string RegionTerritory
+    public REGION RegionTerritory
     {
         get { return region; }
         set { region = value; }
@@ -203,74 +205,11 @@ public class Territory
         get { return food; }
         set { food = value; }
     }
-    public void SetSelected(bool _selected) { selected = _selected; }
-    public bool GetSelected() { return selected; }
-
-    public List<string> GetListUnitCombat()
+    public bool Selected
     {
-        List<string> unitCombat = new List<string>();
-        unitCombat.Add("SelectUnit");
-        if (swordsmen.Quantity > 0)
-        {
-            unitCombat.Add("Swordsman");
-        }
-        if (lancers.Quantity > 0)
-        {
-            unitCombat.Add("Lancer");
-        }
-        if (axemen.Quantity > 0)
-        {
-            unitCombat.Add("Axeman");
-        }
-        if (scouts.Quantity > 0)
-        {
-            unitCombat.Add("Scout");
-        }
-        if (archers.Quantity > 0)
-        {
-            unitCombat.Add("Archer");
-        }
-        return unitCombat;
+        get { return selected; }
+        set { selected = value; }
     }
-    public List<string> GetListBuildings()
-    {
-        List<string> buildings = new List<string>();
-        buildings.Add("CreateBuilding");
-        if (farmTerritory.Status < 0)
-        {
-            buildings.Add("Farm");
-        }
-        if (goldMineTerritory.Status < 0)
-        {
-            buildings.Add("GoldMine");
-        }
-        if (fortressTerritory.Status < 0)
-        {
-            buildings.Add("Fortress");
-        }
-        if (academyTerritory.Status < 0)
-        {
-            buildings.Add("Academy");
-        }
-        if (barracksTerritory.Status < 0)
-        {
-            buildings.Add("Barracks");
-        }
-        if (castleTerritory.Status < 0)
-        {
-            buildings.Add("Castle");
-        }
-        if (stableTerritory.Status < 0)
-        {
-            buildings.Add("Stable");
-        }
-        if (archeryTerritory.Status < 0)
-        {
-            buildings.Add("Archery");
-        }        
-         return buildings;
-    }
-
     public Building GetBuilding(Building building)
     {
         if (building is Farm)
@@ -338,6 +277,7 @@ public class Territory
             return null;
         }
     }
+
     public Building GetBuilding(string building)
     {
         if (building == "Farm")
@@ -417,26 +357,26 @@ public class Territory
         }
         return 0;
     }
-    public UnitCombat GetUnit(string building)
+    public UnitCombat GetUnit(string unit)
     {
 
-        if (building == "Swordsman")
+        if (unit == "Swordsman")
         {
             return swordsmen;
         }
-        else if (building == "Lancer")
+        else if (unit == "Lancer")
         {
             return lancers;
         }
-        else if (building == "Axeman")
+        else if (unit == "Axeman")
         {
             return axemen;
         }
-        else if(building == "Scout")
+        else if(unit == "Scout")
         {
             return scouts;
         }
-        else if (building == "Archer")
+        else if (unit == "Archer")
         {
             return archers;
         }
@@ -458,10 +398,10 @@ public class Territory
     }
     public enum REGION
     {
-        NORTH_REGION,
-        EAST_REGION,
-        SOUTHERN_REGION,
-        CENTRE_REGION,
+        NORTH,
+        EAST,
+        SOUTHERN,
+        CENTRE,
         NONE
     }
     public enum TYPEPLAYER
@@ -474,6 +414,10 @@ public class Territory
         NONE,
         WASTE
     }
+    [SerializeField] List<UnitCombat> troopDefend = new List<UnitCombat>();
+    public List<UnitCombat> TroopDefending
+    {
+        get { return troopDefend; }
+        set { troopDefend = value; }
+    }
 }
-
-

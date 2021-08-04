@@ -48,8 +48,7 @@ public class AlertOption : MonoBehaviour
             case "Alert_NewConq":
                 MenuManager.instance.AccessTabEvent();
                 EventManager.instance.SetNotificationEvent(false);
-                GlobalVariables.instance.CenterCameraToTerritory(focusTerritory);
-                focusTerritory.MakeOutline();
+                GlobalVariables.instance.CenterCameraToTerritory(focusTerritory,true);
                 break;
             case "Alert_NewEvent":
             case "Alert_EndEvent":
@@ -63,7 +62,7 @@ public class AlertOption : MonoBehaviour
                 MissionManager.instance.SetNotificationMission(false);
                 break;
             case "Alert_LostTerr":
-                GlobalVariables.instance.CenterCameraToTerritory(focusTerritory);
+                GlobalVariables.instance.CenterCameraToTerritory(focusTerritory,false);
                 break;
             default:
                 break;

@@ -57,8 +57,6 @@ public class NumericButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
                 if (inc) IncreaseNumber();
                 else DecreaseNumber();
                 t = 0;
-
-
             }
             else
             {

@@ -47,12 +47,6 @@ public class CombatManager : MonoBehaviour
         enemyPositions.Add(4, 11);
         enemyPositions.Add(5, 10);
 
-        //Diccionario de territorios
-     //   territoryPictures.Add(SquareType.TYPESQUARE.FOREST, Resources.Load<Sprite>("Textures/TemporalAssets/terrain/forest"));
-     //   territoryPictures.Add(SquareType.TYPESQUARE.SAND, Resources.Load<Sprite>("Textures/TemporalAssets/terrain/sand"));
-     //   territoryPictures.Add(SquareType.TYPESQUARE.GRASSLAND, Resources.Load<Sprite>("Textures/TemporalAssets/terrain/grassland"));
-     //   territoryPictures.Add(SquareType.TYPESQUARE.MOUNTAIN, Resources.Load<Sprite>("Textures/TemporalAssets/terrain/mountain"));
-
     }
 
     void SortList(List<UnitGroup> alpha)
@@ -76,6 +70,8 @@ public class CombatManager : MonoBehaviour
         rt.offsetMax = new Vector2(rt.offsetMax.x, 46);
         rt.offsetMin = new Vector2(rt.offsetMin.x, -116);
         pref.transform.GetChild(0).GetComponent<Text>().text = unitCombat.Quantity.ToString();
+ //      print("N|" + unitCombat.UnitName);
+//        print("P|"+ unitCombat.Picture.name);
         pref.GetComponent<Image>().sprite = unitCombat.Picture;
         if (_type != Territory.TYPEPLAYER.PLAYER)
         {
@@ -103,21 +99,18 @@ public class CombatManager : MonoBehaviour
         enemyTerritory = _enemyTerritory;
         TerritoryHandler territoryOfWar;
         //List<SquareType.TYPESQUARE> tiles;
-        List<Ambience> tiles;
+        List<Terrain> tiles;
         //establecer las casillas de jugador
         if (isPlayerTerritory)
         {
             territoryOfWar = playerTerritory;
-            //tiles = territoryOfWar.TerritoryStats.Territory.Tiles;
-            tiles = territoryOfWar.TerritoryStats.Territory.AmbiencesList;
+            tiles = territoryOfWar.TerritoryStats.Territory.TerrainList;
         }
         else
         {
             territoryOfWar = enemyTerritory;
-            //tiles = territoryOfWar.TerritoryStats.Territory.Tiles;
-            tiles = territoryOfWar.TerritoryStats.Territory.AmbiencesList;
-            //List<SquareType.TYPESQUARE> newTiles = new List<SquareType.TYPESQUARE>();
-            List<Ambience> newTiles = new List<Ambience>();
+            tiles = territoryOfWar.TerritoryStats.Territory.TerrainList;
+            List<Terrain> newTiles = new List<Terrain>();
             for (int y = (tiles.Count/2)-1; y >= 0; y--)
             {
                 newTiles.Add(tiles[y]);
@@ -142,11 +135,7 @@ public class CombatManager : MonoBehaviour
 
         for(int j = 0; j < squares.transform.childCount; j ++)
         {
-            //print(tiles[j].Picture.name);
-            //squares.transform.GetChild(j).GetComponent<SquareType>().typeSquare = tiles[j];
-            //squares.transform.GetChild(j).GetComponent<SquareType>().index = j;
-            //squares.transform.GetChild(j).GetComponent<Image>().sprite = territoryPictures[squares.transform.GetChild(j).GetComponent<SquareType>().typeSquare];
-            squares.transform.GetChild(j).GetComponent<SquareType>().ambience = tiles[j];
+            squares.transform.GetChild(j).GetComponent<SquareType>().terrain = tiles[j];
             squares.transform.GetChild(j).GetComponent<SquareType>().index = j;
             squares.transform.GetChild(j).GetComponent<Image>().sprite = tiles[j].Picture;
         }
@@ -156,22 +145,13 @@ public class CombatManager : MonoBehaviour
 
        for (int i = 0; i < playerTroop.Positions.Count; i++)
        {
-           int up = playerPositions[playerTroop.Positions[i]];
-            //InstantiateUnit(int number, Sprite _sprite, GameObject square, Territory.TYPEPLAYER _type, string weapontype)
-            /*
-            InstantiateUnit(playerTroop.Numbers[i], 
-                            unitTypes[playerTroop.Types[i]].Picture, 
-                            squares.transform.GetChild(up).gameObject,
-                            _playerTerritory.TerritoryStats.Territory.TypePlayer, 
-                            playerTroop.Types[i]);
-            */
+            int up = playerPositions[playerTroop.Positions[i]];
             InstantiateUnit(squares.transform.GetChild(up).gameObject, _playerTerritory.TerritoryStats.Territory.TypePlayer, playerTroop.UnitCombats[i]);
        }
 
        for (int i = 0; i < enemyTroop.Positions.Count; i++)
        {
-           int up = enemyPositions[enemyTroop.Positions[i]];
-            //InstantiateUnit(enemyTroop.Numbers[i], unitTypes[enemyTroop.Types[i]].Picture , squares.transform.GetChild(up).gameObject, _enemyTerritory.TerritoryStats.Territory.TypePlayer, enemyTroop.Types[i]);
+            int up = enemyPositions[enemyTroop.Positions[i]];
             InstantiateUnit(squares.transform.GetChild(up).gameObject, _enemyTerritory.TerritoryStats.Territory.TypePlayer, enemyTroop.UnitCombats[i]);
         }
 
@@ -228,13 +208,13 @@ public class CombatManager : MonoBehaviour
         {
             if (isPlayer)
             {
-                print(playerTerritory.TerritoryStats.Territory.name + " es atacado entonces "+ u.UnitCombat.GetType().ToString() +" es igual a " + u.UnitCombat.Quantity);
+                //print(playerTerritory.TerritoryStats.Territory.name + " es atacado entonces "+ u.UnitCombat.GetType().ToString() +" es igual a " + u.UnitCombat.Quantity);
                 //playerTerritory.TerritoryStats.Territory.GetUnit(u.Type).Quantity = u.Quantity;
                 playerTerritory.TerritoryStats.Territory.GetUnit(_type).Quantity = u.UnitCombat.Quantity;
             }
             else
             {
-                print(playerTerritory.TerritoryStats.Territory.name + " ataca entonces " + u.UnitCombat.GetType().ToString() + " recupera " + u.UnitCombat.Quantity);
+                //print(playerTerritory.TerritoryStats.Territory.name + " ataca entonces " + u.UnitCombat.GetType().ToString() + " recupera " + u.UnitCombat.Quantity);
                 playerTerritory.TerritoryStats.Territory.GetUnit(_type).Quantity += u.UnitCombat.Quantity;
             }
         }
@@ -242,12 +222,12 @@ public class CombatManager : MonoBehaviour
         {
             if (isPlayer)
             {
-                print(enemyTerritory.TerritoryStats.Territory.name + " ataca entonces " +  u.UnitCombat.GetType().ToString() + " recupera " +u.UnitCombat.Quantity);
+                //print(enemyTerritory.TerritoryStats.Territory.name + " ataca entonces " +  u.UnitCombat.GetType().ToString() + " recupera " +u.UnitCombat.Quantity);
                 enemyTerritory.TerritoryStats.Territory.GetUnit(_type).Quantity += u.UnitCombat.Quantity;
             }
             else
             {
-                print(enemyTerritory.TerritoryStats.Territory.name + " es atacado entonces " +  u.UnitCombat.GetType().ToString() + " es igual a " + u.UnitCombat.Quantity);
+                //print(enemyTerritory.TerritoryStats.Territory.name + " es atacado entonces " +  u.UnitCombat.GetType().ToString() + " es igual a " + u.UnitCombat.Quantity);
                 enemyTerritory.TerritoryStats.Territory.GetUnit(_type).Quantity = u.UnitCombat.Quantity;
             }
         }
@@ -281,7 +261,6 @@ public class CombatManager : MonoBehaviour
                 DestroyGameObjectAndChildren(squares.transform.GetChild(i).GetChild(0).gameObject);
             }
         }
-
         units.Clear();
         canvas.SetActive(false);
     }
@@ -489,7 +468,7 @@ public class CombatManager : MonoBehaviour
 
         int index = unit.UnitsGO.transform.parent.GetComponent<SquareType>().index;
         int newIndex;
-        print(index);
+        //print(index);
         //left
         newIndex = index - 1;
         if (newIndex >= 0 && newIndex < squares.transform.childCount) {
@@ -548,13 +527,13 @@ public class CombatManager : MonoBehaviour
     }
     public void ChangeUnits(int index, int newIndex)
     {
-        print(index);
-        print(newIndex);
+        //print(index);
+        //print(newIndex);
         SquareType square1 = SquareByIndex(index);
         SquareType square2 = SquareByIndex(newIndex);
         UnitGroup saveug = square1.unitGroup;
 
-        print(saveug);
+        //print(saveug);
         if (square1.haveUnit)
         {
             square1.gameObject.transform.GetChild(0).transform.position = square2.gameObject.transform.position;

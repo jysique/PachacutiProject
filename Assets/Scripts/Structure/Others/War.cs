@@ -6,14 +6,14 @@ using UnityEngine;
 public class War
 {
 
-    [SerializeField] private Territory.TYPEPLAYER attackers;
+    [SerializeField] private Territory.TYPEPLAYER attackersType;
     [SerializeField] private TerritoryHandler territory;
-    [SerializeField]public int warriors1Count;
-    [SerializeField]public int warriors2Count;
-    [SerializeField]private float warriors1Speed;
-    [SerializeField]private float warriors2Speed;
-    [SerializeField]private int status;
-    [SerializeField]private float time1;
+    [SerializeField] public Troop attackerTroop;
+
+    [SerializeField] private float warriorsAttackerSpeed;
+    [SerializeField] private float warriorsDefenderSpeed;
+    [SerializeField] private int status;
+    [SerializeField] private float time1;
     [SerializeField] private float time2;
     [SerializeField] private float limit;
     [SerializeField] private float critic1;
@@ -21,8 +21,10 @@ public class War
 
     private int criticMod1;
     private int criticMod2;
+    private int indexAttackers = 0;
+    private int indexDefenders = 0;
 
-    public War(int c1,float s1,float s2, TerritoryHandler _territoryHandler, Territory.TYPEPLAYER _attackers, float _critic1, float _critic2)
+    public War(Troop troopAttacker, float speedAttacker, float speedDefender, float _critic1, float _critic2, TerritoryHandler _territoryHandler, Territory.TYPEPLAYER _attackers)
     {
         critic1 = _critic1;
         critic2 = _critic2;
@@ -30,25 +32,26 @@ public class War
         time1 = 0;
         time2 = 0;
         limit = 400;
-        warriors1Count = c1;
-        warriors2Count = _territoryHandler.TerritoryStats.Territory.Population;
-        warriors1Speed = s1;
-        warriors2Speed = s2;
+        attackerTroop = troopAttacker;
+
+        warriorsAttackerSpeed = speedAttacker;
+        warriorsDefenderSpeed = speedDefender;
         territory = _territoryHandler;
-        attackers = _attackers;
+        attackersType = _attackers;
     }
-    public float Speed1
+
+    public float SpeedAttackers
     {
-        get { return warriors1Speed; }
+        get { return warriorsAttackerSpeed; }
     }
-    public float Speed2
+    public float SpeedDefender
     {
-        get { return warriors2Speed; }
+        get { return warriorsDefenderSpeed; }
     }
-    public Territory.TYPEPLAYER Attackers
+    public Territory.TYPEPLAYER AttackerType
     {
-        get { return attackers; }
-        set { attackers = value; }
+        get { return attackersType; }
+        set { attackersType = value; }
     }
     public TerritoryHandler TerritoryWar
     {
@@ -56,6 +59,10 @@ public class War
         set { territory = value; }
     }
 
+    public TerritoryHandler GetTerritory()
+    {
+        return territory;
+    }
     public void UpdateStatus()
     {
         if(status == 1)
@@ -66,7 +73,7 @@ public class War
                 BotManager.instance.DeleteTerritory(territory.TerritoryStats.Territory.TypePlayer, territory);
             }
 
-            WarManager.instance.FinishWar(territory,attackers);
+            WarManager.instance.FinishWar(territory,attackersType);
             
             if(WarManager.instance.selectedWar == this)
             {
@@ -96,46 +103,68 @@ public class War
                 WarManager.instance.ShowCritic(this, false);
             }
             else criticMod2 = 1;
-            time1 += (warriors2Speed* GlobalVariables.instance.WarSpeed)*criticMod1;
-            time2 += (warriors1Speed* GlobalVariables.instance.WarSpeed)*criticMod2;
+            time1 += (warriorsDefenderSpeed* GlobalVariables.instance.WarSpeed)*criticMod1;
+            time2 += (warriorsAttackerSpeed* GlobalVariables.instance.WarSpeed)*criticMod2;
+            //WASTAGE ATTACKER
             if (time1 >= limit)
             {
                 time1 = 0;
-                warriors1Count--;
+                for (int i = 0; i < attackerTroop.UnitCombats.Count; i++)
+                {
+                    if (attackerTroop.UnitCombats[i].Quantity>0 && indexAttackers == i)
+                    {
+                        attackerTroop.UnitCombats[i].Quantity--;
+                    }
+                    if (attackerTroop.UnitCombats[i].Quantity == 0)
+                    {
+                        indexAttackers++;
+                    }
+                }
             }
+            //WASTAGE DEFENDER
             if (time2 >= limit)
             {
                 time2 = 0;
                 // territory.TerritoryStats.Territory.Population--;
-                if (index == 0)
-                {
-                    territory.TerritoryStats.Territory.Swordsmen.Quantity--;
-                }
-                else if (index ==1)
-                {
-                    territory.TerritoryStats.Territory.Lancers.Quantity--;
-                }else if (index == 2)
-                {
-                    territory.TerritoryStats.Territory.Axemen.Quantity--;
-                }
                 if (territory.TerritoryStats.Territory.Swordsmen.Quantity == 0)
                 {
-                    index = 1;
+                    indexDefenders = 1;
                     if (territory.TerritoryStats.Territory.Lancers.Quantity == 0)
                     {
-                        index = 2;
+                        indexDefenders = 2;
+                        if (territory.TerritoryStats.Territory.Axemen.Quantity == 0)
+                        {
+                            indexDefenders = 3;
+                            if (territory.TerritoryStats.Territory.Scouts.Quantity == 0)
+                            {
+                                indexDefenders = 4;
+                            }
+                        }
                     }
                 }
-                warriors2Count = territory.TerritoryStats.Territory.Population;
+
+                if (indexDefenders == 0 )
+                {
+                    territory.TerritoryStats.Territory.Swordsmen.Quantity--;
+                }else if (indexDefenders ==1)
+                {
+                    territory.TerritoryStats.Territory.Lancers.Quantity--;
+                }else if (indexDefenders == 2)
+                {
+                    territory.TerritoryStats.Territory.Axemen.Quantity--;
+                }else if (indexDefenders == 3)
+                {
+                    territory.TerritoryStats.Territory.Scouts.Quantity--;
+                }else if (indexDefenders == 4)
+                {
+                    territory.TerritoryStats.Territory.Archers.Quantity--;
+                }
+               // warriors2Count = territory.TerritoryStats.Territory.Population;
             }
-            if (warriors1Count <= 0 || warriors2Count <= 0) status = 1;
+            if (attackerTroop.GetAllNumbersUnit() <= 0 || territory.TerritoryStats.Territory.Population <= 0) status = 1;
         }
     }
-    public int index = 0;
-    public TerritoryHandler GetTerritory()
-    {
-        return territory;
-    }
+ 
 }
 
 

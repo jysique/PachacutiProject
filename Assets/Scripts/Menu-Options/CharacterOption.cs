@@ -21,9 +21,7 @@ public class CharacterOption : MonoBehaviour
     }
     public void InitializeCharacterOption(Subordinate _char,Territory _territory=null)
     {
-        //this.type = _type;
         this.character = _char;
-      //  this.territory = _territory;
     }
     private void Update()
     {
@@ -61,20 +59,24 @@ public class CharacterOption : MonoBehaviour
     /// </summary>
     public void HireCharacter()
     {
+        Territory territory = InGameMenuHandler.instance.TerritorySelected;
         if (this.character is MilitarChief)
         {
             var militar = (MilitarChief)character;
-            InGameMenuHandler.instance.TerritorySelected.MilitarChiefTerritory = militar;
-        //    territory.MilitarChiefTerritory = militar;
+            territory.MilitarChiefTerritory = militar;
         }
-        /* else if (type == "comunal")
-         {
-
-         }*/
-        InGameMenuHandler.instance.TerritorySelected.IsClaimed = true;
+        territory.IsClaimed = true;
         //territory.IsClaimed = true;
         MenuManager.instance.CloseSelectCharacterMenu();
-        EventManager.instance.listEvents.GetCustomEventByTerritory(InGameMenuHandler.instance.TerritorySelected).DeclineEventAction();
+        CustomEvent c = EventManager.instance.listEvents.GetCustomEventByTerritory(territory,CustomEvent.EVENTTYPE.CONQUIST);
+        if (c!=null)
+        {
+            c.DeclineEventAction();
+        }
+        else
+        {
+            TerritoryManager.instance.UpdateUnitsDeffend(territory);
+        }
         EventManager.instance.UpdateEventListOption();
         InGameMenuHandler.instance.UpdateMenu();
     }

@@ -29,19 +29,6 @@ public class TerritoryStats : MonoBehaviour
         {
             populationTxt.enabled = false;
         }
-        /*
-        //cambiar por un generador o configurar manualmente
-        territory.Tiles.Add(SquareType.TYPESQUARE.GRASSLAND);
-        territory.Tiles.Add(SquareType.TYPESQUARE.GRASSLAND);
-        territory.Tiles.Add(SquareType.TYPESQUARE.GRASSLAND);
-        territory.Tiles.Add(SquareType.TYPESQUARE.FOREST);
-
-        territory.Tiles.Add(SquareType.TYPESQUARE.GRASSLAND);
-        territory.Tiles.Add(SquareType.TYPESQUARE.GRASSLAND);
-        territory.Tiles.Add(SquareType.TYPESQUARE.GRASSLAND);
-        territory.Tiles.Add(SquareType.TYPESQUARE.GRASSLAND);
-        */  
-        //allText = iconsContainer.gameObject.transform.GetComponentsInChildren<Text>();
 
     }
     public void CanPopulate()
