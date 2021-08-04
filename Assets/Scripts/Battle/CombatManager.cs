@@ -176,7 +176,7 @@ public class CombatManager : MonoBehaviour
         }
 
 
-       SortList(units);
+       //SortList(units);
        Invoke("MakeMovement",0.01f);
        //MakeMovement();
     }
@@ -198,24 +198,32 @@ public class CombatManager : MonoBehaviour
         units[c].UnitsGO.GetComponent<Image>().color = Color.white;
 
         //menu
+        if (units[c].TypePlayer == Territory.TYPEPLAYER.PLAYER)
+        {
+            Vector3 newpos = units[c].UnitsGO.transform.parent.position;
+            //print(units[c].UnitsGO.transform.parent.position);
 
-        Vector3 newpos = units[c].UnitsGO.transform.parent.position;
-        //print(units[c].UnitsGO.transform.parent.position);
-            
-        menu.transform.position = new Vector3(newpos.x+1,newpos.y-1,newpos.z);
-        //print(menu.transform.position);
+            menu.transform.position = new Vector3(newpos.x + 1, newpos.y - 1, newpos.z);
+            //print(menu.transform.position);
 
-        //print(units[1].UnitsGO.transform.parent.position);
-        
+            //print(units[1].UnitsGO.transform.parent.position);
+        }
+
         //turnos
         turns--;
-        turnsCounter.text = "Turnos restantes: "+ turns.ToString();
+        turnsCounter.text = "Turnos restantes: " + turns.ToString();
+
         if (turns <= 0)
         {
 
             FinishCombat();
         }
+        if (units[c].TypePlayer != Territory.TYPEPLAYER.PLAYER)
+        {
+            BotMovement();
+        }
         
+
     }
     private void SetStats(UnitGroup u)
     {
@@ -228,13 +236,13 @@ public class CombatManager : MonoBehaviour
         {
             if (isPlayer)
             {
-                print(playerTerritory.TerritoryStats.Territory.name + " es atacado entonces "+ u.UnitCombat.GetType().ToString() +" es igual a " + u.UnitCombat.Quantity);
+                
                 //playerTerritory.TerritoryStats.Territory.GetUnit(u.Type).Quantity = u.Quantity;
                 playerTerritory.TerritoryStats.Territory.GetUnit(_type).Quantity = u.UnitCombat.Quantity;
             }
             else
             {
-                print(playerTerritory.TerritoryStats.Territory.name + " ataca entonces " + u.UnitCombat.GetType().ToString() + " recupera " + u.UnitCombat.Quantity);
+                
                 playerTerritory.TerritoryStats.Territory.GetUnit(_type).Quantity += u.UnitCombat.Quantity;
             }
         }
@@ -242,12 +250,12 @@ public class CombatManager : MonoBehaviour
         {
             if (isPlayer)
             {
-                print(enemyTerritory.TerritoryStats.Territory.name + " ataca entonces " +  u.UnitCombat.GetType().ToString() + " recupera " +u.UnitCombat.Quantity);
+                
                 enemyTerritory.TerritoryStats.Territory.GetUnit(_type).Quantity += u.UnitCombat.Quantity;
             }
             else
             {
-                print(enemyTerritory.TerritoryStats.Territory.name + " es atacado entonces " +  u.UnitCombat.GetType().ToString() + " es igual a " + u.UnitCombat.Quantity);
+                
                 enemyTerritory.TerritoryStats.Territory.GetUnit(_type).Quantity = u.UnitCombat.Quantity;
             }
         }
@@ -287,7 +295,8 @@ public class CombatManager : MonoBehaviour
     }
     public void Attack()
     {
-        SetPosibleAttack(units[c]);
+        ShowAttackButtons(GetPosibleAttack(units[c]));
+        
         ClearSquares();
     }
     public void Defend()
@@ -301,10 +310,76 @@ public class CombatManager : MonoBehaviour
 
     public void Move()
     {
-        CheckPosibleMoves(units[c]);
+        MakePosibleMovement(CheckPosibleMoves(units[c]));
         TurnOffButtons();
     }
 
+    public void MakePosibleMovement(List<int> posibleAttacks)
+    {
+        foreach(int i in posibleAttacks)
+        {
+            squares.transform.GetChild(i).GetComponent<Image>().color = Color.magenta;
+            squares.transform.GetChild(i).GetComponent<SquareType>().ActivateChange();
+        }
+    }
+    public void BotMovement()
+    {
+
+        List<int> posibleAttacks = GetPosibleAttack(units[c]);
+        print(units[c].UnitsGO.transform.parent.GetComponent<SquareType>().index);
+        print(posibleAttacks.Count);
+        if(posibleAttacks.Count < 1)
+        {
+            List<int> posibleMoves = CheckPosibleMoves(units[c]);
+            if(posibleMoves.Count < 1)
+            {
+                Defend();
+
+            }
+            else
+            {
+                print("llego aca");
+                //int max = 0;
+                int selected = posibleMoves[0];
+                int actualIndex = units[c].UnitsGO.transform.parent.GetComponent<SquareType>().index;
+                //foreach (int index in posibleMoves)
+                //{ 
+                //    ChangeUnits(actualIndex, index);
+                //    int attacks = CheckPosibleMoves(units[c]).Count;
+                //    if (attacks > max) selected = index;
+                //    ChangeUnits(actualIndex, index);
+                //}
+                print("hasta aca tambien");
+                ChangeUnits(actualIndex, selected);
+                MakeMovement();
+            }
+
+        }
+        else
+        {
+            //tomar enfoque greedy
+            int max = 0;
+            int selected = posibleAttacks[0];
+            foreach(int index in posibleAttacks)
+            {
+                
+                int pdamage = CheckDamage(units[c], UnitByIndex(index));
+                if (pdamage > max)
+                {
+                    selected = index;
+                }
+                
+            }
+            MakeDamage(units[c], UnitByIndex(selected));
+
+
+
+        }
+        
+
+
+
+    }
     private int CheckAdvantage(UnitGroup attackGroup, UnitGroup defenseGroup)
     {
         string[] strongTo = attackGroup.UnitCombat.StrongTo;
@@ -323,14 +398,29 @@ public class CombatManager : MonoBehaviour
         }
         return 0;
     }
-
-    public void MakeDamage(UnitGroup defenseGroup)
+    private int CheckDamage(UnitGroup attackGroup, UnitGroup defenseGroup)
     {
-        UnitGroup attackGroup = units[c];
-
+        int damage = attackGroup.UnitCombat.Attack;
+        int advantage = CheckAdvantage(attackGroup, defenseGroup);
+        if (advantage == 2)
+        {
+            damage *= 2;
+        }
+        else if (advantage == 1)
+        {
+            damage /= 2;
+        }
+        return damage;
+    }
+    public void MakeDamage(UnitGroup attackGroup, UnitGroup defenseGroup)
+    {
+        print("se hizo daño");
         //DAÑO VARIA RESPECTO AL TYPE
+
         int damage = attackGroup.UnitCombat.Attack;
         int presicion = attackGroup.UnitCombat.Precision;
+
+
         //int damage = unitTypes[attackGroup.Type].Attack;
         //int presicion = unitTypes[attackGroup.Type].Presicion;
         int presicion_hit = Random.Range(1, 100);
@@ -352,8 +442,7 @@ public class CombatManager : MonoBehaviour
                 ShowFloatText("Critic!", attackGroup.UnitsGO);
             }
             if (defenseGroup.Defense) damage /= 2;
-            print(defenseGroup.UnitCombat.Quantity);
-            print(damage);
+           
             
         }
         else
@@ -363,11 +452,53 @@ public class CombatManager : MonoBehaviour
         }
 
         // defenseGroup.Quantity = defenseGroup.Quantity - damage;
+        
         defenseGroup.UnitCombat.Quantity = defenseGroup.UnitCombat.Quantity - damage;
 
         //defenseGroup.UnitsGO.transform.GetChild(0).GetComponent<Text>().text = defenseGroup.Quantity.ToString();
         defenseGroup.UnitsGO.transform.GetChild(0).GetComponent<Text>().text = defenseGroup.UnitCombat.Quantity.ToString();
 
+
+        damage = defenseGroup.UnitCombat.Attack;
+        presicion = defenseGroup.UnitCombat.Precision;
+
+
+        presicion_hit = Random.Range(1, 100);
+        if (presicion > presicion_hit)
+        {
+            int advantage = CheckAdvantage( defenseGroup, attackGroup);
+            if (advantage == 2)
+            {
+                damage *= 2;
+            }
+            else if (advantage == 1)
+            {
+                damage /= 2;
+            }
+            int critic = Random.Range(1, 100);
+            if (critic < 10)
+            {
+                damage *= 2;
+                ShowFloatText("Critic!", defenseGroup.UnitsGO);
+            }
+            if (attackGroup.Defense) damage /= 2;
+
+        }
+        else
+        {
+            ShowFloatText("Miss!", attackGroup.UnitsGO);
+            damage = 0;
+        }
+        print("la segunda cantidad es: " + attackGroup.UnitCombat.Quantity);
+        attackGroup.UnitCombat.Quantity = attackGroup.UnitCombat.Quantity - damage;
+        
+        print("el segundo damage es: " + damage);
+        attackGroup.UnitsGO.transform.GetChild(0).GetComponent<Text>().text = attackGroup.UnitCombat.Quantity.ToString();
+
+
+
+
+        //VALIDACIONES FINALES
         TurnOffButtons();
         //if (defenseGroup.Quantity <= 0)
         if (defenseGroup.UnitCombat.Quantity <= 0)
@@ -381,6 +512,18 @@ public class CombatManager : MonoBehaviour
             defenseGroup.UnitsGO.GetComponentInParent<SquareType>().unitGroup = null;
             defenseGroup.UnitsGO.GetComponentInParent<SquareType>().haveUnit = false;
             DestroyGameObjectAndChildren(defenseGroup.UnitsGO);
+        }
+        if (attackGroup.UnitCombat.Quantity <= 0)
+        {
+            //defenseGroup.Quantity = 0;
+            attackGroup.UnitCombat.Quantity = 0;
+            attackGroup.UnitsGO.transform.GetChild(0).GetComponent<Text>().text = "0";
+            attackGroup.UnitsGO.transform.GetChild(0).GetComponent<Text>().color = Color.red;
+            SetStats(attackGroup);
+            units.Remove(attackGroup);
+            attackGroup.UnitsGO.GetComponentInParent<SquareType>().unitGroup = null;
+            attackGroup.UnitsGO.GetComponentInParent<SquareType>().haveUnit = false;
+            DestroyGameObjectAndChildren(attackGroup.UnitsGO);
         }
         if (EndBattle())
         {
@@ -420,13 +563,16 @@ public class CombatManager : MonoBehaviour
         return true;
     }
     
-    private void SetPosibleAttack(UnitGroup attacker)
+    private List<int> GetPosibleAttack(UnitGroup attacker)
     {
+        List<int> posibleAttack = new List<int>();
+
         int axisy = 4;
         int axisx = 1;
         int d1 = 5;
         int d2 = 3;
         int index = attacker.UnitsGO.transform.parent.GetComponent<SquareType>().index;
+        print(index);
         //  int range = unitTypes[attacker.Type].Range;
         int range = attacker.UnitCombat.Range;
         int newIndex = 0;
@@ -435,32 +581,107 @@ public class CombatManager : MonoBehaviour
         {
             //left
             newIndex = index - (axisx * i);
-            if (index % 4 != 0)AttackUnitByIndex(newIndex,attacker);
+            if (newIndex % 4 != 0) {
+                if (newIndex > 0 && newIndex < squares.transform.childCount && UnitByIndex(newIndex) != null)
+                {
+                    if (UnitByIndex(newIndex).TypePlayer != attacker.TypePlayer)
+                    {
+                        posibleAttack.Add(newIndex);
+                    }
+                }
+            }
+            
             //right
             newIndex = index + (axisx * i);
-            if (newIndex % 4 != 0) AttackUnitByIndex(newIndex, attacker);
+            if (newIndex % 4 != 0)
+            {
+                if (newIndex > 0 && newIndex < squares.transform.childCount && UnitByIndex(newIndex) != null)
+                {
+                    if (UnitByIndex(newIndex).TypePlayer != attacker.TypePlayer)
+                    {
+                        posibleAttack.Add(newIndex);
+                    }
+                }
+            }
             //top
             newIndex = index - (axisy * i);
-            AttackUnitByIndex(newIndex, attacker);
+            if (newIndex > 0 && newIndex < squares.transform.childCount && UnitByIndex(newIndex) != null)
+            {
+                if (UnitByIndex(newIndex).TypePlayer != attacker.TypePlayer)
+                {
+                    posibleAttack.Add(newIndex);
+                }
+            }
             //down
             newIndex = index + (axisy * i);
-            AttackUnitByIndex(newIndex, attacker);
+            if (newIndex > 0 && newIndex < squares.transform.childCount && UnitByIndex(newIndex) != null)
+            {
+                if (UnitByIndex(newIndex).TypePlayer != attacker.TypePlayer)
+                {
+                    posibleAttack.Add(newIndex);
+                }
+            }
 
             //topleft
             newIndex = index - (d1 * i);
-            if (index % 4 != 0) AttackUnitByIndex(newIndex, attacker);
+            if (newIndex % 4 != 0)
+            {
+                if (newIndex > 0 && newIndex < squares.transform.childCount && UnitByIndex(newIndex) != null)
+                {
+                    if (UnitByIndex(newIndex).TypePlayer != attacker.TypePlayer)
+                    {
+                        posibleAttack.Add(newIndex);
+                    }
+                }
+            }
             //downright
             newIndex = index + (d1 * i);
-            if (newIndex % 4 != 0) AttackUnitByIndex(newIndex, attacker);
+            if (newIndex % 4 != 0)
+            {
+                if (newIndex > 0 && newIndex < squares.transform.childCount && UnitByIndex(newIndex) != null)
+                {
+                    if (UnitByIndex(newIndex).TypePlayer != attacker.TypePlayer)
+                    {
+                        posibleAttack.Add(newIndex);
+                    }
+                }
+            }
             //topright
             newIndex = index - (d2 * i);
-            if (newIndex % 4 != 0) AttackUnitByIndex(newIndex, attacker);
+            if (newIndex % 4 != 0)
+            {
+                if (newIndex > 0 && newIndex < squares.transform.childCount && UnitByIndex(newIndex) != null)
+                {
+                    if (UnitByIndex(newIndex).TypePlayer != attacker.TypePlayer)
+                    {
+                        posibleAttack.Add(newIndex);
+                    }
+                }
+            }
             //downleft
             newIndex = index + (d2 * i);
-            if (index % 4 != 0) AttackUnitByIndex(newIndex, attacker);
+            if (newIndex % 4 != 0)
+            {
+                if (newIndex > 0 && newIndex < squares.transform.childCount && UnitByIndex(newIndex) != null)
+                {
+                    if (UnitByIndex(newIndex).TypePlayer != attacker.TypePlayer)
+                    {
+                        posibleAttack.Add(newIndex);
+                    }
+                }
+            }
         }
-        
+        return posibleAttack;
 
+    }
+
+    private void ShowAttackButtons(List<int> posibleAttack)
+    {
+        UnitGroup attacker = units[c];
+        foreach (int a in posibleAttack)
+        {
+            AttackUnitByIndex(a, attacker);
+        }
     }
 
     private void AttackUnitByIndex(int index, UnitGroup attacker)
@@ -484,12 +705,12 @@ public class CombatManager : MonoBehaviour
         return squares.transform.GetChild(index).GetComponent<SquareType>();
     }
 
-    private void CheckPosibleMoves(UnitGroup unit)
+    private List<int> CheckPosibleMoves(UnitGroup unit)
     {
 
         int index = unit.UnitsGO.transform.parent.GetComponent<SquareType>().index;
         int newIndex;
-        print(index);
+        List<int> posibleMoves = new List<int>();
         //left
         newIndex = index - 1;
         if (newIndex >= 0 && newIndex < squares.transform.childCount) {
@@ -498,8 +719,7 @@ public class CombatManager : MonoBehaviour
                 if (SquareByIndex(newIndex).haveUnit == false || SquareByIndex(newIndex).unitGroup.TypePlayer == SquareByIndex(index).unitGroup.TypePlayer)
                 {
 
-                    squares.transform.GetChild(newIndex).GetComponent<Image>().color = Color.magenta;
-                    squares.transform.GetChild(newIndex).GetComponent<SquareType>().ActivateChange();
+                    posibleMoves.Add(newIndex);
                 }
             }
         }
@@ -512,8 +732,7 @@ public class CombatManager : MonoBehaviour
             {
                 if (SquareByIndex(newIndex).haveUnit == false || SquareByIndex(newIndex).unitGroup.TypePlayer == SquareByIndex(index).unitGroup.TypePlayer)
                 {
-                    squares.transform.GetChild(newIndex).GetComponent<Image>().color = Color.magenta;
-                    squares.transform.GetChild(newIndex).GetComponent<SquareType>().ActivateChange();
+                    posibleMoves.Add(newIndex);
                 }
             }
         }
@@ -524,8 +743,7 @@ public class CombatManager : MonoBehaviour
         {
             if (SquareByIndex(newIndex).haveUnit == false || SquareByIndex(newIndex).unitGroup.TypePlayer == SquareByIndex(index).unitGroup.TypePlayer)
             {
-                squares.transform.GetChild(newIndex).GetComponent<Image>().color = Color.magenta;
-                squares.transform.GetChild(newIndex).GetComponent<SquareType>().ActivateChange();
+                posibleMoves.Add(newIndex);
             }
         }
         
@@ -535,10 +753,11 @@ public class CombatManager : MonoBehaviour
         {
             if (SquareByIndex(newIndex).haveUnit == false || SquareByIndex(newIndex).unitGroup.TypePlayer == SquareByIndex(index).unitGroup.TypePlayer)
             {
-                squares.transform.GetChild(newIndex).GetComponent<Image>().color = Color.magenta;
-                squares.transform.GetChild(newIndex).GetComponent<SquareType>().ActivateChange();
+                posibleMoves.Add(newIndex);
             }
         }
+
+        return posibleMoves;
         
     }
 
@@ -548,13 +767,12 @@ public class CombatManager : MonoBehaviour
     }
     public void ChangeUnits(int index, int newIndex)
     {
-        print(index);
-        print(newIndex);
+
         SquareType square1 = SquareByIndex(index);
         SquareType square2 = SquareByIndex(newIndex);
         UnitGroup saveug = square1.unitGroup;
 
-        print(saveug);
+
         if (square1.haveUnit)
         {
             square1.gameObject.transform.GetChild(0).transform.position = square2.gameObject.transform.position;
@@ -570,7 +788,7 @@ public class CombatManager : MonoBehaviour
             
         }
         square2.unitGroup = saveug;
-        MakeMovement();
+        
         ClearSquares();
     }
 
@@ -583,4 +801,8 @@ public class CombatManager : MonoBehaviour
         }
     }
     
+    public UnitGroup ActualUnit()
+    {
+        return units[c];
+    }
 }

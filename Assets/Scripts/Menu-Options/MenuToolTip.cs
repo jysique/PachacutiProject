@@ -60,10 +60,28 @@ public class MenuToolTip : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     private void FixedUpdate()
     {
-
+        float changex = 0;
+        float changey = 0;
         Vector3 mousePosCamera = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        toolTip.transform.position = new Vector3(mousePosCamera.x, mousePosCamera.y, toolTip.transform.position.z);
+        Vector3 v = Camera.main.ScreenToWorldPoint(background.sizeDelta);
+        float xSize = v.x + 9;
+        float ySize = v.y + 9;
 
+        Vector3 stageDimensions = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+        if (mousePosCamera.x + xSize > stageDimensions.x) { 
+            changex = xSize; 
+        }
+        else changex = 0;
+
+        if (mousePosCamera.y - ySize < 0)
+        {
+            changey = ySize;
+        }
+        else changey = 0;
+
+
+        toolTip.transform.position = new Vector3(mousePosCamera.x-changex, mousePosCamera.y, toolTip.transform.position.z);
+        
         if (canShow)
         {
            

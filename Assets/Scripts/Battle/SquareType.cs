@@ -29,6 +29,7 @@ public class SquareType : MonoBehaviour
     public void MoveButton()
     {
         CombatManager.instance.ChangeUnits(index, CombatManager.instance.ActualUnitIndex());
+        CombatManager.instance.MakeMovement();
     }
 
     private void Update()
