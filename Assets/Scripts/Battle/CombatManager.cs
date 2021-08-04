@@ -156,7 +156,7 @@ public class CombatManager : MonoBehaviour
         }
 
 
-       //SortList(units);
+       SortList(units);
        Invoke("MakeMovement",0.01f);
        //MakeMovement();
     }
@@ -393,7 +393,7 @@ public class CombatManager : MonoBehaviour
     }
     public void MakeDamage(UnitGroup attackGroup, UnitGroup defenseGroup)
     {
-        print("se hizo da�o");
+        print("se hizo daño");
         //DA�O VARIA RESPECTO AL TYPE
 
         int damage = attackGroup.UnitCombat.Attack;
@@ -494,6 +494,7 @@ public class CombatManager : MonoBehaviour
         }
         if (attackGroup.UnitCombat.Quantity <= 0)
         {
+            print("suicidio");
             //defenseGroup.Quantity = 0;
             attackGroup.UnitCombat.Quantity = 0;
             attackGroup.UnitsGO.transform.GetChild(0).GetComponent<Text>().text = "0";
