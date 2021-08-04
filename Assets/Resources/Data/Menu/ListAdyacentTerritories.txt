@@ -17,7 +17,7 @@ Curimana:none:0,50,50,0,0:north:grassland,forest,mountain,sand,grassland,forest,
 Purus:none:0,50,50,0,0:none:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Yurua,Tahuania,Iñapari
 Tahuania:none:0,50,50,0,0:none:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Chaccho,Masisea,Purus,LaConvencion,Yurua,Iñapari,Manu
 Yarinacocha:bot3:0,50,50,0,0:north:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Curimana,Masisea
-Yurua:none:0,50,50,0,0:none:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Masisea,Purus,Tahuania
+Yurua:none:50,0,50,0,0:none:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Masisea,Purus,Tahuania
 Paucartambo:none:0,50,50,0,0:centre:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Calca,Quispicanchi,Huepetuhe,Manu
 Urubamba:none:0,50,50,0,0:none:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Qosqo,LaConvencion,Calca
 Masisea:none:0,50,50,50,0:north:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Yarinacocha,Yurua,Chaccho,Tahuania
