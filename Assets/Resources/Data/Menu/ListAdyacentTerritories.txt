@@ -1,11 +1,11 @@
 //name territory:typePlayer:unitsTerritory(Swordsman,Lancer,Axeman,Scout,Archer):regionTerritory:TerrainsTerritory:TerritoriesAdyacent
 Acomayo:none:50,0,50,0,0:none:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Canas,Canchis,Chumbivilcas,Qosqo,Quispicanchi
-Calca:none:50,0,0,0,0:centre:none,forest,mountain,sand,grassland,none,mountain,none:LaConvencion,Paucartambo,Qosqo,Urubamba,Quispicanchi,Manu
+Calca:none:50,0,0,0,0:centre:forest,forest,mountain,sand,grassland,forest,mountain,forest:LaConvencion,Paucartambo,Qosqo,Urubamba,Quispicanchi,Manu
 Canas:none:50,0,0,50,0:southern:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Canchis,Chumbivilcas,Espinar,Acomayo
 Canchis:none:50,50,50,0,0:southern:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Canas,Acomayo,Quispicanchi
 Chumbivilcas:none:50,50,0,50,0:southern:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Espinar,Acomayo,Canas
 Espinar:bot:0,50,50,50,50:southern:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Canas,Chumbivilcas
-LaConvencion:player:50,50,50,0,0:none:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Calca,Qosqo,Urubamba,Manu,Tahuania
+LaConvencion:player:20,0,0,0,0:none:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Calca,Qosqo,Urubamba,Manu,Tahuania
 Qosqo:none:0,0,50,50,0:none:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Calca,Acomayo,Quispicanchi,Urubamba,LaConvencion
 Inambari:none:0,50,0,0,0:east:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Huepetuhe,Tahuamanu,Tambopata
 Huepetuhe:none:0,0,50,0,50:none:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Inambari,Manu,Tambopata,Paucartambo,Quispicanchi

@@ -64,8 +64,9 @@ public class Utils : MonoBehaviour
         }
     }
 
-    public List<string> buildings_string = new List<string>()
+    private List<string> buildings_string = new List<string>()
     {
+        "Archery",
         "Farm",
         "GoldMine",
         "Fortress",
@@ -73,16 +74,27 @@ public class Utils : MonoBehaviour
         "Barracks",
         "Castle",
         "Stable",
-        "Archery"
+        
     };
-    public List<string> units_string = new List<string>()
+    private List<string> units_string = new List<string>()
     {
         "Swordsman",
+        "Archer",
         "Lancer",
         "Axeman",
-        "Scout",
-        "Archer"
+        "Scout"
+        
     };
+
+    public List<string> Buildings_string
+    {
+        get { return buildings_string; }
+    }
+    public List<string> Units_string
+    {
+        get { return units_string; }
+    }
+
     public List<string> GetListBuildings(Territory territory)
     {
         List<string> buildings = new List<string>();

@@ -17,6 +17,7 @@ public class TroopOption : MonoBehaviour
     [SerializeField] private List<string> optionsDropDown = new List<string>();
     [SerializeField] private Terrain terrain;
     [SerializeField] private GameObject blockTroopOption;
+    private MenuToolTip toolTip;
 
     private int posInBattle;
     private bool isSelected;
@@ -41,13 +42,69 @@ public class TroopOption : MonoBehaviour
     }
     private void Start()
     {
-        
+        toolTip = this.GetComponent<MenuToolTip>();
         OnNumericButton(moveUnits);
+    }
+    private void Update()
+    {
+        if (unitcombatBattle != null)
+        {
+            toolTip.SetNewInfo("Unit selected: "+ unitcombatBattle.CharacterName + 
+                "\nTerrain: " + terrain.Type.ToString().ToLower());
+        }
+        else
+        {
+            toolTip.SetNewInfo("Unit selected: none" +
+                "\nTerrain: " + terrain.Type.ToString().ToLower());
+        }
+        
+    }
+    /// <summary>
+    /// Initialize all values in the option
+    /// </summary>
+    /// <param name="_type">Type(1-atacck,2-defense)</param>
+    /// <param name="pos">Position in battle</param>
+    /// <param name="_territory">Territori selected</param>
+    public void InitTroopOption(int _type, int pos, Territory _territory, Territory _territoryToAttack = null)
+    {
+        typeOption = _type;
+        territory = _territory;
+        territoryToAttack = _territoryToAttack;
+        posInBattle = pos;
+
+        UpdateTerraintSprite();
+        UpdateBlockOption();
+
+        if (typeOption == 1)
+        {
+            isSelected = false;
+            unitcombatTerritory = null;
+            unitcombatBattle = null;
+        }
+        else
+        {
+            unitcombatTerritory = territory.GetUnit(territory.TroopDefending[posInBattle].GetType().ToString());
+            if (unitcombatTerritory != null)
+            {
+                isSelected = true;
+                unitcombatBattle = Utils.instance.GetNewUnitCombat(unitcombatTerritory.GetType().ToString());
+                unitcombatBattle.Quantity = unitcombatTerritory.Quantity;
+            }
+            else
+            {
+                isSelected = false;
+                unitcombatBattle = null;
+            }
+        }
+
+        UpdateDropDownValues();
+        OnInitDropDown();
     }
     private void UpdateTerraintSprite()
     {
         List<Terrain> terrains;
-        if (typeOption == 1) {
+        if (typeOption == 1)
+        {
             terrains = territoryToAttack.TerrainList;
         }
         else
@@ -94,46 +151,6 @@ public class TroopOption : MonoBehaviour
         {
             blockTroopOption.SetActive(false);
         }
-    }
-    /// <summary>
-    /// Initialize all values in the option
-    /// </summary>
-    /// <param name="_type">Type(1-atacck,2-defense)</param>
-    /// <param name="pos">Position in battle</param>
-    /// <param name="_territory">Territori selected</param>
-    public void InitTroopOption(int _type, int pos, Territory _territory, Territory _territoryToAttack = null)
-    {
-        typeOption = _type;
-        territory = _territory;
-        territoryToAttack = _territoryToAttack;
-        posInBattle = pos;
-
-        UpdateTerraintSprite();
-        UpdateBlockOption();
-        if (typeOption == 1)
-        {
-            isSelected = false;
-            unitcombatTerritory = null;
-            unitcombatBattle = null;
-        }
-        else
-        {
-            unitcombatTerritory = territory.GetUnit(territory.TroopDefending[posInBattle].GetType().ToString());
-            if (unitcombatTerritory != null)
-            {
-                isSelected = true;
-                unitcombatBattle = Utils.instance.GetNewUnitCombat(unitcombatTerritory.GetType().ToString());
-                unitcombatBattle.Quantity = unitcombatTerritory.Quantity;
-            }
-            else
-            {
-                isSelected = false;
-                unitcombatBattle = null;
-            }
-        }
-
-        UpdateDropDownValues();
-        OnInitDropDown();
     }
     public void OnInitDropDown()
     {

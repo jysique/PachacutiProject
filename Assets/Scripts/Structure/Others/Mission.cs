@@ -10,6 +10,7 @@ public class Mission
     [SerializeField] private STATUS missionStatus;
     private string message;
     private string messagePro;
+    private string tooltip;
     private int timeToFinish;
     private int timeBenefitsPassed;
     private TimeSimulated timeMission;
@@ -27,6 +28,11 @@ public class Mission
     {
         get { return message; }
         set { message = value; }
+    }
+    public string Tooltip
+    {
+        get { return tooltip; }
+        set { tooltip = value; }
     }
     public string MessagePro
     {
@@ -84,7 +90,7 @@ public class Mission
         {
             InitBenefits();
             MissionManager.instance.SetNotificationMission(true);
-            MissionManager.instance.currentMission++;
+            MissionManager.instance.indexMission++;
             //InGameMenuHandler.instance.UpdateMenu();
         }
         else if (missionStatus == STATUS.IN_PROGRESS_BENEFITS)
@@ -93,7 +99,7 @@ public class Mission
         }
         else if(missionStatus == STATUS.DONE)
         {
-            MissionManager.instance.SetNotificationMission(true);
+            MissionManager.instance.SetNotificationMission(false);
         }
     }
     void SetInitTimeMission()
@@ -114,14 +120,14 @@ public class Mission
         {
             this.NameMission = GameMultiLang.GetTraduction(mission.GetType().ToString()+option + "_name");
             this.Message = GameMultiLang.GetTraduction(mission.GetType().ToString()+ option + "_message");
-            this.MessagePro = GameMultiLang.GetTraduction(mission.GetType().ToString() + "_message_pro");
+            this.tooltip = GameMultiLang.GetTraduction(mission.GetType().ToString() + option + "_tooltip");
         }
         else
         {
             this.NameMission = GameMultiLang.GetTraduction(mission.GetType().ToString() + "_name");
             this.Message = GameMultiLang.GetTraduction(mission.GetType().ToString() + "_message");
-            this.MessagePro = GameMultiLang.GetTraduction(mission.GetType().ToString() + "_message_pro");
         }
+        this.MessagePro = GameMultiLang.GetTraduction(mission.GetType().ToString() + "_message_pro");
         this.Message = this.Message.Replace("TERRITORY", TerritoryMission[0].name);
         this.MessagePro = this.MessagePro.Replace("TIME", this.TimeMissionActive.ToString()).Replace("TERRITORY", this.TerritoryMission[0].name);
     }
@@ -131,19 +137,34 @@ public class MissionTutorial : Mission
 {
     private int count = 0;
     private int optionTutorial;
+
+    /// <summary>
+    /// Mision[0] = Pause the game
+    /// Mision[1] = Review territory menu
+    /// Mision[2] = Improve the Academy building
+    /// Mision[3] = Check other territories
+    /// Mision[4] = Move 70 units
+    /// Mision[5] = Conquist Calca
+    /// </summary>
+    /// <param name="option"></param>
     public MissionTutorial(int option)
     {
         optionTutorial = option;
         switch (optionTutorial)
         {
             case 0:
-            case 4:
-                TerritoryMission.Add(TerritoryManager.instance.GetTerritoriesHandlerByName("Calca").TerritoryStats.Territory);
-                break;
             case 1:
             case 2:
+            case 5:
+                TerritoryMission.Add(TerritoryManager.instance.GetTerritoriesHandlerByName("LaConvencion").TerritoryStats.Territory);
+                break;
             case 3:
                 TerritoryMission.Add(TerritoryManager.instance.GetTerritoriesHandlerByName("LaConvencion").TerritoryStats.Territory);
+                TutorialController.instance.TutorialMilitar();
+                break;
+            case 4:
+            case 6:
+                TerritoryMission.Add(TerritoryManager.instance.GetTerritoriesHandlerByName("Calca").TerritoryStats.Territory);
                 break;
             default:
                 break;
@@ -156,34 +177,43 @@ public class MissionTutorial : Mission
         switch (optionTutorial)
         {
             case 0:
-                if (InGameMenuHandler.instance.TerritorySelected == TerritoryMission[0])
+                if (DateTableHandler.instance.IsButtonPause == true)
                 {
                     count++;
                 }
                 break;
             case 1:
-                if (InGameMenuHandler.instance.TerritorySelected == TerritoryMission[0] &&
-                    MenuManager.instance.TabMilitar.IsOpen == true)
+                if (MenuManager.instance.IsOpen == true)
                 {
                     count++;
                 }
                 break;
             case 2:
                 if (InGameMenuHandler.instance.TerritorySelected == TerritoryMission[0] &&
-                    TerritoryMission[0].AcademyTerritory.Level == 1)
+                    TerritoryMission[0].ArcheryTerritory.Level == 1)
                 {
                     count++;
                 }
                 break;
             case 3:
-                if (SelectTropsMenu.instance!=null && SelectTropsMenu.instance.acumulated >= 70)
+                if (TerritoryMission[0].Archers.Quantity == 10)
                 {
-                    Debug.LogError("yasta");
                     count++;
                 }
-                
                 break;
             case 4:
+                if (InGameMenuHandler.instance.TerritorySelected == TerritoryMission[0])
+                {
+                    count++;
+                }
+                break;
+            case 5:
+                if (SelectTropsMenu.instance != null && SelectTropsMenu.instance.acumulated >= 70)
+                {
+                    count++;
+                }
+                break;
+            case 6:
                 if (TerritoryMission[0].TypePlayer == Territory.TYPEPLAYER.PLAYER)
                 {
                     count++;
@@ -195,8 +225,17 @@ public class MissionTutorial : Mission
         }
         if (count == 1)
         {
+            if (optionTutorial < 4)
+            {
+                TutorialController.instance.TurnOnDialogue();
+            }
+            if (optionTutorial == 4) //completa la [MISSION 4(Revisar calca)]
+            {
+                TutorialController.instance.CanMoveUnits = true;
+            }
             base.MissionStatus = STATUS.COMPLETE;
         }
+
     }
     public override void InitBenefits()
     {

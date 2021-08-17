@@ -13,7 +13,7 @@ public class SelectTropsMenu : MonoBehaviour
     [SerializeField] public TroopOption[] optionsInAttack { get; private set; }
     [SerializeField] Troop troopSelected = new Troop();
     public int acumulated = 0;
-
+    public int total_cost = 0;
     public Troop TroopSelected
     {
         get { return troopSelected; }
@@ -25,18 +25,48 @@ public class SelectTropsMenu : MonoBehaviour
     }
     private void Update()
     {
-        moveUnits.interactable = GetIsAllSelected();
+        total_cost = GetTotalCost();
+        moveUnits.interactable = GetIsAllSelected() && HasEnoughResources();
+        SetTooltips();
+    }
+    private bool HasEnoughResources()
+    {
+        return (total_cost <= InGameMenuHandler.instance.GoldPlayer) 
+            && (total_cost <= InGameMenuHandler.instance.FoodPlayer);
+    }
+    private void SetTooltips()
+    {
+        MenuToolTip toolTip = moveUnits.GetComponent<MenuToolTip>();
+        if (!GetIsAllSelected())
+        {
+            toolTip.SetNewInfo(GameMultiLang.GetTraduction("tooltip9"));
+        }
+        else if (HasEnoughResources())
+        {
+            toolTip.SetNewInfo(GameMultiLang.GetTraduction("tooltip10").Replace("COST", total_cost.ToString()));
+        }
+        else
+        {
+            toolTip.SetNewInfo(GameMultiLang.GetTraduction("tooltip11"));
+        }
+
+    }
+    private int GetTotalCost()
+    {
+        int cost = 0;
+        foreach (TroopOption item in optionsInAttack)
+        {
+            if (item.UnitCombatInBattle != null && item.UnitCombatInBattle.Quantity > 0)
+            {
+                cost +=item.UnitCombatInBattle.Quantity;
+            }
+        }
+        return cost;
     }
     private void Start()
     {
         cancel.onClick.AddListener(() => CancelMoveUnits());
         moveUnits.onClick.AddListener(() => MoveUnits());
-    }
-    public void CancelMoveUnits()
-    {
-        troopSelected.Reset();
-        this.gameObject.SetActive(false);
-        DateTableHandler.instance.ResumeTime();
     }
     public void InitMenu(TerritoryHandler _territoryToAttack)
     {
@@ -79,7 +109,12 @@ public class SelectTropsMenu : MonoBehaviour
         }
         CancelMoveUnits();
     }
-
+    public void CancelMoveUnits()
+    {
+        troopSelected.Reset();
+        this.gameObject.SetActive(false);
+        DateTableHandler.instance.ResumeTime();
+    }
     public void UpdateAllOptions()
     {
         foreach (var o in optionsInAttack)

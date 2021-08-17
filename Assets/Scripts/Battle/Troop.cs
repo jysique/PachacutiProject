@@ -24,6 +24,14 @@ public class Troop
             AddElement(unitCombats[i].GetType().ToString(), i, unitCombats[i].Quantity);
         }
     }
+    public void LogTroop()
+    {
+        for (int i = 0; i < unitCombats.Count; i++)
+        {
+            Debug.Log("uc-" + unitCombats[i].CharacterName);
+            Debug.Log("uc-" + positions[i]);
+        }
+    }
     public List<UnitCombat> UnitCombats
     {
           get { return unitCombats; }

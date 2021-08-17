@@ -83,4 +83,12 @@ public class GameEvents : MonoBehaviour
             onMissionTriggerEnter();
         }
     }
+    public event Action onTutorialTriggerEnter;
+    public void TutorialTriggerEnter()
+    {
+        if (onTutorialTriggerEnter != null)
+        {
+            onTutorialTriggerEnter();
+        }
+    }
 }

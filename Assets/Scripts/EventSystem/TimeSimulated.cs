@@ -42,9 +42,9 @@ public class TimeSimulated
     {
 
     }
-    public TimeSimulated(TimeSimulated _timeSimulated)
+    public TimeSimulated(TimeSimulated _timeSimulated,double _hours = 0)
     {
-        this.hour = 0f;
+        this.hour = _hours;
         this.day = _timeSimulated.day;
         this.month = _timeSimulated.month;
         this.year = _timeSimulated.year;
@@ -111,7 +111,6 @@ public class TimeSimulated
     {
         return this.hour == time2.hour && this.day == time2.day && this.month == time2.month && this.year == time2.year;
     }
-    /// <summary>
     /// Returns days from two time simulated
     /// </summary>
     /// <param name="time2"></param>
@@ -146,7 +145,7 @@ public class TimeSimulated
     }
     public string PrintTimeSimulated()
     {
-        return this.day.ToString() + " / " + this.month.ToString() + " / " + this.year.ToString();
+        return this.hour.ToString() + " / " + this.day.ToString() + " / " + this.month.ToString() + " / " + this.year.ToString();
     }
     /// <summary>
     /// Number weeks of a TimeSimulated

@@ -14,7 +14,7 @@ public class SelectCharacter : MonoBehaviour
     public void ChangeSceneButton()
     {
         GlobalVariables.instance.GovernorChoose = CampainManager.instance.GovernorList.GetGovernors(gameObject.name);
-        GlobalVariables.instance.SetChapterTxt("start");
+        //GlobalVariables.instance.SetChapterTxt("start");
         GlobalVariables.instance.GoToMenuMessage();
     }
 

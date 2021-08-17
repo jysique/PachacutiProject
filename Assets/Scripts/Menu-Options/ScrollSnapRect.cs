@@ -213,6 +213,7 @@ public class ScrollSnapRect : MonoBehaviour {
     }
     private void ReturnedVariable()
     {
+        /*
         if (_container.gameObject.name.Contains("Velocity"))
         {
             GlobalVariables.instance.VelocityGame = _currentPage;
@@ -220,6 +221,7 @@ public class ScrollSnapRect : MonoBehaviour {
         {
             GlobalVariables.instance.DificultyGame = _currentPage;
         }
+        */
     }
 
     //------------------------------------------------------------------------

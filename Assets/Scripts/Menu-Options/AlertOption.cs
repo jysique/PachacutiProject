@@ -17,7 +17,6 @@ public class AlertOption : MonoBehaviour
     void Start()
     {
         anim = container.GetComponent<Animator>();
-        anim.speed = GlobalVariables.instance.timeModifier+1.5f;
         timeInit = new TimeSimulated(TimeSystem.instance.TimeGame);
         timeInit.PlusDays(3);
         closeAlertBtn.onClick.AddListener(() => CloseAlertBtn());
@@ -53,13 +52,14 @@ public class AlertOption : MonoBehaviour
             case "Alert_NewEvent":
             case "Alert_EndEvent":
             case "Alert_NewExped":
-                //AlertManager.TabEventMenu();
                 MenuManager.instance.AccessTabEvent();
                 EventManager.instance.SetNotificationEvent(false);
                 break;
             case "Alert_NewMission":
                 MenuManager.instance.AccessTabMission();
+                MissionManager.instance.ScrollToBottom();
                 MissionManager.instance.SetNotificationMission(false);
+
                 break;
             case "Alert_LostTerr":
                 GlobalVariables.instance.CenterCameraToTerritory(focusTerritory,false);
@@ -72,6 +72,7 @@ public class AlertOption : MonoBehaviour
     private void Update()
     {
         CloseAlertByTime();
+        anim.speed = GlobalVariables.instance.timeModifier + 1.5f;
     }
     void CloseAlertByTime()
     {

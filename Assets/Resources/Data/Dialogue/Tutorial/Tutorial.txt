@@ -1,0 +1,31 @@
+Pachacuti "Bienvenido"
+Pachacuti "Para empezar, completa las misiones"
+turnOff()
+"Feedback de pausar el juego"
+turnOff()
+"Feedback de revisar menu territorio"
+turnOff()
+"Feedback de construir edificios"
+turnOff()
+"Feedback de unidades enemigas"
+turnOff()
+"Excelente"
+"Ahora puedes hacer click derecho"
+turnOff()
+"Necesitamos de tus habilidades para poder ganar esta batalla"
+turnMoveButton()
+"Seria bueno tener rango de ataque para la unidad de espada y la unidad de arco hacia las posiciones indicadas"
+turnOff()
+"Cuidado, el enemigo hizo su movimiento, seria bueno resistir el primer ataque."
+turnDefButton()
+"Trata de defenderte del primer ataque"
+turnOff()
+"Bien hecho"
+"En estos momentos tenemos ventaja en numeros, seria bueno que tus unidades ataquen y hagan daño al enemigo"
+turnAttackButton()
+turnOff()
+"Bien, haz realizado muy bien tus movimientos."
+"Ahora derrota la unidad enemiga."
+turnOff()
+"Haz ganado la batalla y por lo tanto hemos conquistado el territorio de calca."
+turnOff()

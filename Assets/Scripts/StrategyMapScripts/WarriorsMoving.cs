@@ -53,6 +53,7 @@ public class WarriorsMoving : MonoBehaviour
             {
                 WarManager.instance.SetWarStatus(true);
             }
+
             Destroy(this.gameObject);
         }
     }

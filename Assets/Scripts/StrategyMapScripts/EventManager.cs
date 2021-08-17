@@ -30,6 +30,7 @@ public class EventManager : MonoBehaviour
 
     private int minDays = 10;
     private int maxDays = 15;
+    private bool init = false;
     //public int current = 0;
     public void SetNotificationEvent(bool active)
     {
@@ -45,8 +46,11 @@ public class EventManager : MonoBehaviour
     }
     private void Update()
     {
-        CustomEventInTime();
-        CheckListCustomEvent();
+        if (init)
+        {
+            CustomEventInTime();
+            CheckListCustomEvent();
+        }
         CheckListBuildingsUpgrade();
     }
     private void Awake()
@@ -56,14 +60,14 @@ public class EventManager : MonoBehaviour
 
     private void Start()
     {
-        InitEventsButtons();
-        InitializeEvents();
+        CloseEventButton.onClick.AddListener(() => CloseCustomEventButton());
+        listEvents = new CustomEventList();
         SetNotificationEvent(false);
     }
-    void InitializeEvents()
+    public void InitEvents()
     {
-        listEvents = new CustomEventList();
         AddEvent();
+        init = true;
     }
     /// <summary>
     /// Add a new Event to the list of events
@@ -183,10 +187,7 @@ public class EventManager : MonoBehaviour
         DetailsTextCustomEvent.text = " ";
         TitleTextCustomEvent.text = GameMultiLang.GetTraduction("EventLabel");
     }
-    void InitEventsButtons()
-    {
-        CloseEventButton.onClick.AddListener(() => CloseCustomEventButton());
-    }
+    
     /// <summary>
     /// Add a new UpgradeBuilding Event to the list
     /// </summary>

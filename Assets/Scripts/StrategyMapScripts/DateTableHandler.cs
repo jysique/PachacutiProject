@@ -22,7 +22,12 @@ public class DateTableHandler : MonoBehaviour
     private TimeSimulated timeGame;
     public float temporalTime;
     private bool isTimePaused = false;
+    private bool isButtonPaused = false;
     private bool isMenuPaused = false;
+    public bool IsButtonPause
+    {
+        get { return isButtonPaused; }
+    }
     private void Awake()
     {
         instance = this;
@@ -93,7 +98,7 @@ public class DateTableHandler : MonoBehaviour
         pauseGO.SetActive(true);
         if (!isMenuPaused && !isTimePaused)
         {
-
+            isButtonPaused = true;
             PauseTime();
             isTimePaused = true;
         }
@@ -106,6 +111,7 @@ public class DateTableHandler : MonoBehaviour
             if (!isMenuPaused && isTimePaused)
             {
                 ResumeTime();
+                isButtonPaused = false;
                 isTimePaused = false;
             }
         }

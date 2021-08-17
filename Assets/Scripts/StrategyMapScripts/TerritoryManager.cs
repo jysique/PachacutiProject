@@ -145,14 +145,14 @@ public class TerritoryManager : MonoBehaviour
             Territory _territory = territoryHandler.TerritoryStats.Territory;
             _territory.TypePlayer = dictionaryTypePlayer.Single(s => s.Key == territoryHandler.TerritoryStats.Territory.name).Value;
 
-            for (int k = 0; k < Utils.instance.units_string.Count; k++)
+            for (int k = 0; k < Utils.instance.Units_string.Count; k++)
             {
-                _territory.GetUnit(Utils.instance.units_string[k]).Quantity = dictionaryUnitCombats.Single(s => s.Key == territoryHandler.TerritoryStats.Territory.name).Value[k];
-                if (_territory.GetUnit(Utils.instance.units_string[k]).Quantity > 0)
+                _territory.GetUnit(Utils.instance.Units_string[k]).Quantity = dictionaryUnitCombats.Single(s => s.Key == territoryHandler.TerritoryStats.Territory.name).Value[k];
+                if (_territory.GetUnit(Utils.instance.Units_string[k]).Quantity > 0)
                 {
-                    _territory.GetBuilding(_territory.GetUnit(Utils.instance.units_string[k])).ImproveBuilding(1);
-                    _territory.GetBuilding(_territory.GetUnit(Utils.instance.units_string[k])).ImproveCostUpgrade(1);
-                    _territory.GetBuilding(_territory.GetUnit(Utils.instance.units_string[k])).Status++;
+                    _territory.GetBuilding(_territory.GetUnit(Utils.instance.Units_string[k])).ImproveBuilding(1);
+                    _territory.GetBuilding(_territory.GetUnit(Utils.instance.Units_string[k])).ImproveCostUpgrade(1);
+                    _territory.GetBuilding(_territory.GetUnit(Utils.instance.Units_string[k])).Status++;
                 }
             }
 
@@ -174,11 +174,11 @@ public class TerritoryManager : MonoBehaviour
     public void UpdateUnitsDeffend(Territory _territory)
     {
         List<string> new_strings = new List<string>();
-        for (int j = 0; j < Utils.instance.units_string.Count; j++)
+        for (int j = 0; j < Utils.instance.Units_string.Count; j++)
         {
-            if (_territory.GetUnit(Utils.instance.units_string[j]).Quantity > 0)
+            if (_territory.GetUnit(Utils.instance.Units_string[j]).Quantity > 0)
             {
-                new_strings.Add(Utils.instance.units_string[j]);
+                new_strings.Add(Utils.instance.Units_string[j]);
             }
         }
         int count = 0;
@@ -355,12 +355,13 @@ public class TerritoryManager : MonoBehaviour
     /// </summary>
     public void ConditionEndChapter()
     {
+        string a = GlobalVariables.instance.GovernorChoose.CharacterName;
         int playerCount = CountTerrytorry(Territory.TYPEPLAYER.PLAYER);
         if (playerCount == territoryList.Count)
         {
             if (GlobalVariables.instance != null)
             {
-                GlobalVariables.instance.SetChapterTxt("win");
+                GlobalVariables.instance.tittle =  "Win";
             }
             SceneManager.LoadScene(2);
         }
@@ -368,7 +369,7 @@ public class TerritoryManager : MonoBehaviour
         {
             if (GlobalVariables.instance != null)
             {
-                GlobalVariables.instance.SetChapterTxt("lose");
+                 GlobalVariables.instance.tittle = "Lose";
             }
             SceneManager.LoadScene(2);
         }

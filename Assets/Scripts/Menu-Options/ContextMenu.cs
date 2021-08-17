@@ -66,25 +66,26 @@ public class ContextMenu : MonoBehaviour
         }
         if (selected.TerritoryStats.Territory.IsClaimed == false)
         {
-            MenuManager.instance.AccessTabMilitar();
-            MenuManager.instance.OpenSelectCharacterMenu(new MilitarChief());
-            GlobalVariables.instance.CenterCameraToTerritory(selected,true);
+            GlobalVariables.instance.CenterCameraToTerritory(selected, true);
+            MenuManager.instance.OpenMenu();
+            Invoke("Dummy", 2.0f);
             this.gameObject.SetActive(false);
             return;
         }
         if (selected.TerritoryStats.Territory.Population > 0)
         {
-            //int sword = 2;
-            //int lance = 2;
-            //int axe = 2;
-            WarManager.instance.SelectTerritory();
-            
+            WarManager.instance.SelectTerritory(); 
             MenuManager.instance.TurnOffBlock();
             TerritoryManager.instance.ChangeStateTerritory(0);
             this.gameObject.SetActive(false);
         }
-        
     }
+    void Dummy()
+    {
+        MenuManager.instance.AccessTabMilitar();
+        MenuManager.instance.OpenSelectCharacterMenu(new MilitarChief());
+    }
+
     public void ShowMilitarMenu()
     {
         if (AudioManager.instance != null)

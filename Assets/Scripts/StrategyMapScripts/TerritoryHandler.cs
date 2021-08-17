@@ -121,18 +121,16 @@ public class TerritoryHandler : MonoBehaviour
             if (selected == this && TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
             {
                 ca = true;
-                /*
-                if (TerritoryStats.Territory.IsClaimed == false)
-                {
-                    ca = false;
-                }
-                */
             }
             if (war == true || EventManager.instance.GetIsTerritoriesIsInPandemic(this) || EventManager.instance.GetIsTerritoriesIsInPandemic()) 
             {
                 ca = false;
             }
-            MenuManager.instance.ActivateContextMenu(this, ca,war, Input.mousePosition);
+            if (TutorialController.instance.CanMoveUnits)
+            {
+                MenuManager.instance.ActivateContextMenu(this, ca, war, Input.mousePosition);
+            }
+            
 
         }
         MenuManager.instance.CloseSelectCharacterMenu();
@@ -141,6 +139,7 @@ public class TerritoryHandler : MonoBehaviour
     {
         sprite.color = oldColor;
     }
+    
     /// <summary>
     /// State of the territory 
     /// </summary>
@@ -162,8 +161,15 @@ public class TerritoryHandler : MonoBehaviour
                 //InGameMenuHandler.instance.UpdateBuildings(this.territoryStats.Territory);
                 break;
             case 1:
-               // print("c");
-                MenuManager.instance.ActivateSelectTroopsMenu(this);
+                if (TutorialController.instance.CanSelectTroops)
+                {
+                    MenuManager.instance.ActivateSelectTroopsMenu(this);
+                }
+                else{
+                    TutorialController.instance.MoveTroopInTutorial(this);
+                    //TutorialController.instance.CanSelectTroops = true;
+                }
+                
                 HideAdjacentTerritories();
                 break;
             case 2:

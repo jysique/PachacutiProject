@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 public class TroopContainerOption : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI warriorsName;
     [SerializeField] TextMeshProUGUI warriorsCount;
     [SerializeField] TextMeshProUGUI warriorsSpeed;
+    [SerializeField] Image timeBar;
     private UnitCombat unitContainer;
     private bool init = false;
     public void InitializeTroopContainerOption(UnitCombat unit)
@@ -20,6 +22,7 @@ public class TroopContainerOption : MonoBehaviour
         
         if (init)
         {
+            timeBar.fillAmount = unitContainer._timeLeft / unitContainer._totalTime;
             UpdateElements();
         }
 

@@ -2155,6 +2155,7 @@ GameObject:
   - component: {fileID: 1967261362}
   - component: {fileID: 1967261361}
   - component: {fileID: 1967261364}
+  - component: {fileID: 1967261365}
   m_Layer: 0
   m_Name: SpeechSystemManager
   m_TagString: Untagged
@@ -2218,6 +2219,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3c7dbe947fe4e347bacb59f07b5aaaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cachedLastSpeaker: 
+--- !u!114 &1967261365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967261360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6050742ea15502f409fc9eeee991592e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1994691074

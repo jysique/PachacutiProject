@@ -9,6 +9,7 @@ public class MenuManager : MonoBehaviour
 
     public static MenuManager instance;
 
+    [Header("Menu Manager")]
     [SerializeField] public GameObject contextMenu;
     [SerializeField] public GameObject selectTroopsMenu;
     [SerializeField] public GameObject overMenuBlock;
@@ -19,6 +20,14 @@ public class MenuManager : MonoBehaviour
     [Header("Menu de Pause")]
     [SerializeField] private GameObject PauseMenu;
     [SerializeField] private GameObject ChiefSelection;
+    public static bool isGamePaused = false;
+    public float temporalTime;
+
+    [Header("Menu territory")]
+    [SerializeField] private Button openBtn;
+    [SerializeField] private TextMeshProUGUI openTxt;
+    [SerializeField] private Animator animMenu;
+    private bool isOpen = false;
 
     [Header("Select MilitaryBoss variables")]
     [SerializeField] GameObject SelecCharacterMenu;
@@ -34,9 +43,17 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private TabButton tabTerritory;
     [SerializeField] private TabButton tabMilitar;
     [SerializeField] private TabButton tabBuilding;
+    public bool IsOpen
+    {
+        get { return isOpen; }
+    }
     public TabButton TabMilitar
     {
         get { return tabMilitar; }
+    }
+    public TabButton TabBuiling
+    {
+        get { return tabBuilding; }
     }
     public void AccessTabProfile()
     {
@@ -63,9 +80,6 @@ public class MenuManager : MonoBehaviour
         tabBuilding.AccessToMenu();
     }
 
-    public static bool isGamePaused = false;
-    public float temporalTime;
-    
     private void Awake()
     {
         instance = this;
@@ -73,7 +87,9 @@ public class MenuManager : MonoBehaviour
     private void Start()
     {
         InitButtonMenuPause();
+        openBtn.onClick.AddListener(() => OpenMenu());
     }
+
     public void PauseMenuGame()
     {
         PauseMenu.SetActive(true);
@@ -82,6 +98,24 @@ public class MenuManager : MonoBehaviour
     {
         PauseMenu.SetActive(false);
     }
+
+    public void OpenMenu()
+    {
+
+        if (!isOpen)
+        {
+            isOpen = true;
+            animMenu.SetBool("Apparence", true);
+            openTxt.text = "C\nL\nO\nS\nE";
+        }
+        else
+        {
+            isOpen = false;
+            animMenu.SetBool("Apparence", false);
+            openTxt.text = "O\nP\nE\nN";
+        }
+    }
+
     void InitButtonMenuPause()
     {
         Button[] allPauseButton = PauseMenu.gameObject.transform.GetComponentsInChildren<Button>();

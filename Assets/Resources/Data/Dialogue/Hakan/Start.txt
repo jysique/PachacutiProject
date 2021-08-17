@@ -10,4 +10,4 @@ Hakan "Napay. "
 
 +"<i>Karuraqmi puririnay...!!!</i>"
 
-changeScene(2)
+changeScene(1)

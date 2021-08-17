@@ -40,6 +40,12 @@ public class WarManager : MonoBehaviour
     [SerializeField] private Image hatP2;
     [SerializeField] private Image hatP3;
     //
+    [SerializeField] private Animator anim1;
+    [SerializeField] private Animator anim2;
+    [SerializeField] private Animator anim3;
+    [SerializeField] private Animator anim4;
+    [SerializeField] private Animator anim5;
+
     private Color32 playerColor;
     private Color32 enemyColor;
 
@@ -75,6 +81,11 @@ public class WarManager : MonoBehaviour
             // warriorsCount2.text = selectedWar.warriors2Count.ToString();
             warriorsCount2.text = selectedWar.TerritoryWar.TerritoryStats.Territory.Population.ToString();
         }
+        anim1.speed = GlobalVariables.instance.timeModifier;
+        anim2.speed = GlobalVariables.instance.timeModifier;
+        anim3.speed = GlobalVariables.instance.timeModifier;
+        anim4.speed = GlobalVariables.instance.timeModifier;
+        anim5.speed = GlobalVariables.instance.timeModifier;
 
     }
     public void SetWarStatus(bool t)
@@ -366,7 +377,8 @@ public class WarManager : MonoBehaviour
                 otherTerritory.TerritoryStats.Territory.GetUnit(attackerTroop.UnitCombats[i].UnitName).Quantity += attackerTroop.UnitCombats[i].Quantity;
             }
         }
-        else if (otherTerritory.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.WASTE)
+        else if (attacker.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER && 
+            otherTerritory.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.WASTE)
         {
             // WASTE
             AlertManager.AlertExpedition();
@@ -385,10 +397,9 @@ public class WarManager : MonoBehaviour
         {
             if(attacker.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER || otherTerritory.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
             {
-                DateTableHandler.instance.PauseButton();
+                TutorialController.instance.CanSelectTroops = true;
+                DateTableHandler.instance.PauseTime();
                 battleCanvas.SetActive(true);
-                print("attacker|" + attacker.TerritoryStats.Territory.name);
-                print("other|" + otherTerritory.TerritoryStats.Territory.name);
                 Troop playerTroop;
                 Troop enemyTroop;
                 TerritoryHandler playerTerritory;
@@ -397,11 +408,6 @@ public class WarManager : MonoBehaviour
                 {
 
                     playerTroop = attackerTroop;
-                   /*
-                    enemyTroop = new Troop(otherTerritory.TerritoryStats.Territory.Swordsmen.Quantity,
-                                otherTerritory.TerritoryStats.Territory.Lancers.Quantity,
-                                otherTerritory.TerritoryStats.Territory.Axemen.Quantity);
-                    */
                     enemyTroop = new Troop(otherTerritory.TerritoryStats.Territory.TroopDefending);
                     playerTerritory = attacker;
                     enemyTerritory = otherTerritory;
@@ -409,11 +415,6 @@ public class WarManager : MonoBehaviour
                 else
                 {
                     enemyTroop = attackerTroop;
-                    /*
-                    playerTroop = new Troop(otherTerritory.TerritoryStats.Territory.Swordsmen.Quantity,
-                                otherTerritory.TerritoryStats.Territory.Lancers.Quantity,
-                                otherTerritory.TerritoryStats.Territory.Axemen.Quantity);
-                    */
                     playerTroop = new Troop(otherTerritory.TerritoryStats.Territory.TroopDefending);
                     playerTerritory = otherTerritory;
                     enemyTerritory =  attacker;
@@ -427,17 +428,13 @@ public class WarManager : MonoBehaviour
                     otherTerritoryIsPlayer);;
                 return;
             }
-            // attacker or otherTerritory is equal to bot
-          //  int attackPower = attackerTroop.GetAllNumbersUnit();
             
             if (otherTerritory.war)
             {
-                //AddMoreWarriors(otherTerritory, attackPower);
                 AddMoreWarriors(otherTerritory, attackerTroop);
             }
             else
             {
-                //float vAttack = SetAttackFormula(attacker, attackPower);
                 float vAttack = SetAttackFormula(attacker, attackerTroop.GetAllNumbersUnit());
                 float vDef = SetDefenseFormula(otherTerritory);
                 float critic1 = 20;

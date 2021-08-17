@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 public class SquareType : MonoBehaviour
 {
     public bool haveUnit = false;
@@ -25,11 +24,14 @@ public class SquareType : MonoBehaviour
 
     private void Update()
     {
+        
         if (unitGroup != null)
         {
+            //print(index + "-" + unitGroup.UnitCombat.CharacterName);
             haveUnit = true;
         }
-        else { 
+        else {
+            //print(index + "- no unitCombat");
             haveUnit = false;
         }
     }

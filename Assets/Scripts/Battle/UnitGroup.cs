@@ -1,15 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class UnitGroup
 {
     /*
     string type;
     int quantity;
     */
-    bool defense;
-
+    [SerializeField] bool defense;
     [SerializeField] UnitCombat unitCombat;
     Territory.TYPEPLAYER typePlayer;
     GameObject unitsGO;

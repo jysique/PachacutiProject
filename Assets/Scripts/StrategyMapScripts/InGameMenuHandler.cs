@@ -373,7 +373,6 @@ public class InGameMenuHandler : MonoBehaviour
 
         }
 
-        // UpdateDropdown(dropdownBuildings, territory.GetListBuildings());
         UpdateDropdown(dropdownBuildings, Utils.instance.GetListBuildings(territory));
         dropdownBuildings.value = 0;
     }

@@ -7,51 +7,35 @@ using System.IO;
 public class ChapterController : MonoBehaviour
 {
     public static ChapterController instance { get; private set; }
-    List<string> data = new List<string>();
-    private string chapterName;
-    private float timerCountDown = 0.8f;
-    private int progress = 0;
-    private string cachedLastSpeaker = "";
-    // ChapterPachacuti_start
-    private void Start()
+
+    public GameObject speechSystemRoot;
+    [HideInInspector] public string cachedLastSpeaker = "";
+
+
+    private void Awake()
     {
-        Time.timeScale = 1;
-        if (GlobalVariables.instance != null)
+        if (instance == null)
         {
-            //GlobalVariables.instance.SetChapterTxt("start");
-            chapterName = GlobalVariables.instance.ChapterTxt;
+            instance = this;
         }
         else
         {
-            chapterName = "ChapterPachacuti_start";
-        }
-        
-        LoadChapterFile(chapterName);
-    }
-    private void Update()
-    {
-        if (timerCountDown>0)
-        {
-            timerCountDown -= Time.deltaTime;
-        }
-        else
-        {
-            HandleLine(data[progress]);
-            progress++;
-            timerCountDown = 0.8f;
+            Destroy(gameObject);
         }
     }
-    public void LoadChapterFile(string fileName)
+    /*EXAMPLEO READ FILE
+    private void LoadChapterFile(string character, string fileName)
     {
-        string file = Resources.Load<TextAsset>("Data/Dialogue/" + fileName).text;
+        string file = Resources.Load<TextAsset>("Data/Dialogue/" + character + "/" + fileName).text;
         data = new List<string>(file.Split('\n'));
         progress = 0;
         cachedLastSpeaker = "";
     }
-    void HandleLine(string line)
+    */
+    public void HandleLine(string line)
     {
         string[] dialogueAndActions = line.Split('"');
-        
+
         if (dialogueAndActions.Length == 3)
         {   
             HandleDialogue(dialogueAndActions[0], dialogueAndActions[1]);
@@ -130,6 +114,18 @@ public class ChapterController : MonoBehaviour
                 break;
             case "changeScene":
                 Command_ChangeScene(data[1]);
+                break;
+            case "turnOff":
+                TutorialController.instance.TurnOffDialogue();
+                break;
+            case "turnMoveButton":
+                TutorialController.instance.TurnMoveButton(true);
+                break;
+            case "turnDefButton":
+                TutorialController.instance.TurnDefButton(true);
+                break;
+            case "turnAttackButton":
+                TutorialController.instance.TurnAttackButton(true);
                 break;
             default:
                 break;
@@ -232,5 +228,4 @@ public class ChapterController : MonoBehaviour
     {
         SceneManager.LoadScene(int.Parse(data));
     }
-
 }
