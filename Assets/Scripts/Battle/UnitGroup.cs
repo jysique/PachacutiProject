@@ -8,6 +8,7 @@ public class UnitGroup
     int quantity;
     */
     [SerializeField] bool defense;
+    [SerializeField] private bool active;
     [SerializeField] UnitCombat unitCombat;
     Territory.TYPEPLAYER typePlayer;
     GameObject unitsGO;
@@ -27,6 +28,7 @@ public class UnitGroup
         typePlayer = tp;
         unitCombat = uc;
         defense = false;
+        active = true;
     }
 
     public void Log()
@@ -64,5 +66,11 @@ public class UnitGroup
     public UnitCombat UnitCombat { 
         get => unitCombat; 
         set => unitCombat = value; 
+    }
+   
+    public bool Active
+    {
+        get { return active; }
+        set { active = value; }
     }
 }

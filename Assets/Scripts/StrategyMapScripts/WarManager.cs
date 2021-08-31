@@ -368,6 +368,7 @@ public class WarManager : MonoBehaviour
 
     public void MoveWarriors(TerritoryHandler otherTerritory,  TerritoryHandler attacker, Troop attackerTroop)
     {
+        
         bool otherTerritoryIsPlayer = otherTerritory.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER;
         Territory.TYPEPLAYER temp = otherTerritory.TerritoryStats.Territory.TypePlayer;
         if (otherTerritory.TerritoryStats.Territory.TypePlayer == attacker.TerritoryStats.Territory.TypePlayer)
@@ -395,8 +396,10 @@ public class WarManager : MonoBehaviour
         }
         else
         {
-            if(attacker.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER || otherTerritory.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
+            
+            if (attacker.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER || otherTerritory.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
             {
+                print("llego aca"); 
                 TutorialController.instance.CanSelectTroops = true;
                 DateTableHandler.instance.PauseTime();
                 battleCanvas.SetActive(true);
@@ -406,9 +409,10 @@ public class WarManager : MonoBehaviour
                 TerritoryHandler enemyTerritory;
                 if (attacker.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
                 {
-
+                    
                     playerTroop = attackerTroop;
                     enemyTroop = new Troop(otherTerritory.TerritoryStats.Territory.TroopDefending);
+                    print(playerTroop.GetAllNumbersUnit());
                     playerTerritory = attacker;
                     enemyTerritory = otherTerritory;
                 }

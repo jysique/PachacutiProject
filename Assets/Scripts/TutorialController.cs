@@ -109,7 +109,8 @@ public class TutorialController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        ift = PlayerPrefs.GetInt("tutorialState", 1);
+        //ift = PlayerPrefs.GetInt("tutorialState", 1);
+        ift = PlayerPrefs.GetInt("tutorialState", 0);
     }
     private void Start()
     {
@@ -197,7 +198,8 @@ public class TutorialController : MonoBehaviour
 
     private void Update()
     {
-        if (TimeSystem.instance.TimeGame.EqualsDate(timeTutorial))
+        //if (TimeSystem.instance.TimeGame.EqualsDate(timeTutorial))
+        if (false)
         {
             if (ift == 1)
             {
