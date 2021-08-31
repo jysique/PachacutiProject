@@ -3598,7 +3598,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.337}
   m_AnchorMax: {x: 1, y: 0.5083289}
-  m_AnchoredPosition: {x: 0.12475586, y: 46.964275}
+  m_AnchoredPosition: {x: 0.12475586, y: 46.964283}
   m_SizeDelta: {x: -0.29943848, y: 18.188126}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &128476422
@@ -4104,6 +4104,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Swordsman
       attack: 10
+      defense: 60
       precision: 95
       range: 1
       strongTo:
@@ -4111,6 +4112,7 @@ MonoBehaviour:
       weakTo:
       - Lancer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -4124,6 +4126,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
+      defense: 60
       precision: 85
       range: 1
       strongTo:
@@ -4131,6 +4134,7 @@ MonoBehaviour:
       weakTo:
       - Axeman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -4144,6 +4148,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
+      defense: 60
       precision: 75
       range: 1
       strongTo:
@@ -4151,6 +4156,7 @@ MonoBehaviour:
       weakTo:
       - Swordsman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -4164,6 +4170,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
+      defense: 60
       precision: 70
       range: 1
       strongTo:
@@ -4171,6 +4178,7 @@ MonoBehaviour:
       weakTo:
       - Scout
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -4184,6 +4192,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
+      defense: 60
       precision: 70
       range: 2
       strongTo:
@@ -4191,6 +4200,7 @@ MonoBehaviour:
       weakTo:
       - Archer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -5013,6 +5023,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Swordsman
       attack: 10
+      defense: 60
       precision: 95
       range: 1
       strongTo:
@@ -5020,6 +5031,7 @@ MonoBehaviour:
       weakTo:
       - Lancer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -5033,6 +5045,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
+      defense: 60
       precision: 85
       range: 1
       strongTo:
@@ -5040,6 +5053,7 @@ MonoBehaviour:
       weakTo:
       - Axeman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -5053,6 +5067,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
+      defense: 60
       precision: 75
       range: 1
       strongTo:
@@ -5060,6 +5075,7 @@ MonoBehaviour:
       weakTo:
       - Swordsman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -5073,6 +5089,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
+      defense: 60
       precision: 70
       range: 1
       strongTo:
@@ -5080,6 +5097,7 @@ MonoBehaviour:
       weakTo:
       - Scout
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -5093,6 +5111,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
+      defense: 60
       precision: 70
       range: 2
       strongTo:
@@ -5100,6 +5119,7 @@ MonoBehaviour:
       weakTo:
       - Archer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -6463,6 +6483,8 @@ MonoBehaviour:
   index: 0
   terrain:
     type: 0
+    scale: 0
+    attribute: 
 --- !u!114 &234339977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7135,6 +7157,7 @@ MonoBehaviour:
       quantity: 50
       unitName: Swordsman
       attack: 10
+      defense: 60
       precision: 95
       range: 1
       strongTo:
@@ -7142,6 +7165,7 @@ MonoBehaviour:
       weakTo:
       - Lancer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -7155,6 +7179,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
+      defense: 60
       precision: 85
       range: 1
       strongTo:
@@ -7162,6 +7187,7 @@ MonoBehaviour:
       weakTo:
       - Axeman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -7175,6 +7201,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
+      defense: 60
       precision: 75
       range: 1
       strongTo:
@@ -7182,6 +7209,7 @@ MonoBehaviour:
       weakTo:
       - Swordsman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -7195,6 +7223,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
+      defense: 60
       precision: 70
       range: 1
       strongTo:
@@ -7202,6 +7231,7 @@ MonoBehaviour:
       weakTo:
       - Scout
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -7215,6 +7245,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
+      defense: 60
       precision: 70
       range: 2
       strongTo:
@@ -7222,6 +7253,7 @@ MonoBehaviour:
       weakTo:
       - Archer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -8167,6 +8199,7 @@ MonoBehaviour:
       quantity: 50
       unitName: Swordsman
       attack: 10
+      defense: 60
       precision: 95
       range: 1
       strongTo:
@@ -8174,6 +8207,7 @@ MonoBehaviour:
       weakTo:
       - Lancer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -8187,6 +8221,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
+      defense: 60
       precision: 85
       range: 1
       strongTo:
@@ -8194,6 +8229,7 @@ MonoBehaviour:
       weakTo:
       - Axeman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -8207,6 +8243,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
+      defense: 60
       precision: 75
       range: 1
       strongTo:
@@ -8214,6 +8251,7 @@ MonoBehaviour:
       weakTo:
       - Swordsman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -8227,6 +8265,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
+      defense: 60
       precision: 70
       range: 1
       strongTo:
@@ -8234,6 +8273,7 @@ MonoBehaviour:
       weakTo:
       - Scout
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -8247,6 +8287,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
+      defense: 60
       precision: 70
       range: 2
       strongTo:
@@ -8254,6 +8295,7 @@ MonoBehaviour:
       weakTo:
       - Archer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -8942,6 +8984,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Swordsman
       attack: 10
+      defense: 60
       precision: 95
       range: 1
       strongTo:
@@ -8949,6 +8992,7 @@ MonoBehaviour:
       weakTo:
       - Lancer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -8962,6 +9006,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
+      defense: 60
       precision: 85
       range: 1
       strongTo:
@@ -8969,6 +9014,7 @@ MonoBehaviour:
       weakTo:
       - Axeman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -8982,6 +9028,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
+      defense: 60
       precision: 75
       range: 1
       strongTo:
@@ -8989,6 +9036,7 @@ MonoBehaviour:
       weakTo:
       - Swordsman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -9002,6 +9050,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
+      defense: 60
       precision: 70
       range: 1
       strongTo:
@@ -9009,6 +9058,7 @@ MonoBehaviour:
       weakTo:
       - Scout
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -9022,6 +9072,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
+      defense: 60
       precision: 70
       range: 2
       strongTo:
@@ -9029,6 +9080,7 @@ MonoBehaviour:
       weakTo:
       - Archer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -11451,6 +11503,7 @@ MonoBehaviour:
       quantity: 50
       unitName: Swordsman
       attack: 10
+      defense: 60
       precision: 95
       range: 1
       strongTo:
@@ -11458,6 +11511,7 @@ MonoBehaviour:
       weakTo:
       - Lancer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -11471,6 +11525,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
+      defense: 60
       precision: 85
       range: 1
       strongTo:
@@ -11478,6 +11533,7 @@ MonoBehaviour:
       weakTo:
       - Axeman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -11491,6 +11547,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
+      defense: 60
       precision: 75
       range: 1
       strongTo:
@@ -11498,6 +11555,7 @@ MonoBehaviour:
       weakTo:
       - Swordsman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -11511,6 +11569,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
+      defense: 60
       precision: 70
       range: 1
       strongTo:
@@ -11518,6 +11577,7 @@ MonoBehaviour:
       weakTo:
       - Scout
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -11531,6 +11591,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
+      defense: 60
       precision: 70
       range: 2
       strongTo:
@@ -11538,6 +11599,7 @@ MonoBehaviour:
       weakTo:
       - Archer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -11940,23 +12002,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85abd0197b1635646be9c135f84c809b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CustomEventSelection: {fileID: 2085805089}
   TitleTextCustomEvent: {fileID: 1305954623}
   DetailsTextCustomEvent: {fileID: 2135232745}
-  ResultsTextEvent: {fileID: 134161104}
-  AcceptEventButton: {fileID: 1807883899}
-  CloseEventButton: {fileID: 562174570}
-  DeclineEventButton: {fileID: 1011897976}
-  ResultsEvent: {fileID: 1808145841}
-  notificationEvent: {fileID: 1767167869}
-  CustomEventList: {fileID: 1391906896}
   MotivationTxt: {fileID: 613504317}
   OpinionTxt: {fileID: 59221374}
+  FirstOptionButton: {fileID: 0}
+  SecondOptionButton: {fileID: 0}
+  ThirdOptionButton: {fileID: 0}
   goToBtn: {fileID: 1918174643}
+  CustomEventSelection: {fileID: 2085805089}
+  notificationEvent: {fileID: 1767167869}
+  CustomEventList: {fileID: 1391906896}
+  TerritoryInfo: {fileID: 0}
   listEvents:
     CustomEvents: []
     ExpedicionEvents: []
     BuildingsEvents: []
+    BattleEvents: []
 --- !u!114 &424632361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11973,6 +12035,11 @@ MonoBehaviour:
   notificationMission: {fileID: 1654569945}
   missionList: {fileID: 89653452}
   indexMission: 0
+  listMission: []
+  currentMission:
+    name: 
+    territoryMission: []
+    missionStatus: 0
 --- !u!114 &424632362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12553,6 +12620,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Swordsman
       attack: 10
+      defense: 60
       precision: 95
       range: 1
       strongTo:
@@ -12560,6 +12628,7 @@ MonoBehaviour:
       weakTo:
       - Lancer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -12573,6 +12642,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
+      defense: 60
       precision: 85
       range: 1
       strongTo:
@@ -12580,6 +12650,7 @@ MonoBehaviour:
       weakTo:
       - Axeman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -12593,6 +12664,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
+      defense: 60
       precision: 75
       range: 1
       strongTo:
@@ -12600,6 +12672,7 @@ MonoBehaviour:
       weakTo:
       - Swordsman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -12613,6 +12686,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
+      defense: 60
       precision: 70
       range: 1
       strongTo:
@@ -12620,6 +12694,7 @@ MonoBehaviour:
       weakTo:
       - Scout
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -12633,6 +12708,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
+      defense: 60
       precision: 70
       range: 2
       strongTo:
@@ -12640,6 +12716,7 @@ MonoBehaviour:
       weakTo:
       - Archer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -14300,6 +14377,8 @@ MonoBehaviour:
   index: 0
   terrain:
     type: 0
+    scale: 0
+    attribute: 
 --- !u!114 &521251265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15773,6 +15852,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Swordsman
       attack: 10
+      defense: 60
       precision: 95
       range: 1
       strongTo:
@@ -15780,6 +15860,7 @@ MonoBehaviour:
       weakTo:
       - Lancer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -15793,6 +15874,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
+      defense: 60
       precision: 85
       range: 1
       strongTo:
@@ -15800,6 +15882,7 @@ MonoBehaviour:
       weakTo:
       - Axeman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -15813,6 +15896,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
+      defense: 60
       precision: 75
       range: 1
       strongTo:
@@ -15820,6 +15904,7 @@ MonoBehaviour:
       weakTo:
       - Swordsman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -15833,6 +15918,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
+      defense: 60
       precision: 70
       range: 1
       strongTo:
@@ -15840,6 +15926,7 @@ MonoBehaviour:
       weakTo:
       - Scout
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -15853,6 +15940,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
+      defense: 60
       precision: 70
       range: 2
       strongTo:
@@ -15860,6 +15948,7 @@ MonoBehaviour:
       weakTo:
       - Archer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -16517,6 +16606,8 @@ MonoBehaviour:
   index: 0
   terrain:
     type: 0
+    scale: 0
+    attribute: 
 --- !u!114 &603993214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17400,13 +17491,22 @@ MonoBehaviour:
   turnsCounter: {fileID: 138089549}
   squares: {fileID: 849843860}
   unitGroupPrefab: {fileID: 5988456530364838111, guid: 67250d7f80246de41acaae6424380995, type: 3}
-  turnSignal: {fileID: 671823385}
   menu: {fileID: 556620711}
-  battleResume: {fileID: 2097457001}
-  attackerPicture: {fileID: 1366084586}
-  defenderPicture: {fileID: 398882306}
-  attackerText: {fileID: 337216374}
-  defenderText: {fileID: 1810261302}
+  Block: {fileID: 0}
+  ResumeBattle: {fileID: 0}
+  closeResumen: {fileID: 0}
+  Player1: {fileID: 0}
+  Player2: {fileID: 0}
+  conquistedTxt: {fileID: 0}
+  activatSA: {fileID: 0}
+  surrenderBtn: {fileID: 0}
+  acumulated: 0
+  turnSignal: {fileID: 0}
+  battleResume: {fileID: 0}
+  attackerPicture: {fileID: 0}
+  defenderPicture: {fileID: 0}
+  attackerText: {fileID: 0}
+  defenderText: {fileID: 0}
   blockScreen: 0
   turns: 15
   c: 0
@@ -20172,6 +20272,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Swordsman
       attack: 10
+      defense: 60
       precision: 95
       range: 1
       strongTo:
@@ -20179,6 +20280,7 @@ MonoBehaviour:
       weakTo:
       - Lancer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -20192,6 +20294,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
+      defense: 60
       precision: 85
       range: 1
       strongTo:
@@ -20199,6 +20302,7 @@ MonoBehaviour:
       weakTo:
       - Axeman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -20212,6 +20316,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
+      defense: 60
       precision: 75
       range: 1
       strongTo:
@@ -20219,6 +20324,7 @@ MonoBehaviour:
       weakTo:
       - Swordsman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -20232,6 +20338,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
+      defense: 60
       precision: 70
       range: 1
       strongTo:
@@ -20239,6 +20346,7 @@ MonoBehaviour:
       weakTo:
       - Scout
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -20252,6 +20360,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
+      defense: 60
       precision: 70
       range: 2
       strongTo:
@@ -20259,6 +20368,7 @@ MonoBehaviour:
       weakTo:
       - Archer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -21799,12 +21909,13 @@ MonoBehaviour:
   - {fileID: 465633970}
   battle1: {fileID: 0}
   battle2: {fileID: 0}
-  data: []
-  progress: 0
-  tutorialList: []
   move: {fileID: 620230979}
   attack: {fileID: 1509222851}
   deffend: {fileID: 1719344425}
+  finishTutorial: {fileID: 0}
+  progress: 0
+  data: []
+  tutorialList: []
 --- !u!114 &834830438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22883,6 +22994,7 @@ MonoBehaviour:
       quantity: 50
       unitName: Swordsman
       attack: 10
+      defense: 60
       precision: 95
       range: 1
       strongTo:
@@ -22890,6 +23002,7 @@ MonoBehaviour:
       weakTo:
       - Lancer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -22903,6 +23016,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
+      defense: 60
       precision: 85
       range: 1
       strongTo:
@@ -22910,6 +23024,7 @@ MonoBehaviour:
       weakTo:
       - Axeman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -22923,6 +23038,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
+      defense: 60
       precision: 75
       range: 1
       strongTo:
@@ -22930,6 +23046,7 @@ MonoBehaviour:
       weakTo:
       - Swordsman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -22943,6 +23060,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
+      defense: 60
       precision: 70
       range: 1
       strongTo:
@@ -22950,6 +23068,7 @@ MonoBehaviour:
       weakTo:
       - Scout
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -22963,6 +23082,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
+      defense: 60
       precision: 70
       range: 2
       strongTo:
@@ -22970,6 +23090,7 @@ MonoBehaviour:
       weakTo:
       - Archer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -23817,6 +23938,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Swordsman
       attack: 10
+      defense: 60
       precision: 95
       range: 1
       strongTo:
@@ -23824,6 +23946,7 @@ MonoBehaviour:
       weakTo:
       - Lancer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -23837,6 +23960,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
+      defense: 60
       precision: 85
       range: 1
       strongTo:
@@ -23844,6 +23968,7 @@ MonoBehaviour:
       weakTo:
       - Axeman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -23857,6 +23982,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
+      defense: 60
       precision: 75
       range: 1
       strongTo:
@@ -23864,6 +23990,7 @@ MonoBehaviour:
       weakTo:
       - Swordsman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -23877,6 +24004,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
+      defense: 60
       precision: 70
       range: 1
       strongTo:
@@ -23884,6 +24012,7 @@ MonoBehaviour:
       weakTo:
       - Scout
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -23897,6 +24026,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
+      defense: 60
       precision: 70
       range: 2
       strongTo:
@@ -23904,6 +24034,7 @@ MonoBehaviour:
       weakTo:
       - Archer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -24254,6 +24385,7 @@ MonoBehaviour:
       quantity: 50
       unitName: Swordsman
       attack: 10
+      defense: 60
       precision: 95
       range: 1
       strongTo:
@@ -24261,6 +24393,7 @@ MonoBehaviour:
       weakTo:
       - Lancer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -24274,6 +24407,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
+      defense: 60
       precision: 85
       range: 1
       strongTo:
@@ -24281,6 +24415,7 @@ MonoBehaviour:
       weakTo:
       - Axeman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -24294,6 +24429,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
+      defense: 60
       precision: 75
       range: 1
       strongTo:
@@ -24301,6 +24437,7 @@ MonoBehaviour:
       weakTo:
       - Swordsman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -24314,6 +24451,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
+      defense: 60
       precision: 70
       range: 1
       strongTo:
@@ -24321,6 +24459,7 @@ MonoBehaviour:
       weakTo:
       - Scout
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -24334,6 +24473,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
+      defense: 60
       precision: 70
       range: 2
       strongTo:
@@ -24341,6 +24481,7 @@ MonoBehaviour:
       weakTo:
       - Archer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -25459,6 +25600,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Swordsman
       attack: 10
+      defense: 60
       precision: 95
       range: 1
       strongTo:
@@ -25466,6 +25608,7 @@ MonoBehaviour:
       weakTo:
       - Lancer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -25479,6 +25622,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
+      defense: 60
       precision: 85
       range: 1
       strongTo:
@@ -25486,6 +25630,7 @@ MonoBehaviour:
       weakTo:
       - Axeman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -25499,6 +25644,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
+      defense: 60
       precision: 75
       range: 1
       strongTo:
@@ -25506,6 +25652,7 @@ MonoBehaviour:
       weakTo:
       - Swordsman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -25519,6 +25666,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
+      defense: 60
       precision: 70
       range: 1
       strongTo:
@@ -25526,6 +25674,7 @@ MonoBehaviour:
       weakTo:
       - Scout
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -25539,6 +25688,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
+      defense: 60
       precision: 70
       range: 2
       strongTo:
@@ -25546,6 +25696,7 @@ MonoBehaviour:
       weakTo:
       - Archer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -27025,6 +27176,7 @@ MonoBehaviour:
       quantity: 50
       unitName: Swordsman
       attack: 10
+      defense: 60
       precision: 95
       range: 1
       strongTo:
@@ -27032,6 +27184,7 @@ MonoBehaviour:
       weakTo:
       - Lancer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -27045,6 +27198,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
+      defense: 60
       precision: 85
       range: 1
       strongTo:
@@ -27052,6 +27206,7 @@ MonoBehaviour:
       weakTo:
       - Axeman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -27065,6 +27220,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
+      defense: 60
       precision: 75
       range: 1
       strongTo:
@@ -27072,6 +27228,7 @@ MonoBehaviour:
       weakTo:
       - Swordsman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -27085,6 +27242,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
+      defense: 60
       precision: 70
       range: 1
       strongTo:
@@ -27092,6 +27250,7 @@ MonoBehaviour:
       weakTo:
       - Scout
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -27105,6 +27264,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
+      defense: 60
       precision: 70
       range: 2
       strongTo:
@@ -27112,6 +27272,7 @@ MonoBehaviour:
       weakTo:
       - Archer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -28346,6 +28507,7 @@ MonoBehaviour:
       quantity: 50
       unitName: Swordsman
       attack: 10
+      defense: 60
       precision: 95
       range: 1
       strongTo:
@@ -28353,6 +28515,7 @@ MonoBehaviour:
       weakTo:
       - Lancer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -28366,6 +28529,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
+      defense: 60
       precision: 85
       range: 1
       strongTo:
@@ -28373,6 +28537,7 @@ MonoBehaviour:
       weakTo:
       - Axeman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -28386,6 +28551,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
+      defense: 60
       precision: 75
       range: 1
       strongTo:
@@ -28393,6 +28559,7 @@ MonoBehaviour:
       weakTo:
       - Swordsman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -28406,6 +28573,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
+      defense: 60
       precision: 70
       range: 1
       strongTo:
@@ -28413,6 +28581,7 @@ MonoBehaviour:
       weakTo:
       - Scout
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -28426,6 +28595,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
+      defense: 60
       precision: 70
       range: 2
       strongTo:
@@ -28433,6 +28603,7 @@ MonoBehaviour:
       weakTo:
       - Archer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -28851,6 +29022,7 @@ MonoBehaviour:
       quantity: 50
       unitName: Swordsman
       attack: 10
+      defense: 60
       precision: 95
       range: 1
       strongTo:
@@ -28858,6 +29030,7 @@ MonoBehaviour:
       weakTo:
       - Lancer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -28871,6 +29044,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
+      defense: 60
       precision: 85
       range: 1
       strongTo:
@@ -28878,6 +29052,7 @@ MonoBehaviour:
       weakTo:
       - Axeman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -28891,6 +29066,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
+      defense: 60
       precision: 75
       range: 1
       strongTo:
@@ -28898,6 +29074,7 @@ MonoBehaviour:
       weakTo:
       - Swordsman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -28911,6 +29088,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
+      defense: 60
       precision: 70
       range: 1
       strongTo:
@@ -28918,6 +29096,7 @@ MonoBehaviour:
       weakTo:
       - Scout
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -28931,6 +29110,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
+      defense: 60
       precision: 70
       range: 2
       strongTo:
@@ -28938,6 +29118,7 @@ MonoBehaviour:
       weakTo:
       - Archer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -29770,6 +29951,8 @@ MonoBehaviour:
   index: 0
   terrain:
     type: 0
+    scale: 0
+    attribute: 
 --- !u!114 &1128577235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32182,6 +32365,7 @@ MonoBehaviour:
       quantity: 50
       unitName: Swordsman
       attack: 10
+      defense: 60
       precision: 95
       range: 1
       strongTo:
@@ -32189,6 +32373,7 @@ MonoBehaviour:
       weakTo:
       - Lancer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -32202,6 +32387,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
+      defense: 60
       precision: 85
       range: 1
       strongTo:
@@ -32209,6 +32395,7 @@ MonoBehaviour:
       weakTo:
       - Axeman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -32222,6 +32409,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
+      defense: 60
       precision: 75
       range: 1
       strongTo:
@@ -32229,6 +32417,7 @@ MonoBehaviour:
       weakTo:
       - Swordsman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -32242,6 +32431,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
+      defense: 60
       precision: 70
       range: 1
       strongTo:
@@ -32249,6 +32439,7 @@ MonoBehaviour:
       weakTo:
       - Scout
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -32262,6 +32453,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
+      defense: 60
       precision: 70
       range: 2
       strongTo:
@@ -32269,6 +32461,7 @@ MonoBehaviour:
       weakTo:
       - Archer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -32887,6 +33080,8 @@ MonoBehaviour:
   index: 0
   terrain:
     type: 0
+    scale: 0
+    attribute: 
 --- !u!114 &1238960554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33626,6 +33821,7 @@ MonoBehaviour:
       quantity: 50
       unitName: Swordsman
       attack: 10
+      defense: 60
       precision: 95
       range: 1
       strongTo:
@@ -33633,6 +33829,7 @@ MonoBehaviour:
       weakTo:
       - Lancer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -33646,6 +33843,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
+      defense: 60
       precision: 85
       range: 1
       strongTo:
@@ -33653,6 +33851,7 @@ MonoBehaviour:
       weakTo:
       - Axeman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -33666,6 +33865,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
+      defense: 60
       precision: 75
       range: 1
       strongTo:
@@ -33673,6 +33873,7 @@ MonoBehaviour:
       weakTo:
       - Swordsman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -33686,6 +33887,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
+      defense: 60
       precision: 70
       range: 1
       strongTo:
@@ -33693,6 +33895,7 @@ MonoBehaviour:
       weakTo:
       - Scout
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -33706,6 +33909,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
+      defense: 60
       precision: 70
       range: 2
       strongTo:
@@ -33713,6 +33917,7 @@ MonoBehaviour:
       weakTo:
       - Archer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -37876,6 +38081,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Swordsman
       attack: 10
+      defense: 60
       precision: 95
       range: 1
       strongTo:
@@ -37883,6 +38089,7 @@ MonoBehaviour:
       weakTo:
       - Lancer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -37896,6 +38103,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
+      defense: 60
       precision: 85
       range: 1
       strongTo:
@@ -37903,6 +38111,7 @@ MonoBehaviour:
       weakTo:
       - Axeman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -37916,6 +38125,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
+      defense: 60
       precision: 75
       range: 1
       strongTo:
@@ -37923,6 +38133,7 @@ MonoBehaviour:
       weakTo:
       - Swordsman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -37936,6 +38147,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
+      defense: 60
       precision: 70
       range: 1
       strongTo:
@@ -37943,6 +38155,7 @@ MonoBehaviour:
       weakTo:
       - Scout
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -37956,6 +38169,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
+      defense: 60
       precision: 70
       range: 2
       strongTo:
@@ -37963,6 +38177,7 @@ MonoBehaviour:
       weakTo:
       - Archer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -38828,7 +39043,6 @@ MonoBehaviour:
   troopSelected:
     unitCombats: []
     positions: 
-  acumulated: 0
   total_cost: 0
 --- !u!1 &1468871725
 GameObject:
@@ -40207,6 +40421,7 @@ MonoBehaviour:
       quantity: 50
       unitName: Swordsman
       attack: 10
+      defense: 60
       precision: 95
       range: 1
       strongTo:
@@ -40214,6 +40429,7 @@ MonoBehaviour:
       weakTo:
       - Lancer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -40227,6 +40443,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
+      defense: 60
       precision: 85
       range: 1
       strongTo:
@@ -40234,6 +40451,7 @@ MonoBehaviour:
       weakTo:
       - Axeman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -40247,6 +40465,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
+      defense: 60
       precision: 75
       range: 1
       strongTo:
@@ -40254,6 +40473,7 @@ MonoBehaviour:
       weakTo:
       - Swordsman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -40267,6 +40487,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
+      defense: 60
       precision: 70
       range: 1
       strongTo:
@@ -40274,6 +40495,7 @@ MonoBehaviour:
       weakTo:
       - Scout
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -40287,6 +40509,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
+      defense: 60
       precision: 70
       range: 2
       strongTo:
@@ -40294,6 +40517,7 @@ MonoBehaviour:
       weakTo:
       - Archer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -42291,6 +42515,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Swordsman
       attack: 10
+      defense: 60
       precision: 95
       range: 1
       strongTo:
@@ -42298,6 +42523,7 @@ MonoBehaviour:
       weakTo:
       - Lancer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -42311,6 +42537,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
+      defense: 60
       precision: 85
       range: 1
       strongTo:
@@ -42318,6 +42545,7 @@ MonoBehaviour:
       weakTo:
       - Axeman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -42331,6 +42559,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
+      defense: 60
       precision: 75
       range: 1
       strongTo:
@@ -42338,6 +42567,7 @@ MonoBehaviour:
       weakTo:
       - Swordsman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -42351,6 +42581,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
+      defense: 60
       precision: 70
       range: 1
       strongTo:
@@ -42358,6 +42589,7 @@ MonoBehaviour:
       weakTo:
       - Scout
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -42371,6 +42603,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
+      defense: 60
       precision: 70
       range: 2
       strongTo:
@@ -42378,6 +42611,7 @@ MonoBehaviour:
       weakTo:
       - Archer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -42406,12 +42640,6 @@ MonoBehaviour:
       level: 0
     terrainList: []
     troopDefend: []
-  irrigateLevel: {fileID: 2135157835}
-  goldMineLevel: {fileID: 1945386951}
-  fortressLevel: {fileID: 1187320710}
-  academyLevel: {fileID: 1346749520}
-  barracksLevel: {fileID: 2032719484}
-  archeryLevel: {fileID: 2140639410}
   menuBlockMilitaryOther: {fileID: 1540382753}
   menuBlockMilitaryCharacter: {fileID: 115183287}
   menuBlockMilitaryWaste: {fileID: 1657764101}
@@ -43684,6 +43912,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Swordsman
       attack: 10
+      defense: 60
       precision: 95
       range: 1
       strongTo:
@@ -43691,6 +43920,7 @@ MonoBehaviour:
       weakTo:
       - Lancer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -43704,6 +43934,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
+      defense: 60
       precision: 85
       range: 1
       strongTo:
@@ -43711,6 +43942,7 @@ MonoBehaviour:
       weakTo:
       - Axeman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -43724,6 +43956,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
+      defense: 60
       precision: 75
       range: 1
       strongTo:
@@ -43731,6 +43964,7 @@ MonoBehaviour:
       weakTo:
       - Swordsman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -43744,6 +43978,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
+      defense: 60
       precision: 70
       range: 1
       strongTo:
@@ -43751,6 +43986,7 @@ MonoBehaviour:
       weakTo:
       - Scout
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -43764,6 +44000,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
+      defense: 60
       precision: 70
       range: 2
       strongTo:
@@ -43771,6 +44008,7 @@ MonoBehaviour:
       weakTo:
       - Archer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -46163,6 +46401,7 @@ MonoBehaviour:
       quantity: 50
       unitName: Swordsman
       attack: 10
+      defense: 60
       precision: 95
       range: 1
       strongTo:
@@ -46170,6 +46409,7 @@ MonoBehaviour:
       weakTo:
       - Lancer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -46183,6 +46423,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
+      defense: 60
       precision: 85
       range: 1
       strongTo:
@@ -46190,6 +46431,7 @@ MonoBehaviour:
       weakTo:
       - Axeman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -46203,6 +46445,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
+      defense: 60
       precision: 75
       range: 1
       strongTo:
@@ -46210,6 +46453,7 @@ MonoBehaviour:
       weakTo:
       - Swordsman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -46223,6 +46467,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
+      defense: 60
       precision: 70
       range: 1
       strongTo:
@@ -46230,6 +46475,7 @@ MonoBehaviour:
       weakTo:
       - Scout
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -46243,6 +46489,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
+      defense: 60
       precision: 70
       range: 2
       strongTo:
@@ -46250,6 +46497,7 @@ MonoBehaviour:
       weakTo:
       - Archer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -46430,6 +46678,7 @@ MonoBehaviour:
       quantity: 50
       unitName: Swordsman
       attack: 10
+      defense: 60
       precision: 95
       range: 1
       strongTo:
@@ -46437,6 +46686,7 @@ MonoBehaviour:
       weakTo:
       - Lancer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -46450,6 +46700,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
+      defense: 60
       precision: 85
       range: 1
       strongTo:
@@ -46457,6 +46708,7 @@ MonoBehaviour:
       weakTo:
       - Axeman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -46470,6 +46722,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
+      defense: 60
       precision: 75
       range: 1
       strongTo:
@@ -46477,6 +46730,7 @@ MonoBehaviour:
       weakTo:
       - Swordsman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -46490,6 +46744,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
+      defense: 60
       precision: 70
       range: 1
       strongTo:
@@ -46497,6 +46752,7 @@ MonoBehaviour:
       weakTo:
       - Scout
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -46510,6 +46766,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
+      defense: 60
       precision: 70
       range: 2
       strongTo:
@@ -46517,6 +46774,7 @@ MonoBehaviour:
       weakTo:
       - Archer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -47843,6 +48101,8 @@ MonoBehaviour:
   index: 0
   terrain:
     type: 0
+    scale: 0
+    attribute: 
 --- !u!114 &1779368241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50517,6 +50777,8 @@ MonoBehaviour:
   index: 0
   terrain:
     type: 0
+    scale: 0
+    attribute: 
 --- !u!114 &1869561376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54583,6 +54845,8 @@ MonoBehaviour:
   index: 0
   terrain:
     type: 0
+    scale: 0
+    attribute: 
 --- !u!114 &2013995251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55352,6 +55616,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Swordsman
       attack: 10
+      defense: 60
       precision: 95
       range: 1
       strongTo:
@@ -55359,6 +55624,7 @@ MonoBehaviour:
       weakTo:
       - Lancer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     lancers:
@@ -55372,6 +55638,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
+      defense: 60
       precision: 85
       range: 1
       strongTo:
@@ -55379,6 +55646,7 @@ MonoBehaviour:
       weakTo:
       - Axeman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     axemen:
@@ -55392,6 +55660,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
+      defense: 60
       precision: 75
       range: 1
       strongTo:
@@ -55399,6 +55668,7 @@ MonoBehaviour:
       weakTo:
       - Swordsman
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     scouts:
@@ -55412,6 +55682,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
+      defense: 60
       precision: 70
       range: 1
       strongTo:
@@ -55419,6 +55690,7 @@ MonoBehaviour:
       weakTo:
       - Scout
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     archers:
@@ -55432,6 +55704,7 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
+      defense: 60
       precision: 70
       range: 2
       strongTo:
@@ -55439,6 +55712,7 @@ MonoBehaviour:
       weakTo:
       - Archer
       position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -56586,7 +56860,7 @@ GameObject:
   - component: {fileID: 2097457004}
   - component: {fileID: 2097457003}
   m_Layer: 5
-  m_Name: BattleResume
+  m_Name: AttackResume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

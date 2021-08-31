@@ -13,7 +13,7 @@ public class CombatManager : MonoBehaviour
     //objects
     [SerializeField]private GameObject squares;
     [SerializeField] private GameObject unitGroupPrefab;
-    [SerializeField] private GameObject menu;
+    [SerializeField] public GameObject menu;
 
     [Header("Resume Battle Menu")]
     [SerializeField] private GameObject Block;
@@ -28,12 +28,12 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private Button surrenderBtn;
     private GameObject canvas;
     public int acumulated = 0;
+    [Header("Turn Signal")]
     [SerializeField] private GameObject turnSignal;
     //
-    public GameObject menu;
     Transform menuOriginalPos;
-    private GameObject canvas;
     //battle resume(cambiar nombre)
+    [Header("Attack Resume")]
     [SerializeField] private GameObject battleResume;
     [SerializeField] private GameObject attackerPicture;
     [SerializeField] private GameObject defenderPicture;
@@ -49,7 +49,7 @@ public class CombatManager : MonoBehaviour
     
     TerritoryHandler playerTerritory;
     TerritoryHandler enemyTerritory;
-
+    [Header("Config")]
     [SerializeField] private int turns;
     public int c;
     private MilitarChief mcPlayer;
@@ -234,12 +234,12 @@ public class CombatManager : MonoBehaviour
         attackerPicture.GetComponent<Image>().sprite = attackGroup.UnitCombat.Picture;
         defenderPicture.GetComponent<Image>().sprite = defenseGroup.UnitCombat.Picture;
         attackerText.GetComponent<TextMeshProUGUI>().text = "BASE DAMAGE: " + attackGroup.UnitCombat.Attack + "\n" +
-            "DEFENSE: " + attackGroup.UnitCombat.Attack + "\n" +
+            "DEFENSE: " + attackGroup.UnitCombat.Defense + "\n" +
         "PRESICION: " + attackGroup.UnitCombat.Precision + "\n" +
         "CRITIC: " + 10 + "\n" +
         "TOTAL DAMAGE: " + CheckDamage(attackGroup, defenseGroup) + "\n";
         defenderText.GetComponent<TextMeshProUGUI>().text = "BASE DAMAGE: " + defenseGroup.UnitCombat.Attack + "\n" +
-            "DEFENSE: " + defenseGroup.UnitCombat.Attack + "\n" +
+            "DEFENSE: " + defenseGroup.UnitCombat.Defense + "\n" +
         "PRESICION: " + defenseGroup.UnitCombat.Precision + "\n" +
         "CRITIC: " + 10 + "\n" +
         "TOTAL DAMAGE: " + CheckDamage(defenseGroup, attackGroup) + "\n";
@@ -325,6 +325,7 @@ public class CombatManager : MonoBehaviour
                 bots.Add(u);
                 
             }
+            SortList(bots);
             
         }
         yield return new WaitForSeconds(1);
@@ -606,17 +607,26 @@ public class CombatManager : MonoBehaviour
             {
                 //print("llego aca");
                 //int max = 0;
-                int selected = posibleMoves[0];
-                int actualIndex = bot.UnitsGO.transform.parent.GetComponent<SquareType>().index;
-                //foreach (int index in posibleMoves)
-                //{ 
-                //    ChangeUnits(actualIndex, index);
-                //    int attacks = CheckPosibleMoves(units[c]).Count;
-                //    if (attacks > max) selected = index;
-                //    ChangeUnits(actualIndex, index);
-                //}
-                //print("hasta aca tambien");
-                ChangeUnits(actualIndex, selected);
+                int probDefense = Random.Range(0,100);
+                if (probDefense > 50)
+                {
+                    Defend();
+                }
+                else
+                {
+                    int selected = posibleMoves[0];
+                    int actualIndex = bot.UnitsGO.transform.parent.GetComponent<SquareType>().index;
+                    //foreach (int index in posibleMoves)
+                    //{ 
+                    //    ChangeUnits(actualIndex, index);
+                    //    int attacks = CheckPosibleMoves(units[c]).Count;
+                    //    if (attacks > max) selected = index;
+                    //    ChangeUnits(actualIndex, index);
+                    //}
+                    //print("hasta aca tambien");
+                    ChangeUnits(actualIndex, selected);
+                }
+                
                 
             }
 
@@ -673,6 +683,8 @@ public class CombatManager : MonoBehaviour
         {
             damage /= 2;
         }
+        damage = damage - attackGroup.UnitCombat.Defense;
+        if (damage < 0) damage = 0;
         return damage;
     }
     int a = 0;

@@ -11,7 +11,7 @@ public class Archer: UnitCombat
         this.CharacIconType = "warriors";
         this.CharacIconIndex = "archer";
         this.Attack = 10;
-        this.Defense = 60;
+        this.Defense = 3;
         this.Precision = 70;
         this.Range = 2;
         this.StrongTo = new string[] { "Scout" };

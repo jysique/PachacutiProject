@@ -11,7 +11,7 @@ public class Swordsman:UnitCombat
         this.CharacIconType = "warriors";
         this.CharacIconIndex = "w1";
         this.Attack = 10;
-        this.Defense = 60;
+        this.Defense = 6;
         this.Precision = 90;
         this.Range = 1;
         this.StrongTo = new string[] { "Axeman" };
