@@ -8,21 +8,26 @@ public class EventManager : MonoBehaviour
 {
     public static EventManager instance;
 
-    [Header("Event Menu")]
-    [SerializeField] private GameObject CustomEventSelection;
+    [Header("Texts")]
     [SerializeField] private TextMeshProUGUI TitleTextCustomEvent;
     [SerializeField] private TextMeshProUGUI DetailsTextCustomEvent;
-    [SerializeField] private TextMeshProUGUI ResultsTextEvent;
-    [SerializeField] private Button AcceptEventButton;
-    [SerializeField] private Button CloseEventButton;
-    [SerializeField] private Button DeclineEventButton;
-    [SerializeField] private GameObject ResultsEvent;
-    [SerializeField] private GameObject notificationEvent;
-    [SerializeField] private GameObject CustomEventList;
-
     [SerializeField] private TextMeshProUGUI MotivationTxt;
     [SerializeField] private TextMeshProUGUI OpinionTxt;
+    private TextMeshProUGUI FirstOptionTxt;
+    private TextMeshProUGUI SecondOptionTxt;
+    private TextMeshProUGUI ThirdOptionTxt;
+
+    [Header("Buttons")]
+    [SerializeField] private Button FirstOptionButton;
+    [SerializeField] private Button SecondOptionButton;
+    [SerializeField] private Button ThirdOptionButton;
     [SerializeField] private Button goToBtn;
+
+    [Header("GameObjects")]
+    [SerializeField] private GameObject CustomEventSelection;
+    [SerializeField] private GameObject notificationEvent;
+    [SerializeField] private GameObject CustomEventList;
+    [SerializeField] private GameObject TerritoryInfo;
 
     [Header("Listas de Eventos")]
     public CustomEventList listEvents;
@@ -60,7 +65,9 @@ public class EventManager : MonoBehaviour
 
     private void Start()
     {
-        CloseEventButton.onClick.AddListener(() => CloseCustomEventButton());
+        FirstOptionTxt = FirstOptionButton.GetComponentInChildren<TextMeshProUGUI>();
+        SecondOptionTxt = SecondOptionButton.GetComponentInChildren<TextMeshProUGUI>();
+        ThirdOptionTxt = ThirdOptionButton.GetComponentInChildren<TextMeshProUGUI>();
         listEvents = new CustomEventList();
         SetNotificationEvent(false);
     }
@@ -114,49 +121,80 @@ public class EventManager : MonoBehaviour
     public void FinishCustomEventAppearance(CustomEvent custom)
     {
         InitCustomEvent(custom);
-        AcceptEventButton.gameObject.SetActive(false);
-        DeclineEventButton.gameObject.SetActive(false);
-        TitleTextCustomEvent.text = GameMultiLang.GetTraduction("ResultEvent");
-        ResultsEvent.SetActive(true);
-        ResultsTextEvent.text = GameMultiLang.GetTraduction("Results")+"\n" + custom.ResultsEvent();
-        DetailsTextCustomEvent.text = custom.ResultMessagetEvent;
-        DateTableHandler.instance.PauseTime();
+        FirstOptionButton.gameObject.SetActive(false);
+        SecondOptionButton.gameObject.SetActive(false);
+
+        ThirdOptionTxt.text = "Close";
+        TitleTextCustomEvent.text = GameMultiLang.GetTraduction("ResultEvent") ;
+        DetailsTextCustomEvent.text = custom.ResultMessageEvent + "\n" + GameMultiLang.GetTraduction("Results") + "\n" + custom.ResultsEvent();
+        if (!custom.IsBattle)
+        {
+            DateTableHandler.instance.PauseTime();
+        }
+        else
+        {
+            ThirdOptionButton.onClick.RemoveAllListeners();
+            ThirdOptionButton.onClick.AddListener(() => CloseInEvent(custom));
+            ThirdOptionButton.onClick.AddListener(() => Close());
+        }   
+    }
+    private void CloseInEvent(CustomEvent custom)
+    {
+        custom.CloseEventAction();
     }
     public void WarningEventAppearance(CustomEvent custom, int daysToFinal)
     {
         InitCustomEvent(custom);
         DateTableHandler.instance.PauseTime();
-        CloseEventButton.gameObject.SetActive(true);
-        DetailsTextCustomEvent.text = custom.MessageEvent + "\n"+GameMultiLang.GetTraduction("TimeRemaining").Replace("%", daysToFinal.ToString());
+        TitleTextCustomEvent.text = custom.NameEvent;
+        DetailsTextCustomEvent.text = custom.MessageEvent + "\n"+GameMultiLang.GetTraduction("TimeRemaining").Replace("%", daysToFinal.ToString()) + "\n"
+            + custom.RequirementMessageEvent;
         MotivationTxt.text = ":" + custom.TerritoryEvent.TerritoryStats.Territory.MotivationTerritory;
         OpinionTxt.text = ":" + custom.TerritoryEvent.TerritoryStats.Territory.OpinionTerritory;
         goToBtn.onClick.AddListener(() => GoToButton(custom));
     }
+    public void WarningEventAppearanceInBattle(CustomEvent custom)
+    {
+        InitCustomEvent(custom);
+        TitleTextCustomEvent.text = custom.NameEvent;
+        DetailsTextCustomEvent.text = custom.MessageEvent;
+    }
     private void GoToButton(CustomEvent custom)
     {
-        CloseCustomEventButton();
+        ThirdOptionCustomEventButton(custom);
         GlobalVariables.instance.CenterCameraToTerritory(custom.TerritoryEvent,false);
     }
+    
     public void InitCustomEvent(CustomEvent custom)
     {
         CustomEventSelection.gameObject.SetActive(true);
         ResetTextCustomEvent();
+        FirstOptionTxt.text = custom.Button1;
+        SecondOptionTxt.text = custom.Button2;
+        ThirdOptionTxt.text = custom.Button3;
+
+        FirstOptionButton.interactable = custom.GetAcceptButton();
+        /*
         if (!custom.GetAcceptButton())
         {
-            AcceptEventButton.interactable = false;
+            FirstOptionButton.interactable = false;
         }
         else
         {
-            AcceptEventButton.interactable = true;
+            FirstOptionButton.interactable = true;
         }
+        */
         if (custom.EventType == CustomEvent.EVENTTYPE.EXPLORATION)
         {
-            DeclineEventButton.gameObject.SetActive(false);
-            AcceptEventButton.gameObject.SetActive(false);
+            FirstOptionButton.gameObject.SetActive(false);
+            FirstOptionButton.gameObject.SetActive(false);
         }
-        ResultsTextEvent.text = custom.RequirementMessageEvent;
-        AcceptEventButton.onClick.AddListener(() => AcceptCustomEventButton(custom));
-        DeclineEventButton.onClick.AddListener(() => DeclineCustomEventButton(custom));
+        FirstOptionButton.onClick.RemoveAllListeners();
+        SecondOptionButton.onClick.RemoveAllListeners();
+        ThirdOptionButton.onClick.RemoveAllListeners();
+        FirstOptionButton.onClick.AddListener(() => AcceptCustomEventButton(custom));
+        SecondOptionButton.onClick.AddListener(() => DeclineCustomEventButton(custom));
+        ThirdOptionButton.onClick.AddListener(() => ThirdOptionCustomEventButton(custom));
     }
     public void AcceptCustomEventButton(CustomEvent custom)
     {
@@ -170,22 +208,34 @@ public class EventManager : MonoBehaviour
         InGameMenuHandler.instance.UpdateMenu();
         FinishCustomEventAppearance(custom);
     }
-    public void CloseCustomEventButton()
+    public void Close()
     {
-        DateTableHandler.instance.ResumeTime();
         CustomEventSelection.gameObject.SetActive(false);
-        ResetTextCustomEvent();
-        UpdateEventListOption();
+    }
+    public void ThirdOptionCustomEventButton(CustomEvent custom)
+    {
+        Close();
+        if (!custom.IsBattle)
+        {
+            print("1");
+            DateTableHandler.instance.ResumeTime();
+            InGameMenuHandler.instance.UpdateMenu();
+            ResetTextCustomEvent();
+            UpdateEventListOption();
+        }
+        else
+        {
+            FinishCustomEventAppearance(custom);
+            custom.AdicitionalEventAction();
+        }
+
     }
     private void ResetTextCustomEvent()
     {
-        AcceptEventButton.gameObject.SetActive(true);
-        DeclineEventButton.gameObject.SetActive(true);
-        CloseEventButton.gameObject.SetActive(true);
-        DeclineEventButton.gameObject.SetActive(true);
-        AcceptEventButton.gameObject.SetActive(true);
+        FirstOptionButton.gameObject.SetActive(true);
+        SecondOptionButton.gameObject.SetActive(true);
+        ThirdOptionButton.gameObject.SetActive(true);
         DetailsTextCustomEvent.text = " ";
-        TitleTextCustomEvent.text = GameMultiLang.GetTraduction("EventLabel");
     }
     
     /// <summary>
@@ -205,6 +255,10 @@ public class EventManager : MonoBehaviour
     {
         listEvents.AddExpedicionEvent(TimeSystem.instance.TimeGame,troopToWaste, attacker, wasteTerritory);
         SetNotificationEvent(true);
+    }
+    public void AddBattleEvent(Troop playerTroop, Troop enemyTroop, TerritoryHandler _playerTerritory, TerritoryHandler _enemyTerritory, bool isPlayerTerritory)
+    {
+        listEvents.AddBattleEvent(playerTroop,enemyTroop,_playerTerritory,_enemyTerritory,isPlayerTerritory);
     }
     /// <summary>
     /// Check the timeGame with the timeAddEvent
@@ -269,6 +323,26 @@ public class EventManager : MonoBehaviour
                 listEvents.ExpedicionEvents[i].ReturnUnits();
             }
         }
+        if (listEvents.BattleEvents.Count>0)
+        {
+            if (listEvents.BattleEvents[0].TurnEvent != 21)
+            {
+                if (CombatManager.instance.Turns == listEvents.BattleEvents[0].TurnEvent && listEvents.BattleEvents[0].EventStatus == CustomEvent.STATUS.ANNOUNCE)
+                {
+                    WarningEventAppearanceInBattle(listEvents.BattleEvents[0]);
+                    listEvents.BattleEvents[0].EventStatus = CustomEvent.STATUS.PROGRESS;
+                }   
+                if (listEvents.BattleEvents[0].EventStatus == CustomEvent.STATUS.FINISH)
+                {
+                    //FinishCustomEvent(listEvents.BattleEvents[0]);
+                }
+            }
+            else
+            {
+                listEvents.RemoveEvent(listEvents.BattleEvents[0]);
+            }
+        }
+
     }
     
     /// <summary>

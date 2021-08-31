@@ -2,30 +2,20 @@ using UnityEngine;
 [System.Serializable]
 public class Farm : Building
 {
-    //  private float velocityfood = 0f;
-    private int workersChannel = 0;
-
     public Farm()
     {
-        this.Name = "Farm";
-        this.AtributteToAdd = 5f;
-        this.AtributteSpeed = 0;
-        this.AtributteLimit = 0;
+        this.nameBuilding = "Farm";
+        this.atributteLimit = 5;
     }
-    public int WorkersChannel
+    public override void ImproveBuilding(Territory territory)
     {
-        get { return workersChannel; }
-        set { workersChannel = value; }
+        base.ImproveBuilding(territory);
+        this.limitUnits = this.atributteLimit * level;
     }
-    public override void ImproveBuilding(int _levels)
+    public override void SubsideBuilding(Territory territory)
     {
-        base.ImproveBuilding(_levels);
-        this.workersChannel += (int)this.AtributteToAdd * _levels;
-    }
-    public override void SubsideBuilding(int _levels)
-    {
-        base.SubsideBuilding(_levels);
-        this.workersChannel -= (int)this.AtributteToAdd * _levels;
+        base.SubsideBuilding(territory);
+        this.limitUnits = this.atributteLimit * level;
     }
 
 }

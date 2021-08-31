@@ -50,7 +50,6 @@ public class GlobalVariables : MonoBehaviour
             Destroy(gameObject);
         }
 
-        PlayerPrefs.DeleteAll();
         GovernorChoose = new Governor("Pachacuti");
         GovernorChoose.TimeInit = new TimeSimulated(14,1,1474);
         velocityMoving = 0.3f;

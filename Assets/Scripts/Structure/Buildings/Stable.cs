@@ -4,37 +4,57 @@ using UnityEngine;
 [System.Serializable]
 public class Stable : Building
 {
-     private float speedScouts;
-     private int limitScouts;
 
     public Stable()
     {
         this.Name = "Stable";
-        this.speedScouts = 0f;
-        this.limitScouts = 10;
-        this.AtributteSpeed = 0.2f;
-        this.AtributteLimit = 2;
+        this.initValue = 10;
+        this.speedUnits = 0f;
+        this.limitUnits = 10;
+        this.atributteSpeed = 0.2f;
+        this.atributteLimit = 2;
+        isBuildMilitar = true;
     }
-    public float SpeedScouts
+    /*
+    public override void ImproveBuilding()
     {
-        get { return speedScouts; }
-        set { speedScouts = value; }
+        base.ImproveBuilding();
+        if (this.level % 3 == 0)
+        {
+            levelSpeed++;
+        }
+        else if (this.level % 3 == 1)
+        {
+            levelLimit++;
+            levelSpeed++;
+        }
+        else
+        {
+            levelMaterials++;
+            levelSpeed++;
+        }
+        this.speedUnits = this.AtributteSpeed * levelSpeed;
+        this.limitUnits = 10 + this.AtributteLimit * levelLimit;
+        this.materialUnits = levelMaterials;
     }
-    public int LimitScouts
+    public override void SubsideBuilding()
     {
-        get { return limitScouts; }
-        set { limitScouts = value; }
+        base.SubsideBuilding();
+        if (this.Level % 3 == 0)
+        {
+            levelSpeed--;
+        }
+        else if (this.Level % 3 == 1)
+        {
+            levelLimit--;
+        }
+        else
+        {
+            levelMaterials--;
+        }
+        this.speedUnits = this.atributteSpeed * levelSpeed;
+        this.limitUnits = 10  + this.atributteLimit * levelLimit;
+        this.materialUnits = levelMaterials;
     }
-    public override void ImproveBuilding(int _levels)
-    {
-        base.ImproveBuilding(_levels);
-        this.speedScouts += this.AtributteSpeed * _levels;
-        this.limitScouts += this.AtributteLimit * _levels;
-    }
-    public override void SubsideBuilding(int _levels)
-    {
-        base.SubsideBuilding(_levels);
-        this.speedScouts -= this.AtributteSpeed * _levels;
-        this.limitScouts -= this.AtributteLimit * _levels;
-    }
+    */
 }

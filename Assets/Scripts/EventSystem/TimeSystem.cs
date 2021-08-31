@@ -150,8 +150,8 @@ public class TimeSystem : MonoBehaviour
             if (territoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
             //  if (territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER || territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.CLAIM)
             {
-                InGameMenuHandler.instance.ShowFloatingText("+" + territoryStats.Territory.GoldMineTerritory.WorkersMine / territoryStats.Territory.PerPeople + "gold", "TextMesh", t[i].transform, new Color32(0, 19, 152, 255));
-                InGameMenuHandler.instance.ShowFloatingText("+" + territoryStats.Territory.FarmTerritory.WorkersChannel / territoryStats.Territory.PerPeople + "food", "TextMesh", t[i].transform, new Color32(0, 19, 152, 255), posY: -0.25f);
+                InGameMenuHandler.instance.ShowFloatingText("+" + territoryStats.Territory.GoldMineTerritory.LimitUnits / territoryStats.Territory.PerPeople + "gold", "TextMesh", t[i].transform, new Color32(0, 19, 152, 255));
+                InGameMenuHandler.instance.ShowFloatingText("+" + territoryStats.Territory.FarmTerritory.LimitUnits / territoryStats.Territory.PerPeople + "food", "TextMesh", t[i].transform, new Color32(0, 19, 152, 255), posY: -0.25f);
             }
         }
     }

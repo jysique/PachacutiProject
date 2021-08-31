@@ -12,7 +12,7 @@ public class BuildOption : MonoBehaviour
     [SerializeField] private Button upgradeBtn;
     [SerializeField] private Image linearBarProgress;
     [SerializeField] private GameObject block;
-    
+    private MenuToolTip toolTip;
     [SerializeField] private Building territoryBuilding;
     private bool init;
     
@@ -30,6 +30,7 @@ public class BuildOption : MonoBehaviour
     }
     void Start()
     {
+        toolTip = GetComponent<MenuToolTip>();
         upgradeBtn.onClick.AddListener(() => UpgradeButton());  
     }
     public void InitializeBuildingOption(Building building)
@@ -47,52 +48,60 @@ public class BuildOption : MonoBehaviour
         switch (territoryBuilding.GetType().ToString())
         {
             case "Farm":
-                s = t.FarmTerritory.WorkersChannel;
+                // s = t.FarmTerritory.WorkersChannel;
+                s = t.FarmTerritory.LimitUnits;
                 s2 = s + t.FarmTerritory.AtributteToAdd;
-                UploadCost(InGameMenuHandler.instance.GoldPlayer, t.FarmTerritory.CostToUpgrade, "gold", s, s2);
+                //UploadCost(InGameMenuHandler.instance.GoldPlayer, t.FarmTerritory.CostToUpgrade, "gold", s, s2);
+                UploadCost(InGameMenuHandler.instance.GoldPlayer, t.FarmTerritory.CostToUpgrade, "gold");
                 break;
             case "GoldMine":
-                s = t.GoldMineTerritory.WorkersMine;
+                //s = t.GoldMineTerritory.WorkersMine;
+                s = t.GoldMineTerritory.LimitUnits;
                 s2 = s + t.GoldMineTerritory.AtributteToAdd;
-                UploadCost(InGameMenuHandler.instance.GoldPlayer, t.GoldMineTerritory.CostToUpgrade, "gold", s, s2);
+                //UploadCost(InGameMenuHandler.instance.GoldPlayer, t.GoldMineTerritory.CostToUpgrade, "gold", s, s2);
+                UploadCost(InGameMenuHandler.instance.GoldPlayer, t.FortressTerritory.CostToUpgrade, "gold");
                 break;
             case "Fortress":
                 s = t.FortressTerritory.PlusDefense;
                 s2 = s + t.FortressTerritory.AtributteToAdd;
-                UploadCost(InGameMenuHandler.instance.GoldPlayer, t.FortressTerritory.CostToUpgrade, "gold", s, s2);
+                UploadCost(InGameMenuHandler.instance.GoldPlayer, t.FortressTerritory.CostToUpgrade, "gold");
                 break;
             case "Academy":
-                s = t.AcademyTerritory.SpeedSwordsmen;
+                s = t.AcademyTerritory.SpeedUnits;
                 s2 = s + t.AcademyTerritory.AtributteSpeed;
-                UploadCost(InGameMenuHandler.instance.GoldPlayer, t.AcademyTerritory.CostToUpgrade, "gold", s, s2);
+                UploadCost(InGameMenuHandler.instance.GoldPlayer, t.AcademyTerritory.CostToUpgrade, "gold");
                 break;
             case "Barracks":
-                s = t.BarracksTerritory.SpeedLancer;
+                s = t.BarracksTerritory.SpeedUnits;
                 s2 = s + t.BarracksTerritory.AtributteSpeed;
-                UploadCost(InGameMenuHandler.instance.GoldPlayer, t.BarracksTerritory.CostToUpgrade, "gold", s, s2);
+                UploadCost(InGameMenuHandler.instance.GoldPlayer, t.BarracksTerritory.CostToUpgrade, "gold");
                 break;
             case "Castle":
-                s = t.CastleTerritory.SpeedAxemen;
+                s = t.CastleTerritory.SpeedUnits;
                 s2 = s + t.CastleTerritory.AtributteSpeed;
-                UploadCost(InGameMenuHandler.instance.GoldPlayer, t.CastleTerritory.CostToUpgrade, "gold", s, s2);
+                UploadCost(InGameMenuHandler.instance.GoldPlayer, t.CastleTerritory.CostToUpgrade, "gold");
                 break;
             case "Stable":
-                s = t.StableTerritory.SpeedScouts;
+                s = t.StableTerritory.SpeedUnits;
                 s2 = s + t.StableTerritory.AtributteSpeed;
-                UploadCost(InGameMenuHandler.instance.GoldPlayer, t.StableTerritory.CostToUpgrade, "gold", s, s2);
+                //UploadCost(InGameMenuHandler.instance.GoldPlayer, t.StableTerritory.CostToUpgrade, "gold", s, s2);
+                UploadCost(InGameMenuHandler.instance.GoldPlayer, t.StableTerritory.CostToUpgrade, "gold");
                 break;
             case "Archery":
-                s = t.ArcheryTerritory.SpeedArcher;
+                s = t.ArcheryTerritory.SpeedUnits;
                 s2 = s + t.ArcheryTerritory.AtributteSpeed;
-                UploadCost(InGameMenuHandler.instance.GoldPlayer, t.ArcheryTerritory.CostToUpgrade, "gold", s, s2);
+                //UploadCost(InGameMenuHandler.instance.GoldPlayer, t.ArcheryTerritory.CostToUpgrade, "gold", s, s2);
+                UploadCost(InGameMenuHandler.instance.GoldPlayer, t.ArcheryTerritory.CostToUpgrade, "gold");
                 break;
             default:
                 break;
         }
     }
-    private void UploadCost(int goldPlayer, int goldNeed, string element, float s, float s2)
+    // private void UploadCost(int goldPlayer, int goldNeed, string element, float s, float s2)
+    private void UploadCost(int goldPlayer, int goldNeed, string element)
     {
-        costTxt.text = "Cost -" + goldNeed.ToString() + " " + element + " " + s.ToString("F2") + " -> " + s2.ToString("F2"); ;
+        //costTxt.text = "Cost: -" + goldNeed.ToString() + " " + element + " " + s.ToString("F2") + " -> " + s2.ToString("F2");
+        costTxt.text = "Cost: -" + goldNeed.ToString() + " " + element;
         if (goldPlayer >= goldNeed)
         {
             costTxt.color = Color.white;
@@ -115,7 +124,47 @@ public class BuildOption : MonoBehaviour
             UpdateElements();
             int a = this.transform.GetSiblingIndex();
             territoryBuilding.PositionInGridLayout = a;
+            UpdateToolTip();
         }
+    }
+    private void UpdateToolTip()
+    {
+        string text = "Nivel: " + territoryBuilding.Level + "\n";
+        if (territoryBuilding.SpeedUnits>0)
+        {
+            text += "Speed: " + territoryBuilding.SpeedUnits + "\n";
+        }
+        if (territoryBuilding.LimitUnits > 0)
+        {
+            text += "Limit:" + territoryBuilding.LimitUnits + "\n";
+        }
+        if (territoryBuilding.IsMilitary)
+        {
+            // text += "Type arm: " + territoryBuilding.MaterialUnits + "\n";
+            text += "Type arm: " + GetTypeArm() + "\n";
+        }
+
+        toolTip.SetNewInfo(text);
+    }
+    private string GetTypeArm()
+    {
+        string type = "";
+        switch (territoryBuilding.MaterialUnits)
+        {
+            case 1:
+                type = "Madera";
+                break;
+            case 2:
+                type = "Piedra";
+                break;
+            case 3:
+                type = "Hierro";
+                break;
+            default:
+                type = "Other material";
+                break;
+        }
+        return type;
     }
     public void UpdateElements()
     {

@@ -1,20 +1,34 @@
 Pachacuti "Bienvenido"
 Pachacuti "Para empezar, completa las misiones"
 turnOff()
-"Feedback de pausar el juego"
+"Vamos bien"
+"Puedes volver a pausar el juego con el boton pausa (1era opcion)."
+"Inclusive"
++" puedes adelantar el tiempo del juego x2 o x3 (3era y 4ta opcion)"
++" respectivamente."
 turnOff()
-"Feedback de revisar menu territorio"
+"Bien hecho!"
+"Recuerda puedes volver a cerrar el menu con el mismo boton"
+"Ademas"
++" puedes revisar los recursos que se tienen - oro, comida, edificios, unidades-"
 turnOff()
-"Feedback de construir edificios"
-turnOff()
-"Feedback de unidades enemigas"
+"¡Nuestro territorio sigue creciendo!"
+" Gracias a este edificio podemos reclutar unidades de arco." 
+" Estos edificios otorgan beneficios mientras mas nivel tenga."
 turnOff()
 "Excelente"
-"Ahora puedes hacer click derecho"
+"Tenemos suficientes unidades para poder conquistar otros territorios"
 turnOff()
+"Excelente"
+"Puedes revisar las capacidades de otro territorio haciendo click derecho."
+"Ahora" 
++" puedes hacer click derecho para enviar tropas"
+turnOff()
+"Bienvenido a tu primera batalla. "
 "Necesitamos de tus habilidades para poder ganar esta batalla"
 turnMoveButton()
-"Seria bueno tener rango de ataque para la unidad de espada y la unidad de arco hacia las posiciones indicadas"
+"Seria bueno tener rango de ataque para la unidad de espada y
+" la unidad de arco hacia las posiciones indicadas"
 turnOff()
 "Cuidado, el enemigo hizo su movimiento, seria bueno resistir el primer ataque."
 turnDefButton()

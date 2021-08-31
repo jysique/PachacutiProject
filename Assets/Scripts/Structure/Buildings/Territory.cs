@@ -316,21 +316,48 @@ public class Territory
         {
             return null;
         }
+    }  
+    public UnitCombat GetUnitCombat(string building)
+    {
+        if (building == "Academy")
+        {
+            return this.swordsmen;
+        }
+        else if (building == "Barracks")
+        {
+            return this.lancers;
+        }
+        else if (building == "Castle")
+        {
+            return this.axemen;
+        }
+        else if (building == "Stable")
+        {
+            return this.scouts;
+        }
+        else if (building == "Archery")
+        {
+            return this.archers;
+        }
+        else
+        {
+            return null;
+        }
     }
     public float GetSpeed(UnitCombat unitCombat)
     {
         switch (unitCombat.GetType().ToString())
         {
             case "Swordsman":
-                return this.academyTerritory.SpeedSwordsmen;
+                return this.academyTerritory.SpeedUnits;
             case "Lancer":
-                return this.barracksTerritory.SpeedLancer;
+                return this.barracksTerritory.SpeedUnits;
             case "Axeman":
-                return this.castleTerritory.SpeedAxemen;
+                return this.castleTerritory.SpeedUnits;
             case "Scout":
-                return this.stableTerritory.SpeedScouts;
+                return this.stableTerritory.SpeedUnits;
             case "Archer":
-                return this.archeryTerritory.SpeedArcher;
+                return this.archeryTerritory.SpeedUnits;
             default:
                 Debug.LogError("no se encontro unidad de combate");
                 break;
@@ -342,15 +369,15 @@ public class Territory
         switch (unitCombat.GetType().ToString())
         {
             case "Swordsman":
-                return this.academyTerritory.LimitSwordsmen;
+                return this.academyTerritory.LimitUnits;
             case "Lancer":
-                return this.barracksTerritory.LimitLancer;
+                return this.barracksTerritory.LimitUnits;
             case "Axeman":
-                return this.castleTerritory.LimitAxemen;
+                return this.castleTerritory.LimitUnits;
             case "Scout":
-                return this.stableTerritory.LimitScouts;
+                return this.stableTerritory.LimitUnits;
             case "Archer":
-                return this.archeryTerritory.LimitArcher;
+                return this.archeryTerritory.LimitUnits;
             default:
                 Debug.LogError("no se encontro edificio");
                 break;
@@ -359,7 +386,6 @@ public class Territory
     }
     public UnitCombat GetUnit(string unit)
     {
-
         if (unit == "Swordsman")
         {
             return swordsmen;
@@ -387,14 +413,14 @@ public class Territory
     }
     public void ResetAllBuilds()
     {
-        farmTerritory.ResetBuilding();
-        goldMineTerritory.ResetBuilding();
-        fortressTerritory.ResetBuilding();
-        academyTerritory.ResetBuilding();
-        barracksTerritory.ResetBuilding();
-        castleTerritory.ResetBuilding();
-        stableTerritory.ResetBuilding();
-        archeryTerritory.ResetBuilding();
+        farmTerritory.ResetBuilding(this);
+        goldMineTerritory.ResetBuilding(this);
+        fortressTerritory.ResetBuilding(this);
+        academyTerritory.ResetBuilding(this);
+        barracksTerritory.ResetBuilding(this);
+        castleTerritory.ResetBuilding(this);
+        stableTerritory.ResetBuilding(this);
+        archeryTerritory.ResetBuilding(this);
     }
     public enum REGION
     {

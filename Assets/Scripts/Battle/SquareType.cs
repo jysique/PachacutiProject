@@ -14,7 +14,10 @@ public class SquareType : MonoBehaviour
     private void Start()
     {
         DeactivateChange();
-        
+        if (unitGroup != null)
+        {
+            terrain.GetValue(unitGroup.UnitCombat);
+        }
     }
     public void MoveButton()
     {
@@ -24,7 +27,7 @@ public class SquareType : MonoBehaviour
 
     private void Update()
     {
-        
+        //print(terrain.Attribute);
         if (unitGroup != null)
         {
             //print(index + "-" + unitGroup.UnitCombat.CharacterName);
@@ -35,7 +38,17 @@ public class SquareType : MonoBehaviour
             haveUnit = false;
         }
     }
-
+    public void UpdateSquare()
+    {
+        if (unitGroup != null)
+        {
+            terrain.GetValue(unitGroup.UnitCombat);
+        }
+        else
+        {
+            terrain.Attribute = "no attribute";
+        }
+    }
     public void ActivateChange()
     {
         GetComponent<Button>().enabled = true;
@@ -45,27 +58,50 @@ public class SquareType : MonoBehaviour
         GetComponent<Button>().enabled = false;
     }
 }
+
 [System.Serializable]
 public class Terrain
 {
-    public enum TYPE
-    {
-        GRASSLAND,
-        FOREST,
-        MOUNTAIN,
-        SAND,
-        NONE
-    }
-
-    [SerializeField]private TYPE type;
+    [SerializeField] private TYPE type;
+    [SerializeField] private int scale;
+    [SerializeField] private string attribute;
     private Sprite picture;
+    public string Attribute
+    {
+        get { return attribute; }
+        set { attribute = value; }
+    }
     public Terrain(string _type)
     {
         this.type = (TYPE)Enum.Parse(typeof(TYPE), _type);
+        this.scale = UnityEngine.Random.Range(1, 5);
+        this.attribute = "";
     }
-    public Terrain()
+    public void GetValue(UnitCombat uc)
     {
-
+        int a = UnityEngine.Random.Range(this.scale*10, (this.scale+1)* 10);
+        switch (this.type)
+        {
+            case TYPE.GRASSLAND:
+                this.attribute = " +" + a + "% idk";
+                break;
+            case TYPE.FOREST:
+                uc.Attack = uc.Attack+ (a / 100) * uc.Attack;
+                this.attribute = " +" + a + "% attack";
+                break;
+            case TYPE.MOUNTAIN:
+                uc.Precision = uc.Precision+(a / 100) * uc.Precision;
+                this.attribute = " +" + a + "% presicion";
+                break;
+            case TYPE.SAND:
+                uc.Defense = uc.Defense + (a / 100) * uc.Defense;
+                this.attribute = " +" + a + "% defense";
+                break;
+            case TYPE.NONE:
+                break;
+            default:
+                break;
+        }
     }
     public TYPE Type
     {
@@ -78,4 +114,13 @@ public class Terrain
         set { picture = value; }
     }
 
+    // precision o defensa
+    public enum TYPE
+    {
+        GRASSLAND,
+        FOREST,
+        MOUNTAIN,
+        SAND,
+        NONE
+    }
 }

@@ -79,7 +79,22 @@ public class WarManager : MonoBehaviour
             // warriorsCount1.text = selectedWar.warriors1Count.ToString();
             warriorsCount1.text = selectedWar.attackerTroop.GetAllNumbersUnit().ToString();
             // warriorsCount2.text = selectedWar.warriors2Count.ToString();
-            warriorsCount2.text = selectedWar.TerritoryWar.TerritoryStats.Territory.Population.ToString();
+            //print("error:" + selectedWar.TerritoryWar.TerritoryStats.Territory.name);
+            /*
+            if (selectedWar == null)
+            {
+                print("selected null");
+            }
+            if (selectedWar.TerritoryWar == null)
+            {
+                print("selected null");
+            }
+            */
+            if (selectedWar.TerritoryWar != null)
+            {
+                warriorsCount2.text = selectedWar.TerritoryWar.TerritoryStats.Territory.Population.ToString();
+            }
+            
         }
         anim1.speed = GlobalVariables.instance.timeModifier;
         anim2.speed = GlobalVariables.instance.timeModifier;
@@ -204,8 +219,6 @@ public class WarManager : MonoBehaviour
         // TYPE es el tipo de jugador atacante
         territory.gameObject.transform.GetChild(0).gameObject.SetActive(false);
         territory.war = false;
-        
-
         if(territory.TerritoryStats.Territory.Population == 0)
         {
             if (type == Territory.TYPEPLAYER.PLAYER) // SI GANA EL PLAYER
@@ -222,7 +235,6 @@ public class WarManager : MonoBehaviour
                 {
                     AlertManager.AlertLost(territory);
                 }
-
                 MilitarChief newMilitarBoss = new MilitarChief();
                 newMilitarBoss.GetMilitarBoss();
                 territory.TerritoryStats.Territory.MilitarChiefTerritory = newMilitarBoss;
@@ -234,7 +246,7 @@ public class WarManager : MonoBehaviour
         {
             SetPeaceMenu();
         }
-        TerritoryManager.instance.UpdateUnitsDeffend(territory.TerritoryStats.Territory);
+       // TerritoryManager.instance.UpdateUnitsDeffend(territory.TerritoryStats.Territory);
         InGameMenuHandler.instance.UpdateMenu();
     }
     /*
@@ -361,13 +373,16 @@ public class WarManager : MonoBehaviour
     //    public void SendWarriors(TerritoryHandler selected, TerritoryHandler otherTerritory, int _warriorsSword, int _warriorsLance, int _warriorsAxe)
     public void SendWarriors(TerritoryHandler selected, TerritoryHandler otherTerritory, Troop troopSelect)
     {
-
+        //TerritoryManager.instance.UpdateUnitsDeffend(territory.TerritoryStats.Territory);
+        TerritoryManager.instance.UpdateUnitsDeffend(selected.TerritoryStats.Territory);
         warriorsPrefab.GetComponent<WarriorsMoving>().SetAttack(otherTerritory.gameObject, troopSelect, selected);
         Instantiate(warriorsPrefab, selected.transform.position, Quaternion.identity);
     }
 
     public void MoveWarriors(TerritoryHandler otherTerritory,  TerritoryHandler attacker, Troop attackerTroop)
     {
+        //otherTerritoryIsPlayer is true si player es defensor
+        //otherTerritoryIsPlayer is false si player es atacante
         bool otherTerritoryIsPlayer = otherTerritory.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER;
         Territory.TYPEPLAYER temp = otherTerritory.TerritoryStats.Territory.TypePlayer;
         if (otherTerritory.TerritoryStats.Territory.TypePlayer == attacker.TerritoryStats.Territory.TypePlayer)
@@ -419,7 +434,6 @@ public class WarManager : MonoBehaviour
                     playerTerritory = otherTerritory;
                     enemyTerritory =  attacker;
                 }
-
                 CombatManager.instance.StartWar(
                     playerTroop,
                     enemyTroop,

@@ -83,7 +83,7 @@ public class ContextMenu : MonoBehaviour
     void Dummy()
     {
         MenuManager.instance.AccessTabMilitar();
-        MenuManager.instance.OpenSelectCharacterMenu(new MilitarChief());
+       // MenuManager.instance.OpenSelectCharacterMenu(new MilitarChief());
     }
 
     public void ShowMilitarMenu()

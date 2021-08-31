@@ -2,30 +2,20 @@ using UnityEngine;
 [System.Serializable]
 public class GoldMine:Building
 {
-    //  private float velocityGold = 0;
-    private int workersMine = 0;
     public GoldMine()
     {
-        this.Name = "GoldMine";
-        this.AtributteToAdd = 5f;
-        this.AtributteSpeed = 0;
-        this.AtributteLimit = 0;
+        this.nameBuilding = "GoldMine";
+        this.limitUnits = 0;
+        this.atributteLimit = 5;
     }
-    public int WorkersMine
+    public override void ImproveBuilding(Territory territory)
     {
-      //  get { return velocityGold; }
-      //  set { velocityGold = value; }
-        get { return workersMine; }
-        set { workersMine = value; }
+        base.ImproveBuilding(territory);
+        this.limitUnits = this.atributteLimit* level;
     }
-    public override void ImproveBuilding(int _levels)
+    public override void SubsideBuilding(Territory territory)
     {
-        base.ImproveBuilding(_levels);
-        this.workersMine += (int)this.AtributteToAdd * _levels;
-    }
-    public override void SubsideBuilding(int _levels)
-    {
-        base.SubsideBuilding(_levels);
-        this.workersMine -= (int)this.AtributteToAdd * _levels;
+        base.SubsideBuilding(territory);
+        this.limitUnits = this.atributteLimit * level;
     }
 }

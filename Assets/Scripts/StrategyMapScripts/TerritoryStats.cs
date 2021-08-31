@@ -33,7 +33,15 @@ public class TerritoryStats : MonoBehaviour
     }
     public void CanPopulate()
     {
-        populationTxt.text = territory.Population + "/" + (territory.AcademyTerritory.LimitSwordsmen + territory.BarracksTerritory.LimitLancer + territory.CastleTerritory.LimitAxemen);
+        // populationTxt.text = territory.Population + "/" + (territory.AcademyTerritory.LimitSwordsmen + territory.BarracksTerritory.LimitLancer + territory.CastleTerritory.LimitAxemen);
+        populationTxt.text = territory.Population + "/" + 
+            (territory.AcademyTerritory.LimitUnits + 
+            territory.BarracksTerritory.LimitUnits + 
+            territory.CastleTerritory.LimitUnits +
+            territory.ArcheryTerritory.LimitUnits +
+            territory.StableTerritory.LimitUnits
+            );
+
         CorroboratePopulation(territory.Swordsmen);
         CorroboratePopulation(territory.Lancers);
         CorroboratePopulation(territory.Axemen);
@@ -111,11 +119,12 @@ public class TerritoryStats : MonoBehaviour
         */
     public void IncresementGold()
     {
-        territory.Gold+= territory.GoldMineTerritory.WorkersMine / territory.PerPeople;
+        // territory.Gold+= territory.GoldMineTerritory.WorkersMine / territory.PerPeople;
+        territory.Gold += territory.GoldMineTerritory.LimitUnits / territory.PerPeople;
     }
     public void IncresementFood()
     {
-        territory.FoodReward+= territory.FarmTerritory.WorkersChannel / territory.PerPeople;
+        territory.FoodReward+= territory.FarmTerritory.LimitUnits / territory.PerPeople;
     }
    
 }

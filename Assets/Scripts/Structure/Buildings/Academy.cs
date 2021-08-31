@@ -2,37 +2,25 @@ using UnityEngine;
 [System.Serializable]
 public class Academy: Building
 {
-    private float speedSwordsmen;
-    private int limitSwordsmen ;
-
     public Academy()
     {
-        this.Name = "Academy";
-        this.speedSwordsmen = 0f;
-        this.limitSwordsmen = 70;
-        this.AtributteSpeed = 0.6f;
-        this.AtributteLimit = 10;
+        this.initValue = 70;
+        this.nameBuilding = "Academy";
+        this.materialUnits = 1;
+        this.speedUnits = 0f;
+        this.limitUnits = 70;
+        this.atributteSpeed = 0.6f;
+        this.atributteLimit = 10;
+        isBuildMilitar = true;
     }
-    public float SpeedSwordsmen
+    /*
+    public override void ImproveBuilding()
     {
-        get { return speedSwordsmen; }
-        set { speedSwordsmen = value; }
+        base.ImproveBuilding();
     }
-    public int LimitSwordsmen
+    public override void SubsideBuilding()
     {
-        get { return limitSwordsmen; }
-        set { limitSwordsmen = value; }
+        base.SubsideBuilding();
     }
-    public override void ImproveBuilding(int _levels)
-    {
-        base.ImproveBuilding(_levels);
-        this.speedSwordsmen += this.AtributteSpeed * _levels;
-        this.limitSwordsmen += this.AtributteLimit * _levels;
-    }
-    public override void SubsideBuilding(int _levels)
-    {
-        base.SubsideBuilding(_levels);
-        this.speedSwordsmen -= this.AtributteSpeed * _levels;
-        this.limitSwordsmen -= this.AtributteLimit * _levels;
-    }
+    */
 }

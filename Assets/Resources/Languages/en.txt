@@ -31,7 +31,7 @@ FoodLabel=Food:
 GenerationLabel=Generation speed:
 CollectLabel=Collect
 MenuBlockLabel=You cannot manage territories that don't belong to you
-ClaimLabel=CLAIM TERRITORY
+ClaimLabel=ASSIGN MILITARY
 MilitarChiefLabel=military chief
 UpgradeLabel=Upgrade
 SpeedLabel=Recruitment speed:
@@ -90,49 +90,168 @@ Scout=Scout
 Archer=Archer
 units= Units
 
-Requirements=Requirements: 
+Requirements=They request the following: 
+EARTHQUAKER_NAME= EARTHQUAKER
+EARTHQUAKER1=
+EARTHQUAKER2=
+EARTHQUAKER3=
 EARTHQUAKERM=An earthquake has occurred in TERRITORYEVENT territory
 EARTHQUAKERA= 
 EARTHQUAKERD=Reset builds in TERRITORYEVENT territory.
+EARTHQUAKERT=
+
+DROUGHT_NAME= DROUGHT IN A TERRITORY
+DROUGHT1=Yes, let's improve the situation
+DROUGHT2=No, there are other problems
+DROUGHT3=Can be viewed later
 DROUGHTM=Drought continues in TERRITORYEVENT territory. The villagers are going through a bad time. That is why they ask you for the following requirements
 DROUGHTA=The residents can continue harvesting.
 DROUGHTD=Conditions worsen for irrigation canals and troops in TERRITORYEVENT.
+DROUGHTT=
+
+REBELION_NAME= REBEL AGAINST THE EMPIRE
+REBELION1=Yes, let's improve the situation
+REBELION2=No, there are other problems
+REBELION3=Can be viewed later
 REBELIONM=In TERRITORYEVENT territory they plan to rebel against you. If you do not complete the following requirements, we will lose this territory. 
 REBELIONA= Keep TERRITORYEVENT territory.
 REBELIOND= -TERRITORYEVENT territory.
+REBELIONT=
+
+ALL_T_PANDEMIC_NAME= SITUATION IN PANDEMIC
+ALL_T_PANDEMIC1=Yes, let's improve the situation
+ALL_T_PANDEMIC2=No, there are other problems
+ALL_T_PANDEMIC3=Can be viewed later
 ALL_T_PANDEMICM=We have found a disease in our territories. If we don't do something we will lose half of our men.
 ALL_T_PANDEMICA=Cure the desease in all territories.
 ALL_T_PANDEMICD=-50% trops in all territories.
+ALL_T_PANDEMICT=
+
+PANDEMIC_NAME= SITUATION IN PANDEMIC
+PANDEMIC1=Yes, let's improve the situation
+PANDEMIC2=No, there are other problems
+PANDEMIC3=Can be viewed later
 PANDEMICM=We have found a disease in TERRITORYEVENT territory. If we don't do something we will lose half of our men.
 PANDEMICA=Cure the desease in TERRITORYEVENT
 PANDEMICD=-50% trops in TERRITORYEVENT
+PANDEMICT=
+
+ALL_T_PLAGUE_NAME= PEST SITUATION
+ALL_T_PLAGUE1=Yes, let's improve the situation
+ALL_T_PLAGUE2=No, there are other problems
+ALL_T_PLAGUE3=Can be viewed later
 ALL_T_PLAGUEM=Our crops may be in danger from the plague. If we don't do something we will lose our food. 
 ALL_T_PLAGUEA=Eliminate the plague in all territories.
 ALL_T_PLAGUED=Reduce irrigation canals to level 0 in all territories.
+ALL_T_PLAGUET=
+
+PLAGUE_NAME= PEST SITUATION
+PLAGUE1=Yes, let's improve the situation
+PLAGUE2=No, there are other problems
+PLAGUE3=Can be viewed later
 PLAGUEM=Our crops in TERRITORYEVENT territory may be endangered by the plague. If we don't do something we will lose the food of that place.
 PLAGUEA=Eliminate the plague in TERRITORYEVENT
 PLAGUED=Reduce irrigation channels to level 0 in TERRITORYEVENT.
+PLAGUET=
+
+PETITION_MIN_NAME= IMPROVEMENT REQUEST
+PETITION_MIN1=Yes, let's improve the situation
+PETITION_MIN2=No, there are other problems
+PETITION_MIN3=Can be viewed later
 PETITION_MINM=In TERRITORYEVENT territory they want to ask you to improve the mine. They are somewhat short of resources. 
 PETITION_MINA=+2 mine gold level in TERRITORYEVENT territory.
 PETITION_MIND=-10 opinion in TERRITORYEVENT territory.
+PETITION_MINT=
+
+PETITION_FOR_NAME= IMPROVEMENT REQUEST
+PETITION_FOR1=Yes, let's improve the situation
+PETITION_FOR2=No, there are other problems
+PETITION_FOR3=Can be viewed later
 PETITION_FORM=In TERRITORYEVENT territory they want to ask you to improve your defenses. They are very unprotected. 
 PETITION_FORA=+2 fortress level in TERRITORYEVENT territory.
 PETITION_FORD=-10 opinion in TERRITORYEVENT territory.
-GRACE_DIVM=Mensaje Pendiente
-GRACE_DIVA=+10 opinion in TERRITORYEVENT territory.
-GRACE_DIVD=-10 opinion in TERRITORYEVENT territory.
+PETITION_FORT=
+
+GRACE_MIN_NAME= GRACE OF IMPROVEMENT
+GRACE_MIN1=Yes, let's improve the situation
+GRACE_MIN2=No, there are other problems
+GRACE_MIN3=Can be viewed later
 GRACE_MINM=An abandoned mine has been found in TERRITORYEVENT territory. To appropriate them to our territories, meet the following requirements. 
 GRACE_MINA=+3 gold mine level in TERRITORYEVENT territory.
 GRACE_MIND=+15 gold.
+GRACE_MINT=
+
+GRACE_FOOD_NAME= GRACE OF IMPROVEMENT
+GRACE_FOOD1=Yes, let's improve the situation
+GRACE_FOOD2=No, there are other problems
+GRACE_FOOD3=Can be viewed later
 GRACE_FOODM=We want to expand the seeding in TERRITORYEVENT territory. To run this, meet the following requirements. 
 GRACE_FOODA=+3 irrigate chanel levels in TERRITORYEVENT territory.
 GRACE_FOODD=+15 food.
+GRACE_FOODT= 
+
+CONQUIST_NAME= TERRITORY CONQUEST
+CONQUIST1=Yes, let's improve the situation
+CONQUIST2=No, there are other problems
+CONQUIST3=Can be viewed later
 CONQUISTM=Assigns a military chied in TERRITORYEVENT territory.
 CONQUISTA=
 CONQUISTD=
+CONQUISTT=
+
+EXPLORATION_NAME= TERRITORY EXPLORATION
+EXPLORATION1=Yes, let's improve the situation
+EXPLORATION2=No, there are other problems
+EXPLORATION3=Can be viewed later
 EXPLORATIONM=Exploration in progress. You have sent NUMBER units.
 EXPLORATIONA=
 EXPLORATIOND=
+EXPLORATIONT=
+
+REINFORCEMENT_NAME=REINFORCEMENTS FOR UNITS
+REINFORCEMENT1= Yeah prepare them for battle.
+REINFORCEMENT2= Maybe a few.
+REINFORCEMENT3= This time I think not.
+REINFORCEMENTM= The general thinks that we should be in charge of reinforcing our units in battle, some are already ready for battle.
+REINFORCEMENTA= The reinforcements are already on their way to battle.
+REINFORCEMENTD= The reinforcements are already on their way to battle.
+REINFORCEMENTT= We will not take advantage of the reinforcements for now.
+
+CURE_NAME=UNIT HEALING
+CURE1= Ok, let a few heal.
+CURE3= I need some who can fight.
+CURE2= I'll take the order.
+CUREM= Some units can heal from the engagement, however they will not be able to act on the next move.
+CUREA= We have healed some units.
+CURED= We have healed the units. 
+CURET= We have healed all lost units.
+
+REBEL_NAME=UNITS REVEALED!
+REBEL1= opcion 1
+REBEL3= opcion 2
+REBEL2= opcion 3
+REBELM= mensaje rebel
+REBELA= mensaje rebel aceptar
+REBELD= mensaje rebel declinar
+REBELT= mensaje rebel tercera opcion
+
+TRAMP_NAME=ACTIVATE A TRAP!
+TRAMP1= Yes, I think it would be good.
+TRAMP3= Activate it.
+TRAMP2= All action is valid in war.
+TRAMPM= A trap has been installed on the battlefield, we suggest you activate it and take advantage.
+TRAMPA= Trap has been activated
+TRAMPD= Trap has been activated
+TRAMPT= Trap has been activated
+
+PILLAGE_NAME=LANDING OF LAND
+PILLAGE1= Approved.
+PILLAGE3= It would be good for the economy.
+PILLAGE2= I don't think it is necessary.
+PILLAGEM= A piece of land has been found that we can loot, it may take time.
+PILLAGEA= We won some gold but it cost us 1 turn.
+PILLAGED= We won some food but it cost us 1 turn.
+PILLAGET= We won some gold and food. 
 
 Alert_NewEvent_title=New Event
 Alert_NewEvent_sugg=Click here to see more information
@@ -150,9 +269,9 @@ Alert_LimitBuilding_title=Building limit
 Alert_LimitBuilding_sugg=You have reached the limit of buildings in TERRITORY 
 
 MissionTutorial_message_pro=+10 opinion in the starting territory
-MissionTutorial0_name=Pause the game
-MissionTutorial0_message=Click the pause button.
-MissionTutorial0_tooltip= - Locate the time menu & (upper right menu) & - Click on the pause button & (1st option) & - You can resume the game again &with the play button (2nd option) & - You can advance the game time &x2 or x3 (3rd and 4th option).
+MissionTutorial0_name=Begin the game
+MissionTutorial0_message=Click the play button.
+MissionTutorial0_tooltip= - Locate the time menu & (upper right menu) & - Click on the play button & (2nd option) & - You can pause the game again &with the pause button (1st option) & - You can advance the game time &x2 or x3 (3rd and 4th option).
 MissionTutorial1_name=Review territory menu
 MissionTutorial1_message=Open the territory menu to review the resources of your territory
 MissionTutorial1_tooltip= - Click on your starting territory & - Locate and press the Open button & (lower left button) & - You can check the Territory tab & (1st option) & - You can collect resources when &is necessary (gold or food) & - You can check the Military tab & (2nd option) & - You can check the Buildings tab & (4th option). & - You can close the menu again with&the same button.

@@ -14,8 +14,8 @@ public class MissionManager : MonoBehaviour
     [HideInInspector] public int indexMission = 0;
 
     private TimeSimulated timeMission;
-    private List<Mission> listMission = new List<Mission>();
-    private Mission currentMission;
+    [SerializeField] private List<Mission> listMission = new List<Mission>();
+    [SerializeField] private Mission currentMission;
     public void SetNotificationMission(bool active)
     {
         notificationMission.SetActive(active);
@@ -34,12 +34,21 @@ public class MissionManager : MonoBehaviour
     private void Start()
     {
         GameEvents.instance.onMissionTriggerEnter += onMissionEnter;
-        timeMission = new TimeSimulated(TimeSystem.instance.TimeGame);
-        timeMission.PlusDays(2);
+        //Activa desde el primer segundo del juego las misiones
+        Invoke("InitMissions", 2f);
     }
+    private void InitMissions()
+    {
+        GameEvents.instance.MissionTriggerEnter();
+        DateTableHandler.instance.PausePlayeButton(true);
+        //break;
+    }
+
+
     private void Update()
     {
-        if (TimeSystem.instance.TimeGame.EqualsDate(timeMission))
+        // desde la segunda mision , se activa cada 1 dia despues de completar la mision anterior
+        if (timeMission != null && TimeSystem.instance.TimeGame.EqualsDate(timeMission))
         {
             GameEvents.instance.MissionTriggerEnter();
         }
@@ -47,6 +56,7 @@ public class MissionManager : MonoBehaviour
         {
             GameEvents.instance.CustomEventExit();
         }
+
         if (listMission.Count ==indexMission+1 && listMission[indexMission].MissionStatus == Mission.STATUS.COMPLETE)
         {
             timeMission = new TimeSimulated(TimeSystem.instance.TimeGame);
@@ -56,7 +66,6 @@ public class MissionManager : MonoBehaviour
         {
             currentMission.CheckMissionStatus();
         }
-       // print("l|" + listMission.Count);
     }
     private void onMissionEnter()
     {

@@ -4,36 +4,56 @@ using UnityEngine;
 [System.Serializable]
 public class Archery : Building
 {
-    private float speedArcher ;
-    private int limitArcher;
     public Archery()
     {
-        this.Name = "Archery";
-        this.speedArcher = 0f;
-        this.limitArcher = 70;
-        this.AtributteSpeed = 0.6f;
-        this.AtributteLimit = 10;
+        this.nameBuilding = "Archery";
+        this.initValue = 70;
+        this.speedUnits = 0f;
+        this.limitUnits = 70;
+        this.atributteSpeed = 0.6f;
+        this.atributteLimit = 10;
+        isBuildMilitar = true;
     }
-    public float SpeedArcher
+    /*
+    public override void ImproveBuilding()
     {
-        get { return speedArcher; }
-        set { speedArcher = value; }
+        base.ImproveBuilding();
+        if (this.level % 3 == 0)
+        {
+            levelSpeed++;
+        }
+        else if (this.level % 3 == 1)
+        {
+            levelLimit++;
+            levelSpeed++;
+        }
+        else
+        {
+            levelMaterials++;
+            levelSpeed++;
+        }
+        this.speedUnits = this.AtributteSpeed * levelSpeed;
+        this.limitUnits = 70 + this.AtributteLimit * levelLimit;
+        this.materialUnits = levelMaterials;
     }
-    public int LimitArcher
+    public override void SubsideBuilding()
     {
-        get { return limitArcher; }
-        set { limitArcher = value; }
+        base.SubsideBuilding();
+        if (this.Level % 3 == 0)
+        {
+            levelSpeed--;
+        }
+        else if (this.Level % 3 == 1)
+        {
+            levelLimit--;
+        }
+        else
+        {
+            levelMaterials--;
+        }
+        this.speedUnits = this.atributteSpeed * levelSpeed;
+        this.limitUnits = 70 +this.atributteLimit * levelLimit;
+        this.materialUnits = levelMaterials;
     }
-    public override void ImproveBuilding(int _levels)
-    {
-        base.ImproveBuilding(_levels);
-        this.speedArcher += this.AtributteSpeed * _levels;
-        this.limitArcher += this.AtributteLimit * _levels;
-    }
-    public override void SubsideBuilding(int _levels)
-    {
-        base.SubsideBuilding(_levels);
-        this.speedArcher -= this.AtributteSpeed * _levels;
-        this.limitArcher -= this.AtributteLimit * _levels;
-    }
+    */
 }

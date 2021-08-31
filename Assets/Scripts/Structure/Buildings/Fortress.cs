@@ -15,14 +15,14 @@ public class Fortress: Building
         get { return plusDefense; }
         set { plusDefense = value; }
     }
-    public override void ImproveBuilding(int _levels)
+    public override void ImproveBuilding(Territory territory)
     {
-        base.ImproveBuilding(_levels);
-        this.plusDefense += this.AtributteToAdd *_levels;
+        base.ImproveBuilding(territory);
+        this.plusDefense = this.atributteToAdd * level;
     }
-    public override void SubsideBuilding(int _levels)
+    public override void SubsideBuilding(Territory territory)
     {
-        base.SubsideBuilding(_levels);
-        this.plusDefense -= (int)this.AtributteToAdd * _levels;
+        base.SubsideBuilding(territory);
+        this.plusDefense = this.atributteToAdd * level;
     }
 }

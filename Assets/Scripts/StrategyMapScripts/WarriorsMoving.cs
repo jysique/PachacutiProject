@@ -11,10 +11,10 @@ public class WarriorsMoving : MonoBehaviour
     //stats
     [SerializeField] private Troop playerTroop;
 
-    [SerializeField]private Territory.TYPEPLAYER territorytype;
-    private MilitarChief mb;
-    private MilitarChief.TYPESTRAT militaryBossStrategy;
-    private int militaryBossExperience;
+   // [SerializeField]private Territory.TYPEPLAYER territorytype;
+   // private MilitarChief mb;
+   // private MilitarChief.TYPESTRAT militaryBossStrategy;
+  //  private int militaryBossExperience;
     [SerializeField]private TerritoryHandler attacker;
     //result
     [SerializeField] private float attackPower;
@@ -25,11 +25,10 @@ public class WarriorsMoving : MonoBehaviour
 
         playerTroop = _playerTroop;
         attacker = attackerTerritory;
-        territorytype = attackerTerritory.TerritoryStats.Territory.TypePlayer;
-        mb = attackerTerritory.TerritoryStats.Territory.MilitarChiefTerritory;
+      //  territorytype = attackerTerritory.TerritoryStats.Territory.TypePlayer;
+      //  mb = attackerTerritory.TerritoryStats.Territory.MilitarChiefTerritory;
         //TOTAL DE GUERREROS
         this.transform.GetChild(0).gameObject.GetComponent<TextMeshPro>().text = playerTroop.GetAllNumbersUnit().ToString();
-
     }
 
     void Update()
@@ -43,12 +42,14 @@ public class WarriorsMoving : MonoBehaviour
     private void MovingWarriors()
     {
         float step = GlobalVariables.instance.VelocityMoving * Time.deltaTime;
+
         transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
         if (Vector3.Distance(transform.position, target.transform.position) < 0.001f)
         {
             if(target.GetComponent<TerritoryHandler>() == TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>())
                 MenuManager.instance.overMenuBlock.GetComponent<OverMenu>().turnOffMenus();
-            WarManager.instance.MoveWarriors(target.GetComponent<TerritoryHandler>(), attacker,playerTroop);
+
+            WarManager.instance.MoveWarriors(target.GetComponent<TerritoryHandler>(), attacker, playerTroop);
             if(target.GetComponent<TerritoryHandler>() == WarManager.instance.selected)
             {
                 WarManager.instance.SetWarStatus(true);

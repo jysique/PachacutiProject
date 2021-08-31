@@ -22,11 +22,11 @@ public class DateTableHandler : MonoBehaviour
     private TimeSimulated timeGame;
     public float temporalTime;
     private bool isTimePaused = false;
-    private bool isButtonPaused = false;
+    private bool isButtonPlay = false;
     private bool isMenuPaused = false;
-    public bool IsButtonPause
+    public bool IsButtonPlay
     {
-        get { return isButtonPaused; }
+        get { return isButtonPlay; }
     }
     private void Awake()
     {
@@ -34,13 +34,32 @@ public class DateTableHandler : MonoBehaviour
     }
     void Start()
     {
+        PauseButton();
         timeGame = TimeSystem.instance.TimeGame;
         TextCallFunction();
         PauseBtn.onClick.AddListener(() => PauseButton());
         PlayBtn.onClick.AddListener(() => PlayButton());
         Quicknessx1Btn.onClick.AddListener(() => Quicknessx1Button());
         Quicknessx2Btn.onClick.AddListener(() => Quicknessx2Button());
+
+        int ift = PlayerPrefs.GetInt("tutorialState");
+        if (ift == 0)
+        {
+            PausePlayeButton(false);
+        }
+        else
+        {
+            PausePlayeButton(true);
+        }
     }
+    public void PausePlayeButton(bool _active)
+    {
+        PauseBtn.interactable = _active;
+        PlayBtn.interactable = _active;
+        Quicknessx1Btn.interactable = _active;
+        Quicknessx2Btn.interactable = _active;
+    }
+
     void Update()
     {
         counterDay.fillAmount = (float)timeGame.Hour / 24.0f;
@@ -98,7 +117,7 @@ public class DateTableHandler : MonoBehaviour
         pauseGO.SetActive(true);
         if (!isMenuPaused && !isTimePaused)
         {
-            isButtonPaused = true;
+            isButtonPlay = false;
             PauseTime();
             isTimePaused = true;
         }
@@ -111,7 +130,7 @@ public class DateTableHandler : MonoBehaviour
             if (!isMenuPaused && isTimePaused)
             {
                 ResumeTime();
-                isButtonPaused = false;
+                isButtonPlay = true;
                 isTimePaused = false;
             }
         }
@@ -144,7 +163,6 @@ public class DateTableHandler : MonoBehaviour
     }
     public void ResumeTime()
     {
-        // GlobalVariables.instance.timeModifier = temporalTime;
         GlobalVariables.instance.timeModifier = 1;
     }
     public void MenuEscapeGame()
@@ -153,17 +171,23 @@ public class DateTableHandler : MonoBehaviour
         {
             if (isTimePaused)
             {
-                MenuManager.instance.ResumeMenuGame();
-                ResumeTime();
-                isTimePaused = false;
-                isMenuPaused = false;
+                if (isButtonPlay)
+                {
+                    MenuManager.instance.ResumeMenuGame();
+                    ResumeTime();
+                    isTimePaused = false;
+                    isMenuPaused = false;
+                }
             }
             else
             {
-                MenuManager.instance.PauseMenuGame();
-                PauseTime();
-                isTimePaused = true;
-                isMenuPaused = true;
+                if (isButtonPlay)
+                {
+                    MenuManager.instance.PauseMenuGame();
+                    PauseTime();
+                    isTimePaused = true;
+                    isMenuPaused = true;
+                }
             }
         }
     }

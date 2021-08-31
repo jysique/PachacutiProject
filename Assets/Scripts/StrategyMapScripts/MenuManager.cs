@@ -20,7 +20,7 @@ public class MenuManager : MonoBehaviour
     [Header("Menu de Pause")]
     [SerializeField] private GameObject PauseMenu;
     [SerializeField] private GameObject ChiefSelection;
-    public static bool isGamePaused = false;
+    //public static bool isGamePaused = false;
     public float temporalTime;
 
     [Header("Menu territory")]
@@ -101,7 +101,6 @@ public class MenuManager : MonoBehaviour
 
     public void OpenMenu()
     {
-
         if (!isOpen)
         {
             isOpen = true;

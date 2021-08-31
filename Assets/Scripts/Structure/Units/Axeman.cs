@@ -11,6 +11,7 @@ public class Axeman : UnitCombat
         this.CharacIconType = "warriors";
         this.CharacIconIndex = "axe";
         this.Attack = 20;
+        this.Defense = 60;
         this.Precision = 75;
         this.Range = 1;
         this.StrongTo = new string[] { "Lancer" };

@@ -177,7 +177,7 @@ public class MissionTutorial : Mission
         switch (optionTutorial)
         {
             case 0:
-                if (DateTableHandler.instance.IsButtonPause == true)
+                if (DateTableHandler.instance.IsButtonPlay == true)
                 {
                     count++;
                 }
@@ -196,7 +196,7 @@ public class MissionTutorial : Mission
                 }
                 break;
             case 3:
-                if (TerritoryMission[0].Archers.Quantity == 10)
+                if (TerritoryMission[0].Archers.Quantity >= 10)
                 {
                     count++;
                 }
@@ -208,7 +208,7 @@ public class MissionTutorial : Mission
                 }
                 break;
             case 5:
-                if (SelectTropsMenu.instance != null && SelectTropsMenu.instance.acumulated >= 70)
+                if (CombatManager.instance != null && CombatManager.instance.acumulated >= 70)
                 {
                     count++;
                 }
@@ -227,7 +227,10 @@ public class MissionTutorial : Mission
         {
             if (optionTutorial < 4)
             {
-                TutorialController.instance.TurnOnDialogue();
+                if (TutorialController.instance.IsFirstTime)
+                {
+                    TutorialController.instance.TurnOnDialogue();
+                }
             }
             if (optionTutorial == 4) //completa la [MISSION 4(Revisar calca)]
             {
@@ -365,7 +368,8 @@ public class MissionExpansion : Mission
         base.InitBenefits();
         for (int i = 0; i < TerritoryMission.Count; i++)
         {
-            TerritoryMission[i].FarmTerritory.ImproveBuilding(2);
+            //TerritoryMission[i].FarmTerritory.ImproveBuilding(2);
+            TerritoryMission[i].FarmTerritory.ImproveManyLevels(2, TerritoryMission[i]);
         }
         base.MissionStatus = STATUS.IN_PROGRESS_BENEFITS;
     }
@@ -376,7 +380,8 @@ public class MissionExpansion : Mission
         {
             for (int i = 0; i < TerritoryMission.Count; i++)
             {
-                TerritoryMission[i].FarmTerritory.SubsideBuilding(2);
+                //TerritoryMission[i].FarmTerritory.SubsideBuilding(2);
+                TerritoryMission[i].FarmTerritory.SubsideManyLevels(2, TerritoryMission[i]);
             }
         }
     }
@@ -416,7 +421,8 @@ public class MissionProtect : Mission
     public override void InitBenefits()
     {
         base.InitBenefits();
-        TerritoryMission[0].FarmTerritory.ImproveBuilding(2);
+        //  TerritoryMission[0].FarmTerritory.ImproveBuilding(2);
+        TerritoryMission[0].FarmTerritory.ImproveManyLevels(2, TerritoryMission[0]);
         base.MissionStatus = STATUS.IN_PROGRESS_BENEFITS;
     }
     public override void FinishBenefits()
@@ -424,7 +430,8 @@ public class MissionProtect : Mission
         base.FinishBenefits();
         if (base.MissionStatus == STATUS.DONE)
         {
-            TerritoryMission[0].FarmTerritory.SubsideBuilding(2);
+            //  TerritoryMission[0].FarmTerritory.SubsideBuilding(2);
+            TerritoryMission[0].FarmTerritory.SubsideManyLevels(2, TerritoryMission[0]);
         }
     }
 }

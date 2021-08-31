@@ -6,6 +6,10 @@ public class Troop
 {
     [SerializeField] List<UnitCombat> unitCombats = new List<UnitCombat>();
     [SerializeField] List<int> positions = new List<int>();
+    public List<int> Positions
+    {
+        get { return positions; }
+    }
 
     public Troop()
     {
@@ -13,15 +17,23 @@ public class Troop
     }
     public Troop(int a, int b , int c)
     {
-        AddElement("Swordsman", 0, a);
-        AddElement("Lancer", 1, b);
-        AddElement("Axeman", 2, c);
+        if (a > 0)
+            AddElement("Swordsman", 0, a);
+        if (b > 0)
+            AddElement("Lancer", 1, b);
+        if (b > 0)
+            AddElement("Axeman", 2, c);
     }
     public Troop(List<UnitCombat> unitCombats)
     {
         for (int i = 0; i < unitCombats.Count; i++)
         {
-            AddElement(unitCombats[i].GetType().ToString(), i, unitCombats[i].Quantity);
+            //   AddElement(unitCombats[i].GetType().ToString(), i, unitCombats[i].Quantity);
+            if (unitCombats[i].Quantity >0)
+            {
+                AddElement(unitCombats[i].GetType().ToString(), unitCombats[i].PositionInBattle, unitCombats[i].Quantity);
+            }
+            
         }
     }
     public void LogTroop()
@@ -37,21 +49,26 @@ public class Troop
           get { return unitCombats; }
     }
 
-    public List<int> Positions
+    public void SaveTroop(Troop _troop)
     {
-        get { return positions; }
-    }
-    
-    public void AddElement(string _type, int _position, int _number)
-    {
-        if (_number>0)
+        for (int i = 0; i < _troop.UnitCombats.Count; i++)
         {
-            var unitCombat = GetNewUnitCombat(_type);
-            unitCombat.Quantity = _number;
-            unitCombats.Add(unitCombat);
-            positions.Add(_position);
+            AddElement(_troop.UnitCombats[i].UnitName, _troop.Positions[i], _troop.UnitCombats[i].Quantity);
         }
     }
+
+    public void AddElement(string _type, int _position, int _number)
+    {
+        //if (_number>0)
+        //{
+            var unitCombat = GetNewUnitCombat(_type);
+            unitCombat.Quantity = _number;
+            unitCombat.PositionInBattle = _position;
+            unitCombats.Add(unitCombat);
+            positions.Add(_position);
+        //}
+    }
+
     public void MoveUnits(Territory territory)
     {
         for (int i = 0; i < unitCombats.Count; i++)

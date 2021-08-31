@@ -12,7 +12,7 @@ public class SelectTropsMenu : MonoBehaviour
     TerritoryHandler territoryToAttack;
     [SerializeField] public TroopOption[] optionsInAttack { get; private set; }
     [SerializeField] Troop troopSelected = new Troop();
-    public int acumulated = 0;
+    
     public int total_cost = 0;
     public Troop TroopSelected
     {
@@ -70,7 +70,8 @@ public class SelectTropsMenu : MonoBehaviour
     }
     public void InitMenu(TerritoryHandler _territoryToAttack)
     {
-        DateTableHandler.instance.PauseTime();
+        // DateTableHandler.instance.PauseTime();
+        DateTableHandler.instance.PauseButton();
         territoryToAttack = _territoryToAttack;
         territoryAttacker = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
         optionsInAttack = GetComponentsInChildren<TroopOption>();
@@ -93,7 +94,6 @@ public class SelectTropsMenu : MonoBehaviour
         int totalWarriors = troopSelected.GetAllNumbersUnit();
         if (InGameMenuHandler.instance.GoldPlayer >= totalWarriors || territoryToAttack.TerritoryStats.Territory.TypePlayer == typeSelected)
         {
-            acumulated += totalWarriors;
             if (territoryToAttack.TerritoryStats.Territory.TypePlayer != typeSelected)
             {
                 InGameMenuHandler.instance.GoldPlayer -= totalWarriors;
@@ -113,7 +113,8 @@ public class SelectTropsMenu : MonoBehaviour
     {
         troopSelected.Reset();
         this.gameObject.SetActive(false);
-        DateTableHandler.instance.ResumeTime();
+        //DateTableHandler.instance.ResumeTime();
+        DateTableHandler.instance.PlayButton();
     }
     public void UpdateAllOptions()
     {

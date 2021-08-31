@@ -34,19 +34,15 @@ public class CustomEventOption : MonoBehaviour
     }
     private void Update()
     {
-        /*
-        if (TimeSystem.instance.TimeGame.DiferenceDays(custom.TimeFinalEvent) == 1)
-        {
-            AlertManager.AlertEventEnd();
-            print("holi");
-        }
-        */
         if (custom.EventStatus == CustomEvent.STATUS.FINISH)
         {
             estado.color = new Color32(193, 39, 4,255);
             btn.interactable = false;
             EventManager.instance.listEvents.RemoveEvent(custom);
-            
+        }
+        if (custom.EventType == CustomEvent.EVENTTYPE.EARTHQUAKER)
+        {
+            btn.interactable = false;
         }
     }
     void OnClickCustomEvent()
@@ -57,6 +53,11 @@ public class CustomEventOption : MonoBehaviour
             GlobalVariables.instance.CenterCameraToTerritory(custom.TerritoryEvent,true);
             //custom.TerritoryEvent.MakeOutline();
             MenuManager.instance.AccessTabMilitar();
+            InGameMenuHandler.instance.UpdateMenu();
+            if (!MenuManager.instance.IsOpen)
+            {
+                MenuManager.instance.OpenMenu();
+            }
         }
         else
         {

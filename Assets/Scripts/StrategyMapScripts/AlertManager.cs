@@ -20,13 +20,14 @@ public class AlertManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-    void Start()
-    { 
-        if(alertContainer == null)
+        if (alertContainer == null)
         {
             alertContainer = this.gameObject;
         }
+    }
+    void Start()
+    { 
+
     }
     public static void NewAlert(string alerttextId, string alertIconId = "", TerritoryHandler focusTerritory= null,string textToAdd=null)
     {

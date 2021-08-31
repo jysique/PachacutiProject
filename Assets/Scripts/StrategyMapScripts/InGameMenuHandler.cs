@@ -13,14 +13,6 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private Territory selectedTerritory;
     [NonSerialized] public List<GameObject> listFloatingText = new List<GameObject>();
 
-    [Header("State Menu")]
-    [SerializeField] private TextMeshProUGUI irrigateLevel;
-    [SerializeField] private TextMeshProUGUI goldMineLevel;
-    [SerializeField] private TextMeshProUGUI fortressLevel;
-    [SerializeField] private TextMeshProUGUI academyLevel;
-    [SerializeField] private TextMeshProUGUI barracksLevel;
-    [SerializeField] private TextMeshProUGUI archeryLevel;
-
     [Header("Menu military")]
     [SerializeField] private GameObject menuBlockMilitaryOther;
     [SerializeField] private GameObject menuBlockMilitaryCharacter;
@@ -88,15 +80,6 @@ public class InGameMenuHandler : MonoBehaviour
         InitButtons();
         dropdownBuildings.onValueChanged.AddListener(delegate { DropdownItemSelected(selectedTerritory); });
     }
-    private void UpdateStateMenu()
-    {
-        irrigateLevel.text = selectedTerritory.FarmTerritory.Level.ToString();
-        goldMineLevel.text = selectedTerritory.GoldMineTerritory.Level.ToString();
-        fortressLevel.text = selectedTerritory.FortressTerritory.Level.ToString();
-        academyLevel.text = selectedTerritory.AcademyTerritory.Level.ToString();
-        barracksLevel.text = selectedTerritory.BarracksTerritory.Level.ToString();
-        archeryLevel.text = selectedTerritory.CastleTerritory.Level.ToString();
-    }
     /// <summary>
     /// Update all elements of the militar menu of the territory-selected
     /// if the territory-selected doesn't belong to the player 
@@ -149,11 +132,13 @@ public class InGameMenuHandler : MonoBehaviour
         territoryEmpire.text = TerritoryManager.instance.GetTerritoryEmpire(selectedTerritory);
         territoryRegion.text = selectedTerritory.RegionTerritory.ToString().Split(char.Parse("_"))[0];
         MotivationBonus.text = selectedTerritory.MotivationTerritory.ToString() + "/10";
-     //   AttackBonus.text = selectedTerritory.FortressTerritory.PlusDefense.ToString() + "/10";
-     //   DefenseBonus.text = selectedTerritory.ArmoryTerritory.PlusAttack.ToString() + "/10";
-        GoldGeneration.text = (selectedTerritory.GoldMineTerritory.WorkersMine / 5) + GameMultiLang.GetTraduction("EveryDay");
-        FoodGeneration.text = (selectedTerritory.FarmTerritory.WorkersChannel / 5) + GameMultiLang.GetTraduction("EveryDay");
-        
+        //   AttackBonus.text = selectedTerritory.FortressTerritory.PlusDefense.ToString() + "/10";
+        //   DefenseBonus.text = selectedTerritory.ArmoryTerritory.PlusAttack.ToString() + "/10";
+        GoldGeneration.text = (selectedTerritory.GoldMineTerritory.LimitUnits / 5) + GameMultiLang.GetTraduction("EveryDay");
+        FoodGeneration.text = (selectedTerritory.FarmTerritory.LimitUnits / 5) + GameMultiLang.GetTraduction("EveryDay");
+        //GoldGeneration.text = (selectedTerritory.GoldMineTerritory.WorkersMine / 5) + GameMultiLang.GetTraduction("EveryDay");
+        //FoodGeneration.text = (selectedTerritory.FarmTerritory.WorkersChannel / 5) + GameMultiLang.GetTraduction("EveryDay");
+
         if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
         {
             menuBlockTerritoryOther.SetActive(true);           
@@ -220,7 +205,6 @@ public class InGameMenuHandler : MonoBehaviour
     public void UpdateMenu()
     {
         selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().TerritoryStats.Territory;
-        UpdateStateMenu();
         UpdateMilitarMenu();
         UpdateTerritoryMenu();
         UpdateStrategyMenu();
@@ -235,8 +219,10 @@ public class InGameMenuHandler : MonoBehaviour
 
         goldCount.text = selectedTerritory.Gold.ToString();
         foodCount.text = selectedTerritory.FoodReward.ToString();
-        GoldGeneration.text = (selectedTerritory.GoldMineTerritory.WorkersMine / 5) + GameMultiLang.GetTraduction("PerDay");
-        FoodGeneration.text = (selectedTerritory.FarmTerritory.WorkersChannel / 5) + GameMultiLang.GetTraduction("PerDay");
+        GoldGeneration.text = (selectedTerritory.GoldMineTerritory.LimitUnits / 5) + GameMultiLang.GetTraduction("PerDay");
+        FoodGeneration.text = (selectedTerritory.FarmTerritory.LimitUnits / 5) + GameMultiLang.GetTraduction("PerDay");
+        //GoldGeneration.text = (selectedTerritory.GoldMineTerritory.WorkersMine / 5) + GameMultiLang.GetTraduction("PerDay");
+        //FoodGeneration.text = (selectedTerritory.FarmTerritory.WorkersChannel / 5) + GameMultiLang.GetTraduction("PerDay");
         MotivationBonus.text = selectedTerritory.MotivationTerritory.ToString() + "/10";
         DefenseBonus.text = selectedTerritory.FortressTerritory.PlusDefense.ToString() + "/10";
     }
@@ -263,6 +249,10 @@ public class InGameMenuHandler : MonoBehaviour
             goldPlayer -= territoryHandler.TerritoryStats.Territory.GetBuilding(building).CostToUpgrade;
             ShowFloatingText("+1 " + GameMultiLang.GetTraduction(building.Name) + " level", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
             ShowFloatingText("-" + territoryHandler.TerritoryStats.Territory.GetBuilding(building).CostToUpgrade.ToString(), "TextFloating", ResourceTableHandler.instance.GoldAnimation, Color.white);
+        }
+        else
+        {
+            ShowFloatingText("no gold", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
         }
     }
     private int GetGoldGather(TerritoryHandler territoryHandler)

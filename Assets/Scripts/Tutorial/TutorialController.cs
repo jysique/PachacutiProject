@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class TutorialController : MonoBehaviour
 {
     public static TutorialController instance { get; private set; }
@@ -9,22 +9,22 @@ public class TutorialController : MonoBehaviour
     [SerializeField] private List<GameObject> blocks;
     [SerializeField] private GameObject battle1;
     [SerializeField] private GameObject battle2;
-
-
-    [SerializeField]private List<string> data = new List<string>();
+    [SerializeField] private GameObject move;
+    [SerializeField] private GameObject attack;
+    [SerializeField] private GameObject deffend;
+    [SerializeField] Button finishTutorial;
     [SerializeField]private int progress = 0;
-    bool init = false;
-    
+    [SerializeField] private List<string> data = new List<string>();
     [SerializeField] private List<Tutorial> tutorialList = new List<Tutorial>();
+    bool init = false;
     private Tutorial currentTutorial;
     private float timerCountDown;
     private TimeSimulated timeTutorial;
-
-    private bool isFirstTime = false;
     private bool canSpeech = true;
+    private bool isFirstTime = false;
     private bool isCompleted = false;
-    private bool canMoveUnits = false; //
-    private bool canSelectTroops = false; //
+    private bool canMoveUnits = false;
+    private bool canSelectTroops = false;
     private bool isAttacking = false;
     int ift;
     public bool IsFirstTime
@@ -79,9 +79,7 @@ public class TutorialController : MonoBehaviour
         canSpeech = false;
         ChapterController.instance.speechSystemRoot.SetActive(false);
     }
-    [SerializeField] private GameObject move;
-    [SerializeField] private GameObject attack;
-    [SerializeField] private GameObject deffend;
+
     public void TurnMoveButton(bool _a)
     {
         move.SetActive(_a);
@@ -109,32 +107,50 @@ public class TutorialController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        ift = PlayerPrefs.GetInt("tutorialState", 1);
+        // 0 no tutorial 
+        // 1 begin tutorial
+        // PlayerPrefs.DeleteAll();
+        ift = PlayerPrefs.GetInt("tutorialState",0);
+
+        if (ift == 1)
+        {
+            Invoke("InitTutorial", 2);
+        }
     }
+
     private void Start()
     {
         print(ift);
-        TurnBattle1Indication(false);
-        TurnBattle2Indication(false);
         timeTutorial = new TimeSimulated(TimeSystem.instance.TimeGame);
         timeTutorial.PlusDays(1);
-        PlayerPrefs.DeleteAll();
         timerCountDown = 0.8f;
-        
-        if (ift == 0)
+        TurnBattle1Indication(false);
+        TurnBattle2Indication(false);
+        if (ift == 0) // no tutorial
         {
             TurnMoveButton(true);
             TurnDefButton(true);
             TurnAttackButton(true);
+            TurnBlocks(true);
+
+            canMoveUnits = true;
+            canSelectTroops = true;
+            isFirstTime = false;
+            EventManager.instance.InitEvents();
         }
-        else
+        else// so tutorial
         {
             TurnMoveButton(false);
             TurnDefButton(false);
             TurnAttackButton(false);
+            TurnBlocks(false);
+
+            isFirstTime = false;
+            canMoveUnits = false;
+            canSelectTroops = false;
+            isFirstTime = true;
         }
     }
-    
     public void InitTutorial()
     {
         LoadChapterFile("Tutorial");
@@ -147,8 +163,6 @@ public class TutorialController : MonoBehaviour
         HandleLineInTutorial();
         SetNextTutorial(0);
         init = true;
-        isFirstTime = true;
-
     }
     public void CompletedTutorial()
     {
@@ -164,16 +178,18 @@ public class TutorialController : MonoBehaviour
             return;
         }
     }
+    private void TurnBlocks(bool _a)
+    {
+        foreach (var item in blocks)
+        {
+            item.SetActive(_a);
+        }
+    }
     private void CompleteAllTutorials()
     {
         isCompleted = true;
         EventManager.instance.InitEvents();
-        foreach (var item in blocks)
-        {
-            item.SetActive(true);
-        }
-       // isFirstTime = false;
-        print("all tutorials completed");
+        TurnBlocks(true);
     }
 
     private Tutorial GetTutorialByOrder(int order)
@@ -195,8 +211,11 @@ public class TutorialController : MonoBehaviour
         ChapterController.instance.cachedLastSpeaker = "";
     }
 
+    //public float delay = 1;
+    //public float t;
     private void Update()
     {
+        /*
         if (TimeSystem.instance.TimeGame.EqualsDate(timeTutorial))
         {
             if (ift == 1)
@@ -208,6 +227,7 @@ public class TutorialController : MonoBehaviour
         {
             GameEvents.instance.CustomEventExit();
         }
+        */
         if (init)
         {
             if (timerCountDown > 0)

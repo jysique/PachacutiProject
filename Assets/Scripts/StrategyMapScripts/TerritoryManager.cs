@@ -150,7 +150,8 @@ public class TerritoryManager : MonoBehaviour
                 _territory.GetUnit(Utils.instance.Units_string[k]).Quantity = dictionaryUnitCombats.Single(s => s.Key == territoryHandler.TerritoryStats.Territory.name).Value[k];
                 if (_territory.GetUnit(Utils.instance.Units_string[k]).Quantity > 0)
                 {
-                    _territory.GetBuilding(_territory.GetUnit(Utils.instance.Units_string[k])).ImproveBuilding(1);
+                    //_territory.GetBuilding(_territory.GetUnit(Utils.instance.Units_string[k])).ImproveBuilding(1);
+                    _territory.GetBuilding(_territory.GetUnit(Utils.instance.Units_string[k])).ImproveManyLevels(1,_territory);
                     _territory.GetBuilding(_territory.GetUnit(Utils.instance.Units_string[k])).ImproveCostUpgrade(1);
                     _territory.GetBuilding(_territory.GetUnit(Utils.instance.Units_string[k])).Status++;
                 }
@@ -512,11 +513,13 @@ public class TerritoryManager : MonoBehaviour
         {
             if (element == "channel")
             {
-                rate += list[i].TerritoryStats.Territory.FarmTerritory.WorkersChannel / list[i].TerritoryStats.Territory.PerPeople;
+                //  rate += list[i].TerritoryStats.Territory.FarmTerritory.WorkersChannel / list[i].TerritoryStats.Territory.PerPeople;
+                rate += list[i].TerritoryStats.Territory.FarmTerritory.LimitUnits / list[i].TerritoryStats.Territory.PerPeople;
             }
             else if (element == "goldmine")
             {
-                rate += list[i].TerritoryStats.Territory.GoldMineTerritory.WorkersMine / list[i].TerritoryStats.Territory.PerPeople;
+                //  rate += list[i].TerritoryStats.Territory.GoldMineTerritory.WorkersMine / list[i].TerritoryStats.Territory.PerPeople;
+                rate += list[i].TerritoryStats.Territory.GoldMineTerritory.LimitUnits / list[i].TerritoryStats.Territory.PerPeople;
             }
         }
         return rate;

@@ -2,38 +2,57 @@ using UnityEngine;
 [System.Serializable]
 public class Barracks : Building
 {
-    private float speedLancer = 0f;
-    private int limitLancer = 70;
 
     public Barracks()
     {
-        this.Name ="Barracks";
-        this.speedLancer = 0f;
-        this.limitLancer = 70;
-        this.AtributteSpeed = 0.6f;
-        this.AtributteLimit = 10;
+        this.nameBuilding ="Barracks";
+        this.initValue = 70;
+        this.speedUnits = 0f;
+        this.limitUnits = 70;
+        this.atributteSpeed = 0.6f;
+        this.atributteLimit = 10;
+        isBuildMilitar = true;
     }
-    public float SpeedLancer
+    /*
+    public override void ImproveBuilding()
     {
-        get { return speedLancer; }
-        set { speedLancer = value; }
+        base.ImproveBuilding();
+        if (this.level % 3 == 0)
+        {
+            levelSpeed++;
+        }
+        else if (this.level % 3 == 1)
+        {
+            levelLimit++;
+            levelSpeed++;
+        }
+        else
+        {
+            levelMaterials++;
+            levelSpeed++;
+        }
+        this.speedUnits = this.atributteSpeed * levelSpeed;
+        this.limitUnits = 70+ this.atributteLimit * levelLimit;
+        this.materialUnits = levelMaterials;
     }
-    public int LimitLancer
+    public override void SubsideBuilding()
     {
-        get { return limitLancer; }
-        set { limitLancer = value; }
+        base.SubsideBuilding();
+        if (this.Level % 3 == 0)
+        {
+            levelSpeed--;
+        }
+        else if (this.Level % 3 == 1)
+        {
+            levelLimit--;
+        }
+        else
+        {
+            levelMaterials--;
+        }
+        this.speedUnits = this.atributteSpeed * levelSpeed;
+        this.limitUnits = 70 + this.atributteLimit * levelLimit;
+        this.materialUnits = levelMaterials;
     }
-    public override void ImproveBuilding(int _levels)
-    {
-        base.ImproveBuilding(_levels);
-        this.speedLancer += this.AtributteSpeed * _levels;
-        this.limitLancer += this.AtributteLimit * _levels;
-
-    }
-    public override void SubsideBuilding(int _levels)
-    {
-        base.SubsideBuilding(_levels);
-        this.speedLancer -= (int)this.AtributteSpeed * _levels;
-        this.limitLancer -= (int)this.AtributteLimit * _levels;
-    }
+    */
 }
