@@ -410,8 +410,10 @@ public class WarManager : MonoBehaviour
         }
         else
         {
-            if(attacker.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER || otherTerritory.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
+            
+            if (attacker.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER || otherTerritory.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
             {
+                print("llego aca"); 
                 TutorialController.instance.CanSelectTroops = true;
                 DateTableHandler.instance.PauseTime();
                 battleCanvas.SetActive(true);
@@ -421,9 +423,10 @@ public class WarManager : MonoBehaviour
                 TerritoryHandler enemyTerritory;
                 if (attacker.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
                 {
-
+                    
                     playerTroop = attackerTroop;
                     enemyTroop = new Troop(otherTerritory.TerritoryStats.Territory.TroopDefending);
+                    print(playerTroop.GetAllNumbersUnit());
                     playerTerritory = attacker;
                     enemyTerritory = otherTerritory;
                 }
