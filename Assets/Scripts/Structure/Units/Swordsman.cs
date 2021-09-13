@@ -11,6 +11,7 @@ public class Swordsman:UnitCombat
         this.CharacIconType = "warriors";
         this.CharacIconIndex = "w1";
         this.Attack = 10;
+        this.Evasion = 0;
         this.Defense = 6;
         this.Precision = 90;
         this.Range = 1;

@@ -136,7 +136,7 @@ public class EventManager : MonoBehaviour
             ThirdOptionButton.onClick.RemoveAllListeners();
             ThirdOptionButton.onClick.AddListener(() => CloseInEvent(custom));
             ThirdOptionButton.onClick.AddListener(() => Close());
-        }   
+        } 
     }
     private void CloseInEvent(CustomEvent custom)
     {
@@ -184,7 +184,7 @@ public class EventManager : MonoBehaviour
             FirstOptionButton.interactable = true;
         }
         */
-        if (custom.EventType == CustomEvent.EVENTTYPE.EXPLORATION)
+        if (custom.EventType == CustomEvent.EVENTTYPE.WASTE)
         {
             FirstOptionButton.gameObject.SetActive(false);
             FirstOptionButton.gameObject.SetActive(false);
@@ -256,9 +256,31 @@ public class EventManager : MonoBehaviour
         listEvents.AddExpedicionEvent(TimeSystem.instance.TimeGame,troopToWaste, attacker, wasteTerritory);
         SetNotificationEvent(true);
     }
-    public void AddBattleEvent(Troop playerTroop, Troop enemyTroop, TerritoryHandler _playerTerritory, TerritoryHandler _enemyTerritory, bool isPlayerTerritory)
+    public void AddBattleEvents(Troop playerTroop, Troop enemyTroop, TerritoryHandler _playerTerritory, TerritoryHandler _enemyTerritory, bool isPlayerTerritory)
     {
-        listEvents.AddBattleEvent(playerTroop,enemyTroop,_playerTerritory,_enemyTerritory,isPlayerTerritory);
+        
+        if (Random.Range(0, 100) >= 30)
+            listEvents.AddBattleEvent("INIT", playerTroop, enemyTroop, _playerTerritory, _enemyTerritory, isPlayerTerritory);
+        if (Random.Range(0, 100) >= 30)
+            listEvents.AddBattleEvent("MIDDLE", playerTroop, enemyTroop, _playerTerritory, _enemyTerritory, isPlayerTerritory);
+        if (Random.Range(0, 100) >= 30)
+            listEvents.AddBattleEvent("FINAL", playerTroop, enemyTroop, _playerTerritory, _enemyTerritory, isPlayerTerritory);
+        /*
+
+        int a = 13;
+        int b = 0;
+        for (int i = 20; i > 0; i--)
+        {
+            //Debug.Log("-b|" + b + "-evento|"+ ((CustomEvent.EVENTTYPE)a).ToString() + "-i|" + i);
+            listEvents.AddBattleEvent(a, i, playerTroop, enemyTroop, _playerTerritory, _enemyTerritory, isPlayerTerritory);
+            b++;
+            if (b==3)
+            {
+                b = 0;
+                a++;
+            }
+        }
+        */
     }
     /// <summary>
     /// Check the timeGame with the timeAddEvent
@@ -325,26 +347,22 @@ public class EventManager : MonoBehaviour
         }
         if (listEvents.BattleEvents.Count>0)
         {
-            if (listEvents.BattleEvents[0].TurnEvent != 21)
+            for (int i = 0; i < listEvents.BattleEvents.Count; i++)
             {
-                if (CombatManager.instance.Turns == listEvents.BattleEvents[0].TurnEvent && listEvents.BattleEvents[0].EventStatus == CustomEvent.STATUS.ANNOUNCE)
+                if (CombatManager.instance.Turns == listEvents.BattleEvents[i].TurnEvent && listEvents.BattleEvents[i].EventStatus == CustomEvent.STATUS.ANNOUNCE)
                 {
-                    WarningEventAppearanceInBattle(listEvents.BattleEvents[0]);
-                    listEvents.BattleEvents[0].EventStatus = CustomEvent.STATUS.PROGRESS;
-                }   
-                if (listEvents.BattleEvents[0].EventStatus == CustomEvent.STATUS.FINISH)
-                {
-                    //FinishCustomEvent(listEvents.BattleEvents[0]);
+                    WarningEventAppearanceInBattle(listEvents.BattleEvents[i]);
+                    currentBattle = i;
+                    listEvents.BattleEvents[i].EventStatus = CustomEvent.STATUS.PROGRESS;
                 }
             }
-            else
-            {
-                listEvents.RemoveEvent(listEvents.BattleEvents[0]);
-            }
         }
-
     }
-    
+    [SerializeField]private int currentBattle;
+    public CustomBattle CurrentBattleEvent
+    {
+        get { return listEvents.BattleEvents[currentBattle]; }
+    }
     /// <summary>
     /// check the diference days of the UPGRADE-BUILDS events in the list according
     /// to the TIME-INIT of the upgrade of every event comparing with the timeGame

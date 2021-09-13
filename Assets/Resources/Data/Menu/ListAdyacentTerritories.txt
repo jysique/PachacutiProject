@@ -1,7 +1,7 @@
 //name territory:typePlayer:unitsTerritory(Swordsman,Lancer,Axeman,Scout,Archer):regionTerritory:TerrainsTerritory:TerritoriesAdyacent
 Acomayo:none:50,0,50,0,0:none:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Canas,Canchis,Chumbivilcas,Qosqo,Quispicanchi
-Calca:none:80,0,0,0,0:centre:forest,forest,mountain,sand,grassland,forest,mountain,forest:LaConvencion,Paucartambo,Qosqo,Urubamba,Quispicanchi,Manu
-Canas:none:50,0,0,50,0:southern:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Canchis,Chumbivilcas,Espinar,Acomayo
+Calca:none:40,20,0,0,0:centre:forest,forest,mountain,sand,grassland,forest,sand,mountain:LaConvencion,Paucartambo,Qosqo,Urubamba,Quispicanchi,Manu
+Canas:none:50,0,0,50,0:southern:grassland,forest,mountain,grassland,sand,forest,mountain,sand:Canchis,Chumbivilcas,Espinar,Acomayo
 Canchis:none:50,50,50,0,0:southern:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Canas,Acomayo,Quispicanchi
 Chumbivilcas:none:50,50,0,50,0:southern:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Espinar,Acomayo,Canas
 Espinar:bot:0,50,50,50,50:southern:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Canas,Chumbivilcas

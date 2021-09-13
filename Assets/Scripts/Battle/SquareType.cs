@@ -1,4 +1,4 @@
-
+ 
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,31 +10,22 @@ public class SquareType : MonoBehaviour
     public int index;
     public Terrain terrain;
     public UnitGroup unitGroup = null;
-
+    
     private void Start()
     {
         DeactivateChange();
-        if (unitGroup != null)
-        {
-            terrain.GetValue(unitGroup.UnitCombat);
-        }
     }
     public void MoveButton()
     {
         CombatManager.instance.ChangeUnits(index, CombatManager.instance.ActualUnitIndex());
-        
     }
-
     private void Update()
     {
-        //print(terrain.Attribute);
         if (unitGroup != null)
         {
-            //print(index + "-" + unitGroup.UnitCombat.CharacterName);
             haveUnit = true;
         }
         else {
-            //print(index + "- no unitCombat");
             haveUnit = false;
         }
     }
@@ -42,7 +33,9 @@ public class SquareType : MonoBehaviour
     {
         if (unitGroup != null)
         {
-            terrain.GetValue(unitGroup.UnitCombat);
+            //print("reset");
+            Utils.instance.Reset(unitGroup.UnitCombat);
+            terrain.GetValue(unitGroup);
         }
         else
         {
@@ -65,6 +58,7 @@ public class Terrain
     [SerializeField] private TYPE type;
     [SerializeField] private int scale;
     [SerializeField] private string attribute;
+    [SerializeField] private float value;
     private Sprite picture;
     public string Attribute
     {
@@ -77,25 +71,44 @@ public class Terrain
         this.scale = UnityEngine.Random.Range(1, 5);
         this.attribute = "";
     }
-    public void GetValue(UnitCombat uc)
+    public void GetValue(UnitGroup ug)
     {
-        int a = UnityEngine.Random.Range(this.scale*10, (this.scale+1)* 10);
+        /*
+        Debug.Log("=====================");
+        Debug.Log("type|" + ug.TypePlayer);
+        Debug.Log(ug.TypePlayer+"|name|" + ug.UnitCombat.UnitName);
+        Debug.Log(ug.TypePlayer+"|attack|" + ug.UnitCombat.Attack);
+        Debug.Log(ug.TypePlayer+"|precision|" + ug.UnitCombat.Precision);
+        Debug.Log(ug.TypePlayer+"|defense|" + ug.UnitCombat.Defense);
+        */
+        value = UnityEngine.Random.Range(this.scale*10, (this.scale+1)* 10);
+        //Debug.Log("value|" + value);
+        float a;
         switch (this.type)
         {
             case TYPE.GRASSLAND:
-                this.attribute = " +" + a + "% idk";
+                a = (value / 100);
+                ug.UnitCombat.Evasion += (int)a;
+                this.attribute = " +" + value + "% evasion";
                 break;
             case TYPE.FOREST:
-                uc.Attack = uc.Attack+ (a / 100) * uc.Attack;
-                this.attribute = " +" + a + "% attack";
+                a = (value / 100) * ug.UnitCombat.Attack;
+                ug.UnitCombat.Attack += (int)a;
+                this.attribute = " +" + value + "% attack";
                 break;
             case TYPE.MOUNTAIN:
-                uc.Precision = uc.Precision+(a / 100) * uc.Precision;
-                this.attribute = " +" + a + "% presicion";
+                a = (value / 100) * ug.UnitCombat.Precision;
+                ug.UnitCombat.Precision += (int)a;
+                if (ug.UnitCombat.Precision > 100)
+                {
+                    ug.UnitCombat.Precision = 100;
+                }
+                this.attribute = " +" + value + "% presicion";
                 break;
             case TYPE.SAND:
-                uc.Defense = uc.Defense + (a / 100) * uc.Defense;
-                this.attribute = " +" + a + "% defense";
+                a = (value / 100) * ug.UnitCombat.Defense;
+                ug.UnitCombat.Defense += (int)a;
+                this.attribute = " +" + value + "% defense";
                 break;
             case TYPE.NONE:
                 break;
@@ -103,6 +116,9 @@ public class Terrain
                 break;
         }
     }
+
+
+
     public TYPE Type
     {
         get { return type; }

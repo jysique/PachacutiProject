@@ -413,7 +413,6 @@ public class WarManager : MonoBehaviour
             
             if (attacker.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER || otherTerritory.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
             {
-                print("llego aca"); 
                 TutorialController.instance.CanSelectTroops = true;
                 DateTableHandler.instance.PauseTime();
                 battleCanvas.SetActive(true);

@@ -6,6 +6,7 @@ public class UnitGroup
 {
     [SerializeField] bool defense;
     [SerializeField] private bool active;
+    private bool inmunity;
     [SerializeField] UnitCombat unitCombat;
     Territory.TYPEPLAYER typePlayer;
     GameObject unitsGO;
@@ -69,5 +70,10 @@ public class UnitGroup
     {
         get { return active; }
         set { active = value; }
+    }
+    public bool Inmunity
+    {
+        get { return inmunity; }
+        set { inmunity = value; }
     }
 }

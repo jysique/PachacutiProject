@@ -12,6 +12,7 @@ public class Lancer:UnitCombat
         this.CharacIconIndex = "spear";
         this.Attack = 15;
         this.Defense = 5;
+        this.Evasion = 0;
         this.Precision = 85;
         this.Range = 1;
         this.StrongTo = new string[] { "Swordsman" };

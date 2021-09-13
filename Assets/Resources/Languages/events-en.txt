@@ -1,0 +1,188 @@
+EARTHQUAKER_NAME= EARTHQUAKER
+EARTHQUAKER1=
+EARTHQUAKER2=
+EARTHQUAKER3=
+EARTHQUAKERM=An earthquake has occurred in TERRITORYEVENT territory
+EARTHQUAKERA= 
+EARTHQUAKERD=Reset builds in TERRITORYEVENT territory.
+EARTHQUAKERT=
+
+DROUGHT_NAME= DROUGHT IN A TERRITORY
+DROUGHT1=Yes, let's improve the situation
+DROUGHT2=No, there are other problems
+DROUGHT3=Can be viewed later
+DROUGHTM=Drought continues in TERRITORYEVENT territory. The villagers are going through a bad time. That is why they ask you for the following requirements
+DROUGHTA=The residents can continue harvesting.
+DROUGHTD=Conditions worsen for irrigation canals and troops in TERRITORYEVENT.
+DROUGHTT=
+
+REBELION_NAME= REBEL AGAINST THE EMPIRE
+REBELION1=Yes, let's improve the situation
+REBELION2=No, there are other problems
+REBELION3=Can be viewed later
+REBELIONM=In TERRITORYEVENT territory they plan to rebel against you. If you do not complete the following requirements, we will lose this territory. 
+REBELIONA= Keep TERRITORYEVENT territory.
+REBELIOND= -TERRITORYEVENT territory.
+REBELIONT=
+
+ALL_T_PANDEMIC_NAME= SITUATION IN PANDEMIC
+ALL_T_PANDEMIC1=Yes, let's improve the situation
+ALL_T_PANDEMIC2=No, there are other problems
+ALL_T_PANDEMIC3=Can be viewed later
+ALL_T_PANDEMICM=We have found a disease in our territories. If we don't do something we will lose half of our men.
+ALL_T_PANDEMICA=Cure the desease in all territories.
+ALL_T_PANDEMICD=-50% trops in all territories.
+ALL_T_PANDEMICT=
+
+PANDEMIC_NAME= SITUATION IN PANDEMIC
+PANDEMIC1=Yes, let's improve the situation
+PANDEMIC2=No, there are other problems
+PANDEMIC3=Can be viewed later
+PANDEMICM=We have found a disease in TERRITORYEVENT territory. If we don't do something we will lose half of our men.
+PANDEMICA=Cure the desease in TERRITORYEVENT
+PANDEMICD=-50% trops in TERRITORYEVENT
+PANDEMICT=
+
+ALL_T_PLAGUE_NAME= PEST SITUATION
+ALL_T_PLAGUE1=Yes, let's improve the situation
+ALL_T_PLAGUE2=No, there are other problems
+ALL_T_PLAGUE3=Can be viewed later
+ALL_T_PLAGUEM=Our crops may be in danger from the plague. If we don't do something we will lose our food. 
+ALL_T_PLAGUEA=Eliminate the plague in all territories.
+ALL_T_PLAGUED=Reduce irrigation canals to level 0 in all territories.
+ALL_T_PLAGUET=
+
+PLAGUE_NAME= PEST SITUATION
+PLAGUE1=Yes, let's improve the situation
+PLAGUE2=No, there are other problems
+PLAGUE3=Can be viewed later
+PLAGUEM=Our crops in TERRITORYEVENT territory may be endangered by the plague. If we don't do something we will lose the food of that place.
+PLAGUEA=Eliminate the plague in TERRITORYEVENT
+PLAGUED=Reduce irrigation channels to level 0 in TERRITORYEVENT.
+PLAGUET=
+
+PETITION_MIN_NAME= IMPROVEMENT REQUEST
+PETITION_MIN1=Yes, let's improve the situation
+PETITION_MIN2=No, there are other problems
+PETITION_MIN3=Can be viewed later
+PETITION_MINM=In TERRITORYEVENT territory they want to ask you to improve the mine. They are somewhat short of resources. 
+PETITION_MINA=+2 mine gold level in TERRITORYEVENT territory.
+PETITION_MIND=-10 opinion in TERRITORYEVENT territory.
+PETITION_MINT=
+
+PETITION_FOR_NAME= IMPROVEMENT REQUEST
+PETITION_FOR1=Yes, let's improve the situation
+PETITION_FOR2=No, there are other problems
+PETITION_FOR3=Can be viewed later
+PETITION_FORM=In TERRITORYEVENT territory they want to ask you to improve your defenses. They are very unprotected. 
+PETITION_FORA=+2 fortress level in TERRITORYEVENT territory.
+PETITION_FORD=-10 opinion in TERRITORYEVENT territory.
+PETITION_FORT=
+
+GRACE_MIN_NAME= GRACE OF IMPROVEMENT
+GRACE_MIN1=Yes, let's improve the situation
+GRACE_MIN2=No, there are other problems
+GRACE_MIN3=Can be viewed later
+GRACE_MINM=An abandoned mine has been found in TERRITORYEVENT territory. To appropriate them to our territories, meet the following requirements. 
+GRACE_MINA=+3 gold mine level in TERRITORYEVENT territory.
+GRACE_MIND=+15 gold.
+GRACE_MINT=
+
+GRACE_FOOD_NAME= GRACE OF IMPROVEMENT
+GRACE_FOOD1=Yes, let's improve the situation
+GRACE_FOOD2=No, there are other problems
+GRACE_FOOD3=Can be viewed later
+GRACE_FOODM=We want to expand the seeding in TERRITORYEVENT territory. To run this, meet the following requirements. 
+GRACE_FOODA=+3 irrigate chanel levels in TERRITORYEVENT territory.
+GRACE_FOODD=+15 food.
+GRACE_FOODT= 
+
+CONQUIST_NAME= TERRITORY CONQUEST
+CONQUIST1=Yes, let's improve the situation
+CONQUIST2=No, there are other problems
+CONQUIST3=Can be viewed later
+CONQUISTM=Assigns a military chied in TERRITORYEVENT territory.
+CONQUISTA=
+CONQUISTD=
+CONQUISTT=
+
+EXPLORATION_NAME= TERRITORY EXPLORATION
+EXPLORATION1=Yes, let's improve the situation
+EXPLORATION2=No, there are other problems
+EXPLORATION3=Can be viewed later
+EXPLORATIONM=Exploration in progress. You have sent NUMBER units.
+EXPLORATIONA=
+EXPLORATIOND=
+EXPLORATIONT=
+
+EXCURSION_NAME=TIME FOR EXCURSION
+EXCURSION1= Yes, let's explore a little
+EXCURSION2= Let's take all the units
+EXCURSION3= I don't think it's convenient
+EXCURSIONM= A hidden path has been found within the battlefield, do you want to send a unit to investigate?
+EXCURSIONA= The exploration was a success. Units got some improvements in attack (+6 attack).
+EXCURSIOND= The exploration was a success. The unit got some improvements in attack (+12 attack).
+EXCURSIONT= The exploration  was not performed
+
+INTOXICATE_NAME=TO GET DRUNK
+INTOXICATE1= Yeah let's carry the strongest beer
+INTOXICATE2= Maybe we could stop by
+INTOXICATE3= I don't think it's convenient
+INTOXICATEM= A camp of enemy units has been found. We could send a spy and get the enemies drunk before the battle
+INTOXICATEA= They drank all the beer we left in the camp (-20 precision)
+INTOXICATED= I think they suspected the order (-10 precision)
+INTOXICATET= The action was not taken
+
+WOOKIE_NAME= WHAT IT THIS?
+WOOKIE1= Let's finish off the wookiee
+WOOKIE2= Let's try to catch it
+WOOKIE3= That the units do not wear out
+WOOKIEM= While we were heading to the battlefield we were attacked by a Wookiee who was prowling the area
+WOOKIEA= We have not been able to kill the Wookiee, in the process we lost 20 combat units
+WOOKIED= We have not been able to capture the Wookiee, in the process we lost 10 combat units
+WOOKIET= We have successfully escaped
+
+REINFORCEMENT_NAME=REINFORCEMENTS FOR UNITS
+REINFORCEMENT1= Yes, prepare them for battle
+REINFORCEMENT2= Maybe a few
+REINFORCEMENT3= This time I think not.
+REINFORCEMENTM= The general thinks that we should be in charge of reinforcing our units in battle, some are already ready for battle
+REINFORCEMENTA= Reinforcements are already on their way to battle (+12 units)
+REINFORCEMENTD= Reinforcements are already on their way to battle (+8 units)
+REINFORCEMENTT= We will not take advantage of reinforcements
+
+CURE_NAME=UNIT HEALING
+CURE1= Yes, help would be good
+CURE3= We must be cautious
+CURE2= We shouldn't trust strangers
+CUREM= We have rescued a shaman from the area, and he has granted us the favor of healing one of our units, it is possible that he will fail in the attempt
+CUREA= The curing of our units was successful
+CURED= The curing of our units was successful
+CURET= Healing failed
+
+ABILITYX2_NAME=TWO TIMES IS BETTER
+ABILITYX21= What a good service
+ABILITYX23= Would come in handy
+ABILITYX22= Needless
+ABILITYX2M= I have been granted the divine grace to be able to activate my ability twice
+ABILITYX2A= Now you can activate the special ability 2 times
+ABILITYX2D= The limit for the use of the special ability is now 2
+ABILITYX2T= The limit for the use of the special ability is still 1
+
+PILLAGE_NAME=LANDING OF LAND
+PILLAGE1= Approved.
+PILLAGE3= It would be good for the economy.
+PILLAGE2= I don't think it is necessary.
+PILLAGEM= A piece of terrain has been found that we can loot
+PILLAGEA= We won some gold but it cost us 1 turn.
+PILLAGED= We won some food but it cost us 1 turn.
+PILLAGET= We won some gold and food. 
+
+BURN_NAME=LANDING OF FIRE
+BURN1= Let's burn everything
+BURN3= Let's try to lower the ground 
+BURN2= I don't think it is necessary.
+BURNM= A piece of terrain has been found that we can burn
+BURNA= We destroy a building on the terrain with the burning
+BURND= We destroy a building on the terrain with the burning
+BURNT= Terrain burning failed
