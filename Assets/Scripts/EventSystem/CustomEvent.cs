@@ -181,14 +181,14 @@ public class CustomEvent
     /// </summary>
     protected void GetMessage()
     {
-        this.nameEvent = GameMultiLang.GetTraduction(eventType.ToString() + "_NAME");
-        this.btn1 = GameMultiLang.GetTraduction(eventType.ToString() + "1");
-        this.btn2 = GameMultiLang.GetTraduction(eventType.ToString() + "2");
-        this.btn3 = GameMultiLang.GetTraduction(eventType.ToString() + "3");
-        this.message = GameMultiLang.GetTraduction(eventType.ToString() + "M").Replace("TERRITORYEVENT", TerritoryEvent.name);
-        this.acceptMessageEvent = GameMultiLang.GetTraduction(eventType.ToString() + "A").Replace("TERRITORYEVENT", TerritoryEvent.name);
-        this.declineMessageEvent = GameMultiLang.GetTraduction(eventType.ToString() + "D").Replace("TERRITORYEVENT", TerritoryEvent.name);
-        this.thirdMessageEvent = GameMultiLang.GetTraduction(eventType.ToString() + "T").Replace("TERRITORYEVENT", TerritoryEvent.name);
+        this.nameEvent = GameMultiLang.GetTraductionEvents(eventType.ToString() + "_NAME");
+        this.btn1 = GameMultiLang.GetTraductionEvents(eventType.ToString() + "1");
+        this.btn2 = GameMultiLang.GetTraductionEvents(eventType.ToString() + "2");
+        this.btn3 = GameMultiLang.GetTraductionEvents(eventType.ToString() + "3");
+        this.message = GameMultiLang.GetTraductionEvents(eventType.ToString() + "M").Replace("TERRITORYEVENT", TerritoryEvent.name);
+        this.acceptMessageEvent = GameMultiLang.GetTraductionEvents(eventType.ToString() + "A").Replace("TERRITORYEVENT", TerritoryEvent.name);
+        this.declineMessageEvent = GameMultiLang.GetTraductionEvents(eventType.ToString() + "D").Replace("TERRITORYEVENT", TerritoryEvent.name);
+        this.thirdMessageEvent = GameMultiLang.GetTraductionEvents(eventType.ToString() + "T").Replace("TERRITORYEVENT", TerritoryEvent.name);
     }
     protected void GetRequirement()
     {
@@ -249,11 +249,14 @@ public class CustomEvent
                     accept = true;
                 }
                 break;
+            case EVENTTYPE.EXCURSION:
+            case EVENTTYPE.INTOXICATE:
+            case EVENTTYPE.WOOKIE:
             case EVENTTYPE.REINFORCEMENT:
             case EVENTTYPE.CURE:
-            //case EVENTTYPE.REBEL:
-            case EVENTTYPE.TRAMP:
+            case EVENTTYPE.ABILITYX2:
             case EVENTTYPE.PILLAGE:
+            case EVENTTYPE.BURN:
                 accept = true;
                 break;
             default:
@@ -357,9 +360,6 @@ public class CustomEvent
                 break;
             case EVENTTYPE.PETITION_FOR:
                 break;
-           // case EVENTTYPE.GRACE_DIV:
-           //     TerritoryEvent.TerritoryStats.Territory.OpinionTerritory -= 10;
-           //     break;
             case EVENTTYPE.GRACE_MIN:
                 InGameMenuHandler.instance.GoldPlayer += 15;
                 break;
@@ -394,7 +394,6 @@ public class CustomEvent
             case EVENTTYPE.PLAGUE:
             case EVENTTYPE.PETITION_MIN:
             case EVENTTYPE.PETITION_FOR:
-          //  case EVENTTYPE.GRACE_DIV:
             case EVENTTYPE.GRACE_MIN:
             case EVENTTYPE.GRACE_FOOD:
                 break;
@@ -428,7 +427,7 @@ public class CustomEvent
             {
                 this.resultMessageEvent = GameMultiLang.GetTraduction("EarthquarkeResults").Replace("TERRITORYEVENT", TerritoryEvent.name);
             }
-            if (eventType == EVENTTYPE.EXPLORATION)
+            if (eventType == EVENTTYPE.WASTE)
             {
                 this.resultMessageEvent = GameMultiLang.GetTraduction("ExplorationResults").Replace("TERRITORYEVENT", TerritoryEvent.name);
             }
@@ -446,16 +445,24 @@ public class CustomEvent
         PLAGUE,
         PETITION_MIN,
         PETITION_FOR,
-     //   GRACE_DIV,
         GRACE_MIN,
         GRACE_FOOD,
+        //CONQUIST TERRITORY
         CONQUIST,
-        EXPLORATION,
+        //EXPLORATION WASTE
+        WASTE,
+        //CUSTOM BATTLE
+        //INIT
+        EXCURSION,
+        INTOXICATE,
+        WOOKIE,
+        //MIDDLE
         REINFORCEMENT,
         CURE,
-        // REBEL,
-        TRAMP,
-        PILLAGE
+        ABILITYX2,
+        //FINAL
+        PILLAGE,
+        BURN,
     }
     public enum STATUS
     {
@@ -505,7 +512,7 @@ public class CustomExpedition : CustomEvent
         this.isAcceptedEvent = false;
         this.attacker = attackerterritory;
         this.territoryEvent = wasterterritory;
-        this.eventType = EVENTTYPE.EXPLORATION;
+        this.eventType = EVENTTYPE.WASTE;
         this.eventStatus = STATUS.PROGRESS;
         this.requirementMessageEvent = " ";
       //  this.costEvent = UnityEngine.Random.Range(1, InGameMenuHandler.instance.GoldPlayer / 2);
@@ -529,26 +536,26 @@ public class CustomExpedition : CustomEvent
 public class CustomBattle : CustomEvent
 {
     [SerializeField] int turn;
-    UnitGroup ug;
+    List<UnitGroup> ug = new List<UnitGroup>();
     [SerializeField] private Troop troop = new Troop();
     Territory.TYPEPLAYER typeEvent;
+    bool miss = false;
+    int index_to_mod;
     int units_to_mod;
+    int mod;
     int costgold;
     int costfood;
-    bool miss = false;
+    string building_to_mod;
     public int TurnEvent
     {
         get { return turn; }
     }
-    public CustomBattle(Troop _troopPlayer, Troop _troopNoPlayer, TerritoryHandler _territoryPlayer, TerritoryHandler _territoryNoPlayer)
+    public CustomBattle(string _type, Troop _troopPlayer, Troop _troopNoPlayer, TerritoryHandler _territoryPlayer, TerritoryHandler _territoryNoPlayer)
     {
         this.eventStatus = STATUS.ANNOUNCE;
-    //    this.territoryEvent = _territoryHandler;
-        this.turn = UnityEngine.Random.Range(0, 21);
-        // this.eventType = (EVENTTYPE)UnityEngine.Random.Range(14, 17);
-        this.eventType = EVENTTYPE.PILLAGE;
         this.isBattle = true;
-        if (eventType != EVENTTYPE.TRAMP && eventType != EVENTTYPE.PILLAGE)
+        GetTypeBattle(_type);
+        if ( eventType != EVENTTYPE.INTOXICATE)
         {
             this.troop.SaveTroop(_troopPlayer);
             this.typeEvent = _territoryPlayer.TerritoryStats.Territory.TypePlayer;
@@ -560,17 +567,60 @@ public class CustomBattle : CustomEvent
             this.typeEvent = _territoryNoPlayer.TerritoryStats.Territory.TypePlayer;
             this.territoryEvent = _territoryNoPlayer;
         }
-
         GetMessage();
         GetRequirement();
     }
-    private void GetUnitGroup(int _refDividedBy, bool add )
+
+    public CustomBattle(int _a,int _turn, Troop _troopPlayer, Troop _troopNoPlayer, TerritoryHandler _territoryPlayer, TerritoryHandler _territoryNoPlayer)
+    {
+        isAcceptedEvent = false;
+        this.eventStatus = STATUS.ANNOUNCE;
+        this.isBattle = true;
+        this.eventType = (EVENTTYPE)_a;
+        this.turn = _turn;
+        if (eventType != EVENTTYPE.INTOXICATE)
+        {
+            this.troop.SaveTroop(_troopPlayer);
+            this.typeEvent = _territoryPlayer.TerritoryStats.Territory.TypePlayer;
+            this.territoryEvent = _territoryPlayer;
+        }
+        else
+        {
+            this.troop.SaveTroop(_troopNoPlayer);
+            this.typeEvent = _territoryNoPlayer.TerritoryStats.Territory.TypePlayer;
+            this.territoryEvent = _territoryNoPlayer;
+        }
+        GetMessage();
+        GetRequirement();
+    }
+
+    private void GetTypeBattle(string battleType)
+    {
+        int turns = CombatManager.instance.Turns;
+        switch (battleType)
+        {
+            case "INIT":
+                this.turn = 20;
+                this.eventType = (EVENTTYPE)UnityEngine.Random.Range(13, 16);
+                break;
+            case "MIDDLE":
+                this.turn = turns/2;
+                this.eventType = (EVENTTYPE)UnityEngine.Random.Range(16, 19);
+                break;
+            case "FINAL":
+                this.turn = 2;
+                this.eventType = (EVENTTYPE)UnityEngine.Random.Range(19, 21);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void Cure()
     {
         int squares_count = CombatManager.instance.Squares.transform.childCount;
         int max_units_count = troop.UnitCombats.Count-1;
         int random = UnityEngine.Random.Range(0, max_units_count);
-        Debug.Log("max|" + max_units_count + "rand" + random);
-        Debug.Log(troop.UnitCombats[random].UnitName);
         UnitCombat uc = troop.UnitCombats[random];
         int _pos = troop.Positions[random];
         for (int i = 0; i < squares_count; i++)
@@ -579,24 +629,83 @@ public class CustomBattle : CustomEvent
             UnitGroup _ug = _square.unitGroup;
             if (_ug != null && _ug.TypePlayer == this.typeEvent && _ug.UnitCombat.PositionInBattle == _pos)
             {
-                ug = _ug;
-                int _original_quantity = uc.Quantity;
-                int _actual_quantity = _ug.UnitCombat.Quantity;
-                if (add)
-                {
-                    units_to_mod = (_original_quantity - _actual_quantity) / _refDividedBy;
-                }
-                else
-                {
-                    units_to_mod = _actual_quantity / _refDividedBy;
-                }
-                Debug.Log("origin" + _original_quantity);
-                Debug.Log("actual" + _actual_quantity);
-                Debug.Log("refuerzos" + units_to_mod);
-               // reinforcement = _reinforcement;
+                ug.Add(_ug);
                 break;
             }
         }
+        int _original_quantity = uc.Quantity;
+        int _actual_quantity = ug[0].UnitCombat.Quantity;
+        units_to_mod = (_original_quantity - _actual_quantity);
+    }
+    private void GetUnitGroup()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            SquareType _square = CombatManager.instance.Squares.transform.GetChild(i).gameObject.GetComponent<SquareType>();
+            UnitGroup _ug = _square.unitGroup;
+            if (_ug != null && _ug.TypePlayer == territoryEvent.TerritoryStats.Territory.TypePlayer)
+            {
+                ug.Add(_ug);
+            }
+        }
+    }
+    private void GetFirstUnitGroup()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            SquareType _square = CombatManager.instance.Squares.transform.GetChild(i).gameObject.GetComponent<SquareType>();
+            UnitGroup _ug = _square.unitGroup;
+            if (_ug != null && _ug.TypePlayer == territoryEvent.TerritoryStats.Territory.TypePlayer)
+            {
+                ug.Add(_ug);
+                break;
+            }
+        }
+    }
+    private UnitGroup GetRandomUnitGroup()
+    {
+        GetUnitGroup();
+        int random = UnityEngine.Random.Range(0, ug.Count);
+        index_to_mod = random;
+        return ug[random];
+    }
+    private void GetUnitDeleted()
+    {
+        building_to_mod = " ";
+        if (UnityEngine.Random.Range(0, 100) <= 20 && ug.Count > 1)
+        {
+            building_to_mod = ug[1].UnitCombat.UnitName;
+            ug[1].UnitCombat.Quantity = 0;
+        }
+    }
+    private void CheckStatusInEvent()
+    {
+        if (ug.Count > 0)
+        {
+            for (int i = 0; i < ug.Count; i++)
+            {
+                CombatManager.instance.UpdateText(ug[i]);
+                CombatManager.instance.UpdateUnitGroup(ug[i]);
+            }
+            if (CombatManager.instance.EndBattle())
+            {
+                CombatManager.instance.OpenResumeBattle();
+            }
+        }
+    }
+    private int GetFirstPositionFree()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            int pos = i;
+            SquareType _square = CombatManager.instance.Squares.transform.GetChild(i).gameObject.GetComponent<SquareType>();
+            UnitGroup _ug = _square.unitGroup;
+            if (_ug == null)
+            {
+                return pos;
+            }
+        }
+        return -1;
     }
     private void PillageTerritory()
     {
@@ -606,121 +715,281 @@ public class CustomBattle : CustomEvent
     public override void AcceptEventAction()
     {
         base.AcceptEventAction();
+        isAcceptedEvent = true;
+        this.eventStatus = STATUS.PROGRESS;
         switch (eventType)
         {
+            case EVENTTYPE.EXCURSION:
+                GetFirstUnitGroup();
+                mod = 6;
+                for (int i = 0; i < ug.Count; i++)
+                {
+                    ug[i].UnitCombat.Attack += mod;
+                }
+                GetUnitDeleted();
+                break;
+            case EVENTTYPE.INTOXICATE:
+                mod = 20;
+                GetUnitGroup();
+                for (int i = 0; i < ug.Count; i++)
+                {
+                    ug[i].UnitCombat.Precision -= mod;
+                }
+                miss = false;
+                break;
+            case EVENTTYPE.WOOKIE:
+                UnitGroup u = GetRandomUnitGroup();
+                if (UnityEngine.Random.Range(0,100) <= 60)
+                {
+                    u.UnitCombat.Quantity = 0;
+                }
+                else
+                {
+                    u.UnitCombat.Quantity -= 10;
+                    if (u.UnitCombat.Quantity<= 0)
+                    {
+                        u.UnitCombat.Quantity = 0;
+                    }
+                }
+                break;
             case EVENTTYPE.REINFORCEMENT:
-                GetUnitGroup(2, true);
-                units_to_mod = 20;
+                GetFirstUnitGroup();
+                units_to_mod = 12;
+                index_to_mod = GetFirstPositionFree();
                 break;
             case EVENTTYPE.CURE:
-                GetUnitGroup(1, true);
+                Cure();
                 break;
-                //case EVENTTYPE.REBEL:
-                //break;
-            case EVENTTYPE.TRAMP:
-                GetUnitGroup(1,false);
+            case EVENTTYPE.ABILITYX2:
+                CombatManager.instance.LimitSA++;
                 break;
             case EVENTTYPE.PILLAGE:
-                GetUnitGroup(1, false); // reemplazar el unitgrupo por el transform del militar
                 costgold = territoryEvent.TerritoryStats.Territory.Gold;
                 PillageTerritory();
+                break;
+            case EVENTTYPE.BURN:
+                building_to_mod = "Farm";
                 break;
             default:
                 break;
         }
+        CheckStatusInEvent();
+
     }
     public override void DeclineEventAction()
     {
         base.DeclineEventAction();
+        isAcceptedEvent = true;
+        this.eventStatus = STATUS.PROGRESS;
         switch (eventType)
         {
+            case EVENTTYPE.EXCURSION:
+                GetUnitGroup();
+                mod = 12;
+                for (int i = 0; i < ug.Count; i++)
+                {
+                    ug[i].UnitCombat.Attack += 12;
+                }
+                GetUnitDeleted();
+                break;
+            case EVENTTYPE.INTOXICATE:
+                GetUnitGroup();
+                mod = 10;
+                for (int i = 0; i < ug.Count; i++)
+                {
+                    ug[i].UnitCombat.Precision -= 10;
+                }
+                miss = false;
+                break;
+            case EVENTTYPE.WOOKIE:
+                UnitGroup u = GetRandomUnitGroup();
+                if (UnityEngine.Random.Range(0, 100) <= 60)
+                {
+                    u.UnitCombat.Quantity = 0;
+                }
+                else
+                {
+                    u.UnitCombat.Quantity -= 20;
+                    if (u.UnitCombat.Quantity <= 0)
+                    {
+                        u.UnitCombat.Quantity = 0;
+                    }
+                }
+                break;
             case EVENTTYPE.REINFORCEMENT:
-                GetUnitGroup(2, true);
-                units_to_mod = 10;
+                GetFirstUnitGroup();
+                units_to_mod = 8;
+                index_to_mod = GetFirstPositionFree();
                 break;
             case EVENTTYPE.CURE:
-                GetUnitGroup(1, true);
+                Cure();
                 break;
-            //case EVENTTYPE.REBEL:
-            //  break;
-            case EVENTTYPE.TRAMP:
-                GetUnitGroup(2,false);
+            case EVENTTYPE.ABILITYX2:
+                CombatManager.instance.LimitSA++;
                 break;
             case EVENTTYPE.PILLAGE:
-                GetUnitGroup(1, false); // reemplazar el unitgrupo por el transform del militar
                 costfood = territoryEvent.TerritoryStats.Territory.FoodReward;
                 PillageTerritory();
+                break;
+            case EVENTTYPE.BURN:
+                int random = UnityEngine.Random.Range(0, Utils.instance.Buildings_string.Count);
+                building_to_mod = Utils.instance.Buildings_string[random];
                 break;
             default:
                 break;
         }
+        CheckStatusInEvent();
     }
     public override void AdicitionalEventAction()
     {
         base.AdicitionalEventAction();
+        isAcceptedEvent = true;
+        this.eventStatus = STATUS.PROGRESS;
         switch (eventType)
         {
+            case EVENTTYPE.EXCURSION:
+                GetUnitGroup();
+                miss = true;
+                break;
+            case EVENTTYPE.INTOXICATE:
+                GetUnitGroup();
+                miss = true;
+                break;
+            case EVENTTYPE.WOOKIE:
+                UnitGroup u = GetRandomUnitGroup();
+                u.UnitCombat.Quantity = 0;
+                break;
             case EVENTTYPE.REINFORCEMENT:
-                GetUnitGroup(1,true);
-                units_to_mod = 0;
+                GetFirstUnitGroup();
+                miss = true;
                 break;
             case EVENTTYPE.CURE:
-                GetUnitGroup(1,true);
-                break;
-            /*
-        case EVENTTYPE.REBEL:
-            break;
-            */
-            case EVENTTYPE.TRAMP:
+                Cure();
                 miss = true;
-                GetUnitGroup(1, false);
+                break;
+            case EVENTTYPE.ABILITYX2:
+                miss = true;
                 break;
             case EVENTTYPE.PILLAGE:
-                GetUnitGroup(1, false); // reemplazar el unitgrupo por el transform del militar
-                costfood = territoryEvent.TerritoryStats.Territory.FoodReward/3;
-                costgold = territoryEvent.TerritoryStats.Territory.Gold/3;
-                PillageTerritory();
+                miss = true;
+                break;
+            case EVENTTYPE.BURN:
+                miss = true;
                 break;
             default:
                 break;
         }
-
+        CheckStatusInEvent();
     }
+    // animacion en batalla
     public override void CloseEventAction()
     {
         base.CloseEventAction();
+        isAcceptedEvent = false;
+        this.eventStatus = STATUS.FINISH;
         switch (eventType)
         {
-            case EVENTTYPE.REINFORCEMENT:
-            case EVENTTYPE.CURE:
-                ug.UnitCombat.Quantity += units_to_mod;
-                CombatManager.instance.ShowFloatText("+" + units_to_mod + " units", ug.UnitsGO);
-                break;
-            //  case EVENTTYPE.REBEL:
-            //      break;
-            case EVENTTYPE.TRAMP:
+            case EVENTTYPE.EXCURSION:
                 if (!miss)
                 {
-                    ug.UnitCombat.Quantity -= units_to_mod;
-                    CombatManager.instance.AnimationInBattle(ug.UnitsGO,"rock");
-                    //CombatManager.instance.ShowFloatText("-" + units_to_mod + " units", ug.UnitsGO);
-                    //Verificar ug
+                    for (int i = 0; i < ug.Count; i++)
+                    {
+                        CombatManager.instance.ShowFloatText("+"+ mod +" attack", ug[i].UnitsGO);
+                    }
+                    if (building_to_mod != " ")
+                    {
+                        CombatManager.instance.ShowFloatTextMC("- " + building_to_mod);
+                    }
                 }
                 else
                 {
-                    CombatManager.instance.ShowFloatText("miss" ,ug.UnitsGO); 
+                    CombatManager.instance.ShowFloatTextMC("- miss");
+                }
+                break;
+            case EVENTTYPE.INTOXICATE:
+                //Debug.Log("miss? " + miss);
+                if (!miss)
+                {
+                    for (int i = 0; i < ug.Count; i++)
+                    {
+                        CombatManager.instance.ShowFloatText("-" + mod + " precision", ug[i].UnitsGO);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < ug.Count; i++)
+                    {
+                        CombatManager.instance.ShowFloatText("miss intoxicate", ug[i].UnitsGO);
+                    }
+                    
+                }
+                break;
+            case EVENTTYPE.WOOKIE:
+                for (int i = 0; i < ug.Count; i++)
+                {
+                    CombatManager.instance.ShowFloatText("attacked by wookie", ug[i].UnitsGO);
+                }
+                break;
+            case EVENTTYPE.REINFORCEMENT:
+                if (!miss)
+                {
+                    UnitCombat new_uc = Utils.instance.GetNewUnitCombat(ug[0].UnitCombat.UnitName);
+                    new_uc.Quantity = units_to_mod;
+                    CombatManager.instance.InstantiateUnitPlayer(index_to_mod, new_uc);
+                }
+                else
+                {
+                    CombatManager.instance.ShowFloatText("miss", ug[0].UnitsGO);
+                }
+                break;
+            case EVENTTYPE.CURE:
+                if (!miss)
+                {
+                    ug[0].UnitCombat.Quantity += units_to_mod;
+                    CombatManager.instance.ShowFloatText("+" + units_to_mod + " units", ug[0].UnitsGO);
+                }
+                else
+                {
+                    CombatManager.instance.ShowFloatText("miss", ug[0].UnitsGO);
+                }
+                break;
+            case EVENTTYPE.ABILITYX2:
+                if (!miss)
+                {
+                    CombatManager.instance.ShowFloatTextButton("+1 time");
+                }
+                else
+                {
+                    CombatManager.instance.ShowFloatTextButton("miss");
                 }
                 
                 break;
             case EVENTTYPE.PILLAGE:
-                InGameMenuHandler.instance.GoldPlayer += costgold;
-                InGameMenuHandler.instance.GoldPlayer += costfood;
-                CombatManager.instance.ShowFloatText("- "+costgold +" gold\n - " + costfood + " food", ug.UnitsGO);
-                //CombatManager.instance.ShowFloatText("+ "+costgold +" gold\n + " + costfood + " food", militarGO);
+                if (!miss)
+                {
+                    InGameMenuHandler.instance.GoldPlayer += costgold;
+                    InGameMenuHandler.instance.GoldPlayer += costfood;
+                    CombatManager.instance.ShowFloatTextMC("- " + costgold + " gold\n - " + costfood + " food");
+                    //CombatManager.instance.ShowFloatText("+ "+costgold +" gold\n + " + costfood + " food", militarGO);
+                }
+                else
+                {
+                    CombatManager.instance.ShowFloatTextMC("miss");
+                }
+                break;
+            case EVENTTYPE.BURN:
+                if (!miss)
+                {
+                    territoryEvent.TerritoryStats.Territory.GetBuilding(building_to_mod).ResetBuilding(territoryEvent.TerritoryStats.Territory);
+                    CombatManager.instance.ShowFloatTextMC("Reseting "+ building_to_mod);
+                }
+                else
+                {
+                    CombatManager.instance.ShowFloatTextMC("miss");
+                }
                 break;
             default:
                 break;
         }
-        CombatManager.instance.UpdateText(ug);
     }
 }

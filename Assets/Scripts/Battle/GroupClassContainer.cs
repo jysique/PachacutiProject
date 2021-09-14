@@ -17,8 +17,6 @@ public class GroupClassContainer : MonoBehaviour
 
     public void ReceiveDamage() {
         StartCoroutine(CombatManager.instance.MakeDamage(CombatManager.instance.ActualUnit(),stats));
-        // CombatManager.instance.MakeDamage(stats, CombatManager.instance.ActualUnit());
-        //CombatManager.instance.MakeMovement();
     }
 
     private void OnMouseOver()
@@ -62,6 +60,7 @@ public class GroupClassContainer : MonoBehaviour
     }
     private void Update()
     {
+
         //active = stats.Active;
     }
 

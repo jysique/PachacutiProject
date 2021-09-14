@@ -16,7 +16,7 @@ public class TerritoryManager : MonoBehaviour
     public Dictionary<string, Territory.TYPEPLAYER> dictionaryTypePlayer = new Dictionary<string, Territory.TYPEPLAYER>();
     public Dictionary<string, List<int>> dictionaryUnitCombats = new Dictionary<string, List<int>>();
 
-    [SerializeField] public List<float> areas = new List<float>();
+    public List<float> areas = new List<float>();
     private float area_min;
     private float area_max;
     

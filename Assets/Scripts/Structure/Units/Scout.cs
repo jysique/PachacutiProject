@@ -12,6 +12,7 @@ public class Scout : UnitCombat
         this.CharacIconType = "warriors";
         this.CharacIconIndex = "horseman";
         this.Attack = 25;
+        this.Evasion = 0;
         this.Defense = 10;
         this.Precision = 70;
         this.Range = 1;

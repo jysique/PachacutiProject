@@ -217,7 +217,7 @@ RectTransform:
   - {fileID: 2108081308}
   - {fileID: 834830433}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2982,7 +2982,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.053000003, y: 0.14866029}
   m_AnchorMax: {x: 0.29912573, y: 0.62700003}
-  m_AnchoredPosition: {x: -0.9999695, y: 0.5550003}
+  m_AnchoredPosition: {x: -0.9999542, y: 0.5550003}
   m_SizeDelta: {x: 0.010002136, y: 1.1099997}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &95201069
@@ -3520,7 +3520,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &118611350
 GameObject:
@@ -3945,6 +3945,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 124481250}
+  m_CullTransparentMesh: 1
+--- !u!1 &124705755
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 124705756}
+  - component: {fileID: 124705758}
+  - component: {fileID: 124705757}
+  m_Layer: 5
+  m_Name: MChiefProfile
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &124705756
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 124705755}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1916336963}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: -0.000061035156, y: 0}
+  m_SizeDelta: {x: 150, y: 150}
+  m_Pivot: {x: 0, y: 0.5}
+--- !u!114 &124705757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 124705755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &124705758
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 124705755}
   m_CullTransparentMesh: 1
 --- !u!1 &125047254
 GameObject:
@@ -4564,7 +4639,7 @@ MonoBehaviour:
       characIconIndex: 
       experience: 0
       strategyType: 
-    swordsmen:
+    sword:
       characterName: Swordsman
       age: 0
       origin: 
@@ -4575,8 +4650,9 @@ MonoBehaviour:
       quantity: 0
       unitName: Swordsman
       attack: 10
-      defense: 0
-      precision: 95
+      defense: 6
+      evasion: 0
+      precision: 90
       range: 1
       strongTo:
       - Axeman
@@ -4586,7 +4662,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
+    lance:
       characterName: Lancer
       age: 0
       origin: 
@@ -4597,7 +4673,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
-      defense: 0
+      defense: 5
+      evasion: 0
       precision: 85
       range: 1
       strongTo:
@@ -4608,7 +4685,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
@@ -4619,7 +4696,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 75
       range: 1
       strongTo:
@@ -4630,7 +4708,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
@@ -4641,7 +4719,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
-      defense: 0
+      defense: 10
+      evasion: 0
       precision: 70
       range: 1
       strongTo:
@@ -4652,7 +4731,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
@@ -4663,7 +4742,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 70
       range: 2
       strongTo:
@@ -5545,7 +5625,7 @@ MonoBehaviour:
       characIconIndex: 
       experience: 0
       strategyType: 
-    swordsmen:
+    sword:
       characterName: Swordsman
       age: 0
       origin: 
@@ -5556,8 +5636,9 @@ MonoBehaviour:
       quantity: 0
       unitName: Swordsman
       attack: 10
-      defense: 0
-      precision: 95
+      defense: 6
+      evasion: 0
+      precision: 90
       range: 1
       strongTo:
       - Axeman
@@ -5567,7 +5648,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
+    lance:
       characterName: Lancer
       age: 0
       origin: 
@@ -5578,7 +5659,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
-      defense: 0
+      defense: 5
+      evasion: 0
       precision: 85
       range: 1
       strongTo:
@@ -5589,7 +5671,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
@@ -5600,7 +5682,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 75
       range: 1
       strongTo:
@@ -5611,7 +5694,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
@@ -5622,7 +5705,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
-      defense: 0
+      defense: 10
+      evasion: 0
       precision: 70
       range: 1
       strongTo:
@@ -5633,7 +5717,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
@@ -5644,7 +5728,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 70
       range: 2
       strongTo:
@@ -6456,6 +6541,81 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &198216328
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 198216329}
+  - component: {fileID: 198216331}
+  - component: {fileID: 198216330}
+  m_Layer: 5
+  m_Name: MChiefProfile
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &198216329
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198216328}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1113478576}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 150, y: 150}
+  m_Pivot: {x: 1, y: 0.5}
+--- !u!114 &198216330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198216328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &198216331
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198216328}
+  m_CullTransparentMesh: 1
 --- !u!1 &203786729
 GameObject:
   m_ObjectHideFlags: 0
@@ -6680,7 +6840,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &213985964
 MonoBehaviour:
@@ -6706,7 +6866,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224339414}
   m_Layer: 5
-  m_Name: Player1
+  m_Name: ResumeEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7056,6 +7216,7 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    value: 0
 --- !u!114 &234339977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7850,7 +8011,7 @@ MonoBehaviour:
       characIconIndex: 
       experience: 0
       strategyType: 
-    swordsmen:
+    sword:
       characterName: Swordsman
       age: 0
       origin: 
@@ -7858,11 +8019,12 @@ MonoBehaviour:
       personality: 
       characIconType: warriors
       characIconIndex: w1
-      quantity: 50
+      quantity: 0
       unitName: Swordsman
       attack: 10
-      defense: 0
-      precision: 95
+      defense: 6
+      evasion: 0
+      precision: 90
       range: 1
       strongTo:
       - Axeman
@@ -7872,7 +8034,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
+    lance:
       characterName: Lancer
       age: 0
       origin: 
@@ -7883,7 +8045,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
-      defense: 0
+      defense: 5
+      evasion: 0
       precision: 85
       range: 1
       strongTo:
@@ -7894,7 +8057,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
@@ -7905,7 +8068,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 75
       range: 1
       strongTo:
@@ -7916,7 +8080,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
@@ -7927,7 +8091,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
-      defense: 0
+      defense: 10
+      evasion: 0
       precision: 70
       range: 1
       strongTo:
@@ -7938,7 +8103,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
@@ -7949,7 +8114,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 70
       range: 2
       strongTo:
@@ -9025,7 +9191,7 @@ MonoBehaviour:
       characIconIndex: 
       experience: 0
       strategyType: 
-    swordsmen:
+    sword:
       characterName: Swordsman
       age: 0
       origin: 
@@ -9033,11 +9199,12 @@ MonoBehaviour:
       personality: 
       characIconType: warriors
       characIconIndex: w1
-      quantity: 50
+      quantity: 0
       unitName: Swordsman
       attack: 10
-      defense: 0
-      precision: 95
+      defense: 6
+      evasion: 0
+      precision: 90
       range: 1
       strongTo:
       - Axeman
@@ -9047,7 +9214,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
+    lance:
       characterName: Lancer
       age: 0
       origin: 
@@ -9058,7 +9225,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
-      defense: 0
+      defense: 5
+      evasion: 0
       precision: 85
       range: 1
       strongTo:
@@ -9069,7 +9237,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
@@ -9080,7 +9248,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 75
       range: 1
       strongTo:
@@ -9091,7 +9260,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
@@ -9102,7 +9271,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
-      defense: 0
+      defense: 10
+      evasion: 0
       precision: 70
       range: 1
       strongTo:
@@ -9113,7 +9283,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
@@ -9124,7 +9294,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 70
       range: 2
       strongTo:
@@ -9676,7 +9847,7 @@ MonoBehaviour:
       characIconIndex: 
       experience: 0
       strategyType: 
-    swordsmen:
+    sword:
       characterName: Swordsman
       age: 0
       origin: 
@@ -9687,8 +9858,9 @@ MonoBehaviour:
       quantity: 0
       unitName: Swordsman
       attack: 10
-      defense: 0
-      precision: 95
+      defense: 6
+      evasion: 0
+      precision: 90
       range: 1
       strongTo:
       - Axeman
@@ -9698,7 +9870,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
+    lance:
       characterName: Lancer
       age: 0
       origin: 
@@ -9709,7 +9881,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
-      defense: 0
+      defense: 5
+      evasion: 0
       precision: 85
       range: 1
       strongTo:
@@ -9720,7 +9893,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
@@ -9731,7 +9904,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 75
       range: 1
       strongTo:
@@ -9742,7 +9916,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
@@ -9753,7 +9927,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
-      defense: 0
+      defense: 10
+      evasion: 0
       precision: 70
       range: 1
       strongTo:
@@ -9764,7 +9939,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
@@ -9775,7 +9950,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 70
       range: 2
       strongTo:
@@ -11486,7 +11662,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.12875015, y: 0.36626822}
   m_AnchorMax: {x: 0.9042499, y: 0.60400003}
-  m_AnchoredPosition: {x: -0.14892578, y: 12.881895}
+  m_AnchoredPosition: {x: -0.14892578, y: 12.881893}
   m_SizeDelta: {x: -0.4333496, y: -5.6404266}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &391328020
@@ -12389,7 +12565,7 @@ MonoBehaviour:
       characIconIndex: 
       experience: 0
       strategyType: 
-    swordsmen:
+    sword:
       characterName: Swordsman
       age: 0
       origin: 
@@ -12397,11 +12573,12 @@ MonoBehaviour:
       personality: 
       characIconType: warriors
       characIconIndex: w1
-      quantity: 50
+      quantity: 0
       unitName: Swordsman
       attack: 10
-      defense: 0
-      precision: 95
+      defense: 6
+      evasion: 0
+      precision: 90
       range: 1
       strongTo:
       - Axeman
@@ -12411,7 +12588,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
+    lance:
       characterName: Lancer
       age: 0
       origin: 
@@ -12422,7 +12599,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
-      defense: 0
+      defense: 5
+      evasion: 0
       precision: 85
       range: 1
       strongTo:
@@ -12433,7 +12611,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
@@ -12444,7 +12622,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 75
       range: 1
       strongTo:
@@ -12455,7 +12634,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
@@ -12466,7 +12645,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
-      defense: 0
+      defense: 10
+      evasion: 0
       precision: 70
       range: 1
       strongTo:
@@ -12477,7 +12657,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
@@ -12488,7 +12668,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 70
       range: 2
       strongTo:
@@ -13059,7 +13240,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 523, y: -323}
+  m_AnchoredPosition: {x: 523, y: -322.99988}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &426904743
@@ -13582,7 +13763,7 @@ MonoBehaviour:
       characIconIndex: 
       experience: 0
       strategyType: 
-    swordsmen:
+    sword:
       characterName: Swordsman
       age: 0
       origin: 
@@ -13593,8 +13774,9 @@ MonoBehaviour:
       quantity: 0
       unitName: Swordsman
       attack: 10
-      defense: 0
-      precision: 95
+      defense: 6
+      evasion: 0
+      precision: 90
       range: 1
       strongTo:
       - Axeman
@@ -13604,7 +13786,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
+    lance:
       characterName: Lancer
       age: 0
       origin: 
@@ -13615,7 +13797,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
-      defense: 0
+      defense: 5
+      evasion: 0
       precision: 85
       range: 1
       strongTo:
@@ -13626,7 +13809,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
@@ -13637,7 +13820,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 75
       range: 1
       strongTo:
@@ -13648,7 +13832,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
@@ -13659,7 +13843,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
-      defense: 0
+      defense: 10
+      evasion: 0
       precision: 70
       range: 1
       strongTo:
@@ -13670,7 +13855,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
@@ -13681,7 +13866,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 70
       range: 2
       strongTo:
@@ -13932,87 +14118,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 454935122}
-  m_CullTransparentMesh: 1
---- !u!1 &459841467
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 459841468}
-  - component: {fileID: 459841470}
-  - component: {fileID: 459841469}
-  m_Layer: 5
-  m_Name: Text
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &459841468
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 459841467}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &459841469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 459841467}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 4
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: 'MasterBattle
-
-'
---- !u!222 &459841470
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 459841467}
   m_CullTransparentMesh: 1
 --- !u!1 &464924450
 GameObject:
@@ -14479,7 +14584,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &486299192
 GameObject:
@@ -15237,7 +15342,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &513675551
 GameObject:
@@ -15486,6 +15591,7 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    value: 0
 --- !u!114 &521251265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16106,7 +16212,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &547430382
 GameObject:
@@ -16861,7 +16967,7 @@ Transform:
   - {fileID: 341651189}
   - {fileID: 166180797}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &576022847
 GameObject:
@@ -16934,7 +17040,7 @@ MonoBehaviour:
       characIconIndex: 
       experience: 0
       strategyType: 
-    swordsmen:
+    sword:
       characterName: Swordsman
       age: 0
       origin: 
@@ -16945,8 +17051,9 @@ MonoBehaviour:
       quantity: 0
       unitName: Swordsman
       attack: 10
-      defense: 0
-      precision: 95
+      defense: 6
+      evasion: 0
+      precision: 90
       range: 1
       strongTo:
       - Axeman
@@ -16956,7 +17063,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
+    lance:
       characterName: Lancer
       age: 0
       origin: 
@@ -16967,7 +17074,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
-      defense: 0
+      defense: 5
+      evasion: 0
       precision: 85
       range: 1
       strongTo:
@@ -16978,7 +17086,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
@@ -16989,7 +17097,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 75
       range: 1
       strongTo:
@@ -17000,7 +17109,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
@@ -17011,7 +17120,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
-      defense: 0
+      defense: 10
+      evasion: 0
       precision: 70
       range: 1
       strongTo:
@@ -17022,7 +17132,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
@@ -17033,7 +17143,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 70
       range: 2
       strongTo:
@@ -17337,7 +17448,7 @@ RectTransform:
   - {fileID: 1045243644}
   - {fileID: 802162015}
   m_Father: {fileID: 622926465}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.28500003, y: 0.07985185}
   m_AnchorMax: {x: 0.7135625, y: 0.83433336}
@@ -17583,6 +17694,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 599173894}
   m_CullTransparentMesh: 1
+--- !u!1 &603681670
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 603681671}
+  - component: {fileID: 603681673}
+  - component: {fileID: 603681672}
+  m_Layer: 5
+  m_Name: Image (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &603681671
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603681670}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 854737742}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 8.2, y: -11}
+  m_SizeDelta: {x: 30, y: 30}
+  m_Pivot: {x: 0, y: 0.5}
+--- !u!114 &603681672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603681670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: de0d2b7d548aef74caa72e271335b54b, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &603681673
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603681670}
+  m_CullTransparentMesh: 1
 --- !u!1 &603962320
 GameObject:
   m_ObjectHideFlags: 0
@@ -17783,6 +17969,7 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    value: 0
 --- !u!114 &603993214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18140,7 +18327,7 @@ Transform:
   m_Children:
   - {fileID: 429181345}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &613634297
 MonoBehaviour:
@@ -18169,7 +18356,7 @@ GameObject:
   - component: {fileID: 613955013}
   - component: {fileID: 613955012}
   m_Layer: 5
-  m_Name: Image
+  m_Name: TerritoryBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18189,10 +18376,10 @@ RectTransform:
   m_Father: {fileID: 622926465}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.07560417, y: 0.12244444}
-  m_AnchorMax: {x: 0.91852087, y: 0.87155557}
-  m_AnchoredPosition: {x: 5.5, y: 2.5}
-  m_SizeDelta: {x: 3.1800537, y: 0.27001953}
+  m_AnchorMin: {x: 0.07560417, y: 0.1758476}
+  m_AnchorMax: {x: 0.92424893, y: 0.8241478}
+  m_AnchoredPosition: {x: 0, y: 0.5}
+  m_SizeDelta: {x: -7.8199997, y: -4.300003}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &613955012
 MonoBehaviour:
@@ -18474,7 +18661,7 @@ RectTransform:
   - {fileID: 971204268}
   - {fileID: 567587509}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -18657,12 +18844,13 @@ MonoBehaviour:
   Block: {fileID: 1596575316}
   ResumeBattle: {fileID: 1876292796}
   closeResumen: {fileID: 1420356810}
-  Player1: {fileID: 224339413}
-  Player2: {fileID: 1312607162}
+  ResumePlayer: {fileID: 1312607162}
+  ResumeEnemy: {fileID: 224339413}
   conquistedTxt: {fileID: 1819920143}
+  militarchiefPlayer: {fileID: 1916336962}
+  militarchiefEnemy: {fileID: 1113478575}
   activatSA: {fileID: 1260026892}
   surrenderBtn: {fileID: 1122049095}
-  acumulated: 0
   turnSignal: {fileID: 1920885252}
   battleResume: {fileID: 588154576}
   attackerPicture: {fileID: 1070905075}
@@ -18674,7 +18862,23 @@ MonoBehaviour:
   unitText: {fileID: 1139969901}
   blockScreen: 0
   turns: 15
+  canBotTurn: 0
+  canPlayerTurn: 0
   c: 0
+  acumulated: 0
+  defendOriginalTroop:
+    unitCombats: []
+    positions: 
+  attackerOriginalTroop:
+    unitCombats: []
+    positions: 
+  defendActualTroop:
+    unitCombats: []
+    positions: 
+  attackerActualTroop:
+    unitCombats: []
+    positions: 
+  start: 0
 --- !u!114 &622926462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18754,7 +18958,7 @@ RectTransform:
   - {fileID: 849263235}
   - {fileID: 1083102647}
   - {fileID: 556620714}
-  - {fileID: 1260026891}
+  - {fileID: 1848378589}
   - {fileID: 1122049094}
   - {fileID: 1596575317}
   - {fileID: 1848378589}
@@ -18762,9 +18966,10 @@ RectTransform:
   - {fileID: 1920885253}
   - {fileID: 653984915}
   - {fileID: 588154577}
-  - {fileID: 1647522417}
+  - {fileID: 1916336963}
+  - {fileID: 1113478576}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -19374,7 +19579,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.16700001, y: 0.045800555}
   m_AnchorMax: {x: 0.45000002, y: 0.14573915}
-  m_AnchoredPosition: {x: 0.4000244, y: -0.000030517578}
+  m_AnchoredPosition: {x: 0.3999939, y: -0.000030517578}
   m_SizeDelta: {x: 0, y: -0.39517212}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &640801426
@@ -19718,7 +19923,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 622926465}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -19763,7 +19968,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 653984914}
   m_CullTransparentMesh: 1
---- !u!1 &667567351
+--- !u!1 &663060309
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -19771,45 +19976,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 667567352}
-  - component: {fileID: 667567354}
-  - component: {fileID: 667567353}
+  - component: {fileID: 663060310}
+  - component: {fileID: 663060312}
+  - component: {fileID: 663060311}
   m_Layer: 5
-  m_Name: TitleText
+  m_Name: MChiefNameTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &667567352
+--- !u!224 &663060310
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 667567351}
+  m_GameObject: {fileID: 663060309}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 138219764}
-  m_RootOrder: 0
+  m_Father: {fileID: 763070949}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.09751129}
-  m_SizeDelta: {x: -0.32, y: 0.19498}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &667567353
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 250, y: 30}
+  m_Pivot: {x: 1, y: 1}
+--- !u!114 &663060311
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 667567351}
+  m_GameObject: {fileID: 663060309}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -19820,27 +20025,82 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 12800000, guid: 1a28fb5745fdd4545a5b9d20073b2e5d, type: 3}
-    m_FontSize: 49
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 60
-    m_Alignment: 4
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: UNIT INFORMATION
---- !u!222 &667567354
+  m_text: 'Name:'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 13728e64145c9b4428599baba8070ab9, type: 2}
+  m_sharedMaterial: {fileID: 1313927899013884067, guid: 13728e64145c9b4428599baba8070ab9, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 20
+  m_fontSizeBase: 20
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 1
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &663060312
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 667567351}
+  m_GameObject: {fileID: 663060309}
   m_CullTransparentMesh: 1
 --- !u!1 &672877152
 GameObject:
@@ -21673,7 +21933,7 @@ MonoBehaviour:
       characIconIndex: 
       experience: 0
       strategyType: 
-    swordsmen:
+    sword:
       characterName: Swordsman
       age: 0
       origin: 
@@ -21684,8 +21944,9 @@ MonoBehaviour:
       quantity: 0
       unitName: Swordsman
       attack: 10
-      defense: 0
-      precision: 95
+      defense: 6
+      evasion: 0
+      precision: 90
       range: 1
       strongTo:
       - Axeman
@@ -21695,7 +21956,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
+    lance:
       characterName: Lancer
       age: 0
       origin: 
@@ -21706,7 +21967,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
-      defense: 0
+      defense: 5
+      evasion: 0
       precision: 85
       range: 1
       strongTo:
@@ -21717,7 +21979,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
@@ -21728,7 +21990,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 75
       range: 1
       strongTo:
@@ -21739,7 +22002,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
@@ -21750,7 +22013,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
-      defense: 0
+      defense: 10
+      evasion: 0
       precision: 70
       range: 1
       strongTo:
@@ -21761,7 +22025,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
@@ -21772,7 +22036,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 70
       range: 2
       strongTo:
@@ -21910,6 +22175,88 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &763070948
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 763070949}
+  - component: {fileID: 763070951}
+  - component: {fileID: 763070950}
+  m_Layer: 5
+  m_Name: MChiefStats
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &763070949
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763070948}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1006461897}
+  - {fileID: 772236650}
+  - {fileID: 871762950}
+  - {fileID: 663060310}
+  - {fileID: 1432305747}
+  - {fileID: 1155771520}
+  - {fileID: 1260026891}
+  m_Father: {fileID: 1916336963}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 300, y: 150}
+  m_Pivot: {x: 1, y: 0.5}
+--- !u!114 &763070950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763070948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.25882354, g: 0.25490198, b: 0.2392157, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &763070951
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763070948}
+  m_CullTransparentMesh: 1
 --- !u!1 &763578290
 GameObject:
   m_ObjectHideFlags: 0
@@ -22022,6 +22369,291 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 765405752}
+  m_CullTransparentMesh: 1
+--- !u!1 &769597145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 769597146}
+  - component: {fileID: 769597148}
+  - component: {fileID: 769597147}
+  m_Layer: 5
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &769597146
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 769597145}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1040063561}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &769597147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 769597145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Special Ability
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 9070757a296571e4a936512d2b673f66, type: 2}
+  m_sharedMaterial: {fileID: 2447492103073512919, guid: 9070757a296571e4a936512d2b673f66, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4281479730
+  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 20
+  m_fontSizeBase: 20
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 1
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &769597148
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 769597145}
+  m_CullTransparentMesh: 1
+--- !u!1 &770725067
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 770725068}
+  - component: {fileID: 770725070}
+  - component: {fileID: 770725069}
+  m_Layer: 5
+  m_Name: MChiefExp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &770725068
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 770725067}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1268385893}
+  m_Father: {fileID: 1916336963}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -93.300064, y: -55.1}
+  m_SizeDelta: {x: 40, y: 40}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &770725069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 770725067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &770725070
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 770725067}
+  m_CullTransparentMesh: 1
+--- !u!1 &772236649
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 772236650}
+  - component: {fileID: 772236652}
+  - component: {fileID: 772236651}
+  m_Layer: 5
+  m_Name: Image (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &772236650
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772236649}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 763070949}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 7.3999634, y: 21.699999}
+  m_SizeDelta: {x: 30, y: 30}
+  m_Pivot: {x: 0, y: 0.5}
+--- !u!114 &772236651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772236649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.3018868, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: de0d2b7d548aef74caa72e271335b54b, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &772236652
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772236649}
   m_CullTransparentMesh: 1
 --- !u!1 &776525204
 GameObject:
@@ -23066,6 +23698,82 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 824364431}
   m_CullTransparentMesh: 1
+--- !u!1 &828617410
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 828617411}
+  - component: {fileID: 828617413}
+  - component: {fileID: 828617412}
+  m_Layer: 5
+  m_Name: MChiefExp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &828617411
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828617410}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1426231617}
+  m_Father: {fileID: 1113478576}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 90.3, y: -55.1}
+  m_SizeDelta: {x: 40, y: 40}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &828617412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828617410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &828617413
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828617410}
+  m_CullTransparentMesh: 1
 --- !u!1 &829630546
 GameObject:
   m_ObjectHideFlags: 0
@@ -23570,7 +24278,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &849263235
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23585,10 +24293,10 @@ RectTransform:
   m_Father: {fileID: 622926465}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 745.5924, y: -340.82172}
-  m_SizeDelta: {x: 200, y: 200}
+  m_AnchorMin: {x: 0.3148124, y: 0.5}
+  m_AnchorMax: {x: 0.47200003, y: 0.7788522}
+  m_AnchoredPosition: {x: -1, y: 0}
+  m_SizeDelta: {x: -2, y: -1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &849263236
 MonoBehaviour:
@@ -23660,12 +24368,12 @@ MonoBehaviour:
   m_Padding:
     m_Left: 66
     m_Right: 0
-    m_Top: 105
+    m_Top: 50
     m_Bottom: 0
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 350, y: 350}
+  m_CellSize: {x: 350, y: 300}
   m_Spacing: {x: 10, y: 10}
   m_Constraint: 0
   m_ConstraintCount: 2
@@ -23691,11 +24399,93 @@ RectTransform:
   m_Father: {fileID: 622926465}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.07560417, y: 0.12244444}
-  m_AnchorMax: {x: 0.91852087, y: 0.87155557}
-  m_AnchoredPosition: {x: 5.357666, y: 2.7624512}
-  m_SizeDelta: {x: 4.5999756, y: 0.32000732}
+  m_AnchorMin: {x: 0.07560417, y: 0.1758476}
+  m_AnchorMax: {x: 0.92424893, y: 0.87155557}
+  m_AnchoredPosition: {x: -0.14233398, y: -24.69397}
+  m_SizeDelta: {x: -6.3999996, y: -55.33}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &854737741
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 854737742}
+  - component: {fileID: 854737744}
+  - component: {fileID: 854737743}
+  m_Layer: 5
+  m_Name: MChiefStats
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &854737742
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 854737741}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.99981403, y: 0.99981403, z: 0.99981403}
+  m_Children:
+  - {fileID: 1155134508}
+  - {fileID: 1406342229}
+  - {fileID: 603681671}
+  - {fileID: 1685518912}
+  - {fileID: 1450356069}
+  - {fileID: 1729252593}
+  - {fileID: 1040063561}
+  m_Father: {fileID: 1113478576}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: -0.000030517578, y: 0}
+  m_SizeDelta: {x: 300, y: 150}
+  m_Pivot: {x: 0, y: 0.5}
+--- !u!114 &854737743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 854737741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.25882354, g: 0.25490198, b: 0.2392157, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &854737744
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 854737741}
+  m_CullTransparentMesh: 1
 --- !u!1 &855841791
 GameObject:
   m_ObjectHideFlags: 0
@@ -23732,7 +24522,7 @@ Transform:
   - {fileID: 890307165}
   - {fileID: 931118176}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &864662727
 GameObject:
@@ -23867,6 +24657,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 864662727}
+  m_CullTransparentMesh: 1
+--- !u!1 &871762949
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 871762950}
+  - component: {fileID: 871762952}
+  - component: {fileID: 871762951}
+  m_Layer: 5
+  m_Name: Image (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &871762950
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871762949}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 763070949}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 7.3999634, y: -13.3}
+  m_SizeDelta: {x: 30, y: 30}
+  m_Pivot: {x: 0, y: 0.5}
+--- !u!114 &871762951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871762949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.3018868, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: de0d2b7d548aef74caa72e271335b54b, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &871762952
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871762949}
   m_CullTransparentMesh: 1
 --- !u!1 &876532613
 GameObject:
@@ -24478,7 +25343,7 @@ MonoBehaviour:
       characIconIndex: 
       experience: 0
       strategyType: 
-    swordsmen:
+    sword:
       characterName: Swordsman
       age: 0
       origin: 
@@ -24486,11 +25351,12 @@ MonoBehaviour:
       personality: 
       characIconType: warriors
       characIconIndex: w1
-      quantity: 50
+      quantity: 0
       unitName: Swordsman
       attack: 10
-      defense: 0
-      precision: 95
+      defense: 6
+      evasion: 0
+      precision: 90
       range: 1
       strongTo:
       - Axeman
@@ -24500,7 +25366,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
+    lance:
       characterName: Lancer
       age: 0
       origin: 
@@ -24511,7 +25377,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
-      defense: 0
+      defense: 5
+      evasion: 0
       precision: 85
       range: 1
       strongTo:
@@ -24522,7 +25389,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
@@ -24533,7 +25400,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 75
       range: 1
       strongTo:
@@ -24544,7 +25412,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
@@ -24555,7 +25423,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
-      defense: 0
+      defense: 10
+      evasion: 0
       precision: 70
       range: 1
       strongTo:
@@ -24566,7 +25435,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
@@ -24577,7 +25446,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 70
       range: 2
       strongTo:
@@ -25387,7 +26257,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.24333224}
-  m_AnchoredPosition: {x: 0.5003052, y: -4.3000946}
+  m_AnchoredPosition: {x: 0.5003052, y: -4.3000927}
   m_SizeDelta: {x: -0.02, y: -7.83}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &913405924
@@ -25556,7 +26426,7 @@ MonoBehaviour:
       characIconIndex: 
       experience: 0
       strategyType: 
-    swordsmen:
+    sword:
       characterName: Swordsman
       age: 0
       origin: 
@@ -25567,8 +26437,9 @@ MonoBehaviour:
       quantity: 0
       unitName: Swordsman
       attack: 10
-      defense: 0
-      precision: 95
+      defense: 6
+      evasion: 0
+      precision: 90
       range: 1
       strongTo:
       - Axeman
@@ -25578,7 +26449,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
+    lance:
       characterName: Lancer
       age: 0
       origin: 
@@ -25589,7 +26460,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
-      defense: 0
+      defense: 5
+      evasion: 0
       precision: 85
       range: 1
       strongTo:
@@ -25600,7 +26472,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
@@ -25611,7 +26483,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 75
       range: 1
       strongTo:
@@ -25622,7 +26495,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
@@ -25633,7 +26506,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
-      defense: 0
+      defense: 10
+      evasion: 0
       precision: 70
       range: 1
       strongTo:
@@ -25644,7 +26518,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
@@ -25655,7 +26529,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 70
       range: 2
       strongTo:
@@ -26003,7 +26878,7 @@ MonoBehaviour:
       characIconIndex: 
       experience: 0
       strategyType: 
-    swordsmen:
+    sword:
       characterName: Swordsman
       age: 0
       origin: 
@@ -26011,11 +26886,12 @@ MonoBehaviour:
       personality: 
       characIconType: warriors
       characIconIndex: w1
-      quantity: 50
+      quantity: 0
       unitName: Swordsman
       attack: 10
-      defense: 0
-      precision: 95
+      defense: 6
+      evasion: 0
+      precision: 90
       range: 1
       strongTo:
       - Axeman
@@ -26025,7 +26901,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
+    lance:
       characterName: Lancer
       age: 0
       origin: 
@@ -26036,7 +26912,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
-      defense: 0
+      defense: 5
+      evasion: 0
       precision: 85
       range: 1
       strongTo:
@@ -26047,7 +26924,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
@@ -26058,7 +26935,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 75
       range: 1
       strongTo:
@@ -26069,7 +26947,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
@@ -26080,7 +26958,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
-      defense: 0
+      defense: 10
+      evasion: 0
       precision: 70
       range: 1
       strongTo:
@@ -26091,7 +26970,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
@@ -26102,7 +26981,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 70
       range: 2
       strongTo:
@@ -26229,7 +27109,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.038762163, y: 0.11418636}
   m_AnchorMax: {x: 0.353619, y: 0.9148137}
-  m_AnchoredPosition: {x: -0.10977173, y: 0.2081337}
+  m_AnchoredPosition: {x: -0.10977936, y: 0.2081337}
   m_SizeDelta: {x: -0.5275574, y: -0.7710457}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &934718069
@@ -26528,9 +27408,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Special
-
-    Ability'
+  m_text: Special Ability
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9070757a296571e4a936512d2b673f66, type: 2}
   m_sharedMaterial: {fileID: 2447492103073512919, guid: 9070757a296571e4a936512d2b673f66, type: 2}
@@ -26557,8 +27435,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -26781,7 +27659,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.305}
-  m_AnchoredPosition: {x: -0.119903564, y: -1.3703613}
+  m_AnchoredPosition: {x: -0.119903564, y: -1.3699341}
   m_SizeDelta: {x: 0.29, y: 1.58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &949515573
@@ -27354,7 +28232,7 @@ MonoBehaviour:
       characIconIndex: 
       experience: 0
       strategyType: 
-    swordsmen:
+    sword:
       characterName: Swordsman
       age: 0
       origin: 
@@ -27365,8 +28243,9 @@ MonoBehaviour:
       quantity: 0
       unitName: Swordsman
       attack: 10
-      defense: 0
-      precision: 95
+      defense: 6
+      evasion: 0
+      precision: 90
       range: 1
       strongTo:
       - Axeman
@@ -27376,7 +28255,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
+    lance:
       characterName: Lancer
       age: 0
       origin: 
@@ -27387,7 +28266,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
-      defense: 0
+      defense: 5
+      evasion: 0
       precision: 85
       range: 1
       strongTo:
@@ -27398,7 +28278,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
@@ -27409,7 +28289,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 75
       range: 1
       strongTo:
@@ -27420,7 +28301,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
@@ -27431,7 +28312,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
-      defense: 0
+      defense: 10
+      evasion: 0
       precision: 70
       range: 1
       strongTo:
@@ -27442,7 +28324,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
@@ -27453,7 +28335,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 70
       range: 2
       strongTo:
@@ -28071,6 +28954,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 999738160}
+  m_CullTransparentMesh: 1
+--- !u!1 &1006461896
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1006461897}
+  - component: {fileID: 1006461899}
+  - component: {fileID: 1006461898}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1006461897
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1006461896}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 763070949}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 7.399994, y: -2.5999985}
+  m_SizeDelta: {x: 30, y: 30}
+  m_Pivot: {x: 0, y: 1}
+--- !u!114 &1006461898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1006461896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.3018868, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: de0d2b7d548aef74caa72e271335b54b, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1006461899
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1006461896}
   m_CullTransparentMesh: 1
 --- !u!1 &1008072464
 GameObject:
@@ -28916,7 +29874,7 @@ MonoBehaviour:
       characIconIndex: 
       experience: 0
       strategyType: 
-    swordsmen:
+    sword:
       characterName: Swordsman
       age: 0
       origin: 
@@ -28924,11 +29882,12 @@ MonoBehaviour:
       personality: 
       characIconType: warriors
       characIconIndex: w1
-      quantity: 50
+      quantity: 0
       unitName: Swordsman
       attack: 10
-      defense: 0
-      precision: 95
+      defense: 6
+      evasion: 0
+      precision: 90
       range: 1
       strongTo:
       - Axeman
@@ -28938,7 +29897,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
+    lance:
       characterName: Lancer
       age: 0
       origin: 
@@ -28949,7 +29908,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
-      defense: 0
+      defense: 5
+      evasion: 0
       precision: 85
       range: 1
       strongTo:
@@ -28960,7 +29920,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
@@ -28971,7 +29931,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 75
       range: 1
       strongTo:
@@ -28982,7 +29943,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
@@ -28993,7 +29954,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
-      defense: 0
+      defense: 10
+      evasion: 0
       precision: 70
       range: 1
       strongTo:
@@ -29004,7 +29966,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
@@ -29015,7 +29977,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 70
       range: 2
       strongTo:
@@ -29604,6 +30567,127 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1035645541}
+  m_CullTransparentMesh: 1
+--- !u!1 &1040063560
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1040063561}
+  - component: {fileID: 1040063564}
+  - component: {fileID: 1040063563}
+  - component: {fileID: 1040063562}
+  m_Layer: 5
+  m_Name: SpecialAbilityBtn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1040063561
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040063560}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 769597146}
+  m_Father: {fileID: 854737742}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 300, y: 30}
+  m_Pivot: {x: 0.5, y: 0}
+--- !u!114 &1040063562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040063560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1040063563}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1040063563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040063560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: b701d47c91af209418df949100496795, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1040063564
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040063560}
   m_CullTransparentMesh: 1
 --- !u!1 &1041890961
 GameObject:
@@ -30442,7 +31526,7 @@ MonoBehaviour:
       characIconIndex: 
       experience: 0
       strategyType: 
-    swordsmen:
+    sword:
       characterName: Swordsman
       age: 0
       origin: 
@@ -30450,11 +31534,12 @@ MonoBehaviour:
       personality: 
       characIconType: warriors
       characIconIndex: w1
-      quantity: 50
+      quantity: 0
       unitName: Swordsman
       attack: 10
-      defense: 0
-      precision: 95
+      defense: 6
+      evasion: 0
+      precision: 90
       range: 1
       strongTo:
       - Axeman
@@ -30464,7 +31549,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
+    lance:
       characterName: Lancer
       age: 0
       origin: 
@@ -30475,7 +31560,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
-      defense: 0
+      defense: 5
+      evasion: 0
       precision: 85
       range: 1
       strongTo:
@@ -30486,7 +31572,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
@@ -30497,7 +31583,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 75
       range: 1
       strongTo:
@@ -30508,7 +31595,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
@@ -30519,7 +31606,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
-      defense: 0
+      defense: 10
+      evasion: 0
       precision: 70
       range: 1
       strongTo:
@@ -30530,7 +31618,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
@@ -30541,7 +31629,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 70
       range: 2
       strongTo:
@@ -30755,7 +31844,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1083102647
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30763,17 +31852,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1083102646}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 622926465}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -645.6408, y: -196.1278}
-  m_SizeDelta: {x: -1719.6664, y: -880.18787}
+  m_AnchorMin: {x: 0.127, y: 0.21100001}
+  m_AnchorMax: {x: 0.28500003, y: 0.48900002}
+  m_AnchoredPosition: {x: -1.4999847, y: 1}
+  m_SizeDelta: {x: -3, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1083102648
 MonoBehaviour:
@@ -31032,7 +32121,7 @@ MonoBehaviour:
       characIconIndex: 
       experience: 0
       strategyType: 
-    swordsmen:
+    sword:
       characterName: Swordsman
       age: 0
       origin: 
@@ -31040,11 +32129,12 @@ MonoBehaviour:
       personality: 
       characIconType: warriors
       characIconIndex: w1
-      quantity: 50
+      quantity: 0
       unitName: Swordsman
       attack: 10
-      defense: 0
-      precision: 95
+      defense: 6
+      evasion: 0
+      precision: 90
       range: 1
       strongTo:
       - Axeman
@@ -31054,7 +32144,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
+    lance:
       characterName: Lancer
       age: 0
       origin: 
@@ -31065,7 +32155,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
-      defense: 0
+      defense: 5
+      evasion: 0
       precision: 85
       range: 1
       strongTo:
@@ -31076,7 +32167,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
@@ -31087,7 +32178,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 75
       range: 1
       strongTo:
@@ -31098,7 +32190,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
@@ -31109,7 +32201,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
-      defense: 0
+      defense: 10
+      evasion: 0
       precision: 70
       range: 1
       strongTo:
@@ -31120,7 +32213,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
@@ -31131,7 +32224,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 70
       range: 2
       strongTo:
@@ -31690,6 +32784,44 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1110201453}
   m_CullTransparentMesh: 1
+--- !u!1 &1113478575
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1113478576}
+  m_Layer: 5
+  m_Name: MChiefsEnemy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1113478576
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113478575}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 198216329}
+  - {fileID: 828617411}
+  - {fileID: 854737742}
+  m_Father: {fileID: 622926465}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 722.5, y: -456}
+  m_SizeDelta: {x: 460, y: 150}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1122049093
 GameObject:
   m_ObjectHideFlags: 0
@@ -31942,8 +33074,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 961, y: -640}
-  m_SizeDelta: {x: 350, y: 350}
+  m_AnchoredPosition: {x: 961, y: -510}
+  m_SizeDelta: {x: 350, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1128577233
 MonoBehaviour:
@@ -32019,6 +33151,7 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    value: 0
 --- !u!114 &1128577235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32092,7 +33225,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.051814087, y: 0.13174777}
   m_AnchorMax: {x: 0.37637186, y: 0.9188131}
-  m_AnchoredPosition: {x: -0.61359406, y: 0.038784027}
+  m_AnchoredPosition: {x: -0.6135936, y: 0.038784027}
   m_SizeDelta: {x: 0.21809006, y: 1.2696342}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1131478617
@@ -32521,7 +33654,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24.15
+  m_fontSize: 24.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -32651,6 +33784,215 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &1155134507
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1155134508}
+  - component: {fileID: 1155134510}
+  - component: {fileID: 1155134509}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1155134508
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155134507}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 854737742}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 8.20003, y: -0.30003357}
+  m_SizeDelta: {x: 30, y: 30}
+  m_Pivot: {x: 0, y: 1}
+--- !u!114 &1155134509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155134507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: de0d2b7d548aef74caa72e271335b54b, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1155134510
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155134507}
+  m_CullTransparentMesh: 1
+--- !u!1 &1155771519
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1155771520}
+  - component: {fileID: 1155771522}
+  - component: {fileID: 1155771521}
+  m_Layer: 5
+  m_Name: MChiefTypeTxt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1155771520
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155771519}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 763070949}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -10}
+  m_SizeDelta: {x: 250, y: 30}
+  m_Pivot: {x: 1, y: 0.5}
+--- !u!114 &1155771521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155771519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: TypePlayer
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 13728e64145c9b4428599baba8070ab9, type: 2}
+  m_sharedMaterial: {fileID: 1313927899013884067, guid: 13728e64145c9b4428599baba8070ab9, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 20
+  m_fontSizeBase: 20
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 1
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1155771522
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155771519}
+  m_CullTransparentMesh: 1
 --- !u!1 &1167142784
 GameObject:
   m_ObjectHideFlags: 0
@@ -32760,7 +34102,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.3758302, y: 0.51045126}
   m_AnchorMax: {x: 0.63475484, y: 0.7714513}
-  m_AnchoredPosition: {x: -0.30000305, y: -16.903515}
+  m_AnchoredPosition: {x: -0.30000305, y: -16.903479}
   m_SizeDelta: {x: 0, y: 12.214804}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1168412085
@@ -34258,7 +35600,7 @@ MonoBehaviour:
       characIconIndex: 
       experience: 0
       strategyType: 
-    swordsmen:
+    sword:
       characterName: Swordsman
       age: 0
       origin: 
@@ -34266,11 +35608,12 @@ MonoBehaviour:
       personality: 
       characIconType: warriors
       characIconIndex: w1
-      quantity: 50
+      quantity: 0
       unitName: Swordsman
       attack: 10
-      defense: 0
-      precision: 95
+      defense: 6
+      evasion: 0
+      precision: 90
       range: 1
       strongTo:
       - Axeman
@@ -34280,7 +35623,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
+    lance:
       characterName: Lancer
       age: 0
       origin: 
@@ -34291,7 +35634,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
-      defense: 0
+      defense: 5
+      evasion: 0
       precision: 85
       range: 1
       strongTo:
@@ -34302,7 +35646,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
@@ -34313,7 +35657,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 75
       range: 1
       strongTo:
@@ -34324,7 +35669,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
@@ -34335,7 +35680,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
-      defense: 0
+      defense: 10
+      evasion: 0
       precision: 70
       range: 1
       strongTo:
@@ -34346,7 +35692,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
@@ -34357,7 +35703,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 70
       range: 2
       strongTo:
@@ -34568,7 +35915,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.26700002, y: 0.78200006}
   m_AnchorMax: {x: 0.72524524, y: 0.98954874}
-  m_AnchoredPosition: {x: 0.19999695, y: -5.045764}
+  m_AnchoredPosition: {x: 0.19999695, y: -5.045758}
   m_SizeDelta: {x: 0.15551758, y: 9.713284}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1231283087
@@ -34834,8 +36181,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1321, y: -280}
-  m_SizeDelta: {x: 350, y: 350}
+  m_AnchoredPosition: {x: 1321, y: -200}
+  m_SizeDelta: {x: 350, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1238960552
 MonoBehaviour:
@@ -34911,6 +36258,7 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    value: 0
 --- !u!114 &1238960554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35609,18 +36957,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1260026890}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 947177786}
-  m_Father: {fileID: 622926465}
-  m_RootOrder: 7
+  m_Father: {fileID: 763070949}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.34052077, y: 0}
-  m_AnchorMax: {x: 0.42247924, y: 0.11874028}
-  m_AnchoredPosition: {x: -0.9000244, y: 0}
-  m_SizeDelta: {x: 2, y: 2}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 300, y: 30}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1260026892
 MonoBehaviour:
@@ -35686,7 +37034,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f3a87a33162a0574fb70263175c638cb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b701d47c91af209418df949100496795, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -35760,7 +37108,7 @@ MonoBehaviour:
       characIconIndex: 
       experience: 0
       strategyType: 
-    swordsmen:
+    sword:
       characterName: Swordsman
       age: 0
       origin: 
@@ -35768,11 +37116,12 @@ MonoBehaviour:
       personality: 
       characIconType: warriors
       characIconIndex: w1
-      quantity: 50
+      quantity: 0
       unitName: Swordsman
       attack: 10
-      defense: 0
-      precision: 95
+      defense: 6
+      evasion: 0
+      precision: 90
       range: 1
       strongTo:
       - Axeman
@@ -35782,7 +37131,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
+    lance:
       characterName: Lancer
       age: 0
       origin: 
@@ -35793,7 +37142,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
-      defense: 0
+      defense: 5
+      evasion: 0
       precision: 85
       range: 1
       strongTo:
@@ -35804,7 +37154,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
@@ -35815,7 +37165,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 75
       range: 1
       strongTo:
@@ -35826,7 +37177,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
@@ -35837,7 +37188,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
-      defense: 0
+      defense: 10
+      evasion: 0
       precision: 70
       range: 1
       strongTo:
@@ -35848,7 +37200,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
@@ -35859,7 +37211,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 70
       range: 2
       strongTo:
@@ -36034,6 +37387,140 @@ Transform:
   m_Father: {fileID: 855841792}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1268385892
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1268385893}
+  - component: {fileID: 1268385895}
+  - component: {fileID: 1268385894}
+  m_Layer: 5
+  m_Name: MChiefExpTxt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1268385893
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268385892}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 770725068}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0.000015258789, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1268385894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268385892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 10
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 20
+  m_fontSizeBase: 20
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 1
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1268385895
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268385892}
+  m_CullTransparentMesh: 1
 --- !u!1 &1281120520
 GameObject:
   m_ObjectHideFlags: 0
@@ -36394,7 +37881,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.06718852, y: 0.63386977}
   m_AnchorMax: {x: 0.22172445, y: 1}
-  m_AnchoredPosition: {x: 0.4901123, y: 0.8615036}
+  m_AnchoredPosition: {x: 0.4901123, y: 0.8614998}
   m_SizeDelta: {x: -0.059999943, y: -0.9630003}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1291978384
@@ -37081,7 +38568,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1312607163}
   m_Layer: 5
-  m_Name: Player2
+  m_Name: ResumePlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38532,7 +40019,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.3250122}
+  m_AnchoredPosition: {x: 0, y: -0.3250141}
   m_SizeDelta: {x: -0.2800293, y: 0.84000015}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1381826186
@@ -38902,7 +40389,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.035415083, y: 0.51045126}
   m_AnchorMax: {x: 0.2954151, y: 0.7714513}
-  m_AnchoredPosition: {x: -0.30004883, y: -16.903515}
+  m_AnchoredPosition: {x: -0.30004883, y: -16.903479}
   m_SizeDelta: {x: 0, y: 12.214804}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1390546922
@@ -39302,6 +40789,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1397344566}
   m_CullTransparentMesh: 1
+--- !u!1 &1406342228
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1406342229}
+  - component: {fileID: 1406342231}
+  - component: {fileID: 1406342230}
+  m_Layer: 5
+  m_Name: Image (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1406342229
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406342228}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 854737742}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 8.199969, y: 23.999964}
+  m_SizeDelta: {x: 30, y: 30}
+  m_Pivot: {x: 0, y: 0.5}
+--- !u!114 &1406342230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406342228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: de0d2b7d548aef74caa72e271335b54b, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1406342231
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406342228}
+  m_CullTransparentMesh: 1
 --- !u!1 &1410547894
 GameObject:
   m_ObjectHideFlags: 0
@@ -39572,7 +41134,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -26.000153, y: -272}
+  m_AnchoredPosition: {x: -26.000122, y: -272}
   m_SizeDelta: {x: -599.9707, y: 37.100037}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1420356810
@@ -39731,6 +41293,140 @@ RectTransform:
   m_AnchoredPosition: {x: -719.8, y: 11.62}
   m_SizeDelta: {x: 312.64, y: 76.76}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1426231616
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1426231617}
+  - component: {fileID: 1426231619}
+  - component: {fileID: 1426231618}
+  m_Layer: 5
+  m_Name: MChiefExpTxt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1426231617
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426231616}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 828617411}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0.000015258789, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1426231618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426231616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 10
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 20
+  m_fontSizeBase: 20
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 1
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1426231619
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426231616}
+  m_CullTransparentMesh: 1
 --- !u!1 &1428558756
 GameObject:
   m_ObjectHideFlags: 0
@@ -39795,7 +41491,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1430227232
 GameObject:
@@ -39868,7 +41564,7 @@ MonoBehaviour:
       characIconIndex: 
       experience: 0
       strategyType: 
-    swordsmen:
+    sword:
       characterName: Swordsman
       age: 0
       origin: 
@@ -39879,8 +41575,9 @@ MonoBehaviour:
       quantity: 0
       unitName: Swordsman
       attack: 10
-      defense: 0
-      precision: 95
+      defense: 6
+      evasion: 0
+      precision: 90
       range: 1
       strongTo:
       - Axeman
@@ -39890,7 +41587,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
+    lance:
       characterName: Lancer
       age: 0
       origin: 
@@ -39901,7 +41598,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
-      defense: 0
+      defense: 5
+      evasion: 0
       precision: 85
       range: 1
       strongTo:
@@ -39912,7 +41610,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
@@ -39923,7 +41621,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 75
       range: 1
       strongTo:
@@ -39934,7 +41633,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
@@ -39945,7 +41644,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
-      defense: 0
+      defense: 10
+      evasion: 0
       precision: 70
       range: 1
       strongTo:
@@ -39956,7 +41656,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
@@ -39967,7 +41667,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 70
       range: 2
       strongTo:
@@ -40116,6 +41817,140 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1432305746
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1432305747}
+  - component: {fileID: 1432305749}
+  - component: {fileID: 1432305748}
+  m_Layer: 5
+  m_Name: MChiefStratTxt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1432305747
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432305746}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 763070949}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 26}
+  m_SizeDelta: {x: 250, y: 30}
+  m_Pivot: {x: 1, y: 0.5}
+--- !u!114 &1432305748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432305746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Type Strategy
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 13728e64145c9b4428599baba8070ab9, type: 2}
+  m_sharedMaterial: {fileID: 1313927899013884067, guid: 13728e64145c9b4428599baba8070ab9, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 20
+  m_fontSizeBase: 20
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 1
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1432305749
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432305746}
+  m_CullTransparentMesh: 1
 --- !u!1 &1434648058
 GameObject:
   m_ObjectHideFlags: 0
@@ -40504,6 +42339,140 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1445650345}
   m_CullTransparentMesh: 1
+--- !u!1 &1450356068
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1450356069}
+  - component: {fileID: 1450356071}
+  - component: {fileID: 1450356070}
+  m_Layer: 5
+  m_Name: MChiefStratTxt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1450356069
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450356068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 854737742}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 26}
+  m_SizeDelta: {x: 250, y: 30}
+  m_Pivot: {x: 1, y: 0.5}
+--- !u!114 &1450356070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450356068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Type Strategy
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 13728e64145c9b4428599baba8070ab9, type: 2}
+  m_sharedMaterial: {fileID: 1313927899013884067, guid: 13728e64145c9b4428599baba8070ab9, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 20
+  m_fontSizeBase: 20
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 1
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1450356071
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450356068}
+  m_CullTransparentMesh: 1
 --- !u!1 &1453005281
 GameObject:
   m_ObjectHideFlags: 0
@@ -40870,7 +42839,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1471332582
 GameObject:
@@ -42208,7 +44177,7 @@ MonoBehaviour:
       characIconIndex: 
       experience: 0
       strategyType: 
-    swordsmen:
+    sword:
       characterName: Swordsman
       age: 0
       origin: 
@@ -42216,11 +44185,12 @@ MonoBehaviour:
       personality: 
       characIconType: warriors
       characIconIndex: w1
-      quantity: 50
+      quantity: 0
       unitName: Swordsman
       attack: 10
-      defense: 0
-      precision: 95
+      defense: 6
+      evasion: 0
+      precision: 90
       range: 1
       strongTo:
       - Axeman
@@ -42230,7 +44200,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
+    lance:
       characterName: Lancer
       age: 0
       origin: 
@@ -42241,7 +44211,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
-      defense: 0
+      defense: 5
+      evasion: 0
       precision: 85
       range: 1
       strongTo:
@@ -42252,7 +44223,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
@@ -42263,7 +44234,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 75
       range: 1
       strongTo:
@@ -42274,7 +44246,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
@@ -42285,7 +44257,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
-      defense: 0
+      defense: 10
+      evasion: 0
       precision: 70
       range: 1
       strongTo:
@@ -42296,7 +44269,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
@@ -42307,7 +44280,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 70
       range: 2
       strongTo:
@@ -42556,7 +44530,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.017, y: 0.015375941}
   m_AnchorMax: {x: 0.9812382, y: 0.54923534}
-  m_AnchoredPosition: {x: 0.107055664, y: -12.856995}
+  m_AnchoredPosition: {x: 0.107055664, y: -12.856987}
   m_SizeDelta: {x: 2.46, y: -25.141}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1540382755
@@ -43131,7 +45105,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 64.034424, y: -912.37976}
+  m_AnchoredPosition: {x: 64.03375, y: -912.3794}
   m_SizeDelta: {x: -1660.7789, y: -956.12}
   m_Pivot: {x: -0.03491106, y: 1.0390935}
 --- !u!222 &1548868806
@@ -43859,7 +45833,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1585477042
 MonoBehaviour:
@@ -44429,7 +46403,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.29039642, y: 0}
   m_AnchorMax: {x: 0.5711426, y: 0.37500003}
-  m_AnchoredPosition: {x: -534.00116, y: 0}
+  m_AnchoredPosition: {x: -533.9971, y: 0}
   m_SizeDelta: {x: -5.3600006, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1612967421
@@ -44465,7 +46439,7 @@ MonoBehaviour:
       characIconIndex: 
       experience: 0
       strategyType: 
-    swordsmen:
+    sword:
       characterName: Swordsman
       age: 0
       origin: 
@@ -44476,8 +46450,9 @@ MonoBehaviour:
       quantity: 0
       unitName: Swordsman
       attack: 10
-      defense: 0
-      precision: 95
+      defense: 6
+      evasion: 0
+      precision: 90
       range: 1
       strongTo:
       - Axeman
@@ -44487,7 +46462,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
+    lance:
       characterName: Lancer
       age: 0
       origin: 
@@ -44498,7 +46473,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
-      defense: 0
+      defense: 5
+      evasion: 0
       precision: 85
       range: 1
       strongTo:
@@ -44509,7 +46485,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
@@ -44520,7 +46496,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 75
       range: 1
       strongTo:
@@ -44531,7 +46508,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
@@ -44542,7 +46519,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
-      defense: 0
+      defense: 10
+      evasion: 0
       precision: 70
       range: 1
       strongTo:
@@ -44553,7 +46531,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
@@ -44564,7 +46542,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 70
       range: 2
       strongTo:
@@ -46209,7 +48188,7 @@ MonoBehaviour:
       characIconIndex: 
       experience: 0
       strategyType: 
-    swordsmen:
+    sword:
       characterName: Swordsman
       age: 0
       origin: 
@@ -46220,8 +48199,9 @@ MonoBehaviour:
       quantity: 0
       unitName: Swordsman
       attack: 10
-      defense: 0
-      precision: 95
+      defense: 6
+      evasion: 0
+      precision: 90
       range: 1
       strongTo:
       - Axeman
@@ -46231,7 +48211,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
+    lance:
       characterName: Lancer
       age: 0
       origin: 
@@ -46242,7 +48222,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
-      defense: 0
+      defense: 5
+      evasion: 0
       precision: 85
       range: 1
       strongTo:
@@ -46253,7 +48234,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
@@ -46264,7 +48245,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 75
       range: 1
       strongTo:
@@ -46275,7 +48257,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
@@ -46286,7 +48268,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
-      defense: 0
+      defense: 10
+      evasion: 0
       precision: 70
       range: 1
       strongTo:
@@ -46297,7 +48280,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
@@ -46308,7 +48291,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 70
       range: 2
       strongTo:
@@ -46710,7 +48694,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.108, y: 0.78200006}
   m_AnchorMax: {x: 0.2254151, y: 0.98954874}
-  m_AnchoredPosition: {x: 0, y: -5.045764}
+  m_AnchoredPosition: {x: 0, y: -5.045758}
   m_SizeDelta: {x: 0, y: 9.713284}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1659842524
@@ -47324,6 +49308,140 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1680522875}
+  m_CullTransparentMesh: 1
+--- !u!1 &1685518911
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1685518912}
+  - component: {fileID: 1685518914}
+  - component: {fileID: 1685518913}
+  m_Layer: 5
+  m_Name: MChiefNameTxt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1685518912
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1685518911}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 854737742}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 250, y: 30}
+  m_Pivot: {x: 1, y: 1}
+--- !u!114 &1685518913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1685518911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 'Name:'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 13728e64145c9b4428599baba8070ab9, type: 2}
+  m_sharedMaterial: {fileID: 1313927899013884067, guid: 13728e64145c9b4428599baba8070ab9, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 20
+  m_fontSizeBase: 20
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 1
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1685518914
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1685518911}
   m_CullTransparentMesh: 1
 --- !u!1 &1688796036
 GameObject:
@@ -47951,7 +50069,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.08384896, y: 0.147}
   m_AnchorMax: {x: 0.96700007, y: 0.89400005}
-  m_AnchoredPosition: {x: 1, y: -6.9086914}
+  m_AnchoredPosition: {x: 1, y: -6.9087524}
   m_SizeDelta: {x: -1.9599915, y: 9.390015}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1698988285
@@ -48167,7 +50285,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.7174151, y: 0.51045126}
   m_AnchorMax: {x: 0.97575486, y: 0.7714513}
-  m_AnchoredPosition: {x: 0, y: -16.903515}
+  m_AnchoredPosition: {x: 0, y: -16.903479}
   m_SizeDelta: {x: 0, y: 12.214804}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1714934312
@@ -48522,9 +50640,143 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.25558454, y: 0.13335316}
   m_AnchorMax: {x: 0.38358453, y: 0.8473235}
-  m_AnchoredPosition: {x: 0.58599854, y: -0.5258179}
+  m_AnchoredPosition: {x: 0.58599854, y: -0.5258217}
   m_SizeDelta: {x: 0, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1729252592
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1729252593}
+  - component: {fileID: 1729252595}
+  - component: {fileID: 1729252594}
+  m_Layer: 5
+  m_Name: MChiefTypeTxt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1729252593
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729252592}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 854737742}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -10}
+  m_SizeDelta: {x: 250, y: 30}
+  m_Pivot: {x: 1, y: 0.5}
+--- !u!114 &1729252594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729252592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: TypePlayer
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 13728e64145c9b4428599baba8070ab9, type: 2}
+  m_sharedMaterial: {fileID: 1313927899013884067, guid: 13728e64145c9b4428599baba8070ab9, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 20
+  m_fontSizeBase: 20
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 1
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1729252595
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729252592}
+  m_CullTransparentMesh: 1
 --- !u!1 &1729956363
 GameObject:
   m_ObjectHideFlags: 0
@@ -48832,7 +51084,7 @@ MonoBehaviour:
       characIconIndex: 
       experience: 0
       strategyType: 
-    swordsmen:
+    sword:
       characterName: Swordsman
       age: 0
       origin: 
@@ -48840,11 +51092,12 @@ MonoBehaviour:
       personality: 
       characIconType: warriors
       characIconIndex: w1
-      quantity: 50
+      quantity: 0
       unitName: Swordsman
       attack: 10
-      defense: 0
-      precision: 95
+      defense: 6
+      evasion: 0
+      precision: 90
       range: 1
       strongTo:
       - Axeman
@@ -48854,7 +51107,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
+    lance:
       characterName: Lancer
       age: 0
       origin: 
@@ -48865,7 +51118,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
-      defense: 0
+      defense: 5
+      evasion: 0
       precision: 85
       range: 1
       strongTo:
@@ -48876,7 +51130,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
@@ -48887,7 +51141,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 75
       range: 1
       strongTo:
@@ -48898,7 +51153,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
@@ -48909,7 +51164,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
-      defense: 0
+      defense: 10
+      evasion: 0
       precision: 70
       range: 1
       strongTo:
@@ -48920,7 +51176,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
@@ -48931,7 +51187,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 70
       range: 2
       strongTo:
@@ -49109,7 +51366,7 @@ MonoBehaviour:
       characIconIndex: 
       experience: 0
       strategyType: 
-    swordsmen:
+    sword:
       characterName: Swordsman
       age: 0
       origin: 
@@ -49117,11 +51374,12 @@ MonoBehaviour:
       personality: 
       characIconType: warriors
       characIconIndex: w1
-      quantity: 50
+      quantity: 0
       unitName: Swordsman
       attack: 10
-      defense: 0
-      precision: 95
+      defense: 6
+      evasion: 0
+      precision: 90
       range: 1
       strongTo:
       - Axeman
@@ -49131,7 +51389,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
+    lance:
       characterName: Lancer
       age: 0
       origin: 
@@ -49142,7 +51400,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
-      defense: 0
+      defense: 5
+      evasion: 0
       precision: 85
       range: 1
       strongTo:
@@ -49153,7 +51412,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
@@ -49164,7 +51423,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 75
       range: 1
       strongTo:
@@ -49175,7 +51435,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
@@ -49186,7 +51446,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
-      defense: 0
+      defense: 10
+      evasion: 0
       precision: 70
       range: 1
       strongTo:
@@ -49197,7 +51458,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
@@ -49208,7 +51469,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 70
       range: 2
       strongTo:
@@ -49608,7 +51870,7 @@ RectTransform:
   - {fileID: 424632359}
   - {fileID: 2085805090}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -50133,7 +52395,7 @@ Transform:
   - {fileID: 1026276977}
   - {fileID: 1230075577}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1767167869
 GameObject:
@@ -50246,7 +52508,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.0075270683, y: 0.020896813}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.6799927, y: -2.0796204}
+  m_AnchoredPosition: {x: -0.6799927, y: -2.0797272}
   m_SizeDelta: {x: -0.44000006, y: -4.37}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1769767212
@@ -50417,7 +52679,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.19087951}
-  m_AnchoredPosition: {x: -0.093933105, y: 0.28001404}
+  m_AnchoredPosition: {x: -0.093933105, y: 0.2800293}
   m_SizeDelta: {x: -0.61, y: 1.02}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1778752384
@@ -50569,8 +52831,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1321, y: -640}
-  m_SizeDelta: {x: 350, y: 350}
+  m_AnchoredPosition: {x: 1321, y: -510}
+  m_SizeDelta: {x: 350, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1779368239
 MonoBehaviour:
@@ -50646,6 +52908,7 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    value: 0
 --- !u!114 &1779368241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51370,7 +53633,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.065000005, y: 0.059000004}
   m_AnchorMax: {x: 0.30114326, y: 0.33136475}
-  m_AnchoredPosition: {x: -0.58999634, y: 0.29971313}
+  m_AnchoredPosition: {x: -0.5899658, y: 0.29971313}
   m_SizeDelta: {x: 1, y: 0.8689995}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1795188283
@@ -51714,7 +53977,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 48}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 600, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1819920143
 MonoBehaviour:
@@ -51736,7 +53999,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: Territorio No Conquistado
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -52969,8 +55232,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 601, y: -280}
-  m_SizeDelta: {x: 350, y: 350}
+  m_AnchoredPosition: {x: 601, y: -200}
+  m_SizeDelta: {x: 350, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1869561374
 MonoBehaviour:
@@ -53046,6 +55309,7 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    value: 0
 --- !u!114 &1869561376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53119,7 +55383,7 @@ RectTransform:
   - {fileID: 1420356809}
   - {fileID: 1819920142}
   m_Father: {fileID: 622926465}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.2381257, y: 0.2027029}
   m_AnchorMax: {x: 0.76400006, y: 0.79529715}
@@ -53421,7 +55685,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.38500002, y: 0.08157394}
   m_AnchorMax: {x: 0.648, y: 0.63386977}
-  m_AnchoredPosition: {x: -0.49995422, y: -1.5949783}
+  m_AnchoredPosition: {x: -0.49995422, y: -1.5949774}
   m_SizeDelta: {x: 0.3199997, y: -0.23999977}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1882229257
@@ -54463,6 +56727,44 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1912676073}
   m_CullTransparentMesh: 1
+--- !u!1 &1916336962
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1916336963}
+  m_Layer: 5
+  m_Name: MChiefsPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1916336963
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916336962}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 124705756}
+  - {fileID: 770725068}
+  - {fileID: 763070949}
+  m_Father: {fileID: 622926465}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -719.4, y: -456}
+  m_SizeDelta: {x: 460, y: 150}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1918174641
 GameObject:
   m_ObjectHideFlags: 0
@@ -54618,7 +56920,7 @@ RectTransform:
   - {fileID: 56601902}
   - {fileID: 707912268}
   m_Father: {fileID: 622926465}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.9168519}
   m_AnchorMax: {x: 0.307, y: 1}
@@ -54893,7 +57195,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.16167112}
   m_AnchorMax: {x: 1, y: 0.337}
-  m_AnchoredPosition: {x: 0.12475586, y: 27.781448}
+  m_AnchoredPosition: {x: 0.12475586, y: 27.781458}
   m_SizeDelta: {x: -2.2994385, y: 18.038086}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1940143359
@@ -56385,7 +58687,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.7821699, y: 0.78200006}
   m_AnchorMax: {x: 0.901, y: 1}
-  m_AnchoredPosition: {x: -0.1000061, y: -5.001217}
+  m_AnchoredPosition: {x: -0.1000061, y: -5.0012054}
   m_SizeDelta: {x: -1, y: 9.2024}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1999852119
@@ -56777,7 +59079,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.032, y: 0.08157394}
   m_AnchorMax: {x: 0.10143511, y: 0.59057397}
-  m_AnchoredPosition: {x: -0.036315918, y: -0.26769257}
+  m_AnchoredPosition: {x: -0.036315918, y: -0.26769447}
   m_SizeDelta: {x: -0.31000042, y: -1.1759996}
   m_Pivot: {x: 0.61708134, y: 0.5}
 --- !u!114 &2008364472
@@ -57001,8 +59303,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 241, y: -640}
-  m_SizeDelta: {x: 350, y: 350}
+  m_AnchoredPosition: {x: 241, y: -510}
+  m_SizeDelta: {x: 350, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2013995249
 MonoBehaviour:
@@ -57078,6 +59380,7 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    value: 0
 --- !u!114 &2013995251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57620,7 +59923,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.02523801, y: 0.53300005}
   m_AnchorMax: {x: 0.252643, y: 0.86424035}
-  m_AnchoredPosition: {x: 1.2283325, y: 1.0992203}
+  m_AnchoredPosition: {x: 1.2284546, y: 1.0992203}
   m_SizeDelta: {x: 0.66999817, y: -1.5900002}
   m_Pivot: {x: 1.0417047, y: 0.13231432}
 --- !u!114 &2032278077
@@ -57763,7 +60066,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2050465956
 GameObject:
@@ -57836,7 +60139,7 @@ MonoBehaviour:
       characIconIndex: 
       experience: 0
       strategyType: 
-    swordsmen:
+    sword:
       characterName: Swordsman
       age: 0
       origin: 
@@ -57847,8 +60150,9 @@ MonoBehaviour:
       quantity: 0
       unitName: Swordsman
       attack: 10
-      defense: 0
-      precision: 95
+      defense: 6
+      evasion: 0
+      precision: 90
       range: 1
       strongTo:
       - Axeman
@@ -57858,7 +60162,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
+    lance:
       characterName: Lancer
       age: 0
       origin: 
@@ -57869,7 +60173,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Lancer
       attack: 15
-      defense: 0
+      defense: 5
+      evasion: 0
       precision: 85
       range: 1
       strongTo:
@@ -57880,7 +60185,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
@@ -57891,7 +60196,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Axeman
       attack: 20
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 75
       range: 1
       strongTo:
@@ -57902,7 +60208,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
@@ -57913,7 +60219,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Scout
       attack: 25
-      defense: 0
+      defense: 10
+      evasion: 0
       precision: 70
       range: 1
       strongTo:
@@ -57924,7 +60231,7 @@ MonoBehaviour:
       typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
@@ -57935,7 +60242,8 @@ MonoBehaviour:
       quantity: 0
       unitName: Archer
       attack: 10
-      defense: 0
+      defense: 3
+      evasion: 0
       precision: 70
       range: 2
       strongTo:
@@ -58571,7 +60879,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2085805089
 GameObject:
@@ -58612,7 +60920,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.2381257, y: 0.2027029}
   m_AnchorMax: {x: 0.76400006, y: 0.79529715}
-  m_AnchoredPosition: {x: -2, y: 1}
+  m_AnchoredPosition: {x: -1.999939, y: 1}
   m_SizeDelta: {x: -10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2085805091
@@ -59498,7 +61806,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.305}
-  m_AnchoredPosition: {x: 0.58999634, y: -0.71032715}
+  m_AnchoredPosition: {x: 0.58999634, y: -0.7103119}
   m_SizeDelta: {x: 0.59, y: 2.02}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2130016271
@@ -59573,7 +61881,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 224.98895, y: -71.82864}
+  m_AnchoredPosition: {x: 224.98895, y: -71.82872}
   m_SizeDelta: {x: -479.96375, y: -356.383}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2135232745
@@ -60220,7 +62528,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3701391178849968591, guid: bd111f3284889aa4987026e538fdf626, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.61800003
+      value: 0.595
       objectReference: {fileID: 0}
     - target: {fileID: 3701391178849968591, guid: bd111f3284889aa4987026e538fdf626, type: 3}
       propertyPath: m_AnchorMax.y
@@ -60228,19 +62536,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3701391178849968591, guid: bd111f3284889aa4987026e538fdf626, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.38300002
+      value: 0.405854
       objectReference: {fileID: 0}
     - target: {fileID: 3701391178849968591, guid: bd111f3284889aa4987026e538fdf626, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.79063064
+      value: 0.83433336
       objectReference: {fileID: 0}
     - target: {fileID: 3701391178849968591, guid: bd111f3284889aa4987026e538fdf626, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -1
+      value: 88
       objectReference: {fileID: 0}
     - target: {fileID: 3701391178849968591, guid: bd111f3284889aa4987026e538fdf626, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 224
+      value: 271
+      objectReference: {fileID: 0}
+    - target: {fileID: 3701391178849968591, guid: bd111f3284889aa4987026e538fdf626, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3701391178849968591, guid: bd111f3284889aa4987026e538fdf626, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 3701391178849968591, guid: bd111f3284889aa4987026e538fdf626, type: 3}
       propertyPath: m_LocalPosition.x
@@ -60272,11 +62588,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3701391178849968591, guid: bd111f3284889aa4987026e538fdf626, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3701391178849968591, guid: bd111f3284889aa4987026e538fdf626, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 113
+      value: 89.50008
       objectReference: {fileID: 0}
     - target: {fileID: 3701391178849968591, guid: bd111f3284889aa4987026e538fdf626, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

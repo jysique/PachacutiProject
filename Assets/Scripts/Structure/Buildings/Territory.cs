@@ -22,11 +22,11 @@ public class Territory
 
     [SerializeField] private MilitarChief militarChiefTerritory = null;
 
-    [SerializeField] private Swordsman swordsmen= new Swordsman();
-    [SerializeField] private Lancer lancers = new Lancer();
-    [SerializeField] private Axeman axemen  = new Axeman();
-    [SerializeField] private Scout scouts = new Scout();
-    [SerializeField] private Archer archers = new Archer();
+    [SerializeField] private Swordsman sword= new Swordsman();
+    [SerializeField] private Lancer lance = new Lancer();
+    [SerializeField] private Axeman axe  = new Axeman();
+    [SerializeField] private Scout scout = new Scout();
+    [SerializeField] private Archer archer = new Archer();
 
     [SerializeField] private Farm farmTerritory = new Farm();
     [SerializeField] private GoldMine goldMineTerritory = new GoldMine();
@@ -55,28 +55,28 @@ public class Territory
     }
     public Swordsman Swordsmen
     {
-        get { return swordsmen; }
-        set { swordsmen = value; }
+        get { return sword; }
+        set { sword = value; }
     }
     public Lancer Lancers
     {
-        get { return lancers; }
-        set { lancers = value; }
+        get { return lance; }
+        set { lance = value; }
     }
     public Axeman Axemen
     {
-        get { return axemen; }
-        set { axemen = value; }
+        get { return axe; }
+        set { axe = value; }
     }
     public Scout Scouts
     {
-        get { return scouts; }
-        set { scouts = value; }
+        get { return scout; }
+        set { scout = value; }
     }
     public Archer Archers
     {
-        get { return archers; }
-        set { archers = value; }
+        get { return archer; }
+        set { archer = value; }
     }
     public bool IsClaimed
     {
@@ -178,11 +178,11 @@ public class Territory
     
     public int Population
     {
-        get { return lancers.Quantity 
-                + axemen.Quantity
-                + swordsmen.Quantity 
-                + scouts.Quantity
-                + archers.Quantity; }
+        get { return lance.Quantity 
+                + axe.Quantity
+                + sword.Quantity 
+                + scout.Quantity
+                + archer.Quantity; }
     }
     public int MotivationTerritory
     {
@@ -321,23 +321,23 @@ public class Territory
     {
         if (building == "Academy")
         {
-            return this.swordsmen;
+            return this.sword;
         }
         else if (building == "Barracks")
         {
-            return this.lancers;
+            return this.lance;
         }
         else if (building == "Castle")
         {
-            return this.axemen;
+            return this.axe;
         }
         else if (building == "Stable")
         {
-            return this.scouts;
+            return this.scout;
         }
         else if (building == "Archery")
         {
-            return this.archers;
+            return this.archer;
         }
         else
         {
@@ -388,23 +388,23 @@ public class Territory
     {
         if (unit == "Swordsman")
         {
-            return swordsmen;
+            return sword;
         }
         else if (unit == "Lancer")
         {
-            return lancers;
+            return lance;
         }
         else if (unit == "Axeman")
         {
-            return axemen;
+            return axe;
         }
         else if(unit == "Scout")
         {
-            return scouts;
+            return scout;
         }
         else if (unit == "Archer")
         {
-            return archers;
+            return archer;
         }
         else
         {

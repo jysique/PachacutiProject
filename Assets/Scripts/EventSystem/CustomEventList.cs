@@ -32,19 +32,36 @@ public class CustomEventList
         BuildingsEvents.Add(_customEvent);
     }
 
-    public void AddBattleEvent(Troop playerTroop, Troop enemyTroop, TerritoryHandler _playerTerritory, TerritoryHandler _enemyTerritory, bool isPlayerTerritory)
+    public void AddBattleEvent(string _battleType, Troop playerTroop, Troop enemyTroop, TerritoryHandler _playerTerritory, TerritoryHandler _enemyTerritory, bool isPlayerTerritory)
     {
         CustomBattle _customBattle;
         if (isPlayerTerritory)
         {
-            _customBattle = new CustomBattle(enemyTroop, playerTroop, _enemyTerritory,_playerTerritory);
+            _customBattle = new CustomBattle(_battleType, enemyTroop, playerTroop, _enemyTerritory,_playerTerritory);
         }
         else
         {
-            _customBattle = new CustomBattle(playerTroop,enemyTroop, _playerTerritory,_enemyTerritory);
+            _customBattle = new CustomBattle(_battleType, playerTroop,enemyTroop, _playerTerritory,_enemyTerritory);
             
         }
         
+        BattleEvents.Add(_customBattle);
+    }
+
+
+    public void AddBattleEvent(int _a, int _turn, Troop playerTroop, Troop enemyTroop, TerritoryHandler _playerTerritory, TerritoryHandler _enemyTerritory, bool isPlayerTerritory)
+    {
+        CustomBattle _customBattle;
+        if (isPlayerTerritory)
+        {
+            _customBattle = new CustomBattle(_a,_turn, enemyTroop, playerTroop, _enemyTerritory, _playerTerritory);
+        }
+        else
+        {
+            _customBattle = new CustomBattle(_a,_turn, playerTroop, enemyTroop, _playerTerritory, _enemyTerritory);
+
+        }
+
         BattleEvents.Add(_customBattle);
     }
 

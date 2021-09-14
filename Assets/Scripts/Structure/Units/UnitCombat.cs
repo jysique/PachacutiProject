@@ -8,6 +8,7 @@ public class UnitCombat : Subordinate
     [SerializeField] private string unitName;
     [SerializeField] private int attack;
     [SerializeField] private int defense;
+    [SerializeField] private int evasion;
     [SerializeField] private int precision;
     [SerializeField] private int range;
     [SerializeField] private string[] strongTo;
@@ -36,6 +37,11 @@ public class UnitCombat : Subordinate
     {
         get { return unitName; }
         set { unitName = value; }
+    }
+    public int Evasion
+    {
+        get { return evasion; }
+        set { evasion = value; }
     }
     public int Defense
     {

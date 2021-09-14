@@ -111,30 +111,7 @@ public class Building
         get { return init; }
         set { init = value; }
     }
-    /*
-    public virtual void ImproveBuilding()
-    {
-        this.level++;
-        this.daysToBuild++;
-        if (this.level % 3 == 0)
-        {
-            levelMaterials++;
-            levelSpeed++;
-        }
-        else if (this.level % 3 == 1)
-        {
-            levelSpeed++;
-        }
-        else
-        {
-            levelLimit++;
-            levelSpeed++;
-        }
-        this.speedUnits = this.AtributteSpeed * levelSpeed;
-        this.limitUnits = this.initValue + this.AtributteLimit * levelLimit;
-        this.materialUnits = levelMaterials;
-    }
-    */
+   
     public virtual void ImproveBuilding(Territory territory)
     {
         this.level++;

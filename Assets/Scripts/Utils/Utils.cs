@@ -63,6 +63,47 @@ public class Utils : MonoBehaviour
                 return null;
         }
     }
+    public Building GetNewBuilding(string _type)
+    {
+        switch (_type)
+        {
+            case "Academy":
+                return new Academy();
+            case "Archery":
+                return new Archery();
+            case "Barracks":
+                return new Barracks();
+            case "Castle":
+                return new Castle();
+            case "Farm":
+                return new Farm();
+            case "Fortress":
+                return new Fortress();
+            case "GoldMine":
+                return new GoldMine();
+            case "Stable":
+                return new Stable();
+            default:
+                return null;
+        }
+    }
+
+
+    public UnitCombat Reset(UnitCombat uc)
+    {
+        UnitCombat a = Utils.instance.GetNewUnitCombat(uc.UnitName);
+        uc.CharacterName = a.CharacterName;
+        uc.Evasion = a.Evasion;
+        uc.UnitName = a.UnitName;
+     //   uc.Attack = a.Attack;
+        uc.Defense = a.Defense;
+        uc.Evasion = a.Evasion;
+        uc.Precision = a.Precision;
+        uc.Range = a.Range;
+        uc.StrongTo = a.StrongTo;
+        uc.WeakTo = a.WeakTo;
+        return a;
+    }
 
     private List<string> buildings_string = new List<string>()
     {
