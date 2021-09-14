@@ -28,6 +28,7 @@ public class AppearAndDissapearAnimation : MonoBehaviour
     public void Change()
     {
         anim.SetTrigger("change");
+        //print("cambio");
     }
 
     public void Stay()

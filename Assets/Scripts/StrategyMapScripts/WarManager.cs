@@ -413,7 +413,7 @@ public class WarManager : MonoBehaviour
             
             if (attacker.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER || otherTerritory.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
             {
-                print("llego aca"); 
+                //print("llego aca"); 
                 TutorialController.instance.CanSelectTroops = true;
                 DateTableHandler.instance.PauseTime();
                 battleCanvas.SetActive(true);
@@ -426,7 +426,7 @@ public class WarManager : MonoBehaviour
                     
                     playerTroop = attackerTroop;
                     enemyTroop = new Troop(otherTerritory.TerritoryStats.Territory.TroopDefending);
-                    print(playerTroop.GetAllNumbersUnit());
+                    //print(playerTroop.GetAllNumbersUnit());
                     playerTerritory = attacker;
                     enemyTerritory = otherTerritory;
                 }

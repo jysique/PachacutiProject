@@ -14,7 +14,10 @@ public class CombatManager : MonoBehaviour
     [SerializeField]private GameObject squares;
     [SerializeField] private GameObject unitGroupPrefab;
     [SerializeField] public GameObject menu;
-
+    [Header("Maps")]
+    [SerializeField] public GameObject map1;
+    [SerializeField] public GameObject map2;
+    [SerializeField] public GameObject map3;
     [Header("Resume Battle Menu")]
     [SerializeField] private GameObject Block;
     [SerializeField] private GameObject ResumeBattle;
@@ -40,6 +43,12 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private GameObject attackerText;
     [SerializeField] private GameObject defenderText;
     private GroupClassContainer targetAttack;
+
+    [Header("Unit Resume")]
+    [SerializeField] private GameObject unitResume;
+    [SerializeField] private GameObject unitPicture;
+    [SerializeField] private GameObject unitText;
+
 
     public bool blockScreen;
     public List<UnitGroup> units = new List<UnitGroup>();
@@ -148,6 +157,9 @@ public class CombatManager : MonoBehaviour
     int start = 0;
     public void StartWar(Troop playerTroop, Troop enemyTroop, TerritoryHandler _playerTerritory, TerritoryHandler _enemyTerritory, bool isPlayerTerritory)
     {
+        map1.SetActive(false);
+        map2.SetActive(false);
+        map3.SetActive(false);
         turn = true;
         turns = 20;
 
@@ -246,16 +258,39 @@ public class CombatManager : MonoBehaviour
         battleResume.SetActive(true);
 
     }
-
-    public void CloseResume()
+    public void MakeUnitResume()
     {
+        UnitGroup unit = selectedUnit;
+        unitPicture.GetComponent<Image>().sprite = unit.UnitCombat.Picture;
+        unitText.GetComponent<TextMeshProUGUI>().text = "QUANTITY:     " + unit.UnitCombat.Quantity + "\n" +
+            "ATTACK:          " + unit.UnitCombat.Attack + "\n" +
+            "DEFENSE:        " + unit.UnitCombat.Defense + "\n" +
+            "PRECISION:     " + unit.UnitCombat.Precision + "\n";
+        unitResume.SetActive(true);
+    }
+
+    public void CloseAttackResume()
+    {
+        
         battleResume.SetActive(false);
+    }
+
+    public void CloseUnitResume()
+    {
+
+        unitResume.SetActive(false);
+    }
+
+    public void CloseMenu()
+    {
+        
+        CloseAttackResume();
     }
 
     public void AttackUnit()
     {
         targetAttack.ReceiveDamage();
-        CloseResume();
+        CloseAttackResume();
     }
     
 
@@ -271,10 +306,12 @@ public class CombatManager : MonoBehaviour
 
     private void ClearUnits()
     {
+        print("clear " + turn);
         foreach (UnitGroup u in units) 
         {
             if(u.TypePlayer == Territory.TYPEPLAYER.PLAYER && turn)
             {
+                print("i");
                 u.Defense = false;
                 u.UnitsGO.transform.GetChild(4).gameObject.SetActive(false);
                 u.UnitsGO.transform.GetChild(2).GetComponent<Image>().color = Color.white;
@@ -297,13 +334,15 @@ public class CombatManager : MonoBehaviour
     {
         turnSignal.GetComponent<AppearAndDissapearAnimation>().ChangeColor();
         turnSignal.GetComponent<AppearAndDissapearAnimation>().Change();
+        ClearUnits();
     }
     private void ChangeSide()
     {
         turn = !turn;
         turnSignal.GetComponent<AppearAndDissapearAnimation>().Change();
+        print("side "+ turn);
         Invoke("ChangeColorTurnSignal", 1f);
-        ClearUnits();
+        
 
         if (turn == false)
         {
@@ -328,10 +367,10 @@ public class CombatManager : MonoBehaviour
             SortList(bots);
             
         }
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
         foreach (UnitGroup u in bots)
         {
-            print("bot juega");
+
             selectedUnit = u;
             BotMovement(u);
             yield return new WaitForSeconds(5);
@@ -340,11 +379,7 @@ public class CombatManager : MonoBehaviour
     }
     public void MakeMovement(bool isAlive)
     {
-        print("movimiento terminado: " + selectedUnit.UnitCombat.UnitName);
-        if(selectedUnit.UnitCombat.UnitName == "Lancer")
-        {
-            print(isAlive);
-        }
+       
         ReturnMenu();
         //cambiar la actividad
         if(isAlive)
@@ -359,7 +394,7 @@ public class CombatManager : MonoBehaviour
         {
             
             turns--;
-            print("si funca we");
+            //print("si funca we");
             ChangeSide();
         }
         if (turns <= 0)
@@ -370,6 +405,9 @@ public class CombatManager : MonoBehaviour
     }
     void OpenResumeBattle()
     {
+        map1.SetActive(true);
+        map2.SetActive(true);
+        map3.SetActive(true);
         Player2.transform.GetChild(2).gameObject.SetActive(false);
         Player1.transform.GetChild(2).gameObject.SetActive(false);
         Block.SetActive(true);
@@ -1154,5 +1192,11 @@ public class CombatManager : MonoBehaviour
     public UnitGroup ActualUnit()
     {
         return selectedUnit;
+    }
+
+    private void Update()
+    {
+        //if (selectedUnit != null) print("unidad: " + selectedUnit.UnitCombat.UnitName + " activo? " + selectedUnit.Active);
+        //print("unidad: " + units[0].UnitCombat.UnitName + " activo? " + units[0].Active);
     }
 }
