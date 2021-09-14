@@ -43,6 +43,7 @@ public class GroupClassContainer : MonoBehaviour
                 CombatManager.instance.menu.transform.GetChild(1).gameObject.GetComponent<Button>().interactable = true;
                 CombatManager.instance.menu.transform.GetChild(2).gameObject.GetComponent<Button>().interactable = true;
             }
+            AudioManager.instance.ReadAndPlaySFX("context_menu");
             CombatManager.instance.selectedUnit = stats;
             Vector3 newpos = stats.UnitsGO.transform.position;
             //print(units[c].UnitsGO.transform.parent.position);

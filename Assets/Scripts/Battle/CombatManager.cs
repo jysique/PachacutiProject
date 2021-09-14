@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 public class CombatManager : MonoBehaviour
 {
 
@@ -34,7 +33,7 @@ public class CombatManager : MonoBehaviour
     [Header("Buttons")]
     [SerializeField] private Button surrenderBtn;
     private GameObject canvas;
-    
+
     [Header("Turn Signal")]
     [SerializeField] private GameObject turnSignal;
     //
@@ -59,7 +58,7 @@ public class CombatManager : MonoBehaviour
     public UnitGroup selectedUnit;
     Dictionary<int, int> playerPositions = new Dictionary<int, int>();
     Dictionary<int, int> enemyPositions = new Dictionary<int, int>();
-    
+
     TerritoryHandler playerTerritory;
     TerritoryHandler enemyTerritory;
     [Header("Config")]
@@ -71,7 +70,7 @@ public class CombatManager : MonoBehaviour
     private bool canActiveSpecial;
     public int c;
     public int acumulated = 0;
-    [SerializeField]private int limitSA;
+    [SerializeField] private int limitSA;
 
     //isPlayer is true si player es defensor
     //isPlayer is false si player es atacante
@@ -87,7 +86,7 @@ public class CombatManager : MonoBehaviour
     {
         get { return squares; }
     }
-   // bool ac = true;
+    // bool ac = true;
     public bool CanBotTurn
     {
         get { return canBotTurn; }
@@ -132,14 +131,15 @@ public class CombatManager : MonoBehaviour
         enemyPositions.Add(3, 6);
         enemyPositions.Add(4, 11);
         enemyPositions.Add(5, 10);
-        menuOriginalPos = menu.transform;
+        //menuOriginalPos = menu.transform;
     }
-    
+
     void Start()
     {
     }
     public void StartWar(Troop playerTroop, Troop enemyTroop, TerritoryHandler _playerTerritory, TerritoryHandler _enemyTerritory, bool isPlayerTerritory)
     {
+        AudioManager.instance.ReadAndPlayMusic("fight",false);
         map1.SetActive(false);
         map2.SetActive(false);
         map3.SetActive(false);
@@ -151,7 +151,7 @@ public class CombatManager : MonoBehaviour
         limitSA = 1;
         turns = 20;
 
-        if (start<1)
+        if (start < 1)
         {
             start++;
             int ift = PlayerPrefs.GetInt("tutorialState");
@@ -162,7 +162,7 @@ public class CombatManager : MonoBehaviour
                 EventManager.instance.AddBattleEvents(playerTroop, enemyTroop, _playerTerritory, _enemyTerritory, isPlayerTerritory);
             }
             //SortList(units);
-          //  mcPlayer = _playerTerritory.TerritoryStats.Territory.MilitarChiefTerritory;
+            //  mcPlayer = _playerTerritory.TerritoryStats.Territory.MilitarChiefTerritory;
 
             isPlayer = isPlayerTerritory;
             playerTerritory = _playerTerritory;
@@ -176,7 +176,7 @@ public class CombatManager : MonoBehaviour
                 attackerOriginalTroop.SaveTroop(enemyTroop);
                 defendOriginalTroop.SaveTroop(playerTroop);
 
-                
+
 
             }
             else
@@ -205,9 +205,9 @@ public class CombatManager : MonoBehaviour
 
             SetMilitarChief(militarchiefPlayer, playerTerritory.TerritoryStats.Territory.MilitarChiefTerritory, playerTerritory.TerritoryStats.Territory.TypePlayer);
             SetMilitarChief(militarchiefEnemy, enemyTerritory.TerritoryStats.Territory.MilitarChiefTerritory, enemyTerritory.TerritoryStats.Territory.TypePlayer);
-            
+
         }
-       // print("count " + playerTroop.UnitCombats.Count);
+        // print("count " + playerTroop.UnitCombats.Count);
         for (int i = 0; i < playerTroop.Positions.Count; i++)
         {
             int up = playerPositions[playerTroop.Positions[i]];
@@ -221,8 +221,8 @@ public class CombatManager : MonoBehaviour
         UpdateBuffTerrain();
         selectedUnit = units[0];
         turnSignal.GetComponent<AppearAndDissapearAnimation>().Change();
-       
-       //MakeMovement();
+
+        //MakeMovement();
     }
     private void CheckSpecialAbility()
     {
@@ -260,7 +260,7 @@ public class CombatManager : MonoBehaviour
     }
     private void InstantiateUnit(GameObject square, Territory.TYPEPLAYER _type, UnitCombat unitCombat)
     {
-        if (square.GetComponent<SquareType>().haveUnit && square.transform.childCount>0)
+        if (square.GetComponent<SquareType>().haveUnit && square.transform.childCount > 0)
         {
             //print("destroy");
             units.Remove(square.GetComponent<SquareType>().unitGroup);
@@ -288,7 +288,7 @@ public class CombatManager : MonoBehaviour
         }
         UnitGroup unit = new UnitGroup(_type, pref, unitCombat);
 
-        
+
         square.GetComponent<SquareType>().unitGroup = unit;
         square.GetComponent<SquareType>().haveUnit = true;
 
@@ -313,8 +313,8 @@ public class CombatManager : MonoBehaviour
         targetAttack = tA;
         attackerPicture.GetComponent<Image>().sprite = attackGroup.UnitCombat.Picture;
         defenderPicture.GetComponent<Image>().sprite = defenseGroup.UnitCombat.Picture;
-        attackerText.GetComponent<TextMeshProUGUI>().text = 
-            "QUANTITY: " + attackGroup.UnitCombat.Quantity + "\n" + 
+        attackerText.GetComponent<TextMeshProUGUI>().text =
+            "QUANTITY: " + attackGroup.UnitCombat.Quantity + "\n" +
             "BASE DAMAGE: " + attackGroup.UnitCombat.Attack + "\n" +
             "DEFENSE: " + attackGroup.UnitCombat.Defense + "\n" +
             "PRESICION: " + attackGroup.UnitCombat.Precision + "\n" +
@@ -332,6 +332,7 @@ public class CombatManager : MonoBehaviour
     }
     public void MakeUnitResume()
     {
+        AudioManager.instance.ReadAndPlaySFX("menu_click");
         UnitGroup unit = selectedUnit;
         unitPicture.GetComponent<Image>().sprite = unit.UnitCombat.Picture;
         unitText.GetComponent<TextMeshProUGUI>().text = "QUANTITY:     " + unit.UnitCombat.Quantity + "\n" +
@@ -343,24 +344,28 @@ public class CombatManager : MonoBehaviour
 
     public void CloseAttackResume()
     {
-         battleResume.SetActive(false);
+        battleResume.SetActive(false);
+        AudioManager.instance.ReadAndPlaySFX("send_units");
     }
-  
+
 
     public void CloseUnitResume()
     {
 
         unitResume.SetActive(false);
+        AudioManager.instance.ReadAndPlaySFX("send_units");
     }
 
     public void CloseMenu()
     {
-        
+
         CloseAttackResume();
+        AudioManager.instance.ReadAndPlaySFX("send_units");
     }
 
     public void AttackUnit()
     {
+        AudioManager.instance.ReadAndPlaySFX("menu_click");
         targetAttack.ReceiveDamage();
         CloseAttackResume();
     }
@@ -376,9 +381,9 @@ public class CombatManager : MonoBehaviour
     private void ClearUnits()
     {
         print("clear " + turn);
-        foreach (UnitGroup u in units) 
+        foreach (UnitGroup u in units)
         {
-            if(u.TypePlayer == Territory.TYPEPLAYER.PLAYER && turn)
+            if (u.TypePlayer == Territory.TYPEPLAYER.PLAYER && turn)
             {
                 print("i");
                 u.Defense = false;
@@ -396,8 +401,8 @@ public class CombatManager : MonoBehaviour
             }
 
         }
-      
-        
+
+
     }
     public void ChangeColorTurnSignal()
     {
@@ -409,7 +414,7 @@ public class CombatManager : MonoBehaviour
     {
         turn = !turn;
         turnSignal.GetComponent<AppearAndDissapearAnimation>().Change();
-        print("side "+ turn);
+        print("side " + turn);
         Invoke("ChangeColorTurnSignal", 1f);
         counter = 0;
         if (turn == false)
@@ -422,6 +427,7 @@ public class CombatManager : MonoBehaviour
             canActiveSpecial = true;
             StartCoroutine(WaitingEventInPlayerTurn());
         }
+        blockScreen = false;
     }
     IEnumerator WaitingEventInBotTurn()
     {
@@ -464,7 +470,9 @@ public class CombatManager : MonoBehaviour
         if (canPlayerTurn)
         {
             yield return null;
-        }else{
+        }
+        else
+        {
             canActiveSpecial = false;
             List<UnitGroup> players = new List<UnitGroup>();
             foreach (UnitGroup u in units)
@@ -485,18 +493,18 @@ public class CombatManager : MonoBehaviour
             }
             canPlayerTurn = true;
         }
-        
+
     }
 
     public IEnumerator BotTurn()
     {
         List<UnitGroup> bots = new List<UnitGroup>();
-        foreach(UnitGroup u in units)
+        foreach (UnitGroup u in units)
         {
-            if(u.TypePlayer != Territory.TYPEPLAYER.PLAYER)
+            if (u.TypePlayer != Territory.TYPEPLAYER.PLAYER)
             {
                 bots.Add(u);
-                
+
             }
             SortList(bots);
         }
@@ -519,11 +527,11 @@ public class CombatManager : MonoBehaviour
     }
     public void MakeMovement(bool isAlive)
     {
-       
-     //   print("movimiento terminado: " + selectedUnit.UnitCombat.UnitName);
+
+        //   print("movimiento terminado: " + selectedUnit.UnitCombat.UnitName);
         ReturnMenu();
         //cambiar la actividad
-        if(isAlive)
+        if (isAlive)
         {
             selectedUnit.Active = false;
             selectedUnit.UnitsGO.transform.GetChild(2).GetComponent<Image>().color = Color.gray;
@@ -559,8 +567,7 @@ public class CombatManager : MonoBehaviour
         map1.SetActive(true);
         map2.SetActive(true);
         map3.SetActive(true);
-        Player2.transform.GetChild(2).gameObject.SetActive(false);
-        Player1.transform.GetChild(2).gameObject.SetActive(false);
+       
         //ocultando winner
         ResumeEnemy.transform.GetChild(2).gameObject.SetActive(false);
         ResumePlayer.transform.GetChild(2).gameObject.SetActive(false);
@@ -612,8 +619,9 @@ public class CombatManager : MonoBehaviour
                 conquistedTxt.text = "Territorio No Conquistado";
             }
         }
+        AudioManager.instance.ReadAndPlayMusic("soundtrack",false);
     }
-    void ShowInfo(GameObject _go,Territory _territory,Troop _original, Troop _actual)
+    void ShowInfo(GameObject _go, Territory _territory, Troop _original, Troop _actual)
     {
         List<Transform> t = Utils.instance.GetAllChildren(_go.transform);
         t[0].GetComponent<TextMeshProUGUI>().text = _territory.TypePlayer.ToString();
@@ -634,7 +642,7 @@ public class CombatManager : MonoBehaviour
         for (int i = 0; i < _original.UnitCombats.Count; i++)
         {
             details += " - " + _original.UnitCombats[i].UnitName + ":" + (_original.UnitCombats[i].Quantity - _actual.UnitCombats[i].Quantity) + "\n";
-        }        
+        }
         t[1].GetComponent<TextMeshProUGUI>().text = details;
     }
     private UnitGroup FoundUnit(Territory _territory, UnitCombat uc, int posInBattle)
@@ -654,23 +662,24 @@ public class CombatManager : MonoBehaviour
 
     private bool CheckFinishTurn()
     {
-        foreach(UnitGroup u in units)
+        foreach (UnitGroup u in units)
         {
             if (turn)
             {
                 if (u.TypePlayer == Territory.TYPEPLAYER.PLAYER)
                 {
                     if (u.Active) { return false; }
-              //      ac = true;
+                    //      ac = true;
                 }
             }
-            else 
+            else
             {
                 if (u.TypePlayer != Territory.TYPEPLAYER.PLAYER)
                 {
-                    if (u.Active) {
+                    if (u.Active)
+                    {
 
-                        return false; 
+                        return false;
                     }
                 }
             }
@@ -722,8 +731,8 @@ public class CombatManager : MonoBehaviour
         {
             WarManager.instance.FinishWar(enemyTerritory, playerTerritory.TerritoryStats.Territory.TypePlayer);
         }
-        
-        for(int i = 0; i < squares.transform.childCount; i++)
+
+        for (int i = 0; i < squares.transform.childCount; i++)
         {
             if (SquareByIndex(i).haveUnit)
             {
@@ -752,12 +761,13 @@ public class CombatManager : MonoBehaviour
     }
     public void Attack()
     {
+        AudioManager.instance.ReadAndPlaySFX("menu_click");
         ShowAttackButtons(GetPosibleAttack(selectedUnit));
         ClearSquares();
     }
     public void Defend()
     {
-        
+        AudioManager.instance.ReadAndPlaySFX("menu_click");
         selectedUnit.UnitsGO.transform.GetChild(4).gameObject.SetActive(true);
         selectedUnit.Defense = true;
         MakeMovement(true);
@@ -772,12 +782,13 @@ public class CombatManager : MonoBehaviour
     }
     public void Move()
     {
+        AudioManager.instance.ReadAndPlaySFX("menu_click");
         MakePosibleMovement(CheckPosibleMoves(selectedUnit));
         TurnOffButtons();
     }
     public void MakePosibleMovement(List<int> posibleAttacks)
     {
-        foreach(int i in posibleAttacks)
+        foreach (int i in posibleAttacks)
         {
             squares.transform.GetChild(i).GetComponent<Image>().color = Color.magenta;
             squares.transform.GetChild(i).GetComponent<SquareType>().ActivateChange();
@@ -789,10 +800,10 @@ public class CombatManager : MonoBehaviour
         List<int> posibleAttacks = GetPosibleAttack(bot);
         //print(units[c].UnitsGO.transform.parent.GetComponent<SquareType>().index);
         //print(posibleAttacks.Count);
-        if(posibleAttacks.Count < 1)
+        if (posibleAttacks.Count < 1)
         {
             List<int> posibleMoves = CheckPosibleMoves(bot);
-            if(posibleMoves.Count < 1)
+            if (posibleMoves.Count < 1)
             {
                 Defend();
 
@@ -801,7 +812,7 @@ public class CombatManager : MonoBehaviour
             {
                 //print("llego aca");
                 //int max = 0;
-                int probDefense = Random.Range(0,100);
+                int probDefense = Random.Range(0, 100);
                 if (probDefense > 50)
                 {
                     Defend();
@@ -819,15 +830,15 @@ public class CombatManager : MonoBehaviour
             //tomar enfoque greedy
             int max = 0;
             int selected = posibleAttacks[0];
-            foreach(int index in posibleAttacks)
+            foreach (int index in posibleAttacks)
             {
-                
+
                 int pdamage = CheckDamage(bot, UnitByIndex(index));
                 if (pdamage > max)
                 {
                     selected = index;
                 }
-                
+
             }
             StartCoroutine(MakeDamage(bot, UnitByIndex(selected)));
         }
@@ -858,7 +869,7 @@ public class CombatManager : MonoBehaviour
         {
             damage /= 2;
         }
-        damage = damage - attackGroup.UnitCombat.Defense;
+        damage = damage - defenseGroup.UnitCombat.Defense;
         if (damage < 0) damage = 0;
         return damage;
     }
@@ -880,10 +891,10 @@ public class CombatManager : MonoBehaviour
     {
         ug.UnitsGO.transform.GetChild(0).GetComponent<Text>().text = ug.UnitCombat.Quantity.ToString();
     }
-    private IEnumerator AttackAnimation(UnitGroup defenseGroup,GameObject unit, bool crit, bool miss, int damage, bool isPlayer)
+    private IEnumerator AttackAnimation(UnitGroup defenseGroup, GameObject unit, bool crit, bool miss, int damage, bool isPlayer)
     {
         GameObject unitRot = unit.transform.GetChild(2).gameObject;
-        
+
         for (int i = 0; i > -90; i -= 1)
         {
             var rotationVector = unitRot.transform.rotation.eulerAngles;
@@ -891,7 +902,7 @@ public class CombatManager : MonoBehaviour
             unitRot.transform.rotation = Quaternion.Euler(rotationVector);
             yield return new WaitForSeconds(0.005f);
         }
-        
+
         if (!defenseGroup.Inmunity)
         {
             defenseGroup.UnitCombat.Quantity = defenseGroup.UnitCombat.Quantity - damage;
@@ -920,14 +931,14 @@ public class CombatManager : MonoBehaviour
         ReturnMenu();
         TurnOffButtons();
         //variables iniciales
-        bool critictext=false;
-        bool misstext=false;
+        bool critictext = false;
+        bool misstext = false;
 
         //tuturial
         CheckTutorial(attackGroup);
 
         //calculate damage with critic and presicion
-        int damage = CheckDamage(attackGroup,defenseGroup);
+        int damage = CheckDamage(attackGroup, defenseGroup);
         int presicion = attackGroup.UnitCombat.Precision;
         int presicion_hit = Random.Range(1, 100);
         if (TutorialController.instance.IsFirstTime)
@@ -954,13 +965,13 @@ public class CombatManager : MonoBehaviour
             damage = 0;
         }
         //make attack animation
-        StartCoroutine(AttackAnimation(defenseGroup,attackGroup.UnitsGO,critictext,misstext,damage,true));
+        StartCoroutine(AttackAnimation(defenseGroup, attackGroup.UnitsGO, critictext, misstext, damage, true));
         yield return new WaitForSeconds(2);
 
         critictext = false;
         misstext = false;
         //response attack
-        if (defenseGroup.UnitCombat.Range>= attackGroup.UnitCombat.Range && defenseGroup.UnitCombat.Quantity > 0)
+        if (defenseGroup.UnitCombat.Range >= attackGroup.UnitCombat.Range && defenseGroup.UnitCombat.Quantity > 0)
         {
             damage = CheckDamage(defenseGroup, attackGroup);
             presicion = defenseGroup.UnitCombat.Precision;
@@ -1067,7 +1078,7 @@ public class CombatManager : MonoBehaviour
     }
     public void AnimationInBattle(GameObject go, string name)
     {
-        GameObject prefab = Resources.Load("Prefabs/BattlePrefabs/"+ name) as GameObject;
+        GameObject prefab = Resources.Load("Prefabs/BattlePrefabs/" + name) as GameObject;
         GameObject _go = Instantiate(prefab, FindObjectOfType<Canvas>().transform);
         _go.transform.SetParent(go.transform.transform);
         _go.transform.position = Vector3.zero;
@@ -1080,9 +1091,9 @@ public class CombatManager : MonoBehaviour
         foreach (UnitGroup u in units)
         {
             //if(u.TypePlayer != Territory.TYPEPLAYER.PLAYER)
-            
+
             u.UnitsGO.transform.GetChild(3).gameObject.SetActive(false);
-            
+
         }
     }
     public bool EndBattle()
@@ -1090,7 +1101,7 @@ public class CombatManager : MonoBehaviour
         Territory.TYPEPLAYER check = units[0].TypePlayer;
         foreach (UnitGroup u in units)
         {
-            if(u.TypePlayer != check)
+            if (u.TypePlayer != check)
             {
                 return false;
             }
@@ -1115,7 +1126,8 @@ public class CombatManager : MonoBehaviour
         {
             //left
             newIndex = index - (axisx * i);
-            if (index % 4 != 0) {
+            if (index % 4 != 0)
+            {
                 if (newIndex > 0 && newIndex < squares.transform.childCount && UnitByIndex(newIndex) != null)
                 {
                     if (UnitByIndex(newIndex).TypePlayer != attacker.TypePlayer)
@@ -1125,7 +1137,7 @@ public class CombatManager : MonoBehaviour
                     }
                 }
             }
-            
+
             //right
             newIndex = index + (axisx * i);
             if (newIndex % 4 != 0)
@@ -1135,7 +1147,7 @@ public class CombatManager : MonoBehaviour
                     if (UnitByIndex(newIndex).TypePlayer != attacker.TypePlayer)
                     {
                         posibleAttack.Add(newIndex);
-                    
+
                     }
                 }
             }
@@ -1146,7 +1158,7 @@ public class CombatManager : MonoBehaviour
                 if (UnitByIndex(newIndex).TypePlayer != attacker.TypePlayer)
                 {
                     posibleAttack.Add(newIndex);
-                 
+
                 }
             }
             //down
@@ -1156,7 +1168,7 @@ public class CombatManager : MonoBehaviour
                 if (UnitByIndex(newIndex).TypePlayer != attacker.TypePlayer)
                 {
                     posibleAttack.Add(newIndex);
-                  
+
                 }
             }
 
@@ -1169,7 +1181,7 @@ public class CombatManager : MonoBehaviour
                     if (UnitByIndex(newIndex).TypePlayer != attacker.TypePlayer)
                     {
                         posibleAttack.Add(newIndex);
-                     
+
                     }
                 }
             }
@@ -1182,22 +1194,22 @@ public class CombatManager : MonoBehaviour
                     if (UnitByIndex(newIndex).TypePlayer != attacker.TypePlayer)
                     {
                         posibleAttack.Add(newIndex);
-                        
+
                     }
                 }
             }
             //topright
             newIndex = index - (d2 * i);
-            
-            if (((index+1)% 4) != 0)
+
+            if (((index + 1) % 4) != 0)
             {
-                
+
                 if (newIndex > 0 && newIndex < squares.transform.childCount && UnitByIndex(newIndex) != null)
                 {
                     if (UnitByIndex(newIndex).TypePlayer != attacker.TypePlayer)
                     {
                         posibleAttack.Add(newIndex);
-                        
+
                     }
                 }
             }
@@ -1210,7 +1222,7 @@ public class CombatManager : MonoBehaviour
                     if (UnitByIndex(newIndex).TypePlayer != attacker.TypePlayer)
                     {
                         posibleAttack.Add(newIndex);
-                      
+
                     }
                 }
             }
@@ -1260,17 +1272,18 @@ public class CombatManager : MonoBehaviour
         List<int> posibleMoves = new List<int>();
         //left
         newIndex = index - 1;
-        if (newIndex >= 0 && newIndex < squares.transform.childCount) {
+        if (newIndex >= 0 && newIndex < squares.transform.childCount)
+        {
             if (index % 4 != 0)
             {
                 if (SquareByIndex(newIndex).haveUnit == false || SquareByIndex(newIndex).unitGroup.TypePlayer == SquareByIndex(index).unitGroup.TypePlayer)
                 {
-                    if(SquareByIndex(newIndex).terrain.Type != Terrain.TYPE.NONE) posibleMoves.Add(newIndex);
+                    if (SquareByIndex(newIndex).terrain.Type != Terrain.TYPE.NONE) posibleMoves.Add(newIndex);
 
                 }
             }
         }
-               
+
         //right
         newIndex = index + 1;
         if (newIndex >= 0 && newIndex < squares.transform.childCount)
@@ -1283,7 +1296,7 @@ public class CombatManager : MonoBehaviour
                 }
             }
         }
-        
+
         //top
         newIndex = index - 4;
         if (newIndex >= 0 && newIndex < squares.transform.childCount)
@@ -1293,7 +1306,7 @@ public class CombatManager : MonoBehaviour
                 if (SquareByIndex(newIndex).terrain.Type != Terrain.TYPE.NONE) posibleMoves.Add(newIndex);
             }
         }
-        
+
         //down
         newIndex = index + 4;
         if (newIndex >= 0 && newIndex < squares.transform.childCount)
@@ -1305,7 +1318,7 @@ public class CombatManager : MonoBehaviour
         }
 
         return posibleMoves;
-        
+
     }
 
     public int ActualUnitIndex()
@@ -1324,14 +1337,14 @@ public class CombatManager : MonoBehaviour
         {
             square1.gameObject.transform.GetChild(0).transform.position = square2.gameObject.transform.position;
             square1.gameObject.transform.GetChild(0).transform.SetParent(square2.transform);
-            
+
         }
         square1.unitGroup = square2.unitGroup;
-        if (square2.haveUnit) 
+        if (square2.haveUnit)
         {
             square2.gameObject.transform.GetChild(0).transform.position = square1.gameObject.transform.position;
             square2.gameObject.transform.GetChild(0).transform.SetParent(square1.transform);
-            
+
         }
         square2.unitGroup = saveug;
         /*
@@ -1347,21 +1360,17 @@ public class CombatManager : MonoBehaviour
 
     public void ClearSquares()
     {
-        for(int i = 0; i < squares.transform.childCount; i++)
+        for (int i = 0; i < squares.transform.childCount; i++)
         {
-            squares.transform.GetChild(i).GetComponent<Image>().color = new Color32(168,161,161,139);
+            squares.transform.GetChild(i).GetComponent<Image>().color = new Color32(168, 161, 161, 139);
             squares.transform.GetChild(i).GetComponent<SquareType>().DeactivateChange();
         }
     }
-    
+
     public UnitGroup ActualUnit()
     {
         return selectedUnit;
     }
 
-    private void Update()
-    {
-        //if (selectedUnit != null) print("unidad: " + selectedUnit.UnitCombat.UnitName + " activo? " + selectedUnit.Active);
-        //print("unidad: " + units[0].UnitCombat.UnitName + " activo? " + units[0].Active);
-    }
+
 }

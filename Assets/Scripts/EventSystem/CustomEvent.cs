@@ -739,18 +739,13 @@ public class CustomBattle : CustomEvent
                 break;
             case EVENTTYPE.WOOKIE:
                 UnitGroup u = GetRandomUnitGroup();
-                if (UnityEngine.Random.Range(0,100) <= 60)
+                
+                u.UnitCombat.Quantity -= 10;
+                if (u.UnitCombat.Quantity<= 0)
                 {
                     u.UnitCombat.Quantity = 0;
                 }
-                else
-                {
-                    u.UnitCombat.Quantity -= 10;
-                    if (u.UnitCombat.Quantity<= 0)
-                    {
-                        u.UnitCombat.Quantity = 0;
-                    }
-                }
+                //HACER QUE SE COMPRUEBE SI SE TERMINO EL COMBATE PARA EVITAR BUGS PINSHI SAPO
                 break;
             case EVENTTYPE.REINFORCEMENT:
                 GetFirstUnitGroup();
@@ -803,18 +798,13 @@ public class CustomBattle : CustomEvent
                 break;
             case EVENTTYPE.WOOKIE:
                 UnitGroup u = GetRandomUnitGroup();
-                if (UnityEngine.Random.Range(0, 100) <= 60)
+                
+                u.UnitCombat.Quantity -= 20;
+                if (u.UnitCombat.Quantity <= 0)
                 {
                     u.UnitCombat.Quantity = 0;
                 }
-                else
-                {
-                    u.UnitCombat.Quantity -= 20;
-                    if (u.UnitCombat.Quantity <= 0)
-                    {
-                        u.UnitCombat.Quantity = 0;
-                    }
-                }
+                //ACA TAMBIEN COMPROBAR PS NO TE PASES SAPO
                 break;
             case EVENTTYPE.REINFORCEMENT:
                 GetFirstUnitGroup();

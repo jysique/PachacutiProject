@@ -25,7 +25,7 @@ public class AudioManager : MonoBehaviour
     }
     void Start()
     {
-        ReadAndPlayMusic("strategymp3",false);
+        ReadAndPlayMusic("soundtrack",false);
     }
     public void ReadAndPlaySFX(string data)
     {
