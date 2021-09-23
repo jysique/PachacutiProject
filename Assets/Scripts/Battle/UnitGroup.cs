@@ -7,7 +7,7 @@ public class UnitGroup
     [SerializeField] bool defense;
     [SerializeField] private bool active;
     private bool inmunity;
-    [SerializeField] UnitCombat unitCombat;
+    [SerializeField] UnitCombat unitCombat = null;
     Territory.TYPEPLAYER typePlayer;
     GameObject unitsGO;
     /*

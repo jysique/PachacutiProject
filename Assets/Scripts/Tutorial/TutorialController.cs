@@ -78,8 +78,13 @@ public class TutorialController : MonoBehaviour
     {
         canSpeech = false;
         ChapterController.instance.speechSystemRoot.SetActive(false);
+        
     }
-
+    public void TurnOnDialogue()
+    {
+        canSpeech = true;
+        ChapterController.instance.speechSystemRoot.SetActive(true);
+    }
     public void TurnMoveButton(bool _a)
     {
         move.SetActive(_a);
@@ -92,11 +97,7 @@ public class TutorialController : MonoBehaviour
     {
         attack.SetActive(_a);
     }
-    public void TurnOnDialogue()
-    {
-        canSpeech = true;
-        ChapterController.instance.speechSystemRoot.SetActive(true);
-    }
+
     private void Awake()
     {
         if (instance == null)
@@ -153,6 +154,7 @@ public class TutorialController : MonoBehaviour
     }
     public void InitTutorial()
     {
+        ChapterController.instance.speechSystemButtons.SetActive(false);
         LoadChapterFile("Tutorial");
         TurnOnDialogue();
         tutorialList.Add(new TutorialMissions(0));
@@ -215,19 +217,6 @@ public class TutorialController : MonoBehaviour
     //public float t;
     private void Update()
     {
-        /*
-        if (TimeSystem.instance.TimeGame.EqualsDate(timeTutorial))
-        {
-            if (ift == 1)
-            {
-                InitTutorial();
-            }
-        }
-        else
-        {
-            GameEvents.instance.CustomEventExit();
-        }
-        */
         if (init)
         {
             if (timerCountDown > 0)
@@ -267,14 +256,15 @@ public class TutorialController : MonoBehaviour
 
     public void MoveTroopInTutorial(TerritoryHandler territoryToAttack)
     {
+
         TerritoryHandler selectedTutorial = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
         Swordsman s = new Swordsman();
-        s.Quantity = selectedTutorial.TerritoryStats.Territory.Swordsmen.Quantity;
+        s.Quantity = selectedTutorial.TerritoryStats.Territory.ListUnitCombat.GetFirstUnitCombat("Swordsmen").Quantity;
         Archer a = new Archer();
-        a.Quantity = selectedTutorial.TerritoryStats.Territory.Archers.Quantity;
+        a.Quantity = selectedTutorial.TerritoryStats.Territory.ListUnitCombat.GetFirstUnitCombat("Archers").Quantity;
         Troop troopSelected = new Troop();
-        troopSelected.AddElement(s, 0);
-        troopSelected.AddElement(a, 3);
+        troopSelected.AddUnitCombat(s);
+        troopSelected.AddUnitCombat(a);
         troopSelected.MoveUnits(selectedTutorial.TerritoryStats.Territory);
         WarManager.instance.SendWarriors(selectedTutorial, territoryToAttack, troopSelected);
     }

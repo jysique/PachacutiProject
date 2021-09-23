@@ -78,18 +78,7 @@ public class WarManager : MonoBehaviour
         {
             // warriorsCount1.text = selectedWar.warriors1Count.ToString();
             warriorsCount1.text = selectedWar.attackerTroop.GetAllNumbersUnit().ToString();
-            // warriorsCount2.text = selectedWar.warriors2Count.ToString();
-            //print("error:" + selectedWar.TerritoryWar.TerritoryStats.Territory.name);
-            /*
-            if (selectedWar == null)
-            {
-                print("selected null");
-            }
-            if (selectedWar.TerritoryWar == null)
-            {
-                print("selected null");
-            }
-            */
+            warriorsCount2.text = selectedWar.TerritoryWar.TerritoryStats.Territory.Population.ToString();
             if (selectedWar.TerritoryWar != null)
             {
                 warriorsCount2.text = selectedWar.TerritoryWar.TerritoryStats.Territory.Population.ToString();
@@ -249,26 +238,13 @@ public class WarManager : MonoBehaviour
        // TerritoryManager.instance.UpdateUnitsDeffend(territory.TerritoryStats.Territory);
         InGameMenuHandler.instance.UpdateMenu();
     }
-    /*
-    public void AddMoreWarriors(TerritoryHandler otherTerritory, int warriors)
-    {
-        foreach (War w in warList)
-        {
-            if (w.GetTerritory() == otherTerritory)
-            {
-                w.warriors1Count += warriors;
-            }
-        }
-    }
-    */
+
     public void AddMoreWarriors(TerritoryHandler otherTerritory, Troop _troop)
     {
         foreach (War w in warList)
         {
             if (w.GetTerritory() == otherTerritory)
             {
-                //w.warriors1Count += warriors;
-                //Troop t = w.attackerTroop;
                 w.attackerTroop.AddMoreWarriors(_troop);
             }
         }
@@ -305,13 +281,7 @@ public class WarManager : MonoBehaviour
             RoyalFamily governor = CharacterManager.instance.Governor;
             governorMod = V * ((float)governor.Militancy / 50f);
         }
-      //  float motivationMod = V * ((float)t.TerritoryStats.Territory.SacredPlaceTerritory.Motivation / 10f);
-      //  float attackMod = V * ((float)t.TerritoryStats.Territory.ArmoryTerritory.PlusAttack / 50f);
-      //print("Ataque: inicial: " + V.ToString() + " estrategia: " + strategyMod.ToString() + " warriorNumberBonus: " + warriorNumberBonus.ToString() + " experiencia: " + experienceMod.ToString() + " governador: " + governorMod.ToString() + " motivacion: " + motivationMod.ToString() + " ataque: " + attackMod.ToString());
         V = V + ((strategyMod + warriorNumberBonus + experienceMod + governorMod/*+motivationMod+attackMod*/)*3);
-        
-      //    print((warriorNumberBonus + experienceMod + governorMod));
-      //    print(V);
         return V;
     }
 
@@ -347,34 +317,22 @@ public class WarManager : MonoBehaviour
             RoyalFamily governor = CharacterManager.instance.Governor;
             governorMod = V * ((float)governor.Militancy / 50);
         }
-   //     float motivationMod = V * ((float)t.TerritoryStats.Territory.SacredPlaceTerritory.Motivation / 10f);
         float defenseMod = V * ((float)t.TerritoryStats.Territory.FortressTerritory.PlusDefense / 50f);
-        //print("Defensa: inicial: " + V.ToString() + " estrategia: " + strategyMod.ToString() + " warriorNumberBonus: " + warriorNumberBonus.ToString() + " experiencia: " + experienceMod.ToString() + " governador: " + governorMod.ToString() + " motivacion: " + motivationMod.ToString() + " defensa: " + defenseMod.ToString());
         V = V + ((strategyMod + warriorNumberBonus + experienceMod + governorMod+defenseMod/*+motivationMod*/) * 3);
         
         return V;
     }
 
-    public void SelectTerritory(int _warriorsSword,int _warriorsLance, int _warriorsArch)
-    {
-        if (TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().TerritoryStats.Territory.Swordsmen.Quantity - _warriorsSword >= 0 ||
-            TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().TerritoryStats.Territory.Lancers.Quantity - _warriorsLance >= 0 ||
-            TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().TerritoryStats.Territory.Axemen.Quantity - _warriorsArch >= 0)
-        {
-            TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().ShowAdjacentTerritories();
-        }
-    }
+
 
     public void SelectTerritory()
     {
         TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().ShowAdjacentTerritories();
     }
 
-    //    public void SendWarriors(TerritoryHandler selected, TerritoryHandler otherTerritory, int _warriorsSword, int _warriorsLance, int _warriorsAxe)
     public void SendWarriors(TerritoryHandler selected, TerritoryHandler otherTerritory, Troop troopSelect)
     {
         //TerritoryManager.instance.UpdateUnitsDeffend(territory.TerritoryStats.Territory);
-        TerritoryManager.instance.UpdateUnitsDeffend(selected.TerritoryStats.Territory);
         warriorsPrefab.GetComponent<WarriorsMoving>().SetAttack(otherTerritory.gameObject, troopSelect, selected);
         Instantiate(warriorsPrefab, selected.transform.position, Quaternion.identity);
     }
@@ -389,13 +347,13 @@ public class WarManager : MonoBehaviour
         {
             for (int i = 0; i < attackerTroop.UnitCombats.Count; i++)
             {
-                otherTerritory.TerritoryStats.Territory.GetUnit(attackerTroop.UnitCombats[i].UnitName).Quantity += attackerTroop.UnitCombats[i].Quantity;
+                otherTerritory.TerritoryStats.Territory.ListUnitCombat.GetFirstUnitCombat(attackerTroop.UnitCombats[i].UnitName).Quantity += attackerTroop.UnitCombats[i].Quantity;
             }
         }
         else if (attacker.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER && 
             otherTerritory.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.WASTE)
         {
-            // WASTE
+            // VA WASTE
             AlertManager.AlertExpedition();
             EventManager.instance.AddExpedicionEvent(attacker, otherTerritory,attackerTroop);
             EventManager.instance.UpdateEventListOption();
@@ -405,7 +363,7 @@ public class WarManager : MonoBehaviour
             // VUELVE DEL WASTE
             for (int i = 0; i < attackerTroop.UnitCombats.Count; i++)
             {
-                otherTerritory.TerritoryStats.Territory.GetUnit(attackerTroop.UnitCombats[i].UnitName).Quantity += attackerTroop.UnitCombats[i].Quantity;
+                otherTerritory.TerritoryStats.Territory.ListUnitCombat.GetFirstUnitCombat(attackerTroop.UnitCombats[i].UnitName).Quantity += attackerTroop.UnitCombats[i].Quantity;
             }
         }
         else
@@ -413,7 +371,6 @@ public class WarManager : MonoBehaviour
             
             if (attacker.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER || otherTerritory.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
             {
-                //print("llego aca"); 
                 TutorialController.instance.CanSelectTroops = true;
                 DateTableHandler.instance.PauseTime();
                 battleCanvas.SetActive(true);
@@ -425,15 +382,15 @@ public class WarManager : MonoBehaviour
                 {
                     
                     playerTroop = attackerTroop;
-                    enemyTroop = new Troop(otherTerritory.TerritoryStats.Territory.TroopDefending);
-                    //print(playerTroop.GetAllNumbersUnit());
+                    enemyTroop = otherTerritory.TerritoryStats.Territory.ListUnitCombat;
+                    //TODO cambiar si es posible
                     playerTerritory = attacker;
                     enemyTerritory = otherTerritory;
                 }
                 else
                 {
                     enemyTroop = attackerTroop;
-                    playerTroop = new Troop(otherTerritory.TerritoryStats.Territory.TroopDefending);
+                    playerTroop = otherTerritory.TerritoryStats.Territory.ListUnitCombat;
                     playerTerritory = otherTerritory;
                     enemyTerritory =  attacker;
                 }

@@ -211,7 +211,7 @@ public class OptionBot
     {
         get { return end; }
     }
-
+    /*
     public OptionBot(TerritoryHandler _begin, TerritoryHandler _end, int _number,int _number2, int _number3)
     {
         begin = _begin;
@@ -219,61 +219,31 @@ public class OptionBot
         Swordsman s = new Swordsman();
         s.Quantity = _number;
         s.PositionInBattle = 0;
-        this.troop.AddElement(s, 0);
+        this.troop.AddUnitCombat(s);
         Axeman a = new Axeman();
         a.Quantity = _number2;
         a.PositionInBattle = 1;
-        this.troop.AddElement(a, 1);
+        this.troop.AddUnitCombat(a);
         
         Archer ar = new Archer();
         ar.Quantity = _number3;
         ar.PositionInBattle = 2;
-        this.troop.AddElement(a, 2);
+        this.troop.AddUnitCombat(ar);
     }
+    */
     public OptionBot(TerritoryHandler _begin, TerritoryHandler _end)
     {
         begin = _begin;
         end = _end;
         Troop _troop = new Troop();
-        int position = 0;
-        if (_begin.TerritoryStats.Territory.Swordsmen.Quantity>0)
+        Territory _territory = _begin.TerritoryStats.Territory;
+        for (int i = 0; i < _territory.ListUnitCombat.UnitCombats.Count; i++)
         {
-            Swordsman s = new Swordsman();
-            s.Quantity = _begin.TerritoryStats.Territory.Swordsmen.Quantity;
-            s.PositionInBattle = position;
-            _troop.AddElement(s, position);
-            position++;
-        }
-        if (_begin.TerritoryStats.Territory.Axemen.Quantity > 0)
-        {
-            Axeman a = new Axeman();
-            a.Quantity = _begin.TerritoryStats.Territory.Axemen.Quantity;
-            a.PositionInBattle = position;
-            _troop.AddElement(a, position);
-            position++;
-        }
-        if (_begin.TerritoryStats.Territory.Archers.Quantity > 0)
-        {
-            Archer a = new Archer();
-            a.Quantity = _begin.TerritoryStats.Territory.Archers.Quantity;
-            a.PositionInBattle = position;
-            _troop.AddElement(a, position);
-            position++;
-        }
-        if (_begin.TerritoryStats.Territory.Lancers.Quantity > 0)
-        {
-            Lancer l = new Lancer();
-            l.Quantity = _begin.TerritoryStats.Territory.Lancers.Quantity;
-            l.PositionInBattle = position;
-            _troop.AddElement(l, position);
-            position++;
-        }
-        if (_begin.TerritoryStats.Territory.Scouts.Quantity > 0 && position < 3)
-        {
-            Scout sc = new Scout();
-            sc.Quantity = _begin.TerritoryStats.Territory.Scouts.Quantity;
-            sc.PositionInBattle = position;
-            _troop.AddElement(sc, position);
+            int random = UnityEngine.Random.Range(0, 100);
+            if (random>60)
+            {
+                _troop.AddUnitCombat(_territory.ListUnitCombat.UnitCombats[i]);
+            }
         }
         this.troop = _troop;
     }

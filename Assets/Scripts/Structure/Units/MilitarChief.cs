@@ -135,7 +135,7 @@ public class MilitarChief : Subordinate
                 for (int i = 0; i < 8; i++)
                 {
                     SquareType _square = CombatManager.instance.Squares.transform.GetChild(i).gameObject.GetComponent<SquareType>();
-                    UnitGroup _ug = _square.unitGroup;
+                    UnitGroup _ug = _square.UnitGroup;
                     if (_ug != null && _ug.TypePlayer == attacker_type)
                     {
                         ug.Add(_ug);
@@ -151,7 +151,7 @@ public class MilitarChief : Subordinate
                 for (int i = 0; i < 8; i++)
                 {
                     SquareType _square = CombatManager.instance.Squares.transform.GetChild(i).gameObject.GetComponent<SquareType>();
-                    UnitGroup _ug = _square.unitGroup;
+                    UnitGroup _ug = _square.UnitGroup;
                     if (_ug != null && _ug.TypePlayer == deffender_type)
                     {
                         ug.Add(_ug);
@@ -170,7 +170,7 @@ public class MilitarChief : Subordinate
                 for (int i = 0; i < 8; i++)
                 {
                     SquareType _square = CombatManager.instance.Squares.transform.GetChild(i).gameObject.GetComponent<SquareType>();
-                    UnitGroup _ug = _square.unitGroup;
+                    UnitGroup _ug = _square.UnitGroup;
                     if (_ug != null && _ug.TypePlayer == deffender_type)
                     {
                         ug.Add(_ug);
@@ -186,7 +186,7 @@ public class MilitarChief : Subordinate
                 for (int i = 0; i < 8; i++)
                 {
                     SquareType _square = CombatManager.instance.Squares.transform.GetChild(i).gameObject.GetComponent<SquareType>();
-                    UnitGroup _ug = _square.unitGroup;
+                    UnitGroup _ug = _square.UnitGroup;
                     if (_ug != null && _ug.TypePlayer == attacker_type)
                     {
                         ug.Add(_ug);
@@ -205,7 +205,7 @@ public class MilitarChief : Subordinate
                 for (int i = 0; i < 8; i++)
                 {
                     SquareType _square = CombatManager.instance.Squares.transform.GetChild(i).gameObject.GetComponent<SquareType>();
-                    UnitGroup _ug = _square.unitGroup;
+                    UnitGroup _ug = _square.UnitGroup;
                     if (_ug != null && _ug.TypePlayer == attacker_type)
                     {
                         pos = i;
@@ -224,7 +224,7 @@ public class MilitarChief : Subordinate
                 for (int i = 0; i < 8; i++)
                 {
                     SquareType _square = CombatManager.instance.Squares.transform.GetChild(i).gameObject.GetComponent<SquareType>();
-                    UnitGroup _ug = _square.unitGroup;
+                    UnitGroup _ug = _square.UnitGroup;
                     if (_ug != null && _ug.TypePlayer == deffender_type)
                     {
                         ug.Add(_ug);
@@ -248,7 +248,7 @@ public class MilitarChief : Subordinate
                 for (int i = 0; i < 8; i++)
                 {
                     SquareType _square = CombatManager.instance.Squares.transform.GetChild(i).gameObject.GetComponent<SquareType>();
-                    UnitGroup _ug = _square.unitGroup;
+                    UnitGroup _ug = _square.UnitGroup;
                     if (_ug != null && _ug.TypePlayer == attacker_type)
                     {
                         ug.Add(_ug);
@@ -282,7 +282,7 @@ public class MilitarChief : Subordinate
         {
             int pos = i;
             SquareType _square = CombatManager.instance.Squares.transform.GetChild(i).gameObject.GetComponent<SquareType>();
-            UnitGroup _ug = _square.unitGroup;
+            UnitGroup _ug = _square.UnitGroup;
             if (_ug == null)
             {
                 return pos;

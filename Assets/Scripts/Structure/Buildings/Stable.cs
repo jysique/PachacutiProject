@@ -11,7 +11,7 @@ public class Stable : Building
         this.initValue = 10;
         this.speedUnits = 0f;
         this.limitUnits = 10;
-        this.atributteSpeed = 0.2f;
+        this.atributteSpeed = 1.2f;
         this.atributteLimit = 2;
         isBuildMilitar = true;
     }

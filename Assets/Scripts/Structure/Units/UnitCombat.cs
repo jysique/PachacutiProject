@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 [System.Serializable]
 public class UnitCombat : Subordinate
 {
+    [SerializeField] private int in_progress;
     [SerializeField] private int quantity;
     [SerializeField] private string unitName;
     [SerializeField] private int attack;
@@ -15,9 +17,32 @@ public class UnitCombat : Subordinate
     [SerializeField] private string[] weakTo;
     [SerializeField] private int position;
     [SerializeField] protected int typeArm;
-    public float _timeLeft = 0;
-    public int _totalTime = 12;
+    private float daysToCreate;
+    private float daysTotal = 0;
 
+    [SerializeField] private TimeSimulated init;
+    [SerializeField] private bool isAvailable = false;
+    public bool IsAvailable
+    {
+        get { return isAvailable; }
+        set { isAvailable = value; }
+    }
+    public TimeSimulated TimeInit
+    {
+        get { return init; }
+        set { init = value; }
+    }
+
+    public float DaysToCreate
+    {
+        get { return daysToCreate; }
+        set { daysToCreate = value; }
+    }
+    public float DaysTotal
+    {
+        get { return daysTotal; }
+        set { daysTotal = value; }
+    }
     public int TypeArm
     {
         get { return typeArm; }
@@ -28,6 +53,13 @@ public class UnitCombat : Subordinate
         get { return position; }
         set { position = value; }
     }
+
+    public int InProgress
+    {
+        get { return in_progress; }
+        set { in_progress = value; }
+    }
+
     public int Quantity
     {
         get { return quantity; }
@@ -75,3 +107,5 @@ public class UnitCombat : Subordinate
     }
 
 }
+
+

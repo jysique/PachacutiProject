@@ -57,6 +57,7 @@ public class EventManager : MonoBehaviour
             CheckListCustomEvent();
         }
         CheckListBuildingsUpgrade();
+        CheckListCreatingUnits();
     }
     private void Awake()
     {
@@ -123,7 +124,6 @@ public class EventManager : MonoBehaviour
         InitCustomEvent(custom);
         FirstOptionButton.gameObject.SetActive(false);
         SecondOptionButton.gameObject.SetActive(false);
-
         ThirdOptionTxt.text = "Close";
         TitleTextCustomEvent.text = GameMultiLang.GetTraduction("ResultEvent") ;
         DetailsTextCustomEvent.text = custom.ResultMessageEvent + "\n" + GameMultiLang.GetTraduction("Results") + "\n" + custom.ResultsEvent();
@@ -174,16 +174,14 @@ public class EventManager : MonoBehaviour
         ThirdOptionTxt.text = custom.Button3;
 
         FirstOptionButton.interactable = custom.GetAcceptButton();
-        /*
-        if (!custom.GetAcceptButton())
+        if (custom.IsBattle)
         {
-            FirstOptionButton.interactable = false;
+            TerritoryInfo.SetActive(false);
         }
         else
         {
-            FirstOptionButton.interactable = true;
+            TerritoryInfo.SetActive(true);
         }
-        */
         if (custom.EventType == CustomEvent.EVENTTYPE.WASTE)
         {
             FirstOptionButton.gameObject.SetActive(false);
@@ -217,7 +215,7 @@ public class EventManager : MonoBehaviour
         Close();
         if (!custom.IsBattle)
         {
-            print("1");
+          //  print("1");
             DateTableHandler.instance.ResumeTime();
             InGameMenuHandler.instance.UpdateMenu();
             ResetTextCustomEvent();
@@ -247,6 +245,12 @@ public class EventManager : MonoBehaviour
     {
         listEvents.AddBuildingEvent(TimeSystem.instance.TimeGame, territoryHandler, building);
     }
+
+    public void AddEvent(TerritoryHandler territoryHandler, UnitCombat unitCombat)
+    {
+        listEvents.AddUnitEvent(TimeSystem.instance.TimeGame, territoryHandler, unitCombat);
+    }
+
     public void AddEvent(TerritoryHandler territoryHandler)
     {
         listEvents.AddCustomEvent(TimeSystem.instance.TimeGame, territoryHandler);
@@ -258,7 +262,7 @@ public class EventManager : MonoBehaviour
     }
     public void AddBattleEvents(Troop playerTroop, Troop enemyTroop, TerritoryHandler _playerTerritory, TerritoryHandler _enemyTerritory, bool isPlayerTerritory)
     {
-        
+
         if (Random.Range(0, 100) >= 30)
             listEvents.AddBattleEvent("INIT", playerTroop, enemyTroop, _playerTerritory, _enemyTerritory, isPlayerTerritory);
         if (Random.Range(0, 100) >= 30)
@@ -351,9 +355,11 @@ public class EventManager : MonoBehaviour
             {
                 if (CombatManager.instance.Turns == listEvents.BattleEvents[i].TurnEvent && listEvents.BattleEvents[i].EventStatus == CustomEvent.STATUS.ANNOUNCE)
                 {
-                    WarningEventAppearanceInBattle(listEvents.BattleEvents[i]);
+                    BattleEventController.instance.Init(listEvents.BattleEvents[i]);
+                    //WarningEventAppearanceInBattle(listEvents.BattleEvents[i]);
                     currentBattle = i;
                     listEvents.BattleEvents[i].EventStatus = CustomEvent.STATUS.PROGRESS;
+                    
                 }
             }
         }
@@ -387,6 +393,27 @@ public class EventManager : MonoBehaviour
             }
         }
     }
+    private void CheckListCreatingUnits()
+    {
+        for (int i = 0; i < listEvents.UnitsEvents.Count; i++)
+        {
+            int diferenceDays = TimeSystem.instance.TimeGame.DiferenceDays(listEvents.UnitsEvents[i].TimeInitEvent);
+            listEvents.UnitsEvents[i].UnitCombatEvent.DaysTotal = diferenceDays;
+            if (diferenceDays == listEvents.UnitsEvents[i].UnitCombatEvent.DaysToCreate)
+            {
+                listEvents.UnitsEvents[i].FinishAddingUnit();
+                listEvents.RemoveEvent(listEvents.UnitsEvents[i]);
+            }
+            /*
+            else
+            {
+                listEvents.BuildingsEvents[i].BuildingEvent.CanUpdrade = false;
+            }
+            */
+        }
+    }
+
+
     /// <summary>
     /// Appears the Event Menu if it is in finish status
     /// </summary>

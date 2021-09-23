@@ -180,6 +180,7 @@ public class BuildOption : MonoBehaviour
             int diference = TimeSystem.instance.TimeGame.DiferenceDays(territoryBuilding.TimeInit);
             int hours = (int)TimeSystem.instance.TimeGame.Hour + (24 * diference);
             linearBarProgress.fillAmount = hours / ((float)territoryBuilding.DaysToBuild * 24);
+            
         }
         else
         {

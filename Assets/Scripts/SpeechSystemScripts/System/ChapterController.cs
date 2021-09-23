@@ -9,6 +9,7 @@ public class ChapterController : MonoBehaviour
     public static ChapterController instance { get; private set; }
 
     public GameObject speechSystemRoot;
+    public GameObject speechSystemButtons;
     [HideInInspector] public string cachedLastSpeaker = "";
 
 

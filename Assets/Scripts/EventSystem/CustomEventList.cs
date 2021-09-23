@@ -8,6 +8,7 @@ public class CustomEventList
     public List<CustomEvent> CustomEvents = new List<CustomEvent>();
     public List<CustomExpedition> ExpedicionEvents = new List<CustomExpedition>();
     public List<CustomBuilding> BuildingsEvents = new List<CustomBuilding>();
+    public List<CustomUnitCombat> UnitsEvents = new List<CustomUnitCombat>();
     public List<CustomBattle> BattleEvents = new List<CustomBattle>();
     /// <summary>
     /// Add a event to list with a time simulated init and days to finish event
@@ -30,6 +31,12 @@ public class CustomEventList
     {
         CustomBuilding _customEvent = new CustomBuilding(_initTime, territory, building);
         BuildingsEvents.Add(_customEvent);
+    }
+
+    public void AddUnitEvent(TimeSimulated _initTime, TerritoryHandler territory, UnitCombat unitCombat)
+    {
+        CustomUnitCombat _customEvent = new CustomUnitCombat(_initTime, territory, unitCombat);
+        UnitsEvents.Add(_customEvent);
     }
 
     public void AddBattleEvent(string _battleType, Troop playerTroop, Troop enemyTroop, TerritoryHandler _playerTerritory, TerritoryHandler _enemyTerritory, bool isPlayerTerritory)
@@ -93,6 +100,10 @@ public class CustomEventList
     public void RemoveEvent(CustomBuilding @event)
     {
         BuildingsEvents.Remove(@event);
+    }
+    public void RemoveEvent(CustomUnitCombat @event)
+    {
+        UnitsEvents.Remove(@event);
     }
     public CustomEvent GetCustomEventByTerritory(Territory @territory, CustomEvent.EVENTTYPE  @type)
     {

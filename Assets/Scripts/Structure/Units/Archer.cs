@@ -17,6 +17,7 @@ public class Archer: UnitCombat
         this.Range = 2;
         this.StrongTo = new string[] { "Scout" };
         this.WeakTo = new string[] { "Archer" };
+        
         //this.Picture = Resources.Load<Sprite>("Textures/TemporalAssets/warriors/archer");
     }
 }

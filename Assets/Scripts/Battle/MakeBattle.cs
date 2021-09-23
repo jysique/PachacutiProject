@@ -12,9 +12,9 @@ public class MakeBattle : MonoBehaviour
     public void Battle()
     {
         PlayerPrefs.SetInt("tutorialState", 0);
-        Troop attackTroop = new Troop(50,50,50);
+        //Troop attackTroop = new Troop(50,50,50);
         //Troop attackTroop = new Troop(mainTerritory.TerritoryStats.Territory.TroopDefending);
-        WarManager.instance.MoveWarriors(attackedTerritory,mainTerritory,attackTroop);
+        //WarManager.instance.MoveWarriors(attackedTerritory,mainTerritory,attackTroop);
     }
         
 }

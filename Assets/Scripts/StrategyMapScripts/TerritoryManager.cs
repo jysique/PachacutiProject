@@ -26,8 +26,7 @@ public class TerritoryManager : MonoBehaviour
         instance = this;
         territoryList = new List<GameObject>();
         AddTerritoryData();
-        ReadAdjacentTerritories();
-        
+        ReadTerritoriesData();
     }
 
     void Start()
@@ -39,9 +38,10 @@ public class TerritoryManager : MonoBehaviour
         AddAmbienceData();
         InGameMenuHandler.instance.UpdateMenu();
     }
-    private void ReadAdjacentTerritories()
+
+    private void ReadTerritoriesData()
     {
-        string file = Resources.Load<TextAsset>("Data/Menu/ListAdyacentTerritories").text;
+        string file = Resources.Load<TextAsset>("Data/Menu/territories").text;
         List<string> data = new List<string>(file.Split('\n'));
         for (int i = 0; i < data.Count; i++)
         {
@@ -147,59 +147,33 @@ public class TerritoryManager : MonoBehaviour
 
             for (int k = 0; k < Utils.instance.Units_string.Count; k++)
             {
-                _territory.GetUnit(Utils.instance.Units_string[k]).Quantity = dictionaryUnitCombats.Single(s => s.Key == territoryHandler.TerritoryStats.Territory.name).Value[k];
-                if (_territory.GetUnit(Utils.instance.Units_string[k]).Quantity > 0)
+                int _quantity = dictionaryUnitCombats.Single(s => s.Key == territoryHandler.TerritoryStats.Territory.name).Value[k];
+                if (_quantity>0)
                 {
-                    //_territory.GetBuilding(_territory.GetUnit(Utils.instance.Units_string[k])).ImproveBuilding(1);
-                    _territory.GetBuilding(_territory.GetUnit(Utils.instance.Units_string[k])).ImproveManyLevels(1,_territory);
-                    _territory.GetBuilding(_territory.GetUnit(Utils.instance.Units_string[k])).ImproveCostUpgrade(1);
-                    _territory.GetBuilding(_territory.GetUnit(Utils.instance.Units_string[k])).Status++;
+
+                    _territory.ListUnitCombat.AddUnitCombat(Utils.instance.Units_string[k],_quantity, _quantity);
+                }
+
+                if (_territory.ListUnitCombat.SearchUnitCombat(Utils.instance.Units_string[k]))
+                {
+                    Building _building = _territory.GetBuilding(_territory.GetBuildingByUnit(Utils.instance.Units_string[k]));
+                    _building.ImproveManyLevels(1,_territory);
+                    _building.ImproveCostUpgrade(1);
+                    _building.Status++;
                 }
             }
-
             if (_territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
             {
                 territorySelected = territoryList[i];
                 WarManager.instance.selected = territoryHandler;
                 WarManager.instance.SetWarStatus(territoryHandler.war);
 
-                GlobalVariables.instance.CenterCameraToTerritory(territoryHandler,true);
+                GlobalVariables.instance.CenterCameraToTerritory(territoryHandler, true);
+
                 _territory.IsClaimed = true;
                 _territory.Selected = true;
             }
-
-            UpdateUnitsDeffend(_territory);
-        }
-    }
-
-    public void UpdateUnitsDeffend(Territory _territory)
-    {
-        List<string> new_strings = new List<string>();
-        for (int j = 0; j < Utils.instance.Units_string.Count; j++)
-        {
-            if (_territory.GetUnit(Utils.instance.Units_string[j]).Quantity > 0)
-            {
-                new_strings.Add(Utils.instance.Units_string[j]);
-            }
-        }
-        int count = 0;
-        int max_deffend = 4;
-        _territory.TroopDefending.Clear();
-        for (int j = 0; j < max_deffend; j++)
-        {
-            if (count < new_strings.Count)
-            {
-                UnitCombat _a = Utils.instance.GetNewUnitCombat(new_strings[j]);
-                _a.PositionInBattle = j;
-                _a.Quantity = _territory.GetUnit(new_strings[j]).Quantity;
-                _territory.TroopDefending.Add(_a);
-                count++;
-            }
-            else
-            {
-                UnitCombat u = new UnitCombat();
-                _territory.TroopDefending.Add(u);
-            }
+            // UpdateUnitsDeffend(_territory);
         }
     }
 

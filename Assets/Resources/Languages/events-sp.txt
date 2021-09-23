@@ -174,8 +174,8 @@ PILLAGE1= Aprobado.
 PILLAGE3= Vendria bien a la economia.
 PILLAGE2= Creo que no es necesario.
 PILLAGEM= Se ha encontrado un terreno que podemos saquear, es posible que nos tome tiempo.
-PILLAGEA= Ganamos algo de oro pero nos costo 1 turno.
-PILLAGED= Ganamos algo de alimento pero nos costo 1 turno.
+PILLAGEA= Ganamos algo de oro.
+PILLAGED= Ganamos algo de alimento.
 PILLAGET= Ganamos algo de oro y alimento.
 
 BURN_NAME=SAQUEO DE FUEGO

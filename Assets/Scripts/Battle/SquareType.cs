@@ -4,13 +4,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+[System.Serializable]
 public class SquareType : MonoBehaviour
 {
-    public bool haveUnit = false;
-    public int index;
-    public Terrain terrain;
-    public UnitGroup unitGroup = null;
+    [SerializeField] private bool haveUnit;
+    [SerializeField] private int index;
+    [SerializeField] private Terrain terrain;
+    [SerializeField] private UnitGroup unitGroup;
     
+    public bool HaveUnit
+    {
+        get { return haveUnit; }
+        set { haveUnit = value; }
+    }
+    public int Index
+    {
+        get { return index; }
+        set { index = value; }
+    }
+    public Terrain Terrain
+    {
+        get { return terrain; }
+        set { terrain = value; }
+    }
+    public UnitGroup UnitGroup
+    {
+        get { return unitGroup; }
+        set { unitGroup = value; }
+    }
+
     private void Start()
     {
         DeactivateChange();
@@ -31,7 +54,10 @@ public class SquareType : MonoBehaviour
     }
     public void UpdateSquare()
     {
-        if (unitGroup != null)
+        //print("type" + unitGroup.TypePlayer.ToString());
+        //print("unit name " + unitGroup.UnitCombat.UnitName);
+        //print("char name " + unitGroup.UnitCombat.CharacterName);
+        if (unitGroup != null && unitGroup.UnitCombat != null)
         {
             //print("reset");
             Utils.instance.Reset(unitGroup.UnitCombat);

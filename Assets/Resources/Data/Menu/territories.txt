@@ -5,7 +5,7 @@ Canas:none:50,0,0,50,0:southern:grassland,forest,mountain,grassland,sand,forest,
 Canchis:none:50,50,50,0,0:southern:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Canas,Acomayo,Quispicanchi
 Chumbivilcas:none:50,50,0,50,0:southern:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Espinar,Acomayo,Canas
 Espinar:bot:0,50,50,50,50:southern:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Canas,Chumbivilcas
-LaConvencion:player:80,0,0,0,0:none:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Calca,Qosqo,Urubamba,Manu,Tahuania
+LaConvencion:player:80,20,20,20,0:none:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Calca,Qosqo,Urubamba,Manu,Tahuania
 Qosqo:none:0,0,50,50,0:none:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Calca,Acomayo,Quispicanchi,Urubamba,LaConvencion
 Inambari:none:0,50,0,0,0:east:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Huepetuhe,Tahuamanu,Tambopata
 Huepetuhe:none:0,0,50,0,50:none:grassland,forest,mountain,sand,grassland,forest,mountain,sand:Inambari,Manu,Tambopata,Paucartambo,Quispicanchi

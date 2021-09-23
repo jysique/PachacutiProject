@@ -139,18 +139,22 @@ public class GlobalVariables : MonoBehaviour
         Vector3 origin = main.transform.position;
         main.transform.position = new Vector3(territoryHandler.transform.position.x, territoryHandler.transform.position.y, -10);
         Vector3 difference = origin - main.transform.position;
+        
         foreach (GameObject i in TerritoryManager.instance.territoryList)
         {
             i.GetComponent<TerritoryHandler>().TerritoryStats.container.transform.position += difference;
         }
+        
         foreach (GameObject i in InGameMenuHandler.instance.listFloatingText)
         {
             i.GetComponent<Transform>().transform.position += difference;
         }
+        
         if (isSelected)
         {
             territoryHandler.MakeOutline();
         }
+        
     }
 
     public Territory.TYPEPLAYER GetRandomTypePlayer()
