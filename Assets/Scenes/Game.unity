@@ -3767,7 +3767,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.337}
   m_AnchorMax: {x: 1, y: 0.5083289}
-  m_AnchoredPosition: {x: 0.12475586, y: 46.96358}
+  m_AnchoredPosition: {x: 0.12475586, y: 46.963577}
   m_SizeDelta: {x: -0.29943848, y: 18.188126}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &128476422
@@ -4115,28 +4115,39 @@ MonoBehaviour:
     farmTerritory:
       nameBuilding: Farm
       level: 0
+      percentaje: 0
     goldMineTerritory:
       nameBuilding: GoldMine
       level: 0
+      percentaje: 0
     fortressTerritory:
       nameBuilding: Fortress
       level: 0
+      percentaje: 0
     academyTerritory:
       nameBuilding: Academy
       level: 0
+      percentaje: 0
     barracksTerritory:
       nameBuilding: Barracks
       level: 0
+      percentaje: 0
     castleTerritory:
       nameBuilding: Castle
       level: 0
+      percentaje: 0
     stableTerritory:
       nameBuilding: Stable
       level: 0
+      percentaje: 0
     archeryTerritory:
       nameBuilding: Archery
       level: 0
+      percentaje: 0
     terrainList: []
+    civilization:
+      civilizationName: 
+      colorString: 
   paddingX: -10
   paddingY: -20
   adjacentTerritories: []
@@ -4784,28 +4795,39 @@ MonoBehaviour:
     farmTerritory:
       nameBuilding: Farm
       level: 0
+      percentaje: 0
     goldMineTerritory:
       nameBuilding: GoldMine
       level: 0
+      percentaje: 0
     fortressTerritory:
       nameBuilding: Fortress
       level: 0
+      percentaje: 0
     academyTerritory:
       nameBuilding: Academy
       level: 0
+      percentaje: 0
     barracksTerritory:
       nameBuilding: Barracks
       level: 0
+      percentaje: 0
     castleTerritory:
       nameBuilding: Castle
       level: 0
+      percentaje: 0
     stableTerritory:
       nameBuilding: Stable
       level: 0
+      percentaje: 0
     archeryTerritory:
       nameBuilding: Archery
       level: 0
+      percentaje: 0
     terrainList: []
+    civilization:
+      civilizationName: 
+      colorString: 
   paddingX: 0
   paddingY: 0
   adjacentTerritories: []
@@ -6593,7 +6615,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.015120197, y: 0}
   m_AnchorMax: {x: 0.98619115, y: 0.95100003}
-  m_AnchoredPosition: {x: -0.33813477, y: 1.6206055}
+  m_AnchoredPosition: {x: -0.33815002, y: 1.6206055}
   m_SizeDelta: {x: -0.69000006, y: -2.4099998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &263252739
@@ -6847,28 +6869,39 @@ MonoBehaviour:
     farmTerritory:
       nameBuilding: Farm
       level: 0
+      percentaje: 0
     goldMineTerritory:
       nameBuilding: GoldMine
       level: 0
+      percentaje: 0
     fortressTerritory:
       nameBuilding: Fortress
       level: 0
+      percentaje: 0
     academyTerritory:
       nameBuilding: Academy
       level: 0
+      percentaje: 0
     barracksTerritory:
       nameBuilding: Barracks
       level: 0
+      percentaje: 0
     castleTerritory:
       nameBuilding: Castle
       level: 0
+      percentaje: 0
     stableTerritory:
       nameBuilding: Stable
       level: 0
+      percentaje: 0
     archeryTerritory:
       nameBuilding: Archery
       level: 0
+      percentaje: 0
     terrainList: []
+    civilization:
+      civilizationName: 
+      colorString: 
   paddingX: 0
   paddingY: 0
   adjacentTerritories: []
@@ -7991,28 +8024,39 @@ MonoBehaviour:
     farmTerritory:
       nameBuilding: Farm
       level: 0
+      percentaje: 0
     goldMineTerritory:
       nameBuilding: GoldMine
       level: 0
+      percentaje: 0
     fortressTerritory:
       nameBuilding: Fortress
       level: 0
+      percentaje: 0
     academyTerritory:
       nameBuilding: Academy
       level: 0
+      percentaje: 0
     barracksTerritory:
       nameBuilding: Barracks
       level: 0
+      percentaje: 0
     castleTerritory:
       nameBuilding: Castle
       level: 0
+      percentaje: 0
     stableTerritory:
       nameBuilding: Stable
       level: 0
+      percentaje: 0
     archeryTerritory:
       nameBuilding: Archery
       level: 0
+      percentaje: 0
     terrainList: []
+    civilization:
+      civilizationName: 
+      colorString: 
   paddingX: 50
   paddingY: -150
   adjacentTerritories: []
@@ -8444,28 +8488,39 @@ MonoBehaviour:
     farmTerritory:
       nameBuilding: Farm
       level: 0
+      percentaje: 0
     goldMineTerritory:
       nameBuilding: GoldMine
       level: 0
+      percentaje: 0
     fortressTerritory:
       nameBuilding: Fortress
       level: 0
+      percentaje: 0
     academyTerritory:
       nameBuilding: Academy
       level: 0
+      percentaje: 0
     barracksTerritory:
       nameBuilding: Barracks
       level: 0
+      percentaje: 0
     castleTerritory:
       nameBuilding: Castle
       level: 0
+      percentaje: 0
     stableTerritory:
       nameBuilding: Stable
       level: 0
+      percentaje: 0
     archeryTerritory:
       nameBuilding: Archery
       level: 0
+      percentaje: 0
     terrainList: []
+    civilization:
+      civilizationName: 
+      colorString: 
   paddingX: -20
   paddingY: -50
   adjacentTerritories: []
@@ -10683,28 +10738,39 @@ MonoBehaviour:
     farmTerritory:
       nameBuilding: Farm
       level: 0
+      percentaje: 0
     goldMineTerritory:
       nameBuilding: GoldMine
       level: 0
+      percentaje: 0
     fortressTerritory:
       nameBuilding: Fortress
       level: 0
+      percentaje: 0
     academyTerritory:
       nameBuilding: Academy
       level: 0
+      percentaje: 0
     barracksTerritory:
       nameBuilding: Barracks
       level: 0
+      percentaje: 0
     castleTerritory:
       nameBuilding: Castle
       level: 0
+      percentaje: 0
     stableTerritory:
       nameBuilding: Stable
       level: 0
+      percentaje: 0
     archeryTerritory:
       nameBuilding: Archery
       level: 0
+      percentaje: 0
     terrainList: []
+    civilization:
+      civilizationName: 
+      colorString: 
   paddingX: 0
   paddingY: 0
   adjacentTerritories: []
@@ -11657,28 +11723,39 @@ MonoBehaviour:
     farmTerritory:
       nameBuilding: Farm
       level: 0
+      percentaje: 0
     goldMineTerritory:
       nameBuilding: GoldMine
       level: 0
+      percentaje: 0
     fortressTerritory:
       nameBuilding: Fortress
       level: 0
+      percentaje: 0
     academyTerritory:
       nameBuilding: Academy
       level: 0
+      percentaje: 0
     barracksTerritory:
       nameBuilding: Barracks
       level: 0
+      percentaje: 0
     castleTerritory:
       nameBuilding: Castle
       level: 0
+      percentaje: 0
     stableTerritory:
       nameBuilding: Stable
       level: 0
+      percentaje: 0
     archeryTerritory:
       nameBuilding: Archery
       level: 0
+      percentaje: 0
     terrainList: []
+    civilization:
+      civilizationName: 
+      colorString: 
   paddingX: 0
   paddingY: 40
   adjacentTerritories: []
@@ -12176,6 +12253,8 @@ MonoBehaviour:
   territoryList: []
   territorySelected: {fileID: 0}
   areas: []
+  players: []
+  civilizations: []
 --- !u!4 &486223160
 Transform:
   m_ObjectHideFlags: 0
@@ -14336,28 +14415,39 @@ MonoBehaviour:
     farmTerritory:
       nameBuilding: Farm
       level: 0
+      percentaje: 0
     goldMineTerritory:
       nameBuilding: GoldMine
       level: 0
+      percentaje: 0
     fortressTerritory:
       nameBuilding: Fortress
       level: 0
+      percentaje: 0
     academyTerritory:
       nameBuilding: Academy
       level: 0
+      percentaje: 0
     barracksTerritory:
       nameBuilding: Barracks
       level: 0
+      percentaje: 0
     castleTerritory:
       nameBuilding: Castle
       level: 0
+      percentaje: 0
     stableTerritory:
       nameBuilding: Stable
       level: 0
+      percentaje: 0
     archeryTerritory:
       nameBuilding: Archery
       level: 0
+      percentaje: 0
     terrainList: []
+    civilization:
+      civilizationName: 
+      colorString: 
   paddingX: 0
   paddingY: 0
   adjacentTerritories: []
@@ -18380,28 +18470,39 @@ MonoBehaviour:
     farmTerritory:
       nameBuilding: Farm
       level: 0
+      percentaje: 0
     goldMineTerritory:
       nameBuilding: GoldMine
       level: 0
+      percentaje: 0
     fortressTerritory:
       nameBuilding: Fortress
       level: 0
+      percentaje: 0
     academyTerritory:
       nameBuilding: Academy
       level: 0
+      percentaje: 0
     barracksTerritory:
       nameBuilding: Barracks
       level: 0
+      percentaje: 0
     castleTerritory:
       nameBuilding: Castle
       level: 0
+      percentaje: 0
     stableTerritory:
       nameBuilding: Stable
       level: 0
+      percentaje: 0
     archeryTerritory:
       nameBuilding: Archery
       level: 0
+      percentaje: 0
     terrainList: []
+    civilization:
+      civilizationName: 
+      colorString: 
   paddingX: 0
   paddingY: 0
   adjacentTerritories: []
@@ -21649,28 +21750,39 @@ MonoBehaviour:
     farmTerritory:
       nameBuilding: Farm
       level: 0
+      percentaje: 0
     goldMineTerritory:
       nameBuilding: GoldMine
       level: 0
+      percentaje: 0
     fortressTerritory:
       nameBuilding: Fortress
       level: 0
+      percentaje: 0
     academyTerritory:
       nameBuilding: Academy
       level: 0
+      percentaje: 0
     barracksTerritory:
       nameBuilding: Barracks
       level: 0
+      percentaje: 0
     castleTerritory:
       nameBuilding: Castle
       level: 0
+      percentaje: 0
     stableTerritory:
       nameBuilding: Stable
       level: 0
+      percentaje: 0
     archeryTerritory:
       nameBuilding: Archery
       level: 0
+      percentaje: 0
     terrainList: []
+    civilization:
+      civilizationName: 
+      colorString: 
   paddingX: 0
   paddingY: -100
   adjacentTerritories: []
@@ -22369,7 +22481,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.24333224}
-  m_AnchoredPosition: {x: 0.5003052, y: -4.3000927}
+  m_AnchoredPosition: {x: 0.5003052, y: -4.3000965}
   m_SizeDelta: {x: -0.02, y: -7.83}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &913405924
@@ -22543,28 +22655,39 @@ MonoBehaviour:
     farmTerritory:
       nameBuilding: Farm
       level: 0
+      percentaje: 0
     goldMineTerritory:
       nameBuilding: GoldMine
       level: 0
+      percentaje: 0
     fortressTerritory:
       nameBuilding: Fortress
       level: 0
+      percentaje: 0
     academyTerritory:
       nameBuilding: Academy
       level: 0
+      percentaje: 0
     barracksTerritory:
       nameBuilding: Barracks
       level: 0
+      percentaje: 0
     castleTerritory:
       nameBuilding: Castle
       level: 0
+      percentaje: 0
     stableTerritory:
       nameBuilding: Stable
       level: 0
+      percentaje: 0
     archeryTerritory:
       nameBuilding: Archery
       level: 0
+      percentaje: 0
     terrainList: []
+    civilization:
+      civilizationName: 
+      colorString: 
   paddingX: 0
   paddingY: -10
   adjacentTerritories: []
@@ -22806,28 +22929,39 @@ MonoBehaviour:
     farmTerritory:
       nameBuilding: Farm
       level: 0
+      percentaje: 0
     goldMineTerritory:
       nameBuilding: GoldMine
       level: 0
+      percentaje: 0
     fortressTerritory:
       nameBuilding: Fortress
       level: 0
+      percentaje: 0
     academyTerritory:
       nameBuilding: Academy
       level: 0
+      percentaje: 0
     barracksTerritory:
       nameBuilding: Barracks
       level: 0
+      percentaje: 0
     castleTerritory:
       nameBuilding: Castle
       level: 0
+      percentaje: 0
     stableTerritory:
       nameBuilding: Stable
       level: 0
+      percentaje: 0
     archeryTerritory:
       nameBuilding: Archery
       level: 0
+      percentaje: 0
     terrainList: []
+    civilization:
+      civilizationName: 
+      colorString: 
   paddingX: 0
   paddingY: -50
   adjacentTerritories: []
@@ -24003,28 +24137,39 @@ MonoBehaviour:
     farmTerritory:
       nameBuilding: Farm
       level: 0
+      percentaje: 0
     goldMineTerritory:
       nameBuilding: GoldMine
       level: 0
+      percentaje: 0
     fortressTerritory:
       nameBuilding: Fortress
       level: 0
+      percentaje: 0
     academyTerritory:
       nameBuilding: Academy
       level: 0
+      percentaje: 0
     barracksTerritory:
       nameBuilding: Barracks
       level: 0
+      percentaje: 0
     castleTerritory:
       nameBuilding: Castle
       level: 0
+      percentaje: 0
     stableTerritory:
       nameBuilding: Stable
       level: 0
+      percentaje: 0
     archeryTerritory:
       nameBuilding: Archery
       level: 0
+      percentaje: 0
     terrainList: []
+    civilization:
+      civilizationName: 
+      colorString: 
   paddingX: -20
   paddingY: -30
   adjacentTerritories: []
@@ -25282,28 +25427,39 @@ MonoBehaviour:
     farmTerritory:
       nameBuilding: Farm
       level: 0
+      percentaje: 0
     goldMineTerritory:
       nameBuilding: GoldMine
       level: 0
+      percentaje: 0
     fortressTerritory:
       nameBuilding: Fortress
       level: 0
+      percentaje: 0
     academyTerritory:
       nameBuilding: Academy
       level: 0
+      percentaje: 0
     barracksTerritory:
       nameBuilding: Barracks
       level: 0
+      percentaje: 0
     castleTerritory:
       nameBuilding: Castle
       level: 0
+      percentaje: 0
     stableTerritory:
       nameBuilding: Stable
       level: 0
+      percentaje: 0
     archeryTerritory:
       nameBuilding: Archery
       level: 0
+      percentaje: 0
     terrainList: []
+    civilization:
+      civilizationName: 
+      colorString: 
   paddingX: 0
   paddingY: 0
   adjacentTerritories: []
@@ -26437,28 +26593,39 @@ MonoBehaviour:
     farmTerritory:
       nameBuilding: Farm
       level: 0
+      percentaje: 0
     goldMineTerritory:
       nameBuilding: GoldMine
       level: 0
+      percentaje: 0
     fortressTerritory:
       nameBuilding: Fortress
       level: 0
+      percentaje: 0
     academyTerritory:
       nameBuilding: Academy
       level: 0
+      percentaje: 0
     barracksTerritory:
       nameBuilding: Barracks
       level: 0
+      percentaje: 0
     castleTerritory:
       nameBuilding: Castle
       level: 0
+      percentaje: 0
     stableTerritory:
       nameBuilding: Stable
       level: 0
+      percentaje: 0
     archeryTerritory:
       nameBuilding: Archery
       level: 0
+      percentaje: 0
     terrainList: []
+    civilization:
+      civilizationName: 
+      colorString: 
   paddingX: 0
   paddingY: -50
   adjacentTerritories: []
@@ -26918,28 +27085,39 @@ MonoBehaviour:
     farmTerritory:
       nameBuilding: Farm
       level: 0
+      percentaje: 0
     goldMineTerritory:
       nameBuilding: GoldMine
       level: 0
+      percentaje: 0
     fortressTerritory:
       nameBuilding: Fortress
       level: 0
+      percentaje: 0
     academyTerritory:
       nameBuilding: Academy
       level: 0
+      percentaje: 0
     barracksTerritory:
       nameBuilding: Barracks
       level: 0
+      percentaje: 0
     castleTerritory:
       nameBuilding: Castle
       level: 0
+      percentaje: 0
     stableTerritory:
       nameBuilding: Stable
       level: 0
+      percentaje: 0
     archeryTerritory:
       nameBuilding: Archery
       level: 0
+      percentaje: 0
     terrainList: []
+    civilization:
+      civilizationName: 
+      colorString: 
   paddingX: 0
   paddingY: -50
   adjacentTerritories: []
@@ -28067,7 +28245,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24.15
+  m_fontSize: 24.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -29547,28 +29725,39 @@ MonoBehaviour:
     farmTerritory:
       nameBuilding: Farm
       level: 0
+      percentaje: 0
     goldMineTerritory:
       nameBuilding: GoldMine
       level: 0
+      percentaje: 0
     fortressTerritory:
       nameBuilding: Fortress
       level: 0
+      percentaje: 0
     academyTerritory:
       nameBuilding: Academy
       level: 0
+      percentaje: 0
     barracksTerritory:
       nameBuilding: Barracks
       level: 0
+      percentaje: 0
     castleTerritory:
       nameBuilding: Castle
       level: 0
+      percentaje: 0
     stableTerritory:
       nameBuilding: Stable
       level: 0
+      percentaje: 0
     archeryTerritory:
       nameBuilding: Archery
       level: 0
+      percentaje: 0
     terrainList: []
+    civilization:
+      civilizationName: 
+      colorString: 
   paddingX: -100
   paddingY: -50
   adjacentTerritories: []
@@ -29743,7 +29932,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.26700002, y: 0.78200006}
   m_AnchorMax: {x: 0.72524524, y: 0.98954874}
-  m_AnchoredPosition: {x: 0.19999695, y: -5.045757}
+  m_AnchoredPosition: {x: 0.19999695, y: -5.0457573}
   m_SizeDelta: {x: 0.15551758, y: 9.713284}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1231283087
@@ -31078,28 +31267,39 @@ MonoBehaviour:
     farmTerritory:
       nameBuilding: Farm
       level: 0
+      percentaje: 0
     goldMineTerritory:
       nameBuilding: GoldMine
       level: 0
+      percentaje: 0
     fortressTerritory:
       nameBuilding: Fortress
       level: 0
+      percentaje: 0
     academyTerritory:
       nameBuilding: Academy
       level: 0
+      percentaje: 0
     barracksTerritory:
       nameBuilding: Barracks
       level: 0
+      percentaje: 0
     castleTerritory:
       nameBuilding: Castle
       level: 0
+      percentaje: 0
     stableTerritory:
       nameBuilding: Stable
       level: 0
+      percentaje: 0
     archeryTerritory:
       nameBuilding: Archery
       level: 0
+      percentaje: 0
     terrainList: []
+    civilization:
+      civilizationName: 
+      colorString: 
   paddingX: 0
   paddingY: -100
   adjacentTerritories: []
@@ -35187,28 +35387,39 @@ MonoBehaviour:
     farmTerritory:
       nameBuilding: Farm
       level: 0
+      percentaje: 0
     goldMineTerritory:
       nameBuilding: GoldMine
       level: 0
+      percentaje: 0
     fortressTerritory:
       nameBuilding: Fortress
       level: 0
+      percentaje: 0
     academyTerritory:
       nameBuilding: Academy
       level: 0
+      percentaje: 0
     barracksTerritory:
       nameBuilding: Barracks
       level: 0
+      percentaje: 0
     castleTerritory:
       nameBuilding: Castle
       level: 0
+      percentaje: 0
     stableTerritory:
       nameBuilding: Stable
       level: 0
+      percentaje: 0
     archeryTerritory:
       nameBuilding: Archery
       level: 0
+      percentaje: 0
     terrainList: []
+    civilization:
+      civilizationName: 
+      colorString: 
   paddingX: 10
   paddingY: -30
   adjacentTerritories: []
@@ -37368,28 +37579,39 @@ MonoBehaviour:
     farmTerritory:
       nameBuilding: Farm
       level: 0
+      percentaje: 0
     goldMineTerritory:
       nameBuilding: GoldMine
       level: 0
+      percentaje: 0
     fortressTerritory:
       nameBuilding: Fortress
       level: 0
+      percentaje: 0
     academyTerritory:
       nameBuilding: Academy
       level: 0
+      percentaje: 0
     barracksTerritory:
       nameBuilding: Barracks
       level: 0
+      percentaje: 0
     castleTerritory:
       nameBuilding: Castle
       level: 0
+      percentaje: 0
     stableTerritory:
       nameBuilding: Stable
       level: 0
+      percentaje: 0
     archeryTerritory:
       nameBuilding: Archery
       level: 0
+      percentaje: 0
     terrainList: []
+    civilization:
+      civilizationName: 
+      colorString: 
   paddingX: 10
   paddingY: 0
   adjacentTerritories: []
@@ -37969,7 +38191,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 64.03328, y: -912.3794}
+  m_AnchoredPosition: {x: 64.0332, y: -912.37946}
   m_SizeDelta: {x: -1660.7789, y: -956.12}
   m_Pivot: {x: -0.03491106, y: 1.0390935}
 --- !u!222 &1548868806
@@ -38328,6 +38550,7 @@ MonoBehaviour:
   selectedWar:
     attackersType: 0
     territory: {fileID: 0}
+    territoryAttacker: {fileID: 0}
     attackerTroop:
       unitCombats: []
     warriorsAttackerSpeed: 0
@@ -38351,11 +38574,6 @@ MonoBehaviour:
   powerD: {fileID: 367214743}
   attackColor: {fileID: 949515573}
   deffendColor: {fileID: 2130016271}
-  incaHat: {fileID: 21300000, guid: a7ecbac4bb3762c4ba5829e332faf076, type: 3}
-  chancaHat: {fileID: 21300000, guid: b96cb43e9f96b7245b55579847079d63, type: 3}
-  mochicaHat: {fileID: 21300000, guid: acc710afb091efb46bd37c276f61e2ad, type: 3}
-  chavinHat: {fileID: 21300000, guid: 91ce141203ce7464c93a29e320a6d21c, type: 3}
-  chancaHat2: {fileID: 21300000, guid: b9c9b7536f2b5d34aa60da891e1846d5, type: 3}
   hatAttacker: {fileID: 632642351}
   hatDefender: {fileID: 402265266}
   hatP1: {fileID: 2043940066}
@@ -39049,28 +39267,39 @@ MonoBehaviour:
     farmTerritory:
       nameBuilding: Farm
       level: 0
+      percentaje: 0
     goldMineTerritory:
       nameBuilding: GoldMine
       level: 0
+      percentaje: 0
     fortressTerritory:
       nameBuilding: Fortress
       level: 0
+      percentaje: 0
     academyTerritory:
       nameBuilding: Academy
       level: 0
+      percentaje: 0
     barracksTerritory:
       nameBuilding: Barracks
       level: 0
+      percentaje: 0
     castleTerritory:
       nameBuilding: Castle
       level: 0
+      percentaje: 0
     stableTerritory:
       nameBuilding: Stable
       level: 0
+      percentaje: 0
     archeryTerritory:
       nameBuilding: Archery
       level: 0
+      percentaje: 0
     terrainList: []
+    civilization:
+      civilizationName: 
+      colorString: 
   menuBlockMilitaryOther: {fileID: 1540382753}
   menuBlockMilitaryCharacter: {fileID: 115183287}
   menuBlockMilitaryWaste: {fileID: 1657764101}
@@ -39123,11 +39352,6 @@ MonoBehaviour:
     weakTo: []
     position: 0
     typeArm: 0
-    init:
-      day: 0
-      month: 0
-      year: 0
-      hour: 0
     isAvailable: 0
 --- !u!95 &1612967422
 Animator:
@@ -40709,28 +40933,39 @@ MonoBehaviour:
     farmTerritory:
       nameBuilding: Farm
       level: 0
+      percentaje: 0
     goldMineTerritory:
       nameBuilding: GoldMine
       level: 0
+      percentaje: 0
     fortressTerritory:
       nameBuilding: Fortress
       level: 0
+      percentaje: 0
     academyTerritory:
       nameBuilding: Academy
       level: 0
+      percentaje: 0
     barracksTerritory:
       nameBuilding: Barracks
       level: 0
+      percentaje: 0
     castleTerritory:
       nameBuilding: Castle
       level: 0
+      percentaje: 0
     stableTerritory:
       nameBuilding: Stable
       level: 0
+      percentaje: 0
     archeryTerritory:
       nameBuilding: Archery
       level: 0
+      percentaje: 0
     terrainList: []
+    civilization:
+      civilizationName: 
+      colorString: 
   paddingX: 0
   paddingY: 0
   adjacentTerritories: []
@@ -41096,7 +41331,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.108, y: 0.78200006}
   m_AnchorMax: {x: 0.2254151, y: 0.98954874}
-  m_AnchoredPosition: {x: 0, y: -5.045757}
+  m_AnchoredPosition: {x: 0, y: -5.0457573}
   m_SizeDelta: {x: 0, y: 9.713284}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1659842524
@@ -43057,28 +43292,39 @@ MonoBehaviour:
     farmTerritory:
       nameBuilding: Farm
       level: 0
+      percentaje: 0
     goldMineTerritory:
       nameBuilding: GoldMine
       level: 0
+      percentaje: 0
     fortressTerritory:
       nameBuilding: Fortress
       level: 0
+      percentaje: 0
     academyTerritory:
       nameBuilding: Academy
       level: 0
+      percentaje: 0
     barracksTerritory:
       nameBuilding: Barracks
       level: 0
+      percentaje: 0
     castleTerritory:
       nameBuilding: Castle
       level: 0
+      percentaje: 0
     stableTerritory:
       nameBuilding: Stable
       level: 0
+      percentaje: 0
     archeryTerritory:
       nameBuilding: Archery
       level: 0
+      percentaje: 0
     terrainList: []
+    civilization:
+      civilizationName: 
+      colorString: 
   paddingX: 0
   paddingY: 0
   adjacentTerritories: []
@@ -43225,28 +43471,39 @@ MonoBehaviour:
     farmTerritory:
       nameBuilding: Farm
       level: 0
+      percentaje: 0
     goldMineTerritory:
       nameBuilding: GoldMine
       level: 0
+      percentaje: 0
     fortressTerritory:
       nameBuilding: Fortress
       level: 0
+      percentaje: 0
     academyTerritory:
       nameBuilding: Academy
       level: 0
+      percentaje: 0
     barracksTerritory:
       nameBuilding: Barracks
       level: 0
+      percentaje: 0
     castleTerritory:
       nameBuilding: Castle
       level: 0
+      percentaje: 0
     stableTerritory:
       nameBuilding: Stable
       level: 0
+      percentaje: 0
     archeryTerritory:
       nameBuilding: Archery
       level: 0
+      percentaje: 0
     terrainList: []
+    civilization:
+      civilizationName: 
+      colorString: 
   paddingX: -30
   paddingY: -30
   adjacentTerritories: []
@@ -50691,28 +50948,39 @@ MonoBehaviour:
     farmTerritory:
       nameBuilding: Farm
       level: 0
+      percentaje: 0
     goldMineTerritory:
       nameBuilding: GoldMine
       level: 0
+      percentaje: 0
     fortressTerritory:
       nameBuilding: Fortress
       level: 0
+      percentaje: 0
     academyTerritory:
       nameBuilding: Academy
       level: 0
+      percentaje: 0
     barracksTerritory:
       nameBuilding: Barracks
       level: 0
+      percentaje: 0
     castleTerritory:
       nameBuilding: Castle
       level: 0
+      percentaje: 0
     stableTerritory:
       nameBuilding: Stable
       level: 0
+      percentaje: 0
     archeryTerritory:
       nameBuilding: Archery
       level: 0
+      percentaje: 0
     terrainList: []
+    civilization:
+      civilizationName: 
+      colorString: 
   paddingX: 0
   paddingY: -10
   adjacentTerritories: []
@@ -55380,11 +55648,6 @@ MonoBehaviour:
     weakTo: []
     position: 0
     typeArm: 0
-    init:
-      day: 0
-      month: 0
-      year: 0
-      hour: 0
     isAvailable: 0
   disbandButton: {fileID: 0}
   speed: {fileID: 0}
