@@ -8,6 +8,7 @@ public class War
 
     [SerializeField] private Territory.TYPEPLAYER attackersType;
     [SerializeField] private TerritoryHandler territory;
+    [SerializeField] private TerritoryHandler territoryAttacker;
     [SerializeField] public Troop attackerTroop;
 
     [SerializeField] private float warriorsAttackerSpeed;
@@ -23,7 +24,7 @@ public class War
     private int criticMod2;
     private int indexAttackers = 0;
     private int indexDefenders = 0;
-
+    /*
     public War(Troop troopAttacker, float speedAttacker, float speedDefender, float _critic1, float _critic2, TerritoryHandler _territoryHandler, Territory.TYPEPLAYER _attackers)
     {
         critic1 = _critic1;
@@ -39,6 +40,25 @@ public class War
         territory = _territoryHandler;
         attackersType = _attackers;
     }
+    */
+
+    public War(TerritoryHandler _territoryDeffender, TerritoryHandler _territoryAttacker, Troop troopAttacker, float speedAttacker, float speedDefender, float _critic1, float _critic2)
+    {
+        critic1 = _critic1;
+        critic2 = _critic2;
+        status = 0;
+        time1 = 0;
+        time2 = 0;
+        limit = 400;
+        attackerTroop = troopAttacker;
+
+        warriorsAttackerSpeed = speedAttacker;
+        warriorsDefenderSpeed = speedDefender;
+        territory = _territoryDeffender;
+        territoryAttacker = _territoryAttacker;
+
+        attackersType = _territoryAttacker.TerritoryStats.Territory.TypePlayer;
+    }
 
     public float SpeedAttackers
     {
@@ -48,17 +68,16 @@ public class War
     {
         get { return warriorsDefenderSpeed; }
     }
-    public Territory.TYPEPLAYER AttackerType
-    {
-        get { return attackersType; }
-        set { attackersType = value; }
-    }
     public TerritoryHandler TerritoryWar
     {
         get { return territory; }
         set { territory = value; }
     }
-
+    public TerritoryHandler TerritoryAttacker
+    {
+        get { return territoryAttacker; }
+        set { territoryAttacker = value; }
+    }
     public TerritoryHandler GetTerritory()
     {
         return territory;
@@ -69,7 +88,6 @@ public class War
         {
             if (territory.TerritoryStats.Territory.TypePlayer != Territory.TYPEPLAYER.PLAYER && territory.TerritoryStats.Territory.TypePlayer != Territory.TYPEPLAYER.NONE)
             {
-                
                 BotManager.instance.DeleteTerritory(territory.TerritoryStats.Territory.TypePlayer, territory);
             }
 
@@ -85,7 +103,6 @@ public class War
             }
             catch (System.Exception)
             {
-
                 throw;
             }
             
@@ -125,43 +142,21 @@ public class War
             if (time2 >= limit)
             {
                 time2 = 0;
-                // territory.TerritoryStats.Territory.Population--;
-                if (territory.TerritoryStats.Territory.Swordsmen.Quantity == 0)
+                for (int j = 0; j < territory.TerritoryStats.Territory.ListUnitCombat.UnitCombats.Count; j++)
                 {
-                    indexDefenders = 1;
-                    if (territory.TerritoryStats.Territory.Lancers.Quantity == 0)
+                    if (territory.TerritoryStats.Territory.ListUnitCombat.UnitCombats[j].Quantity > 0 && indexDefenders == j)
                     {
-                        indexDefenders = 2;
-                        if (territory.TerritoryStats.Territory.Axemen.Quantity == 0)
-                        {
-                            indexDefenders = 3;
-                            if (territory.TerritoryStats.Territory.Scouts.Quantity == 0)
-                            {
-                                indexDefenders = 4;
-                            }
-                        }
+                        territory.TerritoryStats.Territory.ListUnitCombat.UnitCombats[j].Quantity--;
+                    }
+                    if (territory.TerritoryStats.Territory.ListUnitCombat.UnitCombats[j].Quantity == 0)
+                    {
+                        indexDefenders++;
                     }
                 }
-
-                if (indexDefenders == 0 )
-                {
-                    territory.TerritoryStats.Territory.Swordsmen.Quantity--;
-                }else if (indexDefenders ==1)
-                {
-                    territory.TerritoryStats.Territory.Lancers.Quantity--;
-                }else if (indexDefenders == 2)
-                {
-                    territory.TerritoryStats.Territory.Axemen.Quantity--;
-                }else if (indexDefenders == 3)
-                {
-                    territory.TerritoryStats.Territory.Scouts.Quantity--;
-                }else if (indexDefenders == 4)
-                {
-                    territory.TerritoryStats.Territory.Archers.Quantity--;
-                }
-               // warriors2Count = territory.TerritoryStats.Territory.Population;
             }
-            if (attackerTroop.GetAllNumbersUnit() <= 0 || territory.TerritoryStats.Territory.Population <= 0) status = 1;
+            if (attackerTroop.GetAllNumbersUnit() <= 0 || territory.TerritoryStats.Territory.Population <= 0)
+                //terminar
+                status = 1;
         }
     }
  

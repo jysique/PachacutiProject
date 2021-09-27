@@ -73,10 +73,6 @@ public class CharacterOption : MonoBehaviour
         {
             c.DeclineEventAction();
         }
-        else
-        {
-            TerritoryManager.instance.UpdateUnitsDeffend(territory);
-        }
         EventManager.instance.UpdateEventListOption();
         InGameMenuHandler.instance.UpdateMenu();
     }

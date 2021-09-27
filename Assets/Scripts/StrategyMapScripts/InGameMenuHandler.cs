@@ -26,6 +26,12 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI militaryBossEstrategy;
     [SerializeField] private TextMeshProUGUI militaryBossInfluence;
 
+    [SerializeField] private Button addUnit;
+    [SerializeField] private TMP_Dropdown dropdownUnitsCombat;
+    [SerializeField] private GameObject moveUnits;
+    [SerializeField] private TextMeshProUGUI numberUnitsText;
+    [SerializeField] GameObject CreateUnitGO;
+
     [Header("Menu territory")]
     [SerializeField] private GameObject menuBlockTerritoryWaste;
     [SerializeField] private GameObject menuBlockTerritoryOther;
@@ -41,9 +47,6 @@ public class InGameMenuHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI AttackBonus;
     [SerializeField] private TextMeshProUGUI DefenseBonus;
 
-    [Header("Menu strategy")]
-    [SerializeField] private GameObject menuBlockStrategyWaste;
-    [SerializeField] private GameObject menuBlockStrategyOther;
 
     [Header("Menu buildings")]
     [SerializeField] private GameObject containerBuildings;
@@ -78,6 +81,7 @@ public class InGameMenuHandler : MonoBehaviour
     void Start()
     {
         InitButtons();
+        dropdownUnitsCombat.onValueChanged.AddListener(delegate { DropdownItemSelected2(selectedTerritory); });
         dropdownBuildings.onValueChanged.AddListener(delegate { DropdownItemSelected(selectedTerritory); });
     }
     /// <summary>
@@ -119,6 +123,9 @@ public class InGameMenuHandler : MonoBehaviour
                 menuBlockMilitaryCharacter.SetActive(false);
             }
         }
+        dropdownUnitsCombat.value = 0;
+        UpdateDropDownValues(selectedTerritory);
+        UpdateTroopsContainer(selectedTerritory);
     }
     /// <summary>
     /// Update all elements of the territory menu of the territory-selected
@@ -147,27 +154,8 @@ public class InGameMenuHandler : MonoBehaviour
         {
             menuBlockTerritoryWaste.SetActive(true);
         }
-        UpdateTroopsContainer(selectedTerritory);
     }
-    /// <summary>
-    /// Update all elements of the strategy menu of the territory-selected
-    /// if the territory-selected doesn't belong to the player 
-    /// it blocks
-    /// </summary>
-    private void UpdateStrategyMenu()
-    {
-        menuBlockStrategyOther.SetActive(false);
-        menuBlockStrategyWaste.SetActive(false);
-        if (selectedTerritory.TypePlayer != Territory.TYPEPLAYER.PLAYER)
-        {
-            menuBlockStrategyOther.SetActive(true);
-        }
-        if (selectedTerritory.TypePlayer == Territory.TYPEPLAYER.WASTE)
-        {
-            menuBlockStrategyWaste.SetActive(true);
-        }
-        UpdateTroopOptions(selectedTerritory);
-    }
+
     /// <summary>
     /// Update all elements of the buildings menu of the territory-selected
     /// if the territory-selected doesn't belong to the player 
@@ -207,9 +195,7 @@ public class InGameMenuHandler : MonoBehaviour
         selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().TerritoryStats.Territory;
         UpdateMilitarMenu();
         UpdateTerritoryMenu();
-        UpdateStrategyMenu();
         UpdateBuildingsMenu();
-
     }
     /// <summary>
     /// Update all text depending of the territory-selected
@@ -230,7 +216,9 @@ public class InGameMenuHandler : MonoBehaviour
     void Update()
     {
         //selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().TerritoryStats.Territory;
+        CreateUnitGO.transform.SetAsFirstSibling();
         CreateBuidingGO.transform.SetAsLastSibling();
+        addUnit.interactable = (dropdownUnitsCombat.value != 0);
         UpdateAllText();
     }
 
@@ -242,6 +230,28 @@ public class InGameMenuHandler : MonoBehaviour
         EventManager.instance.AddEvent(territoryHandler, building);
       //  UpdateMenu();
     }
+
+    public void ImproveNewUnitButton(UnitCombat unitCombat)
+    {
+        TerritoryHandler territoryHandler = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
+        AddNewUnitInHandler(territoryHandler, unitCombat);
+        EventManager.instance.AddEvent(territoryHandler, unitCombat);
+    }
+
+    private void AddNewUnitInHandler(TerritoryHandler territoryHandler, UnitCombat unitCombat)
+    {
+        if (goldPlayer >= unitCombat.Quantity) // QUANTITY WORKS LIKE COST
+        {
+            goldPlayer -= unitCombat.Quantity;
+            //ShowFloatingText("+1 " + GameMultiLang.GetTraduction(building.Name) + " level", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
+            //ShowFloatingText("-" + territoryHandler.TerritoryStats.Territory.GetBuilding(building).CostToUpgrade.ToString(), "TextFloating", ResourceTableHandler.instance.GoldAnimation, Color.white);
+        }
+        else
+        {
+            ShowFloatingText("no gold", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
+        }
+    }
+
     private void ImproveBuildingInHandler(TerritoryHandler territoryHandler, Building building)
     {
         if (goldPlayer >= building.CostToUpgrade)
@@ -327,14 +337,14 @@ public class InGameMenuHandler : MonoBehaviour
     }
     private void InitButtons()
     {
-       // MilitarChief militarChief = new MilitarChief();
+        // MilitarChief militarChief = new MilitarChief();
+        addUnit.onClick.AddListener(() => AddUnitButton());
         selectMilitarChief.onClick.AddListener(() => MenuManager.instance.OpenSelectCharacterMenu(new MilitarChief()));
     }
 
-    public void UpdateDropdown(TMP_Dropdown _dropdown, List<string> _items)
+    private void UpdateDropdown(TMP_Dropdown _dropdown, List<string> _items)
     {
         Utils.instance.InitDropdown(_dropdown,_items);
-
     }
 
     void DropdownItemSelected(Territory territory)
@@ -367,11 +377,85 @@ public class InGameMenuHandler : MonoBehaviour
         dropdownBuildings.value = 0;
     }
 
-    public void InstantiateBuilding(Building building)
+    [SerializeField] UnitCombat dummy= new UnitCombat();
+    
+    public void UpdateTroopSelected()
+    {
+        /*
+        int numberSelected = int.Parse(numberUnitsText.text);
+        if (dummy!=null)
+        {
+            dummy.Quantity = numberSelected;
+        }
+        */
+    }
+    private void UpdateNumericButton(Button btn, int _limit, bool _canAttack)
+    {
+        btn.interactable = _canAttack;
+        btn.GetComponent<NumericButton>().limit = _limit;
+        btn.GetComponent<NumericButton>().lockButton = _canAttack;
+        btn.GetComponent<NumericButton>().pointerDown = false;
+    }
+    private void AddUnitButton()
+    {
+        //print("añadiendo " + dummy.UnitName + " cantidad " + numberUnitsText.text);
+        dummy.Quantity = int.Parse(numberUnitsText.text);
+        selectedTerritory.ListUnitCombat.AddUnitCombat(dummy);
+        ImproveNewUnitButton(dummy);
+        
+        UpdateMilitarMenu();
+    }
+    private void UpdateMenuByUnits(GameObject go, int _limit, bool isInitialized, string value = null)
+    {
+        List<Transform> tr = Utils.instance.GetAllChildren(go.transform);
+        UpdateNumericButton(tr[1].GetComponent<Button>(), _limit, true);        //decrease
+        UpdateNumericButton(tr[2].GetComponent<Button>(), _limit, true);        //increase
+        if (isInitialized)
+        {
+            numberUnitsText.text = _limit.ToString();
+            if (value != null)
+            {
+                numberUnitsText.text = value;
+            }
+        }
+    }
+    int index;
+    private List<string> optionsDropDown = new List<string>();
+    private void UpdateDropDownValues(Territory _territory)
+    {
+        optionsDropDown.Clear();
+        optionsDropDown.Add("SelectUnit");
+        optionsDropDown = Utils.instance.GetListUnitCombat2(_territory, optionsDropDown);
+        
+        Utils.instance.InitDropdown(dropdownUnitsCombat, optionsDropDown);
+    }
+    private void DropdownItemSelected2(Territory territory)
+    {
+
+        if (dropdownUnitsCombat.value == 0)
+        {
+            dummy = null;
+            return;
+        }
+        index = dropdownUnitsCombat.value;
+        string _type = dropdownUnitsCombat.options[index].text;
+        string type = GameMultiLang.GetTraductionReverse(_type);
+        dummy = Utils.instance.GetNewUnitCombat(type);
+//        print("type|" + type);
+
+//        TerritoryHandler handler = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
+//        Building building = handler.TerritoryStats.Territory.GetBuildingByUnit(type);
+        UpdateMenuByUnits(moveUnits, 50, true);
+
+        //UpdateDropDownValues(territory);
+       // dropdownUnitsCombat.value = 0;
+    }
+
+
+    private void InstantiateBuilding(Building building)
     {
         if (building.Level>0|| building.Status>-1)
         {
-            
             Transform gridLayout = containerBuildings.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
             GameObject buildingOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/BuildingOption")) as GameObject;
             buildingOption.name = building.GetType().ToString();
@@ -389,7 +473,7 @@ public class InGameMenuHandler : MonoBehaviour
             buildingOption.GetComponent<BuildOption>().InitializeBuildingOption(building);
         }
     }
-    public void UpdateBuildings(Territory territory)
+    private void UpdateBuildings(Territory territory)
     {
         InstantiateBuilding(territory.FarmTerritory);
         InstantiateBuilding(territory.GoldMineTerritory);
@@ -400,14 +484,16 @@ public class InGameMenuHandler : MonoBehaviour
         InstantiateBuilding(territory.StableTerritory);
         InstantiateBuilding(territory.ArcheryTerritory);
     }
-    public void InstantiateTroopContainer(UnitCombat unit)
+
+
+    public void InstantiateUnitCombat(UnitCombat unit)
     {
-        if (unit.Quantity > 0 || selectedTerritory.GetBuilding(unit).Level > 0)
+        if (unit.Quantity > 0 || selectedTerritory.GetBuildingByUnit(unit.UnitName).Level > 0)
         {
             Transform gridLayout = containerTroops.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
-            GameObject troopContainerOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/TroopsContainer")) as GameObject;
-            troopContainerOption.transform.SetParent(gridLayout.transform, false);
-            troopContainerOption.GetComponent<TroopContainerOption>().InitializeTroopContainerOption(unit);
+            GameObject unitCombatOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/UnitCombatOption")) as GameObject;
+            unitCombatOption.transform.SetParent(gridLayout.transform, false);
+            unitCombatOption.GetComponent<UnitCombatOption>().InitializeTroopContainerOption(unit);
         }
     }
     public void UpdateTroopsContainer(Territory territory)
@@ -415,44 +501,13 @@ public class InGameMenuHandler : MonoBehaviour
         Transform gridLayout = containerTroops.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
         foreach (Transform child in gridLayout.transform)
         {
-            Destroy(child.gameObject);
+            if (child.name != "CreateUnit")
+                Destroy(child.gameObject);
         }
-        InstantiateTroopContainer(territory.Swordsmen);
-        InstantiateTroopContainer(territory.Lancers);
-        InstantiateTroopContainer(territory.Axemen);
-        InstantiateTroopContainer(territory.Scouts);
-        InstantiateTroopContainer(territory.Archers);
-    }
-    
-    [SerializeField] public TroopOption[] optionsInDefend { get; private set; }
-    [SerializeField] GameObject strategyBackground;
-    public void UpdateTroopOptions(Territory territory)
-    {
-
-        if (territory.TypePlayer == Territory.TYPEPLAYER.NONE || territory.TypePlayer == Territory.TYPEPLAYER.WASTE)
+        for (int i = 0; i < territory.ListUnitCombat.UnitCombats.Count; i++)
         {
-            return;
-        }
-        optionsInDefend = strategyBackground.transform.GetComponentsInChildren<TroopOption>();
-        List<UnitCombat> list = territory.TroopDefending;
-        // all options are initialized/reset with unit = null
-        for (int i = 0; i < optionsInDefend.Length; i++)
-        {
-            optionsInDefend[i].InitTroopOption(2, i, territory);
+            InstantiateUnitCombat(territory.ListUnitCombat.UnitCombats[i]);
         }
     }
 
-    public void UpdateAllOptions()
-    {
-        foreach (var o in optionsInDefend)
-        {
-            o.UpdateLimit();
-            o.UpdateDropDownValues();
-        }
-    }
-
-    public int GetIndexTroopOption(TroopOption troopOption)
-    {
-        return System.Array.IndexOf(optionsInDefend, troopOption);
-    }
 }

@@ -270,7 +270,6 @@ public class CustomEvent
     /// </summary>
     public virtual void AcceptEventAction()
     {
-        TerritoryManager.instance.UpdateUnitsDeffend(territoryEvent.TerritoryStats.Territory);
         this.eventStatus = STATUS.FINISH;
         this.isAcceptedEvent = true;
         switch (eventType)
@@ -311,7 +310,6 @@ public class CustomEvent
     /// </summary>
     public virtual void DeclineEventAction()
     {
-        TerritoryManager.instance.UpdateUnitsDeffend(territoryEvent.TerritoryStats.Territory);
         this.eventStatus= STATUS.FINISH;
         this.isAcceptedEvent = false;
         switch (eventType)
@@ -325,26 +323,18 @@ public class CustomEvent
                 break;
             case EVENTTYPE.DROUGHT:
                 TerritoryEvent.TerritoryStats.Territory.FarmTerritory.ResetBuilding(territoryEvent.TerritoryStats.Territory);
-                TerritoryEvent.TerritoryStats.Territory.Lancers.Quantity /= 2;
-                TerritoryEvent.TerritoryStats.Territory.Swordsmen.Quantity /= 2;
-                TerritoryEvent.TerritoryStats.Territory.Axemen.Quantity /= 2;
-                TerritoryEvent.TerritoryStats.Territory.Scouts.Quantity /= 2;
+                TerritoryEvent.TerritoryStats.Territory.ListUnitCombat.ReduceAllQuantity();
+
                 break;
             case EVENTTYPE.ALL_T_PANDEMIC:
                 List<TerritoryHandler> list = TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER);
                 for (int i = 0; i < list.Count; i++)
                 {
-                    list[i].TerritoryStats.Territory.Lancers.Quantity /= 2;
-                    list[i].TerritoryStats.Territory.Swordsmen.Quantity /= 2;
-                    list[i].TerritoryStats.Territory.Axemen.Quantity /= 2;
-                    list[i].TerritoryStats.Territory.Scouts.Quantity /= 2;
+                    list[i].TerritoryStats.Territory.ListUnitCombat.ReduceAllQuantity();
                 }
                 break;
             case EVENTTYPE.PANDEMIC:
-                TerritoryEvent.TerritoryStats.Territory.Lancers.Quantity /= 2;
-                TerritoryEvent.TerritoryStats.Territory.Swordsmen.Quantity /= 2;
-                TerritoryEvent.TerritoryStats.Territory.Axemen.Quantity /= 2;
-                TerritoryEvent.TerritoryStats.Territory.Scouts.Quantity /= 2;
+                TerritoryEvent.TerritoryStats.Territory.ListUnitCombat.ReduceAllQuantity();
                 break;
             case EVENTTYPE.ALL_T_PLAGUE:
                 List<TerritoryHandler> list2 = TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER);
@@ -380,7 +370,6 @@ public class CustomEvent
     /// </summary>
     public virtual void AdicitionalEventAction()
     {
-        TerritoryManager.instance.UpdateUnitsDeffend(territoryEvent.TerritoryStats.Territory);
         //this.eventStatus = STATUS.FINISH;
         //this.isAcceptedEvent = false;
         switch (eventType)
@@ -484,15 +473,59 @@ public class CustomBuilding : CustomEvent
     {
         this.territoryEvent = territory;
         building = territoryEvent.TerritoryStats.Territory.GetBuilding(_building);
-        building.TimeInit = new TimeSimulated(_initTime);
         timeInit = new TimeSimulated(_initTime);
     }
-    public void FinishUpgradeBuilding(int levels)
+    public void FinishUpgradeBuilding()
     {
         building.CanUpdrade = true;
-        building.DaysTotal = 0;
-        building.ImproveManyLevels(levels,this.territoryEvent.TerritoryStats.Territory);
-        building.ImproveCostUpgrade(levels);
+        //building.DaysTotal = 0;
+        building.ImproveManyLevels(1,this.territoryEvent.TerritoryStats.Territory);
+        building.ImproveCostUpgrade(1);
+    }
+    public void InProggressUpgrade()
+    {
+        building.CanUpdrade = false;
+        int diference = TimeSystem.instance.TimeGame.DiferenceDays(timeInit);
+        int hours = (int)TimeSystem.instance.TimeGame.Hour + (24 * diference);
+        building.Percentaje = hours / ((float)building.DaysToBuild * 24);
+        //linearBarProgress.fillAmount = hours / ((float)territoryBuilding.DaysToBuild * 24);
+
+    }
+}
+
+
+[Serializable]
+public class CustomUnitCombat : CustomEvent
+{
+    [SerializeField] private UnitCombat unitCombat;
+    int daysToCreate;
+    public UnitCombat UnitCombatEvent
+    {
+        get { return unitCombat; }
+        set { unitCombat = value; }
+    }
+    public int DaysToCreate
+    {
+        get { return daysToCreate; }
+    }
+    public CustomUnitCombat(TimeSimulated _initTime, TerritoryHandler territory, UnitCombat _unitCombat)
+    {
+        this.territoryEvent = territory;
+        this.unitCombat = _unitCombat;
+        timeInit = new TimeSimulated(_initTime);
+        daysToCreate = _unitCombat.Quantity/20;
+    }
+    public void FinishAddingUnit()
+    {
+        unitCombat.IsAvailable = true;
+    }
+    public void AddingUnit()
+    {
+        int diference = TimeSystem.instance.TimeGame.DiferenceDays(timeInit);
+        int hours = (int)TimeSystem.instance.TimeGame.Hour + (24 * diference);
+        float a = hours / ((float)daysToCreate * 24);
+        int b = (int)(a * 100) * unitCombat.Quantity / 100;
+        unitCombat.InProgress = b;
     }
 }
 
@@ -622,11 +655,12 @@ public class CustomBattle : CustomEvent
         int max_units_count = troop.UnitCombats.Count-1;
         int random = UnityEngine.Random.Range(0, max_units_count);
         UnitCombat uc = troop.UnitCombats[random];
-        int _pos = troop.Positions[random];
+        // int _pos = troop.Positions[random];
+        int _pos = troop.UnitCombats[random].PositionInBattle;
         for (int i = 0; i < squares_count; i++)
         {
             SquareType _square = CombatManager.instance.Squares.transform.GetChild(i).gameObject.GetComponent<SquareType>();
-            UnitGroup _ug = _square.unitGroup;
+            UnitGroup _ug = _square.UnitGroup;
             if (_ug != null && _ug.TypePlayer == this.typeEvent && _ug.UnitCombat.PositionInBattle == _pos)
             {
                 ug.Add(_ug);
@@ -642,7 +676,7 @@ public class CustomBattle : CustomEvent
         for (int i = 0; i < 8; i++)
         {
             SquareType _square = CombatManager.instance.Squares.transform.GetChild(i).gameObject.GetComponent<SquareType>();
-            UnitGroup _ug = _square.unitGroup;
+            UnitGroup _ug = _square.UnitGroup;
             if (_ug != null && _ug.TypePlayer == territoryEvent.TerritoryStats.Territory.TypePlayer)
             {
                 ug.Add(_ug);
@@ -654,7 +688,7 @@ public class CustomBattle : CustomEvent
         for (int i = 0; i < 8; i++)
         {
             SquareType _square = CombatManager.instance.Squares.transform.GetChild(i).gameObject.GetComponent<SquareType>();
-            UnitGroup _ug = _square.unitGroup;
+            UnitGroup _ug = _square.UnitGroup;
             if (_ug != null && _ug.TypePlayer == territoryEvent.TerritoryStats.Territory.TypePlayer)
             {
                 ug.Add(_ug);
@@ -699,7 +733,7 @@ public class CustomBattle : CustomEvent
         {
             int pos = i;
             SquareType _square = CombatManager.instance.Squares.transform.GetChild(i).gameObject.GetComponent<SquareType>();
-            UnitGroup _ug = _square.unitGroup;
+            UnitGroup _ug = _square.UnitGroup;
             if (_ug == null)
             {
                 return pos;
@@ -981,5 +1015,6 @@ public class CustomBattle : CustomEvent
             default:
                 break;
         }
+        CheckStatusInEvent();
     }
 }

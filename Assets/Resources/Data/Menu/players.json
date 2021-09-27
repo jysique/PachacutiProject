@@ -1,0 +1,45 @@
+{
+    "Items": [
+        {
+            "name": "LaConvencion",
+            "region": 3,
+            "type": "player",
+            "gold": 10,
+            "food": 10,
+            "motivation": 10,
+            "opinion": 10,
+            "militar": null,
+            "troop":null
+        },
+        {
+            "name": "Acomayo",
+            "region": 0,
+            "type": "player",
+            "gold": 10,
+            "food": 10,
+            "motivation": 10,
+            "opinion": 10,
+            "militar": null
+        },
+        {
+            "name": "Calca",
+            "region": 2,
+            "type": "player",
+            "gold": 10,
+            "food": 10,
+            "motivation": 10,
+            "opinion": 10,
+            "militar": null
+        },
+        {
+            "name": "Canas",
+            "region": 1,
+            "type": "BOT",
+            "gold": 10,
+            "food": 10,
+            "motivation": 10,
+            "militar": null
+        }
+        
+    ]
+}

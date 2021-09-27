@@ -196,7 +196,7 @@ public class MissionTutorial : Mission
                 }
                 break;
             case 3:
-                if (TerritoryMission[0].Archers.Quantity >= 10)
+                if (TerritoryMission[0].ListUnitCombat.GetFirstUnitCombat("Archer").Quantity >= 10)
                 {
                     count++;
                 }

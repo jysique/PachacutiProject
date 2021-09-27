@@ -174,8 +174,8 @@ PILLAGE1= Approved.
 PILLAGE3= It would be good for the economy.
 PILLAGE2= I don't think it is necessary.
 PILLAGEM= A piece of terrain has been found that we can loot
-PILLAGEA= We won some gold but it cost us 1 turn.
-PILLAGED= We won some food but it cost us 1 turn.
+PILLAGEA= We won some gold.
+PILLAGED= We won some food.
 PILLAGET= We won some gold and food. 
 
 BURN_NAME=LANDING OF FIRE

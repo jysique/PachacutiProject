@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 [System.Serializable]
 public class Territory
 {
@@ -22,11 +23,9 @@ public class Territory
 
     [SerializeField] private MilitarChief militarChiefTerritory = null;
 
-    [SerializeField] private Swordsman sword= new Swordsman();
-    [SerializeField] private Lancer lance = new Lancer();
-    [SerializeField] private Axeman axe  = new Axeman();
-    [SerializeField] private Scout scout = new Scout();
-    [SerializeField] private Archer archer = new Archer();
+
+    [SerializeField] private Troop listUnitCombat = new Troop();
+
 
     [SerializeField] private Farm farmTerritory = new Farm();
     [SerializeField] private GoldMine goldMineTerritory = new GoldMine();
@@ -39,10 +38,16 @@ public class Territory
     [SerializeField] private Archery archeryTerritory = new Archery();
 
     [SerializeField] private List<Terrain> terrainList = new List<Terrain>();
+    [SerializeField] private Civilization civilization = new Civilization();
     private int costImproveSpeedPopulation = 10;
     private int costImproveLimitPopulation = 10;
     private int addCost = 5;
     private int perPeople = 2;
+    public Civilization Civilization
+    {
+        get { return civilization; }
+        set { civilization = value; }
+    }
     public float Width
     {
         get { return width; }
@@ -53,31 +58,12 @@ public class Territory
         get { return height; }
         set { height = value; }
     }
-    public Swordsman Swordsmen
+    public Troop ListUnitCombat
     {
-        get { return sword; }
-        set { sword = value; }
+        get { return listUnitCombat; }
+        set { listUnitCombat = value; }
     }
-    public Lancer Lancers
-    {
-        get { return lance; }
-        set { lance = value; }
-    }
-    public Axeman Axemen
-    {
-        get { return axe; }
-        set { axe = value; }
-    }
-    public Scout Scouts
-    {
-        get { return scout; }
-        set { scout = value; }
-    }
-    public Archer Archers
-    {
-        get { return archer; }
-        set { archer = value; }
-    }
+
     public bool IsClaimed
     {
         get { return isClaim; }
@@ -178,12 +164,9 @@ public class Territory
     
     public int Population
     {
-        get { return lance.Quantity 
-                + axe.Quantity
-                + sword.Quantity 
-                + scout.Quantity
-                + archer.Quantity; }
+        get { return listUnitCombat.GetPopulation(); }
     }
+
     public int MotivationTerritory
     {
         get { return motivation; }
@@ -210,6 +193,7 @@ public class Territory
         get { return selected; }
         set { selected = value; }
     }
+
     public Building GetBuilding(Building building)
     {
         if (building is Farm)
@@ -249,26 +233,26 @@ public class Territory
             return null;
         }
     }
-    public Building GetBuilding(UnitCombat unit)
+    public Building GetBuildingByUnit(string unit)
     {
 //        Debug.LogError(unit.GetType().ToString());
-        if (unit is Swordsman)
+        if (unit == "Swordsman")
         {
             return this.academyTerritory;
         }
-        else if (unit is Lancer)
+        else if (unit == "Lancer")
         {
             return this.barracksTerritory;
         }
-        else if (unit is Axeman)
+        else if (unit == "Axeman")
         {
             return this.castleTerritory;
         }
-        else if (unit is Scout)
+        else if (unit == "Scout")
         {
             return this.stableTerritory;
         }
-        else if (unit is Archer)
+        else if (unit == "Archer")
         {
             return this.archeryTerritory;
         }
@@ -316,34 +300,64 @@ public class Territory
         {
             return null;
         }
-    }  
-    public UnitCombat GetUnitCombat(string building)
+    }
+    /*
+    public UnitCombat GetUnitCombat(string building, int index)
     {
         if (building == "Academy")
         {
-            return this.sword;
+            return this.swords[index];
         }
         else if (building == "Barracks")
         {
-            return this.lance;
+            return this.spears[index];
         }
         else if (building == "Castle")
         {
-            return this.axe;
+            return this.axes[index];
         }
         else if (building == "Stable")
         {
-            return this.scout;
+            return this.scout[index];
         }
         else if (building == "Archery")
         {
-            return this.archer;
+            return this.archers[index];
         }
         else
         {
             return null;
         }
     }
+    
+    public UnitCombat GetUnit(string unit, int index)
+    {
+        if (unit == "Swordsman")
+        {
+            return swords[index];
+        }
+        else if (unit == "Lancer")
+        {
+            return this.spears[index];
+        }
+        else if (unit == "Axeman")
+        {
+            return this.axes[index];
+        }
+        else if (unit == "Scout")
+        {
+            return this.scout[index];
+        }
+        else if (unit == "Archer")
+        {
+            return this.archers[index];
+        }
+        else
+        {
+            return null;
+        }
+    }
+    */
     public float GetSpeed(UnitCombat unitCombat)
     {
         switch (unitCombat.GetType().ToString())
@@ -364,6 +378,7 @@ public class Territory
         }
         return 0;
     }
+
     public int GetLimit(UnitCombat unitCombat)
     {
         switch (unitCombat.GetType().ToString())
@@ -383,33 +398,6 @@ public class Territory
                 break;
         }
         return 0;
-    }
-    public UnitCombat GetUnit(string unit)
-    {
-        if (unit == "Swordsman")
-        {
-            return sword;
-        }
-        else if (unit == "Lancer")
-        {
-            return lance;
-        }
-        else if (unit == "Axeman")
-        {
-            return axe;
-        }
-        else if(unit == "Scout")
-        {
-            return scout;
-        }
-        else if (unit == "Archer")
-        {
-            return archer;
-        }
-        else
-        {
-            return null;
-        }
     }
     public void ResetAllBuilds()
     {
@@ -439,11 +427,5 @@ public class Territory
         BOT4,
         NONE,
         WASTE
-    }
-    [SerializeField] List<UnitCombat> troopDefend = new List<UnitCombat>();
-    public List<UnitCombat> TroopDefending
-    {
-        get { return troopDefend; }
-        set { troopDefend = value; }
     }
 }

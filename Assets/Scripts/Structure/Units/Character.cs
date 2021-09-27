@@ -17,6 +17,7 @@ public class Character
     private bool canElegible;
     private bool canMove;
 
+
     public Character()
     {
 

@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
 [System.Serializable]
 public class Building
 {
@@ -23,13 +25,20 @@ public class Building
     protected bool isBuildMilitar = false;
     private bool canUpgrade = true;
 
-    private TimeSimulated init;
+
     private int costToUpgrade = 7;
+
     private float daysToBuild = 3;
-    private float daysTotal = 0;
+
     private int position = -1;
     private int status = -1;
 
+    [SerializeField] private float percentaje;
+    public float Percentaje
+    {
+        get { return percentaje; }
+        set { percentaje = value; }
+    }
     public bool IsMilitary
     {
         get { return isBuildMilitar; }
@@ -101,16 +110,7 @@ public class Building
         get { return daysToBuild; }
         set { daysToBuild = value; }
     }
-    public float DaysTotal
-    {
-        get { return daysTotal; }
-        set { daysTotal = value; }
-    }
-    public TimeSimulated TimeInit
-    {
-        get { return init; }
-        set { init = value; }
-    }
+
    
     public virtual void ImproveBuilding(Territory territory)
     {
@@ -120,8 +120,13 @@ public class Building
         {
             levelMaterials++;
             levelSpeed++;
-            territory.GetUnitCombat(this.GetType().ToString()).Attack+=3;
-            territory.GetUnitCombat(this.GetType().ToString()).Precision += 2;
+            List<UnitCombat> ucs = territory.ListUnitCombat.GetUnitListByBuild(this.GetType().ToString());
+            //Debug.LogWarning("uc encntrados por " + this.GetType().ToString() + ":" +ucs.Count);
+            foreach (var item in ucs)
+            {
+                item.Attack += UnityEngine.Random.Range(1, 3);
+                item.Precision += UnityEngine.Random.Range(1, 2);
+            }
         }
         else if (this.level % 3 == 1)
         {
@@ -144,8 +149,15 @@ public class Building
         {
             levelMaterials--;
             levelSpeed--;
-            territory.GetUnitCombat(this.GetType().ToString()).Attack -= 2;
-            territory.GetUnitCombat(this.GetType().ToString()).Precision -= 2;
+            List<UnitCombat> ucs = territory.ListUnitCombat.GetUnitListByBuild(this.GetType().ToString());
+            //Debug.LogWarning("uc encntrados por " + this.GetType().ToString() + ":" +ucs.Count);
+            foreach (var item in ucs)
+            {
+                item.Attack -= UnityEngine.Random.Range(1, 3);
+                item.Precision -= UnityEngine.Random.Range(1, 2);
+            }
+            //territory.ListUnitCombat.GetFirstUnitCombat(this.GetType().ToString()).Attack -= 2;
+            //territory.ListUnitCombat.GetFirstUnitCombat(this.GetType().ToString()).Precision -= 2;
         }
         else if (this.Level % 3 == 1)
         {
@@ -166,29 +178,13 @@ public class Building
     {
         this.CostToUpgrade += 3* _levels;
     }
-    public void ResetBuilding(Territory territory)
-    {
-        SubsideManyLevels(level,territory);
-    }
-    /*
-    public void ImproveManyLevels(int _levels)
+    public void ImproveManyLevels(int _levels, Territory territory)
     {
         for (int i = 0; i < _levels; i++)
         {
-            ImproveBuilding();
+            ImproveBuilding(territory);
         }
     }
-
-
-
-    public void SubsideManyLevels(int _levels)
-    {
-        for (int i = 0; i < _levels; i++)
-        {
-            SubsideBuilding();
-        }
-    }
-        */
     public void SubsideManyLevels(int _levels,Territory territory)
     {
         for (int i = 0; i < _levels; i++)
@@ -196,11 +192,8 @@ public class Building
             SubsideBuilding(territory);
         }
     }
-    public void ImproveManyLevels(int _levels, Territory territory)
+    public void ResetBuilding(Territory territory)
     {
-        for (int i = 0; i < _levels; i++)
-        {
-            ImproveBuilding(territory);
-        }
+        SubsideManyLevels(level, territory);
     }
 }

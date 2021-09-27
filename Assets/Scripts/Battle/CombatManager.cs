@@ -211,6 +211,7 @@ public class CombatManager : MonoBehaviour
             }
             for (int j = 0; j < squares.transform.childCount; j++)
             {
+                //ARREGLAR
                 squares.transform.GetChild(j).GetComponent<SquareType>().terrain = tiles[0];
                 squares.transform.GetChild(j).GetComponent<SquareType>().index = j;
                 squares.transform.GetChild(j).GetComponent<Image>().sprite = tiles[0].Picture;
@@ -221,8 +222,10 @@ public class CombatManager : MonoBehaviour
 
         }
         // print("count " + playerTroop.UnitCombats.Count);
+        /*
         for (int i = 0; i < playerTroop.Positions.Count; i++)
         {
+            //print("unit name player" +playerTroop.UnitCombats[i].UnitName);
             int up = playerPositions[playerTroop.Positions[i]];
             InstantiateUnit(squares.transform.GetChild(up).gameObject, _playerTerritory.TerritoryStats.Territory.TypePlayer, playerTroop.UnitCombats[i]);
         }
@@ -231,7 +234,8 @@ public class CombatManager : MonoBehaviour
             int up = enemyPositions[enemyTroop.Positions[i]];
             InstantiateUnit(squares.transform.GetChild(up).gameObject, _enemyTerritory.TerritoryStats.Territory.TypePlayer, enemyTroop.UnitCombats[i]);
         }
-        UpdateBuffTerrain();
+        */
+        //UpdateBuffTerrain();
         selectedUnit = units[0];
         turnSignal.GetComponent<AppearAndDissapearAnimation>().Change();
 
@@ -273,10 +277,10 @@ public class CombatManager : MonoBehaviour
     }
     private void InstantiateUnit(GameObject square, Territory.TYPEPLAYER _type, UnitCombat unitCombat)
     {
-        if (square.GetComponent<SquareType>().haveUnit && square.transform.childCount > 0)
+        if (square.GetComponent<SquareType>().HaveUnit && square.transform.childCount > 0)
         {
             //print("destroy");
-            units.Remove(square.GetComponent<SquareType>().unitGroup);
+            units.Remove(square.GetComponent<SquareType>().UnitGroup);
             Destroy(square.transform.GetChild(0).gameObject);
         }
         var pref = Instantiate(unitGroupPrefab);
@@ -302,11 +306,12 @@ public class CombatManager : MonoBehaviour
         UnitGroup unit = new UnitGroup(_type, pref, unitCombat);
 
 
-        square.GetComponent<SquareType>().unitGroup = unit;
-        square.GetComponent<SquareType>().haveUnit = true;
+        square.GetComponent<SquareType>().UnitGroup = unit;
+        square.GetComponent<SquareType>().HaveUnit = true;
 
         units.Add(unit);
         pref.GetComponent<GroupClassContainer>().stats = unit;
+
     }
     public void UpdateBuffTerrain()
     {
@@ -341,7 +346,6 @@ public class CombatManager : MonoBehaviour
             "CRITIC: " + 10 + "\n" +
             "TOTAL DAMAGE: " + CheckDamage(defenseGroup, attackGroup) + "\n";
         battleResume.SetActive(true);
-
     }
     public void MakeUnitResume()
     {
@@ -384,7 +388,7 @@ public class CombatManager : MonoBehaviour
     }
     private void DestroyGameObjectAndChildren(GameObject gameObject)
     {
-        gameObject.GetComponentInParent<SquareType>().unitGroup = null;
+        gameObject.GetComponentInParent<SquareType>().UnitGroup = null;
         foreach (Transform item in gameObject.transform)
         {
             DestroyImmediate(item.gameObject);
@@ -642,6 +646,7 @@ public class CombatManager : MonoBehaviour
         details += " Lost units: \n";
         for (int j = 0; j < _original.UnitCombats.Count; j++)
         {
+            /*
             UnitGroup _ug = FoundUnit(_territory, _original.UnitCombats[j], _original.Positions[j]);
             if (_ug != null)
             {
@@ -651,6 +656,7 @@ public class CombatManager : MonoBehaviour
             {
                 _actual.AddElement(_original.UnitCombats[j].UnitName, _original.Positions[j], 0);
             }
+            */
         }
         for (int i = 0; i < _original.UnitCombats.Count; i++)
         {
@@ -664,7 +670,7 @@ public class CombatManager : MonoBehaviour
         for (int i = 0; i < squares_count; i++)
         {
             SquareType _square = Squares.transform.GetChild(i).gameObject.GetComponent<SquareType>();
-            UnitGroup _ug = _square.unitGroup;
+            UnitGroup _ug = _square.UnitGroup;
             if (_ug != null && _ug.TypePlayer == _territory.TypePlayer && _ug.UnitCombat.PositionInBattle == posInBattle)
             {
                 return _ug;
@@ -706,22 +712,22 @@ public class CombatManager : MonoBehaviour
         {
             if (isPlayer)
             {
-                playerTerritory.TerritoryStats.Territory.GetUnit(_type).Quantity = u.UnitCombat.Quantity;
+                playerTerritory.TerritoryStats.Territory.ListUnitCombat.GetFirstUnitCombat(_type).Quantity = u.UnitCombat.Quantity;
             }
             else
             {
-                playerTerritory.TerritoryStats.Territory.GetUnit(_type).Quantity += u.UnitCombat.Quantity;
+                playerTerritory.TerritoryStats.Territory.ListUnitCombat.GetFirstUnitCombat(_type).Quantity += u.UnitCombat.Quantity;
             }
         }
         else
         {
             if (isPlayer)
             {
-                enemyTerritory.TerritoryStats.Territory.GetUnit(_type).Quantity += u.UnitCombat.Quantity;
+                enemyTerritory.TerritoryStats.Territory.ListUnitCombat.GetFirstUnitCombat(_type).Quantity += u.UnitCombat.Quantity;
             }
             else
             {
-                enemyTerritory.TerritoryStats.Territory.GetUnit(_type).Quantity = u.UnitCombat.Quantity;
+                enemyTerritory.TerritoryStats.Territory.ListUnitCombat.GetFirstUnitCombat(_type).Quantity = u.UnitCombat.Quantity;
             }
         }
     }
@@ -747,9 +753,9 @@ public class CombatManager : MonoBehaviour
 
         for (int i = 0; i < squares.transform.childCount; i++)
         {
-            if (SquareByIndex(i).haveUnit)
+            if (SquareByIndex(i).HaveUnit)
             {
-                SquareByIndex(i).unitGroup = null;
+                SquareByIndex(i).UnitGroup = null;
                 DestroyGameObjectAndChildren(squares.transform.GetChild(i).GetChild(0).gameObject);
             }
         }
@@ -764,10 +770,10 @@ public class CombatManager : MonoBehaviour
         units.Clear();
         EventManager.instance.listEvents.ResetAllBattleEvents();
         ResumeBattle.SetActive(false);
-        attackerActualTroop.Reset();
-        defendActualTroop.Reset();
-        attackerOriginalTroop.Reset();
-        defendOriginalTroop.Reset();
+        attackerActualTroop.Clear();
+        defendActualTroop.Clear();
+        attackerOriginalTroop.Clear();
+        defendOriginalTroop.Clear();
         Block.SetActive(false);
         canvas.SetActive(false);
         start = 0;
@@ -833,7 +839,7 @@ public class CombatManager : MonoBehaviour
                 else
                 {
                     int selected = posibleMoves[0];
-                    int actualIndex = bot.UnitsGO.transform.parent.GetComponent<SquareType>().index;
+                    int actualIndex = bot.UnitsGO.transform.parent.GetComponent<SquareType>().Index;
                     ChangeUnits(actualIndex, selected);
                 }
             }
@@ -1033,8 +1039,8 @@ public class CombatManager : MonoBehaviour
             defenseGroup.UnitsGO.transform.GetChild(0).GetComponent<Text>().color = Color.red;
             SetStats(defenseGroup);
             units.Remove(defenseGroup);
-            defenseGroup.UnitsGO.GetComponentInParent<SquareType>().unitGroup = null;
-            defenseGroup.UnitsGO.GetComponentInParent<SquareType>().haveUnit = false;
+            defenseGroup.UnitsGO.GetComponentInParent<SquareType>().UnitGroup = null;
+            defenseGroup.UnitsGO.GetComponentInParent<SquareType>().HaveUnit = false;
             DestroyGameObjectAndChildren(defenseGroup.UnitsGO);
         }
         if (attackGroup.UnitCombat.Quantity <= 0)
@@ -1046,8 +1052,8 @@ public class CombatManager : MonoBehaviour
             attackGroup.UnitsGO.transform.GetChild(0).GetComponent<Text>().color = Color.red;
             SetStats(attackGroup);
             units.Remove(attackGroup);
-            attackGroup.UnitsGO.GetComponentInParent<SquareType>().unitGroup = null;
-            attackGroup.UnitsGO.GetComponentInParent<SquareType>().haveUnit = false;
+            attackGroup.UnitsGO.GetComponentInParent<SquareType>().UnitGroup = null;
+            attackGroup.UnitsGO.GetComponentInParent<SquareType>().HaveUnit = false;
             DestroyGameObjectAndChildren(attackGroup.UnitsGO);
         }
         if (EndBattle())
@@ -1072,8 +1078,8 @@ public class CombatManager : MonoBehaviour
             unitGroup.UnitsGO.transform.GetChild(0).GetComponent<Text>().color = Color.red;
             SetStats(unitGroup);
             units.Remove(unitGroup);
-            unitGroup.UnitsGO.GetComponentInParent<SquareType>().unitGroup = null;
-            unitGroup.UnitsGO.GetComponentInParent<SquareType>().haveUnit = false;
+            unitGroup.UnitsGO.GetComponentInParent<SquareType>().UnitGroup = null;
+            unitGroup.UnitsGO.GetComponentInParent<SquareType>().HaveUnit = false;
             DestroyGameObjectAndChildren(unitGroup.UnitsGO);
         }
     }
@@ -1278,7 +1284,7 @@ public class CombatManager : MonoBehaviour
 
     public UnitGroup UnitByIndex(int index)
     {
-        return squares.transform.GetChild(index).GetComponent<SquareType>().unitGroup;
+        return squares.transform.GetChild(index).GetComponent<SquareType>().UnitGroup;
     }
     public UnitCombat GetUnitBySquare(int index)
     {
@@ -1369,30 +1375,30 @@ public class CombatManager : MonoBehaviour
 
     public int ActualUnitIndex()
     {
-        return selectedUnit.UnitsGO.transform.parent.GetComponent<SquareType>().index;
+        return selectedUnit.UnitsGO.transform.parent.GetComponent<SquareType>().Index;
     }
     public void ChangeUnits(int index, int newIndex)
     {
 
         SquareType square1 = SquareByIndex(index);
         SquareType square2 = SquareByIndex(newIndex);
-        UnitGroup saveug = square1.unitGroup;
+        UnitGroup saveug = square1.UnitGroup;
 
         //print(saveug);
-        if (square1.haveUnit)
+        if (square1.HaveUnit)
         {
             square1.gameObject.transform.GetChild(0).transform.position = square2.gameObject.transform.position;
             square1.gameObject.transform.GetChild(0).transform.SetParent(square2.transform);
 
         }
-        square1.unitGroup = square2.unitGroup;
-        if (square2.haveUnit)
+        square1.UnitGroup = square2.UnitGroup;
+        if (square2.HaveUnit)
         {
             square2.gameObject.transform.GetChild(0).transform.position = square1.gameObject.transform.position;
             square2.gameObject.transform.GetChild(0).transform.SetParent(square1.transform);
 
         }
-        square2.unitGroup = saveug;
+        square2.UnitGroup = saveug;
         /*
         for (int j = 0; j < squares.transform.childCount; j++)
         {
