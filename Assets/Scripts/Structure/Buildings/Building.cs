@@ -25,13 +25,20 @@ public class Building
     protected bool isBuildMilitar = false;
     private bool canUpgrade = true;
 
-    private TimeSimulated init;
+
     private int costToUpgrade = 7;
+
     private float daysToBuild = 3;
-    private float daysTotal = 0;
+
     private int position = -1;
     private int status = -1;
 
+    [SerializeField] private float percentaje;
+    public float Percentaje
+    {
+        get { return percentaje; }
+        set { percentaje = value; }
+    }
     public bool IsMilitary
     {
         get { return isBuildMilitar; }
@@ -103,16 +110,7 @@ public class Building
         get { return daysToBuild; }
         set { daysToBuild = value; }
     }
-    public float DaysTotal
-    {
-        get { return daysTotal; }
-        set { daysTotal = value; }
-    }
-    public TimeSimulated TimeInit
-    {
-        get { return init; }
-        set { init = value; }
-    }
+
    
     public virtual void ImproveBuilding(Territory territory)
     {

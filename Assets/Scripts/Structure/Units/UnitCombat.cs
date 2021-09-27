@@ -17,31 +17,12 @@ public class UnitCombat : Subordinate
     [SerializeField] private string[] weakTo;
     [SerializeField] private int position;
     [SerializeField] protected int typeArm;
-    private float daysToCreate;
-    private float daysTotal = 0;
 
-    [SerializeField] private TimeSimulated init;
     [SerializeField] private bool isAvailable = false;
     public bool IsAvailable
     {
         get { return isAvailable; }
         set { isAvailable = value; }
-    }
-    public TimeSimulated TimeInit
-    {
-        get { return init; }
-        set { init = value; }
-    }
-
-    public float DaysToCreate
-    {
-        get { return daysToCreate; }
-        set { daysToCreate = value; }
-    }
-    public float DaysTotal
-    {
-        get { return daysTotal; }
-        set { daysTotal = value; }
     }
     public int TypeArm
     {

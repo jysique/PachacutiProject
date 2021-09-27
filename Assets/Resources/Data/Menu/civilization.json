@@ -1,0 +1,24 @@
+{
+    "Items": [
+        {
+            "civilizationName": "Chanca",
+            "colorString": "248, 147, 146,255"
+        },
+        {
+            "civilizationName": "Chavin",
+            "colorString": "248, 147, 146,255"
+        },
+        {
+            "civilizationName": "Inca",
+            "colorString": "114, 165, 195, 255"
+        },
+        {
+            "civilizationName": "Mochica",
+            "colorString": "248, 147, 146,255"
+        },
+        {
+            "civilizationName": "None",
+            "colorString": "255, 255, 255, 255"
+        }
+    ]
+}

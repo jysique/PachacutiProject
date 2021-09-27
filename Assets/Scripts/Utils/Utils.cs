@@ -40,7 +40,31 @@ public class Utils : MonoBehaviour
             });
         }
     }
-    
+
+    public UnitCombat GetUnitCombatRandom(Territory territory)
+    {
+        UnitCombat u = new UnitCombat();
+        int random = UnityEngine.Random.Range(0, units_string.Count);
+        Building building = territory.GetBuildingByUnit(units_string[random]);
+
+        if (building.Level>0)
+        {
+            u = GetNewUnitCombat(units_string[random]);
+        }
+        else
+        {
+            u = GetUnitCombatRandom(territory);
+        }
+        return u;
+    }
+
+    public Building GetBuildingRandom(Territory territory)
+    {
+
+        int random = UnityEngine.Random.Range(0, buildings_string.Count);
+        return territory.GetBuilding(buildings_string[random]);
+    }
+
     public UnitCombat GetNewUnitCombat(string _type)
     {
         switch (_type)

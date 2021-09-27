@@ -49,7 +49,6 @@ public class UnitCombatOption : MonoBehaviour
         {
             if (unitContainer.IsAvailable)
             {
-                //warriorsCount.text = unitContainer.Quantity + " / " + territorySelected.GetLimit(unitContainer) + GameMultiLang.GetTraduction("units");
                 warriorsCount.text = "QUANTITY: " + unitContainer.Quantity;
                 disbandButton.gameObject.SetActive(true);
                 timeBar.gameObject.SetActive(false);
@@ -82,11 +81,7 @@ public class UnitCombatOption : MonoBehaviour
 
     void UpdateLinearBarProgress()
     {
-        int diference = TimeSystem.instance.TimeGame.DiferenceDays(unitContainer.TimeInit);
-        int hours = (int)TimeSystem.instance.TimeGame.Hour + (24 * diference);
-        timeBar.fillAmount = hours / ((float)unitContainer.DaysToCreate * 24);
-        int a = (int)(timeBar.fillAmount *100)* unitContainer.Quantity /100;
-        unitContainer.InProgress = a;
+        timeBar.fillAmount = (float)unitContainer.InProgress / (float)unitContainer.Quantity;
     }
 
 }

@@ -356,7 +356,6 @@ public class EventManager : MonoBehaviour
                 if (CombatManager.instance.Turns == listEvents.BattleEvents[i].TurnEvent && listEvents.BattleEvents[i].EventStatus == CustomEvent.STATUS.ANNOUNCE)
                 {
                     BattleEventController.instance.Init(listEvents.BattleEvents[i]);
-                    //WarningEventAppearanceInBattle(listEvents.BattleEvents[i]);
                     currentBattle = i;
                     listEvents.BattleEvents[i].EventStatus = CustomEvent.STATUS.PROGRESS;
                     
@@ -381,15 +380,14 @@ public class EventManager : MonoBehaviour
         for (int i = 0; i < listEvents.BuildingsEvents.Count; i++)
         {
             int diferenceDays = TimeSystem.instance.TimeGame.DiferenceDays(listEvents.BuildingsEvents[i].TimeInitEvent);
-            listEvents.BuildingsEvents[i].BuildingEvent.DaysTotal = diferenceDays;
             if (diferenceDays == listEvents.BuildingsEvents[i].BuildingEvent.DaysToBuild)
             {
-                listEvents.BuildingsEvents[i].FinishUpgradeBuilding(1);
+                listEvents.BuildingsEvents[i].FinishUpgradeBuilding();
                 listEvents.RemoveEvent(listEvents.BuildingsEvents[i]);
             }
             else
             {
-                listEvents.BuildingsEvents[i].BuildingEvent.CanUpdrade = false;
+                listEvents.BuildingsEvents[i].InProggressUpgrade();
             }
         }
     }
@@ -398,18 +396,15 @@ public class EventManager : MonoBehaviour
         for (int i = 0; i < listEvents.UnitsEvents.Count; i++)
         {
             int diferenceDays = TimeSystem.instance.TimeGame.DiferenceDays(listEvents.UnitsEvents[i].TimeInitEvent);
-            listEvents.UnitsEvents[i].UnitCombatEvent.DaysTotal = diferenceDays;
-            if (diferenceDays == listEvents.UnitsEvents[i].UnitCombatEvent.DaysToCreate)
+            if (diferenceDays == listEvents.UnitsEvents[i].DaysToCreate)
             {
                 listEvents.UnitsEvents[i].FinishAddingUnit();
                 listEvents.RemoveEvent(listEvents.UnitsEvents[i]);
             }
-            /*
             else
             {
-                listEvents.BuildingsEvents[i].BuildingEvent.CanUpdrade = false;
+                listEvents.UnitsEvents[i].AddingUnit();
             }
-            */
         }
     }
 

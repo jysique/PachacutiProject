@@ -473,15 +473,23 @@ public class CustomBuilding : CustomEvent
     {
         this.territoryEvent = territory;
         building = territoryEvent.TerritoryStats.Territory.GetBuilding(_building);
-        building.TimeInit = new TimeSimulated(_initTime);
         timeInit = new TimeSimulated(_initTime);
     }
-    public void FinishUpgradeBuilding(int levels)
+    public void FinishUpgradeBuilding()
     {
         building.CanUpdrade = true;
-        building.DaysTotal = 0;
-        building.ImproveManyLevels(levels,this.territoryEvent.TerritoryStats.Territory);
-        building.ImproveCostUpgrade(levels);
+        //building.DaysTotal = 0;
+        building.ImproveManyLevels(1,this.territoryEvent.TerritoryStats.Territory);
+        building.ImproveCostUpgrade(1);
+    }
+    public void InProggressUpgrade()
+    {
+        building.CanUpdrade = false;
+        int diference = TimeSystem.instance.TimeGame.DiferenceDays(timeInit);
+        int hours = (int)TimeSystem.instance.TimeGame.Hour + (24 * diference);
+        building.Percentaje = hours / ((float)building.DaysToBuild * 24);
+        //linearBarProgress.fillAmount = hours / ((float)territoryBuilding.DaysToBuild * 24);
+
     }
 }
 
@@ -490,27 +498,34 @@ public class CustomBuilding : CustomEvent
 public class CustomUnitCombat : CustomEvent
 {
     [SerializeField] private UnitCombat unitCombat;
+    int daysToCreate;
     public UnitCombat UnitCombatEvent
     {
         get { return unitCombat; }
         set { unitCombat = value; }
     }
+    public int DaysToCreate
+    {
+        get { return daysToCreate; }
+    }
     public CustomUnitCombat(TimeSimulated _initTime, TerritoryHandler territory, UnitCombat _unitCombat)
     {
         this.territoryEvent = territory;
         this.unitCombat = _unitCombat;
-        _unitCombat.TimeInit = new TimeSimulated(_initTime);
-        _unitCombat.DaysToCreate = _unitCombat.Quantity/20;
         timeInit = new TimeSimulated(_initTime);
+        daysToCreate = _unitCombat.Quantity/20;
     }
     public void FinishAddingUnit()
     {
         unitCombat.IsAvailable = true;
-        //unitCombat.InProgress = unitCombat.Quantity;
-        //building.CanUpdrade = true;
-        //building.DaysTotal = 0;
-        //building.ImproveManyLevels(levels, this.territoryEvent.TerritoryStats.Territory);
-        //building.ImproveCostUpgrade(levels);
+    }
+    public void AddingUnit()
+    {
+        int diference = TimeSystem.instance.TimeGame.DiferenceDays(timeInit);
+        int hours = (int)TimeSystem.instance.TimeGame.Hour + (24 * diference);
+        float a = hours / ((float)daysToCreate * 24);
+        int b = (int)(a * 100) * unitCombat.Quantity / 100;
+        unitCombat.InProgress = b;
     }
 }
 

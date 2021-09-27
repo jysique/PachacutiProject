@@ -99,16 +99,7 @@ public class Terrain
     }
     public void GetValue(UnitGroup ug)
     {
-        /*
-        Debug.Log("=====================");
-        Debug.Log("type|" + ug.TypePlayer);
-        Debug.Log(ug.TypePlayer+"|name|" + ug.UnitCombat.UnitName);
-        Debug.Log(ug.TypePlayer+"|attack|" + ug.UnitCombat.Attack);
-        Debug.Log(ug.TypePlayer+"|precision|" + ug.UnitCombat.Precision);
-        Debug.Log(ug.TypePlayer+"|defense|" + ug.UnitCombat.Defense);
-        */
         value = UnityEngine.Random.Range(this.scale*10, (this.scale+1)* 10);
-        //Debug.Log("value|" + value);
         float a;
         switch (this.type)
         {
@@ -142,9 +133,6 @@ public class Terrain
                 break;
         }
     }
-
-
-
     public TYPE Type
     {
         get { return type; }

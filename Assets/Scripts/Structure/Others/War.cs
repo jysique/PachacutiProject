@@ -8,6 +8,7 @@ public class War
 
     [SerializeField] private Territory.TYPEPLAYER attackersType;
     [SerializeField] private TerritoryHandler territory;
+    [SerializeField] private TerritoryHandler territoryAttacker;
     [SerializeField] public Troop attackerTroop;
 
     [SerializeField] private float warriorsAttackerSpeed;
@@ -23,7 +24,7 @@ public class War
     private int criticMod2;
     private int indexAttackers = 0;
     private int indexDefenders = 0;
-
+    /*
     public War(Troop troopAttacker, float speedAttacker, float speedDefender, float _critic1, float _critic2, TerritoryHandler _territoryHandler, Territory.TYPEPLAYER _attackers)
     {
         critic1 = _critic1;
@@ -39,6 +40,25 @@ public class War
         territory = _territoryHandler;
         attackersType = _attackers;
     }
+    */
+
+    public War(TerritoryHandler _territoryDeffender, TerritoryHandler _territoryAttacker, Troop troopAttacker, float speedAttacker, float speedDefender, float _critic1, float _critic2)
+    {
+        critic1 = _critic1;
+        critic2 = _critic2;
+        status = 0;
+        time1 = 0;
+        time2 = 0;
+        limit = 400;
+        attackerTroop = troopAttacker;
+
+        warriorsAttackerSpeed = speedAttacker;
+        warriorsDefenderSpeed = speedDefender;
+        territory = _territoryDeffender;
+        territoryAttacker = _territoryAttacker;
+
+        attackersType = _territoryAttacker.TerritoryStats.Territory.TypePlayer;
+    }
 
     public float SpeedAttackers
     {
@@ -48,17 +68,16 @@ public class War
     {
         get { return warriorsDefenderSpeed; }
     }
-    public Territory.TYPEPLAYER AttackerType
-    {
-        get { return attackersType; }
-        set { attackersType = value; }
-    }
     public TerritoryHandler TerritoryWar
     {
         get { return territory; }
         set { territory = value; }
     }
-
+    public TerritoryHandler TerritoryAttacker
+    {
+        get { return territoryAttacker; }
+        set { territoryAttacker = value; }
+    }
     public TerritoryHandler GetTerritory()
     {
         return territory;

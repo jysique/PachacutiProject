@@ -38,10 +38,16 @@ public class Territory
     [SerializeField] private Archery archeryTerritory = new Archery();
 
     [SerializeField] private List<Terrain> terrainList = new List<Terrain>();
+    [SerializeField] private Civilization civilization = new Civilization();
     private int costImproveSpeedPopulation = 10;
     private int costImproveLimitPopulation = 10;
     private int addCost = 5;
     private int perPeople = 2;
+    public Civilization Civilization
+    {
+        get { return civilization; }
+        set { civilization = value; }
+    }
     public float Width
     {
         get { return width; }

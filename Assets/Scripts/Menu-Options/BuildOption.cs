@@ -177,9 +177,10 @@ public class BuildOption : MonoBehaviour
     {
         if (!territoryBuilding.CanUpdrade)
         {
-            int diference = TimeSystem.instance.TimeGame.DiferenceDays(territoryBuilding.TimeInit);
-            int hours = (int)TimeSystem.instance.TimeGame.Hour + (24 * diference);
-            linearBarProgress.fillAmount = hours / ((float)territoryBuilding.DaysToBuild * 24);
+            linearBarProgress.fillAmount = territoryBuilding.Percentaje;
+            //int diference = TimeSystem.instance.TimeGame.DiferenceDays(territoryBuilding.TimeInit);
+            //int hours = (int)TimeSystem.instance.TimeGame.Hour + (24 * diference);
+            //linearBarProgress.fillAmount = hours / ((float)territoryBuilding.DaysToBuild * 24);
             
         }
         else

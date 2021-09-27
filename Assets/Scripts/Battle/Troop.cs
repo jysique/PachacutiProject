@@ -20,7 +20,7 @@ public class Troop
     {
         for (int i = 0; i < unitCombats.Count; i++)
         {
-            Debug.Log("uc-" + unitCombats[i].CharacterName);
+            Debug.Log("uc-" + unitCombats[i].CharacterName + " |isAvialible "+ unitCombats[i].IsAvailable);
         }
     }
 

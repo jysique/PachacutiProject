@@ -235,7 +235,6 @@ public class InGameMenuHandler : MonoBehaviour
     {
         TerritoryHandler territoryHandler = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
         AddNewUnitInHandler(territoryHandler, unitCombat);
-        
         EventManager.instance.AddEvent(territoryHandler, unitCombat);
     }
 
@@ -401,7 +400,6 @@ public class InGameMenuHandler : MonoBehaviour
     {
         //print("añadiendo " + dummy.UnitName + " cantidad " + numberUnitsText.text);
         dummy.Quantity = int.Parse(numberUnitsText.text);
-        dummy.TimeInit = new TimeSimulated(TimeSystem.instance.TimeGame);
         selectedTerritory.ListUnitCombat.AddUnitCombat(dummy);
         ImproveNewUnitButton(dummy);
         

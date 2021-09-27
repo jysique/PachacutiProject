@@ -86,7 +86,6 @@ public class BotIA
         options.Clear();
         foreach (TerritoryHandler t in territories)
         {
-
             if (t.war)
             {
                 List<GameObject> adjacents = t.AdjacentTerritories;
@@ -95,7 +94,7 @@ public class BotIA
                     TerritoryHandler te = a.GetComponent<TerritoryHandler>();
                     if (te.TerritoryStats.Territory.TypePlayer == typeBot)
                     {
-                        GetOptions(6, t, te);
+                        GetMoveOptions(3, t, te);
                     }
                 }
             }
@@ -105,42 +104,56 @@ public class BotIA
                 foreach (GameObject a in adjacents)
                 {
                     TerritoryHandler te = a.GetComponent<TerritoryHandler>();
-                    //options.Add(new OptionBot(t, te, t.TerritoryStats.Territory.Swordsmen.Quantity, t.TerritoryStats.Territory.Lancers.Quantity, t.TerritoryStats.Territory.Axemen.Quantity));
-                    options.Add(new OptionBot(t, te));
+                    GetMoveOptions(1, t, te);
                     if (TerritoryManager.instance.IsLimit(te))
                     {
-                        GetOptions(6, t, te);
+                        GetMoveOptions(6, t, te);
                     }
                 }
             }
             else
             {
-
                 List<GameObject> adjacents = t.AdjacentTerritories;
                 foreach (GameObject a in adjacents)
                 {
                     TerritoryHandler te = a.GetComponent<TerritoryHandler>();
                     if(te.TerritoryStats.Territory.TypePlayer != t.TerritoryStats.Territory.TypePlayer && te.TerritoryStats.Territory.TypePlayer != Territory.TYPEPLAYER.WASTE)
                     {
-                        options.Add(new OptionBot(t, te));
-                        //options.Add(new OptionBot(t, te, 0,0,0));
+                        GetMoveOptions(1, t, te);
                         if(te.TerritoryStats.Territory.Population <= t.TerritoryStats.Territory.Population && 
                             gold - warTax >= 0 && t.TerritoryStats.Territory.Population >= 5)
                         {
-                            GetOptions(6, t, te);
+                            GetImproveBuilding(2, t, te);
+                            GetAddUnitOptions(2,t, te);
+                            GetMoveOptions(6, t, te);
                         }
-                        
                     }
                 }
             }
         }
     }
-
-    private void GetOptions(int _options, TerritoryHandler _t,TerritoryHandler _te)
+    private void GetImproveBuilding(int _options, TerritoryHandler _t, TerritoryHandler _te)
     {
         for (int i = 0; i < _options; i++)
         {
-            OptionBot optionBot = new OptionBot(_t,_te);
+            OptionUpgradeBuilding optionBot = new OptionUpgradeBuilding(_t, _te);
+            options.Add(optionBot);
+        }
+    }
+
+    private void GetMoveOptions(int _options, TerritoryHandler _t,TerritoryHandler _te)
+    {
+        for (int i = 0; i < _options; i++)
+        {
+            OptionMoveTroop optionBot = new OptionMoveTroop(_t,_te);
+            options.Add(optionBot);
+        }
+    }
+    private void GetAddUnitOptions(int _options, TerritoryHandler _t, TerritoryHandler _te)
+    {
+        for (int i = 0; i < _options; i++)
+        {
+            OptionAddUnit optionBot = new OptionAddUnit(_t, _te);
             options.Add(optionBot);
         }
     }
@@ -149,13 +162,55 @@ public class BotIA
     {
 
         int i = Random.Range(0, options.Count);
-        if (options[i].TroopOptionBot.GetAllNumbersUnit() != 0)
+      //  options[i].Logger();
+        switch (options[i].NameOption)
         {
-            //Debug.Log("if enter");
-            MoveTroops(options[i].Begin, options[i].End, options[i].TroopOptionBot);
+            case "move":
+                OptionMoveTroop a = (OptionMoveTroop)options[i];
+                MoveTroops(a.Begin, a.End, a.TroopOptionBot);
+                break;
+            case "add":
+                OptionAddUnit b = (OptionAddUnit)options[i];
+                AddNewUnitCombat(b.Begin,b.UnitCombat);
+                break;
+            case "upgrade":
+                OptionUpgradeBuilding c = (OptionUpgradeBuilding)options[i];
+                UpgradeBuilding(c.Begin, c.Building);
+                break;
+            default:
+                break;
         }
+        
     }
-    //private void MoveTroops(TerritoryHandler begin, TerritoryHandler end, int number,int number2,int number3)
+    private void UpgradeBuilding(TerritoryHandler begin, Building building)
+    {
+        if (gold - building.CostToUpgrade>=0)
+        {
+            Debug.Log("upgrade" + begin.name + " - " + building.Name);
+            gold -= building.CostToUpgrade;
+            //
+            EventManager.instance.AddEvent(begin, building);
+        }
+        else
+        {
+            Debug.Log("no resources to upgrade building");
+        }
+        
+    }
+    private void AddNewUnitCombat(TerritoryHandler begin, UnitCombat unitCombat)
+    {
+        if (gold - unitCombat.Quantity >= 0)
+        {
+            gold -= unitCombat.Quantity;
+            //
+            EventManager.instance.AddEvent(begin, unitCombat);
+        }
+        else
+        {
+            Debug.Log("no resources to add unit");
+        }
+
+    }
     private void MoveTroops(TerritoryHandler begin, TerritoryHandler end, Troop _troop)
     {
         if (_troop.GetAllNumbersUnit() != 0)
@@ -165,6 +220,7 @@ public class BotIA
                 if(gold - warTax >= 0)
                 {
                     gold -= warTax;
+                    Debug.Log("mover");
                     _troop.MoveUnits(begin.TerritoryStats.Territory);
                     WarManager.instance.SendWarriors(begin, end, _troop);
                 }
@@ -173,7 +229,11 @@ public class BotIA
             {
                 WarManager.instance.SendWarriors(begin, end, _troop);
             }
-            
+
+        }
+        else
+        {
+            Debug.Log("troop == 0");
         }
     }
 
@@ -196,12 +256,12 @@ public class BotIA
 [System.Serializable]
 public class OptionBot
 {
-    [SerializeField] private TerritoryHandler begin;
-    [SerializeField] private TerritoryHandler end;
-    [SerializeField] private Troop troop;
-    public Troop TroopOptionBot
+    [SerializeField] protected TerritoryHandler begin;
+    [SerializeField] protected TerritoryHandler end;
+    [SerializeField] protected string nameoption;
+    public string NameOption
     {
-        get { return troop; }
+        get { return nameoption; }
     }
     public TerritoryHandler Begin
     {
@@ -211,40 +271,83 @@ public class OptionBot
     {
         get { return end; }
     }
-    /*
-    public OptionBot(TerritoryHandler _begin, TerritoryHandler _end, int _number,int _number2, int _number3)
-    {
-        begin = _begin;
-        end = _end;
-        Swordsman s = new Swordsman();
-        s.Quantity = _number;
-        s.PositionInBattle = 0;
-        this.troop.AddUnitCombat(s);
-        Axeman a = new Axeman();
-        a.Quantity = _number2;
-        a.PositionInBattle = 1;
-        this.troop.AddUnitCombat(a);
-        
-        Archer ar = new Archer();
-        ar.Quantity = _number3;
-        ar.PositionInBattle = 2;
-        this.troop.AddUnitCombat(ar);
-    }
-    */
+
     public OptionBot(TerritoryHandler _begin, TerritoryHandler _end)
     {
         begin = _begin;
         end = _end;
+
+    }
+    public virtual void Logger()
+    {
+        Debug.Log("se eligio " + nameoption + " en " + begin.name);
+        Debug.Log("info:");
+    }
+}
+public class OptionMoveTroop : OptionBot
+{
+    [SerializeField] private Troop troop;
+    public Troop TroopOptionBot
+    {
+        get { return troop; }
+    }
+    public OptionMoveTroop(TerritoryHandler _begin, TerritoryHandler _end) : base(_begin, _end)
+    {
+        nameoption = "move";
         Troop _troop = new Troop();
         Territory _territory = _begin.TerritoryStats.Territory;
         for (int i = 0; i < _territory.ListUnitCombat.UnitCombats.Count; i++)
         {
-            int random = UnityEngine.Random.Range(0, 100);
-            if (random>60)
+            
+            if (Random.Range(0, 100) > 60 && _territory.ListUnitCombat.UnitCombats[i].IsAvailable)
             {
                 _troop.AddUnitCombat(_territory.ListUnitCombat.UnitCombats[i]);
             }
         }
         this.troop = _troop;
+    }
+    public override void Logger()
+    {
+        base.Logger();
+        Debug.Log(" nro unidades " + troop.UnitCombats.Count);
+    }
+}
+public class OptionAddUnit: OptionBot
+{
+    [SerializeField] private UnitCombat unitCombat;
+    public UnitCombat UnitCombat
+    {
+        get { return unitCombat; }
+    }
+
+    public OptionAddUnit(TerritoryHandler _begin, TerritoryHandler _end) : base(_begin, _end)
+    {
+        nameoption = "add";
+        unitCombat = Utils.instance.GetUnitCombatRandom(_begin.TerritoryStats.Territory);
+        unitCombat.Quantity = Random.Range(10, 30);
+    }
+    public override void Logger()
+    {
+        base.Logger();
+        Debug.Log(" name " + unitCombat.UnitName + " nro unidades " + unitCombat.Quantity);
+    }
+}
+public class OptionUpgradeBuilding : OptionBot
+{
+    [SerializeField] private Building building;
+    public Building Building
+    {
+        get { return building; }
+    }
+
+    public OptionUpgradeBuilding(TerritoryHandler _begin, TerritoryHandler _end) : base(_begin, _end)
+    {
+        nameoption = "upgrade";
+        building = Utils.instance.GetBuildingRandom(_begin.TerritoryStats.Territory);
+    }
+    public override void Logger()
+    {
+        base.Logger();
+        Debug.Log(" name " + building.Name);
     }
 }
