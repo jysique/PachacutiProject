@@ -31,7 +31,7 @@ public class TerritoryManager : MonoBehaviour
         territoryList = new List<GameObject>();
         AddTerritoryData();
         ReadTerritoriesData();
-        JsonTest();
+     //   JsonTest();
     }
     [SerializeField]
     List<Player> players = new List<Player>();
@@ -52,8 +52,14 @@ public class TerritoryManager : MonoBehaviour
             time = System.DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
             filename = time+ ".json";
         }
+        Units a = new Units();
+        a.S.Add(3);
+        a.S.Add(102);
+        ////players[0].Region = Territory.REGION.CENTRE;
+        //players[0].Militar.StrategyType = MilitarChief.TYPESTRAT.AGGRESSIVE.ToString();
+        players[0].Troop.Add(a);
+        players[0].Troop.Add(a);
 
-        players[0].Player_Nick = "random ->>>>";
         FileHandler.SaveToJSON<Player>(players, filename);
     }
 
