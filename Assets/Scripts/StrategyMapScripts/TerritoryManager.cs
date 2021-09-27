@@ -31,7 +31,7 @@ public class TerritoryManager : MonoBehaviour
         territoryList = new List<GameObject>();
         AddTerritoryData();
         ReadTerritoriesData();
-     //   JsonTest();
+        JsonTest();
     }
     [SerializeField]
     List<Player> players = new List<Player>();

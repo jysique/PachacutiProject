@@ -130,17 +130,17 @@ public class CombatManager : MonoBehaviour
 
         playerPositions.Add(0, 0);
         playerPositions.Add(1, 1);
-        playerPositions.Add(2, 4);
-        playerPositions.Add(3, 5);
-        playerPositions.Add(4, 8);
-        playerPositions.Add(5, 9);
+        playerPositions.Add(2, 8);
+        playerPositions.Add(3, 9);
+        playerPositions.Add(4, 16);
+        playerPositions.Add(5, 17);
 
-        enemyPositions.Add(0, 3);
-        enemyPositions.Add(1, 2);
-        enemyPositions.Add(2, 7);
-        enemyPositions.Add(3, 6);
-        enemyPositions.Add(4, 11);
-        enemyPositions.Add(5, 10);
+        enemyPositions.Add(0, 6);
+        enemyPositions.Add(1, 7);
+        enemyPositions.Add(2, 14);
+        enemyPositions.Add(3, 15);
+        enemyPositions.Add(4, 22);
+        enemyPositions.Add(5, 23);
         //menuOriginalPos = menu.transform;
     }
 
@@ -212,8 +212,8 @@ public class CombatManager : MonoBehaviour
             for (int j = 0; j < squares.transform.childCount; j++)
             {
                 //ARREGLAR
-                squares.transform.GetChild(j).GetComponent<SquareType>().terrain = tiles[0];
-                squares.transform.GetChild(j).GetComponent<SquareType>().index = j;
+                squares.transform.GetChild(j).GetComponent<SquareType>().Terrain = tiles[0];
+                squares.transform.GetChild(j).GetComponent<SquareType>().Index = j;
                 squares.transform.GetChild(j).GetComponent<Image>().sprite = tiles[0].Picture;
             }
 
@@ -222,19 +222,19 @@ public class CombatManager : MonoBehaviour
 
         }
         // print("count " + playerTroop.UnitCombats.Count);
-        /*
-        for (int i = 0; i < playerTroop.Positions.Count; i++)
+        
+        for (int i = 0; i < playerTroop.UnitCombats.Count; i++)
         {
             //print("unit name player" +playerTroop.UnitCombats[i].UnitName);
-            int up = playerPositions[playerTroop.Positions[i]];
+            int up = playerPositions[i];
             InstantiateUnit(squares.transform.GetChild(up).gameObject, _playerTerritory.TerritoryStats.Territory.TypePlayer, playerTroop.UnitCombats[i]);
         }
-        for (int i = 0; i < enemyTroop.Positions.Count; i++)
+        for (int i = 0; i < enemyTroop.UnitCombats.Count; i++)
         {
-            int up = enemyPositions[enemyTroop.Positions[i]];
+            int up = enemyPositions[i];
             InstantiateUnit(squares.transform.GetChild(up).gameObject, _enemyTerritory.TerritoryStats.Territory.TypePlayer, enemyTroop.UnitCombats[i]);
         }
-        */
+        
         //UpdateBuffTerrain();
         selectedUnit = units[0];
         turnSignal.GetComponent<AppearAndDissapearAnimation>().Change();
@@ -1145,11 +1145,11 @@ public class CombatManager : MonoBehaviour
             newIndexI = attackI - i;
             if (newIndexI >= 0 && newIndexI < 3)
             {
-                if(squaresGrid[newIndexI, attackJ].unitGroup != null)
+                if(squaresGrid[newIndexI, attackJ].UnitGroup != null)
                 {
-                    if (squaresGrid[newIndexI, attackJ].unitGroup.TypePlayer != attacker.TypePlayer)
+                    if (squaresGrid[newIndexI, attackJ].UnitGroup.TypePlayer != attacker.TypePlayer)
                     {
-                        posibleAttack.Add(squaresGrid[newIndexI, attackJ].index);
+                        posibleAttack.Add(squaresGrid[newIndexI, attackJ].Index);
 
                     }
                 }
@@ -1159,11 +1159,11 @@ public class CombatManager : MonoBehaviour
             newIndexI = attackI + i;
             if (newIndexI >= 0 && newIndexI < 3)
             {
-                if (squaresGrid[newIndexI, attackJ].unitGroup != null)
+                if (squaresGrid[newIndexI, attackJ].UnitGroup != null)
                 {
-                    if (squaresGrid[newIndexI, attackJ].unitGroup.TypePlayer != attacker.TypePlayer)
+                    if (squaresGrid[newIndexI, attackJ].UnitGroup.TypePlayer != attacker.TypePlayer)
                     {
-                        posibleAttack.Add(squaresGrid[newIndexI, attackJ].index);
+                        posibleAttack.Add(squaresGrid[newIndexI, attackJ].Index);
 
                     }
                 }
@@ -1173,11 +1173,11 @@ public class CombatManager : MonoBehaviour
             newIndexJ = attackJ - i;
             if (newIndexJ >= 0 && newIndexJ < 8)
             {
-                if (squaresGrid[attackI, newIndexJ].unitGroup != null)
+                if (squaresGrid[attackI, newIndexJ].UnitGroup != null)
                 {
-                    if (squaresGrid[attackI, newIndexJ].unitGroup.TypePlayer != attacker.TypePlayer)
+                    if (squaresGrid[attackI, newIndexJ].UnitGroup.TypePlayer != attacker.TypePlayer)
                     {
-                        posibleAttack.Add(squaresGrid[attackI, newIndexJ].index);
+                        posibleAttack.Add(squaresGrid[attackI, newIndexJ].Index);
 
                     }
                 }
@@ -1187,11 +1187,11 @@ public class CombatManager : MonoBehaviour
             newIndexJ = attackJ + i;
             if (newIndexJ >= 0 && newIndexJ < 8)
             {
-                if (squaresGrid[attackI, newIndexJ].unitGroup != null)
+                if (squaresGrid[attackI, newIndexJ].UnitGroup != null)
                 {
-                    if (squaresGrid[attackI, newIndexJ].unitGroup.TypePlayer != attacker.TypePlayer)
+                    if (squaresGrid[attackI, newIndexJ].UnitGroup.TypePlayer != attacker.TypePlayer)
                     {
-                        posibleAttack.Add(squaresGrid[attackI, newIndexJ].index);
+                        posibleAttack.Add(squaresGrid[attackI, newIndexJ].Index);
 
                     }
                 }
@@ -1203,11 +1203,11 @@ public class CombatManager : MonoBehaviour
             newIndexI = attackI - i;
             if (newIndexJ >= 0 && newIndexJ < 8 && newIndexI >= 0 && newIndexI < 3)
             {
-                if (squaresGrid[newIndexI, newIndexJ].unitGroup != null)
+                if (squaresGrid[newIndexI, newIndexJ].UnitGroup != null)
                 {
-                    if (squaresGrid[newIndexI, newIndexJ].unitGroup.TypePlayer != attacker.TypePlayer)
+                    if (squaresGrid[newIndexI, newIndexJ].UnitGroup.TypePlayer != attacker.TypePlayer)
                     {
-                        posibleAttack.Add(squaresGrid[newIndexI, newIndexJ].index);
+                        posibleAttack.Add(squaresGrid[newIndexI, newIndexJ].Index);
 
                     }
                 }
@@ -1218,11 +1218,11 @@ public class CombatManager : MonoBehaviour
             newIndexI = attackI + i;
             if (newIndexJ >= 0 && newIndexJ < 8 && newIndexI >= 0 && newIndexI < 3)
             {
-                if (squaresGrid[newIndexI, newIndexJ].unitGroup != null)
+                if (squaresGrid[newIndexI, newIndexJ].UnitGroup != null)
                 {
-                    if (squaresGrid[newIndexI, newIndexJ].unitGroup.TypePlayer != attacker.TypePlayer)
+                    if (squaresGrid[newIndexI, newIndexJ].UnitGroup.TypePlayer != attacker.TypePlayer)
                     {
-                        posibleAttack.Add(squaresGrid[newIndexI, newIndexJ].index);
+                        posibleAttack.Add(squaresGrid[newIndexI, newIndexJ].Index);
 
                     }
                 }
@@ -1233,11 +1233,11 @@ public class CombatManager : MonoBehaviour
             newIndexI = attackI - i;
             if (newIndexJ >= 0 && newIndexJ < 8 && newIndexI >= 0 && newIndexI < 3)
             {
-                if (squaresGrid[newIndexI, newIndexJ].unitGroup != null)
+                if (squaresGrid[newIndexI, newIndexJ].UnitGroup != null)
                 {
-                    if (squaresGrid[newIndexI, newIndexJ].unitGroup.TypePlayer != attacker.TypePlayer)
+                    if (squaresGrid[newIndexI, newIndexJ].UnitGroup.TypePlayer != attacker.TypePlayer)
                     {
-                        posibleAttack.Add(squaresGrid[newIndexI, newIndexJ].index);
+                        posibleAttack.Add(squaresGrid[newIndexI, newIndexJ].Index);
 
                     }
                 }
@@ -1248,11 +1248,11 @@ public class CombatManager : MonoBehaviour
             newIndexI = attackI + i;
             if (newIndexJ >= 0 && newIndexJ < 8 && newIndexI >= 0 && newIndexI < 3)
             {
-                if (squaresGrid[newIndexI, newIndexJ].unitGroup != null)
+                if (squaresGrid[newIndexI, newIndexJ].UnitGroup != null)
                 {
-                    if (squaresGrid[newIndexI, newIndexJ].unitGroup.TypePlayer != attacker.TypePlayer)
+                    if (squaresGrid[newIndexI, newIndexJ].UnitGroup.TypePlayer != attacker.TypePlayer)
                     {
-                        posibleAttack.Add(squaresGrid[newIndexI, newIndexJ].index);
+                        posibleAttack.Add(squaresGrid[newIndexI, newIndexJ].Index);
 
                     }
                 }
@@ -1311,11 +1311,11 @@ public class CombatManager : MonoBehaviour
         newIndexI = attackI - 1;
         if (newIndexI >= 0 && newIndexI <= 2)
         {
-            if (squaresGrid[newIndexI, attackJ].haveUnit == false || squaresGrid[newIndexI, attackJ].unitGroup.TypePlayer == unit.TypePlayer)
+            if (squaresGrid[newIndexI, attackJ].HaveUnit == false || squaresGrid[newIndexI, attackJ].UnitGroup.TypePlayer == unit.TypePlayer)
             {
-                if (squaresGrid[newIndexI, attackJ].terrain.Type != Terrain.TYPE.NONE)
+                if (squaresGrid[newIndexI, attackJ].Terrain.Type != Terrain.TYPE.NONE)
                 {
-                    posibleMoves.Add(squaresGrid[newIndexI, attackJ].index);
+                    posibleMoves.Add(squaresGrid[newIndexI, attackJ].Index);
 
                 }
             }
@@ -1328,11 +1328,11 @@ public class CombatManager : MonoBehaviour
         {
             print(newIndexI);
             print(newIndexI);
-            if (squaresGrid[newIndexI, attackJ].haveUnit == false || squaresGrid[newIndexI, attackJ].unitGroup.TypePlayer == unit.TypePlayer)
+            if (squaresGrid[newIndexI, attackJ].HaveUnit == false || squaresGrid[newIndexI, attackJ].UnitGroup.TypePlayer == unit.TypePlayer)
             {
-                if (squaresGrid[newIndexI, attackJ].terrain.Type != Terrain.TYPE.NONE)
+                if (squaresGrid[newIndexI, attackJ].Terrain.Type != Terrain.TYPE.NONE)
                 {
-                    posibleMoves.Add(squaresGrid[newIndexI, attackJ].index);
+                    posibleMoves.Add(squaresGrid[newIndexI, attackJ].Index);
 
                 }
             }
@@ -1343,11 +1343,11 @@ public class CombatManager : MonoBehaviour
         newIndexJ = attackJ - 1;
         if (newIndexJ >= 0 && newIndexJ <= 7)
         {
-            if (squaresGrid[attackI, newIndexJ].haveUnit == false || squaresGrid[attackI, newIndexJ].unitGroup.TypePlayer == unit.TypePlayer)
+            if (squaresGrid[attackI, newIndexJ].HaveUnit == false || squaresGrid[attackI, newIndexJ].UnitGroup.TypePlayer == unit.TypePlayer)
             {
-                if (squaresGrid[attackI, newIndexJ].terrain.Type != Terrain.TYPE.NONE)
+                if (squaresGrid[attackI, newIndexJ].Terrain.Type != Terrain.TYPE.NONE)
                 {
-                    posibleMoves.Add(squaresGrid[attackI, newIndexJ].index);
+                    posibleMoves.Add(squaresGrid[attackI, newIndexJ].Index);
 
                 }
             }
@@ -1358,11 +1358,11 @@ public class CombatManager : MonoBehaviour
         newIndexJ = attackJ + 1;
         if (newIndexJ >= 0 && newIndexJ <= 7)
         {
-            if (squaresGrid[attackI, newIndexJ].haveUnit == false || squaresGrid[attackI, newIndexJ].unitGroup.TypePlayer == unit.TypePlayer)
+            if (squaresGrid[attackI, newIndexJ].HaveUnit == false || squaresGrid[attackI, newIndexJ].UnitGroup.TypePlayer == unit.TypePlayer)
             {
-                if (squaresGrid[attackI, newIndexJ].terrain.Type != Terrain.TYPE.NONE)
+                if (squaresGrid[attackI, newIndexJ].Terrain.Type != Terrain.TYPE.NONE)
                 {
-                    posibleMoves.Add(squaresGrid[attackI, newIndexJ].index);
+                    posibleMoves.Add(squaresGrid[attackI, newIndexJ].Index);
 
                 }
             }
