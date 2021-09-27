@@ -9,6 +9,7 @@ public class CombatManager : MonoBehaviour
     public static CombatManager instance;
     [SerializeField] public bool turn;
     [SerializeField] private Text turnsCounter;
+    [SerializeField] private SquareType[,] squaresGrid;
     //objects
     [SerializeField] private GameObject squares;
     [SerializeField] private GameObject unitGroupPrefab;
@@ -118,6 +119,15 @@ public class CombatManager : MonoBehaviour
         turns = 20;
         c = -1;
         canvas = GameObject.Find("Battle");
+
+        squaresGrid = new SquareType[3, 8];
+
+        for (int i = 0; i < squares.transform.childCount; i++) {
+            SquareType sq = squares.transform.GetChild(i).GetComponent<SquareType>();
+            squaresGrid[sq.i, sq.j] = sq;
+        }
+            
+
         playerPositions.Add(0, 0);
         playerPositions.Add(1, 1);
         playerPositions.Add(2, 4);
@@ -139,7 +149,10 @@ public class CombatManager : MonoBehaviour
     }
     public void StartWar(Troop playerTroop, Troop enemyTroop, TerritoryHandler _playerTerritory, TerritoryHandler _enemyTerritory, bool isPlayerTerritory)
     {
-        AudioManager.instance.ReadAndPlayMusic("fight",false);
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.ReadAndPlayMusic("fight", false);
+        }
         map1.SetActive(false);
         map2.SetActive(false);
         map3.SetActive(false);
@@ -198,9 +211,9 @@ public class CombatManager : MonoBehaviour
             }
             for (int j = 0; j < squares.transform.childCount; j++)
             {
-                squares.transform.GetChild(j).GetComponent<SquareType>().terrain = tiles[j];
+                squares.transform.GetChild(j).GetComponent<SquareType>().terrain = tiles[0];
                 squares.transform.GetChild(j).GetComponent<SquareType>().index = j;
-                squares.transform.GetChild(j).GetComponent<Image>().sprite = tiles[j].Picture;
+                squares.transform.GetChild(j).GetComponent<Image>().sprite = tiles[0].Picture;
             }
 
             SetMilitarChief(militarchiefPlayer, playerTerritory.TerritoryStats.Territory.MilitarChiefTerritory, playerTerritory.TerritoryStats.Territory.TypePlayer);
@@ -1112,119 +1125,132 @@ public class CombatManager : MonoBehaviour
     {
         List<int> posibleAttack = new List<int>();
 
-        int axisy = 4;
-        int axisx = 1;
-        int d1 = 5;
-        int d2 = 3;
-        int index = attacker.UnitsGO.transform.parent.GetComponent<SquareType>().index;
-        //print(index);
-        //  int range = unitTypes[attacker.Type].Range;
+        //INDICE DEL ATACANTE
+        SquareType attackerSquare = attacker.UnitsGO.transform.parent.GetComponent<SquareType>();
+        int attackI = attackerSquare.i;
+        int attackJ = attackerSquare.j;
         int range = attacker.UnitCombat.Range;
-        int newIndex = 0;
+        int newIndexI = 0;
+        int newIndexJ = 0;
 
         for (int i = 1; i <= range; i++)
         {
-            //left
-            newIndex = index - (axisx * i);
-            if (index % 4 != 0)
+            //TOP
+            newIndexI = attackI - i;
+            if (newIndexI >= 0 && newIndexI < 3)
             {
-                if (newIndex > 0 && newIndex < squares.transform.childCount && UnitByIndex(newIndex) != null)
+                if(squaresGrid[newIndexI, attackJ].unitGroup != null)
                 {
-                    if (UnitByIndex(newIndex).TypePlayer != attacker.TypePlayer)
+                    if (squaresGrid[newIndexI, attackJ].unitGroup.TypePlayer != attacker.TypePlayer)
                     {
-                        posibleAttack.Add(newIndex);
+                        posibleAttack.Add(squaresGrid[newIndexI, attackJ].index);
 
                     }
                 }
+                
             }
-
-            //right
-            newIndex = index + (axisx * i);
-            if (newIndex % 4 != 0)
+            //DOWN
+            newIndexI = attackI + i;
+            if (newIndexI >= 0 && newIndexI < 3)
             {
-                if (newIndex > 0 && newIndex < squares.transform.childCount && UnitByIndex(newIndex) != null)
+                if (squaresGrid[newIndexI, attackJ].unitGroup != null)
                 {
-                    if (UnitByIndex(newIndex).TypePlayer != attacker.TypePlayer)
+                    if (squaresGrid[newIndexI, attackJ].unitGroup.TypePlayer != attacker.TypePlayer)
                     {
-                        posibleAttack.Add(newIndex);
+                        posibleAttack.Add(squaresGrid[newIndexI, attackJ].index);
 
                     }
                 }
-            }
-            //top
-            newIndex = index - (axisy * i);
-            if (newIndex > 0 && newIndex < squares.transform.childCount && UnitByIndex(newIndex) != null)
-            {
-                if (UnitByIndex(newIndex).TypePlayer != attacker.TypePlayer)
-                {
-                    posibleAttack.Add(newIndex);
 
-                }
             }
-            //down
-            newIndex = index + (axisy * i);
-            if (newIndex > 0 && newIndex < squares.transform.childCount && UnitByIndex(newIndex) != null)
+            //LEFT
+            newIndexJ = attackJ - i;
+            if (newIndexJ >= 0 && newIndexJ < 8)
             {
-                if (UnitByIndex(newIndex).TypePlayer != attacker.TypePlayer)
+                if (squaresGrid[attackI, newIndexJ].unitGroup != null)
                 {
-                    posibleAttack.Add(newIndex);
+                    if (squaresGrid[attackI, newIndexJ].unitGroup.TypePlayer != attacker.TypePlayer)
+                    {
+                        posibleAttack.Add(squaresGrid[attackI, newIndexJ].index);
 
+                    }
                 }
+
+            }
+            //RIGHT
+            newIndexJ = attackJ + i;
+            if (newIndexJ >= 0 && newIndexJ < 8)
+            {
+                if (squaresGrid[attackI, newIndexJ].unitGroup != null)
+                {
+                    if (squaresGrid[attackI, newIndexJ].unitGroup.TypePlayer != attacker.TypePlayer)
+                    {
+                        posibleAttack.Add(squaresGrid[attackI, newIndexJ].index);
+
+                    }
+                }
+
             }
 
             //topleft
-            newIndex = index - (d1 * i);
-            if (index % 4 != 0)
+            newIndexJ = attackJ - i;
+            newIndexI = attackI - i;
+            if (newIndexJ >= 0 && newIndexJ < 8 && newIndexI >= 0 && newIndexI < 3)
             {
-                if (newIndex > 0 && newIndex < squares.transform.childCount && UnitByIndex(newIndex) != null)
+                if (squaresGrid[newIndexI, newIndexJ].unitGroup != null)
                 {
-                    if (UnitByIndex(newIndex).TypePlayer != attacker.TypePlayer)
+                    if (squaresGrid[newIndexI, newIndexJ].unitGroup.TypePlayer != attacker.TypePlayer)
                     {
-                        posibleAttack.Add(newIndex);
+                        posibleAttack.Add(squaresGrid[newIndexI, newIndexJ].index);
 
                     }
                 }
+
             }
             //downright
-            newIndex = index + (d1 * i);
-            if (((index + 1) % 4) != 0)
+            newIndexJ = attackJ + i;
+            newIndexI = attackI + i;
+            if (newIndexJ >= 0 && newIndexJ < 8 && newIndexI >= 0 && newIndexI < 3)
             {
-                if (newIndex > 0 && newIndex < squares.transform.childCount && UnitByIndex(newIndex) != null)
+                if (squaresGrid[newIndexI, newIndexJ].unitGroup != null)
                 {
-                    if (UnitByIndex(newIndex).TypePlayer != attacker.TypePlayer)
+                    if (squaresGrid[newIndexI, newIndexJ].unitGroup.TypePlayer != attacker.TypePlayer)
                     {
-                        posibleAttack.Add(newIndex);
+                        posibleAttack.Add(squaresGrid[newIndexI, newIndexJ].index);
 
                     }
                 }
+
             }
             //topright
-            newIndex = index - (d2 * i);
-
-            if (((index + 1) % 4) != 0)
+            newIndexJ = attackJ + i;
+            newIndexI = attackI - i;
+            if (newIndexJ >= 0 && newIndexJ < 8 && newIndexI >= 0 && newIndexI < 3)
             {
-
-                if (newIndex > 0 && newIndex < squares.transform.childCount && UnitByIndex(newIndex) != null)
+                if (squaresGrid[newIndexI, newIndexJ].unitGroup != null)
                 {
-                    if (UnitByIndex(newIndex).TypePlayer != attacker.TypePlayer)
+                    if (squaresGrid[newIndexI, newIndexJ].unitGroup.TypePlayer != attacker.TypePlayer)
                     {
-                        posibleAttack.Add(newIndex);
+                        posibleAttack.Add(squaresGrid[newIndexI, newIndexJ].index);
 
                     }
                 }
+
             }
             //downleft
-            newIndex = index + (d2 * i);
-            if (index % 4 != 0)
+            newIndexJ = attackJ - i;
+            newIndexI = attackI + i;
+            if (newIndexJ >= 0 && newIndexJ < 8 && newIndexI >= 0 && newIndexI < 3)
             {
-                if (newIndex > 0 && newIndex < squares.transform.childCount && UnitByIndex(newIndex) != null)
+                if (squaresGrid[newIndexI, newIndexJ].unitGroup != null)
                 {
-                    if (UnitByIndex(newIndex).TypePlayer != attacker.TypePlayer)
+                    if (squaresGrid[newIndexI, newIndexJ].unitGroup.TypePlayer != attacker.TypePlayer)
                     {
-                        posibleAttack.Add(newIndex);
+                        posibleAttack.Add(squaresGrid[newIndexI, newIndexJ].index);
 
                     }
                 }
+
             }
         }
         return posibleAttack;
@@ -1267,54 +1293,74 @@ public class CombatManager : MonoBehaviour
     private List<int> CheckPosibleMoves(UnitGroup unit)
     {
 
-        int index = unit.UnitsGO.transform.parent.GetComponent<SquareType>().index;
-        int newIndex;
+        SquareType unitSquare = unit.UnitsGO.transform.parent.GetComponent<SquareType>();
+     
+        int attackI = unitSquare.i;
+        int attackJ = unitSquare.j;
+        int newIndexI = 0;
+        int newIndexJ = 0;
         List<int> posibleMoves = new List<int>();
-        //left
-        newIndex = index - 1;
-        if (newIndex >= 0 && newIndex < squares.transform.childCount)
+
+        //TOP
+        newIndexI = attackI - 1;
+        if (newIndexI >= 0 && newIndexI <= 2)
         {
-            if (index % 4 != 0)
+            if (squaresGrid[newIndexI, attackJ].haveUnit == false || squaresGrid[newIndexI, attackJ].unitGroup.TypePlayer == unit.TypePlayer)
             {
-                if (SquareByIndex(newIndex).haveUnit == false || SquareByIndex(newIndex).unitGroup.TypePlayer == SquareByIndex(index).unitGroup.TypePlayer)
+                if (squaresGrid[newIndexI, attackJ].terrain.Type != Terrain.TYPE.NONE)
                 {
-                    if (SquareByIndex(newIndex).terrain.Type != Terrain.TYPE.NONE) posibleMoves.Add(newIndex);
+                    posibleMoves.Add(squaresGrid[newIndexI, attackJ].index);
 
                 }
             }
+
         }
 
-        //right
-        newIndex = index + 1;
-        if (newIndex >= 0 && newIndex < squares.transform.childCount)
+        //DOWN
+        newIndexI = attackI + 1;
+        if (newIndexI >= 0 && newIndexI <= 2)
         {
-            if (newIndex % 4 != 0)
+            print(newIndexI);
+            print(newIndexI);
+            if (squaresGrid[newIndexI, attackJ].haveUnit == false || squaresGrid[newIndexI, attackJ].unitGroup.TypePlayer == unit.TypePlayer)
             {
-                if (SquareByIndex(newIndex).haveUnit == false || SquareByIndex(newIndex).unitGroup.TypePlayer == SquareByIndex(index).unitGroup.TypePlayer)
+                if (squaresGrid[newIndexI, attackJ].terrain.Type != Terrain.TYPE.NONE)
                 {
-                    if (SquareByIndex(newIndex).terrain.Type != Terrain.TYPE.NONE) posibleMoves.Add(newIndex);
+                    posibleMoves.Add(squaresGrid[newIndexI, attackJ].index);
+
                 }
             }
+
         }
 
-        //top
-        newIndex = index - 4;
-        if (newIndex >= 0 && newIndex < squares.transform.childCount)
+        //LEFT
+        newIndexJ = attackJ - 1;
+        if (newIndexJ >= 0 && newIndexJ <= 7)
         {
-            if (SquareByIndex(newIndex).haveUnit == false || SquareByIndex(newIndex).unitGroup.TypePlayer == SquareByIndex(index).unitGroup.TypePlayer)
+            if (squaresGrid[attackI, newIndexJ].haveUnit == false || squaresGrid[attackI, newIndexJ].unitGroup.TypePlayer == unit.TypePlayer)
             {
-                if (SquareByIndex(newIndex).terrain.Type != Terrain.TYPE.NONE) posibleMoves.Add(newIndex);
+                if (squaresGrid[attackI, newIndexJ].terrain.Type != Terrain.TYPE.NONE)
+                {
+                    posibleMoves.Add(squaresGrid[attackI, newIndexJ].index);
+
+                }
             }
+
         }
 
-        //down
-        newIndex = index + 4;
-        if (newIndex >= 0 && newIndex < squares.transform.childCount)
+        //RIGHT
+        newIndexJ = attackJ + 1;
+        if (newIndexJ >= 0 && newIndexJ <= 7)
         {
-            if (SquareByIndex(newIndex).haveUnit == false || SquareByIndex(newIndex).unitGroup.TypePlayer == SquareByIndex(index).unitGroup.TypePlayer)
+            if (squaresGrid[attackI, newIndexJ].haveUnit == false || squaresGrid[attackI, newIndexJ].unitGroup.TypePlayer == unit.TypePlayer)
             {
-                if (SquareByIndex(newIndex).terrain.Type != Terrain.TYPE.NONE) posibleMoves.Add(newIndex);
+                if (squaresGrid[attackI, newIndexJ].terrain.Type != Terrain.TYPE.NONE)
+                {
+                    posibleMoves.Add(squaresGrid[attackI, newIndexJ].index);
+
+                }
             }
+
         }
 
         return posibleMoves;

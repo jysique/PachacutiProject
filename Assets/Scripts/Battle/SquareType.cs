@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEngine.UI;
 public class SquareType : MonoBehaviour
 {
+    public int i;
+    public int j;
     public bool haveUnit = false;
     public int index;
     public Terrain terrain;

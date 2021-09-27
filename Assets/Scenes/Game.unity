@@ -3261,7 +3261,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.337}
   m_AnchorMax: {x: 1, y: 0.5083289}
-  m_AnchoredPosition: {x: 0.12475586, y: 46.96364}
+  m_AnchoredPosition: {x: 0.12475586, y: 46.963642}
   m_SizeDelta: {x: -0.29943848, y: 18.188126}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &128476422
@@ -3736,12 +3736,10 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
-    width: 0
-    height: 0
     numberOfBuildings: 0
     name: Paucartambo
     isClaim: 0
-    region: 
+    region: 0
     typePlayer: 5
     gold: 0
     food: 0
@@ -3756,73 +3754,121 @@ MonoBehaviour:
       personality: 
       characIconType: 
       characIconIndex: 
-      influence: 0
-      opinion: 0
       experience: 0
       strategyType: 
-    swordsmen:
-      characterName: 
+    sword:
+      characterName: Swordsman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 50
+      characIconType: warriors
+      characIconIndex: w1
+      quantity: 0
+      unitName: Swordsman
+      attack: 10
+      defense: 6
+      evasion: 0
+      precision: 90
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
-      characterName: 
+    lance:
+      characterName: Lancer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 50
+      characIconType: warriors
+      characIconIndex: spear
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      defense: 5
+      evasion: 0
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: axe
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      defense: 3
+      evasion: 0
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: horseman
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      defense: 10
+      evasion: 0
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: archer
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      defense: 3
+      evasion: 0
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -3849,10 +3895,10 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    terrainList: []
+    troopDefend: []
   paddingX: -10
   paddingY: -20
-  sprite: {fileID: 0}
   adjacentTerritories: []
   territoryStats: {fileID: 0}
 --- !u!60 &139353018
@@ -4449,12 +4495,10 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
-    width: 0
-    height: 0
     numberOfBuildings: 0
     name: Urubamba
     isClaim: 0
-    region: 
+    region: 0
     typePlayer: 5
     gold: 0
     food: 0
@@ -4469,73 +4513,121 @@ MonoBehaviour:
       personality: 
       characIconType: 
       characIconIndex: 
-      influence: 0
-      opinion: 0
       experience: 0
       strategyType: 
-    swordsmen:
-      characterName: 
+    sword:
+      characterName: Swordsman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 50
+      characIconType: warriors
+      characIconIndex: w1
+      quantity: 0
+      unitName: Swordsman
+      attack: 10
+      defense: 6
+      evasion: 0
+      precision: 90
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
-      characterName: 
+    lance:
+      characterName: Lancer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 50
+      characIconType: warriors
+      characIconIndex: spear
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      defense: 5
+      evasion: 0
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: axe
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      defense: 3
+      evasion: 0
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: horseman
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      defense: 10
+      evasion: 0
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: archer
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      defense: 3
+      evasion: 0
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -4562,10 +4654,10 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    terrainList: []
+    troopDefend: []
   paddingX: 0
   paddingY: 0
-  sprite: {fileID: 0}
   adjacentTerritories: []
   territoryStats: {fileID: 0}
 --- !u!60 &166180799
@@ -5675,7 +5767,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   haveUnit: 0
   index: 0
-  typeSquare: 0
+  terrain:
+    type: 0
+    scale: 0
+    attribute: 
+    value: 0
 --- !u!114 &234339977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6317,12 +6413,10 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
-    width: 0
-    height: 0
     numberOfBuildings: 0
     name: Masisea
     isClaim: 0
-    region: 
+    region: 0
     typePlayer: 5
     gold: 2
     food: 1
@@ -6337,73 +6431,121 @@ MonoBehaviour:
       personality: 
       characIconType: 
       characIconIndex: 
-      influence: 0
-      opinion: 0
       experience: 0
       strategyType: 
-    swordsmen:
-      characterName: 
+    sword:
+      characterName: Swordsman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 40
+      characIconType: warriors
+      characIconIndex: w1
+      quantity: 0
+      unitName: Swordsman
+      attack: 10
+      defense: 6
+      evasion: 0
+      precision: 90
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
-      characterName: 
+    lance:
+      characterName: Lancer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 40
+      characIconType: warriors
+      characIconIndex: spear
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      defense: 5
+      evasion: 0
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: axe
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      defense: 3
+      evasion: 0
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: horseman
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      defense: 10
+      evasion: 0
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 2
+      characIconType: warriors
+      characIconIndex: archer
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      defense: 3
+      evasion: 0
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -6430,10 +6572,10 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    terrainList: []
+    troopDefend: []
   paddingX: 0
   paddingY: 0
-  sprite: {fileID: 0}
   adjacentTerritories: []
   territoryStats: {fileID: 0}
 --- !u!212 &269378613
@@ -7185,12 +7327,10 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
-    width: 0
-    height: 0
     numberOfBuildings: 0
     name: "I\xF1apari"
     isClaim: 0
-    region: 
+    region: 0
     typePlayer: 5
     gold: 2
     food: 2
@@ -7205,73 +7345,121 @@ MonoBehaviour:
       personality: 
       characIconType: 
       characIconIndex: 
-      influence: 0
-      opinion: 0
       experience: 0
       strategyType: 
-    swordsmen:
-      characterName: 
+    sword:
+      characterName: Swordsman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 40
+      characIconType: warriors
+      characIconIndex: w1
+      quantity: 0
+      unitName: Swordsman
+      attack: 10
+      defense: 6
+      evasion: 0
+      precision: 90
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
-      characterName: 
+    lance:
+      characterName: Lancer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 40
+      characIconType: warriors
+      characIconIndex: spear
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      defense: 5
+      evasion: 0
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: axe
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      defense: 3
+      evasion: 0
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: horseman
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      defense: 10
+      evasion: 0
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 2
+      characIconType: warriors
+      characIconIndex: archer
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      defense: 3
+      evasion: 0
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -7298,10 +7486,10 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    terrainList: []
+    troopDefend: []
   paddingX: 50
   paddingY: -150
-  sprite: {fileID: 0}
   adjacentTerritories: []
   territoryStats: {fileID: 0}
 --- !u!60 &322732490
@@ -7706,12 +7894,10 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
-    width: 0
-    height: 0
     numberOfBuildings: 0
     name: Quispicanchi
     isClaim: 0
-    region: 
+    region: 0
     typePlayer: 5
     gold: 0
     food: 0
@@ -7726,73 +7912,121 @@ MonoBehaviour:
       personality: 
       characIconType: 
       characIconIndex: 
-      influence: 0
-      opinion: 0
       experience: 0
       strategyType: 
-    swordsmen:
-      characterName: 
+    sword:
+      characterName: Swordsman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 50
+      characIconType: warriors
+      characIconIndex: w1
+      quantity: 0
+      unitName: Swordsman
+      attack: 10
+      defense: 6
+      evasion: 0
+      precision: 90
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
-      characterName: 
+    lance:
+      characterName: Lancer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 50
+      characIconType: warriors
+      characIconIndex: spear
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      defense: 5
+      evasion: 0
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: axe
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      defense: 3
+      evasion: 0
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: horseman
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      defense: 10
+      evasion: 0
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: archer
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      defense: 3
+      evasion: 0
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -7819,10 +8053,10 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    terrainList: []
+    troopDefend: []
   paddingX: -20
   paddingY: -50
-  sprite: {fileID: 0}
   adjacentTerritories: []
   territoryStats: {fileID: 0}
 --- !u!60 &341651187
@@ -9488,12 +9722,10 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
-    width: 0
-    height: 0
     numberOfBuildings: 0
     name: Chaccho
     isClaim: 0
-    region: 
+    region: 0
     typePlayer: 5
     gold: 2
     food: 1
@@ -9508,73 +9740,121 @@ MonoBehaviour:
       personality: 
       characIconType: 
       characIconIndex: 
-      influence: 0
-      opinion: 0
       experience: 0
       strategyType: 
-    swordsmen:
-      characterName: 
+    sword:
+      characterName: Swordsman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 40
+      characIconType: warriors
+      characIconIndex: w1
+      quantity: 0
+      unitName: Swordsman
+      attack: 10
+      defense: 6
+      evasion: 0
+      precision: 90
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
-      characterName: 
+    lance:
+      characterName: Lancer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 40
+      characIconType: warriors
+      characIconIndex: spear
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      defense: 5
+      evasion: 0
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: axe
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      defense: 3
+      evasion: 0
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: horseman
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      defense: 10
+      evasion: 0
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 2
+      characIconType: warriors
+      characIconIndex: archer
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      defense: 3
+      evasion: 0
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -9601,10 +9881,10 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    terrainList: []
+    troopDefend: []
   paddingX: 0
   paddingY: 0
-  sprite: {fileID: 0}
   adjacentTerritories: []
   territoryStats: {fileID: 0}
 --- !u!212 &405742999
@@ -9976,23 +10256,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85abd0197b1635646be9c135f84c809b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CustomEventSelection: {fileID: 2085805089}
   TitleTextCustomEvent: {fileID: 1305954623}
   DetailsTextCustomEvent: {fileID: 2135232745}
-  ResultsTextEvent: {fileID: 134161104}
-  AcceptEventButton: {fileID: 1807883899}
-  CloseEventButton: {fileID: 562174570}
-  DeclineEventButton: {fileID: 1011897976}
-  ResultsEvent: {fileID: 1808145841}
-  notificationEvent: {fileID: 1767167869}
-  CustomEventList: {fileID: 1391906896}
   MotivationTxt: {fileID: 613504317}
   OpinionTxt: {fileID: 59221374}
+  FirstOptionButton: {fileID: 0}
+  SecondOptionButton: {fileID: 0}
+  ThirdOptionButton: {fileID: 0}
   goToBtn: {fileID: 1918174643}
+  CustomEventSelection: {fileID: 2085805089}
+  notificationEvent: {fileID: 1767167869}
+  CustomEventList: {fileID: 1391906896}
+  TerritoryInfo: {fileID: 0}
   listEvents:
     CustomEvents: []
     ExpedicionEvents: []
     BuildingsEvents: []
+    BattleEvents: []
+  currentBattle: 0
 --- !u!114 &424632361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10005,9 +10286,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfbfab0dc4030974faf7bb31f08354a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scroll: {fileID: 0}
   notificationMission: {fileID: 1654569945}
   missionList: {fileID: 89653452}
-  currentMission: 0
+  indexMission: 0
+  listMission: []
+  currentMission:
+    name: 
+    territoryMission: []
+    missionStatus: 0
 --- !u!1 &429181344
 GameObject:
   m_ObjectHideFlags: 0
@@ -10359,12 +10646,10 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
-    width: 0
-    height: 0
     numberOfBuildings: 0
     name: Espinar
     isClaim: 0
-    region: 
+    region: 0
     typePlayer: 1
     gold: 0
     food: 0
@@ -10379,73 +10664,121 @@ MonoBehaviour:
       personality: 
       characIconType: 
       characIconIndex: 
-      influence: 0
-      opinion: 0
       experience: 0
       strategyType: 
-    swordsmen:
-      characterName: 
+    sword:
+      characterName: Swordsman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 50
+      characIconType: warriors
+      characIconIndex: w1
+      quantity: 0
+      unitName: Swordsman
+      attack: 10
+      defense: 6
+      evasion: 0
+      precision: 90
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
-      characterName: 
+    lance:
+      characterName: Lancer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 50
+      characIconType: warriors
+      characIconIndex: spear
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      defense: 5
+      evasion: 0
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: axe
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      defense: 3
+      evasion: 0
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: horseman
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      defense: 10
+      evasion: 0
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: archer
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      defense: 3
+      evasion: 0
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -10472,10 +10805,10 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    terrainList: []
+    troopDefend: []
   paddingX: 0
   paddingY: 40
-  sprite: {fileID: 0}
   adjacentTerritories: []
   territoryStats: {fileID: 0}
 --- !u!60 &453750139
@@ -11680,6 +12013,10 @@ MonoBehaviour:
   canvas: {fileID: 617081595}
   PauseMenu: {fileID: 971204267}
   ChiefSelection: {fileID: 1079792963}
+  temporalTime: 0
+  openBtn: {fileID: 0}
+  openTxt: {fileID: 0}
+  animMenu: {fileID: 0}
   SelecCharacterMenu: {fileID: 783741326}
   titleSelectCharacterMenu: {fileID: 542130962}
   descriptionSelectCharacterMenu: {fileID: 118611352}
@@ -11689,7 +12026,6 @@ MonoBehaviour:
   tabTerritory: {fileID: 2570891}
   tabMilitar: {fileID: 888914484}
   tabBuilding: {fileID: 1515826910}
-  temporalTime: 0
 --- !u!4 &511070546
 Transform:
   m_ObjectHideFlags: 0
@@ -11813,7 +12149,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   haveUnit: 0
   index: 0
-  typeSquare: 0
+  terrain:
+    type: 0
+    scale: 0
+    attribute: 
+    value: 0
 --- !u!114 &521251265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13022,12 +13362,10 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
-    width: 0
-    height: 0
     numberOfBuildings: 0
     name: LaConvencion
     isClaim: 0
-    region: 
+    region: 0
     typePlayer: 0
     gold: 0
     food: 0
@@ -13042,73 +13380,121 @@ MonoBehaviour:
       personality: 
       characIconType: 
       characIconIndex: 
-      influence: 0
-      opinion: 0
       experience: 0
       strategyType: 
-    swordsmen:
-      characterName: 
+    sword:
+      characterName: Swordsman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 50
+      characIconType: warriors
+      characIconIndex: w1
+      quantity: 0
+      unitName: Swordsman
+      attack: 10
+      defense: 6
+      evasion: 0
+      precision: 90
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
-      characterName: 
+    lance:
+      characterName: Lancer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 50
+      characIconType: warriors
+      characIconIndex: spear
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      defense: 5
+      evasion: 0
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: axe
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      defense: 3
+      evasion: 0
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: horseman
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      defense: 10
+      evasion: 0
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: archer
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      defense: 3
+      evasion: 0
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -13135,10 +13521,10 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    terrainList: []
+    troopDefend: []
   paddingX: 0
   paddingY: 0
-  sprite: {fileID: 0}
   adjacentTerritories: []
   territoryStats: {fileID: 0}
 --- !u!60 &576022850
@@ -13323,7 +13709,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.51500005, y: 0.09252045}
   m_AnchorMax: {x: 0.931119, y: 0.5}
-  m_AnchoredPosition: {x: 77.39979, y: -29.790024}
+  m_AnchoredPosition: {x: 77.399796, y: -29.790024}
   m_SizeDelta: {x: -114.63, y: -17.66}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &589492775
@@ -13638,7 +14024,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   haveUnit: 0
   index: 0
-  typeSquare: 0
+  terrain:
+    type: 0
+    scale: 0
+    attribute: 
+    value: 0
 --- !u!114 &603993214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14516,12 +14906,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407991cfca77a1e469cb38c04bb6cfc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turn: 0
   turnsCounter: {fileID: 138089549}
   squares: {fileID: 849843860}
   unitGroupPrefab: {fileID: 5988456530364838111, guid: 67250d7f80246de41acaae6424380995, type: 3}
   menu: {fileID: 556620711}
+  map1: {fileID: 0}
+  map2: {fileID: 0}
+  map3: {fileID: 0}
+  Block: {fileID: 0}
+  ResumeBattle: {fileID: 0}
+  closeResumen: {fileID: 0}
+  ResumePlayer: {fileID: 0}
+  ResumeEnemy: {fileID: 0}
+  conquistedTxt: {fileID: 0}
+  militarchiefPlayer: {fileID: 0}
+  militarchiefEnemy: {fileID: 0}
+  activatSA: {fileID: 0}
+  surrenderBtn: {fileID: 0}
+  turnSignal: {fileID: 0}
+  battleResume: {fileID: 0}
+  attackerPicture: {fileID: 0}
+  defenderPicture: {fileID: 0}
+  attackerText: {fileID: 0}
+  defenderText: {fileID: 0}
+  unitResume: {fileID: 0}
+  unitPicture: {fileID: 0}
+  unitText: {fileID: 0}
+  blockScreen: 0
   turns: 15
+  canBotTurn: 0
+  canPlayerTurn: 0
   c: 0
+  acumulated: 0
+  limitSA: 0
+  defendOriginalTroop:
+    unitCombats: []
+    positions: 
+  attackerOriginalTroop:
+    unitCombats: []
+    positions: 
+  defendActualTroop:
+    unitCombats: []
+    positions: 
+  attackerActualTroop:
+    unitCombats: []
+    positions: 
+  start: 0
 --- !u!114 &622926462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16562,12 +16993,10 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
-    width: 0
-    height: 0
     numberOfBuildings: 0
     name: Acomayo
     isClaim: 0
-    region: 
+    region: 0
     typePlayer: 5
     gold: 0
     food: 0
@@ -16582,73 +17011,121 @@ MonoBehaviour:
       personality: 
       characIconType: 
       characIconIndex: 
-      influence: 0
-      opinion: 0
       experience: 0
       strategyType: 
-    swordsmen:
-      characterName: 
+    sword:
+      characterName: Swordsman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 1
+      characIconType: warriors
+      characIconIndex: w1
+      quantity: 0
+      unitName: Swordsman
+      attack: 10
+      defense: 6
+      evasion: 0
+      precision: 90
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
-      characterName: 
+    lance:
+      characterName: Lancer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 40
+      characIconType: warriors
+      characIconIndex: spear
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      defense: 5
+      evasion: 0
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: axe
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      defense: 3
+      evasion: 0
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: horseman
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      defense: 10
+      evasion: 0
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: archer
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      defense: 3
+      evasion: 0
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -16675,10 +17152,10 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    terrainList: []
+    troopDefend: []
   paddingX: 0
   paddingY: 0
-  sprite: {fileID: 0}
   adjacentTerritories: []
   territoryStats: {fileID: 0}
 --- !u!60 &746229024
@@ -18022,7 +18499,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1657893770}
   m_HandleRect: {fileID: 1657893769}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -18404,12 +18881,10 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
-    width: 0
-    height: 0
     numberOfBuildings: 0
     name: Yarinacocha
     isClaim: 0
-    region: 
+    region: 0
     typePlayer: 3
     gold: 2
     food: 1
@@ -18424,73 +18899,121 @@ MonoBehaviour:
       personality: 
       characIconType: 
       characIconIndex: 
-      influence: 0
-      opinion: 0
       experience: 0
       strategyType: 
-    swordsmen:
-      characterName: 
+    sword:
+      characterName: Swordsman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 40
+      characIconType: warriors
+      characIconIndex: w1
+      quantity: 0
+      unitName: Swordsman
+      attack: 10
+      defense: 6
+      evasion: 0
+      precision: 90
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
-      characterName: 
+    lance:
+      characterName: Lancer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 40
+      characIconType: warriors
+      characIconIndex: spear
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      defense: 5
+      evasion: 0
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: axe
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      defense: 3
+      evasion: 0
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: horseman
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      defense: 10
+      evasion: 0
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 2
+      characIconType: warriors
+      characIconIndex: archer
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      defense: 3
+      evasion: 0
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -18517,10 +19040,10 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    terrainList: []
+    troopDefend: []
   paddingX: 0
   paddingY: -100
-  sprite: {fileID: 0}
   adjacentTerritories: []
   territoryStats: {fileID: 0}
 --- !u!212 &890307164
@@ -19160,12 +19683,10 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
-    width: 0
-    height: 0
     numberOfBuildings: 0
     name: Canchis
     isClaim: 0
-    region: 
+    region: 0
     typePlayer: 5
     gold: 0
     food: 0
@@ -19180,73 +19701,121 @@ MonoBehaviour:
       personality: 
       characIconType: 
       characIconIndex: 
-      influence: 0
-      opinion: 0
       experience: 0
       strategyType: 
-    swordsmen:
-      characterName: 
+    sword:
+      characterName: Swordsman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 50
+      characIconType: warriors
+      characIconIndex: w1
+      quantity: 0
+      unitName: Swordsman
+      attack: 10
+      defense: 6
+      evasion: 0
+      precision: 90
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
-      characterName: 
+    lance:
+      characterName: Lancer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 50
+      characIconType: warriors
+      characIconIndex: spear
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      defense: 5
+      evasion: 0
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: axe
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      defense: 3
+      evasion: 0
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: horseman
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      defense: 10
+      evasion: 0
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: archer
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      defense: 3
+      evasion: 0
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -19273,10 +19842,10 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    terrainList: []
+    troopDefend: []
   paddingX: 0
   paddingY: -10
-  sprite: {fileID: 0}
   adjacentTerritories: []
   territoryStats: {fileID: 0}
 --- !u!60 &917972070
@@ -19491,12 +20060,10 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
-    width: 0
-    height: 0
     numberOfBuildings: 0
     name: Yurua
     isClaim: 0
-    region: 
+    region: 0
     typePlayer: 5
     gold: 2
     food: 1
@@ -19511,73 +20078,121 @@ MonoBehaviour:
       personality: 
       characIconType: 
       characIconIndex: 
-      influence: 0
-      opinion: 0
       experience: 0
       strategyType: 
-    swordsmen:
-      characterName: 
+    sword:
+      characterName: Swordsman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 40
+      characIconType: warriors
+      characIconIndex: w1
+      quantity: 0
+      unitName: Swordsman
+      attack: 10
+      defense: 6
+      evasion: 0
+      precision: 90
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
-      characterName: 
+    lance:
+      characterName: Lancer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 40
+      characIconType: warriors
+      characIconIndex: spear
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      defense: 5
+      evasion: 0
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: axe
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      defense: 3
+      evasion: 0
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: horseman
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      defense: 10
+      evasion: 0
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 2
+      characIconType: warriors
+      characIconIndex: archer
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      defense: 3
+      evasion: 0
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -19604,10 +20219,10 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    terrainList: []
+    troopDefend: []
   paddingX: 0
   paddingY: -50
-  sprite: {fileID: 0}
   adjacentTerritories: []
   territoryStats: {fileID: 0}
 --- !u!212 &931118179
@@ -20501,12 +21116,10 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
-    width: 0
-    height: 0
     numberOfBuildings: 0
     name: Canas
     isClaim: 0
-    region: 
+    region: 0
     typePlayer: 5
     gold: 0
     food: 0
@@ -20521,73 +21134,121 @@ MonoBehaviour:
       personality: 
       characIconType: 
       characIconIndex: 
-      influence: 0
-      opinion: 0
       experience: 0
       strategyType: 
-    swordsmen:
-      characterName: 
+    sword:
+      characterName: Swordsman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 50
+      characIconType: warriors
+      characIconIndex: w1
+      quantity: 0
+      unitName: Swordsman
+      attack: 10
+      defense: 6
+      evasion: 0
+      precision: 90
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
-      characterName: 
+    lance:
+      characterName: Lancer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 50
+      characIconType: warriors
+      characIconIndex: spear
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      defense: 5
+      evasion: 0
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: axe
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      defense: 3
+      evasion: 0
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: horseman
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      defense: 10
+      evasion: 0
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: archer
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      defense: 3
+      evasion: 0
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -20614,10 +21275,10 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    terrainList: []
+    troopDefend: []
   paddingX: -20
   paddingY: -30
-  sprite: {fileID: 0}
   adjacentTerritories: []
   territoryStats: {fileID: 0}
 --- !u!60 &982498742
@@ -21636,12 +22297,10 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
-    width: 0
-    height: 0
     numberOfBuildings: 0
     name: Tahuamanu
     isClaim: 0
-    region: 
+    region: 0
     typePlayer: 2
     gold: 2
     food: 2
@@ -21656,73 +22315,121 @@ MonoBehaviour:
       personality: 
       characIconType: 
       characIconIndex: 
-      influence: 0
-      opinion: 0
       experience: 0
       strategyType: 
-    swordsmen:
-      characterName: 
+    sword:
+      characterName: Swordsman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 40
+      characIconType: warriors
+      characIconIndex: w1
+      quantity: 0
+      unitName: Swordsman
+      attack: 10
+      defense: 6
+      evasion: 0
+      precision: 90
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
-      characterName: 
+    lance:
+      characterName: Lancer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 40
+      characIconType: warriors
+      characIconIndex: spear
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      defense: 5
+      evasion: 0
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: axe
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      defense: 3
+      evasion: 0
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: horseman
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      defense: 10
+      evasion: 0
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 2
+      characIconType: warriors
+      characIconIndex: archer
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      defense: 3
+      evasion: 0
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -21749,10 +22456,10 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    terrainList: []
+    troopDefend: []
   paddingX: 0
   paddingY: 0
-  sprite: {fileID: 0}
   adjacentTerritories: []
   territoryStats: {fileID: 0}
 --- !u!60 &1026276975
@@ -22751,12 +23458,10 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
-    width: 0
-    height: 0
     numberOfBuildings: 0
     name: Curimana
     isClaim: 0
-    region: 
+    region: 0
     typePlayer: 5
     gold: 2
     food: 1
@@ -22771,73 +23476,121 @@ MonoBehaviour:
       personality: 
       characIconType: 
       characIconIndex: 
-      influence: 0
-      opinion: 0
       experience: 0
       strategyType: 
-    swordsmen:
-      characterName: 
+    sword:
+      characterName: Swordsman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 40
+      characIconType: warriors
+      characIconIndex: w1
+      quantity: 0
+      unitName: Swordsman
+      attack: 10
+      defense: 6
+      evasion: 0
+      precision: 90
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
-      characterName: 
+    lance:
+      characterName: Lancer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 40
+      characIconType: warriors
+      characIconIndex: spear
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      defense: 5
+      evasion: 0
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: axe
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      defense: 3
+      evasion: 0
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: horseman
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      defense: 10
+      evasion: 0
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 2
+      characIconType: warriors
+      characIconIndex: archer
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      defense: 3
+      evasion: 0
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -22864,10 +23617,10 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    terrainList: []
+    troopDefend: []
   paddingX: 0
   paddingY: -50
-  sprite: {fileID: 0}
   adjacentTerritories: []
   territoryStats: {fileID: 0}
 --- !u!212 &1078414289
@@ -23225,12 +23978,10 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
-    width: 0
-    height: 0
     numberOfBuildings: 0
     name: Inambari
     isClaim: 0
-    region: 
+    region: 0
     typePlayer: 5
     gold: 2
     food: 2
@@ -23245,73 +23996,121 @@ MonoBehaviour:
       personality: 
       characIconType: 
       characIconIndex: 
-      influence: 0
-      opinion: 0
       experience: 0
       strategyType: 
-    swordsmen:
-      characterName: 
+    sword:
+      characterName: Swordsman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 40
+      characIconType: warriors
+      characIconIndex: w1
+      quantity: 0
+      unitName: Swordsman
+      attack: 10
+      defense: 6
+      evasion: 0
+      precision: 90
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
-      characterName: 
+    lance:
+      characterName: Lancer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 40
+      characIconType: warriors
+      characIconIndex: spear
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      defense: 5
+      evasion: 0
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: axe
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      defense: 3
+      evasion: 0
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: horseman
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      defense: 10
+      evasion: 0
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 2
+      characIconType: warriors
+      characIconIndex: archer
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      defense: 3
+      evasion: 0
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -23338,10 +24137,10 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    terrainList: []
+    troopDefend: []
   paddingX: 0
   paddingY: -50
-  sprite: {fileID: 0}
   adjacentTerritories: []
   territoryStats: {fileID: 0}
 --- !u!60 &1093100751
@@ -23857,7 +24656,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   haveUnit: 0
   index: 0
-  typeSquare: 0
+  terrain:
+    type: 0
+    scale: 0
+    attribute: 
+    value: 0
 --- !u!114 &1128577235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25714,12 +26517,10 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
-    width: 0
-    height: 0
     numberOfBuildings: 0
     name: Tambopata
     isClaim: 0
-    region: 
+    region: 0
     typePlayer: 5
     gold: 2
     food: 2
@@ -25734,73 +26535,121 @@ MonoBehaviour:
       personality: 
       characIconType: 
       characIconIndex: 
-      influence: 0
-      opinion: 0
       experience: 0
       strategyType: 
-    swordsmen:
-      characterName: 
+    sword:
+      characterName: Swordsman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 40
+      characIconType: warriors
+      characIconIndex: w1
+      quantity: 0
+      unitName: Swordsman
+      attack: 10
+      defense: 6
+      evasion: 0
+      precision: 90
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
-      characterName: 
+    lance:
+      characterName: Lancer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 40
+      characIconType: warriors
+      characIconIndex: spear
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      defense: 5
+      evasion: 0
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: axe
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      defense: 3
+      evasion: 0
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: horseman
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      defense: 10
+      evasion: 0
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 2
+      characIconType: warriors
+      characIconIndex: archer
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      defense: 3
+      evasion: 0
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -25827,10 +26676,10 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    terrainList: []
+    troopDefend: []
   paddingX: -100
   paddingY: -50
-  sprite: {fileID: 0}
   adjacentTerritories: []
   territoryStats: {fileID: 0}
 --- !u!60 &1230075575
@@ -26342,7 +27191,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   haveUnit: 0
   index: 0
-  typeSquare: 0
+  terrain:
+    type: 0
+    scale: 0
+    attribute: 
+    value: 0
 --- !u!114 &1238960554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26975,12 +27828,10 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
-    width: 0
-    height: 0
     numberOfBuildings: 0
     name: Purus
     isClaim: 0
-    region: 
+    region: 0
     typePlayer: 5
     gold: 2
     food: 1
@@ -26995,73 +27846,121 @@ MonoBehaviour:
       personality: 
       characIconType: 
       characIconIndex: 
-      influence: 0
-      opinion: 0
       experience: 0
       strategyType: 
-    swordsmen:
-      characterName: 
+    sword:
+      characterName: Swordsman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 40
+      characIconType: warriors
+      characIconIndex: w1
+      quantity: 0
+      unitName: Swordsman
+      attack: 10
+      defense: 6
+      evasion: 0
+      precision: 90
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
-      characterName: 
+    lance:
+      characterName: Lancer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 40
+      characIconType: warriors
+      characIconIndex: spear
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      defense: 5
+      evasion: 0
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: axe
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      defense: 3
+      evasion: 0
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: horseman
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      defense: 10
+      evasion: 0
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 2
+      characIconType: warriors
+      characIconIndex: archer
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      defense: 3
+      evasion: 0
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -27088,10 +27987,10 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    terrainList: []
+    troopDefend: []
   paddingX: 0
   paddingY: -100
-  sprite: {fileID: 0}
   adjacentTerritories: []
   territoryStats: {fileID: 0}
 --- !u!60 &1260653816
@@ -29981,12 +30880,10 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
-    width: 0
-    height: 0
     numberOfBuildings: 0
     name: Chumbivilcas
     isClaim: 0
-    region: 
+    region: 0
     typePlayer: 5
     gold: 0
     food: 0
@@ -30001,73 +30898,121 @@ MonoBehaviour:
       personality: 
       characIconType: 
       characIconIndex: 
-      influence: 0
-      opinion: 0
       experience: 0
       strategyType: 
-    swordsmen:
-      characterName: 
+    sword:
+      characterName: Swordsman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 50
+      characIconType: warriors
+      characIconIndex: w1
+      quantity: 0
+      unitName: Swordsman
+      attack: 10
+      defense: 6
+      evasion: 0
+      precision: 90
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
-      characterName: 
+    lance:
+      characterName: Lancer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 50
+      characIconType: warriors
+      characIconIndex: spear
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      defense: 5
+      evasion: 0
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: axe
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      defense: 3
+      evasion: 0
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: horseman
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      defense: 10
+      evasion: 0
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: archer
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      defense: 3
+      evasion: 0
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -30094,10 +31039,10 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    terrainList: []
+    troopDefend: []
   paddingX: 10
   paddingY: -30
-  sprite: {fileID: 0}
   adjacentTerritories: []
   territoryStats: {fileID: 0}
 --- !u!60 &1430227235
@@ -30776,12 +31721,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveUnits: {fileID: 640801427}
-  options: []
+  cancel: {fileID: 0}
   troopSelected:
-    types: []
+    unitCombats: []
     positions: 
-    numbers: 
-  acumulated: 0
+  total_cost: 0
 --- !u!1 &1468871725
 GameObject:
   m_ObjectHideFlags: 0
@@ -32052,12 +32996,10 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
-    width: 0
-    height: 0
     numberOfBuildings: 0
     name: Manu
     isClaim: 0
-    region: 
+    region: 0
     typePlayer: 5
     gold: 2
     food: 2
@@ -32072,73 +33014,121 @@ MonoBehaviour:
       personality: 
       characIconType: 
       characIconIndex: 
-      influence: 0
-      opinion: 0
       experience: 0
       strategyType: 
-    swordsmen:
-      characterName: 
+    sword:
+      characterName: Swordsman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 40
+      characIconType: warriors
+      characIconIndex: w1
+      quantity: 0
+      unitName: Swordsman
+      attack: 10
+      defense: 6
+      evasion: 0
+      precision: 90
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
-      characterName: 
+    lance:
+      characterName: Lancer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 40
+      characIconType: warriors
+      characIconIndex: spear
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      defense: 5
+      evasion: 0
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: axe
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      defense: 3
+      evasion: 0
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: horseman
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      defense: 10
+      evasion: 0
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 2
+      characIconType: warriors
+      characIconIndex: archer
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      defense: 3
+      evasion: 0
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -32165,10 +33155,10 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    terrainList: []
+    troopDefend: []
   paddingX: 10
   paddingY: 0
-  sprite: {fileID: 0}
   adjacentTerritories: []
   territoryStats: {fileID: 0}
 --- !u!60 &1535135441
@@ -33041,19 +34031,19 @@ MonoBehaviour:
   battleCanvas: {fileID: 622926460}
   selected: {fileID: 0}
   selectedWar:
-    attackers: 0
+    attackersType: 0
     territory: {fileID: 0}
-    warriors1Count: 0
-    warriors2Count: 0
-    warriors1Speed: 0
-    warriors2Speed: 0
+    attackerTroop:
+      unitCombats: []
+      positions: 
+    warriorsAttackerSpeed: 0
+    warriorsDefenderSpeed: 0
     status: 0
     time1: 0
     time2: 0
     limit: 0
     critic1: 0
     critic2: 0
-    index: 0
   warList: []
   warContainer: {fileID: 1755681184}
   peaceContainer: {fileID: 345692507}
@@ -33077,6 +34067,11 @@ MonoBehaviour:
   hatP1: {fileID: 2043940066}
   hatP2: {fileID: 42506334}
   hatP3: {fileID: 407380397}
+  anim1: {fileID: 0}
+  anim2: {fileID: 0}
+  anim3: {fileID: 0}
+  anim4: {fileID: 0}
+  anim5: {fileID: 0}
 --- !u!1 &1593266379
 GameObject:
   m_ObjectHideFlags: 0
@@ -33500,12 +34495,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedTerritory:
-    width: 0
-    height: 0
     numberOfBuildings: 0
     name: 
     isClaim: 0
-    region: 
+    region: 0
     typePlayer: 0
     gold: 0
     food: 0
@@ -33520,73 +34513,121 @@ MonoBehaviour:
       personality: 
       characIconType: 
       characIconIndex: 
-      influence: 0
-      opinion: 0
       experience: 0
       strategyType: 
-    swordsmen:
-      characterName: 
+    sword:
+      characterName: Swordsman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 10
+      characIconType: warriors
+      characIconIndex: w1
+      quantity: 0
+      unitName: Swordsman
+      attack: 10
+      defense: 6
+      evasion: 0
+      precision: 90
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
-      characterName: 
+    lance:
+      characterName: Lancer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: spear
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      defense: 5
+      evasion: 0
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: axe
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      defense: 3
+      evasion: 0
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: horseman
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      defense: 10
+      evasion: 0
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: archer
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      defense: 3
+      evasion: 0
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -33613,15 +34654,10 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
-  irrigateLevel: {fileID: 2135157835}
-  goldMineLevel: {fileID: 1945386951}
-  fortressLevel: {fileID: 1187320710}
-  academyLevel: {fileID: 1346749520}
-  barracksLevel: {fileID: 2032719484}
-  archeryLevel: {fileID: 2140639410}
-  menuBlockWarriors: {fileID: 589492773}
-  menuBlockCharacter: {fileID: 115183287}
+    terrainList: []
+    troopDefend: []
+  menuBlockMilitaryOther: {fileID: 0}
+  menuBlockMilitaryCharacter: {fileID: 0}
   menuBlockMilitaryWaste: {fileID: 1657764101}
   containerTroops: {fileID: 1629615972}
   selectMilitarChief: {fileID: 1110201455}
@@ -33630,8 +34666,8 @@ MonoBehaviour:
   militaryBossExperience: {fileID: 1307505893}
   militaryBossEstrategy: {fileID: 1778752385}
   militaryBossInfluence: {fileID: 82411763}
-  menuBlockWasteTerritory: {fileID: 1485597341}
-  menuBlockTerritory: {fileID: 1339230998}
+  menuBlockTerritoryWaste: {fileID: 0}
+  menuBlockTerritoryOther: {fileID: 0}
   territoryEmpire: {fileID: 977572146}
   territoryRegion: {fileID: 1651817649}
   territoryReligion: {fileID: 254185536}
@@ -33642,11 +34678,14 @@ MonoBehaviour:
   MotivationBonus: {fileID: 10077614}
   AttackBonus: {fileID: 531085650}
   DefenseBonus: {fileID: 1385769954}
+  menuBlockStrategyWaste: {fileID: 0}
+  menuBlockStrategyOther: {fileID: 0}
   containerBuildings: {fileID: 378084249}
-  menuBlockBuildings: {fileID: 195125298}
-  menuBlockBuildWaste: {fileID: 623535585}
+  menuBlockBuildingsOther: {fileID: 0}
+  menuBlockBuildingsWaste: {fileID: 0}
   dropdownBuildings: {fileID: 226222566}
   CreateBuidingGO: {fileID: 6750863535329728878}
+  strategyBackground: {fileID: 0}
 --- !u!1 &1617681545
 GameObject:
   m_ObjectHideFlags: 0
@@ -34503,12 +35542,10 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
-    width: 0
-    height: 0
     numberOfBuildings: 0
     name: Calca
     isClaim: 0
-    region: 
+    region: 0
     typePlayer: 5
     gold: 0
     food: 0
@@ -34523,73 +35560,121 @@ MonoBehaviour:
       personality: 
       characIconType: 
       characIconIndex: 
-      influence: 0
-      opinion: 0
       experience: 0
       strategyType: 
-    swordsmen:
-      characterName: 
+    sword:
+      characterName: Swordsman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 40
+      characIconType: warriors
+      characIconIndex: w1
+      quantity: 0
+      unitName: Swordsman
+      attack: 10
+      defense: 6
+      evasion: 0
+      precision: 90
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
-      characterName: 
+    lance:
+      characterName: Lancer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: spear
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      defense: 5
+      evasion: 0
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: axe
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      defense: 3
+      evasion: 0
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: horseman
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      defense: 10
+      evasion: 0
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: archer
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      defense: 3
+      evasion: 0
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -34616,10 +35701,10 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    terrainList: []
+    troopDefend: []
   paddingX: 0
   paddingY: 0
-  sprite: {fileID: 0}
   adjacentTerritories: []
   territoryStats: {fileID: 0}
 --- !u!60 &1653823599
@@ -36262,7 +37347,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.009490967, y: -14.799999}
+  m_AnchoredPosition: {x: 0.009490967, y: -14.799995}
   m_SizeDelta: {x: -0.11383, y: -29.97}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1730922148
@@ -36420,12 +37505,10 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
-    width: 0
-    height: 0
     numberOfBuildings: 0
     name: Tahuania
     isClaim: 0
-    region: 
+    region: 0
     typePlayer: 5
     gold: 2
     food: 1
@@ -36440,73 +37523,121 @@ MonoBehaviour:
       personality: 
       characIconType: 
       characIconIndex: 
-      influence: 0
-      opinion: 0
       experience: 0
       strategyType: 
-    swordsmen:
-      characterName: 
+    sword:
+      characterName: Swordsman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 40
+      characIconType: warriors
+      characIconIndex: w1
+      quantity: 0
+      unitName: Swordsman
+      attack: 10
+      defense: 6
+      evasion: 0
+      precision: 90
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
-      characterName: 
+    lance:
+      characterName: Lancer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 40
+      characIconType: warriors
+      characIconIndex: spear
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      defense: 5
+      evasion: 0
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: axe
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      defense: 3
+      evasion: 0
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: horseman
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      defense: 10
+      evasion: 0
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 2
+      characIconType: warriors
+      characIconIndex: archer
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      defense: 3
+      evasion: 0
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -36533,10 +37664,10 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    terrainList: []
+    troopDefend: []
   paddingX: 0
   paddingY: 0
-  sprite: {fileID: 0}
   adjacentTerritories: []
   territoryStats: {fileID: 0}
 --- !u!212 &1733536733
@@ -36656,12 +37787,10 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
-    width: 0
-    height: 0
     numberOfBuildings: 0
     name: Huepetuhe
     isClaim: 0
-    region: 
+    region: 0
     typePlayer: 5
     gold: 2
     food: 2
@@ -36676,73 +37805,121 @@ MonoBehaviour:
       personality: 
       characIconType: 
       characIconIndex: 
-      influence: 0
-      opinion: 0
       experience: 0
       strategyType: 
-    swordsmen:
-      characterName: 
+    sword:
+      characterName: Swordsman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 40
+      characIconType: warriors
+      characIconIndex: w1
+      quantity: 0
+      unitName: Swordsman
+      attack: 10
+      defense: 6
+      evasion: 0
+      precision: 90
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
-      characterName: 
+    lance:
+      characterName: Lancer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 40
+      characIconType: warriors
+      characIconIndex: spear
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      defense: 5
+      evasion: 0
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: axe
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      defense: 3
+      evasion: 0
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: horseman
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      defense: 10
+      evasion: 0
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 2
+      characIconType: warriors
+      characIconIndex: archer
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      defense: 3
+      evasion: 0
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -36769,10 +37946,10 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    terrainList: []
+    troopDefend: []
   paddingX: -30
   paddingY: -30
-  sprite: {fileID: 0}
   adjacentTerritories: []
   territoryStats: {fileID: 0}
 --- !u!60 &1735170416
@@ -37074,7 +38251,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -101.68995, y: -0.0025100708}
+  m_AnchoredPosition: {x: -101.68996, y: -0.0025100708}
   m_SizeDelta: {x: -203.37, y: -0.01}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1750732951
@@ -37978,7 +39155,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   haveUnit: 0
   index: 0
-  typeSquare: 0
+  terrain:
+    type: 0
+    scale: 0
+    attribute: 
+    value: 0
 --- !u!114 &1779368241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39871,7 +41052,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   haveUnit: 0
   index: 0
-  typeSquare: 0
+  terrain:
+    type: 0
+    scale: 0
+    attribute: 
+    value: 0
 --- !u!114 &1869561376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41213,7 +42398,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.16167112}
   m_AnchorMax: {x: 1, y: 0.337}
-  m_AnchoredPosition: {x: 0.12475586, y: 27.781324}
+  m_AnchoredPosition: {x: 0.12475586, y: 27.781326}
   m_SizeDelta: {x: -2.2994385, y: 18.038086}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1940143359
@@ -42871,7 +44056,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   haveUnit: 0
   index: 0
-  typeSquare: 0
+  terrain:
+    type: 0
+    scale: 0
+    attribute: 
+    value: 0
 --- !u!114 &2013995251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43402,12 +44591,10 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: 5b873c23cd40a8d4c8a4853f42c9bacc, type: 2}
   normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   territory:
-    width: 0
-    height: 0
     numberOfBuildings: 0
     name: Qosqo
     isClaim: 0
-    region: 
+    region: 0
     typePlayer: 5
     gold: 0
     food: 0
@@ -43422,73 +44609,121 @@ MonoBehaviour:
       personality: 
       characIconType: 
       characIconIndex: 
-      influence: 0
-      opinion: 0
       experience: 0
       strategyType: 
-    swordsmen:
-      characterName: 
+    sword:
+      characterName: Swordsman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 50
+      characIconType: warriors
+      characIconIndex: w1
+      quantity: 0
+      unitName: Swordsman
+      attack: 10
+      defense: 6
+      evasion: 0
+      precision: 90
+      range: 1
+      strongTo:
+      - Axeman
+      weakTo:
+      - Lancer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    lancers:
-      characterName: 
+    lance:
+      characterName: Lancer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 50
+      characIconType: warriors
+      characIconIndex: spear
+      quantity: 0
+      unitName: Lancer
+      attack: 15
+      defense: 5
+      evasion: 0
+      precision: 85
+      range: 1
+      strongTo:
+      - Swordsman
+      weakTo:
+      - Axeman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    axemen:
+    axe:
       characterName: Axeman
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: axe
+      quantity: 0
+      unitName: Axeman
+      attack: 20
+      defense: 3
+      evasion: 0
+      precision: 75
+      range: 1
+      strongTo:
+      - Lancer
+      weakTo:
+      - Swordsman
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    scouts:
+    scout:
       characterName: Scout
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: horseman
+      quantity: 0
+      unitName: Scout
+      attack: 25
+      defense: 10
+      evasion: 0
+      precision: 70
+      range: 1
+      strongTo:
+      - Archer
+      weakTo:
+      - Scout
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
-    archers:
+    archer:
       characterName: Archer
       age: 0
       origin: 
       campaign: 
       personality: 
-      characIconType: 
-      characIconIndex: 
-      influence: 0
-      opinion: 0
-      number: 0
+      characIconType: warriors
+      characIconIndex: archer
+      quantity: 0
+      unitName: Archer
+      attack: 10
+      defense: 3
+      evasion: 0
+      precision: 70
+      range: 2
+      strongTo:
+      - Scout
+      weakTo:
+      - Archer
+      position: 0
+      typeArm: 0
       _timeLeft: 0
       _totalTime: 12
     farmTerritory:
@@ -43515,10 +44750,10 @@ MonoBehaviour:
     archeryTerritory:
       nameBuilding: Archery
       level: 0
-    tiles: 
+    terrainList: []
+    troopDefend: []
   paddingX: 0
   paddingY: -10
-  sprite: {fileID: 0}
   adjacentTerritories: []
   territoryStats: {fileID: 0}
 --- !u!60 &2050465959

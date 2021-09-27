@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeModifier: 1
+  charac: Hakan
+  tittle: Start
 --- !u!114 &544538652985982693
 MonoBehaviour:
   m_ObjectHideFlags: 0
