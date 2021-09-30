@@ -139,11 +139,13 @@ public class Territory
         get { return typePlayer; }
         set { typePlayer = value; }
     }
+    
     public List<Terrain> TerrainList
     {
         get { return terrainList; }
         set { terrainList = value; }
     }
+    
     public bool AllBuildsLevels()
     {
         return goldMineTerritory.Level > 0

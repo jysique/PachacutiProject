@@ -186,7 +186,7 @@ public class BotIA
     {
         if (gold - building.CostToUpgrade>=0)
         {
-            Debug.Log("upgrade" + begin.name + " - " + building.Name);
+            //Debug.Log("upgrade" + begin.name + " - " + building.Name);
             gold -= building.CostToUpgrade;
             //
             EventManager.instance.AddEvent(begin, building);
@@ -220,7 +220,7 @@ public class BotIA
                 if(gold - warTax >= 0)
                 {
                     gold -= warTax;
-                    Debug.Log("mover");
+                 //   Debug.Log("mover");
                     _troop.MoveUnits(begin.TerritoryStats.Territory);
                     WarManager.instance.SendWarriors(begin, end, _troop);
                 }
@@ -233,7 +233,7 @@ public class BotIA
         }
         else
         {
-            Debug.Log("troop == 0");
+          //  Debug.Log("troop == 0");
         }
     }
 

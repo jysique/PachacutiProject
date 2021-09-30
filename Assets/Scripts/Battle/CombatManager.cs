@@ -141,9 +141,8 @@ public class CombatManager : MonoBehaviour
         enemyPositions.Add(3, 15);
         enemyPositions.Add(4, 22);
         enemyPositions.Add(5, 23);
-        //menuOriginalPos = menu.transform;
     }
-
+    
     void Start()
     {
     }
@@ -175,29 +174,25 @@ public class CombatManager : MonoBehaviour
                 EventManager.instance.AddBattleEvents(playerTroop, enemyTroop, _playerTerritory, _enemyTerritory, isPlayerTerritory);
             }
             //SortList(units);
-            //  mcPlayer = _playerTerritory.TerritoryStats.Territory.MilitarChiefTerritory;
-
             isPlayer = isPlayerTerritory;
             playerTerritory = _playerTerritory;
             enemyTerritory = _enemyTerritory;
             TerritoryHandler territoryOfWar;
-            List<Terrain> tiles;
+            List<Terrain> tiles = new List<Terrain>();
             if (isPlayerTerritory)
             {
                 territoryOfWar = playerTerritory;
-                tiles = territoryOfWar.TerritoryStats.Territory.TerrainList;
+                tiles = GetTerrains(territoryOfWar.TerritoryStats.Territory);
                 attackerOriginalTroop.SaveTroop(enemyTroop);
                 defendOriginalTroop.SaveTroop(playerTroop);
-
-
-
             }
             else
             {
                 territoryOfWar = enemyTerritory;
-                tiles = territoryOfWar.TerritoryStats.Territory.TerrainList;
+                tiles = GetTerrains(territoryOfWar.TerritoryStats.Territory);
                 attackerOriginalTroop.SaveTroop(playerTroop);
                 defendOriginalTroop.SaveTroop(enemyTroop);
+                /*
                 List<Terrain> newTiles = new List<Terrain>();
                 for (int y = (tiles.Count / 2) - 1; y >= 0; y--)
                 {
@@ -208,13 +203,13 @@ public class CombatManager : MonoBehaviour
                     newTiles.Add(tiles[y]);
                 }
                 tiles = newTiles;
+                */
             }
             for (int j = 0; j < squares.transform.childCount; j++)
             {
-                //ARREGLAR
-                squares.transform.GetChild(j).GetComponent<SquareType>().Terrain = tiles[0];
+                squares.transform.GetChild(j).GetComponent<SquareType>().Terrain = tiles[j];
                 squares.transform.GetChild(j).GetComponent<SquareType>().Index = j;
-                squares.transform.GetChild(j).GetComponent<Image>().sprite = tiles[0].Picture;
+                squares.transform.GetChild(j).GetComponent<Image>().sprite = tiles[j].Picture;
             }
 
             SetMilitarChief(militarchiefPlayer, playerTerritory.TerritoryStats.Territory.MilitarChiefTerritory, playerTerritory.TerritoryStats.Territory.TypePlayer);
@@ -235,11 +230,32 @@ public class CombatManager : MonoBehaviour
             InstantiateUnit(squares.transform.GetChild(up).gameObject, _enemyTerritory.TerritoryStats.Territory.TypePlayer, enemyTroop.UnitCombats[i]);
         }
         
-        //UpdateBuffTerrain();
+        UpdateBuffTerrain();
         selectedUnit = units[0];
         turnSignal.GetComponent<AppearAndDissapearAnimation>().Change();
 
         //MakeMovement();
+    }
+    private List<Terrain> GetTerrains(Territory _territory)
+    {
+        int dummycounter = 0;
+        List<Terrain> tiles = new List<Terrain>();
+        for (int i = 0; i < 24; i++)
+        {
+            if ( _territory.TerrainList[dummycounter].Position == i)
+            {
+                tiles.Add(_territory.TerrainList[dummycounter]);
+                if (dummycounter < _territory.TerrainList.Count - 1)
+                {
+                    dummycounter++;
+                }
+            }
+            else
+            {
+                tiles.Add(new Terrain("NONE", i));
+            }
+        }
+        return tiles;
     }
     private void CheckSpecialAbility()
     {
@@ -646,17 +662,23 @@ public class CombatManager : MonoBehaviour
         details += " Lost units: \n";
         for (int j = 0; j < _original.UnitCombats.Count; j++)
         {
-            /*
-            UnitGroup _ug = FoundUnit(_territory, _original.UnitCombats[j], _original.Positions[j]);
+            
+            UnitGroup _ug = FoundUnit(_territory, _original.UnitCombats[j], _original.UnitCombats[j].PositionInBattle);
+            UnitCombat _u = new UnitCombat();
             if (_ug != null)
             {
-                _actual.AddElement(_original.UnitCombats[j].UnitName, _original.Positions[j], _ug.UnitCombat.Quantity);
+                
+                _u = _ug.UnitCombat;
+                
+                //_actual.AddElement(_original.UnitCombats[j].UnitName, _original.Positions[j], _ug.UnitCombat.Quantity);
             }
             else
             {
-                _actual.AddElement(_original.UnitCombats[j].UnitName, _original.Positions[j], 0);
+                _u = _ug.UnitCombat;
+                _u.Quantity = 0;
+                //_actual.AddElement(_original.UnitCombats[j].UnitName, _original.Positions[j], 0);
             }
-            */
+            _actual.AddUnitCombat(_u);
         }
         for (int i = 0; i < _original.UnitCombats.Count; i++)
         {
@@ -710,6 +732,8 @@ public class CombatManager : MonoBehaviour
         string _type = u.UnitCombat.UnitName;
         if (u.TypePlayer == Territory.TYPEPLAYER.PLAYER)
         {
+            playerTerritory.TerritoryStats.Territory.ListUnitCombat.AddUnitCombat(u.UnitCombat);
+            /*
             if (isPlayer)
             {
                 playerTerritory.TerritoryStats.Territory.ListUnitCombat.GetFirstUnitCombat(_type).Quantity = u.UnitCombat.Quantity;
@@ -718,9 +742,12 @@ public class CombatManager : MonoBehaviour
             {
                 playerTerritory.TerritoryStats.Territory.ListUnitCombat.GetFirstUnitCombat(_type).Quantity += u.UnitCombat.Quantity;
             }
+            */
         }
         else
         {
+            enemyTerritory.TerritoryStats.Territory.ListUnitCombat.AddUnitCombat(u.UnitCombat);
+            /*
             if (isPlayer)
             {
                 enemyTerritory.TerritoryStats.Territory.ListUnitCombat.GetFirstUnitCombat(_type).Quantity += u.UnitCombat.Quantity;
@@ -729,6 +756,7 @@ public class CombatManager : MonoBehaviour
             {
                 enemyTerritory.TerritoryStats.Territory.ListUnitCombat.GetFirstUnitCombat(_type).Quantity = u.UnitCombat.Quantity;
             }
+            */
         }
     }
     public void FinishCombat()
@@ -1037,7 +1065,7 @@ public class CombatManager : MonoBehaviour
             defenseGroup.UnitCombat.Quantity = 0;
             defenseGroup.UnitsGO.transform.GetChild(0).GetComponent<Text>().text = "0";
             defenseGroup.UnitsGO.transform.GetChild(0).GetComponent<Text>().color = Color.red;
-            SetStats(defenseGroup);
+           // SetStats(defenseGroup);
             units.Remove(defenseGroup);
             defenseGroup.UnitsGO.GetComponentInParent<SquareType>().UnitGroup = null;
             defenseGroup.UnitsGO.GetComponentInParent<SquareType>().HaveUnit = false;
@@ -1050,7 +1078,7 @@ public class CombatManager : MonoBehaviour
             attackGroup.UnitCombat.Quantity = 0;
             attackGroup.UnitsGO.transform.GetChild(0).GetComponent<Text>().text = "0";
             attackGroup.UnitsGO.transform.GetChild(0).GetComponent<Text>().color = Color.red;
-            SetStats(attackGroup);
+           // SetStats(attackGroup);
             units.Remove(attackGroup);
             attackGroup.UnitsGO.GetComponentInParent<SquareType>().UnitGroup = null;
             attackGroup.UnitsGO.GetComponentInParent<SquareType>().HaveUnit = false;
@@ -1076,7 +1104,7 @@ public class CombatManager : MonoBehaviour
             unitGroup.UnitCombat.Quantity = 0;
             unitGroup.UnitsGO.transform.GetChild(0).GetComponent<Text>().text = "0";
             unitGroup.UnitsGO.transform.GetChild(0).GetComponent<Text>().color = Color.red;
-            SetStats(unitGroup);
+          //  SetStats(unitGroup);
             units.Remove(unitGroup);
             unitGroup.UnitsGO.GetComponentInParent<SquareType>().UnitGroup = null;
             unitGroup.UnitsGO.GetComponentInParent<SquareType>().HaveUnit = false;

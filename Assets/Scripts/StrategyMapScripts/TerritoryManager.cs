@@ -40,7 +40,7 @@ public class TerritoryManager : MonoBehaviour
     void JsonTest()
     {
         civilizations = FileHandler.ReadListFromJSON_Resource<Civilization>("civilization");
-
+        /*
         //print("tiempo" + System.DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
         if (filename.Contains(".json"))
         {
@@ -61,6 +61,7 @@ public class TerritoryManager : MonoBehaviour
         players[0].Troop.Add(a);
 
         FileHandler.SaveToJSON<Player>(players, filename);
+        */
     }
 
     void Start()
@@ -95,16 +96,18 @@ public class TerritoryManager : MonoBehaviour
     /// <param name="line"></param>
     void ParseLine(string line)
     {
+        
         string[] all_line_split = line.Split(char.Parse(":"));
         string territory = all_line_split[0];
-
-        
+       
         Territory.TYPEPLAYER player = (Territory.TYPEPLAYER)Enum.Parse(typeof(Territory.TYPEPLAYER), all_line_split[1].ToUpper());
         string civ = all_line_split[2];
         Territory.REGION region = (Territory.REGION)Enum.Parse(typeof(Territory.REGION), all_line_split[4].ToUpper());
         List<string> units_string = all_line_split[3].Split(char.Parse(",")).ToList();
 
         List<string> ambience_string = all_line_split[5].ToUpper().Split(char.Parse(",")).ToList();
+
+
         List<string> adyacent = all_line_split[6].Split(char.Parse(",")).ToList();
         
         List<GameObject> goAdyacents = new List<GameObject>();
@@ -115,8 +118,12 @@ public class TerritoryManager : MonoBehaviour
         List<Terrain> ambiences = new List<Terrain>();
         for (int i = 0; i < ambience_string.Count; i++)
         {
-            ambiences.Add(new Terrain(ambience_string[i]));
+            string a = ambience_string[i];
+            a = a.Replace("(", "").Replace(")", "");
+            string[] b = a.Split('-');
+            ambiences.Add(new Terrain(b[0],int.Parse(b[1])));
         }
+
         List<int> units = new List<int>();
         for (int i = 0; i < units_string.Count; i++)
         {
@@ -213,7 +220,6 @@ public class TerritoryManager : MonoBehaviour
                 _territory.IsClaimed = true;
                 _territory.Selected = true;
             }
-            // UpdateUnitsDeffend(_territory);
         }
     }
 
@@ -223,6 +229,14 @@ public class TerritoryManager : MonoBehaviour
         {
             TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
             territoryHandler.TerritoryStats.Territory.TerrainList = dictionaryAmbience.Single(s => s.Key == territoryHandler.TerritoryStats.Territory.name).Value;
+            //List<Terrain> list_terrains = dictionaryAmbience.Single(s => s.Key == territoryHandler.TerritoryStats.Territory.name).Value;
+            /*
+            for (int j = 0; j < list_terrains.Count; j++)
+            {
+                territoryHandler.TerritoryStats.Territory.TerrainDicc.Add(list_terrains[j], j);
+            }
+            */
+
         }
     }
 

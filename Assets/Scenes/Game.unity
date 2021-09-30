@@ -1125,7 +1125,12 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    plusEvasion: 0
+    plusAttack: 0
+    plusPrecision: 0
+    plusDefense: 0
     value: 0
+    position: 0
 --- !u!114 &23292312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1857,7 +1862,12 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    plusEvasion: 0
+    plusAttack: 0
+    plusPrecision: 0
+    plusDefense: 0
     value: 0
+    position: 0
 --- !u!114 &52109718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2430,7 +2440,12 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    plusEvasion: 0
+    plusAttack: 0
+    plusPrecision: 0
+    plusDefense: 0
     value: 0
+    position: 0
 --- !u!114 &73421558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3911,7 +3926,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 675236011}
   m_HandleRect: {fileID: 675236010}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -4229,7 +4244,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.337}
   m_AnchorMax: {x: 1, y: 0.5083289}
-  m_AnchoredPosition: {x: 0.12475586, y: 46.9636}
+  m_AnchoredPosition: {x: 0.12475586, y: 46.963593}
   m_SizeDelta: {x: -0.29943848, y: 18.188126}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &128476422
@@ -5786,7 +5801,12 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    plusEvasion: 0
+    plusAttack: 0
+    plusPrecision: 0
+    plusDefense: 0
     value: 0
+    position: 0
 --- !u!114 &182416937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5836,7 +5856,6 @@ GameObject:
   - component: {fileID: 182693609}
   - component: {fileID: 182693612}
   - component: {fileID: 182693611}
-  - component: {fileID: 182693610}
   m_Layer: 5
   m_Name: SelectTroopsTitle
   m_TagString: Untagged
@@ -5863,18 +5882,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0.2999878}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &182693610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 182693608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e994fffe7d194c4b85351aaf19b0dd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &182693611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5895,7 +5902,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Selecciona una opci\xF3n y elige una unidad de combate para la batalla"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6820,7 +6827,12 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    plusEvasion: 0
+    plusAttack: 0
+    plusPrecision: 0
+    plusDefense: 0
     value: 0
+    position: 0
 --- !u!114 &244483949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7050,7 +7062,12 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    plusEvasion: 0
+    plusAttack: 0
+    plusPrecision: 0
+    plusDefense: 0
     value: 0
+    position: 0
 --- !u!114 &250097268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7387,7 +7404,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.015120197, y: 0}
   m_AnchorMax: {x: 0.98619115, y: 0.95100003}
-  m_AnchoredPosition: {x: -0.33815002, y: 1.6206055}
+  m_AnchoredPosition: {x: -0.33816528, y: 1.6206055}
   m_SizeDelta: {x: -0.69000006, y: -2.4099998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &263252739
@@ -8053,7 +8070,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 428654026}
   m_HandleRect: {fileID: 428654025}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -9907,7 +9924,12 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    plusEvasion: 0
+    plusAttack: 0
+    plusPrecision: 0
+    plusDefense: 0
     value: 0
+    position: 0
 --- !u!114 &362184921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14166,7 +14188,12 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    plusEvasion: 0
+    plusAttack: 0
+    plusPrecision: 0
+    plusDefense: 0
     value: 0
+    position: 0
 --- !u!114 &528317772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14919,7 +14946,12 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    plusEvasion: 0
+    plusAttack: 0
+    plusPrecision: 0
+    plusDefense: 0
     value: 0
+    position: 0
 --- !u!114 &551349370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15194,7 +15226,12 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    plusEvasion: 0
+    plusAttack: 0
+    plusPrecision: 0
+    plusDefense: 0
     value: 0
+    position: 0
 --- !u!114 &565370906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16190,7 +16227,12 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    plusEvasion: 0
+    plusAttack: 0
+    plusPrecision: 0
+    plusDefense: 0
     value: 0
+    position: 0
 --- !u!114 &612977075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18284,7 +18326,12 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    plusEvasion: 0
+    plusAttack: 0
+    plusPrecision: 0
+    plusDefense: 0
     value: 0
+    position: 0
 --- !u!114 &674976860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21759,7 +21806,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.405854, y: 0.88600004}
   m_AnchorMax: {x: 0.52675015, y: 1}
-  m_AnchoredPosition: {x: 1, y: 269.00003}
+  m_AnchoredPosition: {x: 1, y: 269.00006}
   m_SizeDelta: {x: -14.580002, y: 61.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &831720722
@@ -25522,7 +25569,12 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    plusEvasion: 0
+    plusAttack: 0
+    plusPrecision: 0
+    plusDefense: 0
     value: 0
+    position: 0
 --- !u!114 &978687052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26659,7 +26711,12 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    plusEvasion: 0
+    plusAttack: 0
+    plusPrecision: 0
+    plusDefense: 0
     value: 0
+    position: 0
 --- !u!114 &1017785153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27429,7 +27486,12 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    plusEvasion: 0
+    plusAttack: 0
+    plusPrecision: 0
+    plusDefense: 0
     value: 0
+    position: 0
 --- !u!114 &1033534211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28373,7 +28435,12 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    plusEvasion: 0
+    plusAttack: 0
+    plusPrecision: 0
+    plusDefense: 0
     value: 0
+    position: 0
 --- !u!114 &1055363558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29823,7 +29890,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.051814087, y: 0.13174777}
   m_AnchorMax: {x: 0.37637186, y: 0.9188131}
-  m_AnchoredPosition: {x: -0.6136017, y: 0.038784027}
+  m_AnchoredPosition: {x: -0.6136012, y: 0.038784027}
   m_SizeDelta: {x: 0.21809006, y: 1.2696342}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1131478617
@@ -30565,7 +30632,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.3758302, y: 0.51045126}
   m_AnchorMax: {x: 0.63475484, y: 0.7714513}
-  m_AnchoredPosition: {x: -0.30000305, y: -16.903381}
+  m_AnchoredPosition: {x: -0.30000305, y: -16.903393}
   m_SizeDelta: {x: 0, y: 12.214804}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1168412085
@@ -31804,7 +31871,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.26700002, y: 0.78200006}
   m_AnchorMax: {x: 0.72524524, y: 0.98954874}
-  m_AnchoredPosition: {x: 0.19999695, y: -5.0457573}
+  m_AnchoredPosition: {x: 0.19999695, y: -5.04576}
   m_SizeDelta: {x: 0.15551758, y: 9.713284}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1231283087
@@ -32036,12 +32103,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45
+  m_fontSize: 35
   m_fontSizeBase: 45
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 25
+  m_fontSizeMax: 35
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -34565,12 +34632,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45
+  m_fontSize: 35
   m_fontSizeBase: 45
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 25
+  m_fontSizeMax: 35
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -36161,7 +36228,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.035415083, y: 0.51045126}
   m_AnchorMax: {x: 0.2954151, y: 0.7714513}
-  m_AnchoredPosition: {x: -0.30004883, y: -16.903381}
+  m_AnchoredPosition: {x: -0.30004883, y: -16.903393}
   m_SizeDelta: {x: 0, y: 12.214804}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1390546922
@@ -36751,7 +36818,12 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    plusEvasion: 0
+    plusAttack: 0
+    plusPrecision: 0
+    plusDefense: 0
     value: 0
+    position: 0
 --- !u!114 &1418567821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38240,6 +38312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90bcb5b06d5c7f7449792a53767a45e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  title: {fileID: 182693611}
   moveUnits: {fileID: 640801427}
   cancel: {fileID: 1630789874}
   containerUC: {fileID: 2098699916}
@@ -39431,7 +39504,12 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    plusEvasion: 0
+    plusAttack: 0
+    plusPrecision: 0
+    plusDefense: 0
     value: 0
+    position: 0
 --- !u!114 &1521851349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39932,7 +40010,12 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    plusEvasion: 0
+    plusAttack: 0
+    plusPrecision: 0
+    plusDefense: 0
     value: 0
+    position: 0
 --- !u!114 &1539833740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40006,7 +40089,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.017, y: 0.015375941}
   m_AnchorMax: {x: 0.9812382, y: 0.54923534}
-  m_AnchoredPosition: {x: 0.107055664, y: -12.856995}
+  m_AnchoredPosition: {x: 0.107055664, y: -12.857002}
   m_SizeDelta: {x: 2.46, y: -25.141}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1540382755
@@ -40373,7 +40456,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 64.0332, y: -912.3794}
+  m_AnchoredPosition: {x: 64.032394, y: -912.3793}
   m_SizeDelta: {x: -1660.7789, y: -956.12}
   m_Pivot: {x: -0.03491106, y: 1.0390935}
 --- !u!222 &1548868806
@@ -41408,7 +41491,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.29039642, y: 0}
   m_AnchorMax: {x: 0.5711426, y: 0.37500003}
-  m_AnchoredPosition: {x: -554.99994, y: 0}
+  m_AnchoredPosition: {x: -554.99866, y: 0}
   m_SizeDelta: {x: -5.3600006, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1612967421
@@ -43513,7 +43596,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.108, y: 0.78200006}
   m_AnchorMax: {x: 0.2254151, y: 0.98954874}
-  m_AnchoredPosition: {x: 0, y: -5.0457573}
+  m_AnchoredPosition: {x: 0, y: -5.04576}
   m_SizeDelta: {x: 0, y: 9.713284}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1659842524
@@ -43911,12 +43994,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45
+  m_fontSize: 35
   m_fontSizeBase: 45
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 25
+  m_fontSizeMax: 35
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -44803,7 +44886,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.7174151, y: 0.51045126}
   m_AnchorMax: {x: 0.97575486, y: 0.7714513}
-  m_AnchoredPosition: {x: 0, y: -16.903381}
+  m_AnchoredPosition: {x: 0, y: -16.903393}
   m_SizeDelta: {x: 0, y: 12.214804}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1714934312
@@ -45919,7 +46002,12 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    plusEvasion: 0
+    plusAttack: 0
+    plusPrecision: 0
+    plusDefense: 0
     value: 0
+    position: 0
 --- !u!114 &1741124567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49256,7 +49344,12 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    plusEvasion: 0
+    plusAttack: 0
+    plusPrecision: 0
+    plusDefense: 0
     value: 0
+    position: 0
 --- !u!114 &1868233062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49410,7 +49503,12 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    plusEvasion: 0
+    plusAttack: 0
+    plusPrecision: 0
+    plusDefense: 0
     value: 0
+    position: 0
 --- !u!114 &1869775096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51053,7 +51151,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.16167112}
   m_AnchorMax: {x: 1, y: 0.337}
-  m_AnchoredPosition: {x: 0.12475586, y: 27.781464}
+  m_AnchoredPosition: {x: 0.12475586, y: 27.781467}
   m_SizeDelta: {x: -2.2994385, y: 18.038086}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1940143359
@@ -51674,7 +51772,12 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    plusEvasion: 0
+    plusAttack: 0
+    plusPrecision: 0
+    plusDefense: 0
     value: 0
+    position: 0
 --- !u!114 &1974352097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51995,7 +52098,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.7821699, y: 0.78200006}
   m_AnchorMax: {x: 0.901, y: 1}
-  m_AnchoredPosition: {x: -0.1000061, y: -5.001198}
+  m_AnchoredPosition: {x: -0.1000061, y: -5.001191}
   m_SizeDelta: {x: -1, y: 9.2024}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1999852119
@@ -52588,7 +52691,12 @@ MonoBehaviour:
     type: 0
     scale: 0
     attribute: 
+    plusEvasion: 0
+    plusAttack: 0
+    plusPrecision: 0
+    plusDefense: 0
     value: 0
+    position: 0
 --- !u!114 &2007692639
 MonoBehaviour:
   m_ObjectHideFlags: 0

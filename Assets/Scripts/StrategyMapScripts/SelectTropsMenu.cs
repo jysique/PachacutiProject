@@ -10,12 +10,14 @@ public class SelectTropsMenu : MonoBehaviour
     public static SelectTropsMenu instance;
     TerritoryHandler territoryAttacker;
     TerritoryHandler territoryToAttack;
-    [SerializeField] public Button moveUnits;
-    [SerializeField] public Button cancel;
+    [SerializeField] private TextMeshProUGUI title;
+    [SerializeField] private Button moveUnits;
+    [SerializeField] private Button cancel;
     [SerializeField] private GameObject containerUC;
     [SerializeField] Troop troopSelected = new Troop();
     List<UCTempOption> tempOptions = new List<UCTempOption>();
     int total_cost = 0;
+    int limit_troop;
     public Troop TroopSelected
     {
         get { return troopSelected; }
@@ -33,15 +35,20 @@ public class SelectTropsMenu : MonoBehaviour
 
     private void Update()
     {
+        //print("selected" + CountSelected());
         total_cost = GetTotalCost();
-        moveUnits.interactable = GetIsAnySelected() && HasEnoughResources();
+        moveUnits.interactable = HasEnoughResources() && IsLimitSelected();
     }
     public void InitMenu(TerritoryHandler _territoryToAttack)
     {
+        tempOptions.Clear();
+        
         territoryToAttack = _territoryToAttack;
         territoryAttacker = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
-        // DateTableHandler.instance.PauseTime();
+        limit_troop = Mathf.RoundToInt(territoryToAttack.TerritoryStats.Territory.TerrainList.Count / 2);
         DateTableHandler.instance.PauseButton();
+        string _title = GameMultiLang.GetTraduction("SelectTroopsTitle").Replace("QUANTITY", limit_troop.ToString());
+        title.text = _title;
         Transform gridLayout = containerUC.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
         foreach (Transform child in gridLayout.transform)
         {
@@ -56,10 +63,22 @@ public class SelectTropsMenu : MonoBehaviour
             }
         }
     }
-
-    public bool GetIsAnySelected()
+    public bool IsLimitSelected()
     {
-        return tempOptions.Any(x => x.IsSelected());
+        return CountSelected() > 0 && CountSelected() <= limit_troop;
+    }
+
+    public int CountSelected()
+    {
+        int a = 0;
+        for (int i = 0; i < tempOptions.Count; i++)
+        {
+            if (tempOptions[i].IsSelected())
+            {
+                a++;
+            }
+        }
+        return a;
     }
     private bool HasEnoughResources()
     {
@@ -90,11 +109,14 @@ public class SelectTropsMenu : MonoBehaviour
     }
     public void MoveUnits()
     {
+        int i = 0;
         foreach (UCTempOption item in tempOptions)
         {
             if (item.IsSelected())
             {
+               // item.UnitCombat.PositionInBattle = i;
                 troopSelected.AddUnitCombat(item.UnitCombat);
+               // i++;
             }
         }
         Territory.TYPEPLAYER typeSelected = territoryAttacker.TerritoryStats.Territory.TypePlayer;
