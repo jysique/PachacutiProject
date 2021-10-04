@@ -52,8 +52,9 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private GameObject unitResume;
     [SerializeField] private GameObject unitPicture;
     [SerializeField] private GameObject unitText;
-
-
+    [SerializeField] private GameObject unitAttackBonus;
+    [SerializeField] private GameObject unitDefenseBonus;
+    [SerializeField] private GameObject unitPresicionBonus;
     public bool blockScreen;
     public List<UnitGroup> units = new List<UnitGroup>();
     public UnitGroup selectedUnit;
@@ -356,6 +357,37 @@ public class CombatManager : MonoBehaviour
             "ATTACK:          " + unit.UnitCombat.Attack + "\n" +
             "DEFENSE:        " + unit.UnitCombat.Defense + "\n" +
             "PRECISION:     " + unit.UnitCombat.Precision + "\n";
+        Terrain unitTerrain = selectedUnit.UnitsGO.GetComponent<SquareType>().Terrain;
+        if (unitTerrain.Plus_attack >= 0)
+        {
+            unitAttackBonus.SetActive(true);
+            unitAttackBonus.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "+"+ unitTerrain.Plus_attack+"%";
+
+        }
+        else
+        {
+            unitAttackBonus.SetActive(false);
+        }
+        if (unitTerrain.Plus_defense >= 0)
+        {
+            unitDefenseBonus.SetActive(true);
+            unitDefenseBonus.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "+" + unitTerrain.Plus_defense + "%";
+
+        }
+        else
+        {
+            unitDefenseBonus.SetActive(false);
+        }
+        if (unitTerrain.Plus_presicion >= 0)
+        {
+            unitPresicionBonus.SetActive(true);
+            unitPresicionBonus.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "+" + unitTerrain.Plus_presicion + "%";
+
+        }
+        else
+        {
+            unitPresicionBonus.SetActive(false);
+        }
         unitResume.SetActive(true);
     }
 
