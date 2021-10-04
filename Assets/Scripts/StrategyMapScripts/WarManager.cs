@@ -146,117 +146,14 @@ public class WarManager : MonoBehaviour
         hat.sprite = territory.TerritoryStats.Territory.Civilization.Hat1;
         empire.text = territory.TerritoryStats.Territory.Civilization.Name;
         background.color = territory.TerritoryStats.Territory.Civilization.ColorBackground;
-        /*
-        switch (type)
-        {
-            case Territory.TYPEPLAYER.PLAYER:
-                hat.sprite = incaHat;
-                empire.text = "Incas";
-                background.color = playerColor;
-                break;
-            case Territory.TYPEPLAYER.NONE:
-                hat.sprite = null;
-                empire.text = "No empire";
-                background.color = Color.white;
-                break;
-            case Territory.TYPEPLAYER.BOT:
-                hat.sprite = mochicaHat;
-                empire.text = "Chancas";
-                background.color = enemyColor;
-                break;
-            case Territory.TYPEPLAYER.BOT2:
-                hat.sprite = chavinHat;
-                empire.text = "Mochica";
-                background.color = enemyColor;
-                break;
-            case Territory.TYPEPLAYER.BOT3:
-                hat.sprite = chancaHat;
-                empire.text = "Chavin";
-                background.color = enemyColor;
-                break;
-            case Territory.TYPEPLAYER.BOT4:
-                hat.sprite = chancaHat;
-                empire.text = "Pendiente";
-                background.color = enemyColor;
-                break;
-        }
-        */
+        
     }
 
-    /*
-    private void SetWarriorAnimation(Territory.TYPEPLAYER type, Image hat, Image background, Text empire)
-    {
-
-        switch (type)
-        {
-            case Territory.TYPEPLAYER.PLAYER:
-                hat.sprite = incaHat;
-                empire.text = "Incas";
-                background.color = playerColor;
-                break;
-            case Territory.TYPEPLAYER.NONE:
-                hat.sprite = null;
-                empire.text = "No empire";
-                background.color = Color.white;
-                break;
-            case Territory.TYPEPLAYER.BOT:
-                hat.sprite = mochicaHat;
-                empire.text = "Chancas";
-                background.color = enemyColor;
-                break;
-            case Territory.TYPEPLAYER.BOT2:
-                hat.sprite = chavinHat;
-                empire.text = "Mochica";
-                background.color = enemyColor;
-                break;
-            case Territory.TYPEPLAYER.BOT3:
-                hat.sprite = chancaHat;
-                empire.text = "Chavin";
-                background.color = enemyColor;
-                break;
-            case Territory.TYPEPLAYER.BOT4:
-                hat.sprite = chancaHat;
-                empire.text = "Pendiente";
-                background.color = enemyColor;
-                break;
-        }
-    }
-    */
     private void SetPeaceMenu()
     {
         hatP1.sprite = selected.TerritoryStats.Territory.Civilization.Hat2;
         hatP2.sprite = selected.TerritoryStats.Territory.Civilization.Hat2;
         hatP2.sprite = selected.TerritoryStats.Territory.Civilization.Hat2;
-        /*
-        switch (selected.TerritoryStats.Territory.TypePlayer)
-        {
-            case Territory.TYPEPLAYER.PLAYER:
-                hatP1.sprite = incaHat;
-                hatP2.sprite = incaHat;
-                hatP3.sprite = incaHat;
-                break;
-            case Territory.TYPEPLAYER.NONE:
-                hatP1.sprite = null;
-                hatP2.sprite = null;
-                hatP3.sprite = null;
-                break;
-            case Territory.TYPEPLAYER.BOT:
-                hatP1.sprite = chancaHat2;
-                hatP2.sprite = chancaHat2;
-                hatP3.sprite = chancaHat2;
-                break;
-            case Territory.TYPEPLAYER.BOT2:
-                hatP1.sprite = mochicaHat;
-                hatP2.sprite = mochicaHat;
-                hatP3.sprite = mochicaHat;
-                break;
-            case Territory.TYPEPLAYER.BOT3:
-                hatP1.sprite = chavinHat;
-                hatP2.sprite = chavinHat;
-                hatP3.sprite = chavinHat;
-                break;
-        }
-        */
         territorySprite.sprite = selected.SpriteRender.sprite;
         warContainer.SetActive(false);
         title.text = selected.TerritoryStats.Territory.name;
@@ -432,23 +329,48 @@ public class WarManager : MonoBehaviour
                 TutorialController.instance.CanSelectTroops = true;
                 DateTableHandler.instance.PauseTime();
                 battleCanvas.SetActive(true);
-                Troop playerTroop;
-                Troop enemyTroop;
+                Troop playerTroop = new Troop();
+                Troop enemyTroop = new Troop();
                 TerritoryHandler playerTerritory;
                 TerritoryHandler enemyTerritory;
                 if (attacker.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
                 {
+                    //attackerTroop.LogTroop();
+                    //playerTroop = attackerTroop;
                     
-                    playerTroop = attackerTroop;
-                    enemyTroop = otherTerritory.TerritoryStats.Territory.ListUnitCombat;
-                    //TODO cambiar si es posible
+                    for (int i = 0; i < attackerTroop.UnitCombats.Count; i++)
+                    {
+                        attackerTroop.UnitCombats[i].PositionInBattle = i;
+                        playerTroop.AddUnitCombat(attackerTroop.UnitCombats[i]);
+                    }
+                    // enemyTroop = otherTerritory.TerritoryStats.Territory.ListUnitCombat;
+                    
+                    for (int i = 0; i < otherTerritory.TerritoryStats.Territory.ListUnitCombat.UnitCombats.Count; i++)
+                    {
+                        otherTerritory.TerritoryStats.Territory.ListUnitCombat.UnitCombats[i].PositionInBattle = i;
+                        enemyTroop.AddUnitCombat(otherTerritory.TerritoryStats.Territory.ListUnitCombat.UnitCombats[i]);
+                    }
+                    enemyTroop.MoveUnits(otherTerritory.TerritoryStats.Territory); //-------------
+
                     playerTerritory = attacker;
                     enemyTerritory = otherTerritory;
                 }
                 else
                 {
-                    enemyTroop = attackerTroop;
-                    playerTroop = otherTerritory.TerritoryStats.Territory.ListUnitCombat;
+                    //enemyTroop = attackerTroop;
+                    for (int i = 0; i < attackerTroop.UnitCombats.Count; i++)
+                    {
+                        attackerTroop.UnitCombats[i].PositionInBattle = i;
+                        enemyTroop.AddUnitCombat(attackerTroop.UnitCombats[i]);
+                    }
+                    //playerTroop = otherTerritory.TerritoryStats.Territory.ListUnitCombat;
+                    for (int i = 0; i < otherTerritory.TerritoryStats.Territory.ListUnitCombat.UnitCombats.Count; i++)
+                    {
+                        otherTerritory.TerritoryStats.Territory.ListUnitCombat.UnitCombats[i].PositionInBattle = i;
+                        playerTroop.AddUnitCombat(otherTerritory.TerritoryStats.Territory.ListUnitCombat.UnitCombats[i]);
+                    }
+                    playerTroop.MoveUnits(otherTerritory.TerritoryStats.Territory); //-------------
+
                     playerTerritory = otherTerritory;
                     enemyTerritory =  attacker;
                 }

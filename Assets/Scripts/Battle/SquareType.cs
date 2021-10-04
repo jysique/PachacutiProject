@@ -63,6 +63,7 @@ public class SquareType : MonoBehaviour
         {
             //print("reset");
             //            Utils.instance.Reset(unitGroup.UnitCombat);
+//            Utils.instance.Reset(unitGroup.UnitCombat);
             terrain.GetValue(unitGroup);
         }
         else

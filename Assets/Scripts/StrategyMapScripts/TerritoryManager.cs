@@ -121,7 +121,7 @@ public class TerritoryManager : MonoBehaviour
             string a = ambience_string[i];
             a = a.Replace("(", "").Replace(")", "");
             string[] b = a.Split('-');
-            ambiences.Add(new Terrain(b[0], int.Parse(b[1])));
+            ambiences.Add(new Terrain(b[0],int.Parse(b[1])));
         }
 
         List<int> units = new List<int>();
