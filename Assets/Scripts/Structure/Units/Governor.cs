@@ -39,8 +39,6 @@ public class Governor : RoyalFamily
         this.CharacterName = _name;
         this.Age = Random.Range(20, 30);
         this.Origin = "Qosqo";
-        this.Campaign = "Default";
-        this.Personality = "Default";
         this.CharacIconType = "Governor";
         this.CharacIconIndex = "0" + Random.Range(1, 4).ToString();
         this.Diplomacy = Random.Range(3,10);

@@ -20,7 +20,7 @@ public class Troop
     {
         for (int i = 0; i < unitCombats.Count; i++)
         {
-            Debug.Log("uc-" + unitCombats[i].UnitName);
+            Debug.Log("uc-" + unitCombats[i].CharacterName);
         }
     }
 
@@ -32,46 +32,19 @@ public class Troop
             AddUnitCombat(_troop.UnitCombats[i]);
         }
     }
-    public void MoveUnits(Territory territory)
+
+    public void GetNewTroop(Troop _troop)
     {
-        for (int i = 0; i < unitCombats.Count; i++)
+        for (int i = 0; i < _troop.UnitCombats.Count; i++)
         {
-            //Debug.Log("borrando "+ unitCombats[i].UnitName + " en " + territory.name);
-            territory.ListUnitCombat.DeleteUnitCombat(unitCombats[i]);
-        }
-    }
-    public void AddMoreWarriors(Troop _troop)
-    {
-        for (int i = 0; i < unitCombats.Count; i++)
-        {
-            for (int j = 0; j < _troop.UnitCombats.Count; j++)
-            {
-                if (_troop.UnitCombats[j].GetType().ToString() == unitCombats[i].GetType().ToString())
-                {
-                    unitCombats[i].Quantity += _troop.UnitCombats[j].Quantity;
-                }
-            }
+            UnitCombat unitCombat = Utils.instance.CreateNewUnitCombat(_troop.UnitCombats[i].CharacterName,_troop.UnitCombats[i].Quantity);
+            unitCombat.InProgress = _troop.UnitCombats[i].InProgress;
+            unitCombat.IsAvailable = _troop.UnitCombats[i].IsAvailable;
+            unitCombat.PositionInBattle = _troop.UnitCombats[i].PositionInBattle;
+            AddUnitCombat(unitCombat);
         }
     }
 
-    public UnitCombat GetNewUnitCombat(string _type)
-    {
-        switch (_type)
-        {
-            case "Swordsman":
-                return new Swordsman();
-            case "Lancer":
-                return new Lancer();
-            case "Axeman":
-                return new Axeman();
-            case "Archer":
-                return new Archer();
-            case "Scout":
-                return new Scout();
-            default:
-                return null;
-        }
-    }
     public int GetAllNumbersUnit()
     {
         int result = 0;
@@ -92,9 +65,8 @@ public class Troop
     }
     public void AddUnitCombat(string _type,int _in_progress, int _quantity)
     {
-        UnitCombat a = Utils.instance.GetNewUnitCombat(_type);
+        UnitCombat a = Utils.instance.CreateNewUnitCombat(_type,_quantity);
         a.InProgress = _in_progress;
-        a.Quantity = _quantity;
         if (a.InProgress == a.Quantity)
             a.IsAvailable = true;
         else
@@ -120,7 +92,7 @@ public class Troop
     
     public bool SearchUnitCombat(string _type)
     {
-        return unitCombats.Any(x => x.UnitName == _type);
+        return unitCombats.Any(x => x.CharacterName == _type);
     }
 
     public int GetUnitQuantity(string _type)
@@ -132,7 +104,7 @@ public class Troop
         }
         else
         {
-            return unitCombats.FindAll(x => (x.UnitName == _type)).Select(x => x.Quantity).Sum();
+            return unitCombats.FindAll(x => (x.CharacterName == _type)).Select(x => x.Quantity).Sum();
         }
     }
     public UnitCombat GetFirstUnitCombat(string _type)
@@ -172,7 +144,7 @@ public class Troop
         }
         else
         {
-            return unitCombats.FindAll(x => (x.UnitName == _type) && (x.IsAvailable==true)).ToList();
+            return unitCombats.FindAll(x => (x.CharacterName == _type) && (x.IsAvailable==true)).ToList();
         }
     }
 

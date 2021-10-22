@@ -8,31 +8,30 @@ using System.Linq;
 [RequireComponent(typeof(PolygonCollider2D))]
 public class TerritoryHandler : MonoBehaviour
 {
-   // private SpriteRenderer sr;
-    public int state;
-    public bool war;
+
     [SerializeField] private Material outlineMaterial;
     [SerializeField] private Material normalMaterial;
     [SerializeField] private Territory territory;
     [SerializeField] private float paddingX;
     [SerializeField] private float paddingY;
+    [SerializeField] private List<GameObject> adjacentTerritories;
+
+    public int state;
+    public bool war;
     private SpriteRenderer sprite;
     private Color32 oldColor;
     private Color32 hoverColor;
-    [SerializeField] private List<GameObject> adjacentTerritories;
+    private TerritoryStats territoryStats;
+    
     public List<GameObject> AdjacentTerritories
     {
         get { return adjacentTerritories; }
         set { adjacentTerritories = value; }
     }
-
-    GameObject statsGO;
-    [SerializeField] private TerritoryStats territoryStats;
-
-    public TerritoryStats TerritoryStats
+    public Territory Territory
     {
-        get { return territoryStats; }
-        set { territoryStats = value; }
+        get { return territory; }
+        set { territory = value; }
     }
     public SpriteRenderer SpriteRender
     {
@@ -54,55 +53,31 @@ public class TerritoryHandler : MonoBehaviour
     }
     private void Start()
     {
-        if (TerritoryStats.Territory.Selected)
+        if (territory.Selected)
         {
             TerritoryManager.instance.territorySelected = this.gameObject;
             sprite.material = outlineMaterial;
             WarManager.instance.selected = this;
             WarManager.instance.SetWarStatus(this.war);
         }            
-        if(TerritoryStats.Territory.TypePlayer != Territory.TYPEPLAYER.NONE)
+        if(territory.TypePlayer != Territory.TYPEPLAYER.NONE)
         {
-            TerritoryStats.Territory.IsClaimed = true;
+            territory.IsClaimed = true;
         }
     }
     void InstantiateStatTerritory()
     {
-        GameObject canvas = GameObject.Find("Canvas");
-        statsGO = Instantiate(Resources.Load("Prefabs/MenuPrefabs/TerritoryStats")) as GameObject;
-
-        statsGO.transform.SetParent(GameObject.Find("StatsContainer").transform,false);
-        //        print(canvas.GetComponent<Canvas>().scaleFactor);
-        statsGO.GetComponent<RectTransform>().anchoredPosition =  new Vector3(transform.position.x*110+paddingX, transform.position.y*110+paddingY,transform.position.z);
-
-        territoryStats = statsGO.GetComponent<TerritoryStats>();
-        TerritoryStats.Territory = territory;
+        GameObject go = Resources.Load("Prefabs/MenuPrefabs/TerritoryStats") as GameObject;
+        GameObject stats = Instantiate(go, this.transform);
+        stats.transform.position = new Vector3(stats.transform.position.x + paddingX, stats.transform.position.y + paddingY,0f);
+        territoryStats = stats.GetComponent<TerritoryStats>();
+        territoryStats.InitStats(territory);
 
     }
     private void Update()
     {
+        territoryStats.UpdatePopulation(territory);
     }
-    private void FixedUpdate()
-    {
-        if(TerritoryStats.Territory.TypePlayer != Territory.TYPEPLAYER.NONE && TerritoryStats.Territory.TypePlayer != Territory.TYPEPLAYER.PLAYER && war == false)
-        {
-            int prob = Random.Range(0, 401);
-            if (prob < 1 && this.TerritoryStats.Territory.Population > 2)
-            {
-                EnemyMoveWarriors();
-            }
-        }
-    }
-    private void EnemyMoveWarriors()
-    {
-        /*
-        int i = Random.Range(0, adjacentTerritories.Count);
-        int warriorsToSend = Random.Range(3, this.TerritoryStats.Territory.Population);
-        TerritoryHandler territoryToAttack = adjacentTerritories[i].GetComponent<TerritoryHandler>();
-        WarManager.instance.SendWarriors(this, territoryToAttack, warriorsToSend);
-        */
-    }
-
     private void OnMouseOver()
     {
         if(EventSystem.current.IsPointerOverGameObject())
@@ -110,15 +85,14 @@ public class TerritoryHandler : MonoBehaviour
         
         if (Input.GetMouseButtonDown(1) && state == 0)
         {
-//            print("a");
-            TerritoryStats.Territory.Selected = true;
+            territory.Selected = true;
             ShowStateMenu();
             MakeOutline();
 
             bool ca = false;
             TerritoryHandler selected = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
         
-            if (selected == this && TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
+            if (selected == this && territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
             {
                 ca = true;
             }
@@ -154,7 +128,7 @@ public class TerritoryHandler : MonoBehaviour
         switch (state)
         {
             case 0:
-                TerritoryStats.Territory.Selected =true;
+                territory.Selected =true;
                 ShowStateMenu();
                 MakeOutline();
                 InGameMenuHandler.instance.UpdateMenu();
@@ -169,7 +143,6 @@ public class TerritoryHandler : MonoBehaviour
                     TutorialController.instance.MoveTroopInTutorial(this);
                     //TutorialController.instance.CanSelectTroops = true;
                 }
-                
                 HideAdjacentTerritories();
                 break;
             case 2:
@@ -225,7 +198,7 @@ public class TerritoryHandler : MonoBehaviour
     }
     public void Deselect()
     {
-        TerritoryStats.Territory.Selected = false;
+        territory.Selected = false;
         sprite.sortingOrder = -8;
         sprite.material = normalMaterial;
     }
@@ -233,9 +206,8 @@ public class TerritoryHandler : MonoBehaviour
     
     public void GetSizeMap()
     {
-        territoryStats.Territory.Width = sprite.sprite.texture.width;
-        territoryStats.Territory.Height = sprite.sprite.texture.height;
-       // print("|w|"+ territoryStats.Territory.width + "|h|" + territoryStats.Territory.height);
+        territory.Width = sprite.sprite.texture.width;
+        territory.Height = sprite.sprite.texture.height;
     }
 
     public void ShowStateMenu()
@@ -246,19 +218,6 @@ public class TerritoryHandler : MonoBehaviour
         TerritoryManager.instance.ChangeStateTerritory(0);
         MenuManager.instance.TurnOffBlock();
 
-    }
-    /// <summary>
-    /// Action gather gold and food in this territory
-    /// </summary>
-    public void GatherTerritoryGold()
-    {
-        int gather = TerritoryStats.Territory.Gold;
-        TerritoryStats.Territory.Gold -= gather;
-    }
-    public void GatherTerritoryFood()
-    {
-        int gather = TerritoryStats.Territory.FoodReward;
-        TerritoryStats.Territory.FoodReward-= gather;
     }
 
 }

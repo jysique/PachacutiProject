@@ -159,7 +159,7 @@ tooltip10=Costara COST de oro y comida.
 tooltip11=No tiene suficientes recursos.
 
 territoryStats1=No puedes controlar territorios que no te pertenecen.
-territoryStats2=Reclama este territorio para controlarlo en el menú militar.
+territoryStats2=Contrata un jefe militar para &mover las unidades en &el menú militar.
 territoryStats3=No se pueden mover tropas en una pandemia.
 ResultEvent=Resultado del evento
 Results=Resultado:

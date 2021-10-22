@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class CharacterManager : MonoBehaviour
 {
     public static CharacterManager instance;
-    [SerializeField] private SubordinateList militarBossList = new SubordinateList();
     private Governor governor;
 
     [Header("Menu personaje")]
@@ -36,9 +35,7 @@ public class CharacterManager : MonoBehaviour
         else
         {
             governor = GlobalVariables.instance.GovernorChoose;
-            //AudioManager.activeSong.Stop();
         }
-     //   governor.TimeInit.PrintTimeSimulated();
        UpdateProfileMenu();
     }
     public void UpdateProfileMenu()
@@ -53,11 +50,6 @@ public class CharacterManager : MonoBehaviour
         governorManagement.text = temp.Managment + "/20";
         governorPrestige.text = temp.Prestige + "/20";
         governorPiety.text = temp.Piety + "/20";
-    }
-
-    public SubordinateList MilitarBossList
-    {
-        get { return militarBossList; }
     }
 
     public Governor Governor

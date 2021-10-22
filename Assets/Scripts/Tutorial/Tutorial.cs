@@ -59,19 +59,19 @@ public class TutorialMoveSword : Tutorial
     }
     public override void CheckTutorial()
     {
-        TutorialController.instance.TurnBattle1Indication(true);
+        //TutorialController.instance.TurnBattle1Indication(true);
         SquareType square = CombatManager.instance.Squares.transform.GetChild(1).gameObject.GetComponent<SquareType>();
         UnitGroup ug = square.UnitGroup;
         
-        if (ug != null && ug.UnitCombat.UnitName == "Swordsman" && ug.TypePlayer == Territory.TYPEPLAYER.PLAYER)
+        if (ug != null && ug.UnitCombat.CharacterName == "Swordsman" && ug.TypePlayer == Territory.TYPEPLAYER.PLAYER)
         {
-            TutorialController.instance.TurnBattle1Indication(false);
-            TutorialController.instance.TurnBattle2Indication(true);
+            //TutorialController.instance.TurnBattle1Indication(false);
+            //TutorialController.instance.TurnBattle2Indication(true);
             square = CombatManager.instance.Squares.transform.GetChild(4).gameObject.GetComponent<SquareType>();
             ug = square.UnitGroup;
-            if (ug != null && ug.UnitCombat.UnitName == "Archer")
+            if (ug != null && ug.UnitCombat.CharacterName == "Archer")
             {
-                TutorialController.instance.TurnBattle2Indication(false);
+                //TutorialController.instance.TurnBattle2Indication(false);
                 this.CompletedTutorial();
             }
         }
@@ -89,13 +89,13 @@ public class TutorialDefendSword : Tutorial
     {
         SquareType square1 = CombatManager.instance.Squares.transform.GetChild(1).gameObject.GetComponent<SquareType>();
         UnitGroup ug1 = square1.UnitGroup;
-        if (ug1 != null && ug1.UnitCombat.UnitName == "Swordsman" && ug1.Defense)
+        if (ug1 != null && ug1.UnitCombat.CharacterName == "Swordsman" && ug1.Defense)
         {
             x = 1;
         }
         SquareType square2 = CombatManager.instance.Squares.transform.GetChild(4).gameObject.GetComponent<SquareType>();
         UnitGroup ug2 = square2.UnitGroup;
-        if (ug2 != null && ug2.UnitCombat.UnitName == "Archer" && ug2.Defense)
+        if (ug2 != null && ug2.UnitCombat.CharacterName == "Archer" && ug2.Defense)
         {
             x = 2;
         }

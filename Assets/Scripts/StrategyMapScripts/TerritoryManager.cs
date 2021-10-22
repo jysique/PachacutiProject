@@ -12,11 +12,12 @@ public class TerritoryManager : MonoBehaviour
     public GameObject territorySelected;
 
     public Dictionary<string, List<GameObject>> dictionaryTerritoryAdyacent = new Dictionary<string, List<GameObject>>();
-    public Dictionary<string, List<Terrain>> dictionaryAmbience = new Dictionary<string, List<Terrain>>();
+    public Dictionary<string, List<Terrain>> dictionaryAmbienceAttack = new Dictionary<string, List<Terrain>>();
+    public Dictionary<string, List<Terrain>> dictionaryAmbienceDeffend = new Dictionary<string, List<Terrain>>();
     public Dictionary<string, string> dictionaryCivilization = new Dictionary<string, string>();
     public Dictionary<string, Territory.REGION> dictionaryRegion = new Dictionary<string, Territory.REGION>();
     public Dictionary<string, Territory.TYPEPLAYER> dictionaryTypePlayer = new Dictionary<string, Territory.TYPEPLAYER>();
-    public Dictionary<string, List<int>> dictionaryUnitCombats = new Dictionary<string, List<int>>();
+    public Dictionary<string, List<string>> dictionaryUnitCombats = new Dictionary<string, List<string>>();
 
     public List<float> areas = new List<float>();
     private float area_min;
@@ -31,17 +32,16 @@ public class TerritoryManager : MonoBehaviour
         territoryList = new List<GameObject>();
         AddTerritoryData();
         ReadTerritoriesData();
-        JsonTest();
+        civilizations = FileHandler.ReadListFromJSON_Resource<Civilization>("civilization");
     }
     [SerializeField]
     List<Player> players = new List<Player>();
     [SerializeField]
     List<Civilization> civilizations = new List<Civilization>();
-    void JsonTest()
+    
+    void TestJson()
     {
-        civilizations = FileHandler.ReadListFromJSON_Resource<Civilization>("civilization");
-        /*
-        //print("tiempo" + System.DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
+       //print("tiempo" + System.DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
         if (filename.Contains(".json"))
         {
             players = FileHandler.ReadListFromJSON<Player>(filename);
@@ -50,20 +50,10 @@ public class TerritoryManager : MonoBehaviour
         {
             players = FileHandler.ReadListFromJSON_Resource<Player>("players");
             time = System.DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
-            filename = time+ ".json";
+            filename = time + ".json";
         }
-        Units a = new Units();
-        a.S.Add(3);
-        a.S.Add(102);
-        ////players[0].Region = Territory.REGION.CENTRE;
-        //players[0].Militar.StrategyType = MilitarChief.TYPESTRAT.AGGRESSIVE.ToString();
-        players[0].Troop.Add(a);
-        players[0].Troop.Add(a);
-
         FileHandler.SaveToJSON<Player>(players, filename);
-        */
     }
-
     void Start()
     {
         AddTypePlayerData();
@@ -84,15 +74,21 @@ public class TerritoryManager : MonoBehaviour
                 ParseLine(data[i]);
             }
         }
+        file = Resources.Load<TextAsset>("Data/Menu/players_info").text;
+        data = new List<string>(file.Split('\n'));
+        for (int i = 0; i < data.Count; i++)
+        {
+            if (!data[i].StartsWith("//"))
+            {
+                ParseInfo(data[i]);
+            }
+        }
     }
     /// <summary>
     /// a[0]:territory
-    /// a[1]:type player
-    /// a[2]:civ
-    /// a[3]:units
-    /// a[4]:region 
-    /// a[5]:ambientes 
-    /// a[6]:territorios adyacentes </summary>
+    /// a[1]:region 
+    /// a[2]:ambientes 
+    /// a[3]:territorios adyacentes </summary>
     /// <param name="line"></param>
     void ParseLine(string line)
     {
@@ -100,43 +96,55 @@ public class TerritoryManager : MonoBehaviour
         string[] all_line_split = line.Split(char.Parse(":"));
         string territory = all_line_split[0];
 
-        Territory.TYPEPLAYER player = (Territory.TYPEPLAYER)Enum.Parse(typeof(Territory.TYPEPLAYER), all_line_split[1].ToUpper());
-        string civ = all_line_split[2];
-        Territory.REGION region = (Territory.REGION)Enum.Parse(typeof(Territory.REGION), all_line_split[4].ToUpper());
-        List<string> units_string = all_line_split[3].Split(char.Parse(",")).ToList();
-
-        List<string> ambience_string = all_line_split[5].ToUpper().Split(char.Parse(",")).ToList();
+        Territory.REGION region = (Territory.REGION)Enum.Parse(typeof(Territory.REGION), all_line_split[1].ToUpper());
+        dictionaryRegion.Add(territory, region);
 
 
-        List<string> adyacent = all_line_split[6].Split(char.Parse(",")).ToList();
+        string[] long_ambience = all_line_split[2].Split(char.Parse("|"));
+        List<string> ambience_string1 = long_ambience[0].ToUpper().Split(char.Parse(",")).ToList();
+        List<Terrain> terrains = new List<Terrain>();
+        AddTerrainsToList(ambience_string1, terrains);
+        dictionaryAmbienceAttack.Add(territory, terrains);
 
+        terrains = new List<Terrain>();
+        List<string> ambience_string2 = long_ambience[1].ToUpper().Split(char.Parse(",")).ToList();
+        AddTerrainsToList(ambience_string2, terrains);
+        dictionaryAmbienceDeffend.Add(territory, terrains);
+
+        List<string> adyacent = all_line_split[3].Split(char.Parse(",")).ToList();
         List<GameObject> goAdyacents = new List<GameObject>();
         for (int i = 0; i < adyacent.Count; i++)
         {
             goAdyacents.Add(SearchTerritoryGameObject(adyacent[i], territory));
         }
-        List<Terrain> ambiences = new List<Terrain>();
-        for (int i = 0; i < ambience_string.Count; i++)
-        {
-            string a = ambience_string[i];
-            a = a.Replace("(", "").Replace(")", "");
-            string[] b = a.Split('-');
-            ambiences.Add(new Terrain(b[0],int.Parse(b[1])));
-        }
+        dictionaryTerritoryAdyacent.Add(territory, goAdyacents);
 
-        List<int> units = new List<int>();
+    }
+   
+    /// <summary>
+    /// a[0]:territory
+    /// a[1]:type player
+    /// a[2]:civ
+    /// a[3]:units
+    /// </summary>
+    /// <param name="line"></param>
+    private void ParseInfo(string line)
+    {
+        string[] all_line_split = line.Split(char.Parse(":"));
+        string territory = all_line_split[0];
+
+        Territory.TYPEPLAYER player = (Territory.TYPEPLAYER)Enum.Parse(typeof(Territory.TYPEPLAYER), all_line_split[1].ToUpper());
+        string civ = all_line_split[2];
+        List<string> units_string = all_line_split[3].Split(char.Parse("|")).ToList();
+
+        List<string> units = new List<string>();
         for (int i = 0; i < units_string.Count; i++)
         {
-            int a = int.Parse(units_string[i]);
-            units.Add(a);
+            units.Add(units_string[i]);
         }
         dictionaryTypePlayer.Add(territory, player);
         dictionaryCivilization.Add(territory, civ);
         dictionaryUnitCombats.Add(territory, units);
-        dictionaryAmbience.Add(territory, ambiences);
-        dictionaryTerritoryAdyacent.Add(territory, goAdyacents);
-        dictionaryRegion.Add(territory, region);
-
     }
     /// <summary>
     /// Add territory to list
@@ -158,18 +166,18 @@ public class TerritoryManager : MonoBehaviour
         for (int i = 0; i < territoryList.Count; i++)
         {
             TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-            if (territoryHandler.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.NONE)
+            if (territoryHandler.Territory.TypePlayer == Territory.TYPEPLAYER.NONE)
             {
                 MilitarChief newMilitarBoss = new MilitarChief();
                 newMilitarBoss.GetMilitarBoss();
-                newMilitarBoss.StrategyType = MilitarChief.TYPESTRAT.DEFENSIVE.ToString();
-                territoryHandler.TerritoryStats.Territory.MilitarChiefTerritory = newMilitarBoss;
+                newMilitarBoss.StrategyType = MilitarChief.TYPESTRAT.DEFENSIVE;
+                territoryHandler.Territory.MilitarChiefTerritory = newMilitarBoss;
             }
             else
             {
                 MilitarChief newMilitarBoss = new MilitarChief();
                 newMilitarBoss.GetMilitarBoss();
-                territoryHandler.TerritoryStats.Territory.MilitarChiefTerritory = newMilitarBoss;
+                territoryHandler.Territory.MilitarChiefTerritory = newMilitarBoss;
             }
         }
     }
@@ -178,7 +186,7 @@ public class TerritoryManager : MonoBehaviour
         for (int i = 0; i < territoryList.Count; i++)
         {
             TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-            territoryHandler.AdjacentTerritories = dictionaryTerritoryAdyacent.Single(s => s.Key == territoryHandler.TerritoryStats.Territory.name).Value;
+            territoryHandler.AdjacentTerritories = dictionaryTerritoryAdyacent.Single(s => s.Key == territoryHandler.Territory.name).Value;
         }
     }
     public void AddTypePlayerData()
@@ -186,24 +194,36 @@ public class TerritoryManager : MonoBehaviour
         for (int i = 0; i < territoryList.Count; i++)
         {
             TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-            Territory _territory = territoryHandler.TerritoryStats.Territory;
-            _territory.TypePlayer = dictionaryTypePlayer.Single(s => s.Key == territoryHandler.TerritoryStats.Territory.name).Value;
+            Territory _territory = territoryHandler.Territory;
+            _territory.TypePlayer = dictionaryTypePlayer.Single(s => s.Key == territoryHandler.Territory.name).Value;
 
-            string civ = dictionaryCivilization.Single(s => s.Key == territoryHandler.TerritoryStats.Territory.name).Value;
+            string civ = dictionaryCivilization.Single(s => s.Key == territoryHandler.Territory.name).Value;
             _territory.Civilization = civilizations.Find(x => x.Name == civ);
 
             for (int k = 0; k < Utils.instance.Units_string.Count; k++)
             {
-                int _quantity = dictionaryUnitCombats.Single(s => s.Key == territoryHandler.TerritoryStats.Territory.name).Value[k];
-                if (_quantity > 0)
+                string q = dictionaryUnitCombats.Single(s => s.Key == territoryHandler.Territory.name).Value[k];
+             //   print(q);
+                List<string> list = q.Split(char.Parse(",")).ToList();
+                for (int j = 0; j < list.Count; j++)
                 {
-
-                    _territory.ListUnitCombat.AddUnitCombat(Utils.instance.Units_string[k], _quantity, _quantity);
+                    
+                    int _quantity = int.Parse(list[j]);
+                    if (_quantity>0)
+                    {
+                        UnitCombat new_unit = Utils.instance.CreateNewUnitCombat(Utils.instance.Units_string[k], _quantity);
+                        new_unit.IsAvailable = true;
+                        _territory.ListUnitCombat.AddUnitCombat(new_unit);
+                    }
                 }
 
-                if (_territory.ListUnitCombat.SearchUnitCombat(Utils.instance.Units_string[k]))
+            }
+            print("A " + _territory.ListUnitCombat.UnitCombats.Count + " " + _territory.name);
+            for (int k = 0; k < _territory.ListUnitCombat.UnitCombats.Count; k++)
+            {
+                Building _building = _territory.GetBuilding(_territory.GetBuildingByUnit(_territory.ListUnitCombat.UnitCombats[k]));
+                if (_building.Level <1)
                 {
-                    Building _building = _territory.GetBuilding(_territory.GetBuildingByUnit(Utils.instance.Units_string[k]));
                     _building.ImproveManyLevels(1, _territory);
                     _building.ImproveCostUpgrade(1);
                     _building.Status++;
@@ -222,21 +242,14 @@ public class TerritoryManager : MonoBehaviour
             }
         }
     }
-
     public void AddAmbienceData()
     {
         for (int i = 0; i < territoryList.Count; i++)
         {
             TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-            territoryHandler.TerritoryStats.Territory.TerrainList = dictionaryAmbience.Single(s => s.Key == territoryHandler.TerritoryStats.Territory.name).Value;
-            //List<Terrain> list_terrains = dictionaryAmbience.Single(s => s.Key == territoryHandler.TerritoryStats.Territory.name).Value;
-            /*
-            for (int j = 0; j < list_terrains.Count; j++)
-            {
-                territoryHandler.TerritoryStats.Territory.TerrainDicc.Add(list_terrains[j], j);
-            }
-            */
-
+            List<Terrain> list_terrains = dictionaryAmbienceDeffend.Single(s => s.Key == territoryHandler.Territory.name).Value;
+            territoryHandler.Territory.TerrainDeffendList = dictionaryAmbienceDeffend.Single(s => s.Key == territoryHandler.Territory.name).Value;
+            territoryHandler.Territory.TerrainAttackList = dictionaryAmbienceAttack.Single(s => s.Key == territoryHandler.Territory.name).Value;
         }
     }
 
@@ -246,10 +259,10 @@ public class TerritoryManager : MonoBehaviour
         for (int i = 0; i < territoryList.Count; i++)
         {
             TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-            territoryHandler.TerritoryStats.Territory.RegionTerritory = dictionaryRegion.Single(s => s.Key == territoryHandler.TerritoryStats.Territory.name).Value;
+            territoryHandler.Territory.RegionTerritory = dictionaryRegion.Single(s => s.Key == territoryHandler.Territory.name).Value;
             territoryHandler.GetSizeMap();
-            float w = territoryHandler.TerritoryStats.Territory.Width;
-            float h = territoryHandler.TerritoryStats.Territory.Height;
+            float w = territoryHandler.Territory.Width;
+            float h = territoryHandler.Territory.Height;
             float area = w * h;
             areas.Add(area);
         }
@@ -276,7 +289,7 @@ public class TerritoryManager : MonoBehaviour
         {
 
             TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-            Territory.TYPEPLAYER tp = territoryHandler.TerritoryStats.Territory.TypePlayer;
+            Territory.TYPEPLAYER tp = territoryHandler.Territory.TypePlayer;
             switch (tp)
             {
                 case Territory.TYPEPLAYER.NONE:
@@ -311,7 +324,7 @@ public class TerritoryManager : MonoBehaviour
             t.GetComponent<TerritoryHandler>().Deselect();
             t.GetComponent<TerritoryHandler>().state = 0;
         }
-        territoryHandler.TerritoryStats.Territory.Selected = true;
+        territoryHandler.Territory.Selected = true;
         territoryHandler.OutlineMaterial.SetColor("_SolidOutline", Color.green);
         territoryHandler.SpriteRender.material = territoryHandler.OutlineMaterial;
         territoryHandler.SpriteRender.sortingOrder = -8;
@@ -342,7 +355,7 @@ public class TerritoryManager : MonoBehaviour
             if (territoryList[i].name == _name)
             {
                 TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-                territoryHandler.TerritoryStats.Territory.TypePlayer = type;
+                territoryHandler.Territory.TypePlayer = type;
             }
         }
     }
@@ -372,7 +385,7 @@ public class TerritoryManager : MonoBehaviour
         {
             int index = i;
             TerritoryHandler territoryHandler = territoryList[index].GetComponent<TerritoryHandler>();
-            if (territoryHandler.TerritoryStats.Territory.TypePlayer == type)
+            if (territoryHandler.Territory.TypePlayer == type)
             {
                 count++;
             }
@@ -425,7 +438,7 @@ public class TerritoryManager : MonoBehaviour
         for (int i = 0; i < territoryList.Count; i++)
         {
             TerritoryHandler _territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-            if (_territoryHandler.TerritoryStats.Territory.TypePlayer == type)
+            if (_territoryHandler.Territory.TypePlayer == type)
             {
                 territoriesPlayer.Add(_territoryHandler);
             }
@@ -438,7 +451,7 @@ public class TerritoryManager : MonoBehaviour
         for (int i = 0; i < territoryList.Count; i++)
         {
             TerritoryHandler _territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-            if (_territoryHandler.TerritoryStats.Territory.name == nameTerritory)
+            if (_territoryHandler.Territory.name == nameTerritory)
             {
                 territoryHandler = _territoryHandler;
             }
@@ -450,7 +463,7 @@ public class TerritoryManager : MonoBehaviour
         List<Territory> territoriesPlayer = new List<Territory>();
         for (int i = 0; i < territoryList.Count; i++)
         {
-            Territory _territoryHandler = territoryList[i].GetComponent<TerritoryHandler>().TerritoryStats.Territory;
+            Territory _territoryHandler = territoryList[i].GetComponent<TerritoryHandler>().Territory;
             if (_territoryHandler.TypePlayer == type)
             {
                 territoriesPlayer.Add(_territoryHandler);
@@ -469,7 +482,7 @@ public class TerritoryManager : MonoBehaviour
         for (int i = 0; i < territoryList.Count; i++)
         {
             TerritoryHandler _territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-            if (_territoryHandler.TerritoryStats.Territory.RegionTerritory == region)
+            if (_territoryHandler.Territory.RegionTerritory == region)
             {
                 territoriesZone.Add(_territoryHandler);
             }
@@ -493,7 +506,7 @@ public class TerritoryManager : MonoBehaviour
         for (int i = 0; i < territoryList.Count; i++)
         {
             TerritoryHandler _territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
-            if (_territoryHandler.TerritoryStats.Territory.name == territory.name)
+            if (_territoryHandler.Territory.name == territory.name)
             {
                 return _territoryHandler;
             }
@@ -540,13 +553,13 @@ public class TerritoryManager : MonoBehaviour
         {
             if (element == "channel")
             {
-                //  rate += list[i].TerritoryStats.Territory.FarmTerritory.WorkersChannel / list[i].TerritoryStats.Territory.PerPeople;
-                rate += list[i].TerritoryStats.Territory.FarmTerritory.LimitUnits / list[i].TerritoryStats.Territory.PerPeople;
+                //  rate += list[i].Territory.FarmTerritory.WorkersChannel / list[i].Territory.PerPeople;
+                rate += list[i].Territory.FarmTerritory.LimitUnits / list[i].Territory.PerPeople;
             }
             else if (element == "goldmine")
             {
-                //  rate += list[i].TerritoryStats.Territory.GoldMineTerritory.WorkersMine / list[i].TerritoryStats.Territory.PerPeople;
-                rate += list[i].TerritoryStats.Territory.GoldMineTerritory.LimitUnits / list[i].TerritoryStats.Territory.PerPeople;
+                //  rate += list[i].Territory.GoldMineTerritory.WorkersMine / list[i].Territory.PerPeople;
+                rate += list[i].Territory.GoldMineTerritory.LimitUnits / list[i].Territory.PerPeople;
             }
         }
         return rate;
@@ -556,18 +569,21 @@ public class TerritoryManager : MonoBehaviour
         List<GameObject> adjacentTerritories = territory.AdjacentTerritories;
         foreach (GameObject t in adjacentTerritories)
         {
-            if (t.GetComponent<TerritoryHandler>().TerritoryStats.Territory.TypePlayer != territory.TerritoryStats.Territory.TypePlayer)
+            if (t.GetComponent<TerritoryHandler>().Territory.TypePlayer != territory.Territory.TypePlayer)
             {
                 return true;
             }
         }
         return false;
     }
-}
-
-public class info
-{
-    float area;
-    float width;
-    float height;
+    private void AddTerrainsToList(List<string> _string, List<Terrain> _terrains)
+    {
+        for (int i = 0; i < _string.Count; i++)
+        {
+            string a = _string[i];
+            a = a.Replace("(", "").Replace(")", "");
+            string[] b = a.Split('-');
+            _terrains.Add(new Terrain(b[0], int.Parse(b[1])));
+        }
+    }
 }

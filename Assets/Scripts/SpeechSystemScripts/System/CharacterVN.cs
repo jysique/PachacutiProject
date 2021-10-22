@@ -6,11 +6,9 @@ using UnityEngine.UI;
 [System.Serializable]
 public class CharacterVN : Character
 {
-    public string CharacterVNName { get { return CharacterName; } }
-
     [HideInInspector] public RectTransform root;
-    public bool enabled { get { return root.gameObject.activeInHierarchy; } set { root.gameObject.SetActive(value); } }
 
+    public bool enabled { get { return root.gameObject.activeInHierarchy; } set { root.gameObject.SetActive(value); } }
     public Vector2 anchorPadding { get { return root.anchorMax - root.anchorMin; } }
 
     DialogueSystem dialogue;
@@ -18,8 +16,8 @@ public class CharacterVN : Character
     {
         if (!enabled)
             enabled = true;
-        
-        dialogue.Say(speech, CharacterName,additive);
+
+        dialogue.Say(speech, this.characterName,additive);
     }
 
     Vector2 targetPosition;
@@ -76,18 +74,16 @@ public class CharacterVN : Character
 
     public Sprite GetSprite(int index = 0)
     {
-        Sprite[] sprites = Resources.LoadAll<Sprite>("Textures/VNAssets/Characters/"+CharacterVNName);
+        Sprite[] sprites = Resources.LoadAll<Sprite>("Textures/VNAssets/Characters/"+characterName);
         return sprites[index];
     }
     public Sprite GetSprite(string spriteName = "")
     {
-        Sprite[] sprites = Resources.LoadAll<Sprite>("Textures/VNAssets/Characters/" + CharacterName);
+        Sprite[] sprites = Resources.LoadAll<Sprite>("Textures/VNAssets/Characters/" + characterName);
         for (int a = 0; a < sprites.Length; a++)
         {
-
             if (sprites[a].name == spriteName)
             {
-//                Debug.LogWarning("encontre " + sprites[a].name);
                 return sprites[a];
             }
         }

@@ -10,6 +10,7 @@ public class ChapterController : MonoBehaviour
 
     public GameObject speechSystemRoot;
     public GameObject speechSystemButtons;
+    public GameObject backgroundRoot;
     [HideInInspector] public string cachedLastSpeaker = "";
 
 
@@ -38,7 +39,7 @@ public class ChapterController : MonoBehaviour
         string[] dialogueAndActions = line.Split('"');
 
         if (dialogueAndActions.Length == 3)
-        {   
+        {
             HandleDialogue(dialogueAndActions[0], dialogueAndActions[1]);
             HandleEventsFromLine(dialogueAndActions[2]);
         }
@@ -133,7 +134,7 @@ public class ChapterController : MonoBehaviour
         }
     }
 
-    void Command_SetLayerImage(string data, BCFC.LAYER layer)
+    public void Command_SetLayerImage(string data, BCFC.LAYER layer)
     {
         string texName = data.Contains(",") ? data.Split(',')[0] : data;
         Texture2D tex = texName == "null"? null : Resources.Load("Textures/VNAssets/Backdrops/" + texName) as Texture2D;

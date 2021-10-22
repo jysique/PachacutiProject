@@ -5,20 +5,59 @@ using System.Linq;
 [System.Serializable]
 public class UnitCombat : Subordinate
 {
+    [SerializeField] private int position;
     [SerializeField] private int in_progress;
     [SerializeField] private int quantity;
-    [SerializeField] private string unitName;
-    [SerializeField] private int attack;
-    [SerializeField] private int defense;
-    [SerializeField] private int evasion;
-    [SerializeField] private int precision;
-    [SerializeField] private int range;
-    [SerializeField] private string[] strongTo;
-    [SerializeField] private string[] weakTo;
-    [SerializeField] private int position;
-    [SerializeField] protected int typeArm;
-
     [SerializeField] private bool isAvailable = false;
+
+    
+    [SerializeField] protected int attack;
+    [SerializeField] protected int armor;
+    [SerializeField] protected int evasion;
+    [SerializeField] protected int precision;
+    [SerializeField] protected int range;
+    [SerializeField] protected string[] strongTo;
+    [SerializeField] protected string[] weakTo;
+    [SerializeField] protected int typeArm;
+    [SerializeField] protected string audio;
+
+    public UnitCombat()
+    {
+
+    }
+    public UnitCombat(string name, int quantity, string icontype, string index, int attack, int armor, 
+        int precision, int range, string[] strongTo, string[] weakTo)
+    {
+        this.quantity = quantity;
+        this.characterName = name;
+        this.characIconType = icontype;
+        this.characIconIndex = index;
+        this.attack = attack;
+        this.armor = armor;
+        this.audio = this.characIconType + "/" + this.characIconIndex;
+        this.evasion = 0;
+        this.precision = precision;
+        this.range = range;
+        this.strongTo = strongTo;
+        this.weakTo = weakTo;
+    }
+
+    public string GetDescription()
+    {
+        return this.characterName + " (" + quantity + ")";
+    }
+    public string GetStats()
+    {
+        return "BASE DAMAGE: " + attack + "\n" +
+            "ARMOR: " + armor + "\n" +
+            "PRECISION: " + precision + "\n" +
+            "CRITIC: " + 10 + "\n";
+    }
+
+    public string PathAudio
+    {
+        get { return audio; }
+    }
     public bool IsAvailable
     {
         get { return isAvailable; }
@@ -34,7 +73,6 @@ public class UnitCombat : Subordinate
         get { return position; }
         set { position = value; }
     }
-
     public int InProgress
     {
         get { return in_progress; }
@@ -46,20 +84,15 @@ public class UnitCombat : Subordinate
         get { return quantity; }
         set { quantity = value; }
     }
-    public string UnitName
-    {
-        get { return unitName; }
-        set { unitName = value; }
-    }
     public int Evasion
     {
         get { return evasion; }
         set { evasion = value; }
     }
-    public int Defense
+    public int Armor
     {
-        get { return defense; }
-        set { defense = value; }
+        get { return armor; }
+        set { armor = value; }
     }
     public int Attack
     {

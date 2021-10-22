@@ -38,17 +38,19 @@ public class CameraMovement : MonoBehaviour
             cam.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
         }
         */
-       // Zoom();
+        Zoom();
 
     }
     void DragCamera()
     {
         Vector3 difference = dragOrigin - cam.ScreenToWorldPoint(Input.mousePosition);
         cam.transform.position += difference;
+        /*
         foreach (GameObject i in TerritoryManager.instance.territoryList)
         {
-            i.GetComponent<TerritoryHandler>().TerritoryStats.container.transform.position -= difference;
+            //i.GetComponent<TerritoryHandler>().TerritoryStats.container.transform.position -= difference;
         }
+        */
         foreach (GameObject i in InGameMenuHandler.instance.listFloatingText)
         {
             i.GetComponent<Transform>().transform.position -= difference;
@@ -67,10 +69,12 @@ public class CameraMovement : MonoBehaviour
         }
 
         zoom = Mathf.Clamp(zoom, minZoom, maxZoom);
+        /*
         foreach (GameObject i in TerritoryManager.instance.territoryList)
         {
-            i.GetComponent<TerritoryHandler>().TerritoryStats.container.transform.localScale = new Vector3(zoom / 2, zoom / 2, 1);
+            //i.GetComponent<TerritoryHandler>().TerritoryStats.container.transform.localScale = new Vector3(zoom / 2, zoom / 2, 1);
         }
+        */
       //  DragCamera();
     }
 }

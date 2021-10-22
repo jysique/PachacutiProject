@@ -4,22 +4,14 @@ using UnityEngine;
 //[System.Serializable]
 public class UnitGroup
 {
+    [SerializeField] UnitCombat unitCombat = null;
     [SerializeField] bool defense;
     [SerializeField] private bool active;
     private bool inmunity;
-    [SerializeField] UnitCombat unitCombat = null;
     Territory.TYPEPLAYER typePlayer;
     GameObject unitsGO;
-    /*
-    public UnitGroup(Territory.TYPEPLAYER tp,string t, int q, GameObject ugo)
-    {
-        unitsGO = ugo;
-        typePlayer = tp;
-       // type = t;
-       // quantity = q;
-       // defense = false;
-    }
-    */
+
+
     public UnitGroup(Territory.TYPEPLAYER tp, GameObject ugo, UnitCombat uc)
     {
         unitsGO = ugo;
@@ -28,22 +20,11 @@ public class UnitGroup
         defense = false;
         active = true;
     }
-
-    public void Log()
-    {
-    //    Debug.Log("type|" + type + "|q|" + quantity + "|d|" + defense);
-    }
     public GameObject UnitsGO
     {
         get { return unitsGO; }
     }
-    /*
-    public int Quantity
-    {
-        get { return quantity; }
-        set { quantity = value; }
-    }
-    */
+
     public bool Defense
     {
         get { return defense; }
@@ -55,12 +36,6 @@ public class UnitGroup
         get { return typePlayer; }
         set { typePlayer = value; }
     }
-    /*
-    public string Type
-    {
-        get { return type; }
-    }
-    */
     public UnitCombat UnitCombat { 
         get => unitCombat; 
         set => unitCombat = value; 
@@ -75,5 +50,14 @@ public class UnitGroup
     {
         get { return inmunity; }
         set { inmunity = value; }
+    }
+
+    public string GetStats()
+    {
+        return "QUANTITY: " + unitCombat.Quantity + "\n" +
+            "BASE DAMAGE: " + unitCombat.Attack + "\n" +
+            "ARMOR: " + unitCombat.Armor + "\n" +
+            "PRECISION: " + unitCombat.Precision + "\n" +
+            "CRITIC: " + 10 + "\n";
     }
 }

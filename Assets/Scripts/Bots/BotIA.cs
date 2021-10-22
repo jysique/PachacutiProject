@@ -92,7 +92,7 @@ public class BotIA
                 foreach (GameObject a in adjacents)
                 {
                     TerritoryHandler te = a.GetComponent<TerritoryHandler>();
-                    if (te.TerritoryStats.Territory.TypePlayer == typeBot)
+                    if (te.Territory.TypePlayer == typeBot)
                     {
                         GetMoveOptions(3, t, te);
                     }
@@ -117,11 +117,11 @@ public class BotIA
                 foreach (GameObject a in adjacents)
                 {
                     TerritoryHandler te = a.GetComponent<TerritoryHandler>();
-                    if(te.TerritoryStats.Territory.TypePlayer != t.TerritoryStats.Territory.TypePlayer && te.TerritoryStats.Territory.TypePlayer != Territory.TYPEPLAYER.WASTE)
+                    if(te.Territory.TypePlayer != t.Territory.TypePlayer && te.Territory.TypePlayer != Territory.TYPEPLAYER.WASTE)
                     {
                         GetMoveOptions(1, t, te);
-                        if(te.TerritoryStats.Territory.Population <= t.TerritoryStats.Territory.Population && 
-                            gold - warTax >= 0 && t.TerritoryStats.Territory.Population >= 5)
+                        if(te.Territory.Population <= t.Territory.Population && 
+                            gold - warTax >= 0 && t.Territory.Population >= 5)
                         {
                             GetImproveBuilding(2, t, te);
                             GetAddUnitOptions(2,t, te);
@@ -215,13 +215,14 @@ public class BotIA
     {
         if (_troop.GetAllNumbersUnit() != 0)
         {
-            if (begin.TerritoryStats.Territory.TypePlayer != end.TerritoryStats.Territory.TypePlayer)//conquista
+            if (begin.Territory.TypePlayer != end.Territory.TypePlayer)//conquista
             {
                 if(gold - warTax >= 0)
                 {
                     gold -= warTax;
-                 //   Debug.Log("mover");
-                    _troop.MoveUnits(begin.TerritoryStats.Territory);
+                    begin.Territory.MoveUnits(_troop);
+
+                    //_troop.MoveUnits(begin.Territory);
                     WarManager.instance.SendWarriors(begin, end, _troop);
                 }
             }
@@ -241,10 +242,10 @@ public class BotIA
     {
         foreach (TerritoryHandler t in territories)
         {
-            gold += t.TerritoryStats.Territory.Gold;
-            food += t.TerritoryStats.Territory.FoodReward;
-            t.TerritoryStats.Territory.Gold = 0;
-            t.TerritoryStats.Territory.FoodReward = 0;
+            gold += t.Territory.Gold;
+            food += t.Territory.FoodReward;
+            t.Territory.Gold = 0;
+            t.Territory.FoodReward = 0;
         }
     }
 
@@ -295,7 +296,7 @@ public class OptionMoveTroop : OptionBot
     {
         nameoption = "move";
         Troop _troop = new Troop();
-        Territory _territory = _begin.TerritoryStats.Territory;
+        Territory _territory = _begin.Territory;
         for (int i = 0; i < _territory.ListUnitCombat.UnitCombats.Count; i++)
         {
             
@@ -323,13 +324,12 @@ public class OptionAddUnit: OptionBot
     public OptionAddUnit(TerritoryHandler _begin, TerritoryHandler _end) : base(_begin, _end)
     {
         nameoption = "add";
-        unitCombat = Utils.instance.GetUnitCombatRandom(_begin.TerritoryStats.Territory);
-        unitCombat.Quantity = Random.Range(10, 30);
+        unitCombat = Utils.instance.GetUnitCombatRandom(_begin.Territory, Random.Range(10, 30));
     }
     public override void Logger()
     {
         base.Logger();
-        Debug.Log(" name " + unitCombat.UnitName + " nro unidades " + unitCombat.Quantity);
+        Debug.Log(" name " + unitCombat.CharacterName + " nro unidades " + unitCombat.Quantity);
     }
 }
 public class OptionUpgradeBuilding : OptionBot
@@ -343,7 +343,7 @@ public class OptionUpgradeBuilding : OptionBot
     public OptionUpgradeBuilding(TerritoryHandler _begin, TerritoryHandler _end) : base(_begin, _end)
     {
         nameoption = "upgrade";
-        building = Utils.instance.GetBuildingRandom(_begin.TerritoryStats.Territory);
+        building = Utils.instance.GetBuildingRandom(_begin.Territory);
     }
     public override void Logger()
     {

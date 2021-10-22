@@ -39,11 +39,4 @@ public class SubordinateList
     {
         return Chiefs.Count;
     }
-    public void ChangueCharacIconType(string type)
-    {
-        for (int i = 0; i < Chiefs.Count; i++)
-        {
-            Chiefs[i].CharacIconType = type;
-        }
-    }
 }

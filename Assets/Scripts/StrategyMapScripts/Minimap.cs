@@ -68,10 +68,12 @@ public class Minimap : MonoBehaviour, IPointerClickHandler
 	private void UpdateGameobjectsInCamera()
 	{
 		Vector3 difference = origin - cam.transform.position;
+		/*
 		foreach (GameObject i in TerritoryManager.instance.territoryList)
 		{
-			i.GetComponent<TerritoryHandler>().TerritoryStats.container.transform.position += difference;
+			//i.GetComponent<TerritoryHandler>().TerritoryStats.container.transform.position += difference;
 		}
+		*/
 		foreach (GameObject i in InGameMenuHandler.instance.listFloatingText)
 		{
 			i.GetComponent<Transform>().transform.position += difference;

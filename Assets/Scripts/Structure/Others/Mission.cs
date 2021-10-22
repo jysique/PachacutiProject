@@ -156,15 +156,15 @@ public class MissionTutorial : Mission
             case 1:
             case 2:
             case 5:
-                TerritoryMission.Add(TerritoryManager.instance.GetTerritoriesHandlerByName("LaConvencion").TerritoryStats.Territory);
+                TerritoryMission.Add(TerritoryManager.instance.GetTerritoriesHandlerByName("LaConvencion").Territory);
                 break;
             case 3:
-                TerritoryMission.Add(TerritoryManager.instance.GetTerritoriesHandlerByName("LaConvencion").TerritoryStats.Territory);
+                TerritoryMission.Add(TerritoryManager.instance.GetTerritoriesHandlerByName("LaConvencion").Territory);
                 TutorialController.instance.TutorialMilitar();
                 break;
             case 4:
             case 6:
-                TerritoryMission.Add(TerritoryManager.instance.GetTerritoriesHandlerByName("Calca").TerritoryStats.Territory);
+                TerritoryMission.Add(TerritoryManager.instance.GetTerritoriesHandlerByName("Calca").Territory);
                 break;
             default:
                 break;
@@ -196,7 +196,7 @@ public class MissionTutorial : Mission
                 }
                 break;
             case 3:
-                if (TerritoryMission[0].ListUnitCombat.GetFirstUnitCombat("Archer").Quantity >= 10)
+                if (TerritoryMission[0].ListUnitCombat.SearchUnitCombat("Archer") && TerritoryMission[0].ListUnitCombat.GetFirstUnitCombat("Archer").Quantity >= 10)
                 {
                     count++;
                 }
@@ -243,7 +243,7 @@ public class MissionTutorial : Mission
     public override void InitBenefits()
     {
         base.InitBenefits();
-        TerritoryManager.instance.GetTerritoriesHandlerByName("LaConvencion").TerritoryStats.Territory.MotivationTerritory += 10;
+        TerritoryManager.instance.GetTerritoriesHandlerByName("LaConvencion").Territory.MotivationTerritory += 10;
         //  Debug.LogError("in progress");
         base.MissionStatus = STATUS.IN_PROGRESS_BENEFITS;
     }
@@ -252,7 +252,7 @@ public class MissionTutorial : Mission
         base.FinishBenefits();
         if (base.MissionStatus == STATUS.DONE)
         {
-            TerritoryManager.instance.GetTerritoriesHandlerByName("LaConvencion").TerritoryStats.Territory.MotivationTerritory -= 10;
+            TerritoryManager.instance.GetTerritoriesHandlerByName("LaConvencion").Territory.MotivationTerritory -= 10;
         }
     }
 }
@@ -262,7 +262,7 @@ public class MissionDefeat : Mission
     public MissionDefeat()
     {
         this.typePlayer = GlobalVariables.instance.GetRandomTypePlayer();
-        TerritoryMission.Add(TerritoryManager.instance.GetTerritoryRandom(this.typePlayer).TerritoryStats.Territory);
+        TerritoryMission.Add(TerritoryManager.instance.GetTerritoryRandom(this.typePlayer).Territory);
         GetInfo(this);
         this.Message = this.Message.Replace("CIV", GlobalVariables.instance.GetPlayerName(typePlayer));
     }
@@ -281,7 +281,7 @@ public class MissionDefeat : Mission
         List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER);
         for (int i = 0; i < t.Count; i++)
         {
-            t[i].TerritoryStats.Territory.FortressTerritory.Level += 2;
+            t[i].Territory.FortressTerritory.Level += 2;
         }
         base.MissionStatus = STATUS.IN_PROGRESS_BENEFITS;
     }
@@ -293,7 +293,7 @@ public class MissionDefeat : Mission
             List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER);
             for (int i = 0; i < t.Count; i++)
             {
-                t[i].TerritoryStats.Territory.FortressTerritory.Level -= 2;
+                t[i].Territory.FortressTerritory.Level -= 2;
             }
         }
     }
@@ -302,7 +302,7 @@ public class MissionConquest : Mission
 {
     public MissionConquest()
     {
-        TerritoryMission.Add(TerritoryManager.instance.GetTerritoryRandom(Territory.TYPEPLAYER.NONE).TerritoryStats.Territory);
+        TerritoryMission.Add(TerritoryManager.instance.GetTerritoryRandom(Territory.TYPEPLAYER.NONE).Territory);
         GetInfo(this);
 
     }
@@ -338,7 +338,7 @@ public class MissionExpansion : Mission
         List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesByZoneTerritory(region);
         for (int i = 0; i < t.Count; i++)
         {
-            this.TerritoryMission.Add(t[i].TerritoryStats.Territory);
+            this.TerritoryMission.Add(t[i].Territory);
         }
         GetInfo(this);
         this.Message =this.Message.Replace("REGION", regionString.ToLower().Replace("_", " "));
@@ -399,7 +399,7 @@ public class MissionProtect : Mission
     public MissionProtect()
     {
         SetInitTimeProtection();
-        TerritoryMission.Add(TerritoryManager.instance.GetTerritoryRandom(Territory.TYPEPLAYER.PLAYER).TerritoryStats.Territory);
+        TerritoryMission.Add(TerritoryManager.instance.GetTerritoryRandom(Territory.TYPEPLAYER.PLAYER).Territory);
         GetInfo(this);
     }
     public override void CheckMission()
@@ -439,7 +439,7 @@ public class MissionAllBuilds : Mission
 {
     public MissionAllBuilds()
     {
-        TerritoryMission.Add(TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER)[0].TerritoryStats.Territory);
+        TerritoryMission.Add(TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER)[0].Territory);
         GetInfo(this);
     }
     public override void CheckMission()
@@ -459,7 +459,7 @@ public class MissionAllBuilds : Mission
         List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER);
         for (int i = 0; i < t.Count; i++)
         {
-            t[i].TerritoryStats.Territory.MotivationTerritory += 20;
+            t[i].Territory.MotivationTerritory += 20;
         }
         base.MissionStatus = STATUS.IN_PROGRESS_BENEFITS;
     }
@@ -471,8 +471,8 @@ public class MissionAllBuilds : Mission
             List<TerritoryHandler> t = TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER);
             for (int i = 0; i < t.Count; i++)
             {
-                // this.TerritoryMission.Add(t[i].TerritoryStats.Territory);
-                t[i].TerritoryStats.Territory.MotivationTerritory -= 20;
+                // this.TerritoryMission.Add(t[i].Territory);
+                t[i].Territory.MotivationTerritory -= 20;
             }
         }
     }

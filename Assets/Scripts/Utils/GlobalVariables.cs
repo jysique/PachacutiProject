@@ -142,7 +142,7 @@ public class GlobalVariables : MonoBehaviour
         
         foreach (GameObject i in TerritoryManager.instance.territoryList)
         {
-            i.GetComponent<TerritoryHandler>().TerritoryStats.container.transform.position += difference;
+            //i.GetComponent<TerritoryHandler>().TerritoryStats.container.transform.position += difference;
         }
         
         foreach (GameObject i in InGameMenuHandler.instance.listFloatingText)

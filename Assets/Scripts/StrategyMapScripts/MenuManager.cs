@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
-
     public static MenuManager instance;
 
     [Header("Menu Manager")]
@@ -26,8 +25,8 @@ public class MenuManager : MonoBehaviour
     [Header("Menu territory")]
     [SerializeField] private Button openBtn;
     [SerializeField] private TextMeshProUGUI openTxt;
-    [SerializeField] private Animator animMenu;
-    private bool isOpen = false;
+    [SerializeField] private GameObject menuTerritory;
+    
 
     [Header("Select MilitaryBoss variables")]
     [SerializeField] GameObject SelecCharacterMenu;
@@ -87,7 +86,7 @@ public class MenuManager : MonoBehaviour
     private void Start()
     {
         InitButtonMenuPause();
-        openBtn.onClick.AddListener(() => OpenMenu());
+        openBtn.onClick.AddListener(() => OpenMenuLearp());
     }
 
     public void PauseMenuGame()
@@ -98,21 +97,69 @@ public class MenuManager : MonoBehaviour
     {
         PauseMenu.SetActive(false);
     }
-
+    /*
     public void OpenMenu()
     {
+        Animator anim = menuTerritory.GetComponent<Animator>();
+        if (!isOpen)
+        {
+            
+            isOpen = true;
+            anim.SetBool("Apparence", true);
+            
+        }
+        else
+        {
+            isOpen = false;
+            anim.SetBool("Apparence", false);
+            
+        }
+    }
+    */
+    public void OpenMenuLearp()
+    {
+        RectTransform rectTransform = menuTerritory.GetComponent<RectTransform>(); //getting reference to this componen
+        currentTime = 0;
+        StartCoroutine(Moving(rectTransform));
+
+    }
+    float timeOfTravel = 0.5f; //time after object reach a target place 
+    float currentTime; // actual floting time 
+    float normalizedValue;
+    private bool isOpen = false;
+    IEnumerator Moving(RectTransform rect)
+    {   
+        Vector2 startPosition = new Vector2(0, 0);
+        Vector2 endPosition = new Vector2(570,0);
+        while (currentTime <= timeOfTravel)
+        {
+            currentTime += Time.deltaTime;
+            normalizedValue = currentTime / timeOfTravel; // we normalize our time 
+            openBtn.interactable = false;
+            if (!isOpen)
+            {
+                
+                rect.anchoredPosition = Vector3.Lerp(rect.anchoredPosition, endPosition, normalizedValue);
+                yield return new WaitForEndOfFrame();
+            }
+            else
+            {
+                rect.anchoredPosition = Vector3.Lerp(rect.anchoredPosition, startPosition, normalizedValue);
+                yield return new WaitForEndOfFrame();
+            }
+        }
+        openBtn.interactable = true;
         if (!isOpen)
         {
             isOpen = true;
-            animMenu.SetBool("Apparence", true);
             openTxt.text = "C\nL\nO\nS\nE";
         }
         else
         {
             isOpen = false;
-            animMenu.SetBool("Apparence", false);
             openTxt.text = "O\nP\nE\nN";
         }
+        yield return null;
     }
 
     void InitButtonMenuPause()
@@ -175,7 +222,7 @@ public class MenuManager : MonoBehaviour
         }
     }
     
-    void InstantiateCharacterOption( GameObject selection,Character character, List<GameObject> list)
+    void InstantiateCharacterOption(GameObject selection,Character character, List<GameObject> list)
     {
         SubordinateList subordinateList = new SubordinateList();
         subordinateList.AddDataSubordinateToList(maxInstantiateCharacters, character);

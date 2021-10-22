@@ -5,15 +5,13 @@ using UnityEngine;
 [System.Serializable]
 public class Character
 {
-    [SerializeField] private string characterName;
-    [SerializeField] private int age;
-    [SerializeField] private string origin;
-    [SerializeField] private string campaign;
-    [SerializeField] private string personality;
-    [SerializeField] private string characIconType;
-    [SerializeField] private string characIconIndex;
-    private string description;
-    private Sprite picture;
+    [SerializeField] protected string characterName;
+    [SerializeField] protected int age;
+    [SerializeField] protected string origin;
+
+    [SerializeField] protected string characIconType;
+    [SerializeField] protected string characIconIndex;
+
     private bool canElegible;
     private bool canMove;
 
@@ -25,8 +23,12 @@ public class Character
     public Sprite Picture 
     { 
         get { return Resources.Load<Sprite>("Textures/TemporalAssets/" + characIconType + "/" + characIconIndex); }
-        set { picture = value; }
     }
+    public Sprite PictureSpriteSheet
+    {
+        get { return Resources.LoadAll<Sprite>("Textures/TemporalAssets/warriors/Test/" + characIconIndex)[0]; }
+    }
+
     public string CharacterName
     { 
         get { return characterName; }   
@@ -42,21 +44,7 @@ public class Character
         get { return origin; }
         set { origin = value; }
     }
-    public string Campaign
-    {
-        get { return campaign; }
-        set { campaign = value; }
-    }
-    public string Personality
-    {
-        get { return personality; }
-        set { personality = value; }
-    }
-    public string Description
-    {
-        get { return description; }
-        set { description = value; }
-    }
+
     public bool CanElegible
     {
         get { return canElegible; }

@@ -29,9 +29,9 @@ public class BotManager : MonoBehaviour
         foreach(GameObject t in TerritoryManager.instance.territoryList )
         {
             TerritoryHandler th = t.GetComponent<TerritoryHandler>();
-            if(th.TerritoryStats.Territory.TypePlayer != Territory.TYPEPLAYER.PLAYER && th.TerritoryStats.Territory.TypePlayer != Territory.TYPEPLAYER.NONE && th.TerritoryStats.Territory.TypePlayer != Territory.TYPEPLAYER.WASTE)
+            if(th.Territory.TypePlayer != Territory.TYPEPLAYER.PLAYER && th.Territory.TypePlayer != Territory.TYPEPLAYER.NONE && th.Territory.TypePlayer != Territory.TYPEPLAYER.WASTE)
             {
-                CreateOrAdd(th.TerritoryStats.Territory.TypePlayer, th);
+                CreateOrAdd(th.Territory.TypePlayer, th);
             }
         }
     }

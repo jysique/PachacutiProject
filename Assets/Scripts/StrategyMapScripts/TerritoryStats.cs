@@ -1,62 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-
+﻿using UnityEngine;
+using TMPro;
 public class TerritoryStats : MonoBehaviour
 {
-    [SerializeField] public GameObject container;
-
-   [SerializeField] private Text populationTxt;
-    [SerializeField] private Text nameTerritoryTxt;
-    [SerializeField] private Image imageTerritory;
-    [SerializeField] private GameObject iconsContainer;
-
-    [Header("New system")]
-
-    private Territory territory;
-
-    public Territory Territory
+    [SerializeField] private TextMeshPro populationTxt;
+    [SerializeField] private TextMeshPro nameTxt;
+    public void InitStats(Territory territory)
     {
-        get { return territory; }
-        set { territory = value; }
-    }
-    private void Start()
-    {
-       
-        nameTerritoryTxt.text = territory.name;
+        nameTxt.text = territory.name;
         if (territory.TypePlayer == Territory.TYPEPLAYER.WASTE)
         {
-            populationTxt.enabled = false;
+            //populationTxt.enabled = false;
+            populationTxt.gameObject.SetActive(false);
         }
 
     }
-    public void CanPopulate()
+    public void UpdatePopulation(Territory territory)
     {
-        // populationTxt.text = territory.Population + "/" + (territory.AcademyTerritory.LimitSwordsmen + territory.BarracksTerritory.LimitLancer + territory.CastleTerritory.LimitAxemen);
-        populationTxt.text = territory.Population + "/" + 
-            (territory.AcademyTerritory.LimitUnits + 
-            territory.BarracksTerritory.LimitUnits + 
-            territory.CastleTerritory.LimitUnits +
-            territory.ArcheryTerritory.LimitUnits +
-            territory.StableTerritory.LimitUnits
-            );
-
+        populationTxt.text = territory.Population + "/" + territory.LimitPopulation;
     }
-    private void FixedUpdate()
-    {
-        CanPopulate();
-    }
- 
-    public void IncresementGold()
-    {
-        // territory.Gold+= territory.GoldMineTerritory.WorkersMine / territory.PerPeople;
-        territory.Gold += territory.GoldMineTerritory.LimitUnits / territory.PerPeople;
-    }
-    public void IncresementFood()
-    {
-        territory.FoodReward+= territory.FarmTerritory.LimitUnits / territory.PerPeople;
-    }
-   
 }
 

@@ -144,14 +144,14 @@ public class TimeSystem : MonoBehaviour
         List<TerritoryHandler> t = TerritoryManager.instance.GetAllTerritoriesHanlder();
         for (int i = 0; i < t.Count; i++)
         {
-            TerritoryStats territoryStats = t[i].TerritoryStats;
-            territoryStats.IncresementGold();
-            territoryStats.IncresementFood();
-            if (territoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
-            //  if (territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.PLAYER || territoryStats.territory.TypePlayer == Territory.TYPEPLAYER.CLAIM)
+            Territory territory = t[i].Territory;
+            territory.IncresementGold();
+            territory.IncresementFood();
+            if (territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
+            //  if (territory.TypePlayer == Territory.TYPEPLAYER.PLAYER || territory.TypePlayer == Territory.TYPEPLAYER.CLAIM)
             {
-                InGameMenuHandler.instance.ShowFloatingText("+" + territoryStats.Territory.GoldMineTerritory.LimitUnits / territoryStats.Territory.PerPeople + "gold", "TextMesh", t[i].transform, new Color32(0, 19, 152, 255));
-                InGameMenuHandler.instance.ShowFloatingText("+" + territoryStats.Territory.FarmTerritory.LimitUnits / territoryStats.Territory.PerPeople + "food", "TextMesh", t[i].transform, new Color32(0, 19, 152, 255), posY: -0.25f);
+                InGameMenuHandler.instance.ShowFloatingText("+" + territory.GoldMineTerritory.LimitUnits / territory.PerPeople + "gold", "TextMesh", t[i].transform, new Color32(0, 19, 152, 255));
+                InGameMenuHandler.instance.ShowFloatingText("+" + territory.FarmTerritory.LimitUnits / territory.PerPeople + "food", "TextMesh", t[i].transform, new Color32(0, 19, 152, 255), posY: -0.25f);
             }
         }
     }
@@ -161,15 +161,28 @@ public class TimeSystem : MonoBehaviour
     private void onConsumptionResources()
     {
         timeConsumption = PlusDaysToTimeSimulated(daysToConsume);
-
         float foodConsumePlayer = GetConsumeByPlayer(Territory.TYPEPLAYER.PLAYER);
-        Consume(InGameMenuHandler.instance.FoodPlayer, foodConsumePlayer, Territory.TYPEPLAYER.PLAYER);
+        if (InGameMenuHandler.instance.FoodPlayer >= foodConsumePlayer)
+        {
+            InGameMenuHandler.instance.FoodPlayer -= (int)foodConsumePlayer;
+            InGameMenuHandler.instance.ShowFloatingText("-" + foodConsumePlayer, "TextFloating", ResourceTableHandler.instance.FoodAnimation, Color.white, posY: -10f);
+        }
+        else
+        {
+            InGameMenuHandler.instance.FoodPlayer = 0;
+        }
 
         for (int i = 0; i < BotManager.instance.bots.Count; i++)
         {
-
             float foodConsumeBot = GetConsumeByPlayer(BotManager.instance.bots[i].TypeBot);
-            Consume(BotManager.instance.bots[i].FoodBot, foodConsumeBot, BotManager.instance.bots[i].TypeBot);
+            if (BotManager.instance.bots[i].FoodBot >= foodConsumeBot)
+            {
+                BotManager.instance.bots[i].FoodBot -= (int)foodConsumeBot;
+            }
+            else
+            {
+                BotManager.instance.bots[i].FoodBot = 0;
+            }
         }
     }
 
@@ -182,22 +195,5 @@ public class TimeSystem : MonoBehaviour
             foodConsume += Mathf.Ceil((float)t[i].Population / (float)t[i].PerPeople);
         }
         return foodConsume;
-    }
-    private void Consume(int foodPlayer, float foodConsume,Territory.TYPEPLAYER typePlayer = Territory.TYPEPLAYER.PLAYER)
-    {
-        if (foodPlayer >= foodConsume)
-        {
-          //  print("consumiendo "+ typePlayer +"|"+foodPlayer+"|" + foodConsume);
-            foodPlayer -= (int)foodConsume;
-            if (typePlayer == Territory.TYPEPLAYER.PLAYER)
-            {
-                InGameMenuHandler.instance.ShowFloatingText("-" + foodConsume, "TextFloating", ResourceTableHandler.instance.FoodAnimation, Color.white, posY: -10f);
-            }
-        }
-        else
-        {
-            foodPlayer = 0;
-            print("no le alcanza comida");
-        }
     }
 }

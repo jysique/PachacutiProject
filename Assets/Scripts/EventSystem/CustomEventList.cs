@@ -54,24 +54,6 @@ public class CustomEventList
         
         BattleEvents.Add(_customBattle);
     }
-
-
-    public void AddBattleEvent(int _a, int _turn, Troop playerTroop, Troop enemyTroop, TerritoryHandler _playerTerritory, TerritoryHandler _enemyTerritory, bool isPlayerTerritory)
-    {
-        CustomBattle _customBattle;
-        if (isPlayerTerritory)
-        {
-            _customBattle = new CustomBattle(_a,_turn, enemyTroop, playerTroop, _enemyTerritory, _playerTerritory);
-        }
-        else
-        {
-            _customBattle = new CustomBattle(_a,_turn, playerTroop, enemyTroop, _playerTerritory, _enemyTerritory);
-
-        }
-
-        BattleEvents.Add(_customBattle);
-    }
-
     public void PrintList()
     {
         for (int i = 0; i < CustomEvents.Count; i++)
@@ -110,7 +92,7 @@ public class CustomEventList
         CustomEvent @event = null;
         for (int i = 0; i < CustomEvents.Count; i++)
         {
-            if (CustomEvents[i].TerritoryEvent.TerritoryStats.Territory == territory && CustomEvents[i].EventType == @type)
+            if (CustomEvents[i].TerritoryEvent.Territory == territory && CustomEvents[i].EventType == @type)
             {
                 Debug.Log("encontre");
                 @event = CustomEvents[i];

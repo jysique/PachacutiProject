@@ -41,21 +41,22 @@ public class Utils : MonoBehaviour
         }
     }
 
-    public UnitCombat GetUnitCombatRandom(Territory territory)
+    public UnitCombat GetUnitCombatRandom(Territory territory,int quantity)
     {
-        UnitCombat u = new UnitCombat();
+        
         int random = UnityEngine.Random.Range(0, units_string.Count);
-        Building building = territory.GetBuildingByUnit(units_string[random]);
+        UnitCombat unit = CreateNewUnitCombat(units_string[random], 0);
+        Building building = territory.GetBuildingByUnit(unit);
 
         if (building.Level>0)
         {
-            u = GetNewUnitCombat(units_string[random]);
+            unit = CreateNewUnitCombat(units_string[random],quantity);
         }
         else
         {
-            u = GetUnitCombatRandom(territory);
+            unit = GetUnitCombatRandom(territory,quantity);
         }
-        return u;
+        return unit;
     }
 
     public Building GetBuildingRandom(Territory territory)
@@ -65,20 +66,20 @@ public class Utils : MonoBehaviour
         return territory.GetBuilding(buildings_string[random]);
     }
 
-    public UnitCombat GetNewUnitCombat(string _type)
+    public UnitCombat CreateNewUnitCombat(string _type, int quantity)
     {
         switch (_type)
         {
             case "Swordsman":
-                return new Swordsman();
+                return new UnitCombat("Swordsman", quantity, "warriors", "sword", 10, 6, 90, 1, new string[] { "Axeman" }, new string[] { "Lancer" });
             case "Lancer":
-                return new Lancer();
+                return new UnitCombat("Lancer", quantity, "warriors", "spear", 15, 5, 85, 1, new string[] { "Swordsman" }, new string[] { "Axeman" });
             case "Axeman":
-                return new Axeman();
+                return new UnitCombat("Axeman", quantity, "warriors", "axe", 20, 3, 75, 1, new string[] { "Lancer" }, new string[] { "Swordsman" });
             case "Archer":
-                return new Archer();
+                return new UnitCombat("Archer", quantity, "warriors", "archer", 10, 3, 70, 2, new string[] { "Scout" }, new string[] { "Archer" });
             case "Scout":
-                return new Scout();
+                return new UnitCombat("Scout", quantity, "warriors", "horseman", 25, 10, 70, 1, new string[] { "Archer" }, new string[] { "Scout" });
             default:
                 return null;
         }
@@ -106,32 +107,6 @@ public class Utils : MonoBehaviour
             default:
                 return null;
         }
-    }
-
-
-    public UnitCombat Reset(UnitCombat uc)
-    {
-        //print(uc.UnitName);
-        UnitCombat a = Utils.instance.GetNewUnitCombat(uc.UnitName);
-        /*
-        if (uc == null)
-            print("uc es null");
-        if (a == null)
-            print("a es null");
-        if (uc.UnitName == null)
-            print("uc name es null");
-        */
-        uc.UnitName= a.UnitName;
-        uc.Evasion = a.Evasion;
-        uc.UnitName = a.UnitName;
-     //   uc.Attack = a.Attack;
-        uc.Defense = a.Defense;
-        uc.Evasion = a.Evasion;
-        uc.Precision = a.Precision;
-        uc.Range = a.Range;
-        uc.StrongTo = a.StrongTo;
-        uc.WeakTo = a.WeakTo;
-        return a;
     }
 
     private List<string> buildings_string = new List<string>()
@@ -179,28 +154,17 @@ public class Utils : MonoBehaviour
         return buildings;
     }
 
-    public List<string> GetListUnitCombat2(Territory territory, List<string> unit)
+    public List<string> GetListUnitCombat(Territory territory, List<string> unit)
     {
         for (int i = 0; i < units_string.Count; i++)
         {
-            if (territory.GetBuildingByUnit(units_string[i]).Level>0)
+            UnitCombat temp = CreateNewUnitCombat(units_string[i], 0);
+            if (territory.GetBuildingByUnit(temp).Level>0)
             {
                 unit.Add(units_string[i]);
             }
         }
         return unit;
-    }
-
-    public List<string> GetListUnitCombat(Territory territory, List<string> unitCombatDropOption)
-    {
-        for (int i = 0; i < units_string.Count; i++)
-        {
-            if (territory.ListUnitCombat.SearchUnitCombat(units_string[i]))
-            {
-                unitCombatDropOption.Add(units_string[i]);
-            }
-        }
-        return unitCombatDropOption;
     }
 }
 

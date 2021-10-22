@@ -192,7 +192,7 @@ public class InGameMenuHandler : MonoBehaviour
     /// </summary>
     public void UpdateMenu()
     {
-        selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().TerritoryStats.Territory;
+        selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().Territory;
         UpdateMilitarMenu();
         UpdateTerritoryMenu();
         UpdateBuildingsMenu();
@@ -215,17 +215,17 @@ public class InGameMenuHandler : MonoBehaviour
 
     void Update()
     {
-        //selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().TerritoryStats.Territory;
+        //selectedTerritory = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().Territory;
         CreateUnitGO.transform.SetAsFirstSibling();
         CreateBuidingGO.transform.SetAsLastSibling();
-        addUnit.interactable = (dropdownUnitsCombat.value != 0);
+        //addUnit.interactable = (dropdownUnitsCombat.value != 0);
         UpdateAllText();
     }
 
     public void ImproveBuildingButton(Building _building)
     {
         TerritoryHandler territoryHandler = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
-        Building building = territoryHandler.TerritoryStats.Territory.GetBuilding(_building);
+        Building building = territoryHandler.Territory.GetBuilding(_building);
         ImproveBuildingInHandler(territoryHandler, building);
         EventManager.instance.AddEvent(territoryHandler, building);
       //  UpdateMenu();
@@ -244,7 +244,7 @@ public class InGameMenuHandler : MonoBehaviour
         {
             goldPlayer -= unitCombat.Quantity;
             //ShowFloatingText("+1 " + GameMultiLang.GetTraduction(building.Name) + " level", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
-            //ShowFloatingText("-" + territoryHandler.TerritoryStats.Territory.GetBuilding(building).CostToUpgrade.ToString(), "TextFloating", ResourceTableHandler.instance.GoldAnimation, Color.white);
+            //ShowFloatingText("-" + territoryHandler.Territory.GetBuilding(building).CostToUpgrade.ToString(), "TextFloating", ResourceTableHandler.instance.GoldAnimation, Color.white);
         }
         else
         {
@@ -256,9 +256,9 @@ public class InGameMenuHandler : MonoBehaviour
     {
         if (goldPlayer >= building.CostToUpgrade)
         {
-            goldPlayer -= territoryHandler.TerritoryStats.Territory.GetBuilding(building).CostToUpgrade;
+            goldPlayer -= territoryHandler.Territory.GetBuilding(building).CostToUpgrade;
             ShowFloatingText("+1 " + GameMultiLang.GetTraduction(building.Name) + " level", "TextMesh", territoryHandler.transform, new Color32(0, 19, 152, 255));
-            ShowFloatingText("-" + territoryHandler.TerritoryStats.Territory.GetBuilding(building).CostToUpgrade.ToString(), "TextFloating", ResourceTableHandler.instance.GoldAnimation, Color.white);
+            ShowFloatingText("-" + territoryHandler.Territory.GetBuilding(building).CostToUpgrade.ToString(), "TextFloating", ResourceTableHandler.instance.GoldAnimation, Color.white);
         }
         else
         {
@@ -266,15 +266,16 @@ public class InGameMenuHandler : MonoBehaviour
         }
     }
     private int GetGoldGather(TerritoryHandler territoryHandler)
-    {
-        int gatherGold = territoryHandler.TerritoryStats.Territory.Gold;
-        territoryHandler.GatherTerritoryGold();
+    {   
+        
+        int gatherGold = territoryHandler.Territory.Gold;
+        territoryHandler.Territory.GatherTerritoryGold();
         return gatherGold;
     }
     private int GetFoodGather(TerritoryHandler territoryHandler)
     {
-        int gatherFood = territoryHandler.TerritoryStats.Territory.FoodReward;
-        territoryHandler.GatherTerritoryFood();
+        int gatherFood = territoryHandler.Territory.FoodReward;
+        territoryHandler.Territory.GatherTerritoryFood();
         return gatherFood;
     }
     public void ShowFloatingText(string text,string namePrefab,Transform _t, Color32 color,float posX = 0,float posY = 0)
@@ -337,9 +338,9 @@ public class InGameMenuHandler : MonoBehaviour
     }
     private void InitButtons()
     {
-        // MilitarChief militarChief = new MilitarChief();
+        MilitarChief _militarChief = new MilitarChief();
         addUnit.onClick.AddListener(() => AddUnitButton());
-        selectMilitarChief.onClick.AddListener(() => MenuManager.instance.OpenSelectCharacterMenu(new MilitarChief()));
+        selectMilitarChief.onClick.AddListener(() => MenuManager.instance.OpenSelectCharacterMenu(_militarChief));
     }
 
     private void UpdateDropdown(TMP_Dropdown _dropdown, List<string> _items)
@@ -356,7 +357,7 @@ public class InGameMenuHandler : MonoBehaviour
         string type = GameMultiLang.GetTraductionReverse(_type);
 
         TerritoryHandler handler = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
-        Building building = handler.TerritoryStats.Territory.GetBuilding(type);
+        Building building = handler.Territory.GetBuilding(type);
         if (building != null)
         {
             if (territory.numberOfBuildings < TerritoryManager.instance.ClassifyTerritory(territory))
@@ -419,13 +420,13 @@ public class InGameMenuHandler : MonoBehaviour
             }
         }
     }
-    int index;
+   
     private List<string> optionsDropDown = new List<string>();
     private void UpdateDropDownValues(Territory _territory)
     {
         optionsDropDown.Clear();
         optionsDropDown.Add("SelectUnit");
-        optionsDropDown = Utils.instance.GetListUnitCombat2(_territory, optionsDropDown);
+        optionsDropDown = Utils.instance.GetListUnitCombat(_territory, optionsDropDown);
         
         Utils.instance.InitDropdown(dropdownUnitsCombat, optionsDropDown);
     }
@@ -434,18 +435,22 @@ public class InGameMenuHandler : MonoBehaviour
 
         if (dropdownUnitsCombat.value == 0)
         {
+            addUnit.interactable = false;
             dummy = null;
             return;
         }
-        index = dropdownUnitsCombat.value;
+        addUnit.interactable = true;
+        int index = dropdownUnitsCombat.value;
         string _type = dropdownUnitsCombat.options[index].text;
         string type = GameMultiLang.GetTraductionReverse(_type);
-        dummy = Utils.instance.GetNewUnitCombat(type);
-//        print("type|" + type);
-
-//        TerritoryHandler handler = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
-//        Building building = handler.TerritoryStats.Territory.GetBuildingByUnit(type);
-        UpdateMenuByUnits(moveUnits, 50, true);
+        dummy = Utils.instance.CreateNewUnitCombat(type,0);
+        Building building = selectedTerritory.GetBuildingByUnit(dummy);
+        int limit = building.LimitUnits - selectedTerritory.ListUnitCombat.GetUnitQuantity(type);
+        if (limit <= 0)
+        {
+            addUnit.interactable = false;
+        }
+        UpdateMenuByUnits(moveUnits, limit, true);
 
         //UpdateDropDownValues(territory);
        // dropdownUnitsCombat.value = 0;
@@ -488,7 +493,7 @@ public class InGameMenuHandler : MonoBehaviour
 
     public void InstantiateUnitCombat(UnitCombat unit)
     {
-        if (unit.Quantity > 0 || selectedTerritory.GetBuildingByUnit(unit.UnitName).Level > 0)
+        if (unit.Quantity > 0 || selectedTerritory.GetBuildingByUnit(unit).Level > 0)
         {
             Transform gridLayout = containerTroops.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
             GameObject unitCombatOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/UnitCombatOption")) as GameObject;

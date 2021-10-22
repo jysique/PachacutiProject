@@ -45,7 +45,7 @@ public class SelectTropsMenu : MonoBehaviour
         
         territoryToAttack = _territoryToAttack;
         territoryAttacker = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
-        limit_troop = Mathf.RoundToInt(territoryToAttack.TerritoryStats.Territory.TerrainList.Count / 2);
+        limit_troop = Mathf.RoundToInt(territoryToAttack.Territory.TerrainAttackList.Count);
         DateTableHandler.instance.PauseButton();
         string _title = GameMultiLang.GetTraduction("SelectTroopsTitle").Replace("QUANTITY", limit_troop.ToString());
         title.text = _title;
@@ -54,9 +54,9 @@ public class SelectTropsMenu : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        for (int i = 0; i < territoryAttacker.TerritoryStats.Territory.ListUnitCombat.UnitCombats.Count; i++)
+        for (int i = 0; i < territoryAttacker.Territory.ListUnitCombat.UnitCombats.Count; i++)
         {
-            UnitCombat uc = territoryAttacker.TerritoryStats.Territory.ListUnitCombat.UnitCombats[i];
+            UnitCombat uc = territoryAttacker.Territory.ListUnitCombat.UnitCombats[i];
             if (uc.IsAvailable)
             {
                 InstantiateUnitCombat(uc);
@@ -101,7 +101,7 @@ public class SelectTropsMenu : MonoBehaviour
     {
         Transform gridLayout = containerUC.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
         GameObject ucOption = Instantiate(Resources.Load("Prefabs/MenuPrefabs/UCTemp")) as GameObject;
-        ucOption.name = _unitCombat.UnitName;
+        ucOption.name = _unitCombat.CharacterName;
         ucOption.transform.SetParent(gridLayout.transform, false);
         UCTempOption tempOption = ucOption.GetComponent<UCTempOption>();
         tempOption.InitOption(_unitCombat);
@@ -109,28 +109,25 @@ public class SelectTropsMenu : MonoBehaviour
     }
     public void MoveUnits()
     {
-        int i = 0;
         foreach (UCTempOption item in tempOptions)
         {
             if (item.IsSelected())
             {
-               // item.UnitCombat.PositionInBattle = i;
                 troopSelected.AddUnitCombat(item.UnitCombat);
-               // i++;
             }
         }
-        Territory.TYPEPLAYER typeSelected = territoryAttacker.TerritoryStats.Territory.TypePlayer;
+        Territory.TYPEPLAYER typeSelected = territoryAttacker.Territory.TypePlayer;
 
         int totalWarriors = troopSelected.GetAllNumbersUnit();
-        if (InGameMenuHandler.instance.GoldPlayer >= totalWarriors || territoryToAttack.TerritoryStats.Territory.TypePlayer == typeSelected)
+        if (InGameMenuHandler.instance.GoldPlayer >= totalWarriors || territoryToAttack.Territory.TypePlayer == typeSelected)
         {
-            if (territoryToAttack.TerritoryStats.Territory.TypePlayer != typeSelected)
+            if (territoryToAttack.Territory.TypePlayer != typeSelected)
             {
                 InGameMenuHandler.instance.GoldPlayer -= totalWarriors;
                 InGameMenuHandler.instance.FoodPlayer -= totalWarriors;
             }
-            troopSelected.MoveUnits(territoryAttacker.TerritoryStats.Territory);
-
+            //troopSelected.MoveUnits(territoryAttacker.Territory);
+            territoryAttacker.Territory.MoveUnits(troopSelected);
             WarManager.instance.SendWarriors(territoryAttacker, territoryToAttack, troopSelected);
         }
         else
@@ -215,7 +212,7 @@ public class SelectTropsMenu : MonoBehaviour
         optionsInAttack = GetComponentsInChildren<TroopOption>();
         for (int i = 0; i < optionsInAttack.Length; i++)
         {
-            optionsInAttack[i].InitTroopOption(1, i, territoryAttacker.TerritoryStats.Territory, territoryToAttack.TerritoryStats.Territory);
+            optionsInAttack[i].InitTroopOption(1, i, territoryAttacker.Territory, territoryToAttack.Territory);
         }
     }
     public void MoveUnits()
@@ -227,17 +224,17 @@ public class SelectTropsMenu : MonoBehaviour
                 troopSelected.AddElement(item.UnitCombatInBattle, item.PosInBattle);
             }
         }
-        Territory.TYPEPLAYER typeSelected = territoryAttacker.TerritoryStats.Territory.TypePlayer;
+        Territory.TYPEPLAYER typeSelected = territoryAttacker.Territory.TypePlayer;
 
         int totalWarriors = troopSelected.GetAllNumbersUnit();
-        if (InGameMenuHandler.instance.GoldPlayer >= totalWarriors || territoryToAttack.TerritoryStats.Territory.TypePlayer == typeSelected)
+        if (InGameMenuHandler.instance.GoldPlayer >= totalWarriors || territoryToAttack.Territory.TypePlayer == typeSelected)
         {
-            if (territoryToAttack.TerritoryStats.Territory.TypePlayer != typeSelected)
+            if (territoryToAttack.Territory.TypePlayer != typeSelected)
             {
                 InGameMenuHandler.instance.GoldPlayer -= totalWarriors;
                 InGameMenuHandler.instance.FoodPlayer -= totalWarriors;
             }
-            troopSelected.MoveUnits(territoryAttacker.TerritoryStats.Territory);
+            troopSelected.MoveUnits(territoryAttacker.Territory);
 
             WarManager.instance.SendWarriors(territoryAttacker, territoryToAttack, troopSelected);
         }

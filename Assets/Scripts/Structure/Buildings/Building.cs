@@ -25,11 +25,8 @@ public class Building
     protected bool isBuildMilitar = false;
     private bool canUpgrade = true;
 
-
     private int costToUpgrade = 7;
-
     private float daysToBuild = 3;
-
     private int position = -1;
     private int status = -1;
 
@@ -121,7 +118,6 @@ public class Building
             levelMaterials++;
             levelSpeed++;
             List<UnitCombat> ucs = territory.ListUnitCombat.GetUnitListByBuild(this.GetType().ToString());
-            //Debug.LogWarning("uc encntrados por " + this.GetType().ToString() + ":" +ucs.Count);
             foreach (var item in ucs)
             {
                 item.Attack += UnityEngine.Random.Range(1, 3);
@@ -150,14 +146,11 @@ public class Building
             levelMaterials--;
             levelSpeed--;
             List<UnitCombat> ucs = territory.ListUnitCombat.GetUnitListByBuild(this.GetType().ToString());
-            //Debug.LogWarning("uc encntrados por " + this.GetType().ToString() + ":" +ucs.Count);
             foreach (var item in ucs)
             {
                 item.Attack -= UnityEngine.Random.Range(1, 3);
                 item.Precision -= UnityEngine.Random.Range(1, 2);
             }
-            //territory.ListUnitCombat.GetFirstUnitCombat(this.GetType().ToString()).Attack -= 2;
-            //territory.ListUnitCombat.GetFirstUnitCombat(this.GetType().ToString()).Precision -= 2;
         }
         else if (this.Level % 3 == 1)
         {

@@ -38,13 +38,8 @@ public class CharacterOption : MonoBehaviour
         {
             var militar = (MilitarChief)character;
             allText[0].text = militar.Experience.ToString() + "/10"; 
-            allText[3].text = "Strategy:" + militar.StrategyType.ToLower();
-        }/*else if (this.character is )
-        {
-            var militar = (MilitarChief)character;
-            allText[0].text = militar.Experience.ToString() + "/10";
-            allText[3].text = "Strategy:" + militar.StrategyType.ToLower();
-        }*/
+            allText[3].text = "Strategy:" + militar.StrategyType.ToString().ToLower();
+        }
     }
     /// <summary>
     /// Initialize components in character profile option prefab

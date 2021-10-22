@@ -8,7 +8,7 @@ public class MilitarChief : Subordinate
 {
 
     [SerializeField] private int experience;
-    [SerializeField] private string strategyType;
+    [SerializeField] private TYPESTRAT strategyType;
     private string abilityName;
     public int Experience
     {
@@ -16,7 +16,7 @@ public class MilitarChief : Subordinate
         set { experience = value; }
     }
 
-    public string StrategyType
+    public TYPESTRAT StrategyType
     {
         get { return strategyType; }
         set { strategyType = value; }
@@ -38,23 +38,24 @@ public class MilitarChief : Subordinate
     }
     public MilitarChief()
     {
-        this.Description = "The military chief strongly influences the strength of your warriors when attacking other territories.";
         this.CharacIconType = "Military";
+    }
+    public MilitarChief(string name, Territory territory)
+    {
+        this.age = UnityEngine.Random.Range(20, 30);
+        this.origin = territory.name;
     }
     public void GetMilitarBoss()
     {
         System.Random rnd = new System.Random(DateTime.Now.Second);
         this.CharacterName = GetRandomName();
-        this.Age = UnityEngine.Random.Range(20, 30);
-        this.Origin = "Qosqo";
-        this.Campaign = "DEFAULT_CAMPAIGN";
-        this.Personality = "DEFAULT_PERSONALITY";
+        this.age = UnityEngine.Random.Range(20, 30);
+        this.origin = "Qosqo";
         this.CharacIconIndex = "0" + UnityEngine.Random.Range(1, 3).ToString();
-        this.Influence = UnityEngine.Random.Range(3, 10);
-        this.Opinion = UnityEngine.Random.Range(3, 10);
-        this.Experience = UnityEngine.Random.Range(3, 10);
-        TYPESTRAT _t = (TYPESTRAT)UnityEngine.Random.Range(0, 6);
-        this.StrategyType = _t.ToString();
+        this.influence = UnityEngine.Random.Range(3, 10);
+        this.opinion = UnityEngine.Random.Range(3, 10);
+        this.experience = UnityEngine.Random.Range(3, 10);
+        this.strategyType = (TYPESTRAT)UnityEngine.Random.Range(0, 6);
         GetSpecialAbility();
     }
 
@@ -79,26 +80,26 @@ public class MilitarChief : Subordinate
     {
         switch (strategyType)
         {
-            case "AGGRESSIVE":
+            case TYPESTRAT.AGGRESSIVE:
                 this.abilityName = "Power up";
                 break;
-            case "TERRAIN_MASTER":
+            case TYPESTRAT.TERRAIN_MASTER:
                 this.abilityName = "Tramp on";
                 break;
-            case "DEFENSIVE":
+            case TYPESTRAT.DEFENSIVE:
                 this.abilityName = "Intimidation"; //Intimidation
                 break;
-            case "ORGANIZER":
-                this.abilityName = "Juxtapose"; //Yuxtaponer
+            case TYPESTRAT.SACRED_WARRIOR:
+                this.abilityName = "Guardian Angel"; // inmunidad
                 break;
-            case "SIEGE_EXPERT":
+            case TYPESTRAT.SIEGE_EXPERT:
                 this.abilityName = "Unit Changue";  //cambio de unidad
                 break;
-            case "BRAVE":
+            case TYPESTRAT.BRAVE:
                 this.abilityName = "Disable"; // cancelacion
                 break;
-            case "SACRED_WARRIOR":
-                this.abilityName = "Guardian Angel"; // inmunidad
+            case TYPESTRAT.ORGANIZER:
+                this.abilityName = "Juxtapose"; //Yuxtaponer
                 break;
             default:
                 break;
@@ -108,30 +109,31 @@ public class MilitarChief : Subordinate
     {
         switch (strategyType)
         {
-            case "ORGANIZER":
+            case TYPESTRAT.ORGANIZER:
                 return (GetFirstPositionFree() != -1);
-            case "SACRED_WARRIOR":
-            case "AGGRESSIVE":
-            case "TERRAIN_MASTER":
-            case "DEFENSIVE":
-            case "SIEGE_EXPERT":
-            case "BRAVE":
+            case TYPESTRAT.AGGRESSIVE:
+            case TYPESTRAT.TERRAIN_MASTER:
+            case TYPESTRAT.DEFENSIVE:
+            case TYPESTRAT.SACRED_WARRIOR:
+            case TYPESTRAT.SIEGE_EXPERT:
+            case TYPESTRAT.BRAVE:
                 return true;
             default:
                 return false;
         }
     }
-    public void SpecialAbility(Territory.TYPEPLAYER attacker_type, Territory.TYPEPLAYER deffender_type)
+    public void SpecialAbility(Territory attacker, Territory deffender)
     {
         List<UnitGroup> ug = new List<UnitGroup>();
         UnitGroup dug = null;
         UnitCombat duc = null;
         int pos = 0;
-
+        Territory.TYPEPLAYER attacker_type = attacker.TypePlayer;
+        Territory.TYPEPLAYER deffender_type = deffender.TypePlayer;
         //        Debug.LogError("special ability");
         switch (strategyType)
         {
-            case "AGGRESSIVE":
+            case TYPESTRAT.AGGRESSIVE:
                 for (int i = 0; i < 8; i++)
                 {
                     SquareType _square = CombatManager.instance.Squares.transform.GetChild(i).gameObject.GetComponent<SquareType>();
@@ -147,7 +149,7 @@ public class MilitarChief : Subordinate
                     ug[i].UnitCombat.Attack += 10;
                 }
                 break;
-            case "TERRAIN_MASTER":
+            case TYPESTRAT.TERRAIN_MASTER:
                 for (int i = 0; i < 8; i++)
                 {
                     SquareType _square = CombatManager.instance.Squares.transform.GetChild(i).gameObject.GetComponent<SquareType>();
@@ -160,13 +162,13 @@ public class MilitarChief : Subordinate
                 }
                 //cambiar por uno seleccionable
                 ug[0].UnitCombat.Quantity -= 10;
-                if (ug[0].UnitCombat.Quantity< 0)
+                if (ug[0].UnitCombat.Quantity < 0)
                 {
                     ug[0].UnitCombat.Quantity = 0;
                 }
                 CombatManager.instance.AnimationInBattle(ug[0].UnitsGO, "rock");
                 break;
-            case "DEFENSIVE":
+            case TYPESTRAT.DEFENSIVE:
                 for (int i = 0; i < 8; i++)
                 {
                     SquareType _square = CombatManager.instance.Squares.transform.GetChild(i).gameObject.GetComponent<SquareType>();
@@ -182,7 +184,7 @@ public class MilitarChief : Subordinate
                     ug[i].UnitCombat.Attack -= 10;
                 }
                 break;
-            case "ORGANIZER":
+            case TYPESTRAT.SACRED_WARRIOR:
                 for (int i = 0; i < 8; i++)
                 {
                     SquareType _square = CombatManager.instance.Squares.transform.GetChild(i).gameObject.GetComponent<SquareType>();
@@ -190,18 +192,15 @@ public class MilitarChief : Subordinate
                     if (_ug != null && _ug.TypePlayer == attacker_type)
                     {
                         ug.Add(_ug);
-                        break;
                     }
                 }
-                dug = ug[0];
-                int a = dug.UnitCombat.Quantity;
-                UnitCombat new_uc = Utils.instance.GetNewUnitCombat(dug.UnitCombat.UnitName);
-                new_uc.Quantity = a / 4;
-                pos = GetFirstPositionFree();
-                // CombatManager.instance.AnimationInBattle(CombatManager.instance.Squares.transform.GetChild(pos).gameObject, "platform");
-                CombatManager.instance.InstantiateUnitPlayer(pos, new_uc);
+                for (int i = 0; i < ug.Count; i++)
+                {
+                    ug[i].Inmunity = true;
+                    CombatManager.instance.AnimationInBattle(ug[i].UnitsGO, "inmunity");
+                }
                 break;
-            case "SIEGE_EXPERT":
+            case TYPESTRAT.SIEGE_EXPERT:
                 for (int i = 0; i < 8; i++)
                 {
                     SquareType _square = CombatManager.instance.Squares.transform.GetChild(i).gameObject.GetComponent<SquareType>();
@@ -214,13 +213,12 @@ public class MilitarChief : Subordinate
                     }
                 }
                 dug = ug[0];
-                string s = GetUnitNameRandom(dug.UnitCombat.UnitName);
-                duc = Utils.instance.GetNewUnitCombat(s);
-                duc.Quantity = dug.UnitCombat.Quantity;
+                // string s = GetUnitNameRandom(dug.UnitCombat.CharacterName, attacker);
+                // duc = Utils.instance.CreateNewUnitCombat(s, dug.UnitCombat.Quantity);
+                duc = GetUnitCombatRandom(dug.UnitCombat,attacker);
                 CombatManager.instance.InstantiateUnitPlayer(CombatManager.instance.Squares.transform.GetChild(pos).gameObject, duc);
                 break;
-            case "BRAVE":
-
+            case TYPESTRAT.BRAVE:
                 for (int i = 0; i < 8; i++)
                 {
                     SquareType _square = CombatManager.instance.Squares.transform.GetChild(i).gameObject.GetComponent<SquareType>();
@@ -244,7 +242,7 @@ public class MilitarChief : Subordinate
                 }
 
                 break;
-            case "SACRED_WARRIOR":
+            case TYPESTRAT.ORGANIZER:
                 for (int i = 0; i < 8; i++)
                 {
                     SquareType _square = CombatManager.instance.Squares.transform.GetChild(i).gameObject.GetComponent<SquareType>();
@@ -252,18 +250,19 @@ public class MilitarChief : Subordinate
                     if (_ug != null && _ug.TypePlayer == attacker_type)
                     {
                         ug.Add(_ug);
+                        break;
                     }
                 }
-                for (int i = 0; i < ug.Count; i++)
-                {
-                    ug[i].Inmunity = true;
-                    CombatManager.instance.AnimationInBattle(ug[i].UnitsGO, "inmunity");
-                }
+                dug = ug[0];
+                int a = dug.UnitCombat.Quantity;
+                UnitCombat new_uc = Utils.instance.CreateNewUnitCombat(dug.UnitCombat.CharacterName,a/4);
+                pos = GetFirstPositionFree();
+                // CombatManager.instance.AnimationInBattle(CombatManager.instance.Squares.transform.GetChild(pos).gameObject, "platform");
+                CombatManager.instance.InstantiateUnitPlayer(pos, new_uc);
                 break;
             default:
                 break;
         }
-        
         CombatManager.instance.UpdateBuffTerrain();
         for (int i = 0; i < ug.Count; i++)
         {
@@ -290,26 +289,21 @@ public class MilitarChief : Subordinate
         }
         return -1;
     }
-    private string GetUnitNameRandom(string original)
+
+    private UnitCombat GetUnitCombatRandom(UnitCombat original, Territory territory)
     {
-        string f = "";
         List<string> units = Utils.instance.Units_string;
         int random = UnityEngine.Random.Range(0, units.Count);
-        if (units[random] == original)
+        UnitCombat unit;
+        UnitCombat temporalUnit = Utils.instance.CreateNewUnitCombat(units[random], original.Quantity);
+        if (units[random] == original.CharacterName || territory.GetBuildingByUnit(temporalUnit).Level < 1)
         {
-            f = GetUnitNameRandom(original);
+            unit = GetUnitCombatRandom(original, territory);
         }
         else
         {
-            f = units[random];
+            unit = temporalUnit;
         }
-        return f;
+        return unit;
     }
-    /*
-    AGGRESSIVE - grito de guerra + daño player
-    TERRAIN_MASTER - trampa
-    DEFENSIVE - intimidacion - reduce el daño del enemigo
-    SACRED_WARRIOR - 1 turno mas
-    SIEGE_EXPERT - 
-     */
 }

@@ -28,7 +28,7 @@ public class CustomEventOption : MonoBehaviour
         typeEventTxt.text = custom.EventType.ToString().ToLower().Replace("_", " ");
       //  initTxt.text = custom.TimeInitEvent.PrintTimeSimulated();
       //  finishTxt.text = custom.TimeFinalEvent.PrintTimeSimulated();
-        string[] splitArray = custom.MessageEvent.Split(char.Parse("."));
+        string[] splitArray = custom.Cause.Split(char.Parse("."));
         descriptionTxt.text = splitArray[0];
         
     }
@@ -56,7 +56,7 @@ public class CustomEventOption : MonoBehaviour
             InGameMenuHandler.instance.UpdateMenu();
             if (!MenuManager.instance.IsOpen)
             {
-                MenuManager.instance.OpenMenu();
+                MenuManager.instance.OpenMenuLearp();
             }
         }
         else

@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using System.Linq;
+
 [System.Serializable]
 public class Territory
 {
@@ -25,8 +23,6 @@ public class Territory
 
 
     [SerializeField] private Troop listUnitCombat = new Troop();
-
-
     [SerializeField] private Farm farmTerritory = new Farm();
     [SerializeField] private GoldMine goldMineTerritory = new GoldMine();
     [SerializeField] private Fortress fortressTerritory = new Fortress();
@@ -37,12 +33,17 @@ public class Territory
     [SerializeField] private Stable stableTerritory = new Stable();
     [SerializeField] private Archery archeryTerritory = new Archery();
 
-    [SerializeField] private List<Terrain> terrainList = new List<Terrain>();
+    // 0,1,2,4   8,9,10,11  16,17,18,19
+    [SerializeField] private List<Terrain> terrainDefendList = new List<Terrain>();
+    // 4,5,6,7  12,13,14,15     20,21,22,23
+    [SerializeField] private List<Terrain> terrainAttackList = new List<Terrain>();
     [SerializeField] private Civilization civilization = new Civilization();
     private int costImproveSpeedPopulation = 10;
     private int costImproveLimitPopulation = 10;
     private int addCost = 5;
     private int perPeople = 2;
+
+
     public Civilization Civilization
     {
         get { return civilization; }
@@ -140,12 +141,17 @@ public class Territory
         set { typePlayer = value; }
     }
     
-    public List<Terrain> TerrainList
+    public List<Terrain> TerrainAttackList
     {
-        get { return terrainList; }
-        set { terrainList = value; }
+        get { return terrainAttackList; }
+        set { terrainAttackList = value; }
     }
-    
+    public List<Terrain> TerrainDeffendList
+    {
+        get { return terrainDefendList; }
+        set { terrainDefendList = value; }
+    }
+
     public bool AllBuildsLevels()
     {
         return goldMineTerritory.Level > 0
@@ -167,6 +173,16 @@ public class Territory
     public int Population
     {
         get { return listUnitCombat.GetPopulation(); }
+    }
+    public int LimitPopulation
+    {
+        get {
+            return academyTerritory.LimitUnits +
+          barracksTerritory.LimitUnits +
+          castleTerritory.LimitUnits +
+          archeryTerritory.LimitUnits +
+          stableTerritory.LimitUnits;
+        } 
     }
 
     public int MotivationTerritory
@@ -235,32 +251,23 @@ public class Territory
             return null;
         }
     }
-    public Building GetBuildingByUnit(string unit)
+    public Building GetBuildingByUnit(UnitCombat unit)
     {
-//        Debug.LogError(unit.GetType().ToString());
-        if (unit == "Swordsman")
+        switch (unit.CharacterName)
         {
-            return this.academyTerritory;
-        }
-        else if (unit == "Lancer")
-        {
-            return this.barracksTerritory;
-        }
-        else if (unit == "Axeman")
-        {
-            return this.castleTerritory;
-        }
-        else if (unit == "Scout")
-        {
-            return this.stableTerritory;
-        }
-        else if (unit == "Archer")
-        {
-            return this.archeryTerritory;
-        }
-        else
-        {
-            return null;
+            case "Swordsman":
+                return this.academyTerritory;
+            case "Lancer":
+                return this.barracksTerritory;
+            case "Axeman":
+                return this.castleTerritory;
+            case "Scout":
+                return this.stableTerritory;
+            case "Archer":
+                return this.archeryTerritory;
+            default:
+                Debug.LogError("no se encontro unidad de combate");
+                return null;
         }
     }
 
@@ -303,103 +310,30 @@ public class Territory
             return null;
         }
     }
-    /*
-    public UnitCombat GetUnitCombat(string building, int index)
+    public void MoveUnits(Troop troop)
     {
-        if (building == "Academy")
+        for (int i = 0; i < troop.UnitCombats.Count; i++)
         {
-            return this.swords[index];
-        }
-        else if (building == "Barracks")
-        {
-            return this.spears[index];
-        }
-        else if (building == "Castle")
-        {
-            return this.axes[index];
-        }
-        else if (building == "Stable")
-        {
-            return this.scout[index];
-        }
-        else if (building == "Archery")
-        {
-            return this.archers[index];
-        }
-        else
-        {
-            return null;
+            listUnitCombat.DeleteUnitCombat(troop.UnitCombats[i]);
         }
     }
-    
-    public UnitCombat GetUnit(string unit, int index)
+    public void IncresementGold()
     {
-        if (unit == "Swordsman")
-        {
-            return swords[index];
-        }
-        else if (unit == "Lancer")
-        {
-            return this.spears[index];
-        }
-        else if (unit == "Axeman")
-        {
-            return this.axes[index];
-        }
-        else if (unit == "Scout")
-        {
-            return this.scout[index];
-        }
-        else if (unit == "Archer")
-        {
-            return this.archers[index];
-        }
-        else
-        {
-            return null;
-        }
+        gold += goldMineTerritory.LimitUnits / perPeople;
     }
-    */
-    public float GetSpeed(UnitCombat unitCombat)
+    public void IncresementFood()
     {
-        switch (unitCombat.GetType().ToString())
-        {
-            case "Swordsman":
-                return this.academyTerritory.SpeedUnits;
-            case "Lancer":
-                return this.barracksTerritory.SpeedUnits;
-            case "Axeman":
-                return this.castleTerritory.SpeedUnits;
-            case "Scout":
-                return this.stableTerritory.SpeedUnits;
-            case "Archer":
-                return this.archeryTerritory.SpeedUnits;
-            default:
-                Debug.LogError("no se encontro unidad de combate");
-                break;
-        }
-        return 0;
+        food += farmTerritory.LimitUnits / perPeople;
     }
-
-    public int GetLimit(UnitCombat unitCombat)
+    public void GatherTerritoryGold()
     {
-        switch (unitCombat.GetType().ToString())
-        {
-            case "Swordsman":
-                return this.academyTerritory.LimitUnits;
-            case "Lancer":
-                return this.barracksTerritory.LimitUnits;
-            case "Axeman":
-                return this.castleTerritory.LimitUnits;
-            case "Scout":
-                return this.stableTerritory.LimitUnits;
-            case "Archer":
-                return this.archeryTerritory.LimitUnits;
-            default:
-                Debug.LogError("no se encontro edificio");
-                break;
-        }
-        return 0;
+        int gather = gold;
+        gold -= gather;
+    }
+    public void GatherTerritoryFood()
+    {
+        int gather = food;
+        food -= gather;
     }
     public void ResetAllBuilds()
     {

@@ -6,29 +6,16 @@ using UnityEngine.UI;
 
 public class WarriorsMoving : MonoBehaviour
 {
-    //prefab variables
-    [SerializeField]private GameObject target;
-    //stats
-    [SerializeField] private Troop playerTroop;
-
-   // [SerializeField]private Territory.TYPEPLAYER territorytype;
-   // private MilitarChief mb;
-   // private MilitarChief.TYPESTRAT militaryBossStrategy;
-  //  private int militaryBossExperience;
-    [SerializeField]private TerritoryHandler attacker;
-    //result
-    [SerializeField] private float attackPower;
-
-    public void SetAttack(GameObject _target, Troop _playerTroop, TerritoryHandler attackerTerritory)
+    [SerializeField] private Troop attackerTroop;
+    [SerializeField] private TerritoryHandler attackerTerritory;
+    [SerializeField] private TerritoryHandler defenderTerritory;
+    public void SetAttack(TerritoryHandler _targetTerritory, TerritoryHandler _attackerTerritory, Troop _attackerTroop)
     {
-        target = _target;
-
-        playerTroop = _playerTroop;
-        attacker = attackerTerritory;
-      //  territorytype = attackerTerritory.TerritoryStats.Territory.TypePlayer;
-      //  mb = attackerTerritory.TerritoryStats.Territory.MilitarChiefTerritory;
-        //TOTAL DE GUERREROS
-        this.transform.GetChild(0).gameObject.GetComponent<TextMeshPro>().text = playerTroop.GetAllNumbersUnit().ToString();
+        defenderTerritory = _targetTerritory;
+        attackerTroop = _attackerTroop;
+        attackerTerritory = _attackerTerritory;
+        TextMeshPro text = transform.GetChild(0).gameObject.GetComponent<TextMeshPro>();
+        text.text = attackerTroop.GetAllNumbersUnit().ToString();
     }
 
     void Update()
@@ -42,15 +29,15 @@ public class WarriorsMoving : MonoBehaviour
     private void MovingWarriors()
     {
         float step = GlobalVariables.instance.VelocityMoving * Time.deltaTime;
-
+        GameObject target = defenderTerritory.gameObject;
         transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
         if (Vector3.Distance(transform.position, target.transform.position) < 0.001f)
         {
-            if(target.GetComponent<TerritoryHandler>() == TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>())
+            if(defenderTerritory == TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>())
                 MenuManager.instance.overMenuBlock.GetComponent<OverMenu>().turnOffMenus();
 
-            WarManager.instance.MoveWarriors(target.GetComponent<TerritoryHandler>(), attacker, playerTroop);
-            if(target.GetComponent<TerritoryHandler>() == WarManager.instance.selected)
+            WarManager.instance.MoveWarriors(attackerTerritory, defenderTerritory, attackerTroop);
+            if(defenderTerritory == WarManager.instance.selected)
             {
                 WarManager.instance.SetWarStatus(true);
             }

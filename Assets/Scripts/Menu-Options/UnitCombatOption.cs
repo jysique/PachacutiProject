@@ -12,6 +12,7 @@ public class UnitCombatOption : MonoBehaviour
     [SerializeField] private UnitCombat unitContainer;
     [SerializeField] private Button disbandButton;
     [SerializeField] private GameObject speed;
+    [SerializeField] private GameObject block;
     private bool init = false;
     private MenuToolTip toolTip;
     string stats;
@@ -44,9 +45,19 @@ public class UnitCombatOption : MonoBehaviour
     public void UpdateElements()
     {
         Territory territorySelected = InGameMenuHandler.instance.TerritorySelected;
-        warriorsName.text = GameMultiLang.GetTraduction(unitContainer.UnitName);
+        warriorsName.text = GameMultiLang.GetTraduction(unitContainer.CharacterName);
         if (territorySelected.TypePlayer != Territory.TYPEPLAYER.NONE)
         {
+
+            if (territorySelected.GetBuildingByUnit(unitContainer).Level<1)
+            {
+                block.SetActive(true);
+                block.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Build a \n" + territorySelected.GetBuildingByUnit(unitContainer).Name;
+            }
+            else
+            {
+                block.SetActive(false);
+            }
             if (unitContainer.IsAvailable)
             {
                 warriorsCount.text = "QUANTITY: " + unitContainer.Quantity;
@@ -54,7 +65,7 @@ public class UnitCombatOption : MonoBehaviour
                 timeBar.gameObject.SetActive(false);
                 speed.SetActive(false);
                 stats = "ATTACK: " + unitContainer.Attack + "\n" +
-                    "DEFENSE: " + unitContainer.Defense + "\n" +
+                    "Armor: " + unitContainer.Armor + "\n" +
                     "EVASION: " + unitContainer.Evasion + "\n" +
                     "PRESICION: " + unitContainer.Precision + "\n";
                 toolTip.SetNewInfo(stats);
@@ -65,11 +76,10 @@ public class UnitCombatOption : MonoBehaviour
                 disbandButton.gameObject.SetActive(false);
                 timeBar.gameObject.SetActive(true);
                 speed.SetActive(true);
-                //CorroboratePopulation(unitContainer);
                 UpdateLinearBarProgress();
                 toolTip.SetNewInfo("In Progress");
             }
-            warriorsSpeed.text = territorySelected.GetSpeed(unitContainer).ToString();
+            warriorsSpeed.text = territorySelected.GetBuildingByUnit(unitContainer).SpeedUnits.ToString();
         }
         else
         {
@@ -84,4 +94,8 @@ public class UnitCombatOption : MonoBehaviour
         timeBar.fillAmount = (float)unitContainer.InProgress / (float)unitContainer.Quantity;
     }
 
+    void BlockUnit()
+    {
+        
+    }
 }

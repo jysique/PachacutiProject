@@ -147,17 +147,17 @@ public class EventManager : MonoBehaviour
         InitCustomEvent(custom);
         DateTableHandler.instance.PauseTime();
         TitleTextCustomEvent.text = custom.NameEvent;
-        DetailsTextCustomEvent.text = custom.MessageEvent + "\n"+GameMultiLang.GetTraduction("TimeRemaining").Replace("%", daysToFinal.ToString()) + "\n"
+        DetailsTextCustomEvent.text = custom.Cause + "\n"+GameMultiLang.GetTraduction("TimeRemaining").Replace("%", daysToFinal.ToString()) + "\n"
             + custom.RequirementMessageEvent;
-        MotivationTxt.text = ":" + custom.TerritoryEvent.TerritoryStats.Territory.MotivationTerritory;
-        OpinionTxt.text = ":" + custom.TerritoryEvent.TerritoryStats.Territory.OpinionTerritory;
+        MotivationTxt.text = ":" + custom.TerritoryEvent.Territory.MotivationTerritory;
+        OpinionTxt.text = ":" + custom.TerritoryEvent.Territory.OpinionTerritory;
         goToBtn.onClick.AddListener(() => GoToButton(custom));
     }
     public void WarningEventAppearanceInBattle(CustomEvent custom)
     {
         InitCustomEvent(custom);
         TitleTextCustomEvent.text = custom.NameEvent;
-        DetailsTextCustomEvent.text = custom.MessageEvent;
+        DetailsTextCustomEvent.text = custom.Cause;
     }
     private void GoToButton(CustomEvent custom)
     {
@@ -169,9 +169,9 @@ public class EventManager : MonoBehaviour
     {
         CustomEventSelection.gameObject.SetActive(true);
         ResetTextCustomEvent();
-        FirstOptionTxt.text = custom.Button1;
-        SecondOptionTxt.text = custom.Button2;
-        ThirdOptionTxt.text = custom.Button3;
+        FirstOptionTxt.text = custom.Decision1;
+        SecondOptionTxt.text = custom.Decision2;
+        ThirdOptionTxt.text = custom.Decision3;
 
         FirstOptionButton.interactable = custom.GetAcceptButton();
         if (custom.IsBattle)
@@ -262,29 +262,12 @@ public class EventManager : MonoBehaviour
     }
     public void AddBattleEvents(Troop playerTroop, Troop enemyTroop, TerritoryHandler _playerTerritory, TerritoryHandler _enemyTerritory, bool isPlayerTerritory)
     {
-
         if (Random.Range(0, 100) >= 30)
             listEvents.AddBattleEvent("INIT", playerTroop, enemyTroop, _playerTerritory, _enemyTerritory, isPlayerTerritory);
         if (Random.Range(0, 100) >= 30)
             listEvents.AddBattleEvent("MIDDLE", playerTroop, enemyTroop, _playerTerritory, _enemyTerritory, isPlayerTerritory);
         if (Random.Range(0, 100) >= 30)
             listEvents.AddBattleEvent("FINAL", playerTroop, enemyTroop, _playerTerritory, _enemyTerritory, isPlayerTerritory);
-        /*
-
-        int a = 13;
-        int b = 0;
-        for (int i = 20; i > 0; i--)
-        {
-            //Debug.Log("-b|" + b + "-evento|"+ ((CustomEvent.EVENTTYPE)a).ToString() + "-i|" + i);
-            listEvents.AddBattleEvent(a, i, playerTroop, enemyTroop, _playerTerritory, _enemyTerritory, isPlayerTerritory);
-            b++;
-            if (b==3)
-            {
-                b = 0;
-                a++;
-            }
-        }
-        */
     }
     /// <summary>
     /// Check the timeGame with the timeAddEvent
@@ -313,7 +296,7 @@ public class EventManager : MonoBehaviour
     {
         for (int i = 0; i < listEvents.CustomEvents.Count; i++)
         {
-            if (listEvents.CustomEvents[i].TerritoryEvent.TerritoryStats.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
+            if (listEvents.CustomEvents[i].TerritoryEvent.Territory.TypePlayer == Territory.TYPEPLAYER.PLAYER)
             {
 
                 if (listEvents.CustomEvents[i].EventStatus == CustomEvent.STATUS.ANNOUNCE)
@@ -349,25 +332,9 @@ public class EventManager : MonoBehaviour
                 listEvents.ExpedicionEvents[i].ReturnUnits();
             }
         }
-        if (listEvents.BattleEvents.Count>0)
-        {
-            for (int i = 0; i < listEvents.BattleEvents.Count; i++)
-            {
-                if (CombatManager.instance.Turns == listEvents.BattleEvents[i].TurnEvent && listEvents.BattleEvents[i].EventStatus == CustomEvent.STATUS.ANNOUNCE)
-                {
-                    BattleEventController.instance.Init(listEvents.BattleEvents[i]);
-                    currentBattle = i;
-                    listEvents.BattleEvents[i].EventStatus = CustomEvent.STATUS.PROGRESS;
-                    
-                }
-            }
-        }
+        
     }
-    [SerializeField]private int currentBattle;
-    public CustomBattle CurrentBattleEvent
-    {
-        get { return listEvents.BattleEvents[currentBattle]; }
-    }
+
     /// <summary>
     /// check the diference days of the UPGRADE-BUILDS events in the list according
     /// to the TIME-INIT of the upgrade of every event comparing with the timeGame

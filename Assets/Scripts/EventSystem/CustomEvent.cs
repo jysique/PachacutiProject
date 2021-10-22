@@ -10,14 +10,14 @@ public class CustomEvent
     [SerializeField] protected int costEvent;
 
     [SerializeField] protected string nameEvent;
-    [SerializeField] protected string btn1;
-    [SerializeField] protected string btn2;
-    [SerializeField] protected string btn3;
+    [SerializeField] protected string cause;
+    [SerializeField] protected string decision1;
+    [SerializeField] protected string decision2;
+    [SerializeField] protected string decision3;
 
-    [SerializeField] protected string message;
-    [SerializeField] protected string acceptMessageEvent;
-    [SerializeField] protected string declineMessageEvent;
-    [SerializeField] protected string thirdMessageEvent;
+    [SerializeField] protected string effect1;
+    [SerializeField] protected string effect2;
+    [SerializeField] protected string effect3;
 
     [SerializeField] protected string requirementMessageEvent;
     [SerializeField] protected string resultMessageEvent;
@@ -63,45 +63,45 @@ public class CustomEvent
         get { return nameEvent; }
         set { nameEvent = value; }
     }
-    public string MessageEvent
+    public string Cause
     {
-        get { return message; }
-        set { message = value; }
+        get { return cause; }
+        set { cause = value; }
     }
     public TerritoryHandler TerritoryEvent
     {
         get { return territoryEvent; }
         set { territoryEvent = value; }
     }
-    public string AcceptMessageEvent
+    public string Effect1
     {
-        get { return acceptMessageEvent; }
-        set { acceptMessageEvent = value; }
+        get { return effect1; }
+        set { effect1 = value; }
     }
-    public string DeclineMessageEvent
+    public string Effect2
     {
-        get { return declineMessageEvent; }
-        set { declineMessageEvent = value; }
+        get { return effect2; }
+        set { effect2 = value; }
     }
     public string ResultMessageEvent
     {
         get { return resultMessageEvent; }
         set { resultMessageEvent = value; }
     }
-    public string Button1
+    public string Decision1
     {
-        get { return btn1; }
-        set { btn1 = value; }
+        get { return decision1; }
+        set { decision1 = value; }
     }
-    public string Button2
+    public string Decision2
     {
-        get { return btn2; }
-        set { btn2 = value; }
+        get { return decision2; }
+        set { decision2 = value; }
     }
-    public string Button3
+    public string Decision3
     {
-        get { return btn3; }
-        set { btn3 = value; }
+        get { return decision3; }
+        set { decision3 = value; }
     }
     public string RequirementMessageEvent
     {
@@ -182,13 +182,13 @@ public class CustomEvent
     protected void GetMessage()
     {
         this.nameEvent = GameMultiLang.GetTraductionEvents(eventType.ToString() + "_NAME");
-        this.btn1 = GameMultiLang.GetTraductionEvents(eventType.ToString() + "1");
-        this.btn2 = GameMultiLang.GetTraductionEvents(eventType.ToString() + "2");
-        this.btn3 = GameMultiLang.GetTraductionEvents(eventType.ToString() + "3");
-        this.message = GameMultiLang.GetTraductionEvents(eventType.ToString() + "M").Replace("TERRITORYEVENT", TerritoryEvent.name);
-        this.acceptMessageEvent = GameMultiLang.GetTraductionEvents(eventType.ToString() + "A").Replace("TERRITORYEVENT", TerritoryEvent.name);
-        this.declineMessageEvent = GameMultiLang.GetTraductionEvents(eventType.ToString() + "D").Replace("TERRITORYEVENT", TerritoryEvent.name);
-        this.thirdMessageEvent = GameMultiLang.GetTraductionEvents(eventType.ToString() + "T").Replace("TERRITORYEVENT", TerritoryEvent.name);
+        this.decision1 = GameMultiLang.GetTraductionEvents(eventType.ToString() + "_DECISION1");
+        this.decision2 = GameMultiLang.GetTraductionEvents(eventType.ToString() + "_DECISION2");
+        this.decision3 = GameMultiLang.GetTraductionEvents(eventType.ToString() + "_DECISION3");
+        this.cause = GameMultiLang.GetTraductionEvents(eventType.ToString() + "_CAUSE").Replace("TERRITORYEVENT", TerritoryEvent.name);
+        this.effect1 = GameMultiLang.GetTraductionEvents(eventType.ToString() + "_EFFECT1").Replace("TERRITORYEVENT", TerritoryEvent.name);
+        this.effect2 = GameMultiLang.GetTraductionEvents(eventType.ToString() + "_EFFECT2").Replace("TERRITORYEVENT", TerritoryEvent.name);
+        this.effect3 = GameMultiLang.GetTraductionEvents(eventType.ToString() + "_EFFECT3").Replace("TERRITORYEVENT", TerritoryEvent.name);
     }
     protected void GetRequirement()
     {
@@ -287,19 +287,19 @@ public class CustomEvent
                 break;
             case EVENTTYPE.PETITION_MIN:
                 InGameMenuHandler.instance.GoldPlayer -= costEvent;
-                TerritoryEvent.TerritoryStats.Territory.GoldMineTerritory.ImproveManyLevels(2, territoryEvent.TerritoryStats.Territory);
+                TerritoryEvent.Territory.GoldMineTerritory.ImproveManyLevels(2, territoryEvent.Territory);
                 break;
             case EVENTTYPE.PETITION_FOR:
                 InGameMenuHandler.instance.GoldPlayer -= costEvent;
-                TerritoryEvent.TerritoryStats.Territory.FortressTerritory.ImproveManyLevels(1, territoryEvent.TerritoryStats.Territory);
+                TerritoryEvent.Territory.FortressTerritory.ImproveManyLevels(1, territoryEvent.Territory);
                 break;
             case EVENTTYPE.GRACE_MIN:
                 InGameMenuHandler.instance.GoldPlayer -= costEvent;
-                TerritoryEvent.TerritoryStats.Territory.GoldMineTerritory.ImproveManyLevels(3, territoryEvent.TerritoryStats.Territory);
+                TerritoryEvent.Territory.GoldMineTerritory.ImproveManyLevels(3, territoryEvent.Territory);
                 break;
             case EVENTTYPE.GRACE_FOOD:
                 InGameMenuHandler.instance.GoldPlayer -= costEvent;
-                TerritoryEvent.TerritoryStats.Territory.FarmTerritory.ImproveManyLevels(3, territoryEvent.TerritoryStats.Territory);
+                TerritoryEvent.Territory.FarmTerritory.ImproveManyLevels(3, territoryEvent.Territory);
                 break;
             default:
                 break;
@@ -315,36 +315,36 @@ public class CustomEvent
         switch (eventType)
         {
             case EVENTTYPE.EARTHQUAKER:
-                TerritoryEvent.TerritoryStats.Territory.ResetAllBuilds();
+                TerritoryEvent.Territory.ResetAllBuilds();
                 break;
             case EVENTTYPE.REBELION:
-                TerritoryEvent.TerritoryStats.Territory.TypePlayer = Territory.TYPEPLAYER.NONE;
+                TerritoryEvent.Territory.TypePlayer = Territory.TYPEPLAYER.NONE;
                 //    Debug.LogError("perdimos el territorio");
                 break;
             case EVENTTYPE.DROUGHT:
-                TerritoryEvent.TerritoryStats.Territory.FarmTerritory.ResetBuilding(territoryEvent.TerritoryStats.Territory);
-                TerritoryEvent.TerritoryStats.Territory.ListUnitCombat.ReduceAllQuantity();
+                TerritoryEvent.Territory.FarmTerritory.ResetBuilding(territoryEvent.Territory);
+                TerritoryEvent.Territory.ListUnitCombat.ReduceAllQuantity();
 
                 break;
             case EVENTTYPE.ALL_T_PANDEMIC:
                 List<TerritoryHandler> list = TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER);
                 for (int i = 0; i < list.Count; i++)
                 {
-                    list[i].TerritoryStats.Territory.ListUnitCombat.ReduceAllQuantity();
+                    list[i].Territory.ListUnitCombat.ReduceAllQuantity();
                 }
                 break;
             case EVENTTYPE.PANDEMIC:
-                TerritoryEvent.TerritoryStats.Territory.ListUnitCombat.ReduceAllQuantity();
+                TerritoryEvent.Territory.ListUnitCombat.ReduceAllQuantity();
                 break;
             case EVENTTYPE.ALL_T_PLAGUE:
                 List<TerritoryHandler> list2 = TerritoryManager.instance.GetTerritoriesHandlerByTypePlayer(Territory.TYPEPLAYER.PLAYER);
                 for (int i = 0; i < list2.Count; i++)
                 {
-                    list2[i].TerritoryStats.Territory.FarmTerritory.ResetBuilding(territoryEvent.TerritoryStats.Territory);
+                    list2[i].Territory.FarmTerritory.ResetBuilding(territoryEvent.Territory);
                 }
                 break;
             case EVENTTYPE.PLAGUE:
-                TerritoryEvent.TerritoryStats.Territory.FarmTerritory.ResetBuilding(territoryEvent.TerritoryStats.Territory);
+                TerritoryEvent.Territory.FarmTerritory.ResetBuilding(territoryEvent.Territory);
                 break;
             case EVENTTYPE.PETITION_MIN:
                 break;
@@ -408,7 +408,7 @@ public class CustomEvent
         if (isAcceptedEvent)
         {
             this.resultMessageEvent = GameMultiLang.GetTraduction("CompleteResults").Replace("TERRITORYEVENT", TerritoryEvent.name);
-            return this.acceptMessageEvent;
+            return this.effect1;
         }
         else {
             this.resultMessageEvent = GameMultiLang.GetTraduction("IncompleteResults").Replace("TERRITORYEVENT", TerritoryEvent.name);
@@ -420,7 +420,7 @@ public class CustomEvent
             {
                 this.resultMessageEvent = GameMultiLang.GetTraduction("ExplorationResults").Replace("TERRITORYEVENT", TerritoryEvent.name);
             }
-            return this.declineMessageEvent;
+            return this.effect2;
         }
     }
     public enum EVENTTYPE
@@ -472,14 +472,14 @@ public class CustomBuilding : CustomEvent
     public CustomBuilding(TimeSimulated _initTime, TerritoryHandler territory, Building _building)
     {
         this.territoryEvent = territory;
-        building = territoryEvent.TerritoryStats.Territory.GetBuilding(_building);
+        building = territoryEvent.Territory.GetBuilding(_building);
         timeInit = new TimeSimulated(_initTime);
     }
     public void FinishUpgradeBuilding()
     {
         building.CanUpdrade = true;
         //building.DaysTotal = 0;
-        building.ImproveManyLevels(1,this.territoryEvent.TerritoryStats.Territory);
+        building.ImproveManyLevels(1,this.territoryEvent.Territory);
         building.ImproveCostUpgrade(1);
     }
     public void InProggressUpgrade()
@@ -551,7 +551,7 @@ public class CustomExpedition : CustomEvent
       //  this.costEvent = UnityEngine.Random.Range(1, InGameMenuHandler.instance.GoldPlayer / 2);
         GetTimesExpeditionEvents(_initTime);
         GetMessage();
-        this.MessageEvent = this.MessageEvent.Replace("NUMBER", troop.GetAllNumbersUnit().ToString());
+        this.Cause = this.Cause.Replace("NUMBER", troop.GetAllNumbersUnit().ToString());
     }
     void GetTimesExpeditionEvents(TimeSimulated _initTime)
     {
@@ -572,6 +572,7 @@ public class CustomBattle : CustomEvent
     List<UnitGroup> ug = new List<UnitGroup>();
     [SerializeField] private Troop troop = new Troop();
     Territory.TYPEPLAYER typeEvent;
+    int number;
     bool miss = false;
     int index_to_mod;
     int units_to_mod;
@@ -583,27 +584,36 @@ public class CustomBattle : CustomEvent
     {
         get { return turn; }
     }
+    public string EffectBattle
+    {
+        get { return GameMultiLang.GetTraductionEvents(eventType.ToString() + "_EFFECT" + number); }
+    }
+    public string Incident
+    {
+        get { return GameMultiLang.GetTraductionEvents(eventType.ToString() + "_INCIDENT"+number); }
+    }
     public CustomBattle(string _type, Troop _troopPlayer, Troop _troopNoPlayer, TerritoryHandler _territoryPlayer, TerritoryHandler _territoryNoPlayer)
     {
+        
         this.eventStatus = STATUS.ANNOUNCE;
         this.isBattle = true;
         GetTypeBattle(_type);
         if ( eventType != EVENTTYPE.INTOXICATE)
         {
             this.troop.SaveTroop(_troopPlayer);
-            this.typeEvent = _territoryPlayer.TerritoryStats.Territory.TypePlayer;
+            this.typeEvent = _territoryPlayer.Territory.TypePlayer;
             this.territoryEvent = _territoryPlayer;
         }
         else
         {
             this.troop.SaveTroop(_troopNoPlayer);
-            this.typeEvent = _territoryNoPlayer.TerritoryStats.Territory.TypePlayer;
+            this.typeEvent = _territoryNoPlayer.Territory.TypePlayer;
             this.territoryEvent = _territoryNoPlayer;
         }
         GetMessage();
         GetRequirement();
     }
-
+    /*
     public CustomBattle(int _a,int _turn, Troop _troopPlayer, Troop _troopNoPlayer, TerritoryHandler _territoryPlayer, TerritoryHandler _territoryNoPlayer)
     {
         isAcceptedEvent = false;
@@ -614,26 +624,26 @@ public class CustomBattle : CustomEvent
         if (eventType != EVENTTYPE.INTOXICATE)
         {
             this.troop.SaveTroop(_troopPlayer);
-            this.typeEvent = _territoryPlayer.TerritoryStats.Territory.TypePlayer;
+            this.typeEvent = _territoryPlayer.Territory.TypePlayer;
             this.territoryEvent = _territoryPlayer;
         }
         else
         {
             this.troop.SaveTroop(_troopNoPlayer);
-            this.typeEvent = _territoryNoPlayer.TerritoryStats.Territory.TypePlayer;
+            this.typeEvent = _territoryNoPlayer.Territory.TypePlayer;
             this.territoryEvent = _territoryNoPlayer;
         }
         GetMessage();
         GetRequirement();
     }
-
+    */
     private void GetTypeBattle(string battleType)
     {
         int turns = CombatManager.instance.Turns;
         switch (battleType)
         {
             case "INIT":
-                this.turn = 20;
+                this.turn = turns;
                 this.eventType = (EVENTTYPE)UnityEngine.Random.Range(13, 16);
                 break;
             case "MIDDLE":
@@ -655,7 +665,7 @@ public class CustomBattle : CustomEvent
         int max_units_count = troop.UnitCombats.Count-1;
         int random = UnityEngine.Random.Range(0, max_units_count);
         UnitCombat uc = troop.UnitCombats[random];
-        // int _pos = troop.Positions[random];
+        
         int _pos = troop.UnitCombats[random].PositionInBattle;
         for (int i = 0; i < squares_count; i++)
         {
@@ -677,7 +687,7 @@ public class CustomBattle : CustomEvent
         {
             SquareType _square = CombatManager.instance.Squares.transform.GetChild(i).gameObject.GetComponent<SquareType>();
             UnitGroup _ug = _square.UnitGroup;
-            if (_ug != null && _ug.TypePlayer == territoryEvent.TerritoryStats.Territory.TypePlayer)
+            if (_ug != null && _ug.TypePlayer == territoryEvent.Territory.TypePlayer)
             {
                 ug.Add(_ug);
             }
@@ -689,7 +699,7 @@ public class CustomBattle : CustomEvent
         {
             SquareType _square = CombatManager.instance.Squares.transform.GetChild(i).gameObject.GetComponent<SquareType>();
             UnitGroup _ug = _square.UnitGroup;
-            if (_ug != null && _ug.TypePlayer == territoryEvent.TerritoryStats.Territory.TypePlayer)
+            if (_ug != null && _ug.TypePlayer == territoryEvent.Territory.TypePlayer)
             {
                 ug.Add(_ug);
                 break;
@@ -708,7 +718,7 @@ public class CustomBattle : CustomEvent
         building_to_mod = " ";
         if (UnityEngine.Random.Range(0, 100) <= 20 && ug.Count > 1)
         {
-            building_to_mod = ug[1].UnitCombat.UnitName;
+            building_to_mod = ug[1].UnitCombat.CharacterName;
             ug[1].UnitCombat.Quantity = 0;
         }
     }
@@ -743,12 +753,13 @@ public class CustomBattle : CustomEvent
     }
     private void PillageTerritory()
     {
-        territoryEvent.TerritoryStats.Territory.Gold -= costgold;
-        territoryEvent.TerritoryStats.Territory.FoodReward -= costfood;
+        territoryEvent.Territory.Gold -= costgold;
+        territoryEvent.Territory.FoodReward -= costfood;
     }
     public override void AcceptEventAction()
     {
         base.AcceptEventAction();
+        number = 1;
         isAcceptedEvent = true;
         this.eventStatus = STATUS.PROGRESS;
         switch (eventType)
@@ -793,7 +804,7 @@ public class CustomBattle : CustomEvent
                 CombatManager.instance.LimitSA++;
                 break;
             case EVENTTYPE.PILLAGE:
-                costgold = territoryEvent.TerritoryStats.Territory.Gold;
+                costgold = territoryEvent.Territory.Gold;
                 PillageTerritory();
                 break;
             case EVENTTYPE.BURN:
@@ -808,6 +819,7 @@ public class CustomBattle : CustomEvent
     public override void DeclineEventAction()
     {
         base.DeclineEventAction();
+        this.number = 2;
         isAcceptedEvent = true;
         this.eventStatus = STATUS.PROGRESS;
         switch (eventType)
@@ -833,7 +845,7 @@ public class CustomBattle : CustomEvent
             case EVENTTYPE.WOOKIE:
                 UnitGroup u = GetRandomUnitGroup();
                 
-                u.UnitCombat.Quantity -= 20;
+                u.UnitCombat.Quantity -= 5;
                 if (u.UnitCombat.Quantity <= 0)
                 {
                     u.UnitCombat.Quantity = 0;
@@ -852,7 +864,7 @@ public class CustomBattle : CustomEvent
                 CombatManager.instance.LimitSA++;
                 break;
             case EVENTTYPE.PILLAGE:
-                costfood = territoryEvent.TerritoryStats.Territory.FoodReward;
+                costfood = territoryEvent.Territory.FoodReward;
                 PillageTerritory();
                 break;
             case EVENTTYPE.BURN:
@@ -867,6 +879,7 @@ public class CustomBattle : CustomEvent
     public override void AdicitionalEventAction()
     {
         base.AdicitionalEventAction();
+        this.number = 3;
         isAcceptedEvent = true;
         this.eventStatus = STATUS.PROGRESS;
         switch (eventType)
@@ -880,8 +893,9 @@ public class CustomBattle : CustomEvent
                 miss = true;
                 break;
             case EVENTTYPE.WOOKIE:
-                UnitGroup u = GetRandomUnitGroup();
-                u.UnitCombat.Quantity = 0;
+                //UnitGroup u = GetRandomUnitGroup();
+                //u.UnitCombat.Quantity = 0;
+                miss = true;
                 break;
             case EVENTTYPE.REINFORCEMENT:
                 GetFirstUnitGroup();
@@ -957,8 +971,7 @@ public class CustomBattle : CustomEvent
             case EVENTTYPE.REINFORCEMENT:
                 if (!miss)
                 {
-                    UnitCombat new_uc = Utils.instance.GetNewUnitCombat(ug[0].UnitCombat.UnitName);
-                    new_uc.Quantity = units_to_mod;
+                    UnitCombat new_uc = Utils.instance.CreateNewUnitCombat(ug[0].UnitCombat.CharacterName, units_to_mod);
                     CombatManager.instance.InstantiateUnitPlayer(index_to_mod, new_uc);
                 }
                 else
@@ -1004,7 +1017,7 @@ public class CustomBattle : CustomEvent
             case EVENTTYPE.BURN:
                 if (!miss)
                 {
-                    territoryEvent.TerritoryStats.Territory.GetBuilding(building_to_mod).ResetBuilding(territoryEvent.TerritoryStats.Territory);
+                    territoryEvent.Territory.GetBuilding(building_to_mod).ResetBuilding(territoryEvent.Territory);
                     CombatManager.instance.ShowFloatTextMC("Reseting "+ building_to_mod);
                 }
                 else

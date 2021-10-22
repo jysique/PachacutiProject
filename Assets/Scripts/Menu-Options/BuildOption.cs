@@ -42,7 +42,7 @@ public class BuildOption : MonoBehaviour
     }
     private void CheckCost()
     {
-        Territory t = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().TerritoryStats.Territory;
+        Territory t = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>().Territory;
         float s = 0;
         float s2 = 0;
         switch (territoryBuilding.GetType().ToString())

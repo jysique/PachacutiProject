@@ -7,8 +7,6 @@ public class TutorialController : MonoBehaviour
     public static TutorialController instance { get; private set; }
 
     [SerializeField] private List<GameObject> blocks;
-    [SerializeField] private GameObject battle1;
-    [SerializeField] private GameObject battle2;
     [SerializeField] private GameObject move;
     [SerializeField] private GameObject attack;
     [SerializeField] private GameObject deffend;
@@ -61,15 +59,6 @@ public class TutorialController : MonoBehaviour
         get { return canSpeech; }
         set { canSpeech = value; }
     }
-    public void TurnBattle1Indication(bool _a)
-    {
-        
-        battle1.SetActive(_a);
-    }
-    public void TurnBattle2Indication(bool _a)
-    {
-        battle2.SetActive(_a);
-    }
     public void TutorialMilitar()
     {
         blocks[1].SetActive(true);
@@ -77,13 +66,15 @@ public class TutorialController : MonoBehaviour
     public void TurnOffDialogue()
     {
         canSpeech = false;
-        ChapterController.instance.speechSystemRoot.SetActive(false);
-        
+      //  ChapterController.instance.speechSystemRoot.SetActive(false);
+      //  ChapterController.instance.backgroundRoot.SetActive(false);
+
     }
     public void TurnOnDialogue()
     {
         canSpeech = true;
-        ChapterController.instance.speechSystemRoot.SetActive(true);
+      //  ChapterController.instance.speechSystemRoot.SetActive(true);
+      //  ChapterController.instance.backgroundRoot.SetActive(true);
     }
     public void TurnMoveButton(bool _a)
     {
@@ -125,8 +116,6 @@ public class TutorialController : MonoBehaviour
         timeTutorial = new TimeSimulated(TimeSystem.instance.TimeGame);
         timeTutorial.PlusDays(1);
         timerCountDown = 0.8f;
-        TurnBattle1Indication(false);
-        TurnBattle2Indication(false);
         if (ift == 0) // no tutorial
         {
             TurnMoveButton(true);
@@ -213,41 +202,6 @@ public class TutorialController : MonoBehaviour
         ChapterController.instance.cachedLastSpeaker = "";
     }
 
-    //public float delay = 1;
-    //public float t;
-    private void Update()
-    {
-        if (init)
-        {
-            if (timerCountDown > 0)
-            {
-                timerCountDown -= Time.deltaTime * 0.5f;
-            }
-            else
-            {
-                if (canSpeech)
-                {
-                    if (progress < data.Count-1)
-                    {
-                        progress++;
-                        timerCountDown = 0.8f;
-                        HandleLineInTutorial();
-                    }
-                    else
-                    {
-                        isFirstTime = false;
-                        TurnOffDialogue();
-                        PlayerPrefs.SetInt("tutorialState",0);
-                    }
-                }
-            }
-            //canSpeech = time when characterVN is saying something 
-            if (currentTutorial != null && !canSpeech)
-            {
-                currentTutorial.CheckTutorial();
-            }
-        }
-    }
     void HandleLineInTutorial()
     {
         TurnOnDialogue();
@@ -256,17 +210,8 @@ public class TutorialController : MonoBehaviour
 
     public void MoveTroopInTutorial(TerritoryHandler territoryToAttack)
     {
-
-        TerritoryHandler selectedTutorial = TerritoryManager.instance.territorySelected.GetComponent<TerritoryHandler>();
-        Swordsman s = new Swordsman();
-        s.Quantity = selectedTutorial.TerritoryStats.Territory.ListUnitCombat.GetFirstUnitCombat("Swordsmen").Quantity;
-        Archer a = new Archer();
-        a.Quantity = selectedTutorial.TerritoryStats.Territory.ListUnitCombat.GetFirstUnitCombat("Archers").Quantity;
-        Troop troopSelected = new Troop();
-        troopSelected.AddUnitCombat(s);
-        troopSelected.AddUnitCombat(a);
-        troopSelected.MoveUnits(selectedTutorial.TerritoryStats.Territory);
-        WarManager.instance.SendWarriors(selectedTutorial, territoryToAttack, troopSelected);
+        //TODO
+        //WarManager.instance.SendWarriors(selectedTutorial, territoryToAttack, troopSelected);
     }
 
 }
