@@ -6,7 +6,7 @@ using System.Collections.Generic;
 [System.Serializable]
 public class CustomEvent
 {
-    
+
     [SerializeField] protected int costEvent;
 
     [SerializeField] protected string nameEvent;
@@ -14,14 +14,9 @@ public class CustomEvent
     [SerializeField] protected string decision1;
     [SerializeField] protected string decision2;
     [SerializeField] protected string decision3;
-
-    [SerializeField] protected string effect1;
-    [SerializeField] protected string effect2;
-    [SerializeField] protected string effect3;
-
+    [SerializeField] protected string background;
     [SerializeField] protected string requirementMessageEvent;
     [SerializeField] protected string resultMessageEvent;
-
     [SerializeField] protected bool isBattle;
     [SerializeField] protected bool w = false;
     [SerializeField] protected TerritoryHandler territoryEvent;
@@ -29,8 +24,7 @@ public class CustomEvent
     [SerializeField] protected TimeSimulated timeFinal;
     [SerializeField] protected STATUS eventStatus;
     [SerializeField] protected EVENTTYPE eventType;
-    [SerializeField] protected bool isAcceptedEvent;
-
+    protected int number;
     public bool IsBattle
     {
         get { return isBattle; }
@@ -44,19 +38,19 @@ public class CustomEvent
         get { return eventStatus; }
         set { eventStatus = value; }
     }
-    public bool IsAccepted
-    {
-        get { return isAcceptedEvent; }
-        set { isAcceptedEvent = value; }
-    }
     public int DifferenceToFinal
     {
-        get {return timeFinal.DiferenceDays(timeInit); }
+        get { return timeFinal.DiferenceDays(timeInit); }
     }
     public EVENTTYPE EventType
     {
         get { return eventType; }
         set { eventType = value; }
+    }
+    public string Background
+    {
+        get { return background; }
+        set { background = value; }
     }
     public string NameEvent
     {
@@ -73,16 +67,11 @@ public class CustomEvent
         get { return territoryEvent; }
         set { territoryEvent = value; }
     }
-    public string Effect1
+    public string Effect
     {
-        get { return effect1; }
-        set { effect1 = value; }
+        get { return GameMultiLang.GetTraductionEvents(eventType.ToString() + "_EFFECT" + number); }
     }
-    public string Effect2
-    {
-        get { return effect2; }
-        set { effect2 = value; }
-    }
+    
     public string ResultMessageEvent
     {
         get { return resultMessageEvent; }
@@ -133,7 +122,7 @@ public class CustomEvent
     public CustomEvent(TimeSimulated _initTime, TerritoryHandler territory)
     {
         this.isBattle = false;
-        this.isAcceptedEvent = false;
+   //     this.isAcceptedEvent = false;
         if (territory != null)
         {
             this.eventType = EVENTTYPE.CONQUIST;
@@ -182,13 +171,11 @@ public class CustomEvent
     protected void GetMessage()
     {
         this.nameEvent = GameMultiLang.GetTraductionEvents(eventType.ToString() + "_NAME");
+        this.background = GameMultiLang.GetTraductionEvents(eventType.ToString() + "_BACKGROUND");
         this.decision1 = GameMultiLang.GetTraductionEvents(eventType.ToString() + "_DECISION1");
         this.decision2 = GameMultiLang.GetTraductionEvents(eventType.ToString() + "_DECISION2");
         this.decision3 = GameMultiLang.GetTraductionEvents(eventType.ToString() + "_DECISION3");
         this.cause = GameMultiLang.GetTraductionEvents(eventType.ToString() + "_CAUSE").Replace("TERRITORYEVENT", TerritoryEvent.name);
-        this.effect1 = GameMultiLang.GetTraductionEvents(eventType.ToString() + "_EFFECT1").Replace("TERRITORYEVENT", TerritoryEvent.name);
-        this.effect2 = GameMultiLang.GetTraductionEvents(eventType.ToString() + "_EFFECT2").Replace("TERRITORYEVENT", TerritoryEvent.name);
-        this.effect3 = GameMultiLang.GetTraductionEvents(eventType.ToString() + "_EFFECT3").Replace("TERRITORYEVENT", TerritoryEvent.name);
     }
     protected void GetRequirement()
     {
@@ -206,7 +193,7 @@ public class CustomEvent
                 break;
             case EVENTTYPE.PETITION_MIN:
             case EVENTTYPE.PETITION_FOR:
-            case EVENTTYPE.REBELION:
+        //    case EVENTTYPE.REBELION:
                 this.requirementMessageEvent = GameMultiLang.GetTraduction("Requirements") + "\n" + GameMultiLang.GetTraduction("REQ2").Replace("COSTEVENT", costEvent.ToString());
                 break;
            // case EVENTTYPE.GRACE_DIV:
@@ -238,7 +225,7 @@ public class CustomEvent
                     accept = true;
                 }
                 break;
-            case EVENTTYPE.REBELION:
+          //  case EVENTTYPE.REBELION:
             case EVENTTYPE.PETITION_MIN:
             case EVENTTYPE.PETITION_FOR:
          //   case EVENTTYPE.GRACE_DIV:
@@ -270,13 +257,16 @@ public class CustomEvent
     /// </summary>
     public virtual void AcceptEventAction()
     {
+        this.number = 1;
         this.eventStatus = STATUS.FINISH;
-        this.isAcceptedEvent = true;
+    //    this.isAcceptedEvent = true;
         switch (eventType)
         {
+            /*
             case EVENTTYPE.REBELION:
                 InGameMenuHandler.instance.GoldPlayer -= costEvent;
                 break;
+            */
             case EVENTTYPE.DROUGHT:
             case EVENTTYPE.ALL_T_PANDEMIC:
             case EVENTTYPE.PANDEMIC:
@@ -310,17 +300,20 @@ public class CustomEvent
     /// </summary>
     public virtual void DeclineEventAction()
     {
+        this.number = 2;
         this.eventStatus= STATUS.FINISH;
-        this.isAcceptedEvent = false;
+     //   this.isAcceptedEvent = false;
         switch (eventType)
         {
             case EVENTTYPE.EARTHQUAKER:
                 TerritoryEvent.Territory.ResetAllBuilds();
                 break;
+                /*
             case EVENTTYPE.REBELION:
                 TerritoryEvent.Territory.TypePlayer = Territory.TYPEPLAYER.NONE;
                 //    Debug.LogError("perdimos el territorio");
                 break;
+                */
             case EVENTTYPE.DROUGHT:
                 TerritoryEvent.Territory.FarmTerritory.ResetBuilding(territoryEvent.Territory);
                 TerritoryEvent.Territory.ListUnitCombat.ReduceAllQuantity();
@@ -370,12 +363,13 @@ public class CustomEvent
     /// </summary>
     public virtual void AdicitionalEventAction()
     {
+        this.number = 3;
         //this.eventStatus = STATUS.FINISH;
         //this.isAcceptedEvent = false;
         switch (eventType)
         {
             case EVENTTYPE.EARTHQUAKER:
-            case EVENTTYPE.REBELION:
+          //  case EVENTTYPE.REBELION:
             case EVENTTYPE.DROUGHT:
             case EVENTTYPE.ALL_T_PANDEMIC:
             case EVENTTYPE.PANDEMIC:
@@ -403,12 +397,11 @@ public class CustomEvent
     /// Returns the message if is accepted of decline
     /// </summary>
     /// <returns></returns>
-    public string ResultsEvent()
+    public void ResultsEvent()
     {
-        if (isAcceptedEvent)
+        if (number == 1)
         {
             this.resultMessageEvent = GameMultiLang.GetTraduction("CompleteResults").Replace("TERRITORYEVENT", TerritoryEvent.name);
-            return this.effect1;
         }
         else {
             this.resultMessageEvent = GameMultiLang.GetTraduction("IncompleteResults").Replace("TERRITORYEVENT", TerritoryEvent.name);
@@ -420,13 +413,12 @@ public class CustomEvent
             {
                 this.resultMessageEvent = GameMultiLang.GetTraduction("ExplorationResults").Replace("TERRITORYEVENT", TerritoryEvent.name);
             }
-            return this.effect2;
         }
     }
     public enum EVENTTYPE
     {
         EARTHQUAKER,
-        REBELION,
+        //REBELION, //FIXED LATER
         DROUGHT,
         ALL_T_PANDEMIC,
         PANDEMIC,
@@ -485,15 +477,14 @@ public class CustomBuilding : CustomEvent
     public void InProggressUpgrade()
     {
         building.CanUpdrade = false;
-        int diference = TimeSystem.instance.TimeGame.DiferenceDays(timeInit);
-        int hours = (int)TimeSystem.instance.TimeGame.Hour + (24 * diference);
-        building.Percentaje = hours / ((float)building.DaysToBuild * 24);
-        //linearBarProgress.fillAmount = hours / ((float)territoryBuilding.DaysToBuild * 24);
+        //int diference = TimeSystem.instance.TimeGame.DiferenceDays(timeInit);
+        //int hours = (int)TimeSystem.instance.TimeGame.Hour + (24 * diference);
 
+        int diference = TimeSystem.instance.TimeGame.DiferenceHours(timeInit);
+        building.Percentaje = diference / ((float)building.DaysToBuild * 24);
+        //Debug.Log("percentage   " + building.Percentaje);
     }
 }
-
-
 [Serializable]
 public class CustomUnitCombat : CustomEvent
 {
@@ -521,14 +512,15 @@ public class CustomUnitCombat : CustomEvent
     }
     public void AddingUnit()
     {
-        int diference = TimeSystem.instance.TimeGame.DiferenceDays(timeInit);
-        int hours = (int)TimeSystem.instance.TimeGame.Hour + (24 * diference);
-        float a = hours / ((float)daysToCreate * 24);
+        //int diference = TimeSystem.instance.TimeGame.DiferenceDays(timeInit);
+        //int hours = (int)TimeSystem.instance.TimeGame.Hour + (24 * diference);
+        int diference = TimeSystem.instance.TimeGame.DiferenceHours(timeInit);
+        
+        float a = diference / ((float)daysToCreate * 24);
         int b = (int)(a * 100) * unitCombat.Quantity / 100;
         unitCombat.InProgress = b;
     }
 }
-
 [Serializable]
 public class CustomExpedition : CustomEvent
 {
@@ -542,7 +534,7 @@ public class CustomExpedition : CustomEvent
     public CustomExpedition(TimeSimulated _initTime, Troop troopToWaste, TerritoryHandler attackerterritory, TerritoryHandler wasterterritory)
     {
         this.troop = troopToWaste;
-        this.isAcceptedEvent = false;
+   //     this.isAcceptedEvent = false;
         this.attacker = attackerterritory;
         this.territoryEvent = wasterterritory;
         this.eventType = EVENTTYPE.WASTE;
@@ -569,11 +561,11 @@ public class CustomExpedition : CustomEvent
 public class CustomBattle : CustomEvent
 {
     [SerializeField] int turn;
-    List<UnitGroup> ug = new List<UnitGroup>();
     [SerializeField] private Troop troop = new Troop();
+    List<UnitGroup> ug = new List<UnitGroup>();
     Territory.TYPEPLAYER typeEvent;
-    int number;
-    bool miss = false;
+
+    bool miss;
     int index_to_mod;
     int units_to_mod;
     int mod;
@@ -584,17 +576,15 @@ public class CustomBattle : CustomEvent
     {
         get { return turn; }
     }
-    public string EffectBattle
-    {
-        get { return GameMultiLang.GetTraductionEvents(eventType.ToString() + "_EFFECT" + number); }
-    }
+
     public string Incident
     {
         get { return GameMultiLang.GetTraductionEvents(eventType.ToString() + "_INCIDENT"+number); }
     }
     public CustomBattle(string _type, Troop _troopPlayer, Troop _troopNoPlayer, TerritoryHandler _territoryPlayer, TerritoryHandler _territoryNoPlayer)
     {
-        
+        building_to_mod = " ";
+        miss = false;
         this.eventStatus = STATUS.ANNOUNCE;
         this.isBattle = true;
         GetTypeBattle(_type);
@@ -644,15 +634,15 @@ public class CustomBattle : CustomEvent
         {
             case "INIT":
                 this.turn = turns;
-                this.eventType = (EVENTTYPE)UnityEngine.Random.Range(13, 16);
+                this.eventType = (EVENTTYPE)UnityEngine.Random.Range(12, 15);
                 break;
             case "MIDDLE":
                 this.turn = turns/2;
-                this.eventType = (EVENTTYPE)UnityEngine.Random.Range(16, 19);
+                this.eventType = (EVENTTYPE)UnityEngine.Random.Range(15, 18);
                 break;
             case "FINAL":
                 this.turn = 2;
-                this.eventType = (EVENTTYPE)UnityEngine.Random.Range(19, 21);
+                this.eventType = (EVENTTYPE)UnityEngine.Random.Range(18, 20);
                 break;
             default:
                 break;
@@ -715,10 +705,9 @@ public class CustomBattle : CustomEvent
     }
     private void GetUnitDeleted()
     {
-        building_to_mod = " ";
         if (UnityEngine.Random.Range(0, 100) <= 20 && ug.Count > 1)
         {
-            building_to_mod = ug[1].UnitCombat.CharacterName;
+            building_to_mod = ug[1].UnitCombat.UnitType;
             ug[1].UnitCombat.Quantity = 0;
         }
     }
@@ -759,8 +748,8 @@ public class CustomBattle : CustomEvent
     public override void AcceptEventAction()
     {
         base.AcceptEventAction();
-        number = 1;
-        isAcceptedEvent = true;
+        this.number = 1;
+    //    isAcceptedEvent = true;
         this.eventStatus = STATUS.PROGRESS;
         switch (eventType)
         {
@@ -820,7 +809,7 @@ public class CustomBattle : CustomEvent
     {
         base.DeclineEventAction();
         this.number = 2;
-        isAcceptedEvent = true;
+     //   isAcceptedEvent = true;
         this.eventStatus = STATUS.PROGRESS;
         switch (eventType)
         {
@@ -879,8 +868,9 @@ public class CustomBattle : CustomEvent
     public override void AdicitionalEventAction()
     {
         base.AdicitionalEventAction();
+        CombatManager.instance.CanCount = true;
         this.number = 3;
-        isAcceptedEvent = true;
+        //     isAcceptedEvent = true;
         this.eventStatus = STATUS.PROGRESS;
         switch (eventType)
         {
@@ -923,7 +913,8 @@ public class CustomBattle : CustomEvent
     public override void CloseEventAction()
     {
         base.CloseEventAction();
-        isAcceptedEvent = false;
+        CombatManager.instance.CanCount = true;
+    //    isAcceptedEvent = false;
         this.eventStatus = STATUS.FINISH;
         switch (eventType)
         {
@@ -971,7 +962,8 @@ public class CustomBattle : CustomEvent
             case EVENTTYPE.REINFORCEMENT:
                 if (!miss)
                 {
-                    UnitCombat new_uc = Utils.instance.CreateNewUnitCombat(ug[0].UnitCombat.CharacterName, units_to_mod);
+                    string _type = ug[0].UnitCombat.UnitType;
+                    UnitCombat new_uc = Utils.instance.CreateNewUnitCombat(_type+"new",_type, units_to_mod);
                     CombatManager.instance.InstantiateUnitPlayer(index_to_mod, new_uc);
                 }
                 else

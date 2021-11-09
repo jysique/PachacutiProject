@@ -221,7 +221,7 @@ public class CharacterVN : Character
         GameObject prefab = Resources.Load("Prefabs/VNPrefabs/Character["+_name+"]") as GameObject;
         GameObject go = GameObject.Instantiate(prefab, cm.characterPanel);
         root = go.GetComponent<RectTransform>();
-        CharacterName = _name;
+        this.characterName = _name;
 
         renderers.bodyRenderer = go.transform.Find("BodyLayer").GetComponentInChildren<Image>();
         renderers.expressionRenderer = go.transform.Find("ExpressionLayer").GetComponentInChildren<Image>();

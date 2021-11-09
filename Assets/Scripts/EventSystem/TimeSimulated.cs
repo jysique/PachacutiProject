@@ -42,9 +42,19 @@ public class TimeSimulated
     {
 
     }
+    /*
     public TimeSimulated(TimeSimulated _timeSimulated,double _hours = 0)
     {
         this.hour = _hours;
+        this.day = _timeSimulated.day;
+        this.month = _timeSimulated.month;
+        this.year = _timeSimulated.year;
+        CalculateWeeks();
+        CalculateSeason();
+    }*/
+    public TimeSimulated(TimeSimulated _timeSimulated)
+    {
+        this.hour = _timeSimulated.hour;
         this.day = _timeSimulated.day;
         this.month = _timeSimulated.month;
         this.year = _timeSimulated.year;
@@ -123,6 +133,15 @@ public class TimeSimulated
         int difDays = (int)(this.day - time2.day);
 //        int hour = (int)(this.hour - time2.hour);
         return difYear*360 + difMonth * 30 + difDays;
+    }
+    public int DiferenceHours(TimeSimulated time2)
+    {
+
+        int difYear = (int)(this.year - time2.year);
+        int difMonth = (int)(this.month - time2.month);
+        int difDays = (int)(this.day - time2.day);
+        int difHour = (int)(this.hour - time2.hour);
+        return difYear * 360 *24 + difMonth * 30 * 24 + difDays*24 + difHour;
     }
     public void CalculateSeason()
     {

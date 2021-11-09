@@ -54,7 +54,8 @@ public class UnitGroup
 
     public string GetStats()
     {
-        return "QUANTITY: " + unitCombat.Quantity + "\n" +
+        return //"POSITION" + unitCombat.PositionInBattle + "\n"+
+            "QUANTITY: " + unitCombat.Quantity + "\n" +
             "BASE DAMAGE: " + unitCombat.Attack + "\n" +
             "ARMOR: " + unitCombat.Armor + "\n" +
             "PRECISION: " + unitCombat.Precision + "\n" +

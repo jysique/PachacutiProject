@@ -49,7 +49,8 @@ public class BattleEventController : MonoBehaviour
         ChapterController.instance.speechSystemRoot.SetActive(true);
         ChapterController.instance.backgroundRoot.SetActive(true);
         ChapterController.instance.speechSystemButtons.SetActive(false);
-        ChapterController.instance.HandleLine("setBackground(forest,false,10)");
+        string setbackground = "setBackground("+_customBattle.Background+",false,10)";
+        ChapterController.instance.HandleLine(setbackground);
         ChapterController.instance.HandleLine("Pachacuti \"" + _customBattle.Cause + "\"");
         StartCoroutine(WaitingText());
     }
@@ -85,17 +86,18 @@ public class BattleEventController : MonoBehaviour
             ChapterController.instance.HandleLine("setBackground(after,false,10)");
             yield return new WaitForSeconds(1f);
             ChapterController.instance.speechSystemRoot.SetActive(true);
-            ChapterController.instance.HandleLine("setBackground(forest,false,10)");
-            ChapterController.instance.HandleLine("Pachacuti \"" + _customBattle.EffectBattle + "\"");
+            ChapterController.instance.HandleLine("setBackground(" + _customBattle.Background + ",false,10)");
+            ChapterController.instance.HandleLine("Pachacuti \"" + _customBattle.Effect + "\"");
             yield return new WaitForSeconds(5.0f);
         }
-        EndEvent();
+        EndEvent(_customBattle);
     }
-    void EndEvent()
+    void EndEvent(CustomBattle customBattle)
     {
         ChapterController.instance.speechSystemRoot.SetActive(false);
         ChapterController.instance.speechSystemButtons.SetActive(false);
         ChapterController.instance.backgroundRoot.SetActive(false);
+        customBattle.CloseEventAction();
     }
 }
 

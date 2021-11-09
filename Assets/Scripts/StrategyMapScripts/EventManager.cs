@@ -126,7 +126,8 @@ public class EventManager : MonoBehaviour
         SecondOptionButton.gameObject.SetActive(false);
         ThirdOptionTxt.text = "Close";
         TitleTextCustomEvent.text = GameMultiLang.GetTraduction("ResultEvent") ;
-        DetailsTextCustomEvent.text = custom.ResultMessageEvent + "\n" + GameMultiLang.GetTraduction("Results") + "\n" + custom.ResultsEvent();
+        custom.ResultsEvent();
+        DetailsTextCustomEvent.text = custom.ResultMessageEvent + "\n" + GameMultiLang.GetTraduction("Results") + "\n" + custom.Effect;
         if (!custom.IsBattle)
         {
             DateTableHandler.instance.PauseTime();

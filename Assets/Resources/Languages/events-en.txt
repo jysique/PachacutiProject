@@ -1,4 +1,5 @@
 EARTHQUAKER_NAME= EARTHQUAKER
+EARTHQUAKER_BACKGROUND=forest
 EARTHQUAKER_CAUSE=An earthquake has occurred in TERRITORYEVENT territory
 EARTHQUAKER_DECISION1=
 EARTHQUAKER_DECISION2=
@@ -8,6 +9,7 @@ EARTHQUAKER_EFFECT2=Reset builds in TERRITORYEVENT territory.
 EARTHQUAKER_EFFECT3=
 
 DROUGHT_NAME= DROUGHT IN A TERRITORY
+DROUGHT_BACKGROUND=forest
 DROUGHT_CAUSE=Drought continues in TERRITORYEVENT territory. The villagers are going through a bad time. That is why they ask you for the following requirements
 DROUGHT_DECISION1=Yes, let's improve the situation
 DROUGHT_DECISION2=No, there are other problems
@@ -17,6 +19,7 @@ DROUGHT_EFFECT2=Conditions worsen for irrigation canals and troops in TERRITORYE
 DROUGHT_EFFECT3=
 
 REBELION_NAME= REBEL AGAINST THE EMPIRE
+REBELION_BACKGROUND=forest
 REBELION_CAUSE=In TERRITORYEVENT territory they plan to rebel against you. If you do not complete the following requirements, we will lose this territory. 
 REBELION_DECISION1=Yes, let's improve the situation
 REBELION_DECISION2=No, there are other problems
@@ -26,6 +29,7 @@ REBELION_EFFECT2= -TERRITORYEVENT territory.
 REBELION_EFFECT3=
 
 ALL_T_PANDEMIC_NAME= SITUATION IN PANDEMIC
+ALL_T_PANDEMIC_BACKGROUND=forest
 ALL_T_PANDEMIC_CAUSE=We have found a disease in our territories. If we don't do something we will lose half of our men.
 ALL_T_PANDEMIC_DECISION1=Yes, let's improve the situation
 ALL_T_PANDEMIC_DECISION2=No, there are other problems
@@ -35,6 +39,7 @@ ALL_T_PANDEMIC_EFFECT2=-50% trops in all territories.
 ALL_T_PANDEMIC_EFFECT3=
 
 PANDEMIC_NAME= SITUATION IN PANDEMIC
+PANDEMIC_BACKGROUND=forest
 PANDEMIC_CAUSE=We have found a disease in TERRITORYEVENT territory. If we don't do something we will lose half of our men.
 PANDEMIC_DECISION1=Yes, let's improve the situation
 PANDEMIC_DECISION2=No, there are other problems
@@ -44,6 +49,7 @@ PANDEMIC_EFFECT2=-50% trops in TERRITORYEVENT
 PANDEMIC_EFFECT3=
 
 ALL_T_PLAGUE_NAME= PEST SITUATION
+ALL_T_PLAGUE_BACKGROUND=forest
 ALL_T_PLAGUE_CAUSE=Our crops may be in danger from the plague. If we don't do something we will lose our food. 
 ALL_T_PLAGUE_DECISION1=Yes, let's improve the situation
 ALL_T_PLAGUE_DECISION2=No, there are other problems
@@ -53,6 +59,7 @@ ALL_T_PLAGUE_EFFECT2=Reduce irrigation canals to level 0 in all territories.
 ALL_T_PLAGUE_EFFECT3=
 
 PLAGUE_NAME= PEST SITUATION
+PLAGUE_BACKGROUND=forest
 PLAGUE_CAUSE=Our crops in TERRITORYEVENT territory may be endangered by the plague. If we don't do something we will lose the food of that place.
 PLAGUE_DECISION1=Yes, let's improve the situation
 PLAGUE_DECISION2=No, there are other problems
@@ -62,6 +69,7 @@ PLAGUE_EFFECT2=Reduce irrigation channels to level 0 in TERRITORYEVENT.
 PLAGUE_EFFECT3=
 
 PETITION_MIN_NAME= IMPROVEMENT REQUEST
+PETITION_MIN_BACKGROUND=forest
 PETITION_MIN_CAUSE=In TERRITORYEVENT territory they want to ask you to improve the mine. They are somewhat short of resources. 
 PETITION_MIN_DECISION1=Yes, let's improve the situation
 PETITION_MIN_DECISION2=No, there are other problems
@@ -71,6 +79,7 @@ PETITION_MIN_EFFECT2=-10 opinion in TERRITORYEVENT territory.
 PETITION_MIN_EFFECT3=
 
 PETITION_FOR_NAME= IMPROVEMENT REQUEST
+PETITION_FOR_BACKGROUND=forest
 PETITION_FOR_CAUSE=In TERRITORYEVENT territory they want to ask you to improve your defenses. They are very unprotected. 
 PETITION_FOR_DECISION1=Yes, let's improve the situation
 PETITION_FOR_DECISION2=No, there are other problems
@@ -80,6 +89,7 @@ PETITION_FOR_EFFECT2=-10 opinion in TERRITORYEVENT territory.
 PETITION_FOR_EFFECT3=
 
 GRACE_MIN_NAME= GRACE OF IMPROVEMENT
+GRACE_MIN_BACKGROUND=forest
 GRACE_MIN_CAUSE=An abandoned mine has been found in TERRITORYEVENT territory. To appropriate them to our territories, meet the following requirements. 
 GRACE_MIN_DECISION1=Yes, let's improve the situation
 GRACE_MIN_DECISION2=No, there are other problems
@@ -89,6 +99,7 @@ GRACE_MIN_EFFECT2=+15 gold.
 GRACE_MIN_EFFECT3=
 
 GRACE_FOOD_NAME= GRACE OF IMPROVEMENT
+GRACE_FOOD_BACKGROUND=forest
 GRACE_FOOD_CAUSE=We want to expand the seeding in TERRITORYEVENT territory. To run this, meet the following requirements. 
 GRACE_FOOD_DECISION1=Yes, let's improve the situation
 GRACE_FOOD_DECISION2=No, there are other problems
@@ -98,6 +109,7 @@ GRACE_FOOD_EFFECT2=+15 food.
 GRACE_FOOD_EFFECT3= 
 
 CONQUIST_NAME= TERRITORY CONQUEST
+CONQUIST_BACKGROUND=forest
 CONQUIST_CAUSE=Assigns a military chied in TERRITORYEVENT territory.
 CONQUIST_DECISION1=Yes, let's improve the situation
 CONQUIST_DECISION2=No, there are other problems
@@ -107,6 +119,7 @@ CONQUIST_EFFECT2=
 CONQUIST_EFFECT3=
 
 EXPLORATION_NAME= TERRITORY EXPLORATION
+EXPLORATION_BACKGROUND=forest
 EXPLORATION_CAUSE=Exploration in progress. You have sent NUMBER units.
 EXPLORATION_DECISION1=Yes, let's improve the situation
 EXPLORATION_DECISION2=No, there are other problems
@@ -116,6 +129,7 @@ EXPLORATION_EFFECT2=
 EXPLORATION_EFFECT3=
 
 EXCURSION_NAME=TIME FOR EXCURSION
+EXCURSION_BACKGROUND=forest
 EXCURSION_CAUSE=A hidden path has been found within the battlefield, do you want to send a unit to investigate?
 EXCURSION_DECISION1=Yes, let's explore a little	
 EXCURSION_DECISION2=Let's take all the units
@@ -129,6 +143,7 @@ EXCURSION_EFFECT3=
 
 
 INTOXICATE_NAME=TO GET DRUNK
+INTOXICATE_BACKGROUND=forest
 INTOXICATE_CAUSE=A camp of enemy units has been found. We could send a spy and get the enemies drunk before the battle
 INTOXICATE_DECISION1=Yeah let's carry the strongest beer
 INTOXICATE_DECISION2=Maybe we could stop by
@@ -141,6 +156,7 @@ INTOXICATE_EFFECT2=I think they suspected the order (-10 precision)
 INTOXICATE_EFFECT3= 
 
 WOOKIE_NAME= WHAT IT THIS?
+WOOKIE_BACKGROUND=forest
 WOOKIE_CAUSE=While we were heading to the battlefield we were attacked by a Wookiee who was prowling the area
 WOOKIE_DECISION1=Let's finish off the wookiee
 WOOKIE_DECISION2=Let's try to catch it
@@ -153,6 +169,7 @@ WOOKIE_EFFECT2=We have not been able to capture the Wookiee, in the process we l
 WOOKIE_EFFECT3=
 
 REINFORCEMENT_NAME=REINFORCEMENTS FOR UNITS
+REINFORCEMENT_BACKGROUND=bridge
 REINFORCEMENT_CAUSE=We must reinforce our units in battle, some are already ready for battle.
 REINFORCEMENT_DECISION1=Yes, prepare them for battle.
 REINFORCEMENT_DECISION2=Maybe a few.
@@ -165,6 +182,7 @@ REINFORCEMENT_EFFECT2=We have achieved +8 units that are ready on the battlefiel
 REINFORCEMENT_EFFECT3=
 
 CURE_NAME=UNIT HEALING
+CURE_BACKGROUND=forest
 CURE_CAUSE=We have rescued a lost shaman in the area
 CURE_DECISION1=Let's help him
 CURE_DECISION3=We must be cautious
@@ -177,6 +195,7 @@ CURE_EFFECT2=The curing of our units was successful
 CURE_EFFECT3=
 
 ABILITYX2_NAME=TWO TIMES IS BETTER
+ABILITYX2_BACKGROUND=forest
 ABILITYX2_CAUSE=We have found a strange and brilliant tool. We wonder what it could be
 ABILITYX2_DECISION1=Take it
 ABILITYX2_DECISION3=I prefer not to risk
@@ -189,6 +208,7 @@ ABILITYX2_EFFECT2=I think it does nothing
 ABILITYX2_EFFECT3=
 
 PILLAGE_NAME=LANDING OF LAND
+PILLAGE_BACKGROUND=forest
 PILLAGE_CAUSE=A piece of land has been found that we can loot.
 PILLAGE_DECISION1=Let's seize the moment
 PILLAGE_DECISION3=It would be good for the economy
@@ -201,6 +221,7 @@ PILLAGE_EFFECT2=All of them surrendered because we defeated the tyrant of the te
 PILLAGE_EFFECT3=
 
 BURN_NAME=LANDING OF FIRE
+BURN_BACKGROUND=forest
 BURN_CAUSE=Ground has been found that we can burn
 BURN_DECISION1=Let's seize the moment
 BURN_DECISION3=Let's try to lower only the terrain

@@ -16,37 +16,23 @@ public class Governor : RoyalFamily
         get { return culture; }
         set { culture = value; }
     }
-    public List<string> Misions
-    {
-        get { return misions; }
-        set { misions = value; }
-    }
     public TimeSimulated TimeInit
     {
-        get { return new TimeSimulated(dayPeriod, monthPeriod, yearPeriod); }
+        get { return timeInit; }
         set { timeInit = value; }
     }
-    public void AddMision(string value)
-    {
-        misions.Add(value);
-    }
-    public void DeleteMision(string value)
-    {
-        misions.Remove(value);
-    }
-    public Governor(string _name)
+    public Governor(string _name, int day,int month,int year)
     {
         this.CharacterName = _name;
         this.Age = Random.Range(20, 30);
         this.Origin = "Qosqo";
-        this.CharacIconType = "Governor";
-        this.CharacIconIndex = "0" + Random.Range(1, 4).ToString();
+        this.pathPicture = "Governor/0" + Random.Range(1, 4).ToString();
         this.Diplomacy = Random.Range(3,10);
         this.Militancy = Random.Range(3, 10);
         this.Managment = Random.Range(3, 10);
         this.Prestige = Random.Range(3, 10);
         this.Piety = Random.Range(3, 10);
         this.Culture = "Default";
-        this.misions = null;
+        this.timeInit = new TimeSimulated(day, month, year);
     }
 }

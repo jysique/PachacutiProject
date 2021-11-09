@@ -15,14 +15,13 @@ public class SubordinateList
     {
         Chiefs.RemoveRange(0, Chiefs.Count);
     }
-    public void AddDataSubordinateToList(int size,Character character)
+    public void AddDataSubordinateToList(int size,Character character,string territoryName)
     {
         for (int i = 0; i < size; i++)
         {
             if (character is MilitarChief)
             {
-                MilitarChief _militar = new MilitarChief();
-                _militar.GetMilitarBoss();
+                MilitarChief _militar = Utils.instance.CreateNewMilitarChief(territoryName);
                 Chiefs.Add(_militar);
             }
             /*else if(character is )

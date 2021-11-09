@@ -9,54 +9,19 @@ public class UnitCombat : Subordinate
     [SerializeField] private int in_progress;
     [SerializeField] private int quantity;
     [SerializeField] private bool isAvailable = false;
-
-    
     [SerializeField] protected int attack;
     [SerializeField] protected int armor;
     [SerializeField] protected int evasion;
     [SerializeField] protected int precision;
     [SerializeField] protected int range;
+    [SerializeField] protected string unitType;
     [SerializeField] protected string[] strongTo;
     [SerializeField] protected string[] weakTo;
     [SerializeField] protected int typeArm;
-    [SerializeField] protected string audio;
-
-    public UnitCombat()
+    public string UnitType
     {
-
-    }
-    public UnitCombat(string name, int quantity, string icontype, string index, int attack, int armor, 
-        int precision, int range, string[] strongTo, string[] weakTo)
-    {
-        this.quantity = quantity;
-        this.characterName = name;
-        this.characIconType = icontype;
-        this.characIconIndex = index;
-        this.attack = attack;
-        this.armor = armor;
-        this.audio = this.characIconType + "/" + this.characIconIndex;
-        this.evasion = 0;
-        this.precision = precision;
-        this.range = range;
-        this.strongTo = strongTo;
-        this.weakTo = weakTo;
-    }
-
-    public string GetDescription()
-    {
-        return this.characterName + " (" + quantity + ")";
-    }
-    public string GetStats()
-    {
-        return "BASE DAMAGE: " + attack + "\n" +
-            "ARMOR: " + armor + "\n" +
-            "PRECISION: " + precision + "\n" +
-            "CRITIC: " + 10 + "\n";
-    }
-
-    public string PathAudio
-    {
-        get { return audio; }
+        get { return unitType; }
+        set { unitType = value; }
     }
     public bool IsAvailable
     {
@@ -78,7 +43,6 @@ public class UnitCombat : Subordinate
         get { return in_progress; }
         set { in_progress = value; }
     }
-
     public int Quantity
     {
         get { return quantity; }
@@ -119,7 +83,32 @@ public class UnitCombat : Subordinate
         get { return weakTo; }
         set { weakTo = value; }
     }
+    public UnitCombat()
+    {
 
+    }
+    public UnitCombat(string characterName,string unitType, int quantity, int attack, int armor, 
+        int precision, int evasion, int range, string[] strongTo, string[] weakTo)
+    {
+        this.characterName = characterName;
+        this.unitType = unitType;
+        this.quantity = quantity;
+        this.pathPicture = "warriors/" + unitType.ToLower();
+        this.pathAudio = "warriors/sword";
+        this.attack = attack;
+        this.armor = armor;
+        this.evasion = evasion;
+        this.precision = precision;
+        this.range = range;
+        this.strongTo = strongTo;
+        this.weakTo = weakTo;
+    }
+
+    public string GetDescription()
+    {
+        return this.characterName + " (" + quantity + ")";
+    }
+    
 }
 
 

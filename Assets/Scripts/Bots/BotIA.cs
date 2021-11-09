@@ -279,11 +279,13 @@ public class OptionBot
         end = _end;
 
     }
+    /*
     public virtual void Logger()
     {
         Debug.Log("se eligio " + nameoption + " en " + begin.name);
         Debug.Log("info:");
     }
+    */
 }
 public class OptionMoveTroop : OptionBot
 {
@@ -307,11 +309,13 @@ public class OptionMoveTroop : OptionBot
         }
         this.troop = _troop;
     }
+    /*
     public override void Logger()
     {
         base.Logger();
         Debug.Log(" nro unidades " + troop.UnitCombats.Count);
     }
+    */
 }
 public class OptionAddUnit: OptionBot
 {
@@ -326,11 +330,13 @@ public class OptionAddUnit: OptionBot
         nameoption = "add";
         unitCombat = Utils.instance.GetUnitCombatRandom(_begin.Territory, Random.Range(10, 30));
     }
+    /*
     public override void Logger()
     {
         base.Logger();
         Debug.Log(" name " + unitCombat.CharacterName + " nro unidades " + unitCombat.Quantity);
     }
+    */
 }
 public class OptionUpgradeBuilding : OptionBot
 {
@@ -343,11 +349,13 @@ public class OptionUpgradeBuilding : OptionBot
     public OptionUpgradeBuilding(TerritoryHandler _begin, TerritoryHandler _end) : base(_begin, _end)
     {
         nameoption = "upgrade";
-        building = Utils.instance.GetBuildingRandom(_begin.Territory);
+        building = _begin.Territory.GetBuildingRandom();
     }
+    /*
     public override void Logger()
     {
         base.Logger();
         Debug.Log(" name " + building.Name);
     }
+    */
 }

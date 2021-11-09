@@ -378,7 +378,7 @@ public class InGameMenuHandler : MonoBehaviour
         dropdownBuildings.value = 0;
     }
 
-    [SerializeField] UnitCombat dummy= new UnitCombat();
+    [SerializeField] UnitCombat dummy;
     
     public void UpdateTroopSelected()
     {
@@ -399,11 +399,9 @@ public class InGameMenuHandler : MonoBehaviour
     }
     private void AddUnitButton()
     {
-        //print("añadiendo " + dummy.UnitName + " cantidad " + numberUnitsText.text);
         dummy.Quantity = int.Parse(numberUnitsText.text);
         selectedTerritory.ListUnitCombat.AddUnitCombat(dummy);
         ImproveNewUnitButton(dummy);
-        
         UpdateMilitarMenu();
     }
     private void UpdateMenuByUnits(GameObject go, int _limit, bool isInitialized, string value = null)
@@ -443,7 +441,7 @@ public class InGameMenuHandler : MonoBehaviour
         int index = dropdownUnitsCombat.value;
         string _type = dropdownUnitsCombat.options[index].text;
         string type = GameMultiLang.GetTraductionReverse(_type);
-        dummy = Utils.instance.CreateNewUnitCombat(type,0);
+        dummy = Utils.instance.CreateNewUnitCombat(_type+"new",type,0);
         Building building = selectedTerritory.GetBuildingByUnit(dummy);
         int limit = building.LimitUnits - selectedTerritory.ListUnitCombat.GetUnitQuantity(type);
         if (limit <= 0)

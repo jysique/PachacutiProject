@@ -23,7 +23,6 @@ public class TimeSystem : MonoBehaviour
     {
         instance = this;
         timeGame = new TimeSimulated(29, 12, 1399);
-        //timeGame = new TimeSimulated(1, 1, 1399);
     }
     void Start()
     {
@@ -43,6 +42,7 @@ public class TimeSystem : MonoBehaviour
     /// </summary>
     void InitializeEvents()
     {
+
         timeGather = PlusDaysToTimeSimulated(daysToGather);
         timeProduction = PlusDaysToTimeSimulated(daysToProduce);
         timeConsumption = PlusDaysToTimeSimulated(daysToConsume);

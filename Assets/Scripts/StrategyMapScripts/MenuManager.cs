@@ -97,25 +97,7 @@ public class MenuManager : MonoBehaviour
     {
         PauseMenu.SetActive(false);
     }
-    /*
-    public void OpenMenu()
-    {
-        Animator anim = menuTerritory.GetComponent<Animator>();
-        if (!isOpen)
-        {
-            
-            isOpen = true;
-            anim.SetBool("Apparence", true);
-            
-        }
-        else
-        {
-            isOpen = false;
-            anim.SetBool("Apparence", false);
-            
-        }
-    }
-    */
+
     public void OpenMenuLearp()
     {
         RectTransform rectTransform = menuTerritory.GetComponent<RectTransform>(); //getting reference to this componen
@@ -210,7 +192,7 @@ public class MenuManager : MonoBehaviour
     {
         SelecCharacterMenu.SetActive(true);
         InstantiateCharacterOption( ChiefSelection, character , options);
-        descriptionSelectCharacterMenu.text = GameMultiLang.GetTraduction(character.CharacIconType+"Description");
+        descriptionSelectCharacterMenu.text = GameMultiLang.GetTraduction("MilitaryChiefDescription");
         titleSelectCharacterMenu.text = GameMultiLang.GetTraduction("SelectTerritory") + InGameMenuHandler.instance.TerritorySelected.name + " " +GameMultiLang.GetTraduction("TerritoryLabel");
     }
     public void CloseSelectCharacterMenu()
@@ -225,7 +207,8 @@ public class MenuManager : MonoBehaviour
     void InstantiateCharacterOption(GameObject selection,Character character, List<GameObject> list)
     {
         SubordinateList subordinateList = new SubordinateList();
-        subordinateList.AddDataSubordinateToList(maxInstantiateCharacters, character);
+        string territoryName = InGameMenuHandler.instance.TerritorySelected.name;
+        subordinateList.AddDataSubordinateToList(maxInstantiateCharacters, character, territoryName);
         Transform gridLayout = selection.transform.Find("ScrollArea/ScrollContainer/GridLayout").transform;
         foreach (Transform child in gridLayout)
         {

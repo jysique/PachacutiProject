@@ -34,8 +34,8 @@ public class DateTableHandler : MonoBehaviour
     }
     void Start()
     {
-        PauseButton();
         timeGame = TimeSystem.instance.TimeGame;
+        PauseButton();
         TextCallFunction();
         PauseBtn.onClick.AddListener(() => PauseButton());
         PlayBtn.onClick.AddListener(() => PlayButton());

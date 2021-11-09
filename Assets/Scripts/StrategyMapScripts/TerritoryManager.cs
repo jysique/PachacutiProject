@@ -166,19 +166,10 @@ public class TerritoryManager : MonoBehaviour
         for (int i = 0; i < territoryList.Count; i++)
         {
             TerritoryHandler territoryHandler = territoryList[i].GetComponent<TerritoryHandler>();
+            MilitarChief newMilitarBoss = Utils.instance.CreateNewMilitarChief(territoryHandler.Territory.name);
             if (territoryHandler.Territory.TypePlayer == Territory.TYPEPLAYER.NONE)
-            {
-                MilitarChief newMilitarBoss = new MilitarChief();
-                newMilitarBoss.GetMilitarBoss();
                 newMilitarBoss.StrategyType = MilitarChief.TYPESTRAT.DEFENSIVE;
-                territoryHandler.Territory.MilitarChiefTerritory = newMilitarBoss;
-            }
-            else
-            {
-                MilitarChief newMilitarBoss = new MilitarChief();
-                newMilitarBoss.GetMilitarBoss();
-                territoryHandler.Territory.MilitarChiefTerritory = newMilitarBoss;
-            }
+            territoryHandler.Territory.MilitarChiefTerritory = newMilitarBoss;
         }
     }
     public void AddListTerritoriesAdjacent()
@@ -197,8 +188,8 @@ public class TerritoryManager : MonoBehaviour
             Territory _territory = territoryHandler.Territory;
             _territory.TypePlayer = dictionaryTypePlayer.Single(s => s.Key == territoryHandler.Territory.name).Value;
 
-            string civ = dictionaryCivilization.Single(s => s.Key == territoryHandler.Territory.name).Value;
-            _territory.Civilization = civilizations.Find(x => x.Name == civ);
+            string _civ = dictionaryCivilization.Single(s => s.Key == territoryHandler.Territory.name).Value;
+            _territory.Civilization = civilizations.Find(x => x.Name == _civ);
 
             for (int k = 0; k < Utils.instance.Units_string.Count; k++)
             {
@@ -211,14 +202,14 @@ public class TerritoryManager : MonoBehaviour
                     int _quantity = int.Parse(list[j]);
                     if (_quantity>0)
                     {
-                        UnitCombat new_unit = Utils.instance.CreateNewUnitCombat(Utils.instance.Units_string[k], _quantity);
+                        string _name = Utils.instance.Units_string[k] + j.ToString();
+                        UnitCombat new_unit = Utils.instance.CreateNewUnitCombat(_name,Utils.instance.Units_string[k], _quantity);
                         new_unit.IsAvailable = true;
                         _territory.ListUnitCombat.AddUnitCombat(new_unit);
                     }
                 }
 
             }
-            print("A " + _territory.ListUnitCombat.UnitCombats.Count + " " + _territory.name);
             for (int k = 0; k < _territory.ListUnitCombat.UnitCombats.Count; k++)
             {
                 Building _building = _territory.GetBuilding(_territory.GetBuildingByUnit(_territory.ListUnitCombat.UnitCombats[k]));

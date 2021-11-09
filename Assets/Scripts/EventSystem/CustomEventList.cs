@@ -49,7 +49,6 @@ public class CustomEventList
         else
         {
             _customBattle = new CustomBattle(_battleType, playerTroop,enemyTroop, _playerTerritory,_enemyTerritory);
-            
         }
         
         BattleEvents.Add(_customBattle);

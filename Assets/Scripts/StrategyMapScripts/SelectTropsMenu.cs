@@ -134,6 +134,7 @@ public class SelectTropsMenu : MonoBehaviour
         {
             InGameMenuHandler.instance.ShowFloatingText("you need " + totalWarriors + " golds", "TextMesh", transform, new Color32(187, 27, 128, 255));
         }
+        InGameMenuHandler.instance.UpdateMenu();
         CancelMoveUnits();
     }
 

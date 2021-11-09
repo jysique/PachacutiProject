@@ -7,14 +7,9 @@ using UnityEngine;
 public class MilitarChief : Subordinate
 {
 
-    [SerializeField] private int experience;
     [SerializeField] private TYPESTRAT strategyType;
     private string abilityName;
-    public int Experience
-    {
-        get { return experience; }
-        set { experience = value; }
-    }
+
 
     public TYPESTRAT StrategyType
     {
@@ -38,43 +33,18 @@ public class MilitarChief : Subordinate
     }
     public MilitarChief()
     {
-        this.CharacIconType = "Military";
     }
-    public MilitarChief(string name, Territory territory)
+    public MilitarChief(string characterName, int age , string origin, int index, int influence, int opinion, int experience, int typeStrat)
     {
-        this.age = UnityEngine.Random.Range(20, 30);
-        this.origin = territory.name;
-    }
-    public void GetMilitarBoss()
-    {
-        System.Random rnd = new System.Random(DateTime.Now.Second);
-        this.CharacterName = GetRandomName();
-        this.age = UnityEngine.Random.Range(20, 30);
-        this.origin = "Qosqo";
-        this.CharacIconIndex = "0" + UnityEngine.Random.Range(1, 3).ToString();
-        this.influence = UnityEngine.Random.Range(3, 10);
-        this.opinion = UnityEngine.Random.Range(3, 10);
-        this.experience = UnityEngine.Random.Range(3, 10);
-        this.strategyType = (TYPESTRAT)UnityEngine.Random.Range(0, 6);
+        this.characterName = characterName;
+        this.age = age;
+        this.origin = origin;
+        this.pathPicture = "Military/0" + index.ToString();
+        this.influence = influence;
+        this.opinion = opinion;
+        this.experience = experience;
+        this.strategyType = (TYPESTRAT)typeStrat;
         GetSpecialAbility();
-    }
-
-    private string[] namesList = new string[] { "Unay", "Asiri", "Samin ","Sayri",
-                                                "Haylli","Tupac", "Raymi","Wara", 
-                                                "Qori","Yaku" };
-    private string[] lastNamesList= new string[] { "","Illa", "Inka", "Wari", "Amaru",
-                                                 "Amaru","Cancha","Ccasani"};
-
-    public string GetRandomName()
-    {
-        
-        string final_name = "";
-        int a = UnityEngine.Random.Range(0, namesList.Length);
-        final_name += namesList[a];
-        final_name += " ";
-        int b = UnityEngine.Random.Range(0, lastNamesList.Length);
-        final_name += lastNamesList[b];
-        return final_name;
     }
     public void GetSpecialAbility()
     {
@@ -254,10 +224,10 @@ public class MilitarChief : Subordinate
                     }
                 }
                 dug = ug[0];
-                int a = dug.UnitCombat.Quantity;
-                UnitCombat new_uc = Utils.instance.CreateNewUnitCombat(dug.UnitCombat.CharacterName,a/4);
+                int _a = dug.UnitCombat.Quantity;
+                string _name= dug.UnitCombat.UnitType + "new";
+                UnitCombat new_uc = Utils.instance.CreateNewUnitCombat(_name, dug.UnitCombat.UnitType,_a/4);
                 pos = GetFirstPositionFree();
-                // CombatManager.instance.AnimationInBattle(CombatManager.instance.Squares.transform.GetChild(pos).gameObject, "platform");
                 CombatManager.instance.InstantiateUnitPlayer(pos, new_uc);
                 break;
             default:
@@ -295,8 +265,10 @@ public class MilitarChief : Subordinate
         List<string> units = Utils.instance.Units_string;
         int random = UnityEngine.Random.Range(0, units.Count);
         UnitCombat unit;
-        UnitCombat temporalUnit = Utils.instance.CreateNewUnitCombat(units[random], original.Quantity);
-        if (units[random] == original.CharacterName || territory.GetBuildingByUnit(temporalUnit).Level < 1)
+        string _name = units[random] + "new";
+        UnitCombat temporalUnit = Utils.instance.CreateNewUnitCombat(_name,units[random], original.Quantity);
+        
+        if (units[random] == original.UnitType || territory.GetBuildingByUnit(temporalUnit).Level < 1)
         {
             unit = GetUnitCombatRandom(original, territory);
         }

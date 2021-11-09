@@ -1,12 +1,12 @@
 //name territory:typePlayer|civilization:Swordsman|Lancer|Axeman|Scout|Archer
 // Calca Urubamba Qosqo Paucar Acomayo Quispi Canchis Chumbi Canas Espinar
 Acomayo:none:None:30,10|0|30|0|0
-Calca:none:None:20|30|0|0|0
+Calca:none:None:20|0|0|0|0
 Canas:none:None:20|0|0|30|0
 Canchis:none:None:20|0|20|0|20
 Chumbivilcas:none:None:30|30|0|20|0
 Espinar:bot:Chanca:0|50|0|0|50
-LaConvencion:player:Inca:20,20|0|0|0|0
+LaConvencion:player:Inca:20,20|10,10|10,10,10|0|0
 Qosqo:none:None:0|0|20|20|0
 Inambari:none:None:0|50|0|0|0
 Huepetuhe:none:None:0|0|50|0|50

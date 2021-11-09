@@ -41,6 +41,7 @@ public class SquareType : MonoBehaviour
     }
     public void MoveButton()
     {
+        CombatManager.instance.RayCastTargetOff();
         CombatManager.instance.ChangeUnits(index, CombatManager.instance.ActualUnitIndex());
     }
     private void Update()

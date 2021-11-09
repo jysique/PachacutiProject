@@ -31,12 +31,6 @@ public class GroupClassContainer : MonoBehaviour
     private void OnMouseOver()
     {
 
-        if (Input.GetMouseButtonDown(1))
-        {
-            //print(stats.Active);
-            //print(CombatManager.instance.blockScreen);
-        }
-
         if (Input.GetMouseButtonDown(1) && !CombatManager.instance.blockScreen)
         {
             bool interactable = stats.TypePlayer != Territory.TYPEPLAYER.PLAYER || stats.Active != true;
@@ -49,11 +43,10 @@ public class GroupClassContainer : MonoBehaviour
             Vector3 newpos = stats.UnitsGO.transform.position;
             CombatManager.instance.menu.SetActive(true);
             CombatManager.instance.menu.transform.position = new Vector3(newpos.x + 1, newpos.y - 1, newpos.z);
-            CombatManager.instance.isMenu = true;
+            //CombatManager.instance.isMenu = true;
         }
         else
         {
-            //print("no se puede");
         }
     }
     

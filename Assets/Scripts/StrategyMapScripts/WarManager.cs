@@ -48,7 +48,6 @@ public class WarManager : MonoBehaviour
     }
     private void Start()
     {
-        //battleCanvas = GameObject.Find("Battle");
         status = false;
         enemyColor = new Color32(248, 147, 146,255);
         playerColor = new Color32(114, 165, 195,255);
@@ -114,10 +113,8 @@ public class WarManager : MonoBehaviour
             {
                 peaceContainer.SetActive(false);
                 warContainer.SetActive(true);
-                //  SetWarriorAnimation(w.AttackerType, hatAttacker, attackColor ,empire);
-                //  SetWarriorAnimation(w.TerritoryWar.Territory.TypePlayer, hatDefender, deffendColor, empireD);
-                SetWarriorAnimation(w.TerritoryAttacker, hatDefender, deffendColor, empireD);
-                SetWarriorAnimation(w.TerritoryWar, hatDefender, deffendColor, empireD);
+                SetWarriorAnimation(w.TerritoryAttacker,deffendColor, empireD);
+                SetWarriorAnimation(w.TerritoryWar, deffendColor, empireD);
                 title.text = GameMultiLang.GetTraduction("BattleOf") + selected.Territory.name;
 
                 power.text = (w.SpeedAttackers*10).ToString();
@@ -132,9 +129,9 @@ public class WarManager : MonoBehaviour
         }
         
     }
-    private void SetWarriorAnimation(TerritoryHandler territory, Image hat, Image background, Text empire)
+    private void SetWarriorAnimation(TerritoryHandler territory, Image background, Text empire)
     {
-        hat.sprite = territory.Territory.Civilization.Hat1;
+      //  hat.sprite = territory.Territory.Civilization.Hat1;
         empire.text = territory.Territory.Civilization.Name;
         background.color = territory.Territory.Civilization.ColorBackground;
         
@@ -144,6 +141,7 @@ public class WarManager : MonoBehaviour
     {
         hatP1.sprite = selected.Territory.Civilization.Hat2;
         hatP2.sprite = selected.Territory.Civilization.Hat2;
+        hatP3.sprite = selected.Territory.Civilization.Hat2;
         territorySprite.sprite = selected.SpriteRender.sprite;
         warContainer.SetActive(false);
         title.text = selected.Territory.name;
@@ -152,19 +150,19 @@ public class WarManager : MonoBehaviour
 
     
     
-    public void FinishWar(TerritoryHandler defendingTerritory, TerritoryHandler attackerterritory, bool isAttackerWin)
+    public void FinishWar(TerritoryHandler defendingTerritory, TerritoryHandler attackerTerritory, bool isAttackerWinTerritory)
     {
         // TYPE es el tipo de jugador atacante
         
         defendingTerritory.gameObject.transform.GetChild(0).gameObject.SetActive(false);
         defendingTerritory.war = false;
 
-        Territory.TYPEPLAYER attackerType = attackerterritory.Territory.TypePlayer;
-        Territory.TYPEPLAYER defenderType = attackerterritory.Territory.TypePlayer;
+        Territory.TYPEPLAYER attackerType = attackerTerritory.Territory.TypePlayer;
+        Territory.TYPEPLAYER defenderType = attackerTerritory.Territory.TypePlayer;
 
-        Civilization attackerCivilization = attackerterritory.Territory.Civilization;
+        Civilization attackerCivilization = attackerTerritory.Territory.Civilization;
 
-        if (isAttackerWin)
+        if (isAttackerWinTerritory)
         {
             if (attackerType == Territory.TYPEPLAYER.PLAYER)
             {
@@ -179,12 +177,11 @@ public class WarManager : MonoBehaviour
                 {
                     AlertManager.AlertLost(defendingTerritory);
                 }
-                MilitarChief newMilitarBoss = new MilitarChief();
-                newMilitarBoss.GetMilitarBoss();
+                MilitarChief newMilitarBoss = Utils.instance.CreateNewMilitarChief(attackerTerritory.name);
                 defendingTerritory.Territory.MilitarChiefTerritory = newMilitarBoss;
                 BotManager.instance.CreateOrAdd(attackerType, defendingTerritory);
             }
-            defendingTerritory.Territory.TypePlayer =attackerType;
+            defendingTerritory.Territory.TypePlayer = attackerType;
             defendingTerritory.Territory.Civilization = attackerCivilization;
         }
         if (defendingTerritory == selected)

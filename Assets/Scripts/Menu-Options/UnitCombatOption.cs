@@ -7,6 +7,7 @@ public class UnitCombatOption : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI warriorsName;
     [SerializeField] TextMeshProUGUI warriorsCount;
+    [SerializeField] TextMeshProUGUI warriorsExperience;
     [SerializeField] TextMeshProUGUI warriorsSpeed;
     [SerializeField] Image timeBar;
     [SerializeField] private UnitCombat unitContainer;
@@ -45,7 +46,8 @@ public class UnitCombatOption : MonoBehaviour
     public void UpdateElements()
     {
         Territory territorySelected = InGameMenuHandler.instance.TerritorySelected;
-        warriorsName.text = GameMultiLang.GetTraduction(unitContainer.CharacterName);
+        //warriorsName.text = GameMultiLang.GetTraduction(unitContainer.CharacterName) + "("+ unitContainer.Quantity + ")";
+        warriorsName.text = unitContainer.CharacterName + "(" + unitContainer.Quantity + ")";
         if (territorySelected.TypePlayer != Territory.TYPEPLAYER.NONE)
         {
 
@@ -60,12 +62,13 @@ public class UnitCombatOption : MonoBehaviour
             }
             if (unitContainer.IsAvailable)
             {
-                warriorsCount.text = "QUANTITY: " + unitContainer.Quantity;
+                warriorsExperience.text = "EXPERIENCE:" + unitContainer.Experience;
                 disbandButton.gameObject.SetActive(true);
                 timeBar.gameObject.SetActive(false);
                 speed.SetActive(false);
-                stats = "ATTACK: " + unitContainer.Attack + "\n" +
-                    "Armor: " + unitContainer.Armor + "\n" +
+                stats = "EXP:" + unitContainer.Experience +"/100" +"\n"+ 
+                    "ATTACK: " + unitContainer.Attack + "\n" +
+                    "ARMOR: " + unitContainer.Armor + "\n" +
                     "EVASION: " + unitContainer.Evasion + "\n" +
                     "PRESICION: " + unitContainer.Precision + "\n";
                 toolTip.SetNewInfo(stats);

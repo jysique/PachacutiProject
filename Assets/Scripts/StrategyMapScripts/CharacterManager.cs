@@ -27,15 +27,8 @@ public class CharacterManager : MonoBehaviour
     }
     private void Start()
     {
-        if (GlobalVariables.instance == null)
-        {
-            governor = new Governor("Pachacuti");
-            governor.TimeInit = TimeSystem.instance.TimeGame;
-        }
-        else
-        {
-            governor = GlobalVariables.instance.GovernorChoose;
-        }
+
+        governor = GlobalVariables.instance.GovernorChoose;
        UpdateProfileMenu();
     }
     public void UpdateProfileMenu()

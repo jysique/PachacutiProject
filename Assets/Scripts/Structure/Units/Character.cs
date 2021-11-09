@@ -8,12 +8,12 @@ public class Character
     [SerializeField] protected string characterName;
     [SerializeField] protected int age;
     [SerializeField] protected string origin;
+    [SerializeField] protected string pathPicture;
+    [SerializeField] protected string pathAudio;
 
-    [SerializeField] protected string characIconType;
-    [SerializeField] protected string characIconIndex;
-
-    private bool canElegible;
-    private bool canMove;
+    [SerializeField] protected int experience;
+    protected bool canElegible;
+    protected bool canMove;
 
 
     public Character()
@@ -22,13 +22,17 @@ public class Character
     }
     public Sprite Picture 
     { 
-        get { return Resources.Load<Sprite>("Textures/TemporalAssets/" + characIconType + "/" + characIconIndex); }
+        get { return Resources.Load<Sprite>("Textures/TemporalAssets/" + pathPicture); }
     }
     public Sprite PictureSpriteSheet
     {
-        get { return Resources.LoadAll<Sprite>("Textures/TemporalAssets/warriors/Test/" + characIconIndex)[0]; }
+        get { return Resources.LoadAll<Sprite>("Textures/TemporalAssets/" + pathPicture)[0]; }
     }
-
+    public string PathAudio
+    {
+        get { return pathAudio; }
+    }
+    
     public string CharacterName
     { 
         get { return characterName; }   
@@ -55,14 +59,10 @@ public class Character
         get { return canMove; }
         set { canMove = value; }
     }
-    public string CharacIconType
+    public int Experience
     {
-        get { return characIconType; }
-        set { characIconType = value; }
+        get { return experience; }
+        set { experience = value; }
     }
-    public string CharacIconIndex
-    {
-        get { return characIconIndex; }
-        set { characIconIndex = value; }
-    }
+
 }

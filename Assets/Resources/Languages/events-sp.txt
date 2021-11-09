@@ -1,4 +1,5 @@
 EARTHQUAKER_NAME= TERREMOTO
+EARTHQUAKER_BACKGROUND=forest
 EARTHQUAKER_DECISION1=
 EARTHQUAKER_DECISION2=
 EARTHQUAKER_DECISION3=
@@ -8,6 +9,7 @@ EARTHQUAKER_EFFECT2=Restablecer construcciones en TERRITORYEVENT.
 EARTHQUAKER_EFFECT3=
 
 DROUGHT_NAME= SEQUIA EN UN TERRITORIO
+DROUGHT_BACKGROUND=forest
 DROUGHT_DECISION1=Si, mejoremos la situacion
 DROUGHT_DECISION2=No, hay otros problemas
 DROUGHT_DECISION3=Se puede ver mas tarde
@@ -17,6 +19,7 @@ DROUGHT_EFFECT2=Las condiciones empeoran para los canales de riego y las tropas 
 DROUGHT_EFFECT3=
 
 REBELION_NAME= SE REBELAN CONTRA EL IMPERIO
+REBELION_BACKGROUND=forest
 REBELION_DECISION1=Si, mejoremos la situacion
 REBELION_DECISION2=No, hay otros problemas
 REBELION_DECISION3=Se puede ver mas tarde
@@ -26,6 +29,7 @@ REBELION_EFFECT2=-TERRITORYEVENT.
 REBELION_EFFECT3=
 
 ALL_T_PANDEMIC_NAME= SITUACION EN PANDEMIA 
+ALL_T_PANDEMIC_BACKGROUND=forest
 ALL_T_PANDEMIC_DECISION1=Si, mejoremos la situacion
 ALL_T_PANDEMIC_DECISION2=No, hay otros problemas
 ALL_T_PANDEMIC_DECISION3=Se puede ver mas tarde
@@ -34,7 +38,8 @@ ALL_T_PANDEMIC_EFFECT1=Cura la enfermedad en todos los territorios.
 ALL_T_PANDEMIC_EFFECT2=-50% de tropas en todos los territorios.
 ALL_T_PANDEMIC_EFFECT3=
 
-PANDEMIC_NAME= SITUACION DE PANDEMIA 
+PANDEMIC_NAME= SITUACION DE PANDEMIA
+PANDEMIC_BACKGROUND=forest
 PANDEMIC_DECISION1=Si, mejoremos la situacion
 PANDEMIC_DECISION2=No, hay otros problemas
 PANDEMIC_DECISION3=Se puede ver mas tarde
@@ -44,6 +49,7 @@ PANDEMIC_EFFECT2=-50% trops en TERRITORYEVENT.
 PANDEMIC_EFFECT3=
 
 ALL_T_PLAGUE_NAME= SITUACION DE PLAGA
+ALL_T_PLAGUE_BACKGROUND=forest
 ALL_T_PLAGUE_DECISION1=Si, mejoremos la situacion
 ALL_T_PLAGUE_DECISION2=No, hay otros problemas
 ALL_T_PLAGUE_DECISION3=Se puede ver mas tarde
@@ -53,6 +59,7 @@ ALL_T_PLAGUE_EFFECT2=Reducir canales de riego a nivel 0 en todos los territorios
 ALL_T_PLAGUE_EFFECT3=
 
 PLAGUE_NAME=SITUACION DE PLAGA
+PLAGUE_BACKGROUND=forest
 PLAGUE_DECISION1=Si, mejoremos la situacion
 PLAGUE_DECISION2=No, hay otros problemas
 PLAGUE_DECISION3=Se puede ver mas tarde
@@ -62,6 +69,7 @@ PLAGUE_EFFECT2=Reducir los canales de riego al nivel 0 en TERRITORYEVENT.
 PLAGUE_EFFECT3=
 
 PETITION_MIN_NAME=PETICION DE MEJORA
+PETITION_MIN_BACKGROUND=forest
 PETITION_MIN_DECISION1=Si, mejoremos la situacion
 PETITION_MIN_DECISION2=No, hay otros problemas
 PETITION_MIN_DECISION3=Se puede ver mas tarde
@@ -71,6 +79,7 @@ PETITION_MIN_EFFECT2=-10 opinión en TERRITORYEVENT.
 PETITION_MIN_EFFECT3=
 
 PETITION_FOR_NAME=PETICION DE MEJORA
+PETITION_FOR_BACKGROUND=forest
 PETITION_FOR_DECISION1=Si, mejoremos la situacion
 PETITION_FOR_DECISION2=No, hay otros problemas
 PETITION_FOR_DECISION3=Se puede ver mas tarde
@@ -80,6 +89,7 @@ PETITION_FOR_EFFECT2=-10 opinión en TERRITORYEVENT.
 PETITION_FOR_EFFECT3=
 
 GRACE_MIN_NAME=GRACIA DE MEJORA
+GRACE_MIN_BACKGROUND=forest
 GRACE_MIN_DECISION1=Si, mejoremos la situacion
 GRACE_MIN_DECISION2=No, hay otros problemas
 GRACE_MIN_DECISION3=Se puede ver mas tarde
@@ -89,6 +99,7 @@ GRACE_MIN_EFFECT2=+15 de oro.
 GRACE_MIN_EFFECT3=
 
 GRACE_FOOD_NAME=GRACIA DE MEJORA
+GRACE_FOOD_BACKGROUND=forest
 GRACE_FOOD_DECISION1=Si, mejoremos la situacion
 GRACE_FOOD_DECISION2=No, hay otros problemas
 GRACE_FOOD_DECISION3=Se puede ver mas tarde
@@ -98,6 +109,7 @@ GRACE_FOOD_EFFECT2=+15 comida.
 GRACE_FOOD_EFFECT3=
 
 CONQUIST_NAME=CONQUISTA DE TERRITORIO
+CONQUIST_BACKGROUND=forest
 CONQUIST_DECISION1=Si, mejoremos la situacion
 CONQUIST_DECISION2=No, hay otros problemas
 CONQUIST_DECISION3=Se puede ver mas tarde
@@ -107,6 +119,7 @@ CONQUIST_EFFECT2=
 CONQUIST_EFFECT3=
 
 EXPLORATION_NAME=EXPLORACION DE TERRITORIO
+EXPLORATION_BACKGROUND=forest
 EXPLORATION_DECISION1=Si, mejoremos la situacion
 EXPLORATION_DECISION2=No, hay otros problemas
 EXPLORATION_DECISION3=Se puede ver mas tarde
@@ -116,6 +129,7 @@ EXPLORATION_EFFECT2=
 EXPLORATION_EFFECT3=
 
 EXCURSION_NAME=TIEMPO PARA UNA EXCURSION
+EXCURSION_BACKGROUND=forest
 EXCURSION_CAUSE=Se ha encontrado una senda oculta dentro del campo de batalla, ¿Quieres mandar una unidad a investigar?
 EXCURSION_DECISION1=Sí, exploremos un poco
 EXCURSION_DECISION2=Llevemos todas las unidades
@@ -127,6 +141,7 @@ EXCURSION_EFFECT1=La exploración fue un éxito. Las unidades consiguieron algun
 EXCURSION_EFFECT2=La exploración fue un éxito. La unidad consiguió algunas mejoras en ataque (+12 ataque).
 
 INTOXICATE_NAME=A EMBORRACHARSE
+INTOXICATE_BACKGROUND=forest
 INTOXICATE_CAUSE=Se ha encontrado un campamento de las unidades enemigas. Podríamos enviar un espía y embriagar a los enemigos antes de la batalla
 INTOXICATE_DECISION1=Sí, llevemos la cerveza más fuerte
 INTOXICATE_DECISION2=Quizás podríamos pasar por ahí
@@ -139,6 +154,7 @@ INTOXICATE_EFFECT2=Creo que sospecharon del encargo (-10 precisión)
 INTOXICATE_EFFECT3=
 
 WOOKIE_NAME=UN WOOKIE?
+WOOKIE_BACKGROUND=forest
 WOOKIE_CAUSE=Mientras íbamos en rumbo al campo de batalla hemos sido atacados por un wookiee que merodeaba por la zona
 WOOKIE_DECISION1=Acabemos con el wookiee
 WOOKIE_DECISION2=Tratemos de atraparlo
@@ -151,6 +167,7 @@ WOOKIE_EFFECT2=No hemos podido capturar al wookiee, en el proceso perdimos 5 uni
 WOOKIE_EFFECT3=
 
 REINFORCEMENT_NAME=REFUERZOS PARA LAS UNIDADES
+REINFORCEMENT_BACKGROUND=bridge
 REINFORCEMENT_CAUSE=Debemos reforzar nuestras unidades en batalla, algunos ya estan listos para la batalla
 REINFORCEMENT_DECISION1=Si, preparalos para la batalla
 REINFORCEMENT_DECISION2=Tal vez algunos cuantos
@@ -163,6 +180,7 @@ REINFORCEMENT_EFFECT2=Hemos conseguido +8 unidades que estan listos en el campo 
 REINFORCEMENT_EFFECT3=
 
 CURE_NAME=CURACION DE UNIDADES
+CURE_BACKGROUND=forest
 CURE_CAUSE=Hemos rescatado a un chamán perdido por la zona 
 CURE_DECISION1=Ayudemoslo
 CURE_DECISION3=Debemos tener precaución
@@ -175,6 +193,7 @@ CURE_EFFECT2=La curación de nuestras unidades se realizó con éxito
 CURE_EFFECT3=
 
 ABILITYX2_NAME=DOS VECES ES MEJOR
+ABILITYX2_BACKGROUND=forest
 ABILITYX2_CAUSE=Hemos encontrado una herramienta extraña y brillante. Nos preguntamos que podría ser
 ABILITYX2_DECISION1=Tómalo
 ABILITYX2_DECISION3=Prefiero no arriesgar
@@ -187,6 +206,7 @@ ABILITYX2_EFFECT2=Creo que no hace nada
 ABILITYX2_EFFECT3=
 
 PILLAGE_NAME=SAQUEO A TERRENOS
+PILLAGE_BACKGROUND=forest
 PILLAGE_CAUSE=Se ha encontrado un terreno que podemos saquear.
 PILLAGE_DECISION1=Aprovechemos el momento
 PILLAGE_DECISION3=Vendría bien a la economía
@@ -199,6 +219,7 @@ PILLAGE_EFFECT2=Todos ellos se entregaron porque derrotamos al tirano del territ
 PILLAGE_EFFECT3=
 
 BURN_NAME=SAQUEO DE FUEGO
+BURN_BACKGROUND=forest
 BURN_CAUSE=Se ha encontrado un terreno que podemos quemar
 BURN_DECISION1=Aprovechemos el momento
 BURN_DECISION3=Procuremos abatir solo el terreno

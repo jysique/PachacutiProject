@@ -45,12 +45,13 @@ public class Utils : MonoBehaviour
     {
         
         int random = UnityEngine.Random.Range(0, units_string.Count);
-        UnitCombat unit = CreateNewUnitCombat(units_string[random], 0);
+        string _name = units_string[random] + "new";
+        UnitCombat unit = CreateNewUnitCombat(_name,units_string[random], quantity);
         Building building = territory.GetBuildingByUnit(unit);
 
         if (building.Level>0)
         {
-            unit = CreateNewUnitCombat(units_string[random],quantity);
+            unit = CreateNewUnitCombat(_name,units_string[random],quantity);
         }
         else
         {
@@ -59,54 +60,52 @@ public class Utils : MonoBehaviour
         return unit;
     }
 
-    public Building GetBuildingRandom(Territory territory)
-    {
 
-        int random = UnityEngine.Random.Range(0, buildings_string.Count);
-        return territory.GetBuilding(buildings_string[random]);
-    }
 
-    public UnitCombat CreateNewUnitCombat(string _type, int quantity)
+    public UnitCombat CreateNewUnitCombat(string charactername, string type, int quantity)
     {
-        switch (_type)
+        switch (type)
         {
-            case "Swordsman":
-                return new UnitCombat("Swordsman", quantity, "warriors", "sword", 10, 6, 90, 1, new string[] { "Axeman" }, new string[] { "Lancer" });
+            case "Sword":
+                return new UnitCombat(charactername, "Sword", quantity,  10, 6, 90,0, 1, new string[] { "Axe" }, new string[] { "Lancer" });
             case "Lancer":
-                return new UnitCombat("Lancer", quantity, "warriors", "spear", 15, 5, 85, 1, new string[] { "Swordsman" }, new string[] { "Axeman" });
-            case "Axeman":
-                return new UnitCombat("Axeman", quantity, "warriors", "axe", 20, 3, 75, 1, new string[] { "Lancer" }, new string[] { "Swordsman" });
+                return new UnitCombat(charactername, "Lancer", quantity,  15, 5, 85,0, 1, new string[] { "Sword" }, new string[] { "Axe" });
+            case "Axe":
+                return new UnitCombat(charactername, "Axe", quantity, 0, 3, 75, 0, 1, new string[] { "Lancer" }, new string[] { "Sword" });
             case "Archer":
-                return new UnitCombat("Archer", quantity, "warriors", "archer", 10, 3, 70, 2, new string[] { "Scout" }, new string[] { "Archer" });
+                return new UnitCombat(charactername, "Archer", quantity, 10, 3, 70, 0, 2, new string[] { "Scout" }, new string[] { "Archer" });
             case "Scout":
-                return new UnitCombat("Scout", quantity, "warriors", "horseman", 25, 10, 70, 1, new string[] { "Archer" }, new string[] { "Scout" });
+                return new UnitCombat(charactername, "Scout", quantity, 25, 10, 70, 0, 1, new string[] { "Archer" }, new string[] { "Scout" });
             default:
                 return null;
         }
     }
-    public Building GetNewBuilding(string _type)
+    public MilitarChief CreateNewMilitarChief(string origin)
     {
-        switch (_type)
-        {
-            case "Academy":
-                return new Academy();
-            case "Archery":
-                return new Archery();
-            case "Barracks":
-                return new Barracks();
-            case "Castle":
-                return new Castle();
-            case "Farm":
-                return new Farm();
-            case "Fortress":
-                return new Fortress();
-            case "GoldMine":
-                return new GoldMine();
-            case "Stable":
-                return new Stable();
-            default:
-                return null;
-        }
+        int age = UnityEngine.Random.Range(20, 30);
+        int index = Random.Range(1, 3);
+        int influence = UnityEngine.Random.Range(3, 10);
+        int opinion = UnityEngine.Random.Range(3, 10);
+        int experience = UnityEngine.Random.Range(3, 10);
+        int strategyType = Random.Range(0, 6);
+        return new MilitarChief(GetRandomName(),age,origin,index,influence,opinion,experience,strategyType);
+    }
+
+    private string[] namesList = new string[] { "Unay", "Asiri", "Samin ","Sayri",
+                                                "Haylli","Tupac", "Raymi","Wara",
+                                                "Qori","Yaku" };
+    private string[] lastNamesList = new string[] { "","Illa", "Inka", "Wari", "Amaru",
+                                                 "Amaru","Cancha","Ccasani"};
+
+    public string GetRandomName()
+    {
+        string final_name = "";
+        int a = UnityEngine.Random.Range(0, namesList.Length);
+        final_name += namesList[a];
+        final_name += " ";
+        int b = UnityEngine.Random.Range(0, lastNamesList.Length);
+        final_name += lastNamesList[b];
+        return final_name;
     }
 
     private List<string> buildings_string = new List<string>()
@@ -123,12 +122,11 @@ public class Utils : MonoBehaviour
     };
     private List<string> units_string = new List<string>()
     {
-        "Swordsman",
+        "Sword",
         "Archer",
         "Lancer",
-        "Axeman",
+        "Axe",
         "Scout"
-        
     };
 
     public List<string> Buildings_string
@@ -158,7 +156,7 @@ public class Utils : MonoBehaviour
     {
         for (int i = 0; i < units_string.Count; i++)
         {
-            UnitCombat temp = CreateNewUnitCombat(units_string[i], 0);
+            UnitCombat temp = CreateNewUnitCombat("dummy",units_string[i], 0);
             if (territory.GetBuildingByUnit(temp).Level>0)
             {
                 unit.Add(units_string[i]);

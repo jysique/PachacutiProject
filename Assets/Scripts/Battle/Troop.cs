@@ -16,14 +16,6 @@ public class Troop
     {
 
     }
-    public void LogTroop()
-    {
-        for (int i = 0; i < unitCombats.Count; i++)
-        {
-            Debug.Log("uc-" + unitCombats[i].CharacterName);
-        }
-    }
-
 
     public void SaveTroop(Troop _troop)
     {
@@ -37,7 +29,7 @@ public class Troop
     {
         for (int i = 0; i < _troop.UnitCombats.Count; i++)
         {
-            UnitCombat unitCombat = Utils.instance.CreateNewUnitCombat(_troop.UnitCombats[i].CharacterName,_troop.UnitCombats[i].Quantity);
+            UnitCombat unitCombat = Utils.instance.CreateNewUnitCombat(_troop.UnitCombats[i].CharacterName,_troop.UnitCombats[i].UnitType,_troop.UnitCombats[i].Quantity);
             unitCombat.InProgress = _troop.UnitCombats[i].InProgress;
             unitCombat.IsAvailable = _troop.UnitCombats[i].IsAvailable;
             unitCombat.PositionInBattle = _troop.UnitCombats[i].PositionInBattle;
@@ -63,16 +55,6 @@ public class Troop
     {
         unitCombats.Remove(a);
     }
-    public void AddUnitCombat(string _type,int _in_progress, int _quantity)
-    {
-        UnitCombat a = Utils.instance.CreateNewUnitCombat(_type,_quantity);
-        a.InProgress = _in_progress;
-        if (a.InProgress == a.Quantity)
-            a.IsAvailable = true;
-        else
-            a.IsAvailable = false;
-        unitCombats.Add(a);
-    }
     public void Clear()
     {
         unitCombats.Clear();
@@ -92,19 +74,18 @@ public class Troop
     
     public bool SearchUnitCombat(string _type)
     {
-        return unitCombats.Any(x => x.CharacterName == _type);
+        return unitCombats.Any(x => x.UnitType == _type);
     }
 
     public int GetUnitQuantity(string _type)
     {
         if (!SearchUnitCombat(_type))
         {
-           // Debug.Log("No se encontro tipo " + _type);
             return 0;
         }
         else
         {
-            return unitCombats.FindAll(x => (x.CharacterName == _type)).Select(x => x.Quantity).Sum();
+            return unitCombats.FindAll(x => (x.UnitType == _type)).Select(x => x.Quantity).Sum();
         }
     }
     public UnitCombat GetFirstUnitCombat(string _type)
@@ -144,7 +125,7 @@ public class Troop
         }
         else
         {
-            return unitCombats.FindAll(x => (x.CharacterName == _type) && (x.IsAvailable==true)).ToList();
+            return unitCombats.FindAll(x => (x.UnitType == _type) && (x.IsAvailable==true)).ToList();
         }
     }
 

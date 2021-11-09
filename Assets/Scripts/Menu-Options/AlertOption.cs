@@ -12,13 +12,10 @@ public class AlertOption : MonoBehaviour
     [SerializeField] GameObject container;
     private string type;
     Animator anim;
-    TimeSimulated timeInit;
     TerritoryHandler focusTerritory;
     void Start()
     {
         anim = container.GetComponent<Animator>();
-        timeInit = new TimeSimulated(TimeSystem.instance.TimeGame);
-        timeInit.PlusDays(3);
         closeAlertBtn.onClick.AddListener(() => CloseAlertBtn());
         alertBtn.onClick.AddListener(() => OpenTabEvent());
     }
@@ -32,6 +29,12 @@ public class AlertOption : MonoBehaviour
             suggertAlertText.text = suggertAlertText.text.Replace("TERRITORY", textToAdd);
         }
         focusTerritory = focus;
+        StartCoroutine(CloseByTime());
+    }
+    IEnumerator CloseByTime()
+    {
+        yield return new WaitForSeconds(4.0f);
+        CloseAlertBtn();
     }
     void CloseAlertBtn()
     {
@@ -67,19 +70,11 @@ public class AlertOption : MonoBehaviour
             default:
                 break;
         }
-        
     }
     private void Update()
     {
-        CloseAlertByTime();
         anim.speed = GlobalVariables.instance.timeModifier + 1.5f;
     }
-    void CloseAlertByTime()
-    {
-        if (timeInit.EqualsDate(TimeSystem.instance.TimeGame))
-        {
-            CloseAlertBtn();
-        }
-    }
+
 
 }

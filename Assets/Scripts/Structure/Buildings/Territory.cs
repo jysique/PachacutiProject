@@ -211,7 +211,25 @@ public class Territory
         get { return selected; }
         set { selected = value; }
     }
-
+    public Building GetBuildingByUnit(UnitCombat unit)
+    {
+        switch (unit.UnitType)
+        {
+            case "Sword":
+                return this.academyTerritory;
+            case "Lancer":
+                return this.barracksTerritory;
+            case "Axe":
+                return this.castleTerritory;
+            case "Scout":
+                return this.stableTerritory;
+            case "Archer":
+                return this.archeryTerritory;
+            default:
+                Debug.LogError("no se encontro unidad de combate");
+                return null;
+        }
+    }
     public Building GetBuilding(Building building)
     {
         if (building is Farm)
@@ -251,26 +269,6 @@ public class Territory
             return null;
         }
     }
-    public Building GetBuildingByUnit(UnitCombat unit)
-    {
-        switch (unit.CharacterName)
-        {
-            case "Swordsman":
-                return this.academyTerritory;
-            case "Lancer":
-                return this.barracksTerritory;
-            case "Axeman":
-                return this.castleTerritory;
-            case "Scout":
-                return this.stableTerritory;
-            case "Archer":
-                return this.archeryTerritory;
-            default:
-                Debug.LogError("no se encontro unidad de combate");
-                return null;
-        }
-    }
-
     public Building GetBuilding(string building)
     {
         if (building == "Farm")
@@ -316,6 +314,11 @@ public class Territory
         {
             listUnitCombat.DeleteUnitCombat(troop.UnitCombats[i]);
         }
+    }
+    public Building GetBuildingRandom()
+    {
+        int random = Random.Range(0, Utils.instance.Buildings_string.Count);
+        return GetBuilding(Utils.instance.Buildings_string[random]);
     }
     public void IncresementGold()
     {
